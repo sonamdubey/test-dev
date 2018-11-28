@@ -11,7 +11,7 @@
 %>
 <!-- #include file="/UI/includes/headermobile.aspx" -->
 <link rel="stylesheet" type="text/css" href="/UI/m/css/user-review/landing.css" />
-<script type="text/javascript" src="https://stb.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
+<script type="text/javascript" src="<%= staticUrl  %>/UI/src/BikeWaleCommon.js?v=3.2"></script>
 
 <section>
     <% 

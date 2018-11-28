@@ -13,7 +13,7 @@
 %>
 <!-- #include file="/UI/includes/headermobile_noad.aspx" -->
 <script type="text/javascript" src="<%= staticUrl%>/UI/m/src/placeholder.js?v=1.0"></script>
-<script type="text/javascript" src="https://stb.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
+<script type="text/javascript" src="<%= staticUrl  %>/UI/src/BikeWaleCommon.js?v=3.2"></script>
 <link href="<%= staticUrl  %>/UI/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
 <style type="text/css">
     .ui-filterable div input {

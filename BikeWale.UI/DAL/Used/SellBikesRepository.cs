@@ -59,7 +59,7 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.Add({0})", Newtonsoft.Json.JsonConvert.SerializeObject(ad)));
-                
+
             }
             return inquiryId;
         }
@@ -107,7 +107,7 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.Update({0})", Newtonsoft.Json.JsonConvert.SerializeObject(ad)));
-                
+
             }
             return isSuccess;
         }
@@ -141,7 +141,7 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.UpdateOtherInformation({0},{1},{2})", Newtonsoft.Json.JsonConvert.SerializeObject(otherInfo), inquiryId, customerId));
-                
+
             }
             return isSuccess;
         }
@@ -188,7 +188,7 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, inquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -246,7 +246,7 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("bikeWale.DAL.Used.SellBikesRepository.GetById({0}) => Customerid:{1}", inquiryId, customerId));
-                
+
             }
             return objAd;
         }
@@ -308,7 +308,7 @@ namespace Bikewale.DAL.Used
             catch (Exception err)
             {
                 ErrorClass.LogError(err, String.Format("SaveBikePhotos({0},{1},{2},{3},{4})", isMain, isDealer, inquiryId, originalImageName, description));
-                
+
             }
             return photoId;
         }
@@ -348,7 +348,7 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("UploadImageToCommonDatabase({0},{1},{2},{3})", photoId, imageName, imgC, directoryPath));
-                
+
             } // catch Exception
             return url;
         }
@@ -370,7 +370,7 @@ namespace Bikewale.DAL.Used
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.String, 50, inquiryId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_isaprooved", DbType.SByte, 8, isApproved ? 1 : 0));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -395,7 +395,7 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("GetBikePhotos({0},{1})", inquiryId, isApproved));
-                
+
             }
             return photos;
         }
@@ -427,7 +427,7 @@ namespace Bikewale.DAL.Used
             catch (Exception err)
             {
                 ErrorClass.LogError(err, String.Format("MarkMainImage(inquiryId: {0}, photoId: {1}, isDealer: {2}  )", inquiryId, photoId, isDealer));
-                
+
             }
             return isMain;
         }

@@ -117,7 +117,7 @@ namespace Bikewale.DAL.Finance.CapitalFirst
                     cmd.CommandText = "getcapitalfirstleaddetails";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_ctleadid", DbType.Int32, ctLeadId));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         lead = new CapitalFirstLeadEntity();
                         if (dr != null)

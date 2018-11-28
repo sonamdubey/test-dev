@@ -213,7 +213,7 @@ namespace Bikewale.BAL.PriceQuote
 
                 }
 
-                IEnumerable<OtherVersionInfoEntity> versions = _objPQ.GetOtherVersionsPrices(pqId);
+                IEnumerable<OtherVersionInfoEntity> versions = _objPQ.GetOtherVersionsPrices(modelId, cityId);
                 pqVersion = new List<PQ_BikeVarient>();
 
                 if (objDealerPQ == null)

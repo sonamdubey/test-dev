@@ -36,7 +36,7 @@ namespace Bikewale.DAL.Used
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_inquiryid", DbType.Int32, Convert.ToInt32(inquiryId)));
 
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (dr != null && dr.Read())
                             {
@@ -56,7 +56,7 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, "GetSellerDetails" + inquiryId);
-                
+
             }
             return seller;
         }
@@ -97,7 +97,7 @@ namespace Bikewale.DAL.Used
             {
                 isNew = false;
                 ErrorClass.LogError(err, String.Format("SubmitInquiry({0}{1})", inquiryId, customerId));
-                
+
             }
 
             return inqId;
@@ -147,7 +147,7 @@ namespace Bikewale.DAL.Used
             catch (Exception err)
             {
                 ErrorClass.LogError(err, String.Format("GetInquiryDetails({0})", inquiryId));
-                
+
             }
 
             return objInquiry;
@@ -179,7 +179,7 @@ namespace Bikewale.DAL.Used
             catch (Exception err)
             {
                 ErrorClass.LogError(err, String.Format("RemoveBikePhotos({0},{1})", inquiryId, photoId));
-                
+
             }
             return isRemoved;
         }
@@ -205,7 +205,7 @@ namespace Bikewale.DAL.Used
             catch (Exception err)
             {
                 ErrorClass.LogError(err, String.Format("UsedBikeSellerRepository.RepostSellBikeAd(inquiryId: {0},customerId: {1})", inquiryId, customerId));
-                
+
             }
             return isPosted;
         }
@@ -226,7 +226,7 @@ namespace Bikewale.DAL.Used
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_customerid", DbType.Int32, customerId));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -266,7 +266,7 @@ namespace Bikewale.DAL.Used
             catch (Exception err)
             {
                 ErrorClass.LogError(err, String.Format("GetCustomerListingDetails({0})", customerId));
-                
+
             }
 
             return objDetailsList;

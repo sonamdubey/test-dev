@@ -121,7 +121,7 @@ namespace Bikewale.DAL.Finance.BajajAuto
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.UInt32, versionId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_pincodeid", DbType.UInt32, pincodeId));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -136,7 +136,7 @@ namespace Bikewale.DAL.Finance.BajajAuto
             }
             catch (Exception ex)
             {
-               ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Finance.BajajAuto.BajajAutoRepository.GetBajajFinanceBikeMappingInfo_versionId_{0}_pincodeId_{1}", versionId, pincodeId));
+                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.Finance.BajajAuto.BajajAutoRepository.GetBajajFinanceBikeMappingInfo_versionId_{0}_pincodeId_{1}", versionId, pincodeId));
             }
             return bikeMappingEntity;
         }

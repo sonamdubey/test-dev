@@ -41,7 +41,7 @@ namespace Bikewale.DAL.Used
             catch (Exception err)
             {
                 ErrorClass.LogError(err, "UsedBikeBuyerRepository.IsBuyerEligible");
-                
+
             }
             return status;
         }
@@ -75,7 +75,7 @@ namespace Bikewale.DAL.Used
             catch (Exception err)
             {
                 ErrorClass.LogError(err, String.Format("UploadPhotosRequest({0},{1},{2},{3})", sellInquiryId, buyerId, consumerType, buyerMessage));
-                
+
             }
             return isDone;
         }
@@ -107,7 +107,7 @@ namespace Bikewale.DAL.Used
                         cmd.Parameters.Add(DbFactory.GetDbParam("@inquiryid", DbType.Int64, inquiryId));
                         cmd.Parameters.Add(DbFactory.GetDbParam("@customerid", DbType.Int64, buyerId));
 
-                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                        using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                         {
                             if (dr != null && dr.Read())
                             {
@@ -121,7 +121,7 @@ namespace Bikewale.DAL.Used
             catch (Exception err)
             {
                 ErrorClass.LogError(err, String.Format("HasShownInterestInUsedBike({0},{1},{2})", isDealer, inquiryId, buyerId));
-                
+
             }
             return shownInterest;
         }
@@ -150,7 +150,7 @@ namespace Bikewale.DAL.Used
                     cmd.Parameters.Add(DbFactory.GetDbParam("@par_buyerid", DbType.Int64, buyerId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("@par_consumertype", DbType.Byte, consumerType));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -163,7 +163,7 @@ namespace Bikewale.DAL.Used
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("IsPhotoRequestDone({0},{1},{2})", sellInquiryId, buyerId, isDealer));
-                
+
             }
 
             return isDone;

@@ -41,5 +41,5 @@
 }
 @{Html.RenderAction("SimilarVideos", "Videos", new { videoId = Model.Video.BasicId, modelId = Model.TaggedModelId });}
 @{Html.RenderAction("PopularBodyStyleDesktop", "PopularBikes", new { modelId = Model.TaggedModelId, topCount = 9, cityId = Model.CityId });}
-<script defer type="text/javascript" src='https://stb.aeplcdn.com/bikewale/min/src/jquery.floating-social-share.min.js'></script>
+<script defer type="text/javascript" src='@string.Format("{0}/UI/src/jquery.floating-social-share.min.js", Bikewale.Utility.BWConfiguration.Instance.StaticUrl)'></script>
 

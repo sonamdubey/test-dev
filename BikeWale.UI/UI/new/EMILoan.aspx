@@ -10,7 +10,7 @@
     </style>
     <link href="/UI/css/style.css?15sep2015" rel="stylesheet" />
     <script type="text/javascript" src="https://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
-    <script type="text/javascript" src="https://stb.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
+    <script type="text/javascript" src="<%= Bikewale.Utility.BWConfiguration.Instance.StaticUrl  %>/UI/src/BikeWaleCommon.js?v=3.2"></script>
 </head>
 <body>
     <div id="divMain">

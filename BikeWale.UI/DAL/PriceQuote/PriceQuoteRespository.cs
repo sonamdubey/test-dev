@@ -11,7 +11,6 @@ using MySql.CoreDAL;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -28,7 +27,7 @@ namespace Bikewale.DAL.PriceQuote
     /// Description :   Implemented newly added method of IPriceQuote interface
     /// </summary>
     public class PriceQuoteRepository : IPriceQuote
-    {        
+    {
         /// <summary>
         /// Summary : function to save the price quote.
         /// Modified By : Sadhana Upadhyay on 24th Oct 2014
@@ -81,13 +80,13 @@ namespace Bikewale.DAL.PriceQuote
             {
                 HttpContext.Current.Trace.Warn("SavePriceQuote sql ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("SavePriceQuote ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return quoteId;
@@ -138,7 +137,7 @@ namespace Bikewale.DAL.PriceQuote
             {
                 HttpContext.Current.Trace.Warn("GetPriceQuote ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objQuotation;
@@ -252,7 +251,7 @@ namespace Bikewale.DAL.PriceQuote
             {
                 HttpContext.Current.Trace.Warn("GetPriceQuote ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objQuotation;
@@ -384,7 +383,7 @@ namespace Bikewale.DAL.PriceQuote
             {
                 HttpContext.Current.Trace.Warn("GetOtherVersionsPrices ex : " + ex.Message + ex.Source);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return objVersionInfo;
         }
@@ -421,44 +420,44 @@ namespace Bikewale.DAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return isUpdated;
         }
 
-		/// <summary>
-		/// Created By  : Rajan Chauhan on 27 June 2018
-		/// Description : Method to update version, color in PQ details based on leadId
-		/// </summary>
-		/// <param name="leadId"></param>
-		/// <param name="pqParams"></param>
-		/// <returns></returns>
-		public bool UpdatePriceQuoteDetailsByLeadId(UInt32 leadId, PriceQuoteParametersEntity pqParams)
-		{
-			bool isUpdated = false;
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 27 June 2018
+        /// Description : Method to update version, color in PQ details based on leadId
+        /// </summary>
+        /// <param name="leadId"></param>
+        /// <param name="pqParams"></param>
+        /// <returns></returns>
+        public bool UpdatePriceQuoteDetailsByLeadId(UInt32 leadId, PriceQuoteParametersEntity pqParams)
+        {
+            bool isUpdated = false;
 
-			try
-			{
-				using (DbCommand cmd = DbFactory.GetDBCommand())
-				{
-					cmd.CommandText = "updatepricequotedetailsbyleadid";
-					cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "updatepricequotedetailsbyleadid";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-					cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, leadId));
-					cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, pqParams.VersionId));
-					cmd.Parameters.Add(DbFactory.GetDbParam("par_bikecolorid", DbType.Int32, (pqParams.ColorId > 0) ? pqParams.ColorId : Convert.DBNull));
-					// LogLiveSps.LogSpInGrayLog(cmd);
-					if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase)))
-						isUpdated = true;
-				}
-			}
-			catch (Exception ex)
-			{
-				ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, leadId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikeversionid", DbType.Int32, pqParams.VersionId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_bikecolorid", DbType.Int32, (pqParams.ColorId > 0) ? pqParams.ColorId : Convert.DBNull));
+                    // LogLiveSps.LogSpInGrayLog(cmd);
+                    if (Convert.ToBoolean(MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase)))
+                        isUpdated = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
 
-			}
-			return isUpdated;
-		}
+            }
+            return isUpdated;
+        }
 
         /// <summary>
         /// Author          :   Sumit Kate
@@ -490,7 +489,7 @@ namespace Bikewale.DAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             return isUpdated;
         }
@@ -514,7 +513,7 @@ namespace Bikewale.DAL.PriceQuote
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_leadid", DbType.Int32, leadId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_stateid", DbType.Int32, Convert.ToInt32(state)));
-                    
+
                     MySqlDatabase.ExecuteNonQuery(cmd, ConnectionType.MasterDatabase);
                     isUpdated = true;
                 }
@@ -570,7 +569,7 @@ namespace Bikewale.DAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return objQuotation;
@@ -626,7 +625,7 @@ namespace Bikewale.DAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + " inputs: modelId : " + modelId + " : topCount :" + topCount);
-                
+
             }
 
             return objPrice;
@@ -687,7 +686,7 @@ namespace Bikewale.DAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"] + String.Format(" inputs: modelId : {0} : topCount : {1} : cityId : {2}", modelId, topCount, cityId));
-                
+
             }
 
             return objPrice;
@@ -742,7 +741,8 @@ namespace Bikewale.DAL.PriceQuote
                             }
                             while (dr.Read())
                             {
-                                cityPrice.Add(new CityPriceEntity {
+                                cityPrice.Add(new CityPriceEntity
+                                {
                                     CityId = SqlReaderConvertor.ToUInt32(dr["cityId"]),
                                     CityName = Convert.ToString(dr["cityName"]),
                                     CityMaskingName = Convert.ToString(dr["cityMaskingName"]),
@@ -752,7 +752,8 @@ namespace Bikewale.DAL.PriceQuote
                                 });
                             }
                             dr.Close();
-                            modelTopVersionPrice = new ModelTopVersionPrices {
+                            modelTopVersionPrice = new ModelTopVersionPrices
+                            {
                                 BikeMake = bikeMake,
                                 BikeModel = bikeModelTopVersion,
                                 CityPrice = cityPrice
@@ -845,7 +846,7 @@ namespace Bikewale.DAL.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("{0} - {1}", HttpContext.Current.Request.ServerVariables["URL"], "GetVersionPricesByModelId"));
-                
+
             }
 
             return bikePrices;
@@ -885,7 +886,7 @@ namespace Bikewale.DAL.PriceQuote
 
 
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
@@ -931,14 +932,14 @@ namespace Bikewale.DAL.PriceQuote
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_dealerid", DbType.Int32, dealerId));
                     dealer = new Dictionary<uint, List<ManufacturerDealer>>();
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null)
                         {
                             while (dr.Read())
                             {
-                                uint key=SqlReaderConvertor.ToUInt32(dr["cityid"]);
-                                if(dealer.ContainsKey(key))
+                                uint key = SqlReaderConvertor.ToUInt32(dr["cityid"]);
+                                if (dealer.ContainsKey(key))
                                 {
                                     dealer[key].Add(new ManufacturerDealer
                                     {
@@ -948,7 +949,7 @@ namespace Bikewale.DAL.PriceQuote
                                         CityId = key,
                                         DealerArea = Convert.ToString(dr["dealerarea"]),
                                         DealerId = SqlReaderConvertor.ToUInt32(Convert.ToString(dr["dealerid"]))
-                                    });    
+                                    });
                                 }
                                 else
                                 {
@@ -1018,21 +1019,21 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_pqsourceid", DbType.Byte, (pqParams.PQLeadId.HasValue) ? pqParams.PQLeadId : Convert.DBNull));
                         cmd.Parameters.Add(DbFactory.GetDbParam("par_refguid", DbType.String, 40, !String.IsNullOrEmpty(pqParams.RefGUID) ? pqParams.RefGUID : Convert.DBNull)); // RefGUID string 40
                         MySqlDatabase.InsertQuery(cmd, ConnectionType.MasterDatabase);
-                        
+
                     }
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass.LogError(ex,String.Format("PQConsumer.PriceQuoteRepository.RegisterPriceQuote : SqlException {0}", JsonConvert.SerializeObject(pqParams)));
+                ErrorClass.LogError(ex, String.Format("PQConsumer.PriceQuoteRepository.RegisterPriceQuote : SqlException {0}", JsonConvert.SerializeObject(pqParams)));
             }
             return "";
         }
 
-		public bool GetMLAStatus(int makeId, uint cityId)
-		{
-			throw new NotImplementedException();
-		}
+        public bool GetMLAStatus(int makeId, uint cityId)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Created by  : Pratibha Verma on 29 August 2018

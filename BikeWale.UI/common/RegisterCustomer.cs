@@ -6,7 +6,6 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Web;
-using Bikewale.Utility;
 
 namespace Bikewale.Common
 {
@@ -104,14 +103,14 @@ namespace Bikewale.Common
                 HttpContext.Current.Trace.Warn(err.Message);
                 Exception ex = new Exception(err.Message + "Values : " + val);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             } // catch SqlException
             catch (Exception err)
             {
                 HttpContext.Current.Trace.Warn(err.Message);
                 Exception ex = new Exception(err.Message + "Values : " + val);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             } // catch Exception
 
             return customerId;
@@ -138,7 +137,7 @@ namespace Bikewale.Common
                     //cmd.Parameters.Add("@email", SqlDbType.VarChar, 50).Value = Email;
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_email", DbType.String, 50, Email));
 
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -151,13 +150,13 @@ namespace Bikewale.Common
             catch (SqlException exSql)
             {
                 ErrorClass.LogError(exSql, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 //Response.Write(ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return cust_id;
@@ -183,7 +182,7 @@ namespace Bikewale.Common
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return pass;
@@ -211,7 +210,7 @@ namespace Bikewale.Common
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return salt;
@@ -243,7 +242,7 @@ namespace Bikewale.Common
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return hashCode;
@@ -327,12 +326,12 @@ namespace Bikewale.Common
             catch (SqlException ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return customerId;
@@ -366,12 +365,12 @@ namespace Bikewale.Common
             catch (SqlException ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
         }   // End of UpdatePassword method 
@@ -439,12 +438,12 @@ namespace Bikewale.Common
             catch (SqlException ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return token;
@@ -487,12 +486,12 @@ namespace Bikewale.Common
             catch (SqlException ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
 
@@ -526,12 +525,12 @@ namespace Bikewale.Common
             catch (SqlException ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }   // End of UpdatePasswordRecoveryTokenStatus method 
         #endregion
@@ -570,7 +569,7 @@ namespace Bikewale.Common
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return isSend;
@@ -669,13 +668,13 @@ namespace Bikewale.Common
             {
                 HttpContext.Current.Trace.Warn(sqlEx.Message);
                 ErrorClass.LogError(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
         }
 
@@ -712,13 +711,13 @@ namespace Bikewale.Common
             {
                 HttpContext.Current.Trace.Warn(sqlEx.Message);
                 ErrorClass.LogError(sqlEx, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             }
 
             return isFake;

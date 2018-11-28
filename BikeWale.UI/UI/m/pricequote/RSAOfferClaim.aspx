@@ -11,7 +11,7 @@
 %>
 <!-- #include file="/UI/includes/headermobile_home.aspx" -->
 <link rel="stylesheet"  href="/UI/m/css/bw-new-style.css?<%= staticFileVersion %>" />
-<script type="text/javascript" src="https://stb.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
+<script type="text/javascript" src="<%= staticUrl  %>/UI/src/BikeWaleCommon.js?v=3.2"></script>
     <!-- offer claim starts here -->
 <div class="margin-bottom10 grid-12">
     <h1>Bike Purchase Offer Claim</h1>
