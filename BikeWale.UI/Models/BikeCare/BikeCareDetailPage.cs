@@ -127,19 +127,25 @@ namespace Bikewale.Models
         /// <summary>
         /// Created by : Aditi Srivastava on 1 Apr 2017
         /// Summary    : Set expert reviews details page metas
+        /// Modified By : Monika Korrapati 23 Nov 2018
+        /// Description : Added null check for 'ArticleDetails' and set 'ShareImage'
         /// </summary>
         private void SetPageMetas(BikeCareDetailPageVM objData)
         {
             try
             {
-                objData.PageMetaTags.CanonicalUrl = string.Format("{0}/bike-care/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
-                objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/bike-care/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
-                objData.PageMetaTags.Title = string.Format("{0} | Maintenance Tips from Bike Experts - BikeWale", objData.ArticleDetails.Title);
-                objData.PageMetaTags.Keywords = "Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care";
-                objData.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objData.ArticleDetails.Title);
-                objData.Page_H1 = objData.ArticleDetails.Title;
-                SetBreadcrumList(objData);
-                //SetPageJSONSchema(objData);
+                if(objData.ArticleDetails != null)
+                {
+                    objData.PageMetaTags.CanonicalUrl = string.Format("{0}/bike-care/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
+                    objData.PageMetaTags.AlternateUrl = string.Format("{0}/m/bike-care/{1}-{2}.html", BWConfiguration.Instance.BwHostUrl, objData.ArticleDetails.ArticleUrl, objData.ArticleDetails.BasicId);
+                    objData.PageMetaTags.Title = string.Format("{0} | Maintenance Tips from Bike Experts - BikeWale", objData.ArticleDetails.Title);
+                    objData.PageMetaTags.Keywords = "Bike maintenance, bike common issues, bike common problems, Maintaining bikes, bike care";
+                    objData.PageMetaTags.Description = string.Format("Read about {0}. Read through more bike care tips to learn more about your bike maintenance.", objData.ArticleDetails.Title);
+                    objData.Page_H1 = objData.ArticleDetails.Title;
+                    objData.PageMetaTags.ShareImage = Bikewale.Utility.Image.GetPathToShowImages(objData.ArticleDetails.OriginalImgUrl, objData.ArticleDetails.HostUrl, ImageSize._640x348);
+                    SetBreadcrumList(objData);
+                    SetPageJSONSchema(objData);
+                }
             }
             catch (Exception ex)
             {
@@ -150,14 +156,16 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By  : Sushil Kumar on 25th Aug 2017
         /// Description : To load json schema for the bikecare articles
+        /// Modified By : Monika Korrapati on 22 Nov 2018
+        /// Description : Added ModifiedDate and Url for schema.
         /// </summary>
         /// <param name="objData"></param>
         private void SetPageJSONSchema(BikeCareDetailPageVM objData)
         {
             var objSchema = new NewsArticle();
             objSchema.HeadLine = objData.ArticleDetails.Title;
-            objSchema.DateModified = Utility.FormatDate.ConvertToISO(objData.ArticleDetails.DisplayDate);
-            objSchema.DatePublished = objSchema.DateModified;
+            objSchema.DateModified = Utility.FormatDate.ConvertToISO(objData.ArticleDetails.ModifiedDate);
+            objSchema.DatePublished = Utility.FormatDate.ConvertToISO(objData.ArticleDetails.DisplayDate);
             objSchema.Description = FormatDescription.SanitizeHtml(objData.ArticleDetails.Description);
             if (objData.ArticleDetails.PageList != null && objData.ArticleDetails.PageList.Any())
             {
@@ -175,7 +183,7 @@ namespace Bikewale.Models
                 Name = objData.ArticleDetails.AuthorName
             };
             objSchema.MainEntityOfPage = new MainEntityOfPage() { PageUrlId = objData.PageMetaTags.CanonicalUrl };
-
+            objSchema.Url = objData.PageMetaTags.CanonicalUrl;
             objData.PageMetaTags.SchemaJSON = Newtonsoft.Json.JsonConvert.SerializeObject(objSchema);
         }
 

@@ -53,6 +53,8 @@ namespace Bikewale.BAL.EditCMS
         /// <summary>
         /// Created By : Sushil Kumar on 21st July 2016
         /// Description : Caching for News Details based on basic id using grpc
+        /// Modified By : Monika Korrapati on 23 Nov 2018
+        /// Description : Added ModifiedDate check.
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -67,6 +69,7 @@ namespace Bikewale.BAL.EditCMS
                 if (_objGrpcArticle != null)
                 {
                     objArticle = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcArticle);
+                    objArticle.ModifiedDate = new DateTime(Math.Max(objArticle.ModifiedDate.Ticks, objArticle.DisplayDate.Ticks));
                 }
 
             }
@@ -603,6 +606,8 @@ namespace Bikewale.BAL.EditCMS
         /// <summary>
         /// Created By : Sushil Kumar on 21st July 2016
         /// Description : Caching for Articles Details based on basic id
+        /// Modified By : Monika Korrapati on 23 Nov 2018
+        /// Description : Added ModifiedDate check.
         /// </summary>
         /// <param name="basicId"></param>
         /// <returns></returns>
@@ -617,6 +622,7 @@ namespace Bikewale.BAL.EditCMS
                 if (_objGrpcFeature != null)
                 {
                     objFeature = GrpcToBikeWaleConvert.ConvertFromGrpcToBikeWale(_objGrpcFeature);
+                    objFeature.ModifiedDate = new DateTime(Math.Max(objFeature.ModifiedDate.Ticks, objFeature.DisplayDate.Ticks));
                 }
 
             }

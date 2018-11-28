@@ -513,14 +513,16 @@ namespace Bikewale.Models
         /// Description : To load json schema for the news articles
         /// Modified By  : Sanjay George on 30 July 2018
         /// Description : Format date into ISO 8601
+        /// Modified By : Monika Korrapati on 22 Nov 2018
+        /// Description : Added ModifiedDate 
         /// </summary>
         /// <param name="objData"></param>
         private void SetPageJSONSchema(NewsDetailPageVM objData)
         {
             var objSchema = new NewsArticle();
             objSchema.HeadLine = objData.ArticleDetails.Title;
-            objSchema.DateModified = Utility.FormatDate.ConvertToISO(objData.ArticleDetails.DisplayDate);
-            objSchema.DatePublished = objSchema.DateModified;
+            objSchema.DateModified = Utility.FormatDate.ConvertToISO(objData.ArticleDetails.ModifiedDate);
+            objSchema.DatePublished = Utility.FormatDate.ConvertToISO(objData.ArticleDetails.DisplayDate);
             objSchema.Description = FormatDescription.SanitizeHtml(objData.ArticleDetails.Description);
             objSchema.ArticleBody = Bikewale.Utility.FormatDescription.SanitizeHtml(objData.ArticleDetails.Content);
             objSchema.ArticleImage = new ImageObject()

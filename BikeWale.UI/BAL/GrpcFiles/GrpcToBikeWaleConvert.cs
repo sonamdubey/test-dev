@@ -26,6 +26,12 @@ namespace Bikewale.BAL.GrpcFiles
     {
         static readonly ILog log = LogManager.GetLogger(typeof(GrpcToBikeWaleConvert));
 
+        /// <summary>
+        /// Modified By : Monika Korrapati on 23 Nov 2018
+        /// Description : Added ModifiedDate field
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static CMSContent ConvertFromGrpcToBikeWale(GrpcCMSContent data)
         {
             if (data == null)
@@ -60,6 +66,7 @@ namespace Bikewale.BAL.GrpcFiles
                     curArt.SubCategoryId = item.SubCategoryId;
                     curArt.MakeName = item.MakeName;
                     curArt.ModelName = item.ModelName;
+                    curArt.ModifiedDate = ParseDateObject(item.ModifiedDate);
                     dataNew.Articles.Add(curArt);
                 }
                 return dataNew;
@@ -76,6 +83,8 @@ namespace Bikewale.BAL.GrpcFiles
         /// Description :   logic to bind Formatted Date and shareurl
         /// Modified By : Deepak Israni on 6 Feb 2018
         /// Description : Added ArticleWordCount
+        /// Modified By : Monika Korrapati on 23 Nov 2018
+        /// Description : Added ModifiedDate field
         public static List<ArticleSummary> ConvertFromGrpcToBikeWale(GrpcArticleSummaryList data)
         {
             if (data == null)
@@ -88,6 +97,7 @@ namespace Bikewale.BAL.GrpcFiles
                 foreach (var curGrpcArticleSummary in data.LstGrpcArticleSummary)
                 {
                     DateTime displayDate = ParseDateObject(curGrpcArticleSummary.DisplayDate);
+                    DateTime modifiedDate = ParseDateObject(curGrpcArticleSummary.ModifiedDate);
                     curArticleSummary = new ArticleSummary()
                     {
                         ArticleUrl = curGrpcArticleSummary.ArticleBase.ArticleUrl,
@@ -106,7 +116,7 @@ namespace Bikewale.BAL.GrpcFiles
                         SmallPicUrl = curGrpcArticleSummary.SmallPicUrl,
                         Title = curGrpcArticleSummary.ArticleBase.Title.Replace("&#x20B9;", "₹"),
                         Views = curGrpcArticleSummary.Views,
-                        ArticleWordCount = curGrpcArticleSummary.ArticleWordCount,
+                        ModifiedDate = modifiedDate,
                     };
 
 
@@ -286,6 +296,8 @@ namespace Bikewale.BAL.GrpcFiles
         /// <summary>
         /// Modified by : Pratibha Verma on 30 April 2018
         /// Description : Added MakeName and MOdelName mapping
+        /// Modified By : Monika Korrapati on 23 Nov 2018
+        /// Description : Added ModifiedDate field
         /// </summary>
         /// <param name="grpcAtricleDet"></param>
         /// <returns></returns>
@@ -321,6 +333,7 @@ namespace Bikewale.BAL.GrpcFiles
                             NextArticle = ConvertFromGrpcToBikeWale(grpcAtricleDet.NextArticle),
                             TagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.TagsList),
                             VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList),
+                            ModifiedDate = ParseDateObject(artSummary.ModifiedDate)
 
                         };
                         bwArticleDetails.MakeName = GetMakeNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
@@ -372,6 +385,12 @@ namespace Bikewale.BAL.GrpcFiles
             return modelName;
         }
 
+        /// <summary>
+        /// Modified By : Monika Korrapati on 23 Nov 2018
+        /// Description : Added ModifiedDate field
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static ArticleSummary ConvertFromGrpcToBikeWale(GrpcArticleSummary data)
         {
             if (data == null || data.ArticleBase == null) return new ArticleSummary();
@@ -396,6 +415,7 @@ namespace Bikewale.BAL.GrpcFiles
                 curArt.OriginalImgUrl = data.OriginalImgUrl;
                 curArt.SmallPicUrl = data.SmallPicUrl;
                 curArt.Views = data.Views;
+                curArt.ModifiedDate = ParseDateObject(data.ModifiedDate);
                 //curArt.SubCategory = data.SubCategory;
                 return curArt;
             }
@@ -406,6 +426,12 @@ namespace Bikewale.BAL.GrpcFiles
             }
         }
 
+        /// <summary>
+        /// Modified By : Monika Korrapati on 23 Nov 2018
+        /// Description : Added ModifiedDate field
+        /// </summary>
+        /// <param name="grpcAtricleDet"></param>
+        /// <returns></returns>
         public static ArticlePageDetails ConvertFromGrpcToBikeWale(GrpcArticlePageDetails grpcAtricleDet)
         {
            ArticlePageDetails bwArticleDetails = null;
@@ -437,7 +463,8 @@ namespace Bikewale.BAL.GrpcFiles
                         PageList = ConvertFromGrpcToBikeWale(grpcAtricleDet.PageList),
                         TagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.TagsList),
                         VehiclTagsList = ConvertFromGrpcToBikeWale(grpcAtricleDet.VehiclTagsList),
-                        AuthorMaskingName = artSummary.AuthorMaskingName
+                        AuthorMaskingName = artSummary.AuthorMaskingName,
+                        ModifiedDate = ParseDateObject(artSummary.ModifiedDate)
                     };
                     bwArticleDetails.MakeName = GetMakeNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);
                     bwArticleDetails.ModelName = GetModelNameFromTaggedVehicle(bwArticleDetails.VehiclTagsList);

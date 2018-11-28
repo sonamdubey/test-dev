@@ -5,6 +5,8 @@ namespace Bikewale.Entities.CMS.Articles
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 17 Sept 2014
+    /// Modified By : Monika Korrapati on 22 Nov 2018
+    /// Description : Added ModifiedDate.
     /// </summary> 
 
     [Serializable, DataContract]
@@ -52,5 +54,7 @@ namespace Bikewale.Entities.CMS.Articles
         public string MakeName { get; set; }
         [DataMember]
         public string ModelName { get; set; }
+        [DataMember]
+        public DateTime ModifiedDate { get; set; }
     }
 }
