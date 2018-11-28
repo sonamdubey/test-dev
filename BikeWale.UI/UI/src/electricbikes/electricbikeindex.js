@@ -55,4 +55,7 @@
             }
         });
     }
+    
+    if (typeof pageData != "undefined" && pageData != null)
+        recentSearches.saveRecentSearches(pageData);
     });

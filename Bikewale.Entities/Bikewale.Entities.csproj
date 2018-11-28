@@ -136,6 +136,7 @@
     <Compile Include="AutoBiz\DealerQuotation.cs" />
     <Compile Include="AutoBiz\PQ_VersionPrice.cs" />
     <Compile Include="AutoComplete\AutoSuggestEnum.cs" />
+    <Compile Include="AutoComplete\EntryTypesEnum.cs" />
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionOutput.cs" />
     <Compile Include="AWS\Token.cs" />

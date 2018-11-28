@@ -73,6 +73,9 @@ $(document).ready(function () {
         .jcarouselControl({
             target: '+=2'
         });
+
+    if (typeof pageData != "undefined" && pageData != null)
+        recentSearches.saveRecentSearches(pageData);
 });
 
 // floating tabs

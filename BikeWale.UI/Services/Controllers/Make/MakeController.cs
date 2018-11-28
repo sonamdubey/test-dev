@@ -4,6 +4,8 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Make;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -63,7 +65,37 @@ namespace Bikewale.Service.Controllers.Make
             return NotFound();
         }//get make details
 
+        /// <summary>
+        /// Created By  : Deepak Israni on 20 November 2018
+        /// Description : API to get all scooter makes data (excluding scooter only makes).
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet, Route("api/scootermakes/")]
+        public IHttpActionResult GetScooterMakes(bool includeScooterOnly = false)
+        {
+            try
+            {
+                IEnumerable<BikeMakeEntityBase> scooterMakes = _bikeMakesCache.GetScooterMakes();
 
+                if (scooterMakes != null)
+                {
+                    scooterMakes = includeScooterOnly ? scooterMakes : scooterMakes.Where(s => s.IsScooterOnly == false); 
+                }
+                else
+                {
+                    return NotFound();
+                }
+                IEnumerable<MakeBase> scooterOutput = MakeListMapper.Convert(scooterMakes);
+
+                return Ok(scooterOutput);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Make.MakeController.GetScooterMakes()");
+                return InternalServerError();
+            }
+            
+        }
 
     }
 }

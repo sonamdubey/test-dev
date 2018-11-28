@@ -234,3 +234,7 @@
 
     }
 </section>
+@if (Model.PageData != null)
+{
+    @Html.Partial("~/UI/Views/Shared/_RecentSuggestion.cshtml", Model.PageData);
+}

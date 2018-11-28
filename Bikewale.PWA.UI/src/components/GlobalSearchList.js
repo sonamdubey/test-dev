@@ -49,7 +49,17 @@ class GlobalSearchList extends React.Component {
             }
                 
         }
-        if(item.payload.modelId === "0" && item.payload.makeId === "0") {
+        if(item.payload.type === "4"){
+            return(
+                <li key={index} data-makeid={item.payload.makeId} data-modelid={item.payload.modelId} className="autocomplete-menu--item" onClick={function(){this.onSelect(item,value)}.bind(this)}>
+                    {icon}
+                    <a className="menu--item-label" href="javascript:void(0)" data-href={'/m/electric-bikes/'} rel="nofollow"> 
+                        {bikename}
+                    </a>
+                </li>
+            )
+        }
+        else if(item.payload.modelId === "0" && item.payload.makeId === "0") {
             return (
                 <li key={index} data-makeid={item.payload.makeId} data-modelid={item.payload.modelId} className="autocomplete-menu--item" onClick={function(){this.onSelect(item, 3)}.bind(this)}>
                     {icon}
@@ -60,10 +70,11 @@ class GlobalSearchList extends React.Component {
             )
         }
         else {
+            var bodyType = item.payload.type === "3" ? '-scooters/' : '-bikes/';
             return(
                 <li key={index} data-makeid={item.payload.makeId} data-modelid={item.payload.modelId} className="autocomplete-menu--item" onClick={function(){this.onSelect(item,value)}.bind(this)}>
                     {icon}
-                    <a className="menu--item-label" href="javascript:void(0)" data-href={'/m/'+item.payload.makeMaskingName+'-bikes/'+item.payload.modelMaskingName} rel="nofollow"> 
+                    <a className="menu--item-label" href="javascript:void(0)" data-href={'/m/'+item.payload.makeMaskingName+bodyType+item.payload.modelMaskingName} rel="nofollow"> 
                         {bikename}
                     </a>
                     {rightItem}

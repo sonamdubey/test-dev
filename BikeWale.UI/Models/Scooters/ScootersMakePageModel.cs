@@ -1,6 +1,7 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.AutoComplete;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -91,6 +92,8 @@ namespace Bikewale.Models
         /// Descritpion : Added ga for page
         /// Modified by : Pratibha Verma on 4 April 2018
         /// Description : Added grpc call to get minSpecs
+        /// Modified By : Monika Korrapati on 22 Nov 2018
+        /// Description : Added BindPageData()
         /// </summary>
         /// <returns></returns>
         public ScootersMakePageVM GetData()
@@ -133,6 +136,7 @@ namespace Bikewale.Models
                 BindSeriesLinkages(objData, CityId);
                 objData.Page = Entities.Pages.GAPages.Make_Scooters;
 
+                BindPageData();
             }
             catch (Exception ex)
             {
@@ -385,5 +389,30 @@ namespace Bikewale.Models
                 ErrorClass.LogError(ex, String.Format("ScootersMakePageModel.BindSeriesLinkages_MakeId_{0}_CityId_{1}", _makeId, cityId));
             }
         }
+
+        /// <summary>
+        /// Created By : Monika Korrapati on 22 Nov 2018
+        /// Description : PageData to store in recent search list.
+        /// </summary>
+        private void BindPageData()
+        {
+            Payload objPageData = new Payload();
+            if (objData.Make != null)
+            {
+                objPageData.Label = objData.Make.MakeName + " Scooters";
+                objPageData.MakeId = (uint)objData.Make.MakeId;
+                objPageData.ModelId = 0;
+                objPageData.MakeMaskingName = objData.Make.MaskingName;
+                objPageData.ModelMaskingName = "";
+                objPageData.Futuristic = false;
+                objPageData.IsNew = objData.Make.IsNew;
+                objPageData.ExpertReviewsCount = 0;
+                objPageData.UserRatingsCount = 0;
+                objPageData.Type = EntryTypesEnum.ScooterMake;
+                objData.PageData = objPageData;
+            }
+
+        }
+           
     }
 }

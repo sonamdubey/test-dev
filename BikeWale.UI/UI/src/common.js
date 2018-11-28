@@ -296,17 +296,37 @@ function setPriceQuoteFlag() {
 }
 
 function MakeModelRedirection(items) {
-    if (!IsPriceQuoteLinkClicked) {
-        var makeMaskingName = items.payload.makeMaskingName;
-        var modelMaskingName = items.payload.modelMaskingName;
-        if (items.payload.modelId > 0 && makeMaskingName != null && makeMaskingName != "" && modelMaskingName != null && modelMaskingName != "") {
-            window.location.href = "/" + makeMaskingName + "-bikes/" + modelMaskingName + "/";
-            return true;
-        } else if (makeMaskingName != null && makeMaskingName != "") {
-            window.location.href = "/" + makeMaskingName + "-bikes/";
-            return true;
+    if (!IsPriceQuoteLinkClicked && items != null) {
+        var url = formUrlBasedOnType(items.payload);
+        if (url != null) {
+            window.location.href = url;
+        }      
+    }
+}
+
+function formUrlBasedOnType(payload) {
+    var url = null;
+    if (payload != null) {
+        var makeMaskingName = payload.makeMaskingName;
+        var modelMaskingName =payload.modelMaskingName;
+        var searchType = payload.type;
+
+        if (searchType === "4") {
+            url = "/electric-bikes/";
+        }
+        else if (makeMaskingName != null && makeMaskingName != "") {
+            if (searchType === "3") {
+                url = "/" + makeMaskingName + "-scooters/";
+            }
+            else if (payload.modelId > 0 && modelMaskingName != null && modelMaskingName != "") {
+                url = "/" + makeMaskingName + "-bikes/" + modelMaskingName + "/";
+            }
+            else {
+                url = "/" + makeMaskingName + "-bikes/";
+            }
         }
     }
+    return url;
 }
 
 function pushNavMenuAnalytics(menuItem) {
@@ -977,7 +997,7 @@ docReady(function () {
     */
     $("#newBikeList").bw_autocomplete({
         width: 469,
-        source: 1,
+        source: 10,
         recordCount: 10,
         onClear: function () {
             objBikes = new Object();
@@ -1063,7 +1083,7 @@ docReady(function () {
 
     $("#globalSearch").bw_autocomplete({
         width: 420,
-        source: 1,
+        source: 10,
         recordCount: 10,
         onClear: function () {
             objBikes = new Object();
@@ -1187,7 +1207,7 @@ docReady(function () {
             trendingSearchesLoaded: false
         },
         saveRecentSearches: function (opt) {
-            if (opt && opt.payload && opt.payload.makeId > 0) {
+            if (opt && opt.payload) {
                 var objSearches = bwcache.get(this.searchKey) || {};
                 opt.payload["name"] = opt.label;
                 objSearches.searches = objSearches.searches || [];
@@ -1213,20 +1233,23 @@ docReady(function () {
                         item = objSearches.searches[item];
                         bikename = item.name || '';
                         if (bikename != '' && $("#global-recent-searches li[data-modelid='" + item.modelId + "']").length == 0) {
-                            html += '<li data-makeid="' + item.makeId + '" data-modelid="' + item.modelId + '" class="" tabindex="' + i++ + '"><span class="bwsprite history-icon"></span><a href="javascript:void(0)" data-href="/' + item.makeMaskingName + '-bikes/' + item.modelMaskingName + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
-                            if (item.modelId > 0) {
-                                if (item.futuristic == 'True') {
-                                    html += '<span class="upcoming-link">coming soon</span>';
-                                } else {
-                                    if (item.isNew == 'True') {
-                                        html += '<a href="javascript:void(0)" data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>';
+                            var href = formUrlBasedOnType(item);
+                            if (href != null) {
+                                html += '<li data-makeid="' + item.makeId + '" data-modelid="' + item.modelId + '" class="" tabindex="' + i++ + '"><span class="bwsprite history-icon"></span><a href="javascript:void(0)" data-href="' + href + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
+                                if (item.modelId > 0) {
+                                    if (item.futuristic == 'True') {
+                                        html += '<span class="upcoming-link">coming soon</span>';
                                     } else {
-                                        html += '<span class="upcoming-link">discontinued</span>';
+                                        if (item.isNew == 'True') {
+                                            html += '<a href="javascript:void(0)" data-pqSourceId="' + pqSourceId + '" data-modelId="' + item.modelId + '" class="getquotation target-popup-link" onclick="setPriceQuoteFlag()">Check On-Road Price</a>';
+                                        } else {
+                                            html += '<span class="upcoming-link">discontinued</span>';
+                                        }
                                     }
+                                    html += '<div class="clear"></div>';
                                 }
-                                html += '<div class="clear"></div>';
-                            }
-                            html += "</li>";
+                                html += "</li>";
+                            }   
                         }
                     }
                     if (html != "") {

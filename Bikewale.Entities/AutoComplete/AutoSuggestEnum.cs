@@ -15,6 +15,7 @@ namespace Bikewale.Entities.AutoComplete
         PinCodeCapitalFirst=6,
         NonUpcomingBikes = 7,
         BikeImages = 8,
-        BajajFinanceCompanies = 9
+        BajajFinanceCompanies = 9,
+        Web = 10
     }
 }

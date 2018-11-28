@@ -90,7 +90,7 @@ class GlobalSearchPopup extends React.Component {
 			autocomplete({
 				year : '' , 
 				recordCount : 5 ,
-				source : 1 ,
+				source : 10 ,
 				afterfetch : this.afterfetch,
 				cache : globalSearchCache,
 				loaderStatus : this.loaderStatus

@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeData;
+using Bikewale.Entities.AutoComplete;
 using Bikewale.Models.BikeSeries;
 using System.Collections.Generic;
 namespace Bikewale.Models
@@ -19,6 +20,8 @@ namespace Bikewale.Models
     /// Summary : removed service center widget
     /// Modified by : Snehal Dange on 31st Oct 2018
     /// Desc : Added SeriesLinkages
+    /// Modified By : Monika Korrapati on 22 Nov 2018
+    /// Description : Added Payload PageData
     /// </author>
     public class ScootersMakePageVM : ModelBase
     {
@@ -49,7 +52,6 @@ namespace Bikewale.Models
 
         public string ScooterNewsUrl { get; set; }
         public MakeSeriesSlugVM SeriesLinkages { get; set; }
-
-
+        public Payload PageData { get; set; }
     }
 }

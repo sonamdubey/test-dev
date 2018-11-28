@@ -200,7 +200,7 @@ var recentSearches =
         recentSearchesLoaded: false
     },
     saveRecentSearches: function (opt) {
-        if (opt && opt.payload && opt.payload.makeId > 0) {
+        if (opt && opt.payload) {
             var objSearches = bwcache.get(this.searchKey) || {};
             opt.payload["name"] = opt.label;
             objSearches.searches = objSearches.searches || [];
@@ -548,32 +548,33 @@ function gtmCodeAppender(pageId, action, label) {
 
 }
 
-function MakeModelRedirection(item ) {
-    if (!IsPriceQuoteLinkClicked) {
-        if(item.payload != null) {
-            var make = new Object();
-            make.maskingName = item.payload.makeMaskingName;
-            make.id = item.payload.makeId;
-            var model = null;
-            if (item.payload.modelId > 0) {
-                model = new Object();
-                model.maskingName = item.payload.modelMaskingName;
-            }
-            recentSearches.saveRecentSearches(item);
-            closeGlobalSearchPopUp();
-            if (model) {
-                window.location.href = "/m/" + make.maskingName + "-bikes/" + model.maskingName + "/";
-                return true;
-            } else {
-                window.location.href = "/m/" + make.maskingName + "-bikes/";
-                return true;
-            }
+function MakeModelRedirection(item) {
+    if (!IsPriceQuoteLinkClicked && item.payload != null) {
+        var makeMaskingName = item.payload.makeMaskingName;
+        var modelMaskingName = item.payload.modelMaskingName;
+        var searchType = item.payload.type;
+
+        recentSearches.saveRecentSearches(item);
+        closeGlobalSearchPopUp();
+
+        if (searchType === "4"){
+            window.location.href = "/m/electric-bikes/";
         }
+        else if (makeMaskingName != null && makeMaskingName != ""){
+            if (searchType === "3"){
+                window.location.href = "/m/" + makeMaskingName + "-scooters/";
+            }
+            else if (item.payload.modelId > 0 && modelMaskingName != null && modelMaskingName != ""){
+                window.location.href = "/m/" + makeMaskingName + "-bikes/" + modelMaskingName + "/";
+            }
+            else{
+                window.location.href = "/m/" + makeMaskingName + "-bikes/";
+            }
+        }        
 	}
     if(IsPriceQuoteLinkClicked) {
         IsPriceQuoteLinkClicked = false;
     }
-    
 }
 
 function openPopupWithHash(openingFunction, closingFunction, hash) {

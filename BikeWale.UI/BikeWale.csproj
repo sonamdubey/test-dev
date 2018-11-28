@@ -5009,6 +5009,7 @@
     <Content Include="UI\Views\Shared\ES\_RoyalEnfieldCountdown.cshtml" />
     <Content Include="UI\Views\Shared\ES\_RoyalEnfieldCountdown_Mobile.cshtml" />
     <Content Include="UI\Views\QuestionAndAnswers\_UnansweredQuestion.cshtml" />
+    <Content Include="UI\Views\Shared\_RecentSuggestion.cshtml" />
     <None Include="UI\Views\Shared\_Sidebar-section.cshtml" />
     <Content Include="UI\Views\BikeModels\_MultiTabsWidget.cshtml" />
     <Content Include="UI\Views\Shared\_ReviewPopup.cshtml" />

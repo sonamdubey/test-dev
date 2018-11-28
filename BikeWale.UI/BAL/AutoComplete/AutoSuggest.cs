@@ -9,6 +9,10 @@ using System.Linq;
 
 namespace Bikewale.BAL.AutoComplete
 {
+    /// <summary>
+    /// Modified By : Monika Korrapati on 16 Nov 2018
+    /// Description : Added readonly string _web.
+    /// </summary>
     public class AutoSuggest : IAutoSuggest
     {
         private static readonly string _allMakeModel = "AllMakeModel",
@@ -19,7 +23,8 @@ namespace Bikewale.BAL.AutoComplete
             _pinCodeCapitalFirst = "AreaPinCodes",
             _nonUpcomingBikes = "NonUpcomingBikes",
             _bikeImages = "BikeImages",
-            _bajajFinanceCompanies = "bajajfinancecompanies";
+            _bajajFinanceCompanies = "bajajfinancecompanies",
+            _web = "Web";
 
         #region GetAutoSuggestResult PopulateWhere
         /// <summary>
@@ -130,7 +135,10 @@ namespace Bikewale.BAL.AutoComplete
             return suggestionList;
         }
 
-
+        /// <summary>
+        /// Modified By : Monika Korrapati on 16 Nov 2018
+        /// Description : Added new case 'web'.
+        /// </summary>
         private string GetIndexName(AutoSuggestEnum source)
         {
             string indexName = string.Empty;
@@ -141,6 +149,7 @@ namespace Bikewale.BAL.AutoComplete
                 case AutoSuggestEnum.UserReviews:
                 case AutoSuggestEnum.NonUpcomingBikes:
                 case AutoSuggestEnum.BikeImages:
+                case AutoSuggestEnum.Web:
                     indexName = Utility.BWConfiguration.Instance.MMindexName;
                     break;
                 case AutoSuggestEnum.AllCity:
@@ -165,6 +174,8 @@ namespace Bikewale.BAL.AutoComplete
         /// <summary>
         /// Modified By : Rajan Chauhan on 09 Jan 2018
         /// Description : Added BikeImages context
+        /// Modified By : Monika Korrapati on 16 Nov 2018
+        /// Description : Added case 'web'.
         /// </summary>
         /// <param name="source"></param>
         /// <returns></returns>
@@ -199,6 +210,9 @@ namespace Bikewale.BAL.AutoComplete
                     break;
                 case AutoSuggestEnum.BajajFinanceCompanies:
                     indexName.Add(_bajajFinanceCompanies);
+                    break;
+                case AutoSuggestEnum.Web:
+                    indexName.Add(_web);
                     break;
                 default:
                     indexName.Add(_allMakeModel);

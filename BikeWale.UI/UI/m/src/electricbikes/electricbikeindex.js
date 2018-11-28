@@ -119,4 +119,6 @@
         out.animate({ scrollLeft: Math.max(0, q - (x - y) / 2) }, 500, 'swing');
     }
 
+    if (typeof pageData != "undefined" && pageData != null)
+        recentSearches.saveRecentSearches(pageData);
 });

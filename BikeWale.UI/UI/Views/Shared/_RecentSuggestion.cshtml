@@ -1,0 +1,22 @@
+﻿@model Bikewale.Entities.AutoComplete.Payload
+
+@if (Model != null)
+{
+    <script type="text/javascript">
+    var pageData = {
+        label: "@Model.Label",
+        payload: {
+            makeId: "@Model.MakeId",
+            modelId: "@Model.ModelId",
+            makeMaskingName: "@Model.MakeMaskingName",
+            modelMaskingName: "@Model.ModelMaskingName",
+            futuristic: "@Model.Futuristic",
+            isNew: "@Model.IsNew",
+            userRatingsCount: "@Model.UserRatingsCount",
+            expertReviewsCount: "@Model.ExpertReviewsCount",
+            type: "@((uint)Model.Type)"
+        },
+        value: "@Model.Label"
+    };
+    </script>
+}

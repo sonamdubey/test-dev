@@ -1,5 +1,6 @@
 ﻿
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.AutoComplete;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.Schema;
 using Bikewale.Interfaces.BikeData;
@@ -39,6 +40,8 @@ namespace Bikewale.Models
         /// <summary>
         /// Created By :- Subodh Jain 07-12-2017
         /// Summary :- Method for GetData
+        /// Modified By : Monika Korrapati on 22 Nov 2018
+        /// Description : Added BindPageData()
         /// </summary>
         /// <returns></returns>
         public ElectricBikesPageVM GetData()
@@ -55,6 +58,7 @@ namespace Bikewale.Models
                 BindEditorialWidget();
                 objData.Brands = new BrandWidgetModel(TopCountBrand, _bikeMakes).GetData(Entities.BikeData.EnumBikeType.New);
                 BindPageMetas();
+                BindPageData();
 
             }
             catch (System.Exception ex)
@@ -142,11 +146,28 @@ namespace Bikewale.Models
 
                 ErrorClass.LogError(ex, "Bikewale.Models.ElectricBikesPage.BindEditorialWidget()");
             }
-
-
-
-
         }
+
+        /// <summary>
+        /// Created By : Monika Korrapati on 22 Nov 2018
+        /// Description : PageData to store in recent search list.
+        /// </summary>
+        private void BindPageData()
+        {
+            Payload objPageData = new Payload();
+            objPageData.Label = "All Electric Bikes";
+            objPageData.MakeId = 0;
+            objPageData.ModelId = 0;
+            objPageData.MakeMaskingName = "";
+            objPageData.ModelMaskingName = "";
+            objPageData.Futuristic = false;
+            objPageData.IsNew = true;
+            objPageData.ExpertReviewsCount = 0;
+            objPageData.UserRatingsCount = 0;
+            objPageData.Type = EntryTypesEnum.ElectricLanding;
+            objData.PageData = objPageData;
+        }
+           
     }
 
 }

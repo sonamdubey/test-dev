@@ -1,8 +1,13 @@
 ﻿
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.AutoComplete;
 using System.Collections.Generic;
 namespace Bikewale.Models
 {
+    /// <summary>
+    /// Modified By : Monika Korrapati on 22 Nov 2018
+    /// Description : Added Payload PageData
+    /// </summary>
     public class ElectricBikesPageVM : ModelBase
     {
         public IEnumerable<MostPopularBikesBase> ElectricBikes { get; set; }
@@ -16,5 +21,6 @@ namespace Bikewale.Models
         public bool IsExpertReviewActive { get; set; }
         public bool IsVideoActive { get; set; }
         public ushort PageCatId { get; set; }
+        public Payload PageData { get; set; }
     }
 }
