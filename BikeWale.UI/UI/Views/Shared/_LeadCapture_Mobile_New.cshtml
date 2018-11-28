@@ -806,6 +806,7 @@
                     success: function (response) {
                         self.pqGUId(response.quoteId);
                         isSuccess = true;
+                        trackPQSources(response.quoteId, objPQData.pQLeadId, 2, objPQData.versionId);
                     },
                     complete: function (xhr) {
                         self.hideLoader();

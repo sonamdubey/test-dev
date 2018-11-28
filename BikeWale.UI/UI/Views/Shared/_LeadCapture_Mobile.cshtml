@@ -862,6 +862,10 @@
                         success: function (response) {
                             self.pqGUId(response.quoteId);
                             isSuccess = true;
+                            if (typeof (gaObj) != "undefined" && gaObj.id == 3)
+                            {
+                                trackPQSources(response.quoteId, objPQData.pQLeadId, 2, objPQData.versionId);
+                            }
                         },
                         complete: function (xhr) {
                             self.hideLoader();

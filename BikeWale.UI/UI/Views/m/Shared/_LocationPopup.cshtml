@@ -373,7 +373,14 @@
                                 }
                                 else if (typeof (gaObj) != "undefined" && gaObj.id == 3)
                                 {
-                                    window.location.href = "?versionId=" + versionId + "&pqsourceid=" + self.PQSourceId + window.location.hash;
+                                    var reloadUrl = window.location.origin + window.location.pathname + "?versionId=" + versionId + "&pqsourceid=" + self.PQSourceId + window.location.hash;
+                                    if(self.checkSameUrl(window.location.href, reloadUrl))
+                                    {
+                                        window.location.reload(true);
+                                    }
+                                    else{
+                                        window.location.href = reloadUrl;
+                                    }
                                 }
                                 else {
                                     window.location.reload(true);
@@ -385,6 +392,10 @@
             }
         };
 
+        self.checkSameUrl = function(oldUrl, newUrl)
+        {
+            return oldUrl == newUrl;
+        }
 
         self.selectCity = function (data, event) {
 
