@@ -147,6 +147,14 @@ window.addEventListener('load', function () {
         var pqSourceId = getFilterFromQS("pqsourceid").split("#")[0];
         pqSourceId != "" ? trackPQSources(pqId, pqSourceId, 2, versionId) : trackPQSources(pqId, mobileModelPQSourceId, 2, versionId);
     }
+    //global location tracking
+    cwTracking.trackCustomData("BWModelPage", "LocationIconShown", "versionId=" + versionId);
+
+    $('#global_location').click(function () {
+        cwTracking.trackCustomData("BWModelPage", "LocationIconClick", "versionId=" + versionId);
+    });
+    //end
+
 });
 
 
