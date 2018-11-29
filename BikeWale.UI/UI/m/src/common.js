@@ -1879,7 +1879,7 @@ docReady(function () {
                         if (bikename != '' && $("#global-recent-searches li[data-modelid='" + item.modelId + "']").length == 0 && i < 3) {
                             var href = formUrlBasedOnType(item);
                             if (href != null) {
-                                html += '<li data-makeid="' + item.makeId + '" data-modelid="' + item.modelId + '" class="ui-menu-item" tabindex="' + i++ + '"><span class="recent-clock"></span><a href="javascript:void(0)" data-href="' + href + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
+                                html += '<li data-makeid="' + item.makeId + '" data-modelid="' + item.modelId + '"data-type="'+ item.type +'" class="ui-menu-item" tabindex="' + i++ + '"><span class="recent-clock"></span><a href="javascript:void(0)" data-href="' + href + '" optionname="' + bikename.toLowerCase().replace(' ', '') + '">' + bikename + '</a>';
                                 if (item.modelId > 0) {
                                     if (item.futuristic == 'True') {
                                         html += '<span class="upcoming-link">coming soon</span>';
@@ -1951,9 +1951,8 @@ docReady(function () {
             this.options.globalSearchSection.addClass('hide');
         },
         objectIndexOf: function (arr, opt) {
-            var makeId = opt.makeId, modelId = opt.modelId;
             for (var i = 0, len = arr.length; i < len; i++)
-                if (arr[i]["makeId"] === opt.makeId && arr[i]["modelId"] === opt.modelId) return i;
+                if (arr[i]["makeId"] === opt.makeId && arr[i]["modelId"] === opt.modelId && arr[i]["type"] === opt.type) return i;
             return -1;
         }
     };
@@ -1963,7 +1962,8 @@ docReady(function () {
             if (!$(event.target).hasClass('getquotation')) {
 
                 var objSearches = bwcache.get(recentSearches.searchKey) || {}, mkId = this.getAttribute("data-makeid"), moId = this.getAttribute("data-modelid"),
-                    eleIndex = recentSearches.objectIndexOf(objSearches.searches, { makeId: mkId, modelId: moId }),
+                    searchType = this.getAttribute("data-type"),
+                    eleIndex = recentSearches.objectIndexOf(objSearches.searches, { makeId: mkId, modelId: moId, type: searchType }),
                     obj = objSearches.searches[eleIndex];
                 if (objSearches.searches != null && eleIndex > -1) objSearches.searches.splice(eleIndex, 1);
                 objSearches.searches.unshift(obj);
