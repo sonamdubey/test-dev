@@ -23,5 +23,6 @@ namespace Bikewale.Entities.Models
         public bool IsSelector { get; set; }
         public bool IsBind{ get; set; }
         public bool IsYoutube { get; set; }
+        public bool IsPositionObserver { get; set; }
     }
 }

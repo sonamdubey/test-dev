@@ -4,10 +4,7 @@
 <html amp lang="en">
 <head @(Model != null && Model.PageMetaTags != null ? "prefix=og:http://ogp.me/ns#" : "")>
     <meta charset="utf-8">
-    @if (Model.Page == GAPages.Model_Page)
-    {
-        <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
-    }
+   
     @{
         bool isRECampaignShown = Model.Page != GAPages.Model_Page && DateTime.Now < new DateTime(2018, 11, 14, 18, 31, 0);
     }
@@ -135,6 +132,10 @@
         if (Model.AmpJsTags.IsYoutube)
         {
             <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsPositionObserver)
+        {
+            <script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
         }
 
     }

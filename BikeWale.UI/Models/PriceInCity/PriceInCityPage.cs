@@ -834,6 +834,7 @@ namespace Bikewale.Models
                 objVM.AmpJsTags.IsCarousel = true;
                 objVM.AmpJsTags.IsSelector = (objVM.FormatedBikeVersionPrices != null && objVM.FormatedBikeVersionPrices.Any());
                 objVM.AmpJsTags.IsSidebar = true;
+                objVM.AmpJsTags.IsPositionObserver = true;
             }
             catch (Exception ex)
             {
