@@ -1952,7 +1952,7 @@ docReady(function () {
         },
         objectIndexOf: function (arr, opt) {
             for (var i = 0, len = arr.length; i < len; i++)
-                if (arr[i]["makeId"] === opt.makeId && arr[i]["modelId"] === opt.modelId && arr[i]["type"] === opt.type) return i;
+                if (arr[i]["makeId"] === opt.makeId && arr[i]["modelId"] === opt.modelId && (!arr[i]["type"] || !opt.type || arr[i]["type"] === opt.type)) return i;
             return -1;
         }
     };
