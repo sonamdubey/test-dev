@@ -707,7 +707,7 @@ var bwAutoComplete = function (options) {
                 var suffixText = (parseInt(item.payload.photosCount) > 1) ? ' Photos' : ' Photo';
                 ulItem.append(' <span class="rightfloat margin-left10 font14">(' + item.payload.photosCount.toString() + suffixText + ')</span>')
             }
-            if (options.source == '1') {
+            if (options.source == '10') {
                 if (item.payload.modelId > 0) {
                     if (item.payload.futuristic == 'True') {
                         ulItem.append('<span class="upcoming-link">coming soon</span>')
