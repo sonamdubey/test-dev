@@ -449,7 +449,7 @@ namespace Bikewale.BAL.BikeData
                         BikeVersionMinSpecs objOverview = new BikeVersionMinSpecs() { VersionId = versionId };
 
                         GetVersionSpecsSummaryByItemIdAdapter adapt1 = new GetVersionSpecsSummaryByItemIdAdapter();
-                        if (versionId > 0)
+                        if (versionId > 0 && objModelPage.ModelDetails != null && !objModelPage.ModelDetails.Futuristic)
                         {
                             specItemInput = new VersionsDataByItemIds_Input
                             {
