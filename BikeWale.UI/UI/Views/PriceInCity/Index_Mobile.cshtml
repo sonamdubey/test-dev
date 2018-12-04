@@ -120,13 +120,6 @@
 									</tr>
 								</tbody>
 							</table>
-							if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown && !Model.HasCampaignDealer)
-							{
-								<div class="text-right margin-right15">
-                            <a target="_blank" rel="noopener nofollow" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="position-rel font12 bw-ga text-bold" data-cat="Price_in_City_Page" data-act="BankbazaarLink_Clicked" data-lab="@string.Format("{0}_{1}", Model.BikeName, cityObj.CityName);">Personal Loans from 10.99%<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
-                                
-                                </div>
-							}
 							if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
 							{
                                 var leadCampaignObj = Model.LeadCampaign;
@@ -145,8 +138,15 @@
                                     }
 								</div>
 								<div class="clear"></div>
-							}
-						}
+                            }
+                            else if (!Model.IsManufacturerLeadAdShown && !Model.HasCampaignDealer && Model.ManufacturerFinanceCampaign != null && Model.ManufacturerFinanceCampaign.IsActive)
+                            {
+                                <div class="text-right margin-right15">
+                                    <a target="_blank" rel="noopener nofollow" href="@Model.ManufacturerFinanceCampaign.LinkUrl" class="position-rel font12 bw-ga bw-shown-in-ga text-bold" data-cat="Price_in_City_Page" data-act="@Model.ManufacturerFinanceCampaign.GAClickAction" data-shownact="@Model.ManufacturerFinanceCampaign.GAShownAction" data-lab="@string.Format("{0}_{1}", Model.BikeName, cityObj.CityName);">@Model.ManufacturerFinanceCampaign.LinkText<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
+
+                                </div>
+                            }
+                        }
 						@if (Model.IsNew)
 						{
 							<div class="margin-top15 font14">

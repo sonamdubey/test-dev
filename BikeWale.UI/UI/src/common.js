@@ -1478,6 +1478,21 @@ docReady(function () {
         }
     });
 
+    $('.bw-shown-in-ga').each(function (index, element) {
+        trackElementVisiblityForGA(element);
+    });
+
+    function trackElementVisiblityForGA(element) {
+        if (element != null && element.dataset != null) {
+            var category = element.dataset["cat"];
+            var action = element.dataset["shownact"];
+            var label = element.dataset["lab"] || "NA";
+            if (label !== undefined) {
+                triggerGA(category, action, label);
+            }
+        }
+    };
+
     $(".lazy").lazyload({
         effect: "fadeIn"
     });

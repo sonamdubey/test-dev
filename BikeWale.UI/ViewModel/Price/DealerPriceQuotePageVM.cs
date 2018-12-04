@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.ManufacturerCampaign.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +18,8 @@ namespace Bikewale.Models.Price
     /// Description : Added ExitUrl property for amp pages when user clicks back 
     /// Modified by : Kartik Rathod on 19 oct 2018
     /// Desc        : added IsOffersShownOnLeadPopup for test exp on show offers on lead page
+    /// Modified by : Pratibha Verma on 29 November 2018
+    /// Description : Added property ManufacturerFinanceCampaignEntity to bind finance campaign
     /// </summary>
     public class DealerPriceQuotePageVM : ModelBase
     {
@@ -69,5 +72,6 @@ namespace Bikewale.Models.Price
 
         // for AB TEST
         public bool IsOffersShownOnLeadPopup { get; set; }
+        public ManufacturerFinanceCampaignEntity ManufacturerFinanceCampaign { get; set; }
     }
 }

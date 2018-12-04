@@ -489,9 +489,6 @@ docReady(function () {
     bikeName = $dvPgVar.data("bikename");
   
     var cityName = $dvPgVar.data("cityarea");
-    if (isCoverfoxShown) {
-      triggerNonInteractiveGA('Price_in_City_Page','BankbazaarLink_Shown', bikeName + '_' + cityName);
-    }
 
     var dealerOffersRibbon = $('#dealerOffersRibbon');
     if (typeof dealerOffersRibbon !== 'undefined' && dealerOffersRibbon.length) {

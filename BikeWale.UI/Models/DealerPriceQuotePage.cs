@@ -17,6 +17,7 @@ using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.ManufacturerCampaign.Interface;
 using Bikewale.Models.Price;
 using Bikewale.Utility;
+using ManufacturingCampaign.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,7 @@ namespace Bikewale.Models
         private readonly IManufacturerCampaign _objManufacturerCampaign = null;
         private readonly IAdSlot _adSlot = null;
         private readonly IPriceQuoteCache _objPQCache;
+        private readonly IManufacturerFinanceCampaign _objManufacturerFinanceCampaign;
         public string RedirectUrl { get; set; }
         public uint OtherTopCount { get; set; }
         public StatusCodes Status { get; set; }
@@ -60,7 +62,7 @@ namespace Bikewale.Models
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
         /// </summary>
-        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersions<BikeVersionEntity, uint> objVersion, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign, IAdSlot adSlot, IPriceQuoteCache objPQCache)
+        public DealerPriceQuotePage(IDealerPriceQuoteDetail objDealerPQDetails, IDealerPriceQuote objDealerPQ, IBikeVersions<BikeVersionEntity, uint> objVersion, IAreaCacheRepository objAreaCache, ICityCacheRepository objCityCache, IPriceQuote objPQ, IDealerCacheRepository objDealerCache, IManufacturerCampaign objManufacturerCampaign, IAdSlot adSlot, IPriceQuoteCache objPQCache, IManufacturerFinanceCampaign objManufacturerFinanceCampaign)
         {
             _objDealerPQDetails = objDealerPQDetails;
             _objDealerPQ = objDealerPQ;
@@ -72,6 +74,7 @@ namespace Bikewale.Models
             _objManufacturerCampaign = objManufacturerCampaign;
             _adSlot = adSlot;
             _objPQCache = objPQCache;
+            _objManufacturerFinanceCampaign = objManufacturerFinanceCampaign;
             ProcessQueryString();
         }
 
@@ -88,6 +91,8 @@ namespace Bikewale.Models
         /// Description : Get the exitUrl from the querystring
         /// Modified by : Kartik Rathod on 19 oct 2018
         /// Desc        : fetch offerlist in leadcapture to show offers on lead popup
+        /// Modified by : Pratibha Verma on 29 November 2018
+        /// Description : Added call to bind manufacturer finance campaign
         /// </summary>
         /// <returns></returns>
         public DealerPriceQuotePageVM GetData()
@@ -105,6 +110,10 @@ namespace Bikewale.Models
                     BindPageWidgets(objData);
                     SetPageMetas(objData);
                     GetManufacturerCampaign(objData);
+                    if (!objData.IsPrimaryDealerAvailable && !objData.IsManufacturerLeadAdShown)
+                    {
+                        objData.ManufacturerFinanceCampaign = _objManufacturerFinanceCampaign.GetFinanaceCampaigns(_modelId, _cityId);
+                    }
                     if (objData.SelectedVersion.New)
                     {
                         objData.LeadCapture = new LeadCaptureEntity()

@@ -88,15 +88,19 @@
 			                "eventAction": "Clicked_ExploreMore_Card"
 			            }
 			        },
+                @if(!Model.IsManufacturerLeadAdShown && Model.ManufacturerFinanceCampaign != null && Model.ManufacturerFinanceCampaign.IsActive) {
+                <text>
 			    "trackEvent2": {
 			    "selector": ".coverfox-link-clicked",
 			    "on": "click",
 			    "request": "event",
 			    "vars": {
-			    "eventCategory": "Price_in_City_Page_AMP",
-			    "eventAction": "BankbazaarLink_Clicked"
+                    "eventCategory": "Price_in_City_Page_AMP",
+                    "eventAction": "@Model.ManufacturerFinanceCampaign.GAClickAction",
+                    "eventLabel": "@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName)"
 			    }
 			    },
+                </text> }
 			    "trackEvent3": {
 			    "selector": ".view-dealer-details-clicked",
 			    "on": "click",
@@ -106,17 +110,17 @@
 			    "eventAction": "View_dealer_details_Clicked"
 			    }
 			    }
-                @if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
+                @if (!Model.IsManufacturerLeadAdShown && Model.ManufacturerFinanceCampaign != null && Model.ManufacturerFinanceCampaign.IsActive)
                 {
                     <text>,
-                        "BankBazaarLink": {
+                        "PriceBreakupLink": {
                         "on": "visible",
                         "ni" :1,
                         "request": "event",
                         "vars": {
-                        "eventCategory": "Price_in_City_Page_AMP",
-                        "eventAction": "BankbazaarLink_Shown",
-                        "eventLabel": "@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName)"
+                            "eventCategory": "Price_in_City_Page_AMP",
+                            "eventAction": "@Model.ManufacturerFinanceCampaign.GAShownAction",
+                            "eventLabel": "@string.Format("{0}_{1}", Model.BikeName, Model.CityEntity.CityName)"
                         },
                         "extraUrlParams": {
                         "ni": "1"
@@ -222,12 +226,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                            </table>if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
-                            {
-                                <div class="position-rel text-right margin-right15">
-                                    <a target="_blank" rel="noopener nofollow" href="@BWConfiguration.Instance.CoverFoxLink" class="position-rel font12 bw-ga text-bold coverfox-link-clicked">Personal Loans from 10.99%<span class="position-abt pos-top0 text-light-grey font8 text-unbold">&nbsp;Ad</span></a>
-                                </div>
-                            }
+                            </table>
 							<!-- Price break up link property starts -->
                             if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
                             {
@@ -253,6 +252,12 @@
                                     }
                                 </div>
                                 <div class="clear"></div>
+                            }
+                            else if (!Model.IsManufacturerLeadAdShown && Model.ManufacturerFinanceCampaign != null && Model.ManufacturerFinanceCampaign.IsActive)
+                            {
+                                <div class="position-rel text-right margin-right15">
+                                    <a target="_blank" rel="noopener nofollow" href="@Model.ManufacturerFinanceCampaign.LinkUrl" class="position-rel font12 bw-ga text-bold coverfox-link-clicked">@Model.ManufacturerFinanceCampaign.LinkText<span class="position-abt pos-top0 text-light-grey font8 text-unbold">&nbsp;Ad</span></a>
+                                </div>
                             }
 							<!-- Price break up link property ends -->
 

@@ -133,14 +133,10 @@
 
 											</tbody>
 										</table>
-										<div class="text-right margin-right15">@if (!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown && !Model.HasCampaignDealer)
-										{
-												<a target="_blank" rel="noopener nofollow" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold position-rel" data-cat="Price_in_City_Page" data-act="BankbazaarLink_Clicked" data-lab="@string.Format("{0}_{1}", Model.BikeName, cityObj.CityName);">Personal Loans from 10.99%<span class="position-abt pos-top0 text-light-grey text-unbold font10">&nbsp;Ad</span></a>
-											
-										}</div>
-										if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextDesktop))
-										{
-											var leadCampaignObj = Model.LeadCampaign;
+
+                                        if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextDesktop))
+                                        {
+                                            var leadCampaignObj = Model.LeadCampaign;
 											<div class="rightfloat">
 												@if (!string.IsNullOrEmpty(leadCampaignObj.PriceBreakUpLinkDesktop))
 												{
@@ -151,9 +147,15 @@
 													<a class="leadcapturebtn bw-ga font14" id="pricebreakuplink" href="javascript:void(0)" data-mfgcampid="@leadCampaignObj.CampaignId" data-item-id="@leadCampaignObj.DealerId" data-item-area="@leadCampaignObj.Area" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.PriceInCity_PriceBreakUpLink_Desktop)" data-pqsourceid="@leadCampaignObj.PqSourceId" data-item-message="@leadCampaignObj.PopupSuccessMessage" data-item-heading="@leadCampaignObj.PopupHeading" data-item-description="@leadCampaignObj.PopupDescription" data-ispincodrequired="@leadCampaignObj.PincodeRequired" data-dealersrequired="@leadCampaignObj.DealerRequired" data-item-name="@(String.Format("Authorised {0} Dealer", leadCampaignObj.Organization))" data-item-organization="@leadCampaignObj.Organization" data-isemailrequired="@leadCampaignObj.EmailRequired" data-cat="@leadCampaignObj.GACategory" data-act="Get_more_details_below_price_clicked" data-lab="@leadCampaignObj.GALabel" data-issendleadsmscustomer="@leadCampaignObj.SendLeadSMSCustomer" rel="nofollow">@leadCampaignObj.PriceBreakUpLinkTextDesktop </a>
 												}
 											</div>
-										}
+                                        }
+                                        else if (!Model.IsManufacturerLeadAdShown && !Model.HasCampaignDealer && Model.ManufacturerFinanceCampaign != null && Model.ManufacturerFinanceCampaign.IsActive)
+                                        {
+                                            <div class="text-right margin-right15">
+                                                <a target="_blank" rel="noopener nofollow" href="@Model.ManufacturerFinanceCampaign.LinkUrl" class="font12 bw-ga bw-shown-in-ga text-bold position-rel" data-cat="Price_in_City_Page" data-act="@Model.ManufacturerFinanceCampaign.GAClickAction"  data-shownact="@Model.ManufacturerFinanceCampaign.GAShownAction" data-lab="@string.Format("{0}_{1}", Model.BikeName, cityObj.CityName);">@Model.ManufacturerFinanceCampaign.LinkText<span class="position-abt pos-top0 text-light-grey text-unbold font10">&nbsp;Ad</span></a>
+                                            </div>
+                                        }
 
-									}
+                                    }
 									@if (Model.IsDiscontinued && Model.FirstVersion !=null)
 									{
 										<div class="font14 text-default text-bold padding-top15">

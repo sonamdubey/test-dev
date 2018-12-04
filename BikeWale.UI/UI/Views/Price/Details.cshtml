@@ -220,11 +220,11 @@
                                             </td>
                                             <td align="right">
                                                 @Html.Raw("<span class='font22'>&#x20B9;</span>")&nbsp;<span class="font22 text-bold">@CommonOpn.FormatNumeric(Model.Quotation.OnRoadPrice.ToString())</span>
-												@if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
+												@if (!Model.IsPrimaryDealerAvailable && !Model.IsManufacturerLeadAdShown && Model.ManufacturerFinanceCampaign != null && Model.ManufacturerFinanceCampaign.IsActive)
                                                 {
                                                 <br><p class="position-rel">
                                                 
-                                                    <a target="_blank" rel="noopener nofollow" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="BankbazaarLink_Clicked" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName)">Personal Loans from 10.99%<span class="position-abt pos-top0 text-light-grey text-unbold font10">&nbsp;Ad</span></a>
+                                                    <a target="_blank" rel="noopener nofollow" href="@Model.ManufacturerFinanceCampaign.LinkUrl" class="font12 bw-ga bw-shown-in-ga text-bold" data-cat="Dealer_PQ" data-act="@Model.ManufacturerFinanceCampaign.GAClickAction" data-shownact="@Model.ManufacturerFinanceCampaign.GAShownAction" data-lab="@string.Format("{0}_{1}",Model.BikeName,Model.CiyName)">@Model.ManufacturerFinanceCampaign.LinkText<span class="position-abt pos-top0 text-light-grey text-unbold font10">&nbsp;Ad</span></a>
                                                 
                                                 </p>
                                                 }
@@ -524,10 +524,6 @@
              <text>triggerNonInteractiveGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
          }
 
-            @if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
-            {
-                 <text>triggerNonInteractiveGA('Dealer_PQ', 'BankbazaarLink_Shown', bikeVerLocation);</text>
-            }
             if (FbPixelEvent) {
                 fbq('track', FbPixelEvent.viewContent);
             }

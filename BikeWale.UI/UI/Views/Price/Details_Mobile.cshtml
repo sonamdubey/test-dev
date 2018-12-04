@@ -181,11 +181,11 @@ else
                     </tr>
                 }
             </table>
-			if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
+			if (!Model.IsPrimaryDealerAvailable && !Model.IsManufacturerLeadAdShown && Model.ManufacturerFinanceCampaign != null && Model.ManufacturerFinanceCampaign.IsActive)
             {
                 <p class='position-rel text-right margin-right15'>
 
-                <a target="_blank" rel="noopener nofollow" href="@Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink" class="font12 bw-ga text-bold" data-cat="Dealer_PQ" data-act="BankbazaarLink_Clicked" data-lab="@string.Format("{0}_{1}", Model.BikeName,Model.CiyName);">Personal Loans from 10.99%</a>
+                <a target="_blank" rel="noopener nofollow" href="@Model.ManufacturerFinanceCampaign.LinkUrl" class="font12 bw-ga bw-shown-in-ga text-bold" data-cat="Dealer_PQ" data-act="@Model.ManufacturerFinanceCampaign.GAClickAction" data-shownact="@Model.ManufacturerFinanceCampaign.GAShownAction" data-lab="@string.Format("{0}_{1}", Model.BikeName,Model.CiyName);">@Model.ManufacturerFinanceCampaign.LinkText</a>
                 
                 <span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></p>
             }
@@ -439,11 +439,6 @@ else
          {
              <text>triggerNonInteractiveGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
          }
-
-            @if (!Model.IsPrimaryDealerAvailable && !string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.IsManufacturerLeadAdShown)
-            {
-                <text>triggerNonInteractiveGA('Dealer_PQ', 'BankbazaarLink_Shown', bikeVerLocation);</text>
-            }
 
             if (dealerName != "") {
                 $("#header-dealername").text(dealerName);

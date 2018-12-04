@@ -99,6 +99,10 @@ using Bikewale.Interfaces.UserReviews;
 using Bikewale.Interfaces.UserReviews.Search;
 using Bikewale.Interfaces.Videos;
 using Bikewale.ManufacturerCampaign.Interface;
+using ManufacturingCampaign.BAL;
+using ManufacturingCampaign.Cache;
+using ManufacturingCampaign.DAL;
+using ManufacturingCampaign.Interface;
 using Microsoft.Practices.Unity;
 using System;
 using System.Web.Mvc;
@@ -235,6 +239,9 @@ namespace Bikewale
             container.RegisterType<ICampaignBL, CampaignBL>();
             container.RegisterType<IPriceQuoteCacheHelper, PriceQuoteCacheHelper>();
             container.RegisterType<IMaskingNumberDl, MaskingNumberDl>();
+            container.RegisterType<IManufacturerFinanceCampaign, ManufacturerFinanceCampaign>();
+            container.RegisterType<IManufacturerFinanceCampaignCache, ManufacturerFinanceCampaignCache>();
+            container.RegisterType<IManufacturerFinanceCampaignRepository, ManufacturerFinanceCampaignRepository>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

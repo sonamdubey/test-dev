@@ -2111,6 +2111,10 @@ docReady(function () {
             console.error(e);
         }
     });
+
+    $('.bw-shown-in-ga').each(function (index, element) {
+        trackElementVisiblityForGA(element);
+    });
     
     // more brand - collapse
     $('.view-brandType').click(function () {
@@ -2236,7 +2240,7 @@ String.isNullOrEmpty = function (str) {
     return (!str || str.length === 0);
 };
 
-var trackElementVisiblity = function (element) {
+function trackElementVisiblity(element) {
   if (element != null && element.dataset != null) {
     var bhriguCategory = element.dataset["bhrigucat"];
     var bhriguAction = element.dataset["bhrigushownact"];
@@ -2244,6 +2248,18 @@ var trackElementVisiblity = function (element) {
     cwTracking.trackCustomData(bhriguCategory, bhriguAction, bhriguLabel);
   }
 };
+
+function trackElementVisiblityForGA(element) {
+    if (element != null && element.dataset != null) {
+        var category = element.dataset["cat"];
+        var action = element.dataset["shownact"];
+        var label = element.dataset["lab"] || "NA";
+        if (label !== undefined) {
+            triggerGA(category, action, label);
+        }
+    }
+};
+
 var triggerNonInteractiveGAWithinViewport = function (elem) {
     
 

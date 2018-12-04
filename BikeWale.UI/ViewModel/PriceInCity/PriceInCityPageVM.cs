@@ -4,6 +4,7 @@ using Bikewale.Entities.Location;
 using Bikewale.Entities.manufacturecampaign;
 using Bikewale.Entities.PhotoGallery;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Models.Gallery;
 using Bikewale.Models.PriceInCity;
 using Bikewale.Models.ServiceCenters;
@@ -27,6 +28,8 @@ namespace Bikewale.Models
     /// Summary: added IsElectricBike flag
     /// Modified by : Pratibha Verma on 11 October 2018
     /// Description : Added IsOffersShownOnLeadPopup flag for showing offers on lead popup
+    /// Modified by : Pratibha Verma on 29 November 2018
+    /// Description : Added property ManufacturerFinanceCampaignEntity to bind finance campaign
     /// </summary>
     public class PriceInCityPageVM : ModelBase
     {
@@ -104,5 +107,6 @@ namespace Bikewale.Models
         public MoreAboutScootersWidgetVM objMoreAboutScooter { get; set; }
         public bool IsElectricBike { get; set; }
         public bool IsOffersShownOnLeadPopup { get; set; }
+        public ManufacturerFinanceCampaignEntity ManufacturerFinanceCampaign { get; set; }
     }
 }
