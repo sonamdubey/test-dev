@@ -27,14 +27,15 @@
                     "makename": "@Model.MakeName",
                     "modelname": "@Model.ModelName",
                     "pagecatid": "@Model.PageCategoryId",
-                    "pagesrcid": "@Model.PQSourceId",
+                    "pqsrcid": "@Model.PQSourceId",
                     "redirectUrl": "@Model.Url",
                     "exitUrl": "@Model.ExitUrl",
                     "isreload": true,
                     "ispersistent": @(Model.IsLeadPopStateFlow ? "true" : "false"),
                     "isleadpopstateflow": @(Model.IsLeadPopStateFlow ? "true" : "false"),
                     "leadsourceid": "@Model.LeadSourceId",
-                    "origin": "@Model.Origin"
+                    "origin": "@Model.Origin",
+                    "showcitylist": @(Model.PQSourceId == (uint)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage_LocationSelector ? "true" : "false"),
                 };
                 obj.cityId = @Model.PreSelectedCity || obj.cityId;
                 vmquotation.setOptions(obj);

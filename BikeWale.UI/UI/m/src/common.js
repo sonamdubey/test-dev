@@ -14,6 +14,7 @@ var topCount = 5;
 var pageName = typeof (gaObj) === 'undefined' ? 'Others' : gaObj.name;
 var bhriguPageName = typeof (gaObj) === 'undefined' ? 'Others' : gaObj.bhriguPageName;
 var fullShown = false, partialShown = false;
+popupHeading = $("#popupHeading"), popupContent = $("#popupContent"), brandcitypopupContent = $("#brandcitypopupContent");
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt) {
@@ -893,6 +894,18 @@ function areaSelectionClick() {
   $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
 };
 
+function citySelectionClick() {
+  $("#popupContent .bw-city-popup-box").show();
+  popupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
+  $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
+};
+
+function hideCitySelectionList() {
+  brandcitypopupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
+  popupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
+  $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
+};
+
 var appendState = function (state) {
     window.history.pushState(state, '', '');
 };
@@ -970,8 +983,6 @@ docReady(function () {
         $('html, body').stop().animate({ scrollTop: 0 }, 600);
         event.preventDefault();
     });
-
-    popupHeading = $("#popupHeading"), popupContent = $("#popupContent"), brandcitypopupContent = $("#brandcitypopupContent");
 
 
 
@@ -1584,11 +1595,18 @@ docReady(function () {
         brandcitypopupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
         $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
     });
+    
 
     $(".bwm-city-area-popup-wrapper .back-arrow-box, #popupCityList li, #popupAreaList li").on("click", function () {
-      brandcitypopupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
-      popupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
-      $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
+      
+        hideCitySelectionList();
+        if (typeof (vmquotation) != "undefined" && vmquotation != undefined && vmquotation.ShowCityList()) {
+          var rUrl = $('#popupWrapper .close-btn').data("returnurl");
+          if (rUrl != undefined && rUrl != "") {
+            window.location = rUrl;
+          }
+          $("#popupWrapper").hide();
+        }
     });
 
 

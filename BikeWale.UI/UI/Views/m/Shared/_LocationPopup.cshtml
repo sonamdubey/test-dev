@@ -134,6 +134,7 @@
         self.ExitUrl = ko.observable("");
         self.Origin = ko.observable("");
         self.LeadSourceId = ko.observable("");
+        self.ShowCityList = ko.observable(false);
         self.FilterData = function (data,filter)
         {
             filterObj = data;
@@ -206,10 +207,16 @@
                 self.ExitUrl(options.exitUrl || "");
                 self.Origin(options.origin);
                 self.LeadSourceId(options.leadsourceid || "");
+                self.ShowCityList(options.showcitylist || false);
                 if (self.IsPersistance())  self.LoadingText("Loading locations...");
 
                 if (self.SelectedModelId()) {
                     self.InitializePQ();
+                    if(self.ShowCityList())
+                    {
+                        citySelectionClick();
+                        setTimeout(function(){$("#popupCityInput").focus()}, 500);
+                    }
                 }
 
                 if(!self.isLeadPopupFlow()) {
@@ -400,7 +407,7 @@
         self.selectCity = function (data, event) {
 
             if (!self.oBrowser()) {
-                $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
+                hideCitySelectionList();
                 self.SelectedCity(data);
                 self.SelectedCityId(data.id);
             }
@@ -426,6 +433,7 @@
             if (self.SelectedCity().hasAreas || self.SelectedCity().id != onCookieObj.PQCitySelectedId) {
                 self.InitializePQ(true);
                 areaSelectionClick();
+                setTimeout(function(){$("#popupAreaInput").focus()}, 500);
             }
 
             if (ga_pg_id != null && ga_pg_id == 2) {
@@ -521,8 +529,23 @@
             vmquotation.closeLocationPopup();
         });
 
+        $("#citySelection").click(function(){           
+            vmquotation.cityFilter(null);
+            setTimeout(function(){$("#popupCityInput").focus()}, 500);
+        });
+
+        $("#areaSelection").click(function(){           
+            vmquotation.areaFilter(null);
+            setTimeout(function(){$("#popupAreaInput").focus()}, 500);
+        });
+
         $(document).on("click", ".getquotation", function (e) {
             var ele = $(this); e.stopPropagation();
+            var showCityList = false;
+            if(e.currentTarget.dataset != undefined && e.currentTarget.dataset.pqsourceid != undefined && cityId == "0")
+            {
+                showCityList = (e.currentTarget.dataset.pqsourceid == PqSourceEnum.Mobile_ModelPage_LocationSelector || e.currentTarget.dataset.pqsourceid == PqSourceEnum.Mobile_ModelPage_EditCityPencil);
+            }
 
             vmquotation.CheckCookies();
             var options = {
@@ -539,11 +562,12 @@
                 "isreload" : ele.attr("data-reload") !=null ? true : false,
                 "versionid" : ele.attr("data-versionid") != undefined ? ele.attr("data-versionid") : 0,
                 "origin": ele.attr("data-origin"),
-                "leadsourceid": ele.attr("data-leadsourceid")
+                "leadsourceid": ele.attr("data-leadsourceid"),
+                "showcitylist": showCityList
             };
 
             options.cityId = ele.attr('data-preselcity') || options.cityId;
-
+            
             vmquotation.setOptions(options, e);
 
         });
