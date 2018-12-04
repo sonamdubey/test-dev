@@ -114,12 +114,12 @@
                                 Bikewale.Entities.manufacturecampaign.ManufactureCampaignEMIEntity ESEMICampaign = EMICalculatorModel.ESEMICampaign;
                                 string bhriguLab = @String.Format("versionId={0}|dealerId={1}", Model.VersionId, ESEMICampaign != null ? ESEMICampaign.DealerId : EMICalculatorModel.IsPremiumDealer?EMICalculatorModel.DealerDetails.DealerId: 0);
                                 <div id="scroll-point" class="padding-left20 padding-right20 padding-bottom15">
-                                    <span class="text-light-grey">
-                                        EMI starting at
+                                    <span class="text-light-grey">@String.Format("EMI {0}", Model.UpfrontLoanCampaign ? "from" : "starting at")
                                         <span class="text-bold">@Html.Raw("<span>&#x20B9;</span>") @Format.FormatPrice(Model.EMIDetails.EMIAmount.ToString())/month</span>
                                     </span>
                                     @if (Model.UpfrontLoanCampaign)
                                     {
+                                        <a class="emi-calculator-icon bw-ga bw-bhrigu bw-shown-in-bhrighu" href="javascript:void(0)" rel="nofollow" data-bhrigucat="BWModelPage" data-bhrigushownact="EMICalcLink_Shown" data-bhriguact="EMICalcLink_Click" data-bhrigulab="@bhriguLab" data-cat="Model_Page" data-act="Interacted_with_EMI_Calculator" data-lab="@EMICalculatorModel.BikeName.Replace(" ", "_")" id="emiCalculatorLink" title="EMI Calculator" aria-label="EMI Calculator"><span id="mobileEmiCalculator"></span></a>
                                         if (ESEMICampaign != null && (EMICalculatorModel.IsPrimaryDealer || EMICalculatorModel.IsManufacturerLeadAdShown))
                                         {
                                             if (ESEMICampaign.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
@@ -146,6 +146,8 @@
                                             <span id="mobileEmiCalculator"></span>
                                             Calculate EMI
                                         </a>
+                                    }
+                                    @{
                                         EMICalculatorModel.VersionId = Model.VersionId;
                                         EMICalculatorModel.IsBhriguTracking = true;
                                         EMICalculatorModel.IsNearlyAllIndiaCampaign = !Model.IsLocationSelected && Model.IsNearlyAllIndiaCampaign && !Model.IsManufacturerLeadAdShown;

@@ -1,4 +1,5 @@
-﻿.model-photos-swiper.padding-bottom5 {
+﻿
+.model-photos-swiper.padding-bottom5 {
     padding-bottom: 5px;
 }
 .padding-15-20-20 {
@@ -930,4 +931,19 @@ a.btn:hover {
 }
 .campaign-with-animation.animated .top-selling__text {
     opacity: 0;
+}
+
+/*Emi calculator icon*/
+
+.emi-calculator-icon {
+    display: inline-block;
+    background-color: #fff;
+    background-image: url('https://imgd.aeplcdn.com/0x0/bw/static/icons/0288d1/calculator.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 17px;
+    height: 18px;
+    vertical-align: bottom;
+    padding: 0;
+    margin-left: 5px;
 }

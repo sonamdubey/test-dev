@@ -350,7 +350,7 @@ namespace Bikewale.Models.BikeModels
                 _objData.IsBlueEditCityOption = cookieValue >= 41 && cookieValue <= 50;
                 _objData.IsAnimatedCTA = cookieValue > 10;
                 _objData.IsNonAnimatedCTA = cookieValue > 5 && cookieValue <= 10;
-                _objData.UpfrontLoanCampaign = cookieValue > 20 && cookieValue <= 30 && (_objData.EMICalculator != null && (_objData.EMICalculator.ESEMICampaign != null || _objData.EMICalculator.IsPremiumDealer));
+                _objData.UpfrontLoanCampaign = cookieValue <= 80 && (_objData.EMICalculator != null && (_objData.EMICalculator.ESEMICampaign != null || _objData.EMICalculator.IsPremiumDealer));
                 _objData.IsOffersShownOnLeadPopup = cookieValue <= 90;
                 if(_objData.LeadCampaign !=null)
                 {
