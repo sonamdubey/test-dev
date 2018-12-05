@@ -852,7 +852,12 @@ namespace Bikewale.Models
                 objVM.AmpJsTags.IsCarousel = true;
                 objVM.AmpJsTags.IsSelector = (objVM.FormatedBikeVersionPrices != null && objVM.FormatedBikeVersionPrices.Any());
                 objVM.AmpJsTags.IsSidebar = true;
-                objVM.AmpJsTags.IsPositionObserver = true;
+                if (objVM.IsNew && objVM.IsManufacturerLeadAdShown && !String.IsNullOrEmpty(objVM.LeadCampaign.LeadsButtonTextMobile) && String.Equals(objVM.LeadCampaign.LeadsButtonTextMobile.ToLower(), "request callback"))
+                {
+                    objVM.AmpJsTags.IsAmpAnimation = true;
+                    objVM.AmpJsTags.IsPositionObserver = true;
+                }
+              
             }
             catch (Exception ex)
             {

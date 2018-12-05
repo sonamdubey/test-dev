@@ -378,6 +378,7 @@ namespace Bikewale.Models.BikeModels
                 objData.AmpJsTags.IsCarousel = true;
                 objData.AmpJsTags.IsSidebar = true;
                 objData.AmpJsTags.IsCarousel = true;
+                objData.AmpJsTags.IsAmpAnimation = true;
                 objData.AmpJsTags.IsPositionObserver = true;
             }
             catch (Exception ex)

@@ -8,7 +8,7 @@
     @{
         bool isRECampaignShown = Model.Page != GAPages.Model_Page && DateTime.Now < new DateTime(2018, 11, 14, 18, 31, 0);
     }
-    <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
+
     <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>
     <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
@@ -132,6 +132,10 @@
         if (Model.AmpJsTags.IsYoutube)
         {
             <script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+        }
+        if (Model.AmpJsTags.IsAmpAnimation)
+        {
+            <script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
         }
         if (Model.AmpJsTags.IsPositionObserver)
         {
