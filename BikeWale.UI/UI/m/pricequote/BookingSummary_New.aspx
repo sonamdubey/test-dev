@@ -453,6 +453,7 @@
 
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
         <input id="hdnDiscountList" type="hidden" value='<%= discountedPriceList %>' />
+        <input id="hdnLeadId" type="hidden" value="0" runat="server" />
         <!-- all other js plugins -->
         <!-- #include file="/UI/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/UI/includes/footerscript_Mobile.aspx" -->

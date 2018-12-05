@@ -192,9 +192,8 @@ var BookingPageViewModel = function () {
                         // Getting MPQ from querystring
                         var match = new RegExp('[\\?&]MPQ=([^&#]*)').exec(window.location.href);
                         var queryParams = atob(match[1]);
-                        if (queryParams.indexOf("&leadId") == -1) {
-                          queryParams += "&leadId=" + self.LeadId();
-                          location.href = "/pricequote/bookingsummary_new.aspx?MPQ=" + Base64.encode(queryParams);
+                        if (self.LeadId > 0) {
+                            queryParams += "&leadId=" + self.LeadId();
                         }
                         if (!self.Customer().IsVerified()) {
                           isSuccess = false;
@@ -263,7 +262,8 @@ var BookingPageViewModel = function () {
                         if (obj.isUpdated) {
                             isSuccess = true;
                             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + self.Dealer().PQId() + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId() + "&leadId=" + self.LeadId();
-                            history.replaceState(null, null, "?MPQ="+ Base64.encode(cookieValue));
+                            history.replaceState(null, null, "?MPQ=" + Base64.encode(cookieValue));
+                            $("#hdnLeadId").val(self.LeadId());
                             isSuccess = true;
                         }
                         else isSuccess = false;

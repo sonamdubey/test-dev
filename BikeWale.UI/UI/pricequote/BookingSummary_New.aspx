@@ -413,6 +413,7 @@
 
         <input id="hdnBikeData" type="hidden" value='<%= bikesData %>' />
         <input id="hdnDiscountList" type="hidden" value='<%= discountedPriceList %>' />
+        <input id="hdnLeadId" type="hidden" value="0" runat="server" />
         <!-- #include file="/UI/includes/footerscript.aspx" -->
         <!-- #include file="/UI/includes/footerBW.aspx" -->
 

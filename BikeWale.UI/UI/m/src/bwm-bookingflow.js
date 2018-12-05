@@ -246,9 +246,8 @@ var BookingPageViewModel = function () {
                         // Getting MPQ from querystring
                         var match = new RegExp('[\\?&]MPQ=([^&#]*)').exec(window.location.href);
                         var queryParams = atob(match[1]);
-                        if (queryParams.indexOf("&LeadId") == -1) {
-                          queryParams += "&LeadId=" + self.LeadId();                          
-                          location.href = "/m/pricequote/bookingsummary_new.aspx?MPQ=" + Base64.encode(queryParams);
+                        if (self.LeadId > 0) {
+                            queryParams += "&LeadId=" + self.LeadId();
                         }
                         if (!self.Customer().IsVerified() && self.Customer().OtpAttempts() != -1) {
                             //getotp code here
@@ -330,6 +329,7 @@ var BookingPageViewModel = function () {
                             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + self.Dealer().PQId() + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId() + "&leadId=" + self.LeadId();
                             //SetCookie("_MPQ", cookieValue);                            
                             history.replaceState(null, null, "?MPQ=" + Base64.encode(cookieValue));
+                            $("#hdnLeadId").val(self.LeadId());
                             isSuccess = true;
                         }
                         else isSuccess = false;

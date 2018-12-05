@@ -43,6 +43,7 @@ namespace Bikewale.Mobile.PriceQuote
         protected PQCustomerDetail objCustomer = null;
         protected PQ_DealerDetailEntity dealerDetailEntity = null;
         protected string bikesData = string.Empty, discountedPriceList = string.Empty;
+        protected HtmlInputHidden hdnLeadId;
 
 
         protected override void OnInit(EventArgs e)
@@ -355,7 +356,7 @@ namespace Bikewale.Mobile.PriceQuote
                     PlatformId = 2,  //Mobile
                     ApplicationId = 2, //Carwale
                     RequestToPGUrl = String.Format("{0}/UI/bikebooking/RedirectToBillDesk.aspx", BWConfiguration.Instance.BwHostUrl),
-                    ReturnUrl = String.Format("{0}/UI/bikebooking/billdeskresponse.aspx?sourceId=2&MPQ={1}", BWConfiguration.Instance.BwHostUrl, EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString))
+                    ReturnUrl = String.Format("{0}/UI/bikebooking/billdeskresponse.aspx?sourceId=2&MPQ={1}", BWConfiguration.Instance.BwHostUrl, EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString + String.Format("&leadId={0}", leadId)))
                 };
                 //PGCookie.PGAmount = transaction.Amount.ToString();
                 PGCookie.PGCarId = transaction.PGId.ToString();
@@ -409,7 +410,7 @@ namespace Bikewale.Mobile.PriceQuote
 				pqId = PriceQuoteQueryString.PQId;
                 if (!String.IsNullOrEmpty(pqId) && UInt32.TryParse(PriceQuoteQueryString.DealerId, out dealerId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out versionId))
                 {
-					leadId = Convert.ToUInt32(PriceQuoteQueryString.LeadId);
+                    uint.TryParse(hdnLeadId.Value, out leadId);
                     cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
                     areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
 
