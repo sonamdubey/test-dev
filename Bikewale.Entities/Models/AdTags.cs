@@ -30,6 +30,7 @@ namespace Bikewale.Models
         public bool Ad_970x90Top { get; set; }
         public bool Ad_970x90BTF { get; set; }
         public bool Ad_970x90Bottom { get; set; }
+        public bool Ad_970x90Body { get; set; }
 
         public bool Ad_976x400First { get; set; }
         public bool Ad_976x400Second { get; set; }
@@ -48,6 +49,7 @@ namespace Bikewale.Models
 
         public bool Ad_292x360 { get; set; }
         public bool Ad_Top_300x250 { get; set; }
+        
 
         public bool ShowInnovationBannerDesktop { get; set; }
         #endregion

@@ -1,0 +1,470 @@
+// Core variables and mixins
+@import ../components/typography
+@import ../base/variables
+@import ../components/mixins
+
+@import ../mixins/index
+@import ../utils/index
+
+@import ../components/buttons
+@import ../partials/lazy-load
+@import ../partials/swiper
+@import ../partials/loader
+
+html
+  -webkit-tap-highlight-color: transparent
+
+body
+  overflow-x: hidden
+
+.lock-browser-scroll
+  overflow-y: hidden
+
+.loader-container
+  width: 100%
+  height: 100%
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+
+.loader--active
+  display: block !important
+
+.loader-container-gallery
+  &#ub-ajax-loader
+    z-index: 5
+    background-color: color('white')
+    display: none
+
+@include spinner-content($left: 0)
+
+.model-gallery
+  height: 550px
+
+.model-gallery__title
+  @include vendor-prefix('box-shadow', 0 2px 2px color('border-dark'), 0 1px 1px color('white-smoke-3'))
+  margin-bottom: 20px
+  padding: 14px 20px
+  background-color: color('white')
+
+//overall tabs
+
+@include overall-tabs(60)
+
+.overall-tabs__panel
+  @include vendor-prefix('box-shadow', 0 2px 2px color('border-dark'), 0 1px 1px color('white-smoke-3'))
+  margin-bottom: 20px
+
+.overall-tabs-list__item
+  width: 33.33%
+  text-align: center
+  padding-top: 18px
+  font-size: 18px
+
+.tab--active
+  &.overall-tabs-list__item
+    &:after
+      left: 0
+      right: 0
+
+.fixed-tab-nav
+  margin: 0 auto
+  max-width: 976px
+
+.overall-tabs-list__item
+  background-color: color('white')
+
+
+.gallery__sponsored-top-slot
+  div[id^="div-gpt-"]
+    padding-bottom: 20px
+
+
+// overall tabs
+.overall-tabs__data
+  overflow: hidden
+  display: none
+
+  &:nth-of-type(2)
+    display: block
+
+
+
+.model-gallery__container
+  margin-bottom: 20px
+  position: relative
+
+  &.popup--active
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    height: 100%
+    z-index: 6
+
+.model-gallery
+  @include swiper-controls
+
+  .swiper-slide
+    cursor: pointer
+
+    img
+      width: auto
+      height: auto
+      max-width: 100%
+      max-height: 552px
+      cursor: pointer
+
+  .swiper--next,
+  .swiper--prev
+    opacity: .7
+
+    &:hover
+      opacity: 1
+
+.footer--fadeout
+  .thumbnail-gallery
+    @include swiper-controls
+
+    .swiper--next,
+    .swiper--prev
+      height: 80px
+      top: 50%
+      opacity: .5
+
+      &:hover
+        opacity: 1
+
+    .swiper--next
+      right: 10px
+
+    .swiper--prev
+      left: 10px
+
+@include swiper-container(996px)
+
+.gallery-footer
+  position: absolute
+  width: 100%
+  bottom: 0
+  z-index: 1
+  background-image: linear-gradient(to bottom, color('snow', 0), color('bg-light-grey'))
+
+.gallery-image__footer
+  @include flexbox
+  @include justify-content(space-between)
+  @include align-items(flex-end)
+  height: 60px
+
+.gallery-image__image-title
+  font-size: 18px
+  font-weight: $font_semibold
+  margin-bottom: 10px
+
+.model-gallery__popup-head
+  display: none
+  min-width: 360px
+
+.model-gallery__popup-title
+  color: color('default')
+  font-size: 18px
+  font-weight: $font_semibold
+  padding: 16px 16px 20px 40px
+  background-color: color('white', .5)
+  display: inline-block
+  min-width: 360px
+  position: relative
+  width: 100%
+
+.model-gallery__tab-container
+  min-width: 340px
+  display: table
+  text-align: center
+  padding-left: 10px
+  width: 100%
+
+.model-gallery__tab
+  display: table-cell
+  min-width: 1%
+  padding-top: 5px
+  padding-bottom: 5px
+  font-size: 15px
+  color: color('default')
+  background-color: color('border-light')
+  position: relative
+  cursor: pointer
+
+  &.tab--active
+    background-color: color('mona-lisa')
+    color: color('white')
+
+.gallery__close-btn
+  width: 40px
+  height: 40px
+  text-align: center
+  position: fixed
+  top: 27px
+  right: 27px
+  cursor: pointer
+  z-index: 10
+  display: none
+
+.gallery-close-btn__icon
+  @include cross-4d5057-icon
+  background-size: 10px
+  width: 30px
+  height: 30px
+  margin: 5px auto
+  display: block
+  background-color: color('bg-light-grey', .8)
+  border-radius: 50%
+
+.gallery-image__count
+  display: inline-block
+  vertical-align: middle
+  font-size: 15px
+  color: color('night-rider')
+  padding-left: 20px
+  margin-bottom: 10px
+  font-weight: $font-semibold
+
+.gallery-image__feature
+  padding-right: 10px
+
+.gallery__download-icon
+  @include download-2d2d2d-icon
+  background-position: 11px 11px
+  background-size: 18px
+  display: inline-block
+  vertical-align: middle
+  width: 40px
+  height: 40px
+  cursor: pointer
+
+.gallery__zoom-icon
+  @include fullscreen-2d2d2d-icon
+  background-position: 11px 11px
+  background-size: 17px
+  display: inline-block
+  vertical-align: middle
+  width: 40px
+  height: 40px
+  cursor: pointer
+
+.model-gallery__container
+  &.popup--active
+    background-color: color('white')
+
+    .model-gallery
+      @include vendor-prefix('transform', translateY(-50%))
+      position: relative
+      top: 50%
+
+    .model-gallery__popup-head
+      display: block
+      position: fixed
+      left: 0
+      top: 0
+      z-index: 10
+
+    .gallery-image__image-title
+      text-align: center
+      display: inline-block
+      padding-top: 9px
+      padding-bottom: 7px
+      min-width: 305px
+      background-color: color('white', .6)
+      color: color('default')
+      position: relative
+
+      &:after
+        content: ''
+        position: absolute
+        left: 100%
+        top: 0
+        border-bottom: 0px solid transparent
+        border-top: 40px solid color('white', .6)
+        border-right: 24px solid transparent
+        z-index: 1
+
+    .gallery__close-btn
+      display: block
+
+    .gallery-image__footer
+      @include align-items(center)
+      height: 69px
+
+      .gallery-image__image-title
+        display: none
+
+    .gallery-footer
+      background-image: linear-gradient(to top, #fff, color('white-smoke', .4) 98%, color('border-light', .0))
+
+    .thumbnail-gallery
+      display: block
+
+    .model-gallery
+      img
+        width: auto
+        max-height: 100vh
+        max-width: 100%
+
+    .gallery-image__count
+      margin-bottom: 0
+
+    .gallery-image__image-title
+      margin-bottom: 0
+
+  &.video-swiper--active,
+  &.gallery-popup__color--active
+    .gallery-popup-head__title
+      display: none
+
+    .model-gallery__popup-head
+      margin-left: -27px
+      padding-bottom: 20px
+
+    &::after
+      content: ''
+      display: block
+      height: 65px
+      width: 50px
+      position: absolute
+      top: 0
+      left: -50px
+      background-color: color('white', .5)
+
+    .model-gallery__popup-title
+      padding-left: 20px
+
+    .gallery-popup-title__content
+      margin-left: 3px
+
+    .model-gallery__tab
+      width: 50%
+
+      &:first-child
+        > span
+          position: relative
+          left: -10px
+
+.thumbnail-gallery
+  display: none
+  max-width: 646px
+
+  &:hover
+    position: fixed
+    left: 0
+    right: 0
+    bottom: 15px
+    width: 100%
+    max-width: 100%
+    opacity: 1
+
+    .swiper-slide
+      min-width: 142px
+      width: 142px
+      height: 80px
+      margin-right: 20px
+
+      &.swiper-slide--active
+        border: 1px solid color('mona-lisa')
+
+      > img
+        width: 100%
+        height: 100%
+
+  .swiper-slide
+    min-width: 72px
+    width: 72px
+    height: 40px
+    margin-right: 10px
+    position: relative
+    cursor: pointer
+
+    &:after
+      content: ''
+      display: block
+      position: absolute
+      top: 0
+      left: 0
+      right: 0
+      bottom: 0
+      width: 100%
+      height: 100%
+      background-color: color('dark-black', .4)
+
+    &:hover
+      &:after
+        background-color: color('dark-black', .2)
+
+    img
+      height: 100%
+
+      &[src$="circleloader.gif"]
+        width: auto
+        height: auto
+
+.footer--fadeout
+  .thumbnail-gallery
+    .swiper-slide--active
+      &:after
+        background-color: transparent
+
+.page__heading-h2
+  margin-bottom: 10px
+
+.model-gallery__popup-head
+  @include vendor-prefix('transform', skewX(-30deg))
+  margin-left: -57px
+
+.gallery-popup-element--skew
+  @include vendor-prefix('transform', skewX(30deg))
+  display: inline-block
+  backface-visibility: hidden
+
+.gallery-title__element
+  @include text-truncate
+
+.gallery-popup-head__title
+  display: block
+  color: color('default')
+  font-size: 18px
+  font-weight: $font-semibold
+  padding: 6px 20px 5px 55px
+  background-color: color('bg-light-grey', .6)
+  max-width: 100%
+  overflow: hidden
+  text-overflow: ellipsis
+  margin-top: 25px
+  margin-left: 55px
+
+.gallery-footer
+  &.footer--fadeout
+    .gallery-image__count,
+    .gallery-image__feature
+      display: none
+
+.popup--active
+  .gallery-footer
+    &.footer--fadeout
+      background: transparent
+
+@media only screen and (min-width: 800px)
+  .model-gallery__container
+    &.popup--active
+      .model-gallery
+        width: 100%
+        height: 100%
+
+  .popup--active
+    &.gallery--visible
+      .model-gallery-head__top,
+      .gallery-footer
+        opacity: .3
+
+        &:hover
+          opacity: 1

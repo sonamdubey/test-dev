@@ -1,0 +1,189 @@
+﻿@import ../base/variables
+
+@import ../mixins/index
+@import ../utils/index
+
+@import ../mixins/embed-video
+@import ../partials/read-more
+@import ../mixins/swiper-card
+
+.video-gallery-wrapper
+  display: none
+  position: relative
+
+.grid-12
+  @include clearfix
+
+.video-container
+  position: relative
+  width: 1255px
+  margin: 110px auto 0
+  background: color('white')
+
+.video-container__left-column
+  width: 61%
+  padding-right: 15px
+  padding-left: 0
+
+.video-container__right-column
+  width: 39%
+  padding-left: 15px
+
+.video-container__content
+  padding-top: 25px
+  padding-bottom: 25px
+
+.video-container__title
+  font-size: 16px
+  line-height: 22px
+  font-weight: $font_semibold
+  color: color('default')
+  margin-bottom: 15px
+
+.video-container__information
+  display: inline-block
+
+.video-container__mini-information
+  display: inline-block
+  margin-right: 35px
+
+  &:first-child
+    text-transform: uppercase
+
+.read-more-wrapper
+  font-size: 14px
+  margin-top: 20px
+  padding-right: 30px
+  max-height: 60px
+  overflow: auto
+
+.video-container__head-panel
+  @include text-truncate(100%)
+  background-color: color('bg-light-grey')
+  padding: 15px 20px 15px
+  font-size: 16px
+  font-weight: $font_semibold
+  line-height: 22px
+  margin-bottom: 10px
+
+
+// vertical swiper
+
+.video-swiper__arrow-btn
+  @include vendor-prefix(box-shadow, 0 0 10px 0 color('light-grey-2'))
+  background-color: color('bg-light-grey')
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 47px
+  text-align: center
+  z-index: 2
+  display: inline-block
+  background-size: 8px
+  cursor: pointer
+
+  &:before
+    content: ''
+    border: solid color('light-grey')
+    border-width: 0 2px 2px 0
+    display: inline-block
+    padding: 5px
+    position: absolute
+    top: 18px
+    left: 50%
+
+.video-swiper--next-btn
+  top: auto
+  bottom: 0
+
+  &:before
+    @include vendor-prefix(transform, rotate(45deg))
+
+  &:after
+    content: ''
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 90%
+    width: 100%
+    height: 110%
+    background-image: linear-gradient(to bottom, color('white', 0), color('light-grey-2'))
+
+  &.swiper-button-disabled
+    &:after
+      content: none
+
+.video-swiper--prev-btn
+  &:before
+    @include vendor-prefix(transform, rotate(-135deg))
+
+//active video swiper
+.video-swiper--active
+  .video-gallery-wrapper
+    display: block
+
+  .gallery-footer
+    display: none
+
+  .image-gallery-wrapper
+    display: none
+
+// Media Queries
+@media screen and (min-width: 1024px) and (max-width: 1365px)
+  .video-container
+    width: 970px
+
+  .video-container__right-column
+    padding-left: 0
+    padding-right: 0
+
+// Embed video
+@include embed-video-wrapper
+
+// Swiper Card
+@include swiper-card($cardHeight: 515px)
+@include card-list-item
+@include card-content-column
+@include card-title
+@include card-like-icon
+@include card-thumbnail-overlay
+@include card-active-thumbnail-overlay
+@include card-thumbnail-img
+@include active-card
+
+.swiper-card
+  margin-top: 60px
+
+.swiper-card__list-item
+
+  &:last-child
+    margin-bottom: 100px
+
+.swiper-card__information
+  font-size: 11px
+  line-height: 15px
+
+  li
+    display: inline-block
+
+.swiper-card__fluid-line
+  text-transform: uppercase
+  margin-bottom: 8px
+  font-size: 11px
+  line-height: 15px
+
+.swiper-card__views
+  margin-right: 35px
+
+// Media queries
+@media screen and (min-width: 1024px) and (max-width: 1365px)
+
+  .swiper-card__thumbnail-img
+    width: 205px
+
+  .swiper-card__content-column
+    padding-left: 15px
+
+// Single Video Screen
+@import ../partials/fullscreen-video

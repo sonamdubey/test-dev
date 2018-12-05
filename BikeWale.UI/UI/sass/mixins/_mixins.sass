@@ -1,4 +1,4 @@
-﻿@mixin vendor-prefix($property, $value)
+﻿@mixin vendor-prefix($property, $value...)
   -webkit-#{$property}: $value
   -moz-#{$property}: $value
   -ms-#{$property}: $value
@@ -53,3 +53,8 @@
   -moz-box-shadow: $shadow
   -ms-box-shadow: $shadow
   box-shadow: $shadow
+
+// Linear gradient
+@mixin linear-gradient($args...)
+  background-image: -moz-linear-gradient($args)
+  background-image: linear-gradient($args)

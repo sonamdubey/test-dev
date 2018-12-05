@@ -24,6 +24,7 @@
 			height: $height
 			white-space: nowrap
 			position: relative
+			background-color: color('white')
 
 			&:after
 				content: ''
@@ -35,9 +36,11 @@
 				z-index: 1
 
 		.overall-tabs-list__item
+			@include justify-content(center)
+			display: table-cell // fallback in ms
+			@include flexbox
 			position: relative
 			height: $height
-			display: table-cell
 			font-size: 14px
 			color: color('aluminium')
 			padding: 13px 16px 15px

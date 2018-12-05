@@ -1,0 +1,147 @@
+﻿@model Bikewale.Models.Photos.PhotosPageVM
+
+@if (Model != null)
+{
+    {
+        Layout = "~/UI/Views/Shared/_Layout.cshtml";
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/photos.css' inline />";
+        Model.Page_JS_Paths = new string[] { "/UI/src/swiper-3.1.7.js", "/UI/src/photos/modelgallery.js", "/UI/src/photos/photos.js" };
+        Model.AdTags.Ad_970x90Top = true;
+        Model.AdTags.Ad_970x90Bottom = true;
+        Model.AdTags.AdId = "1516082384256";
+        Model.AdTags.AdPath = "/1017752/Bikewale_Image_";
+    }
+    int i = 0; IList<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> objImages = new List<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity>();
+
+    if (Model.ModelImages != null)
+    {
+        objImages = Model.ModelImages.ToList();
+    }
+
+    <section>
+        <div class="container margin-bottom20">
+            <div class="grid-12">
+                <div class="content-box-shadow bg-listing">
+                    <h1 class="content-box-shadow padding-14-20">@Model.Page_H1</h1>
+                    <ul class="photos-grid-list model-main-image">
+                        @if(Model.ModelImage != null)
+                        {
+                            <li data-imgcat="@Model.ModelImage.ImageCategory" data-imgtype="@((int)Model.ModelImage.ImageType)" data-imgid="@Model.ModelImage.ImageId">
+                                <div class="main-image-container">
+                                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelImage.OriginalImgPath, Model.ModelImage.HostUrl, Bikewale.Utility.ImageSize._640x348)" alt="@string.Format(" {0} {1} Image", Model.BikeName, Model.ModelImage.ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, Model.ModelImage.ImageCategory)" />
+                                </div>
+                            </li>
+                        }
+                        
+                    </ul>
+                    @if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
+                    {
+                        <ul id="grid-images-noremainder" class="photos-grid-list model-grid-images">
+                            @for (; i < Model.GridPhotoCount && i < 9; i++)
+                            {
+                                    if(objImages != null && objImages[i] != null)
+                                    {
+                                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+                                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                                        </li>   
+                                    }
+                                    
+                                }
+                            @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
+                            {
+                                    if(objImages != null && objImages[i] != null)
+                                    {
+                                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+                                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                                        </li>
+                                    }
+                                    
+                                }
+
+                        </ul>
+
+                        <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images @Model.TotalPhotos @Model.GridSize">
+                            @if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 0)
+                            {
+                                for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
+                                {
+                                        if(objImages != null && objImages[i] != null)
+                                        {
+                                            <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+                                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                                            </li>    
+                                        }
+                                        
+                                }
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <div id="photoTemplateWrapper" class="hide">
+        <!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
+        <ul data-bind="foreach : Loadedphotos">
+            <li data-bind="attr:{'data-imgcat' : ImageCategory , 'data-imgtype' : ImageType,'data-imgid' : ImageId}">
+                <img class="lazy" data-bind="attr:{'src' : HostUrl + '/476x268/' + OriginalImgPath }" @*alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)"*@ />
+            </li>
+        </ul>
+        <!-- /ko -->
+    </div>
+
+    if (Model.BikeInfo != null)
+    {
+        @Html.Partial("~/UI/views/Bikemodels/_BikeInfoCard.cshtml", Model.BikeInfo)
+    }
+
+    if (Model.ModelVideos != null && Model.Videos != null)
+    {
+
+        <section>
+            <div class="container margin-bottom20">
+                <div class="grid-12">
+                    <div id="modelVideosContent" data-id="#modelVideosContent" class="bw-model-tabs-data active">
+                        <div class="content-box-shadow padding-top20 padding-bottom25">
+                            <div class="carousel-heading-content">
+                                <h2>@Model.BikeName Videos</h2>
+                            </div>
+                            @Html.Partial("~/UI/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
+                            <div class="margin-top10 padding-left20">
+                                <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">
+                                    View all videos <span class="bwsprite teal-right"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+
+    if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
+    {
+        @Html.Partial("~/UI/views/Photos/_SimilarBikeWithPhotos.cshtml", Model.SimilarBikes)
+    }
+    if (Model.ModelGallery != null)
+    {
+        @Html.Partial("~/UI/views/Gallery/_ModelGallery.cshtml", Model.ModelGallery)
+    }
+
+    if (Model.objMoreAboutScooter != null)
+    {
+        <section>
+            <div class="container margin-bottom20">
+                <div class="grid-12">
+                    <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
+                        @Html.Partial("~/UI/Views/Scooters/_ModelRelatedCard.cshtml", Model.objMoreAboutScooter)
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    }
+}

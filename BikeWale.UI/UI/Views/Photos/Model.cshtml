@@ -1,147 +1,572 @@
 ﻿@model Bikewale.Models.Photos.PhotosPageVM
-
 @if (Model != null)
 {
     {
         Layout = "~/UI/Views/Shared/_Layout.cshtml";
-        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/css/photos.css' inline />";
-        Model.Page_JS_Paths = new string[] { "/UI/src/swiper-3.1.7.js", "/UI/src/photos/modelgallery.js", "/UI/src/photos/photos.js" };
-        Model.AdTags.Ad_970x90Top = true;
-        Model.AdTags.Ad_970x90Bottom = true;
-        Model.AdTags.AdId = "1516082384256";
-        Model.AdTags.AdPath = "/1017752/Bikewale_Image_";
+        Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/photos/listing.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/sass/photos/color-popup.css' inline /> <link rel='stylesheet' type='text/css' href='/UI/sass/photos/color-swiper.css' inline />";
+        Model.Page_BTF_CSS_Paths = new string[] { "/UI/sass/photos/image-grid-list.css", "/UI/sass/photos/video-swiper.css", "/UI/sass/modules/model-info-card.css", "/UI/sass/photos/similar-bike-carousel.css", "/UI/sass/photos/videos-list.css" };
+
+        List<string> jsFiles = new List<string>() { "/UI/src/swiper-3.1.7.js", "/UI/src/utils/navigationTabs.js", "/UI/src/utils/window-fullscreen.js", "/UI/src/plugins/screenfull.js" };
+
+        if (Model.IsVideosAvailable)
+        {
+            jsFiles.Add("/UI/src/lazyloadyoutube.js");
+            jsFiles.Add("/UI/src/photos/youTubePlayerAPI.js");
+        }
+
+        jsFiles.Add("/UI/src/photos/galleryListing.js");
+        jsFiles.Add("/UI/m/src/photos/imageGrid.js");
+        jsFiles.Add("/UI/src/readMore.js");
+        jsFiles.Add("/UI/src/photos/galleryViewModel.js");
+        
+        Model.Page_JS_Paths = jsFiles.ToArray();
     }
+    
     int i = 0; IList<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> objImages = new List<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity>();
+    IEnumerable<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> colourImages = new List<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity>();
+    Bikewale.Entities.CMS.Photos.ColorImageBaseEntity firstImage = new Bikewale.Entities.CMS.Photos.ColorImageBaseEntity();
+    uint selectedColour = Model.ModelGallery.SelectedColorImageId;
+    bool activeSet = false;
 
     if (Model.ModelImages != null)
     {
         objImages = Model.ModelImages.ToList();
     }
 
+    if (Model.IsColorAvailable)
+    {
+        colourImages = Model.ModelImages.Where(x => x.ImageType == Bikewale.Entities.CMS.Photos.ImageBaseType.ModelColorImage);
+
+        if (selectedColour > 0)
+        {
+            firstImage = colourImages.Where(x => x.ColorId == selectedColour).FirstOrDefault();
+        }
+        else
+        {
+            firstImage = colourImages.FirstOrDefault();
+            selectedColour = firstImage.ColorId;
+        }
+    }
+
+    <!-- loader start -->
+    <div id="ub-ajax-loader" class="loader-container loader-container-gallery @(String.IsNullOrEmpty(Model.ModelGallery.ReturnUrl) ? "" : "loader--active")">
+        <div id="spinner-content">
+            <svg class="bw-spinner" width="50px" height="50px" viewBox="0 0 50 50">
+                <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+            </svg>
+        </div>
+    </div>
+    <!-- loader end -->
+
     <section>
         <div class="container margin-bottom20">
             <div class="grid-12">
                 <div class="content-box-shadow bg-listing">
-                    <h1 class="content-box-shadow padding-14-20">@Model.Page_H1</h1>
-                    <ul class="photos-grid-list model-main-image">
-                        @if(Model.ModelImage != null)
-                        {
-                            <li data-imgcat="@Model.ModelImage.ImageCategory" data-imgtype="@((int)Model.ModelImage.ImageType)" data-imgid="@Model.ModelImage.ImageId">
-                                <div class="main-image-container">
-                                    <img src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelImage.OriginalImgPath, Model.ModelImage.HostUrl, Bikewale.Utility.ImageSize._640x348)" alt="@string.Format(" {0} {1} Image", Model.BikeName, Model.ModelImage.ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, Model.ModelImage.ImageCategory)" />
-                                </div>
-                            </li>
-                        }
-                        
-                    </ul>
-                    @if (!Model.IsPopupOpen && Model.TotalPhotos > 0)
-                    {
-                        <ul id="grid-images-noremainder" class="photos-grid-list model-grid-images">
-                            @for (; i < Model.GridPhotoCount && i < 9; i++)
-                            {
-                                    if(objImages != null && objImages[i] != null)
-                                    {
-                                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                                            <img src="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                                        </li>   
-                                    }
-                                    
-                                }
-                            @for (; i < Model.GridPhotoCount && i < Model.GridSize; i++)
-                            {
-                                    if(objImages != null && objImages[i] != null)
-                                    {
-                                        <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                                            <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                    <h1 class="model-gallery__title">@Model.Page_H1</h1>
+                </div>
+
+                <section>
+                    <div id="galleryRoot" class="model-gallery__container">
+                        <span id="galleryCloseBtn" class="gallery__close-btn fullscreen--anchestor">
+                            <span class="gallery-close-btn__icon"></span>
+                        </span>
+
+                        <div class="model-gallery__popup-head">
+                            <div class="model-gallery-head__top">
+                                <h2 class="model-gallery__popup-title">
+                                    <span class="gallery-popup-title__content gallery-popup-element--skew">
+                                        @Model.BikeName Images
+                                    </span>
+                                </h2>
+                                <ul class="model-gallery__tab-container">
+                                    <li data-tabs="imageTab" class="model-gallery__tab tab--active">
+                                        <span class="gallery-popup-element--skew">
+                                            Images
+                                        </span>
+                                    </li>
+                                    @if (Model.IsVideosAvailable) { 
+                                        <li data-tabs="videoTab" class="model-gallery__tab ">
+                                            <span class="gallery-popup-element--skew">
+                                                Videos
+                                            </span>
                                         </li>
                                     }
-                                    
-                                }
+                                </ul>
+                            </div>
 
-                        </ul>
+                            <span class="gallery-popup-head__title">
+                                <span class="gallery-title__element gallery-popup-element--skew" data-bind="text: activeTitle">
+                                </span>
+                            </span>
+                        </div>
 
-                        <ul class="photos-grid-list photos-remainder-@Model.NonGridPhotoCount remainder-grid-list model-grid-images @Model.TotalPhotos @Model.GridSize">
-                            @if (Model.TotalPhotos < Model.GridSize && Model.NonGridPhotoCount > 0)
-                            {
-                                for (; i < Model.TotalPhotos && i < Model.GridSize; i++)
-                                {
-                                        if(objImages != null && objImages[i] != null)
+                        <div id="main-photo-swiper" class="swiper-container model-gallery gallery-type-swiper image-gallery-wrapper">
+                            <div class="swiper-wrapper" data-bind="foreach: limitedPhotoList">
+                                <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
+                                    <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageCategory, title: MODEL_NAME + ' ' + ImageCategory, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'1280x720') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" data-index="0">
+                                </div>
+                            </div>
+                            <div class="swiper--next gallery__next"></div>
+                            <div class="swiper--prev gallery__prev"></div>
+                        </div>
+                        <div class="gallery-footer">
+                            <div class="gallery-footer__content">
+                                <div class="gallery-image__footer">
+                                    <span class="gallery-image__count">
+                                        <span data-bind="text: activeIndex()"></span>&nbsp;/&nbsp;<span data-bind="text : MODEL_IMAGES.length"></span>
+                                    </span>
+
+                                    <h2 class="gallery-image__image-title" data-bind="text: activeTitle()"></h2>
+
+                                    <div id="thumbnailSwiper" class="swiper-container swiper__image noSwiper thumbnail-gallery">
+                                        <div class="swiper-wrapper" data-bind="foreach: limitedPhotoList">
+                                            <div class="swiper-slide" data-bind="attr: { 'data-imgid': ImageId,'data-imgcat': ImageCategory,'data-imgtype': ImageType}">
+                                                <img class="swiper-lazy gallery-swiper-image" data-bind="attr: { 'data-index': $index, alt: MODEL_NAME + ' ' + ImageCategory, title: MODEL_NAME + ' ' + ImageCategory, 'data-src': $parent.renderImage(HostUrl,OriginalImgPath,'144x81') }" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" alt="" title="" border="0" data-index="0">
+                                            </div>
+
+                                        </div>
+                                        <div class="swiper--next gallery-thumbnail__next"></div>
+                                        <div class="swiper--prev gallery-thumbnail__prev"></div>
+                                    </div>
+                                    <div class="gallery-image__feature">
+                                        @if (Model.IsColorAvailable)
                                         {
-                                            <li data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
-                                                <img class="lazy" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" src="" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                                            </li>    
+                                            <span class="gallery__color-btn">
+                                                <span class="gallery__color-icon"></span>
+                                                <span class="gallery__color-icon-label">Colours</span>
+                                            </span>
                                         }
-                                        
-                                }
+                                        <a data-bind="attr: { href: downloadUrl }" title="Download Image" class="gallery__download-icon"></a>
+                                        <span class="gallery__zoom-icon"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        @if(Model.IsColorAvailable)
+                        {
+                            
+                            <div id="colorGalleryPopup" class="color-popup__content">
+                                <div class="model-color-wrapper">
+
+                                    <div class="model-color-wrapper__preview">
+                                        <img id="preview-image" class="model-color-wrapper__preview-img lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" data-original="@Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImgPath, firstImage.HostUrl, Bikewale.Utility.ImageSize._1280x720, Bikewale.Utility.QualityFactor._85)" alt="@firstImage.ImageTitle" />
+                                    </div>
+
+                                    <div class="color-popup__thumbnail-content">
+                                        <p class="gallery__color-btn">
+                                            <span class="gallery__color-icon"></span>
+                                            <span class="gallery__color-icon-label">Colours</span>
+                                        </p>
+                                        <div id="galleryColorThumbnailSwiper" class="swiper-container noSwiper model-color-swiper">
+
+                                            <ul id="colour-popup-list" class="swiper-wrapper">
+                                                @foreach (Bikewale.Entities.CMS.Photos.ColorImageBaseEntity colourImage in colourImages)
+                                                {
+                                                    int colourCount = colourImage.Colors.Count();
+
+                                                    <li id="colour-@colourImage.ColorId"class="swiper-slide model-color-list__item @(selectedColour == colourImage.ColorId ? "slide--focus" : "")" data-colorid="@colourImage.ColorId">
+                                                        <div class="color-box__wrapper">
+                                                            <div class="color-box" data-color-count="@colourCount">
+
+                                                                @foreach (string colour in colourImage.Colors)
+                                                                {
+                                                                    <span class="color-box__item" style="background-color: #@colour;)"></span>
+                                                                }
+
+                                                            </div>
+                                                            <p class="color-box__title">@colourImage.ImageTitle</p>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            </ul>
+
+                                            <div class="model-color-swiper__prev-btn prev-btn"></div>
+                                            <div class="model-color-swiper__next-btn next-btn"></div>
+                                        </div>
+                                        <div class="color-popup__close-btn-content">
+                                            <span class="color-popup__close-btn">Close</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    @if (Model.IsVideosAvailable)
+                    {
+                        int videoCount = Model.ModelVideos.Count();
+                        Bikewale.Entities.Videos.BikeVideoEntity firstVideo = Model.ModelVideos.FirstOrDefault();
+                        string firstVidDescription = @System.StringHtmlHelpers.RemoveHtmlWithSpaces(firstVideo.Description);
+                        string firstVidTrimmedDesc = firstVidDescription.Length > 200 ? firstVidDescription.Substring(0, 200) : firstVidDescription;
+                        
+                        <div class="video-gallery-wrapper">
+
+                            @if(videoCount == 1)
+                            {
+                                <div class="single-video-container">
+                                    <div id="bw-youtube-player" class="bw-youtube-js" id="popup_@firstVideo.VideoId" data-embed="@firstVideo.VideoId">
+                                        <div class="play-button"></div>
+                                    </div>
+
+                                    <div class="single-video__footer">
+                                        <div class="single-video-footer__content">
+                                            <h4 class="article-card__title">@firstVideo.VideoTitle</h4>
+                                            <ul class="article-card-stats-list">
+                                                <li class="article-stats-list__item">@Bikewale.Utility.FormatDate.GetFormatDate(firstVideo.DisplayDate, "MMM dd, yyyy")</li>
+                                                <li class="article-stats-list__item">@firstVideo.Views</li>
+                                                <li class="article-stats-list__item">
+                                                    <span class="card-like-icon"></span>@firstVideo.Likes
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="single-video-footer__desc">@firstVidDescription</div>
+                                    </div>
+                                </div>
                             }
-                        </ul>
+
+                            else if (videoCount > 1)
+                            {
+                                <div class="video-container alpha omega">
+                                    <div class="grid-12">
+                                        <div class="grid-7 video-container__left-column">
+                                            <div class="video-container__video-card">
+                                                <div class="video-card__video-preview">
+                                                    <div id="bw-youtube-player" class="bw-youtube-js" id="popup_@firstVideo.VideoId" data-embed="@firstVideo.VideoId">
+                                                        <div class="play-button"></div>
+                                                    </div>
+                                                </div>
+                                                <div id="video-details" class="video-container__content">
+                                                    <h3 class="video-container__title">@firstVideo.VideoTitle</h3>
+                                                    <ul class="video-container__information">
+                                                        <li class="video-container__mini-information display-date">@Bikewale.Utility.FormatDate.GetFormatDate(firstVideo.DisplayDate, "MMM dd, yyyy")</li>
+                                                        <li class="video-container__mini-information display-views">@firstVideo.Views</li>
+                                                        <li class="video-container__mini-information swiper-card__likes">
+                                                            <span class="card-like-icon"></span><span class="like-count">@firstVideo.Likes</span>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="read-more-wrapper @(firstVidDescription.Length > 200 ? "" : "read-more-wrapper--expand-active")">
+                                                        <span class="read-more-wrapper__trim-content">@firstVidTrimmedDesc</span>
+                                                        <span class="read-more-wrapper__full-content">@firstVidDescription</span>
+                                                        <span class="read-more-wrapper__expand-link">View More</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid-5  video-container__right-column">
+                                            <div class="video-container__head-panel">
+                                                @videoCount Videos of @Model.BikeName
+                                            </div>
+
+                                            
+
+                                            <div id="galleryVerticalVideoSwiper" class="video-swiper swiper-container">
+                                                <ul class="swiper-wrapper swiper-card">
+                                                    @foreach(var video in Model.ModelVideos)
+                                                    {
+                                                        <li class="swiper-slide swiper-card__list-item @(activeSet ? "" : "swiper-card--active-card")" data-vidId="@video.VideoId">
+                                                            <div class="swiper-card__thumbnail">
+                                                                <img class="swiper-card__thumbnail-img swiper-lazy" src="@String.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg", video.VideoId)" alt="@video.VideoTitle" border="0" data-index="0">
+                                                                @if (!activeSet)
+                                                                {
+                                                                    <div class="swiper-card__thumbnail-active">Now Playing</div>
+                                                                }
+                                                            </div>
+                                                            <div class="swiper-card__content-column">
+                                                                <h3 class="swiper-card__title">@video.VideoTitle</h3>
+                                                                <p class="swiper-card__fluid-line">@Bikewale.Utility.FormatDate.GetFormatDate(video.DisplayDate, "MMM dd, yyyy")</p>
+                                                                <ul class="swiper-card__information">
+                                                                    <li class="swiper-card__views">@video.Views</li>
+                                                                    <li class="swiper-card__likes">
+                                                                        <span class="card-like-icon"></span>@video.Likes
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </li>
+                                                        activeSet = true;
+                                                    }
+                                                    
+                                                </ul>
+
+                                                <div class="video-swiper__arrow-btn video-swiper--prev-btn "></div>
+                                                <div class="video-swiper__arrow-btn video-swiper--next-btn "></div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            }
+
+                        </div>
                     }
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
+                    </div>
+            </section>
 
-    <div id="photoTemplateWrapper" class="hide">
-        <!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
-        <ul data-bind="foreach : Loadedphotos">
-            <li data-bind="attr:{'data-imgcat' : ImageCategory , 'data-imgtype' : ImageType,'data-imgid' : ImageId}">
-                <img class="lazy" data-bind="attr:{'src' : HostUrl + '/476x268/' + OriginalImgPath }" @*alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)"*@ />
-            </li>
-        </ul>
-        <!-- /ko -->
-    </div>
+                @if (Model.AdTags.Ad_970x90Body)
+                {
+                <section>
+                    <div class="margin-top10 margin-bottom10">
+                        @{Html.RenderPartial("~/UI/Views/Shared/Ads/Desktop/AdSlotGeneric.cshtml", Model.AdSlots[String.Format("{0}-19", Model.AdTags.AdId)]);}
+                    </div>
+                </section>
+                }
 
-    if (Model.BikeInfo != null)
-    {
-        @Html.Partial("~/UI/views/Bikemodels/_BikeInfoCard.cshtml", Model.BikeInfo)
-    }
-
-    if (Model.ModelVideos != null && Model.Videos != null)
-    {
-
-        <section>
-            <div class="container margin-bottom20">
-                <div class="grid-12">
-                    <div id="modelVideosContent" data-id="#modelVideosContent" class="bw-model-tabs-data active">
-                        <div class="content-box-shadow padding-top20 padding-bottom25">
-                            <div class="carousel-heading-content">
-                                <h2>@Model.BikeName Videos</h2>
-                            </div>
-                            @Html.Partial("~/UI/Views/Videos/_RecentVideos_v1.cshtml", Model.Videos)
-                            <div class="margin-top10 padding-left20">
-                                <a title="@Model.Videos.LinkTitle" href="@Model.Videos.MoreVideoUrl" class="btn view-all-target-btn">
-                                    View all videos <span class="bwsprite teal-right"></span>
-                                </a>
-                            </div>
+            <section>
+                <div id="overallContainer" class="overall-tabs__panel" data-panel-type="toggle">
+                    <div class="overall-tabs__placeholder">
+                        <div id="overallTabsContent" class="overall-tabs__content">
+                            <ul class="overall-tabs__list">
+                                <li class="overall-tabs-list__item tab--active" data-tabs="allImages">All Images</li>
+                                @if (Model.IsColorAvailable)
+                                {
+                                    <li class="overall-tabs-list__item" data-tabs="colours">Colours</li>
+                                }
+                                @if (Model.IsVideosAvailable)
+                                {
+                                    <li class="overall-tabs-list__item" data-tabs="videos">Videos</li>
+                                }
+                            </ul>
                         </div>
                     </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-    }
+                    <div data-id="allImages" class="overall-tabs__data">
 
-    if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
-    {
-        @Html.Partial("~/UI/views/Photos/_SimilarBikeWithPhotos.cshtml", Model.SimilarBikes)
-    }
-    if (Model.ModelGallery != null)
-    {
-        @Html.Partial("~/UI/views/Gallery/_ModelGallery.cshtml", Model.ModelGallery)
-    }
+                        <ul id="imageGridTop" class="image-grid__list" data-grid="8">
+                            @{uint numberOfPhotos = Math.Min(Model.TotalPhotos, 16);}
+                        @for (i = 0; i < numberOfPhotos ; i++)
+                        {
+                            if (objImages != null && objImages[i] != null)
+                            {
+                                <li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
+                                    <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
+                                    @if(i == 11) {
+                                    <div class="video-slug__content js-video-slug">
+                                        <p class="video-slug__title">Videos</p>
+                                        <ul class="video-slug__list">
+                                            <li>First Drive</li>
+                                            <li>Comparison test</li>
+                                        </ul>
+                                        @{
+                                            Bikewale.Entities.BikeData.BikeMakeEntityBase objMake = null;
+                                            Bikewale.Entities.BikeData.BikeModelEntityBase objModel = null;
+                                            if (Model.Make != null && Model.Model != null)
+                                            {
+                                                objMake = Model.Make;
+                                                objModel = Model.Model;
+                                            }
+                                        }
+                                        @if(objModel != null && objMake != null)
+                                        {
+                                        <a href="@string.Format("/{0}-bikes/{1}/videos/", Model.Make.MaskingName, Model.Model.MaskingName)" title="@Model.BikeName Videos" class="btn btn-inv-blue video-slug__more-btn">View All Videos</a>
+                                        }
+                                    </div>
+                                    }
+                                </li>
+                            }
 
-    if (Model.objMoreAboutScooter != null)
-    {
-        <section>
-            <div class="container margin-bottom20">
-                <div class="grid-12">
-                    <div id="moreAboutScooter" class="content-box-shadow padding-top20 padding-right10 padding-bottom20 padding-left10 card-bottom-margin font14">
-                        @Html.Partial("~/UI/Views/Scooters/_ModelRelatedCard.cshtml", Model.objMoreAboutScooter)
+                        }
+                        </ul>
+                        @if (i < Model.TotalPhotos)
+                        {
+                        <div class="image-grid__list-more">
+                            <button id="viewMoreImageBtn" type="button" class="btn btn-inv-blue image-grid__more-btn">View More (<span id="moreImageCount">@(Model.TotalPhotos - i)</span>)</button>
+                        </div>
+                        }
                     </div>
+                    @if(Model.IsColorAvailable)
+                    { 
+                        
+                        
+                        if(colourImages != null && colourImages.Any())
+                        {
+                            <div data-id="colours" class="overall-tabs__data">
+                                <div id="modelColorWrapper" class="model-color-wrapper">
+                                    @GenerateColourSection(colourImages, Model.ColorImagesCount)
+                                </div>
+                            </div>
+                        }
+                    }
+
+                    @if (Model.IsVideosAvailable && Model.ModelVideos != null && Model.ModelVideos.Any())
+                    {
+                        int remainingVideos = Model.ModelVideos.Count() - 1;
+                        <div data-id="videos" class="overall-tabs__data video-tab-content">
+                            @GenerateFeaturedVideoCard(Model.ModelVideos.FirstOrDefault())
+                            
+                            @if (remainingVideos > 0)
+                            {
+                                @GenerateVideoList(Model.ModelVideos.Skip(1), Model.BikeName, remainingVideos)
+                            }
+                        </div>
+                    }
                 </div>
-                <div class="clear"></div>
+            </section>
+            
+            @if (Model.BikeInfo != null)
+            {
+                <section>       
+                    @Html.Partial("~/UI/views/Bikemodels/_BikeInfoCard_V1.cshtml", Model.BikeInfo)
+                </section>
+            }
+            
+            @if (Model.SimilarBikes != null && Model.SimilarBikes.Bikes != null)
+            {
+                <section>
+                    @Html.Partial("~/UI/views/Photos/_SimilarBikeWithPhotos_V1.cshtml", Model.SimilarBikes)
+                </section>
+            }
+            
+            <div id="photoTemplateWrapper" class="hide">
+                <!-- ko if : Loadedphotos() && Loadedphotos().length > 0 -->
+                <ul data-bind="foreach : Loadedphotos">
+                    <li class="image-grid-list__item" data-bind="attr:{'data-imgcat' : ImageCategory , 'data-imgtype' : ImageType,'data-imgid' : ImageId}">
+                        <img class="lazy" data-bind="attr:{'src' : HostUrl + '/476x268/' + OriginalImgPath }" />
+                    </li>
+                </ul>
+                <!-- /ko -->
             </div>
-        </section>
+            
+            @if (Model.ModelGallery != null)
+            {
+                <div id="pageGallery" data-videos="@(Model.ModelGallery.IsVideosAvailable ? Model.ModelGallery.VideosJSON : string.Empty)" data-images="@(Model.ModelGallery.IsImagesAvailable ? Model.ModelGallery.ImagesJSON : string.Empty)" data-makename= "@Model.ModelGallery.Make.MakeName" data-modelname="@Model.ModelGallery.Model.ModelName" data-selectedimageid="@Model.ModelGallery.SelectedImageId" data-selectedcolorimageid="@Model.ModelGallery.SelectedColorImageId" data-returnurl="@Model.ModelGallery.ReturnUrl" data-bikename="@Model.ModelGallery.BikeName" data-photoscount="@Model.ModelGallery.ImagesCount" data-videoscount="@Model.ModelGallery.VideosCount" data-modelid="@(Model.ModelGallery.Model!=null ? Model.ModelGallery.Model.ModelId : 0)"></div>
+            }
+            </div>
+            
+        <div class="clear"></div>
+    </div>
+</section>
+    
+@helper GenerateFeaturedVideoCard(Bikewale.Entities.Videos.BikeVideoEntity video)
+{
+    <div class="article-card article-card--featured">
+        <div class="article-card__image-wrapper">
+            <div class="bw-youtube" id="@video.VideoId" data-embed="@video.VideoId">
+                <div class="play-button"></div>
+            </div>
+        </div>
+        <a href="@Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="article-card__desc-wrapper">
+            <h4 class="article-card__title">@video.VideoTitle</h4>
+            <ul class="article-card-stats-list">
+                <li class="article-stats-list__item">@Bikewale.Utility.FormatDate.GetFormatDate(video.DisplayDate, "MMM dd, yyyy")</li>
+                <li class="article-stats-list__item">@video.Views</li>
+                <li class="article-stats-list__item">
+                    <span class="card-like-icon"></span>@video.Likes
+                </li>
+            </ul>
+            <p class="article-card__desc">@System.StringHtmlHelpers.RemoveHtmlWithSpaces(video.Description)</p>
+        </a>
+    </div>
+}
+
+    
+@helper GenerateVideoList(IEnumerable<Bikewale.Entities.Videos.BikeVideoEntity> modelVideos, string bikeName, int remainingVideos)
+{   
+    <div class="video-list-container">
+            <div class="video-list__header">
+                <p class="video-list-header__title">@remainingVideos More @(remainingVideos > 1 ? "Videos" : "Video") of @bikeName</p>
+            </div>
+
+            <ul class="article-list-content">
+                @foreach (var video in modelVideos)
+                {
+                    <li class="article-list-content__item">
+                        <a href="@Bikewale.Utility.UrlFormatter.VideoDetailPageUrl(video.VideoTitleUrl,Convert.ToString(video.BasicId))" title="@video.VideoTitle" class="article-card">
+                            <div class="article-card__image-wrapper">
+                                <img src="@String.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg", video.VideoId)" alt="@video.VideoTitle" class="article-card__image lazy" />
+                            </div>
+                            <div class="article-card__desc-wrapper">
+                                <h4 class="article-card__title">@video.VideoTitle</h4>
+                                <ul class="article-card-stats-list">
+                                    <li class="article-stats-list__item">@Bikewale.Utility.FormatDate.GetFormatDate(video.DisplayDate, "MMM dd, yyyy")</li>
+                                    <li class="article-stats-list__item">@video.Views</li>
+                                    <li class="article-stats-list__item">
+                                        <span class="card-like-icon"></span>@video.Likes
+                                    </li>
+                                </ul>
+                                <p class="article-card__desc">@System.StringHtmlHelpers.RemoveHtmlWithSpaces(video.Description)</p>
+                            </div>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+}
+    
+@helper GenerateColourSection(IEnumerable<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> colourImages, int colourCount)
+{
+    Bikewale.Entities.CMS.Photos.ColorImageBaseEntity firstImage = colourImages.FirstOrDefault();
+   
+    <!-- Displayed Image Start -->
+    <div class="model-color-wrapper__preview">
+        <img class="model-color-wrapper__preview-img lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" data-original="@Bikewale.Utility.Image.GetPathToShowImages(firstImage.OriginalImgPath, firstImage.HostUrl, Bikewale.Utility.ImageSize._1280x720, Bikewale.Utility.QualityFactor._85)" alt="@firstImage.ImageTitle" />
+    </div>
+    <!-- Displayed Image End -->
+
+
+    if (colourCount == 1)
+    {
+        @GenerateSingleColourSelector(colourImages.FirstOrDefault())
     }
+    else
+    {
+        @GenerateMultipleColourSelector(colourImages)
+    }
+}
+
+@helper GenerateSingleColourSelector(Bikewale.Entities.CMS.Photos.ColorImageBaseEntity colourImage)
+{
+    int colourCount = colourImage.Colors.Count();
+
+    <div class="model-color-wrapper__footer model-color--single">
+        <div class="model-color-list__item">
+            <div class="color-box__wrapper">
+                <div class="color-box" data-color-count="@colourCount">
+                    @foreach (string colour in colourImage.Colors)
+                    {
+                        <span class="color-box__item" style="background-color: #@colour;)"></span>
+                    }
+                </div>
+                <p class="color-box__title">@colourImage.ImageTitle</p>
+            </div>
+        </div>
+        <p class="model-color-single__label">This model is available only in one colour</p>
+    </div>
+}
+
+@helper GenerateMultipleColourSelector(IEnumerable<Bikewale.Entities.CMS.Photos.ColorImageBaseEntity> colourImages)
+{
+    int imgCounter = 1;
+    
+    <div class="model-color-wrapper__footer">
+        <p class="model-color-wrapper__title">Colour: <span class="model-color-wrapper__main-title">@colourImages.FirstOrDefault().ImageTitle</span></p>
+
+
+        <div id="tabsColorThumbnailSwiper" class="swiper-container noSwiper model-color-swiper">
+            <ul class="swiper-wrapper">
+                @foreach (Bikewale.Entities.CMS.Photos.ColorImageBaseEntity colourImage in colourImages)
+                {
+                    int colourCount = colourImage.Colors.Count();
+                    
+                    <li class="swiper-slide model-color-list__item @(imgCounter == 1 ? "slide--focus" : "")" data-colorid="@colourImage.ColorId" data-imgid="@colourImage.ImageId" data-imgcat="@colourImage.ImageCategory" data-imgtype="@((int)colourImage.ImageType)">
+                        <div class="color-box__wrapper">
+                            <div class="color-box" data-color-count="@colourCount">
+                                @foreach (string colour in colourImage.Colors)
+                                {
+                                    <span class="color-box__item" style="background-color: #@colour;)"></span>
+                                }
+                            </div>
+                            <p class="color-box__title">@colourImage.ImageTitle</p>
+                        </div>
+                    </li>
+                    imgCounter++;
+                }
+            </ul>
+            <div class="model-color-swiper__prev-btn prev-btn"></div>
+            <div class="model-color-swiper__next-btn next-btn"></div>
+        </div>
+    </div>
+}
+
 }

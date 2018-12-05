@@ -120,20 +120,6 @@ function getColorImageDownloadUrl() {
 	return currImage.HostUrl + downloadImageResolution + currImage.OriginalImgPath;
 }
 
-function resizePortraitImageContainer(element) {
-	var imageElement = new Image();
-	imageElement.src = element.attr('data-original') || element.attr('src');
-
-	if ((imageElement.width / imageElement.height) < 1.5) {
-		var elementParent = element.parent();
-		elementParent.css({
-			'height': (elementParent.innerWidth() * 9 / 16) + 'px'
-		});
-
-		elementParent.css('background', '#fff');
-	}
-}
-
 function resizeHandler() {
 	if(vmModelGallery.activePopup()) {
 		if (window.innerWidth > window.innerHeight) {
@@ -298,12 +284,12 @@ docReady(function () {
 	var topGridImages = $('#imageGridTop img');
 	if (topGridImages.length) {
 		topGridImages.each(function() {
-			resizePortraitImageContainer($(this));
+		    ImageGrid.resizePortraitImageContainer($(this));
 		})
 	}
 
 	$('.image-grid-list__item img').on('load', function () {
-		resizePortraitImageContainer($(this));
+	    ImageGrid.resizePortraitImageContainer($(this));
 	});
 
 	if (screenfull.enabled) {

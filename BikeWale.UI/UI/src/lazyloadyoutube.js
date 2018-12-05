@@ -46,11 +46,16 @@
 
         for (var i = 0; i < youtubeVideos.length; i++) {
             var ytVideo = youtubeVideos[i];
-            var ytVideoId = ytVideo.dataset.embed;
+
             ytVideo.addEventListener("click", function (event) {
+                var clickedvideo = event.currentTarget;
+                var ytVideoId = clickedvideo.dataset.embed;
+
                 var iframe = lazyloadYoutube.generateIFrame(ytVideoId);
-                ytVideo.innerHTML = "";
-                ytVideo.appendChild(iframe);
+                
+
+                clickedvideo.innerHTML = "";
+                clickedvideo.appendChild(iframe);
             });
         }
     }

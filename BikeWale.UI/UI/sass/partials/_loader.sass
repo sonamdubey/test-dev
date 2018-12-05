@@ -1,184 +1,172 @@
 ﻿#ub-ajax-loader
-	position: fixed
-	top: 0
-	left: 0
-	background: rgba(245,245,245,.95)
-	z-index: 11
-	width: 100%
-	height: 100%
+  position: fixed
+  top: 0
+  left: 0
+  background: rgba(245,245,245,.95)
+  z-index: 11
+  width: 100%
+  height: 100%
 
 
 @mixin spinner-content($top: 45%, $left: 50%, $position: fixed)
-	#spinner-content
-		width: 50px
-		height: 50px
-		position: $position
-		top: $top
-		left: $left
-		right: 0
-		margin: 0 auto
-		z-index: 999
+  #spinner-content
+    width: 50px
+    height: 50px
+    position: $position
+    top: $top
+    left: $left
+    right: 0
+    margin: 0 auto
+    z-index: 999
 
-.bw-spinner
-  -webkit-animation: rotator 1.4s linear infinite
-          animation: rotator 1.4s linear infinite
+  .bw-spinner
+    -webkit-animation: rotator 1.4s linear infinite
+    animation: rotator 1.4s linear infinite
 
-@-webkit-keyframes rotator
-  0%
-    -webkit-transform: rotate(0deg)
-            transform: rotate(0deg)
-  100%
-    -webkit-transform: rotate(270deg)
-            transform: rotate(270deg)
+  @-webkit-keyframes rotator
+    0%
+      -webkit-transform: rotate(0deg)
+      transform: rotate(0deg)
+    100%
+      -webkit-transform: rotate(270deg)
+      transform: rotate(270deg)
 
-@keyframes rotator
-  0%
-    -webkit-transform: rotate(0deg)
-            transform: rotate(0deg)
+  @keyframes rotator
+    0%
+      -webkit-transform: rotate(0deg)
+      transform: rotate(0deg)
+    100%
+      -webkit-transform: rotate(270deg)
+      transform: rotate(270deg)
 
-  100%
-    -webkit-transform: rotate(270deg)
-            transform: rotate(270deg)
-
-.circle-path
-  stroke-dasharray: 187
-  stroke-dashoffset: 0
-  -webkit-transform-origin: center
-          transform-origin: center
-  -webkit-animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite
-          animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite
-
-@-webkit-keyframes colors
-  0%
-    stroke: #ef3f30
-
-  100%
-    stroke: #ef3f30
-
-
-@keyframes colors
-  0%
-    stroke: #ef3f30
+  .circle-path
+    stroke-dasharray: 187
+    stroke-dashoffset: 0
+    -webkit-transform-origin: center
+    transform-origin: center
+    -webkit-animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite
+    animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite
   
-  100%
-    stroke: #ef3f30
+  @-webkit-keyframes colors
+    0%
+      stroke: color('cinnabar-3')
+    100%
+      stroke: color('cinnabar-3')
+
+  @keyframes colors
+    0%
+      stroke: color('cinnabar-3')
+    100%
+      stroke: color('cinnabar-3')
+
+  @-webkit-keyframes dash
+    0%
+      stroke-dashoffset: 187
+    50%
+      stroke-dashoffset: 46.75
+      -webkit-transform: rotate(135deg)
+      transform: rotate(135deg)
+    100%
+      stroke-dashoffset: 187
+      -webkit-transform: rotate(450deg)
+      transform: rotate(450deg)
   
-@-webkit-keyframes dash
-  0%
-    stroke-dashoffset: 187
-
-  50%
-    stroke-dashoffset: 46.75
-    -webkit-transform: rotate(135deg)
-            transform: rotate(135deg)
-
-  100%
-    stroke-dashoffset: 187
-    -webkit-transform: rotate(450deg)
-            transform: rotate(450deg)
-
-@keyframes dash
-  0%
-    stroke-dashoffset: 187
-  50%
-    stroke-dashoffset: 46.75
-    -webkit-transform: rotate(135deg)
-            transform: rotate(135deg)
-  100%
-    stroke-dashoffset: 187
-    -webkit-transform: rotate(450deg)
-            transform: rotate(450deg)
+  @keyframes dash
+    0%
+      stroke-dashoffset: 187
+    50%
+      stroke-dashoffset: 46.75
+      -webkit-transform: rotate(135deg)
+      transform: rotate(135deg)
+    100%
+      stroke-dashoffset: 187
+      -webkit-transform: rotate(450deg)
+      transform: rotate(450deg)
 
 //loader
 @mixin loader-background($backgroundColor: #f9f9f9, $loaderColor: #efefef)
-	@include vendor-prefix('animation', placeholderShimmer 1.25s linear 25 forwards)
-	background: $backgroundColor
-	background: linear-gradient(to right, $backgroundColor 15%, $loaderColor 20%, $backgroundColor 25%)
-	background-size: 1024px 100%
-	position: relative
+  @include vendor-prefix('animation', placeholderShimmer 1.25s linear 25 forwards)
+  background: $backgroundColor
+  background: linear-gradient(to right, $backgroundColor 15%, $loaderColor 20%, $backgroundColor 25%)
+  background-size: 1024px 100%
+  position: relative
 
-@-webkit-keyframes placeholderShimmer
-	0%
-		background-position: -512px 0
+  @-webkit-keyframes placeholderShimmer
+    0%
+      background-position: -512px 0
+    100%
+      background-position: 512px 0
 
-	100%
-		background-position: 512px 0
+  @keyframes placeholderShimmer
+    0%
+      background-position: -512px 0
+    100%
+      background-position: 512px 0
 
-@keyframes placeholderShimmer
-	0%
-		background-position: -512px 0
-
-	100%
-		background-position: 512px 0
 
 // model loader
-
 $loaderLineHeight: 15px
 @mixin model-loader($min-height: 200px)
-	.model-loader__box
-		padding: 10px
-		margin-bottom: 5px
-		text-decoration: none
-		min-height: $min-height
+  .model-loader__box
+    padding: 10px
+    margin-bottom: 5px
+    text-decoration: none
+    min-height: $min-height
 
-	.model-loader__title
-		display: block
-		margin-top: 2 * $loaderLineHeight
-		width: 100%
-		position: relative
+  .model-loader__title
+    display: block
+    margin-top: 2 * $loaderLineHeight
+    width: 100%
+    position: relative
 
-		&:before		
-			@include loader-background
-			content: ''
-			display: block
-			width: 75%
-			height: 10px
-			position: absolute
-			top: 3px
-			left: 0
+    &:before
+      @include loader-background
+      content: ''
+      display: block
+      width: 75%
+      height: 10px
+      position: absolute
+      top: 3px
+      left: 0
 
-		&:after		
-			@include loader-background
-			height: 14px
-			width: 100%
-			content: ''
-			display: block
-			position: absolute
-			top: 21px
-			left: 0
+    &:after
+      @include loader-background
+      height: 14px
+      width: 100%
+      content: ''
+      display: block
+      position: absolute
+      top: 21px
+      left: 0
 
 @mixin model-loader__image($height: 76px)
-	.model-loader__image
-		@include loader-background
-		display: block
-		width: 100%
-		height: $height	
+  .model-loader__image
+    @include loader-background
+    display: block
+    width: 100%
+    height: $height
 
 @mixin model-card__exshowroom-loader($height: 54px)
-	.model-exshowroom__loader-box
-		@include vendor-prefix('border-radius', 3px)
-		height: $height
-		padding: 6px 11px 7px
-		border: 1px solid color('white-smoke')
-		background-color: color('border-light')
-		position: relative
+  .model-exshowroom__loader-box
+    @include vendor-prefix('border-radius', 3px)
+    height: $height
+    padding: 6px 11px 7px
+    border: 1px solid color('white-smoke')
+    background-color: color('border-light')
+    position: relative
 
+    &:before
+      @include loader-background(color('white'), color('border-light'))
+      content: ''
+      width: 85%
+      height: 9px
+      position: absolute
+      top: 11px
 
-		&:before
-			@include loader-background(color('white'), color('border-light'))
-			content: ''
-			width: 85%
-			height: 9px
-			position: absolute
-			top: 11px
-
-		&:after
-			@include loader-background(color('white'), color('border-light'))
-			content: ''
-			width: 85%
-			height: 14px
-			position: absolute
-			bottom: 12px
-
-
-
+    &:after
+      @include loader-background(color('white'), color('border-light'))
+      content: ''
+      width: 85%
+      height: 14px
+      position: absolute
+      bottom: 12px

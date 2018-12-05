@@ -1,0 +1,27 @@
+﻿@function image-width($height: null)
+	@if $height
+        @return ($height * 16) / 9
+	@else
+		@warn "Unfortunately, image width was not calculated. Pass `$height` parameter to `image-width` function"
+		@return false
+
+/**
+ * A function to get image width
+ *
+ * @parameters:
+ * $height: Image height
+ */
+
+/**
+ * A function to get image height
+ *
+ * @parameters:
+ * $width: Image width
+ */
+
+@function image-height($width: null)
+	@if $width
+        @return ($width * 9) / 16
+	@else
+		@warn "Unfortunately, image height was not calculated. Pass `$width` parameter to `image-height` function"
+		@return false

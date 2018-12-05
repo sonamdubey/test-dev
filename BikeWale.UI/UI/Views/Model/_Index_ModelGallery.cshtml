@@ -21,9 +21,9 @@
         </div>
         <div class="bw-tabs-data hide" id="colourCarousel">
             <div class="carousel-type-color">
-                <span href="@String.Format("{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", 0, Model.PageMetaTags.CanonicalUrl)))" class="carousel-img-container">
+                <a href="@String.Format("{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", 0, Model.PageMetaTags.CanonicalUrl)))" rel="nofollow" class="carousel-img-container">
                     <img class="bw-ga" data-lab="@bikeName" data-act="Main_Image_Clicked" data-cat="Model_Page" src="@Bikewale.Utility.Image.GetPathToShowImages(Model.ModelPageEntity.ModelDetails.OriginalImagePath, Model.ModelPageEntity.ModelDetails.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" title="@Model.ModelPageEntity.ModelDetails.ModelName Model Image" border="0">
-                </span>
+                </a>
             </div>
 
             @if (Model.ModelPageEntity != null && Model.ModelPageEntity.ModelColors != null)
@@ -74,14 +74,14 @@
                         <li>
                             @if (imageIndex == 0)
                             {
-                                <a href="@String.Format(@"{0}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" data-url="@String.Format("{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", 0, Model.PageMetaTags.CanonicalUrl)))" class="carousel-img-container redirect-url">
+                                <a href="@String.Format(@"{0}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName))" data-url="@String.Format("{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", 0, Model.PageMetaTags.CanonicalUrl)))" rel="nofollow" class="carousel-img-container redirect-url">
                                     <img class="bw-ga" data-lab="@bikeName" data-act="Main_Image_Clicked" data-cat="Model_Page" data-colorid="@image.ColorId" data-original="" src="@Bikewale.Utility.Image.GetPathToShowImages(image.OriginalImgPath, image.HostUrl, Bikewale.Utility.ImageSize._393x221, Bikewale.Utility.QualityFactor._85)" alt="@imageProperty" title="@imageProperty" border="0"
-                                     data-imgcat="@image.ImageCategory" data-imgtype="@image.ImageType" data-imgid="@image.ImageId" />
+                                         data-imgcat="@image.ImageCategory" data-imgtype="@image.ImageType" data-imgid="@image.ImageId" />
                                 </a>
                             }
                             else
                             {
-                                <span onclick="location='@String.Format(@"{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))' " class=" carousel-img-container">
+                                <a href="@String.Format(@"{0}?q={1}", Bikewale.Utility.UrlFormatter.FormatPhotoPageUrl(Model.ModelPageEntity.ModelDetails.MakeBase.MaskingName, Model.ModelPageEntity.ModelDetails.MaskingName), Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("imageindex={0}&retUrl={1}", imageIndex, Model.PageMetaTags.CanonicalUrl)))" rel="nofollow" class="carousel-img-container">
 
                                     @if (imageIndex < 4)
                                     {
@@ -94,8 +94,8 @@
                                              data-imgcat="@image.ImageCategory" data-imgtype="@image.ImageType" data-imgid="@image.ImageId" />
 
                                     }
-                                </span>
-                                }
+                                </a>
+                            }
                         </li>
                             imageIndex++;
                         }

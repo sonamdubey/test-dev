@@ -1,0 +1,28 @@
+﻿// Core variables and mixins
+@import ../components/typography
+@import ../base/variables
+@import ../components/mixins
+
+@import ../mixins/index
+@import ../utils/index
+
+@import ../partials/swiper
+
+//similar bike swiper
+@import ../partials/similar-bike-carousel
+
+@include similar-model__card($width: 270px, $min-height: 123px)
+@include similar-model__image
+@include similar-model__footer
+
+.similar-model-carousel
+  @include swiper-controls(true)
+  .jcarousel
+    padding-left: 2px
+
+    .similar-model__card
+      margin-right: 15px
+      padding-left: 0
+
+      &:last-child
+        margin-right: 0

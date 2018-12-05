@@ -1,0 +1,62 @@
+﻿@model Bikewale.Models.Photos.SimilarBikesWithPhotosVM
+
+@if (Model != null && Model.FetchedRecordsCount > 0)
+{
+
+<div class="similar-model">
+    <h2 class="page__heading-h2">
+        @Model.WidgetHeading
+    </h2>
+    <div class="swiper-container card-container similar-model-carousel jcarousel-wrapper">
+        <div class="jcarousel">
+            <ul>
+                @foreach (var bike in Model.Bikes)
+                {
+                    string bikeName = string.Format("{0} {1}", bike.Make.MakeName, bike.Model.ModelName);
+                    string bikeBaseUrl = string.Format("/{0}-bikes/{1}/", bike.Make.MaskingName, bike.Model.MaskingName);
+                    
+                    <li class="similar-model__card carousel-slide">
+                        <a href="@bikeBaseUrl" title="@bikeName" class="similar-model__target">
+                            <div class="similar-model__image lazy-container">
+                                <img class="lazy" alt="@bikeName images" data-original="@Bikewale.Utility.Image.GetPathToShowImages(bike.OriginalImagePath,bike.HostUrl,Bikewale.Utility.ImageSize._160x89,Bikewale.Utility.QualityFactor._75)" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif">
+                            </div>
+                            <div class="similar-model__detail">
+                                <h3 class="similar-model__title">
+                                    @bikeName
+                                </h3>
+                                <p class="similar-model__ex-showroom">
+                                    @if (bike.OnRoadPriceInCity > 0)
+                                    {
+
+                                        @Html.Raw(string.Format("On-Road Price, {0}", Model.City));
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(string.Format("Ex-showroom price, {0}", Bikewale.Utility.BWConfiguration.Instance.DefaultName));
+                                    }
+                                </p>
+                                <p class="similar-model__value">
+                                    ₹&nbsp;<span class="text--semibold">@Bikewale.Utility.Format.FormatPrice(Convert.ToString(bike.OnRoadPriceInCity > 0 ? bike.OnRoadPriceInCity : bike.ExShowroomPriceMumbai))</span>
+                                    @if (bike.OnRoadPriceInCity > 0)
+                                    {
+                                        <span class="font14">&nbsp;onwards</span>
+                                    }
+                                </p>
+                            </div>
+                        </a>
+                        <a href="@(bikeBaseUrl)images/" title="@bikeName images" class="similar-model__footer">
+                            <div class="similar-model__image-count">
+                                View all&nbsp;@bike.PhotosCount &nbsp;@(bike.PhotosCount > 1 ? "images" : "image")
+                            </div>
+                        </a>
+                    </li>
+                }
+
+
+            </ul>
+        </div>
+        <div class="swiper--next jcarousel-control-next"></div>
+        <div class="swiper--prev jcarousel-control-prev"></div>
+    </div>
+</div>
+}

@@ -1,0 +1,86 @@
+﻿@mixin article-card($imageWidth: 231px)
+    .article-card
+        @include flexbox
+        color: color('default')
+        text-decoration: none
+        background-color: color('white')
+        overflow: hidden
+
+        &:hover
+            text-decoration: none
+
+            .article-card__title
+                text-decoration: underline
+
+    @include article-card-image($imageWidth)
+
+    .article-card__desc-wrapper
+        min-width: 1px
+        padding: 15px 20px
+
+    .article-card__title
+        @include text-truncate
+        color: color('default')
+        font-size: 14px
+        font-weight: $font-semibold
+        margin-bottom: 10px
+
+    .article-card-stats-list
+        margin-bottom: 10px
+
+        &:after
+            content: ''
+            display: block
+            clear: both
+
+    .article-stats-list__item
+        color: color('default')
+        font-size: 13px
+        float: left
+        margin-right: 35px
+        margin-bottom: 5px
+
+        &:last-child
+            margin-right: 0
+
+    .article-card__desc
+        font-size: 13px
+        color: color('default')
+
+@mixin article-card-image($width: 231px)
+    $height: image-height($width)
+
+    .article-card__image-wrapper
+        @include flex-shrink
+        width: $width
+        height: $height
+        border-radius: 2px
+        overflow: hidden
+        text-align: center
+
+    .article-card__image
+        height: $height
+
+// Featured article card
+@mixin article-card-featured($imageWidth: 608px)
+    $height: image-height($imageWidth)
+
+    .article-card--featured
+        margin-bottom: 25px
+
+        .article-card__image-wrapper
+            width: $imageWidth
+            height: $height
+
+        .article-card__image
+            height: $height
+
+        .article-card__title
+            white-space: normal
+            font-size: 16px
+
+        .article-card__desc-wrapper
+            padding-top: 0
+
+            &:hover
+                text-decoration: none

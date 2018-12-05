@@ -46,6 +46,8 @@ namespace Bikewale.Models.Photos
 
         private readonly String _adPath_Mobile = "/1017752/Bikewale_Mobile_Image";
         private readonly String _adId_Mobile = "1516082576550";
+        private readonly String _adPath_Desktop = "/1017752/Bikewale_Image";
+        private readonly String _adId_Desktop = "1516082384256";
 
         /// <summary>
         /// Created by  : Sushil Kumar on 30th Sep 2017
@@ -115,10 +117,8 @@ namespace Bikewale.Models.Photos
                     BindMoreAboutScootersWidget(_objData);
 
                 }
-                if (IsMobile)
-                {
-                    BindAdSlots(_objData);
-                }
+                BindAdSlots(_objData);
+                
                 _objData.Page = Entities.Pages.GAPages.Model_Images_Page;
 
 
@@ -165,12 +165,6 @@ namespace Bikewale.Models.Photos
                     if (_objData.ModelImages != null)
                     {
                         _objData.ModelImage = _objData.PhotoGallery.ImageList.First();
-
-                        if (!IsMobile)
-                        {
-                            // Skipped first image to remove modelImage from ImagesList
-                            _objData.ModelImages = _objData.ModelImages.Skip(1);
-                        }
 
                         _objData.TotalPhotos = (uint)_objData.ModelImages.Count();
                         _objData.NonGridPhotoCount = (_objData.TotalPhotos % _objData.NoOfGrid);
@@ -259,6 +253,7 @@ namespace Bikewale.Models.Photos
                     var similarBikes = new SimilarBikesWithPhotosWidget(_objModelMaskingCache, _modelId, _cityId);
                     similarBikes.BikeName = _objData.BikeName;
                     _objData.SimilarBikes = similarBikes.GetData();
+                    _objData.SimilarBikes.City = _cityName;
 
                     if (_objData.SimilarBikes != null && _objData.SimilarBikes.Bikes != null && _objData.SimilarBikes.Bikes.Any())
                     {
@@ -581,21 +576,34 @@ namespace Bikewale.Models.Photos
         /// <summary>
         /// Created By : Deepak Israni on 22 May 2018
         /// Description: To bind ad slots for lazy loading implementation on page.
+        /// Modified by: Dhruv Joshi
+        /// Dated: 27th September 2018
+        /// Description: Adslots for desktop
         /// </summary>
         /// <param name="_objData"></param>
         private void BindAdSlots(PhotosPageVM _objData)
         {
-            AdTags adTagsObj = _objData.AdTags;
-            adTagsObj.AdId = _adId_Mobile;
-            adTagsObj.AdPath = _adPath_Mobile;
-            adTagsObj.Ad_320x50Top = true;
-            adTagsObj.Ad_300x250BTF = true;
-
-            IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
-
             NameValueCollection adInfo = new NameValueCollection();
-            adInfo["adId"] = _adId_Mobile;
-            adInfo["adPath"] = _adPath_Mobile;
+            AdTags adTagsObj = _objData.AdTags;
+            if (IsMobile)
+            {
+                adTagsObj.AdId = _adId_Mobile;
+                adTagsObj.AdPath = _adPath_Mobile;
+                adTagsObj.Ad_320x50Top = true;
+                adTagsObj.Ad_300x250BTF = true;
+                adInfo["adId"] = _adId_Mobile;
+                adInfo["adPath"] = _adPath_Mobile;
+            }
+            else
+            {
+                adTagsObj.AdId = _adId_Desktop;
+                adTagsObj.AdPath = _adPath_Desktop;
+                adTagsObj.Ad_970x90Body = true;                
+                adTagsObj.Ad_970x90Bottom = true;
+                adInfo["adId"] = _adId_Desktop;
+                adInfo["adPath"] = _adPath_Desktop;
+            }
+            IDictionary<string, AdSlotModel> ads = new Dictionary<string, AdSlotModel>();
 
             if (adTagsObj.Ad_320x50Top)
             {
@@ -605,7 +613,14 @@ namespace Bikewale.Models.Photos
             {
                 ads.Add(String.Format("{0}-14", _adId_Mobile), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._300x250], 14, 300, AdSlotSize._300x250, "BTF"));
             }
-
+            if (adTagsObj.Ad_970x90Body)
+            {
+                ads.Add(string.Format("{0}-19", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 19, 970, AdSlotSize._970x90, "Top", true));
+            }
+            if (adTagsObj.Ad_970x90Bottom)
+            {
+                ads.Add(String.Format("{0}-5", _adId_Desktop), GoogleAdsHelper.SetAdSlotProperties(adInfo, ViewSlotSize.ViewSlotSizes[AdSlotSize._970x90 + "_C"], 5, 970, AdSlotSize._970x90, "Bottom"));
+            }
             _objData.AdSlots = ads;
         }
 

@@ -1,0 +1,36 @@
+﻿// Core variables and mixins
+@import ../components/typography
+@import ../base/variables
+@import ../components/mixins
+
+@import ../mixins/index
+@import ../utils/index
+
+@import ../partials/bw-youtube.sass
+
+// videos
+.video-tab-content
+  background-color: color('white')
+  padding: 20px
+
+// videos list
+.video-list__header
+  padding: 12px 20px
+  background-color: color('bg-light-grey')
+  border-radius: 4px
+
+.video-list-header__title
+  font-size: 16px
+  font-weight: $font-semibold
+  color: color('charcoal')
+
+.article-list-content__item
+  font-size: 0
+  border: 1px solid color('whisper')
+  border-radius: 2px
+  margin-top: 15px
+
+@include article-card
+
+// featured video
+@include article-card-featured

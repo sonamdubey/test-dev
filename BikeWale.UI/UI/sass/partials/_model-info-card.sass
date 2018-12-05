@@ -1,0 +1,260 @@
+﻿@mixin model-info-card
+	.model-info-card
+		margin-bottom: 20px
+		padding: 20px 20px 15px
+		position: relative
+		background: color('white')
+		-moz-box-shadow: 0 2px 2px color('border-dark'), 0 1px 1px #f1f1f1
+		-webkit-box-shadow: 0 2px 2px color('border-dark'), 0 1px 1px #f1f1f1
+		-o-box-shadow: 0 2px 2px color('border-dark'), 0 1px 1px #f1f1f1
+		-ms-box-shadow: 0 2px 2px color('border-dark'), 0 1px 1px #f1f1f1
+		box-shadow: 0 2px 2px color('border-dark'), 0 1px 1px #f1f1f1
+
+@mixin info-card__head($color: default)
+	.info-card__head
+		margin-bottom: 15px
+
+	.info-card-header__link
+		display: inline-block
+		vertical-align: middle
+		margin-right: 10px
+		color: color($color)
+
+	.info-card__rating-section
+		display: inline-block
+		vertical-align: middle
+	
+	@for $i from 1 through 5
+		@include rate-star-icon($i, normal)
+		@include rate-count($i)
+	
+	.star-icon
+		position: relative
+		top: -1px
+
+	.rating-review-content
+		display: inline-block
+		vertical-align: middle
+
+		> span
+			display: inline-block
+			vertical-align: top
+			position: relative
+			margin-left: 15px
+			padding-left: 15px
+
+			&:before
+				content: ""
+				position: absolute
+				top: 4px
+				left: 0
+				width: 1px
+				height: 12px
+				border-left: 1px solid color('border-dark')
+
+
+			&:first-child
+				margin-left: 0
+				padding-left: 0
+
+				&:before
+					content: none
+	.rating-count
+		font-size: 11px
+		color: color('gull-grey')
+
+	.review-count
+		position: relative
+
+@mixin model-info-card__body
+	.model-info-card__body
+		@include flexbox
+		@include button-size(180, 34)
+
+
+@mixin model-image-target($width: 157px, $height: 88px)
+	.model-info-card__detail
+		@include flexbox
+		@include flex-grow(1)
+		padding-right: 20px
+		min-width: 400px
+	
+		.model-image-target
+			width: $width
+			height: $height
+			display: inline-block
+			vertical-align: top
+			position: relative
+			text-align: center
+
+			> img
+				width: 100%
+
+				&[src$="circleloader.gif"]
+					min-width: 16px
+					width: 16px
+					height: 16px
+					position: absolute
+					top: 50%
+
+		.model-details-block
+			@include flex-grow(1)
+			display: inline-block
+			vertical-align: top
+			padding-left: 10px
+
+@mixin model-details__specs-list($color: light-grey)
+	.model-details__specs-list
+		margin-bottom: 15px
+		color: color($color)
+
+		> li
+			display: inline-block
+			vertical-align: middle
+			padding-right: 10px
+			padding-left: 10px
+			position: relative
+			border-left: 1px solid color('solitude')
+
+			&:first-child
+				padding-left: 0
+				border-left: 0
+
+@mixin model-details__more-detail-list($bgcolor: border-light, $bgcolor-hover: viking)
+	.model-details__more-detail-list
+		margin-bottom: 10px
+
+		> li
+			margin-left: 10px
+			display: inline-block
+			font-size: 0
+
+			&:first-child
+				margin-left: 0
+
+		.model-more-detail__item-link
+			@include vendor-prefix('border-radius', 2px)
+			display: block
+			padding: 5px 8px 6px
+			color: color('slate-grey')
+			background-color: color($bgcolor)
+
+			&:hover
+				color: color('white')
+				background-color: color($bgcolor-hover)
+				text-decoration: none
+
+				.model-more-detail__specs
+					@include specs-fff-14x14-icon
+
+				.model-more-detail__reviews
+					@include expert-review-fff-14x14-icon
+					background-size: contain
+
+				.model-more-detail__news
+					@include news-fff-14x14-icon
+
+				.model-more-detail__photos
+					@include photos-fff-14x14-icon
+
+				.model-more-detail__videos
+					@include videos-fff-14x14-icon
+
+				.model-more-detail__dealers
+					@include dealer-fff-14x14-icon
+
+	.model-more-detail__item
+		font-size: 13px
+		display: inline-block
+		vertical-align: middle
+		line-height: 13px
+		padding-left: 20px
+		background-position: left center
+
+	.model-more-detail__specs
+		@include specs-82888b-14x14-icon
+
+	.model-more-detail__reviews
+		@include expert-review-82888b-14x14-icon
+		background-size: contain
+
+	.model-more-detail__news
+		@include news-82888b-14x14-icon
+
+	.model-more-detail__photos
+		@include photos-82888b-14x14-icon
+
+	.model-more-detail__videos
+		@include videos-82888b-14x14-icon
+
+	.model-more-detail__dealers
+		@include dealer-82888b-14x14-icon
+
+@mixin model-info-card__link($color: default)
+	.model-info-card__link
+		border-top: 1px solid color('border-dark')
+		margin-top: 10px
+		padding-top: 10px
+		display: block
+		color: color($color)
+		position: relative
+
+		&:hover
+			text-decoration: none
+
+		.model-target-label__title
+			font-size: 14px
+			font-weight: $font_bold
+	
+		.model-target-label__description
+			font-size: 12px
+			color: color('aluminium')
+
+		.model-info-card__next-icon
+			@include arrow-down-6f6f6f
+			@include vendor-prefix('transform', rotate(-90deg))
+			background-position: right center
+			width: 12px
+			height: 21px
+			position: absolute
+			right: 0
+			display: inline-block
+			vertical-align: middle
+
+@mixin model-info__exshowroom-content($color: aluminium)
+	.model-info__exshowroom-content
+		@include flex-grow(1)
+		border-left: 1px solid color('border-dark')
+		padding-left: 20px
+
+	.model-info__exshowroom
+		font-size: 14px
+		color: color($color)
+		margin-bottom: 5px
+
+	.model-info__exshowroom-price
+		margin-bottom: 10px
+		font-size: 18px
+
+	.exshowroom-version-price
+		font-weight: $font_bold
+
+@mixin model-info__ribbon-tag($top: -5px, $left: -11px, $font-size: 12px)
+	.model-info__ribbon-tag
+		color: color('white')
+		position: relative
+		top: $top
+		left: $left
+		font-size: $font-size
+		padding: 2px 20px 2px 10px
+		display: inline-block
+
+		&:after
+			content: ''
+			position: absolute
+			border-top: 10px solid transparent
+			border-right: 10px solid color('white')
+			border-bottom: 10px solid transparent
+			right: 0
+			top: 0
+		

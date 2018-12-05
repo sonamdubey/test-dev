@@ -50,7 +50,7 @@
 
 			if (panelContent.find('.swiper-container').length) {
 				panelContent.find('.swiper-container').each(function() {
-					$(this).data('swiper').update(true);
+				    $(this).data('swiper') && $(this).data('swiper').update(true);
 				})
 			}
 

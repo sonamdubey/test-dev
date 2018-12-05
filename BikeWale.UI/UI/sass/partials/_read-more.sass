@@ -1,0 +1,27 @@
+﻿.read-more-wrapper
+  @include clearfix
+
+.read-more-wrapper__expand-link
+    float: right
+    cursor: pointer
+    font-size: 14px
+    line-height: 19px
+    color: color('pacific-blue')
+    position: relative
+
+    &:hover
+      text-decoration: underline
+
+.read-more-wrapper__full-content
+  display: none
+
+//active read more
+.read-more-wrapper--expand-active
+  .read-more-wrapper__trim-content
+    display: none
+
+  .read-more-wrapper__expand-link
+    display: none
+
+  .read-more-wrapper__full-content
+    display: inline

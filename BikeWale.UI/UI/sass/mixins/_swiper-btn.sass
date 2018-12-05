@@ -1,0 +1,44 @@
+﻿@mixin swiper-btn($top: 0, $left:0, $right: 0, $width: 30px, $height: 100%, $before: false, $backgroundColor: 'white')
+  .prev-btn, .next-btn
+      position: absolute
+      top: $top
+      width: $width
+      height: $height
+      z-index: 2
+      vertical-align: middle
+      cursor: pointer
+      background-size: 8px
+      background-color: color($backgroundColor)
+
+  .prev-btn
+    @include arrow-left
+    left: $left
+
+  .next-btn
+    @include arrow-right
+    right: $right
+
+  .swiper-button-disabled
+    display: none
+
+  @if $before
+    @include swiper-btn-before
+
+@mixin swiper-btn-before($contentWidth: 60px, $contentHeight: 100%, $contentLeft: 100%, $contentRight: 100%, $backgroundColor: 'white')
+  .prev-btn,
+  .next-btn
+    &:before
+      content: ''
+      width: $contentWidth
+      height: $contentHeight
+      position: absolute
+
+  .prev-btn
+    &:before
+      @include linear-gradient(to left, rgba(color($backgroundColor), 0) 0%, color($backgroundColor))
+      left: $contentLeft
+
+  .next-btn
+    &:before
+      @include linear-gradient(to right, rgba(color($backgroundColor), 0) 0%, color($backgroundColor))
+      right: $contentRight

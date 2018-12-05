@@ -14,24 +14,32 @@
 			width: $width
 			min-height: $min-height
 			padding-left: 10px
+			height: auto
 
 			&:first-child
 				margin-left: 6px
 			&:last-child
 				margin-right: 16px
 
-@mixin similar-model__image($width: 110px, $height: 61px)
+@mixin similar-model__image($width: 108px, $height: 61px)
 	.similar-model__image
 		height: $height
 		width: $width
 
 		img
 			height: $height
-			width: auto
+			width: $width
 
 .similar-model__target
 	@include flexbox
 	padding: 10px 10px 14px
+	color: color('default')
+
+	&:hover
+		text-decoration: none
+
+		.similar-model__title
+			text-decoration: underline
 
 .similar-model__detail
 	min-width: 0

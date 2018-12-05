@@ -1,0 +1,104 @@
+﻿@mixin swiper-card($cardHeight: auto)
+  .swiper-card
+    display: block
+    background-color: color('white')
+    width: 100%
+    height: $cardHeight
+
+@mixin card-list-item($border-color: 'dark-gray-2')
+  .swiper-card__list-item
+    @include flexbox
+    @include justify-content
+    width: 100%
+    border: solid 1px color($border-color, .3)
+    margin-bottom: 15px
+    cursor: pointer
+
+@mixin card-content-column($contentPadding: 10px 10px 10px 20px, $cardHeight: 131px)
+  .swiper-card__content-column
+    padding: $contentPadding
+    height: $cardHeight
+
+@mixin card-title($font-size: 14px, $titleTruncationheight: 58px)
+  .swiper-card__title
+    font-size: $font-size
+    line-height: $font-size + 5
+    font-weight: $font_semibold
+    color: color('default')
+    margin-bottom: 10px
+    height: $titleTruncationheight
+    overflow: hidden
+
+@mixin card-like-icon($iconWidth: 13px, $iconHeight: 13px)
+  .card-like-icon
+    @include like-line-82888b-icon
+    background-size: contain
+    content: ''
+    position: relative
+    margin-right: 5px
+    width: $iconWidth
+    height: $iconHeight
+    display: inline-block
+    vertical-align: middle
+
+@mixin card-thumbnail-overlay( $iconWidth: 25px, $iconHeight: 18px)
+  .swiper-card__thumbnail
+    position: relative
+    line-height: 0
+
+    &:before
+      @include vendor-prefix('transform', translate(-50%, -50%))
+      @include youtube-play-icon
+      background-size: contain
+      content: ''
+      position: absolute
+      width: $iconWidth
+      height: $iconHeight
+      top: 50%
+      left: 50%
+
+@mixin card-active-thumbnail-overlay( $iconWidth: 25px, $iconHeight: 18px, $bgcolor: 'nero')
+  .swiper-card__thumbnail-active
+    @include vendor-prefix('transform', translate(-50%, -50%))
+    display: none
+    top: 50%
+    left: 50%
+    position: absolute
+    min-width: 160px
+    max-width: 180px
+    height: 33px
+    padding: 6px 5px 8px 45px
+    border-radius: 4px
+    font-size: 14px
+    font-weight: $font_semibold
+    text-transform: uppercase
+    background-color: color($bgcolor)
+    color: color('white')
+    line-height: 19px
+
+    &:before
+      @include youtube-play-icon
+      background-size: contain
+      content: ''
+      position: absolute
+      width: $iconWidth
+      height: $iconHeight
+      left: 10px
+
+@mixin card-thumbnail-img($imageWidth: 231px, $imageHeight: 131px)
+  .swiper-card__thumbnail-img
+    width: $imageWidth
+    height: $imageHeight
+
+@mixin active-card
+  .swiper-card--active-card
+    border: solid 1px color('red', .3)
+    pointer-events: none
+
+    .swiper-card__thumbnail
+
+      &:before
+        content: none
+
+      .swiper-card__thumbnail-active
+        display: block
