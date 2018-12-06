@@ -24,21 +24,24 @@ namespace Bikewale.Common
 
                 if (HttpContext.Current.User.Identity.IsAuthenticated == true)
                 {
-                    FormsIdentity fi = (FormsIdentity)HttpContext.Current.User.Identity;
-                    FormsAuthenticationTicket ticket = fi.Ticket;
-
-                    string strRole = ticket.UserData.Split(':')[1].ToString().ToUpper();
-                    string strUserId = ticket.UserData.Split(':')[0].ToString();
-
-                    if (strRole == "DEALERS")
+                    FormsIdentity fi = HttpContext.Current.User.Identity as FormsIdentity;
+                    if(fi != null)
                     {
-                        string mappedCustId = GetMappedCustomerId(strUserId);
+                        FormsAuthenticationTicket ticket = fi.Ticket;
 
-                        if (mappedCustId != "")
-                            userId = mappedCustId;
-                    }
-                    else
-                        userId = ticket.UserData.Split(':')[0].ToString();
+                        string strRole = ticket.UserData.Split(':')[1].ToString().ToUpper();
+                        string strUserId = ticket.UserData.Split(':')[0].ToString();
+
+                        if (strRole == "DEALERS")
+                        {
+                            string mappedCustId = GetMappedCustomerId(strUserId);
+
+                            if (mappedCustId != "")
+                                userId = mappedCustId;
+                        }
+                        else
+                            userId = ticket.UserData.Split(':')[0].ToString();
+                    }                  
                 }
 
                 return userId;

@@ -371,9 +371,9 @@ namespace Bikewale.DAL.BikeData
                             while (dr.Read())
                             {
                                 t = new T();
-                                t.ModelId = Convert.ToInt32(cmd.Parameters["par_modelid"].Value);
+                                t.ModelId = SqlReaderConvertor.ToInt32(cmd.Parameters["par_modelid"].Value);
                                 t.ModelName = Convert.ToString(dr["Name"]);
-                                t.MakeBase.MakeId = Convert.ToInt32(dr["BikeMakeId"]);
+                                t.MakeBase.MakeId = SqlReaderConvertor.ToInt32(dr["BikeMakeId"]);
                                 t.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
                                 t.MakeBase.IsScooterOnly = SqlReaderConvertor.ToBoolean(dr["IsScooterOnly"]);
                                 t.Futuristic = Convert.ToBoolean(dr["Futuristic"]);
@@ -427,9 +427,7 @@ namespace Bikewale.DAL.BikeData
             }
             catch (Exception err)
             {
-
-                ErrorClass.LogError(err, HttpContext.Current.Request.ServerVariables["URL"]);
-
+                ErrorClass.LogError(err, string.Format("Bikewale.DAL.BikeData.BikeModelsRepository.GetById: {0}", id));
             }
             return t;
 

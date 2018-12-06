@@ -90,16 +90,21 @@ namespace Bikewale.Service.Controllers.BikeData
                 if (ModelState.IsValid && filter != null)
                 {
                     InputFilter filterEntity = LaunchedBikeListMapper.Convert(filter);
-                    NewLaunchedBikeResult entity = _newBikeLaunchBL.GetBikes(filterEntity);
-                    if (entity.TotalCount > 0)
+                    if(filterEntity != null)
                     {
-                        NewLaunchedBikeResultDTO dto = LaunchedBikeListMapper.Convert(entity);
-                        return Ok(dto);
+                        NewLaunchedBikeResult entity = _newBikeLaunchBL.GetBikes(filterEntity);
+                        if (entity.TotalCount > 0)
+                        {
+                            NewLaunchedBikeResultDTO dto = LaunchedBikeListMapper.Convert(entity);
+                            return Ok(dto);
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
                     }
-                    else
-                    {
-                        return NotFound();
-                    }
+                    return NotFound();
+                    
                 }
                 else
                 {

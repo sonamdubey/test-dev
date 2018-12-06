@@ -39,13 +39,17 @@ namespace Bikewale.Service.Controllers.BikeData
             {
                 IEnumerable<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, 1, true);
 
-                objSimilar.SimilarBike = SimilarBikeListMapper.Convert(objSimilarBikes);
+                if(objSimilarBikes != null)
+                {
+                    objSimilar.SimilarBike = SimilarBikeListMapper.Convert(objSimilarBikes);
 
-                if (objSimilar != null && objSimilar.SimilarBike != null && objSimilar.SimilarBike.Any())
-                    return Ok(objSimilar);
-                else
-                    return NotFound();
-
+                    if (objSimilar != null && objSimilar.SimilarBike != null && objSimilar.SimilarBike.Any())
+                        return Ok(objSimilar);
+                    else
+                        return NotFound();
+                }
+                return NotFound();
+                
             }
             catch (Exception ex)
             {
