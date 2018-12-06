@@ -125,8 +125,7 @@ namespace Bikewale.Models.BikeModels
         private readonly Bikewale.Interfaces.Pager.IPager _pager;
         private readonly IBikeModelsCacheHelper _bikeModelsCacheHelper;
         private readonly IBikeModelsCacheRepository<int> _bikeModelsCacheRepository;
-        public static HashSet<uint> _msiteTVSCampaignModels = new HashSet<uint>() { 1142, 1172, 1170, 1080, 473, 405, 1192, 624, 699, 1138, 55 },
-                                    _desktopTVSCamapignModels = new HashSet<uint>() { 55, 473, 405, 1192, 624, 1138,  698, 1037, 697};
+       
         /// <summary>
         /// Modified by : Ashutosh Sharma on 31 Oct 2017
         /// Description : Added IAdSlot.
@@ -184,6 +183,8 @@ namespace Bikewale.Models.BikeModels
         /// Desc        : fetch offerlist in leadcapture to show offers on lead popup
         /// Modified by : Prabhu Puredla on 08 nov 2018
         /// Description : Added logic for tvs top ad campaign
+        /// Modified by : Rajan Chauhan on 05 Dec 2018
+        /// Description : Removed IsTVSCampaignShown property and its code
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns></returns>
@@ -296,7 +297,6 @@ namespace Bikewale.Models.BikeModels
                 {
                     BindAmpJsTags(_objData);
                 }
-                _objData.IsTVSCampaignShown = CheckTVSCampaignModel();
             }
             catch (Exception ex)
             {
@@ -2809,30 +2809,6 @@ namespace Bikewale.Models.BikeModels
                 }
 
             }
-        }
-
-        /// <summary>
-        /// Created By : Prabhu Puredla on 08 nov 2018
-        /// Description : To check whether to show tvs campaign or not 
-        /// </summary>
-        /// <returns></returns>
-        public bool CheckTVSCampaignModel()
-        {
-            DateTime dateTo = new DateTime(2018, 11, 30); 
-            DateTime currentDate = DateTime.Now;
-
-            if (currentDate <= dateTo)
-            {
-                if (IsMobile)
-                {
-                    return _msiteTVSCampaignModels.Contains(_objData.ModelId);
-                }
-                else
-                {
-                    return _desktopTVSCamapignModels.Contains(_objData.ModelId);
-                }
-            }
-            return false;
         }
         #endregion Methods
     }

@@ -152,6 +152,17 @@
                                                 @Html.Raw("<span class='font22'>&#x20B9;</span>")&nbsp;<span class="font22 text-bold">@CommonOpn.FormatPrice(Model.TotalPrice.ToString())</span>
                                             </td>
                                         </tr>
+                                        @if (Model.IsBmwInsuranceLinkShown)
+                                        {
+                                            <tr align="left">
+                                                <td colspan="2" align="left" class="padding-bottom10">
+                                                    <p class="position-rel text-left margin-right15">
+                                                        <a class="font14 bw-ga bw-shown-in-ga text-bold js_bmw_link" target="_blank" rel="noopener nofollow" data-cat="Dealer_PQ" data-act="PriceBreakUpInsuranceAdClicked" data-shownact="PriceBreakUpInsuranceAdShown" data-lab="@string.Format("{0}_{1}", Model.BikeName,Model.CiyName);" href="https://www.bmw-motorrad.in/en/public-pool/content-pool/TestRide.html?deeplink=https%3A%2F%2Fconfigurator.bmw-motorrad.com%2Findex_en_BB.html%23%2Fconfigurator%2F0G01%2FP0N1D&modelCode=0G01&modelName=G+310+R&series=NA&e_country_origin=IN&language=en&bodyType=R&colourCode=P0N1D">Get one year free insurance</a>
+                                                        <span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        }
                                         <tr>
                                             <td>
                                                 @if (Model.IsPrimaryDealerAvailable)
@@ -180,6 +191,10 @@
                                             <td colspan="3"></td>
                                         </tr>
                                     </table>
+                                    if (Model.IsBmwInsuranceLinkShown)
+                                    {
+                                        <img src="@String.Format("https://ad.doubleclick.net/ddm/trackimp/N4322.1528588.BIKEWALE.COM/B22065122.235305005;dc_trk_aid=432961967;dc_trk_cid=109626888;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=?v={0}", DateTime.Now.Ticks)" border="0" height="1" width="1" alt="Advertisement" />
+                                    }
                                 }
                                 else if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
                                 {
@@ -214,6 +229,17 @@
                                                 <div class="border-light-bottom"></div>
                                             <td>
                                         </tr>
+                                        @if (Model.IsBmwInsuranceLinkShown)
+                                        {
+                                            <tr align="left">
+                                                <td colspan="2" align="left" class="padding-bottom10">
+                                                    <p class="position-rel text-left margin-right15">
+                                                        <a class="font14 bw-ga bw-shown-in-ga text-bold js_bmw_link" target="_blank" rel="noopener nofollow" data-cat="Dealer_PQ" data-act="PriceBreakUpInsuranceAdClicked" data-shownact="PriceBreakUpInsuranceAdShown" data-lab="@string.Format("{0}_{1}", Model.BikeName,Model.CiyName);" href="https://www.bmw-motorrad.in/en/public-pool/content-pool/TestRide.html?deeplink=https%3A%2F%2Fconfigurator.bmw-motorrad.com%2Findex_en_BB.html%23%2Fconfigurator%2F0G01%2FP0N1D&modelCode=0G01&modelName=G+310+R&series=NA&e_country_origin=IN&language=en&bodyType=R&colourCode=P0N1D">Get one year free insurance</a>
+                                                        <span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        }
                                         <tr>
                                             <td>
                                                 <p class="font14 text-bold">On-road price in @Html.Raw(Model.Location)</p>
@@ -263,6 +289,10 @@
                                             </tr>
                                         }
                                     </table>
+                                    if (Model.IsBmwInsuranceLinkShown)
+                                    {
+                                        <img src="@String.Format("https://ad.doubleclick.net/ddm/trackimp/N4322.1528588.BIKEWALE.COM/B22065122.235305005;dc_trk_aid=432961967;dc_trk_cid=109626888;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=?v={0}", DateTime.Now.Ticks)" border="0" height="1" width="1" alt="Advertisement" />
+                                    }
                                 }
                                 else
                                 {
@@ -520,9 +550,9 @@
             bikeVerLocation = bikeName + '_' + versionName + '_' + getCityArea;
             gaLabel = bikeVerLocation;
             @if (Model.DetailedDealer != null && Model.DetailedDealer.SecondaryDealers != null && Model.DetailedDealer.SecondaryDealerCount > 0)
-         {
-             <text>triggerNonInteractiveGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
-         }
+             {
+                 <text>triggerNonInteractiveGA('Dealer_PQ', 'Secondary_Dealer_Card_Shown', bikeVerLocation);</text>
+             }
 
             if (FbPixelEvent) {
                 fbq('track', FbPixelEvent.viewContent);

@@ -13,7 +13,6 @@
     Model.AdTags.Ad_320x50 = true;
     bool primaryDealerShown = Model.DetailedDealer.PrimaryDealer != null && Model.DetailedDealer.PrimaryDealer.DealerDetails != null && Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null;
     Model.AdTags.Ad_300x250BTF = !(primaryDealerShown || Model.IsManufacturerLeadAdShown || Model.IsManufacturerEMIAdShown);
-    bool isNonFinancePatner = false;
 }
 @{
     var cityArea = Bikewale.Utility.GlobalCityArea.GetGlobalCityArea();
@@ -106,6 +105,17 @@ else
                         </td>
                     </tr>
                 }
+                @if (Model.IsBmwInsuranceLinkShown)
+                {
+                    <tr align="left">
+                        <td colspan="2" align="left" class="padding-bottom10">
+                            <p class="position-rel text-left margin-right15">
+                                <a class="font14 bw-ga bw-shown-in-ga text-bold js_bmw_link" target="_blank" rel="noopener nofollow" data-cat="Dealer_PQ" data-act="PriceBreakUpInsuranceAdClicked" data-shownact="PriceBreakUpInsuranceAdShown" data-lab="@string.Format("{0}_{1}", Model.BikeName,Model.CiyName);" href="https://www.bmw-motorrad.in/en/public-pool/content-pool/TestRide.html?deeplink=https%3A%2F%2Fconfigurator.bmw-motorrad.com%2Findex_en_BB.html%23%2Fconfigurator%2F0G01%2FP0N1D&modelCode=0G01&modelName=G+310+R&series=NA&e_country_origin=IN&language=en&bodyType=R&colourCode=P0N1D">Get one year free insurance</a>
+                                <span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span>
+                            </p>
+                        </td>
+                    </tr>
+                }
                 <tr>
                     <td height="1" colspan="2" class="break-line padding-bottom15"></td>
                 </tr>
@@ -122,6 +132,10 @@ else
                     </td>
                 </tr>
             </table>
+            if (Model.IsBmwInsuranceLinkShown)
+            {
+                <img src="@String.Format("https://ad.doubleclick.net/ddm/trackimp/N4322.1528588.BIKEWALE.COM/B22065122.235305005;dc_trk_aid=432961967;dc_trk_cid=109626888;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=?v={0}", DateTime.Now.Ticks)" border="0" height="1" width="1" alt="Advertisement" />
+            }
         <!-- Bikewale PQ ends -->
         }
         else if (Model.Quotation != null && Model.Quotation.ExShowroomPrice > 0)
@@ -147,7 +161,17 @@ else
                     </td>
                     <td class="padding-bottom10 text-bold" align="right"><span class="bwmsprite inr-xxsm-icon"></span>@CommonOpn.FormatPrice(Model.Quotation.Insurance.ToString())</td>
                 </tr>
-
+                @if (Model.IsBmwInsuranceLinkShown)
+                {
+                    <tr align="left">
+                        <td colspan="2" align="left" class="padding-bottom10">
+                            <p class="position-rel text-left margin-right15">
+                                <a class="font14 bw-ga bw-shown-in-ga text-bold js_bmw_link" target="_blank" rel="noopener nofollow" data-cat="Dealer_PQ" data-act="PriceBreakUpInsuranceAdClicked" data-shownact="PriceBreakUpInsuranceAdShown" data-lab="@string.Format("{0}_{1}", Model.BikeName,Model.CiyName);" href="https://www.bmw-motorrad.in/en/public-pool/content-pool/TestRide.html?deeplink=https%3A%2F%2Fconfigurator.bmw-motorrad.com%2Findex_en_BB.html%23%2Fconfigurator%2F0G01%2FP0N1D&modelCode=0G01&modelName=G+310+R&series=NA&e_country_origin=IN&language=en&bodyType=R&colourCode=P0N1D">Get one year free insurance</a>
+                                <span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span>
+                            </p>
+                        </td>
+                    </tr>
+                }
                 <tr align="left">
                     <td height="1" colspan="2" class="break-line padding-bottom10"></td>
                 </tr>
@@ -181,7 +205,12 @@ else
                     </tr>
                 }
             </table>
-			if (!Model.IsPrimaryDealerAvailable && !Model.IsManufacturerLeadAdShown && Model.ManufacturerFinanceCampaign != null && Model.ManufacturerFinanceCampaign.IsActive)
+            if (Model.IsBmwInsuranceLinkShown)
+            {
+                <img src="@String.Format("https://ad.doubleclick.net/ddm/trackimp/N4322.1528588.BIKEWALE.COM/B22065122.235305005;dc_trk_aid=432961967;dc_trk_cid=109626888;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=?v={0}", DateTime.Now.Ticks)" border="0" height="1" width="1" alt="Advertisement" />
+            }
+
+            if (!Model.IsPrimaryDealerAvailable && !Model.IsManufacturerLeadAdShown && Model.ManufacturerFinanceCampaign != null && Model.ManufacturerFinanceCampaign.IsActive)
             {
                 <p class='position-rel text-right margin-right15'>
 
@@ -414,7 +443,6 @@ else
 }
 <script defer src="@String.Format("{0}/UI/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
 <script type="text/javascript">
-
     var dealerId = '@Model.DealerId', pqId = '@Model.PQId', versionId = '@Model.VersionId', modelId = '@Model.ModelId';
     var ABHostUrl = '@System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]';
     var cityId = '@Model.CityId', areaId = '@Model.AreaId';

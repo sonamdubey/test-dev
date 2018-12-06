@@ -317,6 +317,17 @@ docReady(function () {
         onChange: handleVersionChange
     });
 
+    // Tracking for BMW Insuarance link 
+    $(".js_bmw_link").on("click", function () {
+      $.ajax({
+        type: "GET",
+        url: "https://ad.doubleclick.net/ddm/trackclk/N4322.1528588.BIKEWALE.COM/B22065122.235305005;dc_trk_aid=432961967;dc_trk_cid=109626888;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=",
+        error: function (request, status, error) {
+          console.log(error);
+        }
+      });
+    });
+
     // old version dropdown change event
     $("#ddlVersion").on("change", function () {
         versionName = $(this).children(":selected").text();

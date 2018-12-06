@@ -20,6 +20,8 @@ namespace Bikewale.Models.Price
     /// Desc        : added IsOffersShownOnLeadPopup for test exp on show offers on lead page
     /// Modified by : Pratibha Verma on 29 November 2018
     /// Description : Added property ManufacturerFinanceCampaignEntity to bind finance campaign
+    /// Modified by : Rajan Chauhan on 05 Dec 2018
+    /// Description : Added a bool property IsBmwInsuranceLinkShown
     /// </summary>
     public class DealerPriceQuotePageVM : ModelBase
     {
@@ -73,5 +75,6 @@ namespace Bikewale.Models.Price
         // for AB TEST
         public bool IsOffersShownOnLeadPopup { get; set; }
         public ManufacturerFinanceCampaignEntity ManufacturerFinanceCampaign { get; set; }
+        public bool IsBmwInsuranceLinkShown { get; set; }
     }
 }

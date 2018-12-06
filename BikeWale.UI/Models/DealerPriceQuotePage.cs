@@ -54,7 +54,7 @@ namespace Bikewale.Models
         public ManufacturerCampaignServingPages ManufacturerCampaignPageId { get; set; }
         private uint _modelId, _versionId, _cityId, _areaId, _dealerId, _makeId;
         private string pageUrl, mpqQueryString, currentCity = string.Empty, currentArea = string.Empty, _pqId = string.Empty, exitUrl;
-
+        public static HashSet<uint> _BMWCampaignModels = new HashSet<uint>() { 657, 994 };
 
         /// <summary>
         /// Created By : Sushil Kumar on 23rd March 2017
@@ -93,6 +93,8 @@ namespace Bikewale.Models
         /// Desc        : fetch offerlist in leadcapture to show offers on lead popup
         /// Modified by : Pratibha Verma on 29 November 2018
         /// Description : Added call to bind manufacturer finance campaign
+        /// Modified by : Rajan Chauhan on 05 Dec 2018
+        /// Description : Setting bool flag IsBmwInsuranceLinkShown based on the models
         /// </summary>
         /// <returns></returns>
         public DealerPriceQuotePageVM GetData()
@@ -151,6 +153,7 @@ namespace Bikewale.Models
                     {
                         objData.LeadCapture.ShowOffersOnLeadPage = objData.LeadCapture.OfferCount > 0;
                     }
+                    objData.IsBmwInsuranceLinkShown = CheckBMWCampaignModel(_modelId);
 
                 }
                 objData.ExitUrl = exitUrl;
@@ -690,6 +693,16 @@ namespace Bikewale.Models
             {
                 objData.IsOffersShownOnLeadPopup = cookieValue <= 90;
             }
+        }
+
+        /// <summary>
+        /// Created By  : Rajan Chauhan on 05 Dec 2018
+        /// Description : To check whether to show BMW Insurance campaign
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckBMWCampaignModel(uint modelId)
+        {
+            return _BMWCampaignModels.Contains(modelId);
         }
     }
 }
