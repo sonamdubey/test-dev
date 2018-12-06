@@ -1,13 +1,10 @@
-﻿using Bikewale.Common;
-using Bikewale.Entities.Dealer;
+﻿using Bikewale.Entities.Dealer;
 using Bikewale.Entities.Location;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Web;
 
 namespace Bikewale.Models.Finance
 {
@@ -43,7 +40,7 @@ namespace Bikewale.Models.Finance
                     viewModel.ObjLead.BikeName = queryCollection["bike"];
                     viewModel.ObjLead.DealerName = queryCollection["dealerName"];
                     Boolean.TryParse(queryCollection["sendLeadSMSCustomer"], out sendSMStoCustomer);
-                    viewModel.ObjLead.SendLeadSMSCustomer =  sendSMStoCustomer;
+                    viewModel.ObjLead.SendLeadSMSCustomer = sendSMStoCustomer;
                     viewModel.ObjLead.PQGUId = queryCollection["pqguid"];
                     UInt32.TryParse(queryCollection["cityid"], out cityId);
                     viewModel.ObjLead.CityId = cityId;

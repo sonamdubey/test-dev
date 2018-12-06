@@ -1,29 +1,25 @@
 ﻿
-using Bikewale.BAL.BikeBooking;
 using Bikewale.Cache.Core;
+using Bikewale.Cache.Helper.PriceQuote;
 using Bikewale.Cache.PriceQuote;
+using Bikewale.DAL.BikeBooking;
 using Bikewale.DAL.PriceQuote;
-using Bikewale.Entities.BikeBooking;
+using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Utility;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using BikeWale.Entities.AutoBiz;
+using log4net;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using RabbitMqPublishing;
 using System.Collections.Specialized;
-using log4net;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Web.Hosting;
-using Bikewale.DTO.PriceQuote.Version;
-using Bikewale.DAL.BikeBooking;
-using Bikewale.Cache.Helper.PriceQuote;
 
 namespace Bikewale.BAL.PriceQuote
 {
@@ -56,8 +52,8 @@ namespace Bikewale.BAL.PriceQuote
                 objPQ = objPQCont.Resolve<IPriceQuote>();
                 objPQCache = objPQCont.Resolve<IPriceQuoteCache>();
                 _dealerPQCache = objPQCont.Resolve<IDealerPriceQuoteCache>();
-                _pqGenerate=new PQGenerate(objPQ);
-            }            
+                _pqGenerate = new PQGenerate(objPQ);
+            }
         }
 
         /// <summary>
@@ -82,24 +78,18 @@ namespace Bikewale.BAL.PriceQuote
         public string RegisterPriceQuoteV2(Bikewale.Entities.PriceQuote.v2.PriceQuoteParametersEntity pqParams)
         {
             string pqGUId = string.Empty;
-            double time=0;
             try
             {
-                DateTime startTime = DateTime.Now;
-                pqGUId = RandomNoGenerator.GenerateUniqueId();
-                string clientIp = CurrentUser.GetClientIP();
-                PushToQueue(pqParams, pqGUId, clientIp);
-                DateTime endTime = DateTime.Now;
-                time = (endTime - startTime).TotalMilliseconds;
+                using (BenchMark benchMark = new BenchMark(_logger, "RegisterPriceQuoteV2"))
+                {
+                    pqGUId = RandomNoGenerator.GenerateUniqueId();
+                    string clientIp = CurrentUser.GetClientIP();
+                    PushToQueue(pqParams, pqGUId, clientIp);
+                }
             }
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.PriceQuote.RegisterPriceQuoteV2()--> PQId = {0}", pqGUId));
-            }finally
-            {
-                ThreadContext.Properties["RegisterPriceQuoteV2"] = time;
-                _logger.Info("Time");
-                ThreadContext.Properties.Remove("RegisterPriceQuoteV2");
             }
             return pqGUId;
         }
@@ -126,9 +116,10 @@ namespace Bikewale.BAL.PriceQuote
                 objNVC.Add("UTMZ", pqParams.UTMZ);
                 objNVC.Add("pqSourceId", Convert.ToString(pqParams.PQLeadId));
                 objNVC.Add("refGUID", pqParams.RefPQId);
-                
-                HostingEnvironment.QueueBackgroundWorkItem(f => PushToPQConsumerQueue(objNVC));                
-            }catch(Exception ex)
+
+                HostingEnvironment.QueueBackgroundWorkItem(f => PushToPQConsumerQueue(objNVC));
+            }
+            catch (Exception ex)
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.PriceQuote.PushToQueue()--> PQId = {0}", pqGUId));
             }
@@ -137,21 +128,6 @@ namespace Bikewale.BAL.PriceQuote
         private void PushToPQConsumerQueue(NameValueCollection objNVC)
         {
             _pqGenerate.RabbitMQExecution(objNVC);
-        }
-        
-
-        /// <summary>
-        /// Function to get the price quote by price quote id.
-        /// </summary>
-        /// <param name="pqId">Price quote id. Only positive numbers are allowed.</param>
-        /// <returns>Returns price quote information in the PriceQuoteEntity object.</returns>
-        public BikeQuotationEntity GetPriceQuoteById(ulong pqId)
-        {
-            BikeQuotationEntity objQuotation = null;
-
-            objQuotation = objPQ.GetPriceQuoteById(pqId);
-
-            return objQuotation;
         }
 
         /// <summary>
@@ -168,66 +144,6 @@ namespace Bikewale.BAL.PriceQuote
             objQuotation = objPQ.GetPriceQuote(cityId, versionId);
 
             return objQuotation;
-        }
-
-        /// <summary>
-        /// Function to get the price quote by price quote id.
-        /// </summary>
-        /// <param name="pqId">Price quote id. Only positive numbers are allowed.</param>
-        /// <returns>Returns price quote information in the PriceQuoteEntity object.</returns>
-        public BikeQuotationEntity GetPriceQuoteById(ulong pqId, LeadSourceEnum page)
-        {
-            BikeQuotationEntity objQuotation = null;
-
-            objQuotation = objPQ.GetPriceQuoteById(pqId, page);
-
-            return objQuotation;
-        }
-
-        /// <summary>
-        /// Craeted By  : Pratibha Verma on 20 June 2018
-        /// Description : Removed PQId dependency
-        /// </summary>
-        /// <param name="cityId"></param>
-        /// <param name="versionId"></param>
-        /// <param name="page"></param>
-        /// <returns></returns>
-        public Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity GetPriceQuote(uint cityId, uint versionId, LeadSourceEnum page)
-        {
-            Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity objQuotation = null;
-
-            objQuotation = objPQ.GetPriceQuote(cityId, versionId, page);
-
-            return objQuotation;
-        }
-
-        /// <summary>
-        /// Function to get the price quote by price quote information. Price quote will be registered automatically and returns price quote.
-        /// </summary>
-        /// <param name="pqParams">all parameters necessory to save the price quote.</param>
-        /// <returns>Retunrs price quote in the PricQuoteEntity object.</returns>
-        [Obsolete("Unused")]
-        public BikeQuotationEntity GetPriceQuote(PriceQuoteParametersEntity pqParams)
-        {
-            BikeQuotationEntity objQuotation = null;
-
-            objQuotation = objPQ.GetPriceQuote(pqParams);
-
-            return objQuotation;
-        }
-
-        /// <summary>
-        /// Function to get the other versions of the model whose price quote is taken.
-        /// </summary>
-        /// <param name="pqId">Price quote id</param>
-        /// <returns>Returns list containing versions with on road prices.</returns>
-        public List<OtherVersionInfoEntity> GetOtherVersionsPrices(ulong pqId)
-        {
-            List<OtherVersionInfoEntity> objVersionsList = null;
-
-            objVersionsList = objPQ.GetOtherVersionsPrices(pqId);
-
-            return objVersionsList;
         }
 
         public IEnumerable<OtherVersionInfoEntity> GetOtherVersionsPrices(uint modelId, uint cityId)
@@ -395,33 +311,33 @@ namespace Bikewale.BAL.PriceQuote
                 ErrorClass.LogError(ex, "Bikewale.BAL.PriceQuote.GetDealerVersionPriceByModelCity");
             }
         }
-		/// <summary>
-		/// Created By : Prabhu Puredla on 18 july 2018
-		/// Description : Get the status for make city combination in mla
-		/// </summary>
-		/// <param name="makeId"></param>
-		/// <param name="cityId"></param>
-		/// <returns></returns>
-		public bool GetMLAStatus(int makeId, uint cityId)
-		{
-			try
-			{
-				if(makeId > 0 && cityId >0)
-				{
-					string key = string.Format("{0}_{1}", makeId, cityId);
-					IEnumerable<string> mlaMakeCities = _dealerPQCache.GetMLAMakeCities();
-					if (mlaMakeCities != null)
-					{
-						return mlaMakeCities.Contains(key);
-					}	
-				}						
-			}
-			catch(Exception ex)
-			{
-				ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.GetMLAStatus for MakeId_{0} , CityId_{1}", makeId, cityId));
-			}
-			return false; 
-		}
+        /// <summary>
+        /// Created By : Prabhu Puredla on 18 july 2018
+        /// Description : Get the status for make city combination in mla
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public bool GetMLAStatus(int makeId, uint cityId)
+        {
+            try
+            {
+                if (makeId > 0 && cityId > 0)
+                {
+                    string key = string.Format("{0}_{1}", makeId, cityId);
+                    IEnumerable<string> mlaMakeCities = _dealerPQCache.GetMLAMakeCities();
+                    if (mlaMakeCities != null)
+                    {
+                        return mlaMakeCities.Contains(key);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.BAL.PriceQuote.GetMLAStatus for MakeId_{0} , CityId_{1}", makeId, cityId));
+            }
+            return false;
+        }
 
         public VersionPrice GetVersionPriceByCityId(uint versionId, uint cityId)
         {

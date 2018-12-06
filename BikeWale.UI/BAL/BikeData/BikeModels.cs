@@ -433,14 +433,9 @@ namespace Bikewale.BAL.BikeData
 
             try
             {
-                DateTime dt1 = DateTime.Now;
                 objModelPage = _modelCacheRepository.GetModelPageDetails(modelId);
-                DateTime dt2 = DateTime.Now;
-
-                ThreadContext.Properties["11GetModelPageDetailsBAL"] = (dt2 - dt1).TotalMilliseconds;
                 if (objModelPage != null)
                 {
-                    dt1 = DateTime.Now;
                     if (objModelPage.ModelVersions != null && objModelPage.ModelVersions.Any())
                     {
                         var modelVersion = objModelPage.ModelVersions.FirstOrDefault();
@@ -506,8 +501,6 @@ namespace Bikewale.BAL.BikeData
                         }
                     }
                     CreateAllPhotoList(modelId, objModelPage);
-                    dt2 = DateTime.Now;
-                    ThreadContext.Properties["11CreateAllPhotoList"] = (dt2 - dt1).TotalMilliseconds;
                 }
 
             }

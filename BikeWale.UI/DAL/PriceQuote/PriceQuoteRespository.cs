@@ -1,6 +1,5 @@
 ﻿using Bikewale.DTO.PriceQuote.Version;
 using Bikewale.Entities;
-using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
@@ -93,57 +92,6 @@ namespace Bikewale.DAL.PriceQuote
         }
 
         /// <summary>
-        /// Summary : Function to Get the price quote by price quote id.
-        /// Modified by :   Sumit Kate on 18 Aug 2016
-        /// Description :   Created new SP to return state name in result. Replaced in/out parameters with DataReader approach
-        /// </summary>
-        /// <param name="pqId">price quote id. Only positive numbers are allowed</param>
-        /// <returns>Returns price quote object.</returns>
-        public BikeQuotationEntity GetPriceQuoteById(ulong pqId)
-        {
-            BikeQuotationEntity objQuotation = null;
-            try
-            {
-                objQuotation = new BikeQuotationEntity();
-                using (DbCommand cmd = DbFactory.GetDBCommand())
-                {
-                    cmd.CommandText = "getpricequote_new_18082016";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
-                    {
-                        if (dr != null && dr.Read())
-                        {
-                            objQuotation.ExShowroomPrice = SqlReaderConvertor.ToUInt64(dr["exshowroom"]);
-                            objQuotation.RTO = SqlReaderConvertor.ToUInt32(dr["rto"]);
-                            objQuotation.Insurance = SqlReaderConvertor.ToUInt32(dr["insurance"]);
-                            objQuotation.OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["onroad"]);
-                            objQuotation.MakeName = Convert.ToString(dr["make"]);
-                            objQuotation.ModelName = Convert.ToString(dr["model"]);
-                            objQuotation.VersionName = Convert.ToString(dr["version"]);
-                            objQuotation.City = Convert.ToString(dr["cityname"]);
-                            objQuotation.VersionId = SqlReaderConvertor.ToUInt32(dr["versionid"]);
-                            objQuotation.CampaignId = SqlReaderConvertor.ToUInt32(dr["campaignid"]);
-                            objQuotation.ManufacturerId = SqlReaderConvertor.ToUInt32(dr["manufacturerid"]);
-                            objQuotation.State = Convert.ToString(dr["statename"]);
-
-                            objQuotation.PriceQuoteId = pqId;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetPriceQuote ex : " + ex.Message + ex.Source);
-                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-
-            }
-
-            return objQuotation;
-        }
-
-        /// <summary>
         /// Created by  : Pratibha Verma on 19 June 2018
         /// Description : removed PQId dependency
         /// </summary>
@@ -163,7 +111,7 @@ namespace Bikewale.DAL.PriceQuote
 
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
                     cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
                     {
                         if (dr != null && dr.Read())
                         {
@@ -188,149 +136,6 @@ namespace Bikewale.DAL.PriceQuote
                 ErrorClass.LogError(ex, "Bikewale.DAL.PriceQuote.PriceQuoteRepository.GetPriceQuote");
             }
 
-            return objQuotation;
-        }
-
-        /// <summary>
-        /// Summary : Function to Get the price quote by price quote id.
-        /// Modified by :   Vivek Gupta on 29th Aug 2016
-        /// Description :   Created new SP to return manufacturere Ad value and created overload of the function
-        /// Modifide By :- Subodh jain on 02 March 2017
-        /// Summary:- added manufacturer campaign leadpopup changes
-        /// Modified by : Ashutosh Sharma on 30 Aug 2017 
-        /// Description : Changed SP from 'getpricequote_new_28062017' to 'getpricequote_new_30082017', removed IsGstPrice flag
-        /// <param name="pqId">price quote id. Only positive numbers are allowed</param>
-        /// <returns>Returns price quote object.</returns>
-        public BikeQuotationEntity GetPriceQuoteById(ulong pqId, LeadSourceEnum page)
-        {
-            BikeQuotationEntity objQuotation = null;
-            try
-            {
-                objQuotation = new BikeQuotationEntity();
-                using (DbCommand cmd = DbFactory.GetDBCommand())
-                {
-                    cmd.CommandText = "getpricequote_new_30082017";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_quoteid", DbType.Int64, pqId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pageid", DbType.Int32, Convert.ToInt32(page)));
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
-                    {
-                        if (dr != null && dr.Read())
-                        {
-                            objQuotation.CampaignId = SqlReaderConvertor.ToUInt32(dr["campaignId"]);
-                            objQuotation.ManufacturerName = Convert.ToString(dr["organization"]);
-                            objQuotation.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
-                            objQuotation.ExShowroomPrice = SqlReaderConvertor.ToUInt64(dr["exshowroom"]);
-                            objQuotation.RTO = SqlReaderConvertor.ToUInt32(dr["rto"]);
-                            objQuotation.Insurance = SqlReaderConvertor.ToUInt32(dr["insurance"]);
-                            objQuotation.OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["onroad"]);
-                            objQuotation.MakeName = Convert.ToString(dr["make"]);
-                            objQuotation.ModelName = Convert.ToString(dr["model"]);
-                            objQuotation.VersionName = Convert.ToString(dr["version"]);
-                            objQuotation.City = Convert.ToString(dr["cityname"]);
-                            objQuotation.VersionId = SqlReaderConvertor.ToUInt32(dr["versionid"]);
-                            objQuotation.CampaignId = SqlReaderConvertor.ToUInt32(dr["campaignid"]);
-                            objQuotation.ManufacturerId = SqlReaderConvertor.ToUInt32(dr["manufacturerid"]);
-                            objQuotation.State = Convert.ToString(dr["statename"]);
-                            objQuotation.ManufacturerAd = Convert.ToString(dr["manufacturerAd"]);
-                            objQuotation.PriceQuoteId = pqId;
-                            objQuotation.LeadCapturePopupDescription = Convert.ToString(dr["LeadCapturePopupDescription"]);
-                            objQuotation.LeadCapturePopupHeading = Convert.ToString(dr["LeadCapturePopupHeading"]);
-                            objQuotation.LeadCapturePopupMessage = Convert.ToString(dr["LeadCapturePopupMessage"]);
-                            objQuotation.PinCodeRequired = SqlReaderConvertor.ToBoolean(dr["PinCodeRequired"]);
-                            objQuotation.EmailRequired = SqlReaderConvertor.ToBoolean(dr["EmailIDRequired"]);
-                            objQuotation.DealersRequired = SqlReaderConvertor.ToBoolean(dr["DealersRequired"]);
-                            objQuotation.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                HttpContext.Current.Trace.Warn("GetPriceQuote ex : " + ex.Message + ex.Source);
-                ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-
-            }
-
-            return objQuotation;
-        }
-
-        /// <summary>
-        /// Created by  : Pratibha Verma on 20 June 2018
-        /// Description : removed PQId dependency
-        /// </summary>
-        /// <param name="cityId"></param>
-        /// <param name="versionId"></param>
-        /// <param name="page"></param>
-        /// <returns></returns>
-        public Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity GetPriceQuote(uint cityId, uint versionId, LeadSourceEnum page)
-        {
-            Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity objQuotation = null;
-            try
-            {
-                objQuotation = new Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity();
-                using (DbCommand cmd = DbFactory.GetDBCommand())
-                {
-                    cmd.CommandText = "getpricequote_new_20062018";
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_versionid", DbType.Int32, versionId));
-                    cmd.Parameters.Add(DbFactory.GetDbParam("par_pageid", DbType.Int32, Convert.ToInt32(page)));
-
-                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.MasterDatabase))
-                    {
-                        if (dr != null && dr.Read())
-                        {
-                            objQuotation.CampaignId = SqlReaderConvertor.ToUInt32(dr["campaignId"]);
-                            objQuotation.ManufacturerName = Convert.ToString(dr["organization"]);
-                            objQuotation.MaskingNumber = Convert.ToString(dr["MaskingNumber"]);
-                            objQuotation.ExShowroomPrice = SqlReaderConvertor.ToUInt64(dr["exshowroom"]);
-                            objQuotation.RTO = SqlReaderConvertor.ToUInt32(dr["rto"]);
-                            objQuotation.Insurance = SqlReaderConvertor.ToUInt32(dr["insurance"]);
-                            objQuotation.OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["onroad"]);
-                            objQuotation.MakeName = Convert.ToString(dr["make"]);
-                            objQuotation.ModelName = Convert.ToString(dr["model"]);
-                            objQuotation.VersionName = Convert.ToString(dr["version"]);
-                            objQuotation.City = Convert.ToString(dr["cityname"]);
-                            objQuotation.VersionId = SqlReaderConvertor.ToUInt32(dr["versionid"]);
-                            objQuotation.CampaignId = SqlReaderConvertor.ToUInt32(dr["campaignid"]);
-                            objQuotation.ManufacturerId = SqlReaderConvertor.ToUInt32(dr["manufacturerid"]);
-                            objQuotation.State = Convert.ToString(dr["statename"]);
-                            objQuotation.ManufacturerAd = Convert.ToString(dr["manufacturerAd"]);
-                            objQuotation.LeadCapturePopupDescription = Convert.ToString(dr["LeadCapturePopupDescription"]);
-                            objQuotation.LeadCapturePopupHeading = Convert.ToString(dr["LeadCapturePopupHeading"]);
-                            objQuotation.LeadCapturePopupMessage = Convert.ToString(dr["LeadCapturePopupMessage"]);
-                            objQuotation.PinCodeRequired = SqlReaderConvertor.ToBoolean(dr["PinCodeRequired"]);
-                            objQuotation.EmailRequired = SqlReaderConvertor.ToBoolean(dr["EmailIDRequired"]);
-                            objQuotation.DealersRequired = SqlReaderConvertor.ToBoolean(dr["DealersRequired"]);
-                            objQuotation.CityMaskingName = Convert.ToString(dr["citymaskingname"]);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, string.Format("Bikewale.DAL.PriceQuote.PriceQuoteRepository.GetPriceQuote({0},{1},{2})", cityId, versionId, page));
-            }
-
-            return objQuotation;
-        }
-
-
-        /// <summary>
-        /// Summary : function to get the price quote by providing all the necessory parameters to get the pq.
-        /// </summary>
-        /// <param name="pqParams">Price quote parameters.</param>
-        /// <returns>Returns price qutoe object.</returns>
-        [Obsolete("Unused")]
-        public BikeQuotationEntity GetPriceQuote(PriceQuoteParametersEntity pqParams)
-        {
-            ulong pqId = RegisterPriceQuote(pqParams);
-
-            BikeQuotationEntity objQuotation = GetPriceQuoteById(pqId);
             return objQuotation;
         }
 

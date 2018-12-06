@@ -1,24 +1,19 @@
 ﻿using Bikewale.Cache.Core;
 using Bikewale.Cache.MobileVerification;
-using Bikewale.DAL.Dealer;
 using Bikewale.DAL.MobileVerification;
 using Bikewale.Entities.BikeBooking;
-using Bikewale.Entities.Dealer;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
-using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using RabbitMqPublishing;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Net.Http;
 using System.Web;
 
 namespace Bikewale.BAL.PriceQuote
@@ -282,7 +277,7 @@ namespace Bikewale.BAL.PriceQuote
         /// <param name="inquirySource">39 for bikewale new lead by default</param>
         /// <param name="otherData">extra datea send to autobiz api in others field</param>
         /// <param name="comments">comment sent by ab</param>
-        public void PushtoAB(string dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, string versionId, string cityId, string pqGuId, uint leadId, uint campaignId = 0, ushort inquirySource = 39, string otherData = "",string comments = "")
+        public void PushtoAB(string dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, string versionId, string cityId, string pqGuId, uint leadId, uint campaignId = 0, ushort inquirySource = 39, string otherData = "", string comments = "")
         {
             string abInquiryId = string.Empty, message = string.Empty;
             bool isNotFakeMobileNumber = false;
@@ -349,74 +344,6 @@ namespace Bikewale.BAL.PriceQuote
             return isUpdateDealerCount;
         }
 
-        /// <summary>
-        /// Created By  :   Sumit Kate on 18 Aug 2016
-        /// Description :   Push Lead To Gaadi.com external API
-        /// Modified by :   Sumit Kate on 02 Feb 2017
-        /// Description :   Send the all the parameters with a base64 encoded json pack in a params variable
-        /// Modified by :   Aditi Srivastava on 16 Feb 2017
-        /// Summary     :   Added function to check if mobile number is authentic before pushing lead
-        /// </summary>
-        /// <param name="leadEntity"></param>
-        /// <returns></returns>
-        public bool PushLeadToGaadi(Entities.Dealer.ManufacturerLeadEntity leadEntity)
-        {
-            string leadURL = string.Empty;
-            string response = string.Empty;
-            bool isSuccess = false;
-            try
-            {
-                if (!IsFakeMobileNumber(leadEntity.Mobile))
-                {
-                    using (IUnityContainer container = new UnityContainer())
-                    {
-                        container.RegisterType<IPriceQuote, Bikewale.BAL.PriceQuote.PriceQuote>().
-                            RegisterType<IDealer, Bikewale.BAL.Dealer.Dealer>().
-                        RegisterType<IDealerRepository, DealersRepository>();
-                        IPriceQuote objPriceQuote = container.Resolve<IPriceQuote>();
-                        BikeQuotationEntity quotation = objPriceQuote.GetPriceQuoteById(leadEntity.PQId);
-
-                        GaadiLeadEntity gaadiLead = new GaadiLeadEntity()
-                        {
-                            City = quotation.City,
-                            Email = leadEntity.Email,
-                            Make = quotation.MakeName,
-                            Mobile = leadEntity.Mobile,
-                            Model = quotation.ModelName,
-                            Name = leadEntity.Name,
-                            Source = "bikewale",
-                            State = quotation.State
-                        };
-
-                        leadURL = String.Format("http://hondalms.gaadi.com/lms/externalApi/girnarLeadHMSIApi.php?params={0}", EncodingDecodingHelper.EncodeTo64(Newtonsoft.Json.JsonConvert.SerializeObject(gaadiLead)));
-
-                        using (HttpClient httpClient = new HttpClient())
-                        {
-                            using (HttpResponseMessage _response = httpClient.GetAsync(leadURL).Result)
-                            {
-                                if (_response.IsSuccessStatusCode)
-                                {
-                                    if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
-                                    {
-                                        response = _response.Content.ReadAsStringAsync().Result;
-                                        IDealer objDealer = container.Resolve<IDealer>();
-                                        objDealer.UpdateManufaturerLead(leadEntity.PQId, leadEntity.Email, leadEntity.Mobile, response);
-                                        _response.Content.Dispose();
-                                        _response.Content = null;
-                                        isSuccess = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "LeadNotificationBL.PushLeadToGaadi()");
-            }
-            return isSuccess;
-        }
         /// <summary>
         /// Created by : Aditi Srivastava on 16 Feb 2017
         /// Summar     : Check if a number is a part of blocked numbers list

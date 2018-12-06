@@ -56,6 +56,7 @@ namespace Bikewale.Common
                 {
                     ThreadContext.Properties["UserAgent"] = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"];
                     _log.Error(ex);
+                    ThreadContext.Properties.Remove("UserAgent");
                 }
             }
             else if (HttpContext.Current.Request.Cookies["DesktopDetected"] == null && HttpContext.Current.Request.QueryString["site"] != null && HttpContext.Current.Request.QueryString["site"] == "desktop")

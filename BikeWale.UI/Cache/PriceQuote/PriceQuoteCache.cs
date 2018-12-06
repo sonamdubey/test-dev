@@ -1,19 +1,14 @@
 ﻿using Bikewale.Entities;
-using Bikewale.Entities.Location;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Models.PriceInCity;
 using Bikewale.Notifications;
 using Bikewale.Utility;
-using log4net;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Device.Location;
-using Microsoft.Practices.Unity;
-using Bikewale.Models.PriceInCity;
 
 namespace Bikewale.Cache.PriceQuote
 {
@@ -24,7 +19,7 @@ namespace Bikewale.Cache.PriceQuote
     {
         private readonly ICacheManager _cache = null;
         private readonly IPriceQuote _obPriceQuote = null;
-        private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote _dealerPriceQuoteRepository ;
+        private readonly Bikewale.Interfaces.BikeBooking.IDealerPriceQuote _dealerPriceQuoteRepository;
         private readonly Bikewale.Interfaces.AutoBiz.IDealerPriceQuote _objDealerPriceQuote = null;
         private readonly IPriceQuoteCacheHelper _priceQuoteCacheHelper;
         private readonly static IUnityContainer _container;
@@ -35,7 +30,7 @@ namespace Bikewale.Cache.PriceQuote
             _container.RegisterType<Bikewale.Interfaces.BikeBooking.IDealerPriceQuote, Bikewale.DAL.BikeBooking.DealerPriceQuoteRepository>();
         }
 
-        public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote,  Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objDealerPriceQuote, IPriceQuoteCacheHelper priceQuoteCacheHelper)
+        public PriceQuoteCache(ICacheManager cache, IPriceQuote obPriceQuote, Bikewale.Interfaces.AutoBiz.IDealerPriceQuote objDealerPriceQuote, IPriceQuoteCacheHelper priceQuoteCacheHelper)
         {
             _cache = cache;
             _obPriceQuote = obPriceQuote;
@@ -102,7 +97,6 @@ namespace Bikewale.Cache.PriceQuote
         /// <returns></returns>
         public PriceInTopCitiesWidgetVM GetModelPriceInNearestCities(uint modelId, uint cityId)
         {
-            DateTime dt1 = DateTime.Now, dt2;
             PriceInTopCitiesWidgetVM priceInTopCities = null;
             string nearestCityKey = String.Format("BW_PriceInNC_M_{0}_C_{1}", modelId, cityId);
             try
@@ -122,14 +116,9 @@ namespace Bikewale.Cache.PriceQuote
             {
                 ErrorClass.LogError(ex, string.Format("Bikewale.Cache.PriceQuote.PriceQuoteCache.GetModelPriceInNearestCities(modelId = {0}, cityId = {1})", modelId, cityId));
             }
-            finally
-            {
-                dt2 = DateTime.Now;
-                ThreadContext.Properties["ModelPriceInNearestCities_FetchTime"] = (dt2 - dt1).TotalMilliseconds;
-            }
             return priceInTopCities;
         }
-        
+
         /// <summary>
         /// Modified by  : Rajan Chauhan on 28 September 2018
         /// Description  : Increased cached duration to 7 days
@@ -166,14 +155,14 @@ namespace Bikewale.Cache.PriceQuote
         {
             IEnumerable<ManufacturerDealer> dealerInCity = null;
             IDictionary<uint, List<ManufacturerDealer>> dealer = null;
-            string key = "BW_Manufacturer_Dealer_"+dealerId;
+            string key = "BW_Manufacturer_Dealer_" + dealerId;
             try
             {
                 dealer = _cache.GetFromCache<IDictionary<uint, List<ManufacturerDealer>>>(key, new TimeSpan(24, 0, 0), () => _obPriceQuote.GetManufacturerDealers(dealerId));
-                
+
                 if (dealer != null && dealer.ContainsKey(cityId))
                 {
-                    dealerInCity = dealer[cityId]; 
+                    dealerInCity = dealer[cityId];
                 }
             }
             catch (Exception ex)
@@ -203,7 +192,7 @@ namespace Bikewale.Cache.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, String.Format("PriceQuoteCache.GetDefaultPriceQuoteVersion({0},{1})", modelId, cityId));
-            }  
+            }
             return versionId;
         }
 
@@ -371,7 +360,7 @@ namespace Bikewale.Cache.PriceQuote
             {
                 if (platformId > 0)
                 {
-                    string key = string.Format("BW_ManufacturerOffersTemplate_{0}", platformId > 1 ? 2:1);
+                    string key = string.Format("BW_ManufacturerOffersTemplate_{0}", platformId > 1 ? 2 : 1);
                     campaignOfferTemplate = _cache.GetFromCache<string>(key, new TimeSpan(30, 0, 0, 0), () => _obPriceQuote.GetManufactuerDefaultCampaignOfferTemplate(platformId));
                 }
             }

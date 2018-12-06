@@ -1,4 +1,4 @@
-﻿using Bikewale.Common;
+﻿using Bikewale.Notifications;
 using MySql.CoreDAL;
 using System;
 using System.ComponentModel;
@@ -70,13 +70,13 @@ namespace Bikewale.RabbitMQ
             catch (SqlException ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
                 url = "sql exception" + ex.Message;
             } // catch Exception
             catch (Exception ex)
             {
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
                 url = "exception" + ex.Message;
             } // catch Exception
             return url;
@@ -108,9 +108,8 @@ namespace Bikewale.RabbitMQ
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn(ex.Message);
                 ErrorClass.LogError(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                
+
             } // catch Exception
 
             return ds;

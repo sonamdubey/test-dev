@@ -1,5 +1,4 @@
-﻿using Bikewale.Common;
-using Bikewale.Entities.BikeData;
+﻿using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeSeries;
 using Bikewale.Entities.Compare;
 using Bikewale.Entities.GenericBikes;
@@ -13,6 +12,7 @@ using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.Videos;
 using Bikewale.Models.CompareBikes;
 using Bikewale.Models.Used;
+using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
@@ -141,7 +141,7 @@ namespace Bikewale.Models.BikeSeries
                 usedBikeModel = objUsedBike.GetData();
                 if (usedBikeModel != null)
                 {
-                    usedBikeModel.City = new CityHelper().GetCityById(cityId);
+                    usedBikeModel.City = new Bikewale.Common.CityHelper().GetCityById(cityId);
                 }
             }
             catch (Exception ex)
@@ -270,13 +270,13 @@ namespace Bikewale.Models.BikeSeries
             {
                 WebPage webpage = SchemaHelper.GetWebpageSchema(objSeriesPage.PageMetaTags, objSeriesPage.SchemaBreadcrumbList);
                 Brand brand = null;
-                if(webpage != null)
+                if (webpage != null)
                 {
                     brand = new Brand
                     {
                         Name = string.Format("{0} {1}", objSeriesPage.BikeMake.MakeName, objSeriesPage.SeriesBase.SeriesName),
                         Description = objSeriesPage.SeriesDescription.FullDescription,
-                        Url = string.Format("{0}/{1}{2}-bikes/{3}/", BWConfiguration.Instance.BwHostUrl, (IsMobile ? "m/" : ""),  objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName)
+                        Url = string.Format("{0}/{1}{2}-bikes/{3}/", BWConfiguration.Instance.BwHostUrl, (IsMobile ? "m/" : ""), objSeriesPage.BikeMake.MakeMaskingName, objSeriesPage.SeriesBase.MaskingName)
                     };
 
                     objSeriesPage.PageMetaTags.SchemaJSON = SchemaHelper.JsonSerialize(webpage);
@@ -440,7 +440,7 @@ namespace Bikewale.Models.BikeSeries
                     objBikeSpecs.Weight = (ushort)(seriesCompareBikesWithSpecs.TakeWhile(x => x.Weight != seriesCompareBikesWithSpecs.Min(m => m.Weight)).Count() + 1);
                     objBikeSpecs.FuelCapacity = (ushort)(seriesCompareBikesWithSpecs.TakeWhile(x => x.FuelCapacity != seriesCompareBikesWithSpecs.Max(m => m.FuelCapacity)).Count() + 1);
                     objBikeSpecs.Displacement = (ushort)(seriesCompareBikesWithSpecs.TakeWhile(x => x.Displacement != seriesCompareBikesWithSpecs.Max(m => m.Displacement)).Count() + 1);
-                    
+
 
                     objSeriesPage.ObjModel.BikeCompareSegments = objList;
                     objSeriesPage.ObjModel.BikeMake = objSeriesPage.BikeMake;
@@ -451,7 +451,7 @@ namespace Bikewale.Models.BikeSeries
             catch (Exception ex)
             {
 
-                Bikewale.Notifications.ErrorClass.LogError(ex,string.Format("Bikewale.Models.BikeSeries.SeriesPage.GetBikesToCompare Elapsed = {0}", stopWatch.Elapsed));
+                Bikewale.Notifications.ErrorClass.LogError(ex, string.Format("Bikewale.Models.BikeSeries.SeriesPage.GetBikesToCompare Elapsed = {0}", stopWatch.Elapsed));
             }
         }
 
@@ -472,7 +472,7 @@ namespace Bikewale.Models.BikeSeries
             }
             catch (Exception ex)
             {
-                ErrorClass er = new ErrorClass(ex, "ScootersIndexPageModel.BindCompareScootes()");
+                ErrorClass.LogError(ex, "ScootersIndexPageModel.BindCompareScootes()");
             }
         }
 

@@ -756,27 +756,11 @@
     <Compile Include="UI\BindViewModels\Controls\BindVideosSectionSubCatwise.cs" />
     <Compile Include="UI\BindViewModels\Webforms\BindDefaultPage.cs" />
     <Compile Include="UI\BindViewModels\Webforms\CommonModel.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\Compare\CompareBikes.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\Compare\CompareBikesDetails.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\DealerDetails\BikeDealerDetails.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\EditCMS\DetailPageBikeCare.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\EditCMS\FeaturesListing.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\EditCMS\FeaturesDetails.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\EditCMS\NewsDetails.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\EditCMS\NewsListing.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\EditCMS\RoadTestDetails.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\EditCMS\RoadTestListing.cs" />
     <Compile Include="UI\BindViewModels\Webforms\FeedbackCancellationModel.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\GenericBikes\BestBikesListing.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\EditCMS\BikeCareModels.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\Photos\ModelPhotos.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\Service\ServiceDetailsPage.cs" />
     <Compile Include="UI\BindViewModels\Webforms\Used\BindUsedBikesByMakeCity.cs" />
     <Compile Include="UI\BindViewModels\Webforms\Used\SearchBikes.cs" />
     <Compile Include="UI\BindViewModels\Webforms\Used\UsedBikeDetails.cs" />
     <Compile Include="UI\BindViewModels\Webforms\Used\UsedBikeLanding.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\UserReviews\BindUserReviews.cs" />
-    <Compile Include="UI\BindViewModels\Webforms\UserReviews\BindUserReviewsDetails.cs" />
     <Compile Include="UI\BindViewModels\Webforms\Videos\BindViewModelVideoDefault.cs" />
     <Compile Include="Cache\AdSlot\AdSlotCacheRepository.cs" />
     <Compile Include="Cache\App\AppVersionCacheRepository.cs" />
@@ -866,32 +850,8 @@
     <Compile Include="common\UrlRewrite.cs" />
     <Compile Include="common\Validations.cs" />
     <Compile Include="common\VersionHelper.cs" />
-    <Compile Include="UI\content\BikeCare\BikeCare.aspx.cs">
-      <DependentUpon>BikeCare.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\content\BikeCare\ViewBikeCare.aspx.cs">
-      <DependentUpon>ViewBikeCare.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\content\Features\DefaultF.aspx.cs">
-      <DependentUpon>DefaultF.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\content\Features\ViewF.aspx.cs">
-      <DependentUpon>ViewF.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="UI\content\RepeaterPager.ascx.cs">
       <DependentUpon>RepeaterPager.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\content\RoadTest\DefaultRT.aspx.cs">
-      <DependentUpon>DefaultRT.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\content\RoadTest\ViewRT.aspx.cs">
-      <DependentUpon>ViewRT.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UI\content\TipsAdvices\ViewTA.aspx.cs">
@@ -1750,10 +1710,6 @@
     <Compile Include="DTO\Widgets\v2\MostPopularBikes.cs" />
     <Compile Include="Filters\DeviceDetection.cs" />
     <Compile Include="Filters\DetectDevice.cs" />
-    <Compile Include="UI\Generic\BikeListing.aspx.cs">
-      <DependentUpon>BikeListing.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2042,30 +1998,6 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\m\content\BikeCare\ViewBikeCare.aspx.cs">
-      <DependentUpon>ViewBikeCare.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\m\content\Features\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\m\content\Features\viewF.aspx.cs">
-      <DependentUpon>viewF.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\m\content\BikeCare\BikeCare.aspx.cs">
-      <DependentUpon>BikeCare.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\m\content\RoadTest\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\m\content\RoadTest\viewRT.aspx.cs">
-      <DependentUpon>viewRT.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="UI\m\content\userreviews\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2338,14 +2270,6 @@
       <DependentUpon>VideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UI\m\generic\BikeListing.aspx.cs">
-      <DependentUpon>BikeListing.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\m\new\photos\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="UI\m\service\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2376,18 +2300,6 @@
     </Compile>
     <Compile Include="UI\m\Insurance\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\m\news\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\m\news\newsdetails.aspx.cs">
-      <DependentUpon>newsdetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\m\new\compare\CompareBikeDetails.aspx.cs">
-      <DependentUpon>CompareBikeDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UI\m\new\newbikedealers\Default.aspx.cs">
@@ -2504,14 +2416,6 @@
     </Compile>
     <Compile Include="UI\Newsletter\Unsubscribe.aspx.cs">
       <DependentUpon>Unsubscribe.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\News\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UI\News\news.aspx.cs">
-      <DependentUpon>news.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UI\News\newsfeed.aspx.cs">
@@ -2933,13 +2837,7 @@
     <Content Include="bin\DotNetOpenAuth.OpenId.xml" /> -->
     <!--     <Content Include="bin\Newtonsoft.Json.xml" /> -->
     <Content Include="UI\contactus.aspx" />
-    <Content Include="UI\content\BikeCare\BikeCare.aspx" />
-    <Content Include="UI\content\BikeCare\ViewBikeCare.aspx" />
-    <Content Include="UI\content\Features\DefaultF.aspx" />
-    <Content Include="UI\content\Features\ViewF.aspx" />
     <Content Include="UI\content\RepeaterPager.ascx" />
-    <Content Include="UI\content\RoadTest\DefaultRT.aspx" />
-    <Content Include="UI\content\RoadTest\ViewRT.aspx" />
     <Content Include="UI\content\TipsAdvices\ViewTA.aspx" />
     <Content Include="UI\content\UserReviews\DefaultUR.aspx" />
     <Content Include="UI\content\UserReviews\ReviewDetails.aspx" />
@@ -3483,7 +3381,6 @@
     <Content Include="UI\favicon.ico" />
     <Content Include="UI\Feedback\Feedback.aspx" />
     <Content Include="UI\Finance\EMICalculator.aspx" />
-    <Content Include="UI\Generic\BikeListing.aspx" />
     <Content Include="Global.asax" />
     <Content Include="google863c8bc3ae47cfff.html" />
     <Content Include="UI\image\0.gif" />
@@ -3607,12 +3504,6 @@
     <Content Include="UI\m\bikebooking\cancellation.aspx" />
     <Content Include="UI\m\bikebooking\Default.aspx" />
     <Content Include="UI\m\ContactUs.aspx" />
-    <Content Include="UI\m\content\BikeCare\ViewBikeCare.aspx" />
-    <Content Include="UI\m\content\Features\Default.aspx" />
-    <Content Include="UI\m\content\Features\viewF.aspx" />
-    <Content Include="UI\m\content\BikeCare\BikeCare.aspx" />
-    <Content Include="UI\m\content\RoadTest\Default.aspx" />
-    <Content Include="UI\m\content\RoadTest\viewRT.aspx" />
     <Content Include="UI\m\content\userreviews\Default.aspx" />
     <Content Include="UI\m\content\userreviews\ReviewDetails.aspx" />
     <Content Include="UI\m\controls\BestBikes.ascx" />
@@ -3742,12 +3633,10 @@
     <Content Include="UI\m\css\zebra_datepicker.css" />
     <Content Include="UI\m\customerror.aspx" />
     <Content Include="UI\m\css\dealer\details.css" />
-    <Content Include="UI\m\generic\BikeListing.aspx" />
     <Content Include="UI\m\google863c8bc3ae47cfff.html" />
     <Content Include="UI\m\news\offline.html" />
     <Content Include="UI\m\news\sw_installer.html" />
     <Content Include="UI\m\news\sw.js" />
-    <Content Include="UI\m\new\photos\Default.aspx" />
     <Content Include="UI\m\sass\generic\listing.css" />
     <Content Include="UI\m\sass\scooters\listing.css" />
     <Content Include="UI\m\service\Default.aspx" />
@@ -3781,9 +3670,6 @@
     <Content Include="UI\m\image\rightArrowBg.png" />
     <Content Include="UI\m\image\style-type-sprite.png" />
     <Content Include="UI\m\Insurance\Default.aspx" />
-    <Content Include="UI\m\news\Default.aspx" />
-    <Content Include="UI\m\news\newsdetails.aspx" />
-    <Content Include="UI\m\new\compare\CompareBikeDetails.aspx" />
     <Content Include="UI\m\new\newbikedealers\Default.aspx" />
     <Content Include="UI\m\service\ServiceCenterList.aspx" />
     <Content Include="UI\m\new\newbikedealers\NewBikeDealerList.aspx" />
@@ -4134,8 +4020,6 @@
     <Content Include="UI\m\src\m-carousel.js" />
     <Content Include="UI\m\src\placeholder.js" />
     <Content Include="UI\Newsletter\Unsubscribe.aspx" />
-    <Content Include="UI\News\Default.aspx" />
-    <Content Include="UI\News\news.aspx" />
     <Content Include="UI\News\newsfeed.aspx" />
     <Content Include="UI\News\Sitemap.aspx" />
     <Content Include="UI\new\EMILoan.aspx" />
@@ -5106,7 +4990,6 @@
     <Folder Include="UI\Controllers\m\Content\" />
     <Folder Include="UI\Controllers\m\new\Scooters\" />
     <Folder Include="UI\Controllers\new\" />
-    <Folder Include="UI\m\dealerlocator\" />
     <Folder Include="ViewModel\ComparisonTest\" />
     <Folder Include="ViewModel\Desktop\" />
   </ItemGroup>

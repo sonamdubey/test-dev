@@ -16,7 +16,6 @@ using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.Utilities;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -114,7 +113,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                     if (objPQ != null && objPQ.PQId > 0)
                     {
-                        bpqOutput = _objPriceQuote.GetPriceQuoteById(objPQ.PQId);
+
+                        var objBikeQuotationEntity = _objPriceQuoteCache.GetVersionPricesByModelId(modelId, cityId);
+
+                        bpqOutput = objBikeQuotationEntity.FirstOrDefault(m => m.VersionId == objPQ.VersionId);
                         bpqOutput.Varients = _objPriceQuoteCache.GetOtherVersionsPrices(objPQEntity.ModelId, objPQEntity.CityId);
                         if (bpqOutput != null)
                         {
@@ -241,7 +243,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                     if (objPQ != null && objPQ.PQId > 0)
                     {
-                        bpqOutput = _objPriceQuote.GetPriceQuoteById(objPQ.PQId);
+                        var objBikeQuotationEntity = _objPriceQuoteCache.GetVersionPricesByModelId(modelId, cityId);
+
+                        bpqOutput = objBikeQuotationEntity.FirstOrDefault(m => m.VersionId == objPQ.VersionId);
                         //add bike make and model
                         objPQ.MakeName = bpqOutput.MakeName;
                         objPQ.ModelName = bpqOutput.ModelName;
@@ -377,7 +381,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                     if (objPQ != null && objPQ.PQId > 0)
                     {
-                        bpqOutput = _objPriceQuote.GetPriceQuoteById(objPQ.PQId);
+                        var objBikeQuotationEntity = _objPriceQuoteCache.GetVersionPricesByModelId(modelId, cityId);
+
+                        bpqOutput = objBikeQuotationEntity.FirstOrDefault(m => m.VersionId == objPQ.VersionId);
                         //add bike make and model
                         objPQ.MakeName = bpqOutput.MakeName;
                         objPQ.ModelName = bpqOutput.ModelName;
@@ -514,7 +520,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                     if (objPQ != null && objPQ.PQId > 0)
                     {
-                        bpqOutput = _objPriceQuote.GetPriceQuoteById(objPQ.PQId);
+                        var objBikeQuotationEntity = _objPriceQuoteCache.GetVersionPricesByModelId(modelId, cityId);
+
+                        bpqOutput = objBikeQuotationEntity.FirstOrDefault(m => m.VersionId == objPQ.VersionId);
                         //add bike make and model
                         objPQ.MakeName = bpqOutput.MakeName;
                         objPQ.ModelName = bpqOutput.ModelName;

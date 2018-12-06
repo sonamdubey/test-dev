@@ -1,7 +1,7 @@
 ﻿using Bikewale.DTO.PriceQuote;
-using Bikewale.DTO.PriceQuote.BikeQuotation;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.ManufacturerCampaign.Entities;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.Utilities;
@@ -10,7 +10,6 @@ using System;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Bikewale.ManufacturerCampaign.Entities;
 
 namespace Bikewale.Service.Controllers.PriceQuote
 {
@@ -27,39 +26,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
         {
             _objPriceQuote = objPriceQuote;
             _objPQByCityArea = objPQByCityArea;
-        }
-        /// <summary>
-        /// Gets the BikeWale Price Quote from the Price Quote Id
-        /// </summary>
-        /// <param name="pqId">Price Quote Id</param>
-        /// <returns>BikeWale Price Quote</returns>
-        [ResponseType(typeof(PQBikePriceQuoteOutput))]
-        public IHttpActionResult Get(UInt64 pqId)
-        {
-            BikeQuotationEntity quotation = null;
-            PQBikePriceQuoteOutput bwPriceQuote = null;
-            try
-            {
-                quotation = _objPriceQuote.GetPriceQuoteById(pqId);
-                if (quotation != null)
-                {
-                    bwPriceQuote = PQBikePriceQuoteOutputMapper.Convert(quotation);
-
-                    quotation.Varients = null;
-
-                    return Ok(bwPriceQuote);
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass.LogError(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.BikePQController.Get");
-
-                return InternalServerError();
-            }
         }
 
         /// <summary>

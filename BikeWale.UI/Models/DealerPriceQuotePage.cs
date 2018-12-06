@@ -1,5 +1,4 @@
-﻿using Bikewale.BAL.ApiGateway.Adapters.BikeData;
-using Bikewale.BAL.ApiGateway.Entities.BikeData;
+﻿using AutoMapper;
 using Bikewale.Common;
 using Bikewale.DTO.PriceQuote;
 using Bikewale.Entities;
@@ -21,7 +20,6 @@ using ManufacturingCampaign.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Web;
 
 namespace Bikewale.Models
@@ -107,7 +105,7 @@ namespace Bikewale.Models
                 {
                     GetBikeVersions(objData);
                     SetModelVariables(objData);
-                    _objPQ.GetDealerVersionsPriceByModelCity(objData.VersionSpecs ,_cityId, _modelId, _dealerId);
+                    _objPQ.GetDealerVersionsPriceByModelCity(objData.VersionSpecs, _cityId, _modelId, _dealerId);
                     SetDealerPriceQuoteDetail(objData);
                     BindPageWidgets(objData);
                     SetPageMetas(objData);
@@ -132,7 +130,7 @@ namespace Bikewale.Models
                             PlatformId = Convert.ToUInt16(Platform),
                             MlaLeadSourceId = (Platform == PQSources.Desktop) ? (UInt16)LeadSourceEnum.DPQ_MLA_Desktop : (UInt16)LeadSourceEnum.DPQ_MLA_Mobile,
                             PageId = Convert.ToUInt16(PQSource),
-                            OfferList = (objData.IsPrimaryDealerAvailable &&  objData.DetailedDealer.PrimaryDealer.HasOffers) 
+                            OfferList = (objData.IsPrimaryDealerAvailable && objData.DetailedDealer.PrimaryDealer.HasOffers)
                                         ? objData.DetailedDealer.PrimaryDealer.OfferList.Select(x => x.OfferText) : (objData.LeadCampaign != null ? objData.LeadCampaign.OffersList : null)
                         };
                     }
@@ -301,7 +299,7 @@ namespace Bikewale.Models
 
         private void BindSimilarBikes(DealerPriceQuotePageVM objData)
         {
-            var objSimilarBikes = new SimilarBikesWidget(_objVersion, _versionId , PQSourceEnum.Desktop_DPQ_Alternative);
+            var objSimilarBikes = new SimilarBikesWidget(_objVersion, _versionId, PQSourceEnum.Desktop_DPQ_Alternative);
             objSimilarBikes.TopCount = 9;
             objSimilarBikes.CityId = _cityId;
             objData.SimilarBikesVM = objSimilarBikes.GetData();
@@ -444,11 +442,16 @@ namespace Bikewale.Models
                     if (isBikewalePQ)
                     {
                         #region Bikewale PriceQuote
-                        objData.Quotation = _objPQ.GetPriceQuote(objData.CityId, objData.VersionId, LeadSource);
-                        objData.Quotation.PriceQuoteId = _pqId;
-                        if (objData.Quotation != null)
+                        var allVersions = _objPQCache.GetVersionPricesByModelId(objData.ModelId, objData.CityId);
+
+                        if (allVersions != null && allVersions.Any())
                         {
-                            objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;
+                            objData.Quotation = ConvertToV2(allVersions.FirstOrDefault(m => m.VersionId == _versionId));
+                            if (objData.Quotation != null)
+                            {
+                                objData.Quotation.PriceQuoteId = _pqId;
+                                objData.TotalPrice = (uint)objData.Quotation.OnRoadPrice;
+                            }
                         }
                         #endregion
                     }
@@ -466,6 +469,15 @@ namespace Bikewale.Models
             }
 
             objData.DetailedDealer = detailedDealer;
+        }
+
+        private Entities.PriceQuote.v2.BikeQuotationEntity ConvertToV2(BikeQuotationEntity bikeQuotationEntity)
+        {
+            if (bikeQuotationEntity != null)
+            {
+                return Mapper.Map<BikeQuotationEntity, Entities.PriceQuote.v2.BikeQuotationEntity>(bikeQuotationEntity);
+            }
+            return null;
         }
 
         /// <summary>
@@ -584,7 +596,7 @@ namespace Bikewale.Models
                 if (_objManufacturerCampaign != null && !(objData.IsPrimaryDealerAvailable))
                 {
                     ManufacturerCampaignEntity campaigns = _objManufacturerCampaign.GetCampaigns(_modelId, _cityId, ManufacturerCampaignPageId);
-                    if (campaigns!=null)
+                    if (campaigns != null)
                     {
                         if (campaigns.LeadCampaign != null)
                         {
@@ -672,7 +684,7 @@ namespace Bikewale.Models
                                 SendLeadSMSCustomer = campaigns.EMICampaign.SendLeadSMSCustomer
                             };
                             objData.IsManufacturerEMIAdShown = true;
-                        } 
+                        }
                     }
                 }
             }

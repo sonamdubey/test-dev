@@ -303,6 +303,7 @@ namespace Bikewale
                 cfg.CreateMap<Entities.PriceQuote.v2.PQCustomerDetailOutputEntity, DTO.PriceQuote.v4.PQCustomerDetailOutput>();
                 cfg.CreateMap<DTO.PriceQuote.v2.PQCustomerDetailInput, Entities.PriceQuote.v2.PQCustomerDetailInput>();
                 cfg.CreateMap<Bikewale.DTO.MaskingNumber.MaskingNumberLeadInputDto, Bikewale.Entities.MaskingNumber.MaskingNumberLeadEntity>();
+                cfg.CreateMap<Bikewale.Entities.PriceQuote.BikeQuotationEntity, Bikewale.Entities.PriceQuote.v2.BikeQuotationEntity>();
                 #endregion
                 #region ForMemberMapping
 
