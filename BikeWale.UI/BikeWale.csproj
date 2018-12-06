@@ -93,7 +93,8 @@
     <Reference Include="Bikewale.BAL.ApiGateway">
       <HintPath>..\Libs\Bikewale.BAL.ApiGateway.dll</HintPath>
     </Reference>
-    <Reference Include="Bikewale.Cache.Core">
+    <Reference Include="Bikewale.Cache.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Bikewale.Cache.Core.dll</HintPath>
     </Reference>
     <Reference Include="BikeWale.Comparison">
