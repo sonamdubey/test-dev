@@ -605,7 +605,7 @@ namespace Bikewale.Models
                             ushort cookieValue;
                             if (HttpContext.Current.Request.Cookies["_bwtest"] != null && ushort.TryParse(HttpContext.Current.Request.Cookies["_bwtest"].Value, out cookieValue) && cookieValue <= 90 && Platform != PQSources.Desktop)
                                 manufacturerOffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
-                            if (manufacturerOffersList != null && manufacturerOffersList.Any())
+                            if (manufacturerOffersList != null && manufacturerOffersList.Any() && campaigns.LeadCampaign.IsDefaultMobileTemplate)
                             {
                                 campaignTemplate = _objPQCache.GetManufactuerDefaultCampaignOfferTemplate((ushort)Platform);
                             }
