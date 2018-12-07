@@ -9,7 +9,6 @@ var lastScrollTop = 0;
 var reg, vmUserReviews;
 var versionListGATriggered = false;
 var esTopCardBhriguTriggered = false;
-var mobileModelPQSourceId = 22;
 
 function getBikeVersion() {
     return versionName;
@@ -144,8 +143,13 @@ window.addEventListener('load', function () {
     
     if(pqId != "")
     {
-        var pqSourceId = getFilterFromQS("pqsourceid").split("#")[0];
-        pqSourceId != "" ? trackPQSources(pqId, pqSourceId, 2, versionId) : trackPQSources(pqId, mobileModelPQSourceId, 2, versionId);
+        var pqSourceId = getFilterFromQS("pqsourceid").split("#")[0] != "" ? getFilterFromQS("pqsourceid").split("#")[0] : PqSourceEnum.Mobile_ModelPage.toString();
+        var platformId = getFilterFromQS("platformid").split("#")[0] != "" ? getFilterFromQS("platformid").split("#")[0] : PlatformEnum.Mobile.toString();
+        trackPQSources(pqId, pqSourceId, platformId, versionId);
+        if(platformId != PlatformEnum.Mobile.toString())
+        {
+            window.history.replaceState({}, "", window.location.origin + window.location.pathname);
+        }
     }
     //global location tracking
     cwTracking.trackCustomData("BWModelPage", "LocationIconShown", "versionId=" + versionId);

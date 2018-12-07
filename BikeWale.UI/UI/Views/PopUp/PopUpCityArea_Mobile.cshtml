@@ -28,7 +28,7 @@
                     "modelname": "@Model.ModelName",
                     "pagecatid": "@Model.PageCategoryId",
                     "pqsrcid": "@Model.PQSourceId",
-                    "redirectUrl": "@Model.Url",
+                    "redirectUrl": "@Html.Raw(Model.Url)",
                     "exitUrl": "@Model.ExitUrl",
                     "isreload": true,
                     "ispersistent": @(Model.IsLeadPopStateFlow ? "true" : "false"),
@@ -39,7 +39,7 @@
                 };
                 obj.cityId = @Model.PreSelectedCity || obj.cityId;
                 vmquotation.setOptions(obj);
-                $('#popupWrapper .close-btn').attr("data-returnurl", "@Model.Url".replace("#onRoadPriceAmp", ""));
+                $('#popupWrapper .close-btn').attr("data-returnurl", "@Model.Url".replace(/(\?|#).*/, ""));
 
                 dropdown = {
                     setDropdown: function () {

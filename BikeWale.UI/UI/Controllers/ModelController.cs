@@ -165,11 +165,13 @@ namespace Bikewale.Controllers
             ModelPage obj = new ModelPage(makeMasking, modelMasking, _userReviewsSearch, _userReviewsCache, _objModel, _objDealerPQ, _objAreaCache, _objCityCache, _objPQ, _objDealerCache, _objDealerDetails, _objVersion, _objArticles, _objVideos, _objUsedBikescache, _objServiceCenter, _objPQCache, _usedBikesCache, _upcoming, _objManufacturerCampaign, _bikeSeries, _adSlot, _bikeInfo, _bikeMakesCacheRepository, _apiGatewayCaller
                 , _cacheManager, _pager, _bikeModelsCacheHelper, _bikeModelsCacheRepository,_objQuestions);
             UInt16 pqSourceId = 0;
+            DTO.PriceQuote.PQSources sourceId = DTO.PriceQuote.PQSources.Mobile;
 
             if (obj.Status.Equals(StatusCodes.ContentFound))
             {
+                DTO.PriceQuote.PQSources.TryParse(Request.QueryString["platformid"], out sourceId);
                 obj.IsMobile = true;
-                obj.Source = DTO.PriceQuote.PQSources.Mobile;
+                obj.Source = sourceId;
                 obj.PQSource = Entities.PriceQuote.PQSourceEnum.Mobile_ModelPage;
                 obj.PQSourceId = UInt16.TryParse(Request.QueryString["pqsourceid"], out pqSourceId) ? pqSourceId : (UInt16)0;
                 obj.LeadSource = Entities.BikeBooking.LeadSourceEnum.Model_Mobile;

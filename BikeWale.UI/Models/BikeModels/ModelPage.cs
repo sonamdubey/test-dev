@@ -113,8 +113,8 @@ namespace Bikewale.Models.BikeModels
         public string RedirectUrl { get; set; }
         public StatusCodes Status { get; set; }
         public PQSources Source { get; set; }
-        public UInt16 PQSourceId { get; set; }
         public PQSourceEnum PQSource { get; set; }
+        public UInt16 PQSourceId { get; set; }
         public LeadSourceEnum LeadSource { get; set; }
         public bool IsMobile { get; set; }
         public bool IsDealerPriceAvailble { get; set; }
