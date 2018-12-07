@@ -71,32 +71,24 @@
                             <span class="gallery-close-btn__icon"></span>
                         </span>
 
-                        <div class="model-gallery__popup-head">
+                        <div class="model-gallery__popup-head js-gallery-popup-head">
                             <div class="model-gallery-head__top">
                                 <h2 class="model-gallery__popup-title">
-                                    <span class="gallery-popup-title__content gallery-popup-element--skew">
+                                    <span class="gallery-popup-title__content js-gallery-popup-title">
                                         @Model.BikeName Images
                                     </span>
                                 </h2>
                                 <ul class="model-gallery__tab-container">
-                                    <li data-tabs="imageTab" class="model-gallery__tab tab--active">
-                                        <span class="gallery-popup-element--skew">
-                                            Images
-                                        </span>
-                                    </li>
-                                    @if (Model.IsVideosAvailable) { 
-                                        <li data-tabs="videoTab" class="model-gallery__tab ">
-                                            <span class="gallery-popup-element--skew">
-                                                Videos
-                                            </span>
-                                        </li>
+                                    <li data-tabs="imageTab" class="model-gallery__tab tab--active">Images</li>
+                                    @if (Model.IsVideosAvailable)
+                                    {
+                                        <li data-tabs="videoTab" class="model-gallery__tab">Videos</li>
                                     }
                                 </ul>
                             </div>
 
                             <span class="gallery-popup-head__title">
-                                <span class="gallery-title__element gallery-popup-element--skew" data-bind="text: activeTitle">
-                                </span>
+                                <span class="gallery-title__element" data-bind="text: activeTitle"></span>
                             </span>
                         </div>
 
@@ -341,7 +333,8 @@
                             {
                                 <li class="image-grid-list__item" data-imgcat="@objImages[i].ImageCategory" data-imgtype="@((int)objImages[i].ImageType)" data-imgid="@objImages[i].ImageId">
                                     <img class="lazy" src="https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif" data-original="@Bikewale.Utility.Image.GetPathToShowImages(objImages[i].OriginalImgPath, objImages[i].HostUrl, Bikewale.Utility.ImageSize._476x268)" alt="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" title="@string.Format(" {0} {1} Image", Model.BikeName, objImages[i].ImageCategory)" />
-                                    @if(i == 11) {
+                                    @if (Model.IsVideosAvailable && Model.ModelGallery.ImagesCount >= 16 && i == 11)
+                                    {
                                     <div class="video-slug__content js-video-slug">
                                         <p class="video-slug__title">Videos</p>
                                         <ul class="video-slug__list">

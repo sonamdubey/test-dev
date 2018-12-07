@@ -109,6 +109,7 @@ var MainGallery = (function () {
         galleryPopup.addClass('popup--active');
         modelSwiper.enableMousewheelControl();
         modelSwiper.update();
+
         modelSwiper.slideTo(activeIndex, 0, false);
         thumbnailSwiper.update();
         thumbnailSwiper.lazy.load();
@@ -133,7 +134,9 @@ var MainGallery = (function () {
             return window.location.href = RETURN_URL;
         }
 
-        YoutubeAPI.pauseYoutubeVideo();
+        if (VIDEO_COUNT > 0) {
+            YoutubeAPI.pauseYoutubeVideo();
+        }
         toggleFullScreen(false);
         galleryPopup.removeClass('popup--active video-swiper--active gallery--visible gallery-popup__color--active');
         modelSwiper.container.data('swiper').disableMousewheelControl();
@@ -149,10 +152,11 @@ var MainGallery = (function () {
     };
 
     function _setPopupHeaderWidth() {
-        var galleryTitle = $('.gallery-title__element');
-        var titleContentWidth = $('.gallery-popup-title__content').outerWidth();
         if (!isTitleHeightSet) {
-            galleryTitle.css('width', (titleContentWidth > 360) ? (titleContentWidth - 100) : titleContentWidth);
+            var titleWidth = $('.js-gallery-popup-title').outerWidth();
+            if (titleWidth > 370) { // compare with Tab's width
+                $('.js-gallery-popup-head').css('width', titleWidth);
+            }
             isTitleHeightSet = true;
         }
     };
@@ -175,7 +179,9 @@ var MainGallery = (function () {
         element.addClass("tab--active");
 
         if (tabId === "imageTab") {
-            YoutubeAPI.pauseYoutubeVideo();
+            if (VIDEO_COUNT > 0) {
+                YoutubeAPI.pauseYoutubeVideo();
+            }
             modelGalleryContainer.removeClass("video-swiper--active");
         }
         else if (tabId === "videoTab") {
@@ -357,6 +363,11 @@ var MainGallery = (function () {
         }
 
         if (MODEL_IMAGE_SELECTED) {
+            if (IMAGE_INDEX > 19) {
+                ko.utils.arrayPushAll(vmModelGallery.limitedPhotoList(), MODEL_IMAGES.slice(20, IMAGE_INDEX + 10));
+                vmModelGallery.slideLimit = IMAGE_INDEX + 10;
+                vmModelGallery.limitedPhotoList.valueHasMutated();
+            }
             openPopup(IMAGE_INDEX);
         }
     };
@@ -622,8 +633,7 @@ $(document).ready(function () {
         lazyLoadingInPrevNext: true,
         mousewheelControl: true,
         watchSlidesVisibility: true,
-        shortSwipes: false,
-        longSwipesRatio: 0.05,
+        simulateTouch: false,
         onInit: function (swiper) {
             SwiperEvents.setDetails(swiper, vmModelGallery);
             swiper.disableMousewheelControl();
