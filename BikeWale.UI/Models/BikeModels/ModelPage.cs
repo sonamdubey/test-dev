@@ -2073,6 +2073,8 @@ namespace Bikewale.Models.BikeModels
         /// Description : Using Manufacturer campaigns fetched at the time of processing pq. Removed update of dealer id in pq table.
         /// Modified by : Rajan Chauhan on 14 Nov 2018
         /// Description : Added ABTest check on Offers
+        /// Modified by : Rajan Chauhan on 07 Dec 2018
+        /// Description : Added clause for overriding lead template with OfferTemplate 
         /// </summary>
         private void GetManufacturerCampaign()
         {
@@ -2092,7 +2094,7 @@ namespace Bikewale.Models.BikeModels
                             ushort cookieValue;
                             if (HttpContext.Current.Request.Cookies["_bwtest"] != null && ushort.TryParse(HttpContext.Current.Request.Cookies["_bwtest"].Value, out cookieValue) && cookieValue <= 90 && IsMobile)
                                 manufacturerOffersList = _objPQCache.GetManufacturerOffers(campaigns.LeadCampaign.CampaignId);
-                            if (manufacturerOffersList != null && manufacturerOffersList.Any())
+                            if (manufacturerOffersList != null && manufacturerOffersList.Any() && campaigns.LeadCampaign.IsDefaultMobileTemplate)
                             {
                                 campaignTemplate = _objPQCache.GetManufactuerDefaultCampaignOfferTemplate((ushort)Source);
                             }
