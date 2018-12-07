@@ -18,7 +18,9 @@
 
 @if (Model != null && Model.BikeModel != null && Model.CityEntity != null && Model.FirstVersion != null)
 {
-	
+
+    if (Model.VersionPriceAvailable)
+    {
 	<amp-state id="currentVersion">
 		<script type="application/json">
 			{
@@ -40,6 +42,7 @@
 			@Html.Raw(Model.JSONBikeVersions)
 		</script>
 	</amp-state>
+    }
 
 	<amp-state id="EmiSlider">
 		<script type="application/json">
@@ -153,6 +156,9 @@
                                     <amp-img src="@Model.ModelImage" layout="responsive" width="86" height="48" alt="@Model.BikeName"></amp-img>
                                 </a>
                             </div>
+
+                            @if (Model.VersionPriceAvailable)
+                            {
                             <div id="triggerAnimation" class="model-version-block version__dropdown-box">
                                 <div id="select-box" role="option" tabindex="1" class="dropdown-box__menu-tab" on="tap:select-option.show,AMP.setState({EmiSlider:{formatedExShowroomPrice : versions[currentVersion.versionId].ExShowroomPrice + '.'}, versionDropdown: {isActive: !versionDropdown.isActive}}), orpContent.scrollTo(duration=0)">
                                     <p class="dropdown-box__menu-title">Version</p>
@@ -184,6 +190,7 @@
                                     </amp-selector>
                                 }
                             </div>
+                            }
                         </div>
                         @if (Model.IsNew)
                         {

@@ -397,6 +397,20 @@ namespace Bikewale.BAL.PriceQuote
         {
             return objPQ.GetManufactuerDefaultCampaignOfferTemplate(platformId);
         }
+
+
+        /// <summary>
+        /// Created By  : Deepak Israni on 5 December 2018
+        /// Description : BAL function to get the pricing of all the versions of a certain model in a certain city
+        ///                 regardless of the pricing not being available in city (displays it as 0). Calls DAL function directly.
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeQuotationEntity> GetAllVersionPricesByModelId(uint modelId, uint cityId)
+        {
+            return objPQ.GetAllVersionPricesByModelId(modelId, cityId);
+        }
     }   // class
 
 

@@ -46,7 +46,9 @@
 
 
 							</div>
-                            @if (@Model.FirstVersion != null)
+                            @if (Model.VersionPriceAvailable)
+                            {
+                            if (@Model.FirstVersion != null)
                             {
                                 <div class="model-version-block inline-block">
                                     <div class="dropdown-box__menu-tab">
@@ -57,7 +59,7 @@
                                 </div>
                             }
 						
-                            @if (Model.VersionSpecs!=null && Model.VersionSpecs.Any())
+                            if (Model.VersionSpecs!=null && Model.VersionSpecs.Any())
                             {
                             <ul class="dropdown-box__submenu-list">
                                 @foreach (var version in Model.VersionSpecs)
@@ -77,6 +79,7 @@
                                     }
                                 }
                             </ul>
+                            }
                             }
 						</div>
 						@if (Model.IsNew)

@@ -958,5 +958,71 @@ namespace Bikewale.DAL.PriceQuote
             }
             return campaignOfferTemplate;
         }
+
+        /// <summary>
+        /// Created By  : Deepak Israni on 5 December 2018
+        /// Description : DAL function to get the pricing of all the versions of a certain model in a certain city
+        ///                 regardless of the pricing not being available in city (displays it as 0).
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeQuotationEntity> GetAllVersionPricesByModelId(uint modelId, uint cityId)
+        {
+            List<BikeQuotationEntity> bikePrices = null;
+
+            try
+            {
+
+                using (DbCommand cmd = DbFactory.GetDBCommand())
+                {
+                    cmd.CommandText = "getversionpricesbymodelid_04122018";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_modelid", DbType.Int32, modelId));
+                    cmd.Parameters.Add(DbFactory.GetDbParam("par_cityid", DbType.Int32, cityId));
+
+                    using (IDataReader dr = MySqlDatabase.SelectQuery(cmd, ConnectionType.ReadOnly))
+                    {
+                        bikePrices = new List<BikeQuotationEntity>();
+                        while (dr.Read())
+                        {
+                            bikePrices.Add(new BikeQuotationEntity
+                            {
+                                VersionId = SqlReaderConvertor.ToUInt32(dr["BikeVersionId"]),
+                                VersionName = Convert.ToString(dr["Version"]),
+                                MakeName = Convert.ToString(dr["Make"]),
+                                MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
+                                ModelName = Convert.ToString(dr["Model"]),
+                                ModelMaskingName = Convert.ToString(dr["ModelMaskingName"]),
+                                CityId = SqlReaderConvertor.ToUInt32(dr["CityId"]),
+                                CityMaskingName = Convert.ToString(dr["CityMaskingName"]),
+                                City = Convert.ToString(dr["City"]),
+                                ExShowroomPrice = SqlReaderConvertor.ToUInt64(dr["Price"]),
+                                RTO = SqlReaderConvertor.ToUInt32(dr["RTO"]),
+                                Insurance = SqlReaderConvertor.ToUInt32(dr["Insurance"]),
+                                OnRoadPrice = SqlReaderConvertor.ToUInt64(dr["OnRoadPrice"]),
+                                OriginalImage = Convert.ToString(dr["OriginalImagePath"]),
+                                HostUrl = Convert.ToString(dr["HostUrl"]),
+                                MakeId = SqlReaderConvertor.ToUInt32(dr["MakeId"]),
+                                IsModelNew = SqlReaderConvertor.ToBoolean(dr["IsModelNew"]),
+                                IsVersionNew = SqlReaderConvertor.ToBoolean(dr["IsVersionNew"]),
+                                IsScooterOnly = SqlReaderConvertor.ToBoolean(dr["isScooterOnly"])
+                            });
+
+                        }
+
+                        if (dr != null) dr.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("{0} - {1}", HttpContext.Current.Request.ServerVariables["URL"], "GetAllVersionPricesByModelId"));
+
+            }
+
+            return bikePrices;
+        }
     }   // Class
 }   // namespace

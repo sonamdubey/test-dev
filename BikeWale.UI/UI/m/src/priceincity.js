@@ -7,12 +7,17 @@ var processingFees = 0;
 
 function formatPrice(price) {
     if (price != null) {
-        price = price.toString();
-        var lastThree = price.substring(price.length - 3);
-        var otherNumbers = price.substring(0, price.length - 3);
-        if (otherNumbers != '')
-            lastThree = ',' + lastThree;
-        var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+        if (price == 0) {
+            price = "N/A";
+        }
+        else {
+            price = price.toString();
+            var lastThree = price.substring(price.length - 3);
+            var otherNumbers = price.substring(0, price.length - 3);
+            if (otherNumbers != '')
+                lastThree = ',' + lastThree;
+            var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+        }
     }
 
     return price;

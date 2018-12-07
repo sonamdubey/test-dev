@@ -108,5 +108,6 @@ namespace Bikewale.Models
         public bool IsElectricBike { get; set; }
         public bool IsOffersShownOnLeadPopup { get; set; }
         public ManufacturerFinanceCampaignEntity ManufacturerFinanceCampaign { get; set; }
+        public bool VersionPriceAvailable { get; set; }
     }
 }

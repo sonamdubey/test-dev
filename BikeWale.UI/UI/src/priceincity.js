@@ -5,6 +5,24 @@ var processingFees = 0;
 
 var $window, overallSpecsTabsContainer, modelSpecsTabsContentWrapper, modelSpecsFooter;
 
+function formatPrice(price) {
+    if (price != null) {
+        if (price == 0) {
+            price = "N/A";
+        }
+        else {
+            price = price.toString();
+            var lastThree = price.substring(price.length - 3);
+            var otherNumbers = price.substring(0, price.length - 3);
+            if (otherNumbers != '')
+                lastThree = ',' + lastThree;
+            var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+        }
+    }
+
+    return price;
+}
+
 docReady(function () {
 
     if (document.getElementById('dealerProcessingFees')) {

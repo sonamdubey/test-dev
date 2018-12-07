@@ -371,5 +371,28 @@ namespace Bikewale.Cache.PriceQuote
             return campaignOfferTemplate;
 
         }
+
+        /// <summary>
+        /// Created By  : Deepak Israni on 5 December 2018
+        /// Description : Cache function to get the pricing of all the versions of a certain model in a certain city
+        ///                 regardless of the pricing not being available in city (displays it as 0).
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeQuotationEntity> GetAllVersionPricesByModelId(uint modelId, uint cityId)
+        {
+            IEnumerable<BikeQuotationEntity> versionPrices = null;
+            try
+            {
+                string key = String.Format("BW_AllVersion_PQ_M_{0}_C_{1}", modelId, cityId);
+                versionPrices = _cache.GetFromCache<IEnumerable<BikeQuotationEntity>>(key, new TimeSpan(7, 0, 0, 0), () => _obPriceQuote.GetAllVersionPricesByModelId(modelId, cityId));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, String.Format("PriceQuoteCache.GetAllVersionPricesByModelId( {0}, {1})", modelId, cityId));
+            }
+            return versionPrices;
+        }
     }
 }
