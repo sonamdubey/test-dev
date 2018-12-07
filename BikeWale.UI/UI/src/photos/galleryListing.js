@@ -188,6 +188,7 @@ var MainGallery = (function () {
             if (modelGalleryContainer.hasClass("popup--active")) {
                 modelGalleryContainer.addClass("video-swiper--active");
                 colorGalleryPopup.removeClass("color-popup--active");
+                triggerGA(currentPage, "Videos_Clicked", MAKE_NAME + '_' + MODEL_NAME);
             }
             // for vertical swiper in video popup
             if (VIDEO_COUNT > 1) {
