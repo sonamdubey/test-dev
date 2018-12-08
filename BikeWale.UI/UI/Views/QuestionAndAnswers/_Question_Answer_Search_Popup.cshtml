@@ -1,0 +1,33 @@
+﻿@model Bikewale.Models.QuestionAndAnswers.QnaSearchVM
+
+@if(Model != null)
+{
+    var UrlPrefix = Model.PlatformId == 2 ? Bikewale.Utility.BWConfiguration.Instance.BwHostUrl + "/m" : Bikewale.Utility.BWConfiguration.Instance.BwHostUrl;
+    string baseUrl = string.Format("{0}/{1}-bikes/{2}/questions-and-answers/", UrlPrefix, Model.MakeMaskingName, Model.ModelMaskingName);
+    <div class="popup-container" id="qnaSearchPopup" data-direction="right" data-cityid="@Model.CityId" data-modelid="@Model.ModelId" data-versionid="@Model.VersionId" data-tagscsv="@string.Format("{0},{1}", Model.MakeMaskingName, Model.ModelMaskingName)" data-platformid="@Model.PlatformId" data-pagename="@Model.PageName">
+        <div class="popup-overlay"></div>
+        <div class="popup">
+            <div class="popup-head">
+                <div class="js-qna-search-back-btn popup-back-btn" role="button" aria-label="Close popup"></div>
+                <div class="form-control-box">
+                    <input type="text" id="qnaSearchInput" class="form-control__input" placeholder="What would you like to ask?" aria-label="Have a question? Search here" data-bind="text: $root.queryString()">
+                </div>
+                <div class="popup-input-clear" data-bind="visible: showClear" style="display: block">Clear</div>
+            </div>
+            <div class="popup-body">
+                <div class="popup-body-placeholder" data-bind="visible: showPlaceholder">
+                    <div class="popup-placeholder-icon popup--search-icon"></div>
+                    <p class="popup-placeholder-message">Search for questions here<br />E.g. Does this bike have disc brakes?</p>
+                </div>
+                <div class="popup-body-content" data-bind="visible: showContent">
+                    
+                    <div class="js-qna-accordion">   
+                        @QnASearchHelpers.GenerateBWInfoCard(Model.MakeName, Model.ModelName, Model.ModelId, Model.QnaGASource)                     
+                        @QnASearchHelpers.GenerateSuggestionList(baseUrl)
+                    </div>
+                    @QnASearchHelpers.GenerateAskButton(false)
+                </div>
+            </div>
+        </div>
+    </div>
+}

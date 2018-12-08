@@ -90,7 +90,7 @@ function scrollHorizontal(pos) {
 }
 
 var appendState = function (state) {
-    /* add check to avoid pushing same state multiple times */ 
+    /* add check to avoid pushing same state multiple times */
     if(window.history.state !== state)
         window.history.pushState(state, '', '');
 };
@@ -105,11 +105,11 @@ var findTopOffset = function () {
     }
     if (floatBtnHeight == null)
         floatBtnHeight = 0;
-    return elem.outerHeight() + elem.offset().top - (window.innerHeight - floatBtnHeight);   
+    return elem.outerHeight() + elem.offset().top - (window.innerHeight - floatBtnHeight);
 }
 
 window.addEventListener('load', function () {
-    // scroll to offset 
+    // scroll to offset
     if (window.location.href.indexOf("#") !== -1) {
         if ((window.location.href.split('#'))[1].indexOf("onRoadPrice") !== -1) {
             var positionTop = findTopOffset();
@@ -121,8 +121,8 @@ window.addEventListener('load', function () {
     }
 
     if ($(".js-mfg").length > 0) {
-        // trigger non-interactive GA for animated floating CTA (AB test)     
-        if ($("#animate-btn").length > 0) {            
+        // trigger non-interactive GA for animated floating CTA (AB test)
+        if ($("#animate-btn").length > 0) {
             fullShown = false;
             partialShown = false;
 
@@ -329,7 +329,7 @@ docReady(function () {
 
     $(window).scroll(function () {
 
-        // check if version price table links are shown        
+        // check if version price table links are shown
         var container = $("#versionPriceTable");
         if (container.length > 0 && isPriceListInView(container) && !versionListGATriggered && container.find(".version-price__link").length > 0) {
             versionListGATriggered = true;
@@ -338,7 +338,7 @@ docReady(function () {
             }
             else if (container.find("a:first").text().toLowerCase() === "check on-road price") {
                 triggerNonInteractiveGA("Model_Page", "CheckOnRoad_VersionList_Shown", "");
-            }            
+            }
         }
         var windowScrollTop = $window.scrollTop(),
             modelSpecsTabsOffsetTop = modelSpecsTabsContentWrapper.offset().top,
@@ -670,11 +670,11 @@ docReady(function () {
         popupDiv.close(dealersPopupDiv);
         window.history.back();
     });
-		
+
     $('.benefit-list__more-target').on('click', function () {
     	$(this).closest('.dealer__offers-content').addClass('benefit-list--expand');
     });
-		
+
 
 
     $('.offers-popup-close-btn').on("click", function () {
@@ -687,7 +687,7 @@ docReady(function () {
         popupDiv.open(dealerOffersDiv);
         window.history.back();
     });
-		
+
     $(window).resize(function () {
         dropdown.dimension();
     });
@@ -813,7 +813,7 @@ docReady(function () {
             if (e.currentTarget.dataset.act == undefined)
             {
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Change_Initiated', 'lab': bikeVersionLocation });
-            }  
+            }
         }
         catch (err) { }
     });
@@ -947,7 +947,7 @@ docReady(function () {
 
         }
 		}
-		
+
 		var dealerOffersRibbon = $('#dealerOffersRibbon');
 		if (typeof dealerOffersRibbon !== 'undefined' && dealerOffersRibbon.length) {
 			Ribbon.registerEvents();

@@ -442,7 +442,7 @@ var writeReview = function () {
     self.validate = {
         detailedReview: function () {
             self.detailedReview(removeMaliciousCode(self.detailedReview()).trim());
-            
+
             if (self.descLength() < 300) {
                 self.detailedReviewFlag(true);
 
@@ -725,7 +725,7 @@ docReady(function () {
         vmWriteReview.validate.reviewTitle();
     }
 
-   
+
 
     rateBikeForm = document.getElementById('rate-bike-form');
 
@@ -749,7 +749,7 @@ docReady(function () {
             vmRateBike.ratingCount(buttonValue);
             vmRateBike.clickEventRatingCount(buttonValue);
             triggerGA('Rate_Bike', 'Stars_Rating_Clicked', makeModelName + buttonValue + '_' + contentSourceId);
-        }       
+        }
 
     });
     var selRating = ratingBox.attr("data-selectedrating");

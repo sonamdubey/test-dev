@@ -2714,7 +2714,9 @@ namespace Bikewale.Models.BikeModels
                     MakeName = makeName,
                     BikeName = objData.BikeName,
                     ModelName = modelName,
-                    GAPageType = GAPages.Model_Page
+                    GAPageType = GAPages.Model_Page,
+                    CityId = _cityId,
+                    VersionId = objData.VersionId
                 };
 
                 if (objMakeModelDetails != null && objMakeModelDetails.MakeBase != null)
@@ -2723,8 +2725,26 @@ namespace Bikewale.Models.BikeModels
                     {
                         MakeName = makeName,
                         ModelName = modelName,
-                        GAPageType = GAPages.Model_Page
+                        ModelId = _modelId,                        
+                        GAPageType = GAPages.Model_Page,
+                        QnaGASource = "10", //GA  categories, refer gtmCodeAppender() in _LocationPopup.cshtml
+                        IsSearchActive = IsMobile
                     };
+
+                    objData.AskQuestionPopup.QnaSearch = new QnaSearchVM()
+                    {
+                        ModelId = (uint)objMakeModelDetails.ModelId,
+                        CityId = _cityId,
+                        VersionId = objData.VersionId,
+                        MakeMaskingName = makeMaskingName,
+                        ModelMaskingName = modelMaskingName,
+                        PlatformId = IsMobile ? (uint)Platforms.Mobile : (uint)Platforms.Desktop,
+                        PageName = GAPages.Model_Page,
+                        QnaGASource = "10",
+                        MakeName = makeName,
+                        ModelName = modelName
+                    };
+
                 }
 
                 if (objData.IsQAAvailable)

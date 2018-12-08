@@ -3,6 +3,7 @@ using Bikewale.Entities;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Pages;
 using Bikewale.Entities.QuestionAndAnswers;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Location;
@@ -101,12 +102,13 @@ namespace Bikewale.Models.QuestionsAnswers
             QuestionDetailsVM objQuestionDetailsVM = new QuestionDetailsVM();
             try
             {
-                GetQuestionData(objQuestionDetailsVM);
                 GetBikeData(objQuestionDetailsVM);
+                GetQuestionData(objQuestionDetailsVM);
                 BindAdSlots(objQuestionDetailsVM);
                 BindPageMetas(objQuestionDetailsVM);
                 SetBreadCrumbs(objQuestionDetailsVM);
                 SetJSONLDSchema(objQuestionDetailsVM);
+                BindAskQuestionPopup(objQuestionDetailsVM);
 
             }
             catch (Exception ex)
@@ -149,6 +151,12 @@ namespace Bikewale.Models.QuestionsAnswers
                     {
                         Status = StatusCodes.ContentNotFound;
                     }
+                    GenericBikeInfo objBikeInfo = (objQuestionDetailsVM.BikeInfoWidget != null ? objQuestionDetailsVM.BikeInfoWidget.BikeInfo : null);
+                    if (objBikeInfo != null)
+                    {   
+                        objQuestionDetailsVM.Tags = string.Format("{0},{1}", objBikeInfo.Make.MaskingName, objBikeInfo.Model.MaskingName);
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -179,6 +187,8 @@ namespace Bikewale.Models.QuestionsAnswers
                     url = string.Format("/{0}-bikes/{1}/questions-and-answers/{2}-{3}/", _makeMaskingName, _modelMaskingName, objQuestion.BaseUrl, _questionIdHash);
                     answerCount = objQuestion.Answers != null ? objQuestion.Answers.Count() : 0;
                 }
+
+                objQuestionDetailsVM.Platform = IsMobile ? Platforms.Mobile : Platforms.Desktop;
 
                 PageMetaTags objPageMetas = objQuestionDetailsVM.PageMetaTags;
                 if (objPageMetas != null)
@@ -465,7 +475,62 @@ namespace Bikewale.Models.QuestionsAnswers
         private void BindBikeInfoWidget(QuestionDetailsVM objVM)
         {
             BikeInfoWidget genericInfoWidget = new BikeInfoWidget(_objGenericBike, _objCityCache, _modelId, _cityId, _totalTabCount, _pageId, _models, _bikeSeries);
-            objVM.BikeInfoWidget = genericInfoWidget.GetData();
+            BikeInfoVM bikeInfo = genericInfoWidget.GetData();
+            if(bikeInfo != null && bikeInfo.BikeInfo != null && bikeInfo.BikeInfo.Model != null)
+            {
+                bikeInfo.BikeInfo.Model.ModelId = (int)_modelId;
+            }
+            objVM.BikeInfoWidget = bikeInfo;
+
+        }
+
+        /// <summary>
+        /// Created by: Dhruv Joshi
+        /// Dated: 17th Oct 2018
+        /// Description: Populate AskQuestionVM
+        /// </summary>
+        /// <param name="_objVM"></param>
+        private void BindAskQuestionPopup(QuestionDetailsVM _objVM)
+        {
+            try
+            {
+                GenericBikeInfo objMakeModel = null;
+                if(_objVM != null && _objVM.BikeInfoWidget != null)
+                {
+                   objMakeModel = _objVM.BikeInfoWidget.BikeInfo;
+                }
+                if (objMakeModel != null && objMakeModel.Make != null && objMakeModel.Model != null)
+                {
+                    _objVM.AskQuestionPopup = new AskQuestionPopupVM()
+                    {
+                        MakeName = objMakeModel.Make.MakeName,
+                        ModelName = objMakeModel.Model.ModelName,
+                        ModelId = _modelId,
+                        GAPageType = GAPages.Question_Page,
+                        QnaGASource = "12", //GA  categories, refer gtmCodeAppender() in _LocationPopup.cshtml
+                        IsSearchActive = IsMobile,
+                        QnaSearch = new QnaSearchVM()
+                        {
+                            CityId = _cityId,
+                            ModelId = (uint)objMakeModel.Model.ModelId,
+                            VersionId = (uint)objMakeModel.VersionId,
+                            MakeMaskingName = _makeMaskingName,
+                            ModelMaskingName = _modelMaskingName,
+                            PlatformId = IsMobile ? (uint)Platforms.Mobile : (uint)Platforms.Desktop,
+                            PageName = GAPages.Question_Page,
+                            QnaGASource = "12",
+                            MakeName = objMakeModel.Make.MakeName,
+                            ModelName = objMakeModel.Model.ModelName                            
+                        }
+                    };
+                }                
+            }
+
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Bikewale.Models.QuestionsAnswers.QuestionDetailsModel.BindAskQuestionPopup(),ModelId:{0}", _modelId));
+            }
+
         }
     }
 }

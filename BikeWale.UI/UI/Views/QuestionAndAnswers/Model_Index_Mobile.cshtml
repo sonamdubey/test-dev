@@ -2,9 +2,9 @@
 @using Bikewale.Utility;
 
 @{
-    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/partials/question-answer.css' inline/> ";
-    Model.Page_BTF_CSS_Path = "/UI/sass/partials/question-answer-popup.css";
-    Model.Page_JS_Paths = new string[] { "/UI/m/src/qna/landing.js", "/UI/src/utils/text-area.js", "/UI/src/question-and-answer.js", "/UI/src/utils/readMore.js" };
+    Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/partials/question-answer.css' inline/>";
+    Model.Page_BTF_CSS_Paths = new string[] { "/UI/sass/partials/question-answer-popup.css", "/UI/sass/qna/search-popup.css" };
+    Model.Page_JS_Paths = new string[] { "/UI/src/utils/popup.js", "/UI/src/utils/accordion.js", "/UI/m/src/qna/landing.js", "/UI/src/utils/text-area.js", "/UI/src/question-and-answer.js", "/UI/src/QuestionAndAnswers/qnaSearchPopup.js", "/UI/src/utils/readMore.js" };
     ViewBag.Title = "Index";
     Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
     string makeName = null;
@@ -14,7 +14,6 @@
 <script type="text/javascript">
     var qnaBaseUrl = "@(Model.BaseUrl)";
 </script>
-
 
 @if (Model != null)
 {
@@ -28,6 +27,10 @@
             </h1>
         }
         <div class="question-answer-wrapper__image"></div>
+        <div class="qna-search__form-control qna-search__control--nobel js-qna-popup-link qna-search__popup bw-ga" data-popup="qnaSearchPopup" data-sourceid="@((uint)Bikewale.Entities.QuestionAndAnswers.Sources.QuestionListing_Search)" data-cat="QnA_Page" data-act="Search_Bar_Clicked" data-lab="@string.Format("{0}_{1}", makeName, modelName)">
+            <div class="qna-search__input-icon search-icon--nobel"></div>
+            <div class="qna-search__input">Have a question? Search here</div>
+        </div>
         <div class="question-answer-wrapper__container" id="questionAnswerList">
             <div class="question-answer-wrapper__content">
                 @if (Model.QuestionAnswerWrapper != null && Model.QuestionAnswerWrapper.QuestionList != null)
@@ -42,9 +45,9 @@
                                             <p class="question-answer-wrapper__question">
                                                 <a title="@quesObj.Text" href="@(String.Format("{0}{1}", Model.BaseUrl, quesAnswer.Url))" class="text-black">
                                                     @string.Format("Q: {0}", quesObj.Text)
-                                                </a>                                            
+                                                </a>
                                             </p>
-                                        
+
                                             if (quesObj.AskedBy != null && quesObj.AskedBy.CustomerName != null)
                                             {
                                                 <p class="question-answer-wrapper__author">@string.Format("{0} ago by {1}", FormatDate.GetTimeSpan(quesObj.AskedOn), quesObj.AskedBy.CustomerName.Truncate(25)) </p>
@@ -95,9 +98,9 @@
                      <!-- ko if: otherQuestions != null -->
                     <ul data-bind="foreach: otherQuestions">
                         <!-- ko if: $data.question != null &&  $data.answer != null -->
-                        <li class="question-answer-wrapper__list-item" data-bind="if:$data">                            
+                        <li class="question-answer-wrapper__list-item" data-bind="if:$data">
                             <p class="question-answer-wrapper__question">
-                                <a class="text-black" data-bind="attr: { href: qnaBaseUrl + $data.url }, text: 'Q: ' + $data.question.text "></a>                                
+                                <a class="text-black" data-bind="attr: { href: qnaBaseUrl + $data.url }, text: 'Q: ' + $data.question.text "></a>
                             </p>
 
                             <p class="question-answer-wrapper__author" data-bind="text: ($data.question.questionAge) + ' ago by ' + $data.question.askedBy.customerName "> </p>
@@ -124,7 +127,7 @@
                             <!-- /ko -->
 
                             <!-- ko if: $data.answerCount > 1 -->
-                           
+
                             <a class="question-answer-wrapper__answers-link" data-bind="attr: { href: qnaBaseUrl + $data.url }, text: $data.answerCount > 2 ? 'Read ' + ($data.answerCount - 1) + ' More Answers' : 'Read ' + ($data.answerCount - 1) + ' More Answer'">
                             </a>
                             <!-- /ko -->
@@ -152,4 +155,5 @@
     {
         @Html.Partial("~/UI/Views/m/Shared/_question-answer.cshtml", Model.AskQuestionPopup);
     }
+
 }

@@ -100,7 +100,8 @@
     <Reference Include="BikeWale.Comparison">
       <HintPath>..\Libs\BikeWale.Comparison.dll</HintPath>
     </Reference>
-    <Reference Include="Bikewale.ElasticSearch.Entities">
+    <Reference Include="Bikewale.ElasticSearch.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Bikewale.ElasticSearch.Entities.dll</HintPath>
     </Reference>
     <Reference Include="Bikewale.Notifications">
@@ -507,6 +508,13 @@
     <Compile Include="DTO\PriceQuote\Version\PriceCategory.cs" />
     <Compile Include="DTO\PriceQuote\Version\PriceInfo.cs" />
     <Compile Include="DTO\PriceQuote\Version\VersionPrice.cs" />
+    <Compile Include="DTO\QuestionAndAnswers\ElasticSearch\AnswerDTO.cs" />
+    <Compile Include="DTO\QuestionAndAnswers\ElasticSearch\AuthorDTO.cs" />
+    <Compile Include="DTO\QuestionAndAnswers\ElasticSearch\BikewaleInfoDTO.cs" />
+    <Compile Include="DTO\QuestionAndAnswers\ElasticSearch\QuestionDTO.cs" />
+    <Compile Include="DTO\QuestionAndAnswers\ElasticSearch\QuestionSearchDTO.cs" />
+    <Compile Include="DTO\QuestionAndAnswers\ElasticSearch\QuestionSearchWrapperDTO.cs" />
+    <Compile Include="DTO\QuestionAndAnswers\ElasticSearch\QuestionTypeDTO.cs" />
     <Compile Include="DTO\QuestionAndAnswers\QuestionURLDTO.cs" />
     <Compile Include="DTO\UserReviews\UserReviewsInputEntity.cs" />
     <Compile Include="Interfaces\AppAlert\IAppAlert.cs" />
@@ -2737,6 +2745,7 @@
     <Compile Include="ViewModel\Price\DealerPriceQuotePageVM.cs" />
     <Compile Include="ViewModel\QuestionAndAnswers\AskQuestionPopupVM.cs" />
     <Compile Include="ViewModel\QuestionAndAnswers\ModelQuestionsAnswersVM.cs" />
+    <Compile Include="ViewModel\QuestionAndAnswers\QnaSearchVM.cs" />
     <Compile Include="ViewModel\QuestionAndAnswers\QuestionAnswerSectionVM.cs" />
     <Compile Include="ViewModel\QuestionAndAnswers\QuestionAnswerSlugVM.cs" />
     <Compile Include="ViewModel\QuestionAndAnswers\QuestionDetailsVM.cs" />
@@ -3718,9 +3727,11 @@
     <Content Include="UI\m\src\photos\photos.js" />
     <Content Include="UI\m\src\photos\modelgallery.js" />
     <Content Include="UI\m\src\photos\videoPopupViewModel.js" />
+    <Content Include="UI\src\QuestionAndAnswers\qnaSearchPopup.js" />
     <Content Include="UI\m\src\priceincity.js" />
     <Content Include="UI\m\src\qna\landing.js" />
     <Content Include="UI\sass\partials\lead-form\offers.css" />
+    <Content Include="UI\src\utils\accordion.js" />
     <Content Include="UI\src\es\tvs-leaderboard.js" />
     <Content Include="UI\src\photos\galleryListing.js" />
     <Content Include="UI\src\photos\galleryViewModel.js" />
@@ -4095,9 +4106,10 @@
     <Content Include="UI\src\utils\dropdown.js" />
     <Content Include="UI\src\utils\navigationTabs.js" />
     <Content Include="UI\src\utils\ribbon.js" />
-    <Content Include="UI\src\utils\scroll-lock.js" />
     <Content Include="UI\src\utils\scroll.js" />
+    <Content Include="UI\src\utils\scrollLock.js" />
     <Content Include="UI\src\utils\swiperYoutube.js" />
+    <Content Include="UI\src\utils\text-area.js" />
     <Content Include="UI\src\utils\viewport.js" />
     <Content Include="UI\src\utils\window-fullscreen.js" />
     <Content Include="UI\src\Videos\detail.js" />
@@ -4898,6 +4910,11 @@
     <Content Include="UI\sass\mixins\_article-card.sass" />
     <Content Include="UI\sass\mixins\_embed-video.sass" />
     <Content Include="UI\sass\mixins\_swiper-btn.sass" />
+    <Content Include="UI\sass\qna\search-popup.sass" />
+    <Content Include="UI\sass\mixins\_arrows.sass" />
+    <Content Include="UI\sass\plugin\_accordion.sass" />
+    <Content Include="App_Code\QnASearchHelpers.cshtml" />
+    <Content Include="UI\sass\mixins\_callout.sass" />
     <Content Include="UI\sass\mixins\_swiper-card.sass" />
     <Content Include="UI\sass\modules\model-info-card.sass" />
     <Content Include="UI\sass\partials\_fullscreen-video.sass" />
@@ -4920,6 +4937,8 @@
     <Content Include="UI\Views\Shared\_LeadCapture_Mobile_New.cshtml" />
     <Content Include="UI\Views\Shared\_leaderboard.cshtml" />
     <Content Include="UI\Views\Shared\ES\_RoyalEnfieldCountdown.cshtml" />
+    <Content Include="UI\Views\QuestionAndAnswers\_Question_Answer_Search_Slug.cshtml" />
+    <Content Include="UI\Views\QuestionAndAnswers\_Question_Answer_Search_Popup.cshtml" />
     <Content Include="UI\Views\Shared\ES\_RoyalEnfieldCountdown_Mobile.cshtml" />
     <Content Include="UI\Views\QuestionAndAnswers\_UnansweredQuestion.cshtml" />
     <Content Include="UI\Views\Shared\_RecentSuggestion.cshtml" />
@@ -4990,6 +5009,7 @@
     <Folder Include="UI\Controllers\m\Content\" />
     <Folder Include="UI\Controllers\m\new\Scooters\" />
     <Folder Include="UI\Controllers\new\" />
+    <Folder Include="UI\m\dealerlocator\" />
     <Folder Include="ViewModel\ComparisonTest\" />
     <Folder Include="ViewModel\Desktop\" />
   </ItemGroup>

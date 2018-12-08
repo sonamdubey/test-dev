@@ -5,6 +5,7 @@ using Bikewale.Entities.GenericBikes;
 using Bikewale.Entities.Pager;
 using Bikewale.Entities.Pages;
 using Bikewale.Entities.Schema;
+using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.QuestionAndAnswers;
@@ -37,7 +38,7 @@ namespace Bikewale.Models.QuestionsAnswers
         private readonly IBikeModels<BikeModelEntity, int> _objModelEntity = null;
         private readonly IPager _pager = null;
 
-        private uint _modelId = 0;
+        private uint _modelId = 0, _cityId = 0;
         private string makeMaskingName = string.Empty, model = string.Empty, series = string.Empty;
         private string modelMaskingName = string.Empty;
         private ushort curPageNo = 1;
@@ -47,6 +48,7 @@ namespace Bikewale.Models.QuestionsAnswers
         private BikeSeriesEntityBase objSeries;
         private EnumBikeBodyStyles BodyStyle = EnumBikeBodyStyles.AllBikes;
         private BikeModelEntity objModel = null;
+        private GlobalCityAreaEntity currentCityArea = null;
         private string _adId_Mobile = "1529992685612";
         private string _adPath_Mobile = "/1017752/BikeWale_Mobile_QNA_Listing";
         private string _adId_Desktop = "1530623766284";
@@ -70,7 +72,27 @@ namespace Bikewale.Models.QuestionsAnswers
             ParseQueryString(makeMasking, modelMasking);
             makeMaskingName = makeMasking;
             modelMaskingName = modelMasking;
+            ProcessCityArea();
+        }
 
+        /// <summary>
+        /// Created By : Monika Korrapati on 19 Oct 2018
+        /// Description : To get cityId
+        /// </summary>
+        private void ProcessCityArea()
+        {
+            try
+            {
+                currentCityArea = GlobalCityArea.GetGlobalCityArea();
+                if(currentCityArea != null)
+                {
+                    _cityId = currentCityArea.CityId;
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass.LogError(ex, "Bikewale.Models.QuestionsAnswers.QuestionAnswerModel.ProcessCityArea()");
+            }
         }
 
         /// <summary>
@@ -272,6 +294,8 @@ namespace Bikewale.Models.QuestionsAnswers
         /// Created by: Dhruv Joshi
         /// Dated: 25th June 2018
         /// Description: Populate AskQuestionVM
+        /// Modified By : Monika Korrapati on 19 Oct 2018
+        /// Description : Added QnaSearchVM binding.
         /// </summary>
         /// <param name="_objVM"></param>
         private void BindAskQuestionPopup(ModelQuestionsAnswersVM _objVM)
@@ -285,7 +309,23 @@ namespace Bikewale.Models.QuestionsAnswers
                     {
                         MakeName = objMakeModel.Make.MakeName,
                         ModelName = objMakeModel.Model.ModelName,
-                        GAPageType = GAPages.QnA_Page
+                        ModelId = _modelId,                        
+                        GAPageType = GAPages.QnA_Page,
+                        QnaGASource = "11", //GA  categories, refer gtmCodeAppender() in _LocationPopup.cshtml
+                        IsSearchActive = IsMobile
+                    };
+                    _objVM.AskQuestionPopup.QnaSearch = new QnaSearchVM()
+                    {
+                        ModelId = _modelId,
+                        CityId = _cityId,
+                        VersionId = (uint)objMakeModel.VersionId,
+                        MakeMaskingName = objMakeModel.Make.MaskingName,
+                        ModelMaskingName = objMakeModel.Model.MaskingName,
+                        MakeName = objMakeModel.Make.MakeName,
+                        ModelName = objMakeModel.Model.ModelName,
+                        PlatformId = IsMobile ? (uint)Platforms.Mobile : (uint)Platforms.Desktop,
+                        PageName = GAPages.QnA_Page,
+                        QnaGASource = "11"
                     };
                 }
             }

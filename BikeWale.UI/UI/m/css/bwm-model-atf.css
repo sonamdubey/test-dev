@@ -885,6 +885,14 @@ a.btn:hover {
     padding-bottom: 7px;
     background-color: #fff;
 }
+
+/*Styles for popup*/
+.popup-container .popup {
+    -webkit-transform: translateX(110%);
+    -moz-transform: translateX(110%);
+    -ms-transform: translateX(110%);
+    transform: translateX(110%);
+}
 .top-selling__text {
     font-size: 12px;
     font-weight: 600;

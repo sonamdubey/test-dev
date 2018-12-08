@@ -25,8 +25,8 @@
             popupLink[i].addEventListener('click', function () {
                 var dataPopup = this.getAttribute('data-popup');
                 var popupContainer = document.getElementById(dataPopup);
-                if (popup.options.lockBodyScroll && typeof handleBodyScroll === 'object') {
-                    handleBodyScroll.lockScroll();
+                if (popup.options.lockBodyScroll && typeof HandleBodyScroll === 'object') {
+                    HandleBodyScroll.lockScroll();
                 }
                 popupContainer.classList.add(popup.options.activeClass);
                 if (popup.options.onPopupOpen) {
@@ -43,8 +43,8 @@
         if (popup.options.closeButton) {
             popupContainer.querySelector('.' + popup.options.closeButtonClass).addEventListener('click', function () {
                 popupContainer.classList.remove(popup.options.activeClass);
-                if (popup.options.lockBodyScroll && typeof handleBodyScroll === 'object') {
-                    handleBodyScroll.unlockScroll();
+                if (popup.options.lockBodyScroll && typeof HandleBodyScroll === 'object') {
+                    HandleBodyScroll.unlockScroll();
                 }
                 if (popup.options.onCloseClick) {
                     popup.options.onCloseClick();
@@ -53,9 +53,8 @@
         }
         popupContainer.querySelector('.' + popup.options.blackoutWindowClass).addEventListener('click', function () {
             popupContainer.classList.remove(popup.options.activeClass);
-
-            if (popup.options.lockBodyScroll && typeof handleBodyScroll === 'object') {
-                handleBodyScroll.unlockScroll();
+            if (popup.options.lockBodyScroll && typeof HandleBodyScroll === 'object') {
+                HandleBodyScroll.unlockScroll();
             }
             if (popup.options.onCloseClick) {
                 popup.options.onCloseClick();
@@ -66,19 +65,17 @@
     }
 
 
+
     //This function sets the slide direction of the popup using the direction passed by the user or takes the default value
     function _handleCloseEvent(popup) {
-        var popupLink = document.querySelectorAll(popup.link);
-        for (var i = 0; i < popupLink.length; i++) {
-            var popupBody = popupLink[i].getAttribute('data-popup');
-            var popupContainer = document.getElementById(popupBody);
-            if (popupContainer !== null) {
-                closePopup(popup, popupContainer);
-            }
-            else {
-                console.warn('Please provide id to popup');
-            }
-
+        var popupLink = document.querySelector(popup.link);
+        var popupBody = popupLink.getAttribute('data-popup');
+        var popupContainer = document.getElementById(popupBody);
+        if (popupContainer !== null) {
+            closePopup(popup, popupContainer);
+        }
+        else {
+            console.warn('Please provide id to popup');
         }
     }
 
@@ -101,10 +98,9 @@
             closeButtonClass: 'popup-close-button',
             blackoutWindowClass: 'popup-overlay',
             lockBodyScroll: true,
+            closeButton: true,
             onPopupOpen: _noop,
             onCloseClick: _noop,
-            closeButton: true
-
         }
 
         if (params && typeof params === 'object') {

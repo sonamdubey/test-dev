@@ -1,45 +1,48 @@
-@mixin input-field($fontSize: 13, $color: 'dark-gray', $font-weight: normal, $focus-color: 'default', $placeholder-style: normal, $border-radius: 2px, $padding: 12px 20px)
+@mixin input-field($font-size: 13, $color: 'dark-gray', $font-weight: normal, $focus-color: 'default', $placeholder-style: normal, $border-radius: 2px, $padding: 12px 20px, $box-shadow: 0 2px 4px 0 color('border-dark'), $border: 1px solid color('light-gray'), $box-shadow-focus-state: null, $has-error: true)
 	.form-control__input
 		@include vendor-prefix('border-radius', $border-radius)
 		font-family: inherit
 		width: 100%
-		font-size: $fontSize * 1px
+		font-size: $font-size * 1px
 		padding: $padding
 		line-height: 1.4
 		color: color($color)
 		position: relative
-		border: 1px solid color('light-gray')
-		box-shadow: 0 2px 4px 0 color('border-dark')
+		border: $border
+		box-shadow: $box-shadow
 		background-color: color('white')
 		font-weight: $font-weight
 		position: relative
 		z-index: 1
+		display: block
 
 		&:focus
 			color: color('default')
 			border-color: color($focus-color)
+			box-shadow: $box-shadow-focus-state
 
 		&::placeholder,
 		&::-webkit-input-placeholder
-			font-size: $fontSize * 1px
+			font-size: $font-size * 1px
 			color: color('dark-gray')
 			font-style: $placeholder-style
 			font-weight: normal
 
 		&::-moz-placeholder
 			opacity: 1
-			font-size: $fontSize * 1px
+			font-size: $font-size * 1px
 			color: color('dark-gray')
 			font-style: $placeholder-style
 
-	.form-control__error
-		&.ui-autocomplete
-			display: none
-			width: 100%
-			margin: 0
-			position: absolute
-			left: 0
-			top: 100%
+	@if $has-error
+		.form-control__error
+			&.ui-autocomplete
+				display: none
+				width: 100%
+				margin: 0
+				position: absolute
+				left: 0
+				top: 100%
 
 @mixin input-field__search
 	.input__search-icon
@@ -55,11 +58,11 @@
 		cursor: pointer
 
 
-@mixin form-control-box()
+@mixin form-control-box($margin-bottom: 6)
 	.form-control-box
 		position: relative
 		display: block
-		margin-bottom: 6px
+		margin-bottom: $margin-bottom * 1px
 
 		&.invalid
 			.form-control__input
@@ -88,8 +91,8 @@
 					max-height: $max-height
 					padding-bottom: 20px
 
-@mixin text-area($border-color: 'gainsboro', $fontSize: 16, $color: 'default', $font-weight: $font-semibold, $focus-color: 'deep-sky-blue', $placeholder-style: italic, $border-radius: 4px, $min-height: 66px, $box-shadow: false)
-	@include input-field($fontSize, $color, $font-weight, $focus-color, $placeholder-style, $border-radius)
+@mixin text-area($border-color: 'gainsboro', $font-size: 16, $color: 'default', $font-weight: $font-semibold, $focus-color: 'deep-sky-blue', $placeholder-style: italic, $border-radius: 4px, $min-height: 66px, $box-shadow: false)
+	@include input-field($font-size, $color, $font-weight, $focus-color, $placeholder-style, $border-radius)
 	@include form-control-box
 	@include area-control-box($min-height)
 	.form-control__text-area
@@ -112,8 +115,9 @@
 		width: 99%
 		text-align: right
 		padding-right: 10px
-		padding-bottom: 7px
+		padding-bottom: 2px
 		background-color: color('white')
+		pointer-events: none
 
 	.form-control-box
 		&.invalid

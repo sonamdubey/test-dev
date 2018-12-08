@@ -1,0 +1,76 @@
+﻿@helper GenerateAskButton(bool isAskQuestionPopup)
+{
+    string idName = isAskQuestionPopup ? "askquestion-askbutton" : "qnasearch-askbutton";
+
+    <div class="qna-search-footer">
+        <p class="qna-search-footer__text" data-bind="text:footerText"></p>
+        <button id="@idName" class="qna-search-footer__btn btn btn-inv-blue" role="button" aria-label="Ask Question">Ask</button>
+    </div>
+}
+
+@helper GenerateBWInfoCard(string makeName, string modelName, uint modelId, string pageCategory)
+{
+    <script>
+        document.getElementById('popupWrapper').style.zIndex = 20
+    </script>
+    <!-- ko if: showBikeInfo() && bikewaleInfo() -->
+                        <!-- ko if: bikewaleInfo().type == 2 -->
+    <div class="callout-card callout-card--info " data-bind="attr:{ class:  isAskQuestion() ? 'callout-card callout-card--info callout-card--small' : 'callout-card callout-card--info' }">
+        <h2 class="callout-card-title">BikeWale Info:</h2>
+        <div class="callout-card-content">
+            <p class="callout-card-description" data-bind="text: bikewaleInfo().description"></p>
+            <p class="callout-card__price" data-bind="text: '&#x20b9;' + formatPrice(bikewaleInfo().value)"></p>
+            <a class="callout-card-action getquotation" href="javascript:void(0)" aria-label="Check On Road Price" data-pagecatid="@pageCategory" data-pqsourceid="@((uint)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_QnA_OnRoadLink)" data-makename="@makeName" data-modelname="@modelName" data-modelid="@modelId" title="Check On Road Price" data-action="" rel="nofollow">Check On Road Price</a>
+        </div>
+    </div>
+                            <!-- /ko -->
+                        <!-- ko if:  bikewaleInfo().type == 4 -->
+    <div class="callout-card callout-card--info" data-bind="attr:{ class:  isAskQuestion() ? 'callout-card callout-card--info callout-card--small' : 'callout-card callout-card--info' }">
+        <h2 class="callout-card-title">BikeWale Info:</h2>
+        <div class="callout-card-content">
+            <p class="callout-card-description" data-bind="text: bikewaleInfo().description"></p>
+            <p class="callout-card__price" data-bind="text: '&#x20b9;' + formatPrice(bikewaleInfo().value) + '/month'"></p>
+            <a class="callout-card-action info-card-bw" href="/m/bike-loan-emi-calculator/" aria-label="Calculate EMI" title="Calculate EMI" data-action="Search_Results_BikeWaleInfoCard_EMI_Clicked">Calculate EMI</a>
+        </div>
+    </div>
+                        <!-- /ko -->
+                        <!-- ko if: bikewaleInfo().type == 3 -->
+    <div class="callout-card callout-card--info" data-bind="attr:{ class:  isAskQuestion() ? 'callout-card callout-card--info callout-card--small' : 'callout-card callout-card--info' }">
+        <h2 class="callout-card-title">BikeWale Info:</h2>
+        <div class="callout-card-content">
+            <p class="callout-card-description description--font-semibold" data-bind="text: 'Mileage : ' +  bikewaleInfo().value + ' kmpl (ARAI)' "></p>
+        </div>
+    </div>
+                        <!-- /ko -->
+                    <!-- /ko -->
+}
+@helper GenerateSuggestionList(string baseUrl)
+{
+    <ul class="accordion-list js-accordion-list" data-bind="foreach: questions">
+        <li class="accordion-list-item js-accordion-list-item" data-bind="attr : { 'data-qid': question.guid }">
+            <div class="accordion-heading js-accordion-heading">
+                <h4 class="accordion-primary-title" data-bind="html: 'Q: ' + question.questionText"></h4>
+                <p class="accordion-primary-subtitle">(<span data-bind="text: answerCount"></span> Answer<span data-bind="if : answerCount > 1">s</span>)</p>
+            </div>
+            <div class="accordion-content-wrapper js-accordion-content-wrapper">
+                <div class="accordion-content js-accordion-content">
+                    <p class="qna-accordion-answer">
+                        <span class="stripped-answer" data-bind="text: 'A: ' + answer.answerText.substring(0, 150) + (answer.answerText.length > 150 ? '...' : '')">
+
+                        </span>
+                        <span class="full-answer hide" data-bind="text: 'A: ' + answer.answerText">
+
+                        </span>
+                        <!-- ko if: answer.answerText.length > 150 -->
+                        <span class="qna-accordion-read-more">Read more</span>
+                        <!-- /ko -->
+                    </p>
+                    <p class="qna-accordion-answer-info" data-bind="text: answer.answerAge + ' ago by ' + answer.answeredBy.name "></p>
+                    <!-- ko if: answerCount > 1 -->
+                    <a href="" title="Read All Answers" class="qna-accordion-read-all" data-bind="attr: { href: '@baseUrl' + pageUrl + '/'}">Read All <span data-bind="text: answerCount"></span> Answers</a>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </li>
+    </ul>
+}

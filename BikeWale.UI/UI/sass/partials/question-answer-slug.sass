@@ -107,3 +107,25 @@
   .question-answer-slug__content-block
     width: 380px
     padding-right: 15px
+
+
+// Styles for search slug
+
+.qna-search-slug
+  @include flex-direction(column)
+  @include align-items
+
+.question-answer-slug__block
+  @include flexbox
+  @include justify-content(space-between)
+  margin-bottom: 10px
+
+  .question-answer-slug__description
+    margin-bottom: 0
+
+.qna-search-slug--icon
+  background-position: center -10px
+  background-size: 140px
+  height: 52px
+  width: 90px
+  margin-top: -4px

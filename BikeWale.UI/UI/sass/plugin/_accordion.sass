@@ -1,0 +1,66 @@
+﻿@mixin accordion-container($background-color: 'white')
+  .accordion-container
+    background-color: color($background-color)
+    width: 100%
+
+@mixin accordion-list($padding: null)
+  .accordion-list
+    padding: $padding
+
+@mixin accordion-list-item($border-color: 'whisper-3', $margin-bottom: null, $border-radius: null)
+  .accordion-list-item
+    border-bottom: 1px solid color($border-color)
+    margin-bottom: $margin-bottom
+    border-radius: $border-radius
+
+@mixin accordion-content-wrapper
+  .accordion-content-wrapper
+    @include vendor-prefix('transition', height)
+    overflow: hidden
+    height: 0
+
+@mixin accordion-heading($icon-width: 10, $icon-height: 14, $icon-direction: down, $padding: 10px 15px 10px 0, $icon-opacity: 1)
+  .accordion-heading
+    padding: $padding
+    position: relative
+    cursor: pointer
+    -webkit-tap-highlight-color: transparent
+
+    &:after
+      @include arrow-icon($width: $icon-width, $height: $icon-height, $direction: $icon-direction, $opacity: $icon-opacity)
+      @include vendor-prefix('transition', all .4s linear)
+      background-size: contain
+      content: ''
+      position: absolute
+      top: 50%
+      right: 2px
+      will-change: transform
+      margin-top: $icon-height / 2 * -1px
+
+  .accordion-active
+    .accordion-heading
+      &:after
+        @include vendor-prefix('transform', rotate(270deg))
+
+@mixin accordion-content($padding-bottom: 10px)
+  .accordion-content
+    padding-bottom: $padding-bottom
+
+@mixin accordion-primary-title($color: 'aluminium', $font-size: 14, $font-weight: $font-normal)
+  .accordion-primary-title
+    color: color($color)
+    font-size: $font-size * 1px
+    line-height: 1.42
+    font-weight: $font-weight
+
+@mixin accordion-secondary-title($color: 'default', $font-weight: $font-semibold)
+  .accordion-secondary-title
+    color: color($color)
+    font-weight: $font-weight
+
+@mixin accordion-head-subtitle($color: 'aluminium', $font-size: 12, $margin-top: null)
+  .accordion-primary-subtitle
+    color: color($color)
+    font-size: $font-size * 1px
+    line-height: 1.42
+    margin-top: $margin-top

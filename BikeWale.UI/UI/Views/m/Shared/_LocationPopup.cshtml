@@ -105,6 +105,7 @@
 
     var mPopup = function () {
         var modelPageSimilarBikesPQSource = "130";
+        var qnaPQSource = "123";
         var self = this;
         self.MakeName = "";
         self.ModelName = "";
@@ -298,9 +299,9 @@
                             var jsonObj = _responseData.priceQuote;
                             var platformId = 2; // hardcoded value for mobile platform
 
-                            if(self.PQSourceId == modelPageSimilarBikesPQSource)
+                            if(self.PQSourceId == modelPageSimilarBikesPQSource || self.PQSourceId == qnaPQSource)
                             {
-                                trackPQSources(jsonObj.quoteId, self.PQSourceId, platformId, versionId);
+                                trackPQSources(jsonObj.quoteId, self.PQSourceId, platformId, jsonObj.versionId);
                             }
 
 
@@ -539,10 +540,10 @@
             setTimeout(function(){$("#popupAreaInput").focus()}, 500);
         });
 
-        $(document).on("click", ".getquotation", function (e) {
+        $(document).on("click", ".getquotation", function (e) {            
             var ele = $(this); e.stopPropagation();
             var showCityList = false;
-            if(e.currentTarget.dataset != undefined && e.currentTarget.dataset.pqsourceid != undefined && cityId == "0")
+            if(e.currentTarget.dataset != undefined && e.currentTarget.dataset.pqsourceid != undefined &&  typeof(cityId)!= "undefined" && cityId == "0")
             {
                 showCityList = (e.currentTarget.dataset.pqsourceid == PqSourceEnum.Mobile_ModelPage_LocationSelector || e.currentTarget.dataset.pqsourceid == PqSourceEnum.Mobile_ModelPage_EditCityPencil);
             }
@@ -609,6 +610,16 @@
                 case "9":
                     category = "Make_Page_AMP";
                     break;
+                case "10":
+                    category = "Model_Page_QnASearch"
+                    break;
+                case "11":
+                    category = "QnA_Page_QnASearch";
+                    break;
+                case "12":
+                    category = "Question_Page_QnASearch";
+                    break;
+
             }
             if (label) {
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action, 'lab': label });

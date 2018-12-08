@@ -1,0 +1,33 @@
+﻿@mixin arrow-icon($width: 10, $height: 16, $opacity: 1, $direction: right, $translate: null)
+  @include arrow-right-6f6f6f-icon
+  @include arrow-direction($direction: $direction, $translate: $translate)
+  background-repeat: no-repeat
+  display: inline-block
+  width: $width * 1px
+  height: $height * 1px
+  opacity: $opacity
+
+@mixin caret-arrow($size: 5, $color: 'gainsboro-5', $opacity: 1, $direction: right, $translate: null)
+  @include arrow-direction($direction: $direction, $translate: $translate)
+  display: inline-block
+  width: 0
+  height: 0
+  border-bottom: $size * 1px solid transparent
+  border-top: $size * 1px solid transparent
+  border-left: $size * 1px solid color($color)
+  font-size: 0
+  line-height: 0
+  opacity: $opacity
+
+@mixin arrow-direction($direction: right, $translate: null)
+  @if $direction == right
+    @include vendor-prefix('transform', $translate)
+
+  @else if $direction == left
+    @include vendor-prefix('transform', $translate rotate(180deg))
+
+  @else if $direction == up
+    @include vendor-prefix('transform', $translate rotate(-90deg))
+
+  @else if $direction == down
+    @include vendor-prefix('transform', $translate rotate(90deg))

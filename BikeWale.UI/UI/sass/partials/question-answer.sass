@@ -8,6 +8,10 @@
 @import ../mixins/popup
 
 //ATF popup style
+.popup-container
+  .popup
+    @include vendor-prefix(transform, translateX(110%))
+
 .question-answer-popup
   @include popup($direction: 'bottom', $desktop: true)
 
@@ -28,9 +32,7 @@
   background-image: url("https://imgd.aeplcdn.com/0x0/bw/static/icons/4d5057/faq.svg")
   background-repeat: no-repeat
   background-position: center
-  margin-left: -20px
-  margin-right: -20px
-  margin-top: 20px
+  margin: 20px -20px
 
 .question-answer-wrapper__content
   @include btn(14px, $font-semibold)
@@ -157,6 +159,9 @@
   .question-answer-wrapper__cta-container
     padding-bottom: 15px
 
+  .qna-search__control--nobel
+    margin-bottom: 0
+
 //Pagination style
 .ask-question__link
   &:hover
@@ -171,6 +176,38 @@
 // button arrow
 .btn-inv-blue--arrow
     @include afterIcon-arrow-0288d1
+
+
+// QnA search input
+.qna-search__form-control
+  @include flexbox
+  @include align-items(center)
+  background-color: color('white')
+  padding: 10px 15px
+  border-radius: 4px
+  border: 1px solid
+  border-color: color('mona-lisa')
+
+.qna-search__input-icon
+  width: 18px
+  height: 17px
+  display: inline-block
+  vertical-align: middle
+  margin-right: 10px
+
+.search-icon--peach
+  @include search-fd8d81-icon
+
+.search-icon--nobel
+  @include search-979797-icon
+
+.qna-search__input
+  color: color('aluminium-4')
+  font-size: 12px
+
+.qna-search__control--nobel
+  border-color: color('bright-grey')
+  margin-bottom: 20px
 
 // Styles for Desktop
 @media screen and (min-width: 800px)
@@ -261,3 +298,8 @@
 
     &:hover
       text-decoration: none
+
+.qna-wrapper--model
+    .qna-search__control--nobel
+        margin-top: 15px
+        margin-bottom: 0

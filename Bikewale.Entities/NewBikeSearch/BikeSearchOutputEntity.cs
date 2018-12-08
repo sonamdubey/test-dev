@@ -1,5 +1,4 @@
-﻿using Bikewale.ElasticSearch.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 namespace Bikewale.Entities.NewBikeSearch
 {
     public class BikeSearchOutputEntity

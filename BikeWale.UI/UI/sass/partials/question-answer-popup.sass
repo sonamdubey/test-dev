@@ -59,33 +59,27 @@
 		background-color: color('gainsboro-2')
 
 .question-answer-container
-	@include form-control-box
-	@include input-field($fontSize: 16, $color: 'default', $font-weight: $font-semibold, $focus-color: 'deep-sky-blue', $placeholder-style: italic, $border-radius: 4px, $padding: 12px 20px 20px)
-	@include area-control-box
+	@include form-control-box($margin-bottom: 10)
+	@include input-field($font-size: 14, $color: 'default', $font-weight: $font-semibold, $focus-color: 'deep-sky-blue', $placeholder-style: italic, $border-radius: 4px, $padding: 12px 20px)
+	@include area-control-box($min-height: 73px)
 	@include text-area__character-count
 
-	.form-control-box
-		&.invalid
-			margin-bottom: 6px
-			
-		&.question-answer__email
-			margin-bottom: 10px
+	.area-control-box
+		.form-control__input
+			padding-bottom: 20px
 
-.area-control-box
-	display: block
-	margin-bottom: 10px
-
-	&.invalid
-		margin-bottom: 10px
+	.form-control__input
+		&::placeholder,
+		&::-webkit-input-placeholder
+			font-size: 13px
 
 .question-answer__description
 	display: block
-	font-size: 13px
+	font-size: 11px
 	letter-spacing: 0
 	color: color('dark-gray-2')
 	margin-top: 5px
 	margin-bottom: 15px
-
 
 //button
 .question-answer-container
@@ -127,26 +121,102 @@
 	margin-top: 6px
 
 
-// Styles for Destop (Media Queries)
+// QnA ask suggestion
+
+.qna-ask-control-box
+	position: relative
+
+.qna-ask-suggestion
+	@include vendor-prefix('transition', max-height .4s linear)
+	display: none
+	position: absolute
+	top: 100%
+	left: 0
+	right: 0
+	width: 100%
+	z-index: 2
+	padding: 0 10px 10px
+	box-shadow: 0 1px 4px color("gainsboro")
+	background-color: color("white")
+	overflow-y: auto
+	max-height: 30vh
+	border: 1px solid color('bright-grey')
+	border-top: none
+
+	.qna-search-footer
+		.btn-inv-blue
+			padding-top: 7px
+			padding-bottom: 7px
+
+		.qna-search-footer__btn
+			max-width: 100px
+
+	.qna-search-footer__text
+		font-size: 13px
+
+	.accordion-list
+		margin-top: 5px
+
+	.accordion-primary-title
+		margin-bottom: 2px
+		font-size: 13px
+
+	.qna-accordion-answer,
+	.qna-accordion-read-more
+		font-size: 13px
+
+	.accordion-primary-subtitle,
+	.qna-accordion-answer-info,
+	.qna-accordion-read-all
+		font-size: 11px
+
+	.qna-accordion-read-all
+		&:after
+			width: 5px
+			height: 9px
+
+	.accordion-list-item
+		&:last-child
+			border-bottom-color: transparent
+
+// active state
+.qna-ask-control-box
+	&.qna-suggestion--active
+		.qna-ask-suggestion
+			display: block
+
+		.form-control__text-area
+			border-bottom-left-radius: 0
+			border-bottom-right-radius: 0
+
+// Styles for 320 screen
+
+@media screen and (max-width: 320px)
+	.qna-ask-suggestion
+		.qna-search-footer
+			.qna-search-footer__btn
+				max-width: 65px
+
+// Styles for Desktop (Media Queries)
 
 @media screen and (min-width: 1024px)
-  .question-answer-container
-    .btn
-      padding-top: 10px
-      padding-bottom: 10px
+	.question-answer-container
+		.btn
+			padding-top: 10px
+			padding-bottom: 10px
 
-  .ask-question__link
-    border-left: 0
+	.ask-question__link
+		border-left: 0
 
 @media screen and (min-width: 800px)
-  #questionAnswerPopup
-    @include vendor-prefix(transition, #{transform .5s linear, visibility .1s ease .5s})
-    z-index: 210
+	#questionAnswerPopup
+		@include vendor-prefix(transition, #{transform .5s linear, visibility .1s ease .5s})
+		z-index: 210
 
 #questionAnswerPopup
-  @include vendor-prefix(transition, #{transform .5s linear, visibility .1s ease .5s})
-  visibility: hidden
-  z-index: 210
-  &.popup--active
-    @include vendor-prefix(transition, #{visibility 0.01s ease, transform 0.5s linear 0.01s})
-    visibility: visible
+	@include vendor-prefix(transition, #{transform .5s linear, visibility .1s ease .5s})
+	visibility: hidden
+	z-index: 210
+	&.popup--active
+		@include vendor-prefix(transition, #{visibility 0.01s ease, transform 0.5s linear 0.01s})
+		visibility: visible

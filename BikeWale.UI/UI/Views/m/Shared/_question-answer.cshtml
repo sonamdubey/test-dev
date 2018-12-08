@@ -2,7 +2,8 @@
 @model AskQuestionPopupVM
 @if(Model != null)
 {
-
+    string askControlClass = Model.IsSearchActive ? "qna-ask-control-box qna-suggestion--active" : "qna-ask-control-box";
+    
     <div id="questionAnswerPopup" class="question-answer-popup" data-makename="@Model.MakeName" data-modelname="@Model.ModelName" data-cat="@Model.GAPageType">
         <div class="popup-header">
             <span class="popup-header__title">
@@ -16,7 +17,7 @@
                     <div class="question-answer__tip text-bold">
                         Quick Tips for writing a good question:
                     </div>
-                    <ul class="question-answer__tip-list">                        
+                    <ul class="question-answer__tip-list">
                         <li class="question-answer-tip-list__item">
                             Start with a “What”, “How”, “When” or “Why”
                         </li>
@@ -26,20 +27,40 @@
                     </ul>
                 </div>
 
+                <div class="@askControlClass">
+                    <label class="form-control-box area-control-box" data-char-limit="true">
+                        <textarea id="askQuestionInput" class="form-control__input form-control__text-area" data-validationtype="nonempty" data-maxlength="300" placeholder="E.g. What is the top speed of @Model.ModelName?" data-bind="value: text"></textarea>
+                        <span class="text-area__character-count">
+                            Max 300 Characters
+                        </span>
+                    </label>
+                    @if (Model.IsSearchActive && Model.QnaSearch != null)
+                    {
+                        var UrlPrefix = Model.QnaSearch.PlatformId == 2 ? Bikewale.Utility.BWConfiguration.Instance.BwHostUrl + "/m" : Bikewale.Utility.BWConfiguration.Instance.BwHostUrl;
 
-                <label class="form-control-box area-control-box" data-char-limit="true">
-                    <textarea class="form-control__input form-control__text-area" data-validationtype="nonempty" data-maxlength="300" placeholder="E.g. What is the top speed of @Model.ModelName?" data-bind="value: text"></textarea>
-                    <span class="text-area__character-count">
-                        Max 300 Characters
-                    </span>
-                </label>
+                        string baseUrl = string.Format("{0}/{1}-bikes/{2}/questions-and-answers/", UrlPrefix, Model.QnaSearch.MakeMaskingName, Model.QnaSearch.ModelMaskingName);
+
+                        <div id="askquestionssuggestionbase" data-bind="with: searchSuggestions">
+                            <div class="qna-ask-suggestion" data-bind="visible: showContent">
+                                @QnASearchHelpers.GenerateAskButton(true)
+
+                                <div class="js-qna-ask-accordion">
+                                    @QnASearchHelpers.GenerateBWInfoCard(Model.MakeName, Model.ModelName, Model.ModelId, Model.QnaGASource)
+                                    @QnASearchHelpers.GenerateSuggestionList(baseUrl)
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+                </div>
 
                 <label class="form-control-box question-answer__email">
-                    <input type="text" class="form-control__input" data-validationtype="name" placeholder="Your Name Here" data-bind="value: askedBy().name" aria-label="Your Name"/>
+                    <input id="askquestion-namefield" type="text" class="form-control__input" data-validationtype="name" placeholder="Your Name Here" data-bind="value: askedBy().name" aria-label="Your Name"/>
                     <span class="form-control__error">
                         *Name is Mandatory
                     </span>
                 </label>
+
                 <label class="form-control-box question-answer__email">
                     <input type="email" class="form-control__input" data-validationtype="email" placeholder="Your Email ID Here" data-bind="value: askedBy().email" aria-label="Your Email Id"/>
                     <span class="form-control__error">
@@ -69,4 +90,8 @@
         </div>
     </div>
 
+    if(Model.IsSearchActive)
+    {
+        Html.RenderPartial("~/UI/Views/QuestionAndAnswers/_Question_Answer_Search_Popup.cshtml", Model.QnaSearch);
+    }
 }

@@ -12,7 +12,10 @@ namespace Bikewale.Entities.QuestionAndAnswers
         WriteReview = 6,
         WriteReview_ThankYou = 7,
         Rating_Thankyou = 8,
-        UsedBike_Listing = 9
-
+        UsedBike_Listing = 9,
+        QuestionDedicatedPage = 10,
+        ModelPage_Question_Search_Slug = 11,
+        ModelPage_Questions_Answer_Section_Search = 12,
+        QuestionListing_Search = 13
     }
 }

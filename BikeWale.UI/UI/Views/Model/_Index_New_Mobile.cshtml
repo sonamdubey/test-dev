@@ -8,6 +8,7 @@
     bool isNonFinancePartner = false;
 }
 
+
 <section>
     @{
         string q = Bikewale.Utility.EncodingDecodingHelper.EncodeTo64(string.Format("csrc={0}", (int)Bikewale.Entities.UserReviews.UserReviewPageSourceEnum.Mobile_ModelPage_Topslug));
@@ -309,13 +310,13 @@
                             {
                                 if (Model.QASlug != null)
                                 {
-                                    @Html.Partial("~/UI/Views/QuestionAndAnswers/_QuestionAnswerSlug.cshtml", Model.QASlug)
+                                @Html.Partial("~/UI/Views/QuestionAndAnswers/_Question_Answer_Search_Slug.cshtml", Model.QASlug)
                                 }
 
-                                if (Model.AskQuestionPopup != null)
-                                {
-                                    @Html.Partial("~/UI/Views/m/Shared/_question-answer.cshtml", Model.AskQuestionPopup)
-                                }
+                            if (Model.AskQuestionPopup != null)
+                            {
+                                @Html.Partial("~/UI/Views/m/Shared/_question-answer.cshtml", Model.AskQuestionPopup)
+                            }
 
                             }
 
@@ -336,15 +337,11 @@
 
                                 </div>
 
-
                             }
-
 
                         </div>
                     }
                 </div>
-
-
 
             @Html.Partial("~/UI/Views/Model/_Index_DetailsCard_Mobile.cshtml", Model)
         </div>

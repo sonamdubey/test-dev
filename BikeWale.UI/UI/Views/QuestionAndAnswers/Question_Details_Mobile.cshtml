@@ -7,8 +7,9 @@
 @model QuestionDetailsVM
 @{
     Model.Page_ATF_CSS = "<link rel='stylesheet' type='text/css' href='/UI/sass/partials/question-answer.css' inline/> <link rel='stylesheet' type='text/css' href='/UI/sass/qna/question-details.css' inline/>";
+    Model.Page_BTF_CSS_Paths = new string[] { "/UI/sass/partials/question-answer-popup.css", "/UI/sass/qna/search-popup.css" };
     Model.Page_BTF_CSS_Path = "/UI/sass/partials/question-answer-popup.css";
-    Model.Page_JS_Paths = new string[] { "/UI/m/src/qna/landing.js", "/UI/src/utils/readMore.js" };
+    Model.Page_JS_Paths = new string[] { "/UI/src/utils/popup.js", "/UI/src/utils/accordion.js", "/UI/m/src/qna/landing.js", "/UI/src/utils/text-area.js", "/UI/src/question-and-answer.js", "/UI/src/utils/readMore.js",  "/UI/src/QuestionAndAnswers/qnaSearchPopup.js" };
     ViewBag.Title = "Index";
     Layout = "~/UI/Views/Shared/_Layout_Mobile.cshtml";
 }
@@ -17,15 +18,20 @@
 
     Question ques = Model.Question;
     GenericBikeInfo objBikeInfo = (Model.BikeInfoWidget != null ? Model.BikeInfoWidget.BikeInfo : null);
-    string makeName = string.Empty, modelName = string.Empty, baseUrl = string.Empty, strippedAns = string.Empty;
+    string makeName = string.Empty, modelName = string.Empty, baseUrl = string.Empty, strippedAns = string.Empty; int modelid = 0;
     if (objBikeInfo != null && objBikeInfo.Make != null && objBikeInfo.Model != null)
     {
         makeName = objBikeInfo.Make.MakeName;
         modelName = objBikeInfo.Model.ModelName;
+        modelid = objBikeInfo.Model.ModelId;
         baseUrl = string.Format("/m/{0}-bikes/{1}/", objBikeInfo.Make.MaskingName, objBikeInfo.Model.MaskingName);
     }
     <div class="qna-screen__question-detail question--detail question-answer-wrapper__content">
         <div class="qna-detail__header">
+            <div class="qna-search__form-control qna-search__control--nobel js-qna-popup-link qna-search__popup bw-ga" data-popup="qnaSearchPopup" data-sourceid="@((int)Bikewale.Entities.QuestionAndAnswers.Sources.QuestionDedicatedPage)" data-cat="Question_Page" data-act="Search_Bar_Clicked" data-lab="@string.Format("{0}_{1}", makeName, modelName)" >
+                <div class="qna-search__input-icon search-icon--nobel"></div>
+                <div class="qna-search__input">Have a question? Search here</div>
+            </div>
             <h1 class="question-answer-wrapper__question">Q: @ques.Text</h1>
             <p class="question-answer-wrapper__author">@ques.QuestionAge ago by @(ques.AskedBy != null ? ques.AskedBy.CustomerName : "")</p>
             <h2 class="question-answer__model-content">
@@ -83,5 +89,9 @@
             </div>
         </div>
     </div>
+    if (Model.AskQuestionPopup != null)
+    {
+        @Html.Partial("~/UI/Views/m/Shared/_question-answer.cshtml", Model.AskQuestionPopup);
+    }
 
 }

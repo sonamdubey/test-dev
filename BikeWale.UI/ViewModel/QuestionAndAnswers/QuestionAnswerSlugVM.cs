@@ -11,7 +11,9 @@ namespace Bikewale.Models.QuestionAndAnswers
     {
         public bool IsQAAvailable { get; set; }
         public Platforms Platform { get; set; }
+        public uint CityId { get; set; }
         public uint ModelId { get; set; }
+        public uint VersionId { get; set; }
         public string Tags { get; set; }
         public string ViewAllUrl { get; set; }
         public string MakeName { get; set; }

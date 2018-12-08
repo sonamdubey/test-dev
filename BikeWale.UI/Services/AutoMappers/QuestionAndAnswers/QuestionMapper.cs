@@ -3,6 +3,9 @@ using Bikewale.DTO.Customer;
 using Bikewale.DTO.QuestionAndAnswers;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.QuestionAndAnswers;
+using BikewaleElasticDTO = Bikewale.DTO.QuestionAndAnswers.ElasticSearch;
+using BikeWaleElasticEntities = Bikewale.Entities.QuestionAndAnswers.ElasticSearch;
+
 
 namespace Bikewale.Service.AutoMappers.QuestionAndAnswers
 {
@@ -29,6 +32,7 @@ namespace Bikewale.Service.AutoMappers.QuestionAndAnswers
         {
             return Mapper.Map<Questions, QuestionsDTO>(questions);
         }
+
 
         /// <summary>
         /// Created by  : Kumar Swapnil on 14 September 2018

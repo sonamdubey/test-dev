@@ -1,0 +1,126 @@
+﻿@import ../base/variables
+@import ../mixins/index
+@import ../utils/index
+@import ../mixins/arrows
+@import ../mixins/button
+@import ../plugin/popup
+@import ../plugin/accordion
+@import ../mixins/callout
+
+// Popup search box
+
+@include popup-container
+@include popup
+@include popup-head
+@include popup-back-btn
+@include popup-head-input-field
+@include popup-head-input-clear
+@include popup-body
+@include popup-overlay
+@include popup-body-placeholder
+@include popup-placeholder-icon
+@include popup--search-icon
+@include popup-placeholder-message
+
+// QnA accordion
+
+@include accordion-container
+@include accordion-list
+@include accordion-list-item
+@include accordion-content-wrapper
+@include accordion-heading
+@include accordion-content
+@include accordion-primary-title
+@include accordion-secondary-title
+@include accordion-head-subtitle
+
+// info-slug Callout-card
+@include callout-card($type: info)
+@include callout-card($size: small)
+@include callout-card-title
+@include callout-card-content
+@include callout-card-action
+
+.content-details-wrapper
+  .callout-card-title
+    margin-bottom: 0
+    font-size: 11px
+
+// QnA seach poup content
+
+.qna-search-footer
+  @include flexbox
+  @include align-items(center)
+  @include justify-content(space-between)
+  padding-top: 10px
+
+.qna-search-footer__text
+  @include flex
+  font-size: 12px
+  font-weight: $font-semibold
+  color: color('default')
+
+.qna-search-footer
+  @include btn($font-size: 12px, $font-weight: $font-semibold)
+  @include btn-inv-blue($btn-padding: 8px 10px)
+
+  .qna-search-footer__btn
+    max-width: 110px
+    width: 100%
+    display: block
+
+.qna-accordion-answer
+  font-size: 14px
+  color: color('aluminium')
+  line-height: 1.42
+  margin-bottom: 10px
+
+.qna-accordion-read-more
+  text-transform: capitalize
+  color: color('pacific-blue')
+  font-weight: $font-semibold
+  font-size: 14px
+  cursor: pointer
+  -webkit-tap-highlight-color: transparent
+  text-decoration: none
+
+.qna-accordion-answer-info
+  font-size: 12px
+  color: color('aluminium')
+  margin-top: 10px
+
+.qna-accordion-read-all
+  text-transform: capitalize
+  display: inline-block
+  color: color('pacific-blue')
+  font-size: 12px
+  font-weight: $font-semibold
+  position: relative
+  cursor: pointer
+  -webkit-tap-highlight-color: transparent
+  margin-top: 10px
+  margin-bottom: 5px
+  text-decoration: none
+
+  &:after
+    @include right-arrow-0288d1-icon
+    background-size: contain
+    content: ''
+    position: absolute
+    left: 105%
+    top: 5px
+    width: 6px
+    height: 10px
+
+  &:hover
+    text-decoration: none
+
+.highlight-text
+  color: color('default')
+  font-weight: $font-semibold
+
+// styles for 320 screen
+@media screen and (max-width: 320px)
+  .qna-search-footer
+    .qna-search-footer__btn
+      max-width: 70px

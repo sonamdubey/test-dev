@@ -76,7 +76,8 @@
         Sell_Page = 44,
         Videos_Category_Page = 45,
         Finance_Page = 46,
-        QnA_Page = 47
+        QnA_Page = 47,
+        Question_Page = 48
 
     }
 }

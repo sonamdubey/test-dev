@@ -1,6 +1,8 @@
 ﻿using Bikewale.Entities.QuestionAndAnswers;
 using System;
 using System.Collections.Generic;
+using BikeWaleElasticEntities = Bikewale.Entities.QuestionAndAnswers.ElasticSearch;
+
 
 namespace Bikewale.Interfaces.QuestionAndAnswers
 {
@@ -35,5 +37,6 @@ namespace Bikewale.Interfaces.QuestionAndAnswers
         IEnumerable<Question> GetRemainingUnansweredQuestions(uint modelId, int questionLimit);
         IEnumerable<string> GetRemainingUnansweredQuestionIds(uint modelId, int questionLimit, string emailId, QuestionOrdering ordering);
         IEnumerable<Question> GetRemainingUnansweredQuestions(uint modelId, int questionLimit, string emailId, QuestionOrdering ordering);
+        BikeWaleElasticEntities.QuestionSearchWrapper GetQuestionSearch(uint modelId, string searchText, string highlightTag, uint versionId, ushort topCount, uint cityId);
     }
 }

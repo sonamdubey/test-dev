@@ -94,10 +94,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bikewale.ElasticSearch.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Bikewale.ElasticSearch.Entities.dll</HintPath>
-    </Reference>
     <Reference Include="ManufacturingCampaign.Entities">
       <HintPath>..\Libs\ManufacturingCampaign.Entities.dll</HintPath>
     </Reference>
@@ -529,6 +525,13 @@
     <Compile Include="QuestionAndAnswers\Answer.cs" />
     <Compile Include="QuestionAndAnswers\AnswerSubmitData.cs" />
     <Compile Include="QuestionAndAnswers\BWClientInfo.cs" />
+    <Compile Include="QuestionAndAnswers\ElasticSearch\Answer.cs" />
+    <Compile Include="QuestionAndAnswers\ElasticSearch\Author.cs" />
+    <Compile Include="QuestionAndAnswers\ElasticSearch\BikewaleInfo.cs" />
+    <Compile Include="QuestionAndAnswers\ElasticSearch\Question.cs" />
+    <Compile Include="QuestionAndAnswers\ElasticSearch\QuestionSearch.cs" />
+    <Compile Include="QuestionAndAnswers\ElasticSearch\QuestionSearchWrapper.cs" />
+    <Compile Include="QuestionAndAnswers\ElasticSearch\QuestionType.cs" />
     <Compile Include="QuestionAndAnswers\EnumQuestionIdHashMappingChoice.cs" />
     <Compile Include="QuestionAndAnswers\HashQuestionIdMappingTables.cs" />
     <Compile Include="QuestionAndAnswers\Question.cs" />

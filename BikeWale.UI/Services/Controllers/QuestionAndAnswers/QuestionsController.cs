@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web.Http;
+using BikewaleElasticDTO = Bikewale.DTO.QuestionAndAnswers.ElasticSearch;
+using BikeWaleElasticEntities = Bikewale.Entities.QuestionAndAnswers.ElasticSearch;
 
 namespace Bikewale.Service.Controllers.QuestionAndAnswers
 {
@@ -112,8 +114,8 @@ namespace Bikewale.Service.Controllers.QuestionAndAnswers
             IEnumerable<QuestionURLDTO> responseQuestions = null;
             IEnumerable<Question> questionList = _questions.GetRemainingUnansweredQuestions(modelId, questionLimit, userEmail);
             ICollection<QuestionUrl> questionUrls = new Collection<QuestionUrl>();
-            
-            if(questionList != null)
+
+            if (questionList != null)
             {
                 try
                 {
@@ -129,15 +131,55 @@ namespace Bikewale.Service.Controllers.QuestionAndAnswers
                     }
                     responseQuestions = QuestionMapper.Convert<IEnumerable<QuestionUrl>, IEnumerable<QuestionURLDTO>>(questionUrls);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     ErrorClass.LogError(ex, string.Format("Exception : Bikewale.Service.Controllers.QuestionAndAnswers.GetUnansweredQuestions() | modelId={0} | userEmail = {1} | userName {2}", modelId, userEmail, userName));
                     return InternalServerError();
                 }
-                
+
             }
             return Ok(responseQuestions);
-            
+
+        }
+        /// <summary>
+        /// Created By : Snehal Dange on 17 Oct 2018
+        /// Description : Api to get relevant questions on search
+        /// Modified By : Monika Korrapati on 17 Oct 2018
+        /// Description : Mapped to DTO and null checks
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
+        [HttpGet, Route("api/qna/search/")]
+        public IHttpActionResult GetQuestionList([FromUri] uint cityId, uint modelId, string searchText, string highlightTag = "strong", uint versionId = 0, ushort topCount = 5)
+        {
+            BikewaleElasticDTO.QuestionSearchWrapperDTO searchResponse = null;
+            try
+            {
+                cityId = cityId == 0 ? uint.Parse(BWConfiguration.Instance.DefaultCity) : cityId;
+                if (!string.IsNullOrEmpty(searchText) && modelId > 0)
+                {
+                    BikeWaleElasticEntities.QuestionSearchWrapper searchResult = _questions.GetQuestionSearch(modelId, searchText, highlightTag, versionId, topCount, cityId);
+                    if (searchResult != null)
+                    {
+                        searchResponse = QuestionMapper.Convert<BikeWaleElasticEntities.QuestionSearchWrapper, BikewaleElasticDTO.QuestionSearchWrapperDTO>(searchResult);
+                    }
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                ErrorClass.LogError(ex, string.Format("ArgumentNullException:  Bikewale.Service.Controllers.QuestionAndAnswers.GetQuestionList() : Model : {0},SearchText : {1}", modelId, searchText));
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass.LogError(ex, string.Format("Exception:  Bikewale.Service.Controllers.QuestionAndAnswers.GetQuestionList() : Model : {0}, CityId : {1} ,  SearchText : {2}", modelId, cityId, searchText));
+                return InternalServerError();
+            }
+
+            return Ok(searchResponse);
         }
 
 

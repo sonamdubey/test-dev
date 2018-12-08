@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.Pages;
+using Bikewale.Entities.PriceQuote;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,10 @@ namespace Bikewale.Models.QuestionAndAnswers
     {
         public string MakeName { get; set; }
         public string ModelName { get; set; }
+        public uint ModelId { get; set; }
         public GAPages GAPageType { get; set; }
+        public string QnaGASource { get; set; }
+        public bool IsSearchActive { get; set; }
+        public QnaSearchVM QnaSearch { get; set; }
     }
 }

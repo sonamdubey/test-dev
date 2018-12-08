@@ -2,11 +2,15 @@
 
 @if (Model.Questions != null)
 {
-<div id="questionAnswerWrapper" data-id="questionAnswerWrapper" class="question-answer-wrapper bw-model-tabs-data">
+<div id="questionAnswerWrapper" data-id="questionAnswerWrapper" class="question-answer-wrapper qna-wrapper--model bw-model-tabs-data">
     <h2 class="question-answer-wrapper__title">
         @(Model.BikeName) Questions and
         Answers
     </h2>
+    <div class="qna-search__form-control qna-search__control--nobel js-qna-popup-link qna-search__popup bw-ga" data-popup="qnaSearchPopup" data-sourceid="@((int)Bikewale.Entities.QuestionAndAnswers.Sources.ModelPage_Questions_Answer_Section_Search)" data-cat="Model_Page" data-act="Search_Bar_Clicked" data-lab="@string.Format("{0}_{1}", Model.MakeName, Model.ModelName)">
+        <div class="qna-search__input-icon search-icon--nobel"></div>
+        <div class="qna-search__input">Have a question? Search here</div>
+    </div>
     <div class="question-answer-wrapper__container">
         <div class="question-answer-wrapper__content">
             <ul class="question-answer-wrapper__list">
@@ -67,7 +71,7 @@
         </div>
         <div class="question-answer-wrapper__cta-container">
             <p class="question-answer-wrapper__line">Didn't find what you were looking for?</p>
-            <button class="btn btn-blue question-answer-wrapper--ask-link ask-question__link" data-platform="@((int)Model.Platform)" data-source="@((int)Bikewale.Entities.QuestionAndAnswers.Sources.ModelPage_Question_Answer_Section)" data-modelid="@Model.ModelId" data-tags="@Model.Tags">Ask a Question</button>
+            <button class="btn btn-blue question-answer-wrapper--ask-link ask-question__link" data-sourceid="@((int)Bikewale.Entities.QuestionAndAnswers.Sources.ModelPage_Question_Answer_Section)">Ask a Question</button>
         </div>
     </div>
 </div>
