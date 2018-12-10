@@ -1,0 +1,153 @@
+﻿@model Carwale.DTOs.CarData.SimilarCarsDTO
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using System.Globalization;
+@using System;
+<section class="margin-top15 margin-bottom10  alternate-carousel">
+   
+    <h2 class="special-skin-text">@(ViewBag.IsCityPage ? "Prices of cars similar to "+ @Model.SourceModelName+" in "+ ViewBag.CityName : Model.SourceModelName+" Alternatives")</h2>
+    <div class="jcarousel-wrapper">  
+        <div class="jcarousel">
+            <ul>
+                @{  
+                    int carPosition = 1;
+
+                    if (Model.SimilarCarModels != null && Model.SimilarUpcomingCar != null && Model.SimilarCarModels.Count.Equals(0) && Model.SimilarUpcomingCar.ExpectedLaunchId > 0)
+                    {
+                        // show similar upcoming if exists and there is no alternate similar car available
+                        <li class="content-box-shadow content-inner-block-5 margin-bottom5" cwt data-cwticat="@Model.PageName" data-cwtiact="AlternateCarImpression" data-cwtilbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}|upcoming:1", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.ModelName,carPosition, Model.SourceModelId, Model.SimilarUpcomingCar.ModelId)">
+
+                            <div class="carsuggested-imageWrapper">
+                                <a data-cwtccat="@Model.PageName" data-cwtcact="AlternateCarClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}|upcoming:1", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.ModelName,carPosition, Model.SourceModelId, Model.SimilarUpcomingCar.ModelId)" href="@ManageCarUrl.CreateModelUrl(Model.SimilarUpcomingCar.MakeName,Model.SimilarUpcomingCar.MaskingName)" onclick='trackTNU("UpcomingCars", "UpcomingCars-Click","@Model.SimilarUpcomingCar.ModelName");'>
+                                    <img width="199" height="112" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(Model.SimilarUpcomingCar.Image?.HostUrl,ImageSizes._199X112,Model.SimilarUpcomingCar.Image?.ImagePath)" title="@Model.SimilarUpcomingCar.MakeName @Model.SimilarUpcomingCar.ModelName" alt="@Model.SimilarUpcomingCar.MakeName @Model.SimilarUpcomingCar.ModelName">
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div class="carTitle margin-bottom10 text-bold">
+                                    <a data-cwtccat="@Model.PageName" data-cwtcact="AlternateCarClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}|upcoming:1", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.ModelName,carPosition, Model.SourceModelId, Model.SimilarUpcomingCar.ModelId)" href="@ManageCarUrl.CreateModelUrl(Model.SimilarUpcomingCar.MakeName,Model.SimilarUpcomingCar.MaskingName)" title="@Model.SimilarUpcomingCar.MakeName  @Model.SimilarUpcomingCar.ModelName">
+                                        <span class="text-link font16 truncate-modelname inline-block">@Model.SimilarUpcomingCar.MakeName  @Model.SimilarUpcomingCar.ModelName</span>
+                                    </a>
+                                </div>
+								@if (Model.SimilarUpcomingCar.Price != null) {
+                                <div class="font24">
+                                    ₹
+                                    <span class="font25"> @Html.Raw(Model.SimilarUpcomingCar.Price?.MaxPrice == Model.SimilarUpcomingCar.Price?.MinPrice ? FormatPrice.GetFormattedPriceV2(Model.SimilarUpcomingCar.Price?.MinPrice.ToString()) : FormatPrice.GetFormattedPriceV2(Model.SimilarUpcomingCar.Price?.MinPrice.ToString(), Model.SimilarUpcomingCar.Price?.MaxPrice.ToString()))</span>
+                                </div>
+								}
+                                <div class="margin-bottom10 font14 text-light-grey">Estimated price</div>
+                                <div class="font18">@(Model.SimilarUpcomingCar.ExpectedLaunch ?? string.Empty)</div>
+                                <div class="font14 text-light-grey">Expected launch</div>
+                            </div>
+
+
+                        </li>
+                    }
+                    
+                   
+                    foreach (var alternateCar in Model.SimilarCarModels)
+                    {
+                    if (alternateCar != null)
+                    { 
+                    <li class="content-box-shadow content-inner-block-5 margin-bottom5 @(alternateCar.IsFeatured ? " featuredSim" : string.Empty  )">
+                        @if (DateTimeUtility.ShowJustLaunchedLabel(alternateCar.LaunchDate, DateTime.Now))
+                        {
+                            <div class="just-launched-section">
+                                <div class="launch-date-unit">
+                                    <span class="launch-date">@alternateCar.LaunchDate.Day<span class="lauch-date-unit">@Format.GetNumberSuffix(alternateCar.LaunchDate.Day)</span></span><br>
+                                    <span class="launch-month">@alternateCar.LaunchDate.ToString("MMM", CultureInfo.InvariantCulture).ToUpper()</span>
+                                </div>
+                                <div class="launch-title">JUST LAUNCHED</div>
+                            </div>
+                        }
+                        @{string title_tag = string.Format("{0} {1} {2}",alternateCar.MakeName,alternateCar.ModelName, (ViewBag.IsCityPage ? "price in " + ViewBag.CityName : string.Empty));}
+                        <div class="carsuggested-imageWrapper @(DateTimeUtility.ShowJustLaunchedLabel(alternateCar.LaunchDate, DateTime.Now) ? "is-just-launched":"")">
+                           <a data-cwtccat="@Model.PageName" data-cwtcact="AlternateCarClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), alternateCar.MakeName, alternateCar.ModelName,carPosition, Model.SourceModelId, alternateCar.ModelId)" href='@UrlRewrite.GetLandingUrl(alternateCar.IsFeatured, alternateCar.MakeName, alternateCar.MaskingName, alternateCar.SpotlightUrl, (!ViewBag.IsCityPage ? string.Empty : ViewBag.CityName))'>
+                               <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)199x112/cw/cars/no-cars.jpg" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(alternateCar.HostUrl, Carwale.Utility.ImageSizes._199X112, alternateCar.ModelImageOriginal, 70)" title="@title_tag" alt="@title_tag" width="199" height="112" />
+                            </a>
+                        </div>
+                        <div class="carDescWrapper">
+                            <div class="carTitle margin-bottom10 margin-top5">
+                                    <a title="@title_tag" data-cwtccat="@Model.PageName" data-cwtcact="AlternateCarClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), alternateCar.MakeName, alternateCar.ModelName,carPosition, Model.SourceModelId, alternateCar.ModelId)" class="text-bold" href='@UrlRewrite.GetLandingUrl(alternateCar.IsFeatured, alternateCar.MakeName, alternateCar.MaskingName, alternateCar.SpotlightUrl, (ViewBag.IsCityPage ? ViewBag.CityName : string.Empty))'><span class="text-link font16 truncate-modelname inline-block" >@title_tag</span></a>
+                            </div>
+							@if (alternateCar.PricesOverview != null) {
+                            <div class="margin-bottom10 font20 textOverflow " title="@alternateCar.PricesOverview.PriceLabel@(!string.IsNullOrWhiteSpace(alternateCar.PricesOverview.City.Name) ? ", " + alternateCar.PricesOverview.City.Name : string.Empty)">
+                                <span class="font14 text-light-grey">@alternateCar.PricesOverview.PricePrefix</span>
+                                <span class="text-black">
+                                    @(alternateCar.PricesOverview?.Price) <span class='font13'>@(alternateCar.PricesOverview?.PriceSuffix)</span>
+                                </span>
+                            </div>
+							}
+                            @if (!ViewBag.IsCityPage)
+                            {
+                                if (CookiesCustomers.MasterCityId < 1)
+                                {
+                                <div class="font14 margin-bottom10">
+                                    <span href="javascript:void(0)" class="font12">
+                                        <span data-role="click-inview-imp" data-cat=@("Desktop" + (ViewBag.IsVersionPage ? "_VersionPage" : "_ModelPage") + "_AlternateCars") data-action="showpriceinmycity" data-label="@alternateCar.MaskingName" data-pageid='@(Model.PQPageId <= 0 ? 27:Model.PQPageId)' data-version='@alternateCar.PopularVersionId' class="text-link font14 alternate-car-check-price alt-show-price-in-mycity" data-makename="@Format.FormatSpecial(alternateCar.MakeName)" data-modelname="@alternateCar.MaskingName">@CWConfiguration.orpText</span>
+                                    </span>
+                                </div>
+                                }
+                                else if (alternateCar.PricesOverview != null && alternateCar.PricesOverview.PriceStatus == (int)Carwale.Entity.PriceBucket.HaveUserCity)
+                                {
+                                    <div class="font14 margin-bottom10">
+                                        <span href="javascript:void(0)" class="font12">
+                                            <span data-role="click-inview-imp" data-cat=@("Desktop" + (ViewBag.IsVersionPage ? "_VersionPage" : "_ModelPage") + "_AlternateCars") data-action="viewpricebreakup" data-label=@(alternateCar.MaskingName + "_" + (alternateCar.PricesOverview?.City?.Name ?? string.Empty).Replace(" ", "").ToLower()) data-model="@(alternateCar.ModelId)" data-pageid='@(Model.PQPageId <= 0 ? 27:Model.PQPageId)' data-version="@alternateCar.PopularVersionId" class="text-link font14 alternate-car-check-price alt-view-price-breakup">@CWConfiguration.ViewPriceBreakupText</span>
+                                        </span>
+                                    </div>
+                                }
+                            }
+                            @if (!string.IsNullOrWhiteSpace(alternateCar.CompareCarUrl))
+                            {
+                                <div class="margin-top5 ccsm">
+                                    <a class="font14" href="@(alternateCar.CompareCarUrl)" onclick="window.location.href = this.href + '?source=@Model.WidgetPageSource'; return false;" title="Compare @Model.SourceModelName with @alternateCar.ModelName " data-cwtccat="@Model.PageName" data-cwtcact="AlternateComparisonLinkClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), alternateCar.MakeName, alternateCar.ModelName,carPosition, Model.SourceModelId, alternateCar.ModelId)">Compare with @Model.SourceModelName</a>
+                                </div>
+                            }
+                        </div>
+                    </li>
+                        carPosition++;
+                        if (carPosition.Equals(2) && Model.SimilarUpcomingCar != null && Model.SimilarUpcomingCar.ExpectedLaunchId > 0)
+                        {
+                            // show similar upcoming if exists
+                            <li class="content-box-shadow content-inner-block-5 margin-bottom5" cwt data-cwticat="@Model.PageName" data-cwtiact="AlternateCarImpression" data-cwtilbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}|upcoming:1", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.ModelName,carPosition,Model.SourceModelId, Model.SimilarUpcomingCar.ModelId)">
+                                
+                                        <div class="carsuggested-imageWrapper">
+                                            <span class="upcoming-cars-tag">Upcoming</span>
+                                            <a data-cwtccat="@Model.PageName" data-cwtcact="AlternateCarClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}|upcoming:1", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.ModelName,carPosition, Model.SourceModelId, Model.SimilarUpcomingCar.ModelId)" href="@ManageCarUrl.CreateModelUrl(Model.SimilarUpcomingCar.MakeName,Model.SimilarUpcomingCar.MaskingName)" onclick='trackTNU("UpcomingCars", "UpcomingCars-Click","@Model.SimilarUpcomingCar.ModelName");'>
+                                                <img width="199" height="112" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(Model.SimilarUpcomingCar.Image.HostUrl,ImageSizes._199X112,Model.SimilarUpcomingCar.Image.ImagePath)" title="@Model.SimilarUpcomingCar.MakeName @Model.SimilarUpcomingCar.ModelName" alt="@Model.SimilarUpcomingCar.MakeName @Model.SimilarUpcomingCar.ModelName">
+                                            </a>
+                                        </div>
+                                        <div class="carDescWrapper">
+                                            <div class="carTitle margin-bottom10 text-bold">
+												<a data-cwtccat="@Model.PageName" data-cwtcact="AlternateCarClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}|upcoming:1", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.ModelName,carPosition, Model.SourceModelId, Model.SimilarUpcomingCar.ModelId)" href="@ManageCarUrl.CreateModelUrl(Model.SimilarUpcomingCar.MakeName,Model.SimilarUpcomingCar.MaskingName)" title="@Model.SimilarUpcomingCar.MakeName  @Model.SimilarUpcomingCar.ModelName">
+													<span class="text-link font16 truncate-modelname inline-block">@Model.SimilarUpcomingCar.MakeName  @Model.SimilarUpcomingCar.ModelName</span>
+												</a>
+                                            </div>
+											@if (Model.SimilarUpcomingCar.Price != null) {
+                                            <div class="font24">
+                                                ₹
+                                                <span class="font25"> @Html.Raw(Model.SimilarUpcomingCar.Price.MaxPrice == Model.SimilarUpcomingCar.Price.MinPrice ? FormatPrice.GetFormattedPriceV2(Model.SimilarUpcomingCar.Price.MinPrice.ToString()) : FormatPrice.GetFormattedPriceV2(Model.SimilarUpcomingCar.Price.MinPrice.ToString(), Model.SimilarUpcomingCar.Price.MaxPrice.ToString()))</span>
+                                            </div>
+											}
+                                            <div class="margin-bottom10 font14 text-light-grey">Estimated price</div>
+                                            <div class="font18">@(Model.SimilarUpcomingCar.ExpectedLaunch ?? string.Empty)</div>
+                                            <div class="font14 text-light-grey">Expected launch</div>
+                                        </div>
+                                  
+                                
+                            </li>
+                            carPosition++;
+                        }
+                    }
+                    }
+
+                }
+            </ul>
+        </div>
+        
+        @if (Model.SimilarCarModels?.Count > 1)
+        {
+            <span class="jcarousel-control-left"><span class="cwsprite jcarousel-control-prev"></span></span>
+            <span class="jcarousel-control-right"><span class="cwsprite jcarousel-control-next"></span></span>
+        }
+    </div>
+</section>

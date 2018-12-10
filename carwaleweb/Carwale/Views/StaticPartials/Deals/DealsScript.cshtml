@@ -1,0 +1,45 @@
+﻿<script  type="text/javascript"  src="/static/js/deals.js" ></script>
+<script  type="text/javascript"  src="/static/src/jquery.ad-gallery.js" ></script>
+<script  type="text/javascript"  src="/static/js/cust-gallery.js" ></script>
+
+
+
+
+<script>
+    // Code for setting up the Jcarousal
+    if ($('#testimonial-jcarousel li').length > 1) { _target = 1; }
+    else { $('#testimonial-jcarousel').siblings().remove(); }
+    advantageNumber = "@(System.Configuration.ConfigurationManager.AppSettings["CarwaleAdvantageMaskingNumber"])";
+    Deals.pageId = "@ViewData["PageTag"]";
+    Deals.modelId = '@ViewBag.ModelId';
+    Deals.cityId = '@ViewBag.CityId';
+    Deals.versionId = '@ViewBag.VersionId';
+    Deals.environmentId = "@(System.Configuration.ConfigurationManager.AppSettings["ListingsTrackingPlatform"])";
+    Deals.apiHostUrl = "@(System.Configuration.ConfigurationManager.AppSettings["DealsApiHostUrl"])";
+    Deals.autobizHostUrl = "@(System.Configuration.ConfigurationManager.AppSettings["DealsAutobizHostUrl"])";
+    Deals.advantageDealerId = "@(System.Configuration.ConfigurationManager.AppSettings["AdvantageDealerId"])";
+    Deals.stockId = '@ViewBag.StockId';
+    Deals.offerOfWeek.offers = '@System.Configuration.ConfigurationManager.AppSettings["OfferOfWeek"]';
+    Common.showCityPopup = false;
+    $(document).ready(function () {
+        if (Deals.pageId == "A-2") {
+            Deals.pageLoad.enquiryLoad();
+            Deals.booking.registerEvents();
+        }
+        else if (Deals.pageId == "A-1") {
+            Deals.pageLoad.productLoad();
+        }
+        else if (Deals.pageId == "A-3") {
+            Deals.utils.registerEvents();
+            Deals.pageLoad.confirmationLoad();
+        }
+        else if (Deals.pageId == "A-4") {
+            Deals.isAdvantageCity = "@ViewBag.IsAdvantageCity" === "@true";
+            Deals.pageLoad.landingLoad();
+            Deals.utils.registerEvents();
+        }
+        else if (Deals.pageId == "A-5") {
+            Deals.utils.registerEvents();
+        }
+    });
+</script>

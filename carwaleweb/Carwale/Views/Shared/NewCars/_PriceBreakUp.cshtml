@@ -1,0 +1,174 @@
+﻿@model Carwale.DTOs.ViewModels.PriceBreakUpModel
+@using Carwale.Utility
+@using Carwale.Entity.Enum
+@{
+    bool isToolTipCampaign = Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.ToolTip);
+    string label = string.Format("{0}_{1}_{2}",Model.MakeName, Model.ModelName, Model.CityName);
+}
+<div class="pic-border-bottom text-light-grey margin-top10 margin-bottom5 inline-block ">
+    <div class="pic-car-price-box">
+        @if (Model.OnRoadPrice > 0)
+        {
+            <span class="font24 text-black ">&#8377; </span>
+            <span class="font24 text-black text-bold">@Format.GetFormattedPriceV2(Model.OnRoadPrice.ToString())</span>
+            <span class="margin-top5 font12 inline-block">On Road Price (Incl. GST), @Model.CityName</span>
+        }
+        else if (Model.PriceOverview != null && Model.PriceOverview.PriceForSorting > 0)
+        {
+            <!-- always have average price -->
+            <span class="font24 text-black text-bold">@Html.Raw(Model.PriceOverview.PricePrefix + " ")@Model.PriceOverview.Price</span>
+            <span class="inline-block margin-top5 font12 @Model.PriceOverview.LabelColor">
+                <span class="label-text">@Html.Raw((Model.PriceOverview.PriceLabel ?? ""))</span>
+                <span class="reason-text">@(Model.PriceOverview.PriceStatus > (int)Carwale.Entity.PriceBucket.HaveUserCity ? Html.Raw("<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip price-in-city__info-icon inline-block'></span><p class='average-info-content hide'>" + Model.PriceOverview.ReasonText + "</p></div>") : Html.Raw(""))</span>
+            </span>
+        }
+        else
+        {
+            <div class="width140">
+                <span class="font24 text-black">&#8377;</span>
+                <span class="font24 text-black text-bold">@Format.GetFormattedPriceV2(Model.OnRoadPrice.ToString())</span>
+            </div>
+        }
+    </div>
+    <div class="pic-emi-box">
+        <div class="pic-emi__wrapper">
+            @if (Model.CarOverviewDto != null && Model.EmiCalculatorModelLink != null)
+            {
+                { Html.RenderPartial("~/Views/Shared/NewCars/_EmiCalculatorLink_v1.cshtml", Model.EmiCalculatorModelLink); }
+            }
+            @if (Model.IsCampaignAvailable)
+            {
+                <span data-cwtccat="CityPage" data-cwtcact="EmiAssistanceButtonClick" data-cwtclbl="@("make:" + Model.MakeName + "|model:" + Model.ModelName + "|city:" + Model.CityName)" id="getEMIAssistance"
+                      class="margin-top5 font14 text-link getLeadAssistance"
+                      data-role="click-impression" data-event="CWNonInteractive" data-action="CampaignLink_with_city" data-cat="ModelCityPage_Lead_CTA_Desktop" data-label='@(Model.CityName + "," + Model.ModelName)'>
+                    <u class="text-link text-bold"
+                       modelid="@(Model.ModelId)" versionid="@Model.VersionId" campaignid_dealerid="@Model.CampaignDealerId" campaigncta userlocation='{"cityId":@String.Format("{0}",Model.CityId), "cityName":"@Model.CityName"}'
+                       propertyid="1" pageid="55">Get EMI Assistance</u>
+                </span>
+            }
+            else if (Model.ShowCampaignLink)
+            {
+                <span data-cwtccat="CityPage" data-cwtcact="EmiAssistanceButtonClick" data-cwtclbl="@("make:" + Model.MakeName + "|model:" + Model.ModelName + "|city:" + Model.CityName)" id="getEMIAssistance"
+                      class="margin-top5 font14 text-link getLeadAssistance" pageid="55"
+                      data-role="click-impression" data-event="CWNonInteractive" data-action="CampaignLink_with_city_no_area" data-cat="ModelCityPage_Lead_CTA_Desktop" data-label='@(Model.CityName + "," + Model.ModelName)'>
+                    <u class="text-link text-bold" modelid="@(Model.ModelId)" versionid="@Model.VersionId" campaigncta userlocation='{"cityId":@String.Format("{0}",Model.CityId), "cityName":"@Model.CityName"}'
+                       propertyid="1" pageid="55">Get EMI Assistance</u>
+                </span>
+            }
+            else if (Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.Overview))
+            {
+                <div id="spnCarLoan" data-event="CWNonInteractive" data-role="impression" data-action="PIC_Overview_d" data-cat="SponsoredLink_Shown" data-label='@("campaign_" + Model.CampaignTemplates[(int)PageProperties.Overview].Id)'>
+                    <div data-event="CWInteractive" data-role="click-tracking" data-action="PIC_Overview_d" data-cat="SponsoredLink_Click" data-label='@("campaign_" + Model.CampaignTemplates[(int)PageProperties.Overview].Id)'>
+                        @Html.Raw(Model.CampaignTemplates[(short)PageProperties.Overview].Name)
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@if (Model.PricesList != null)
+{
+    <table class="tblDefault text-light-grey">
+        @{ 
+            if (Model.IsPicSnippetExperiment)
+            {
+                <caption class="price-breakup-table-heading-abtest">
+                    @(string.Format("{0} {1} Price in {2}", Model.MakeName, Model.ModelName, Model.CityName))
+                </caption>
+            }
+            else
+            {
+                <thead>
+                    <tr>
+                        <th class="price-breakup-table-heading font12 text-black">@(string.Format("{0} {1} Price in {2}",Model.MakeName,Model.ModelName,Model.CityName))</th>
+                    </tr>
+                </thead>
+            }
+        }
+        <tbody>
+            @foreach (var item in Model.PricesList)
+            {
+                <tr>
+                    @{
+                        if (Model.IsPicSnippetExperiment)
+                        {
+                            <th valign="top" class="lightgray font14">
+                                <div class="font13">
+                                @item.PQItemName
+                                @if ((item.PQItemId.Equals((short)PricesCategoryItem.Insurance) && Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.Insurance)))
+                                {
+                                    <div class="inline-block" data-event="CWNonInteractive" data-role="impression" data-action="PIC_Insurance_d" data-cat="SponsoredLink_Shown" data-label='campaign_@(Model.CampaignTemplates[(short)PageProperties.Insurance].Id)'>
+                                        <div class="inline-block" data-event="CWInteractive" data-role="click-tracking" data-action="PIC_Insurance_d" data-cat="SponsoredLink_Click" data-label='campaign_@(Model.CampaignTemplates[(short)PageProperties.Insurance].Id)'>
+                                            @Html.Raw(Model.CampaignTemplates[(short)PageProperties.Insurance].Name)
+                                        </div>
+                                    </div>
+                                }
+                                </div>
+                            </th>
+                        }
+                        else
+                        {
+                            <td align="left" valign="top" class="lightgray font14">
+                                <div class="font13">
+                                @item.PQItemName
+                                @if ((item.PQItemId.Equals((short)PricesCategoryItem.Insurance) && Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.Insurance)))
+                                {
+                                    <div class="inline-block" data-event="CWNonInteractive" data-role="impression" data-action="PIC_Insurance_d" data-cat="SponsoredLink_Shown" data-label='campaign_@(Model.CampaignTemplates[(short)PageProperties.Insurance].Id)'>
+                                        <div class="inline-block" data-event="CWInteractive" data-role="click-tracking" data-action="PIC_Insurance_d" data-cat="SponsoredLink_Click" data-label='campaign_@(Model.CampaignTemplates[(short)PageProperties.Insurance].Id)'>
+                                            @Html.Raw(Model.CampaignTemplates[(short)PageProperties.Insurance].Name)
+                                        </div>
+                                    </div>
+                                }
+                                </div>
+                            </td>    
+                        }
+                    }
+                    <td colspan="2" align="right" valign="top" class="font13">
+                        <span class="lightgray ">&#8377; </span>
+                        <span>@Format.FormatNumericCommaSep(item.PQItemValue.ToString())</span>
+                    </td>
+                </tr>
+            }
+            <tr class="border-bottom-none">
+                @{
+                    if(Model.IsPicSnippetExperiment)
+                    {
+                        <th>
+                           On-Road Price in @Model.CityName
+                        </th>
+                    }
+                    else
+                    {
+                        <td>
+                           @Model.ModelName On-Road Price in @Model.CityName
+                        </td>
+                    }
+                }
+                <td align="right" class="font15 on-road-price-total" style="min-width:95px">
+                    <span class="text-black ">&#8377; </span>
+                    <span>@Format.FormatNumericCommaSep(Model.OnRoadPrice.ToString())</span>
+                </td>
+            </tr>
+            @if (Model.IsCampaignAvailable)
+            {
+                <tr>
+                    <td align="right" style="border-bottom: none!important; padding-top: 0px;" colspan="2">
+                        <span userlocation='{"cityId":@String.Format("{0}",Model.CityId), "cityName":"@Model.CityName"}' campaignid_dealerid="@Model.CampaignDealerId" versionid="@Model.VersionId" id="getDealerOffer" class="font14 text-link text-bold getLeadAssistance"
+                              campaigncta pageid="55" modelid="@(Model.ModelId)" propertyid="12"
+                              data-role="click-impression" data-event="CWNonInteractive" data-action="CampaignLink_with_city" data-cat="ModelCityPage_Lead_CTA_Desktop" data-label='@(Model.CityName + "," + Model.ModelName)'>@((!string.IsNullOrEmpty(Model.CampaignLeadCTA)) ? Model.CampaignLeadCTA : "Get Offers from Dealer")</span>
+                    </td>
+                </tr>
+            }
+            else if (Model.ShowCampaignLink)
+            {
+                <tr>
+                    <td align="right" style="border-bottom: none!important; padding-top: 0px;" colspan="2">
+                        <span userlocation='{"cityId":@String.Format("{0}",Model.CityId), "cityName":"@Model.CityName"}' id="getDealerOffer" class="font14 text-link text-bold getLeadAssistance" campaigncta pageid="55"
+                              modelid="@(Model.ModelId)" versionid="@Model.VersionId" propertyid="12"
+                              data-role="click-impression" data-event="CWNonInteractive" data-action="CampaignLink_with_city_no_area" data-cat="ModelCityPage_Lead_CTA_Desktop" data-label='@(Model.CityName + "," + Model.ModelName)'>Get Offers from Dealer</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    }

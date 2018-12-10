@@ -1,0 +1,243 @@
+
+@import "../../mixins/_utils.scss";
+@import "../../partials/_reset.scss";
+@import "../../mixins/_variables.scss";
+@import "../../mixins/_vendor-prefix.scss";
+@import "../../mixins/_scroll-spy.scss";
+@import '../../mixins/_banner-images.scss';
+@import "../../mixins/_sprites.scss";
+@import '../../partials/user-review-contest-tnc.scss';
+@import "../../partials/read-more-collapse.scss";
+
+@include scrollSpy;
+
+.user-review-body {
+	&.header-fixed-inner {
+		padding-top: 50px;
+	}
+
+	#loading {
+		display: none;
+	}
+}
+
+.banner-spy-container{
+	background: map-get($color-map, 'white');
+	margin-bottom: 40px;
+}
+.banner-container {
+	@include user-review-banner;
+	position: relative;
+	height: 325px;
+	text-align:center;
+	margin-bottom: 40px;
+
+	.container {
+		position: relative;
+		height: 100%;
+	}
+}
+.banner-info {
+	@include vendor-prefix(border-image, url($wave-border-img) 4 0/4px 0px round);
+	@include user-review-accesories-bg;
+	background-color: map-get($color-map, 'frangipani');
+	background-position: 2% center, 98% center;
+	background-size: 17%, 18%;
+	position: absolute;
+	bottom: -7%;
+	left: 0;
+	right: 0;
+	width: 100%;
+	border-style: solid;
+	border-color:  map-get($color-map, 'frangipani');
+	border-image-outset: 4px 0;
+	padding: 5px 10px;
+	margin: 0 auto;
+	min-height: 50px;
+}
+
+.banner-info__content {
+	@include batch-icon;
+	color: map-get($color-map, 'golden-brown');
+	font-size: 15px;
+	max-width: 635px;
+	margin: 4px auto 0;
+	background-position: left center;
+	background-size: 35px 35px;
+	padding: 4px 0 6px 35px;
+}
+
+.banner__tnc-text {
+	font-size: 9px;
+	cursor: pointer;
+}
+
+.write-review-container {
+	background-color: map-get($color-map, 'white');
+	padding-bottom: 25px;
+	margin-bottom: 30px;
+}
+
+.write-review-header {
+	padding: 25px 20px 0;
+	margin-bottom: 20px;
+}
+
+.write-review__title {
+	font-size: 15px;
+	font-weight: $font-bold;
+	color: map-get($color-map, 'dim-grey-2');
+	text-align: center;
+	margin-bottom: 15px;
+}
+
+.write-review__subtitle {
+	font-size: 15px;
+	font-weight: $font-normal;
+	color: map-get($color-map, 'dim-grey');
+	text-align: center;
+	padding: 0 10px;
+	margin-bottom: 15px;
+}
+
+.write-review-steps-list {
+	font-size: 0;
+	max-width: 45%;
+	margin: 30px auto 0;
+}
+
+.write-review-warpper {
+	background: map-get($color-map, 'white');
+	padding: 25px;
+}
+
+.review-steps__list-item {
+    width: 33.33%;
+    display: inline-block;
+	position: relative;
+
+	&:before {
+		content: '';
+		width: 50%;
+		display: block;
+		position: absolute;
+		border: 1px dashed map-get($color-map, 'light-grey-new');
+		right: -25%;
+		top: 23px;
+	}
+
+	&:last-child {
+		&:before {
+			content: none;
+		}
+	}
+}
+
+.review-steps__icon {
+	width: 40px;
+	height: 40px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 5px;
+	margin-bottom: 5px;
+
+	&.select-car-icon {
+		@include car-aaa-icon;
+		background-size: 40px;
+	}
+
+	&.ratings-icon {
+		@include star-aaa-icon;
+		background-size: 40px;
+	}
+
+	&.write-review-icon {
+		@include edit-aaa-icon;
+		background-size: 40px;
+	}
+}
+
+.review-step-text {
+	font-size: 13px;
+	font-weight: $font-normal;
+	color: map-get($color-map, 'dim-grey');
+	text-align: center;
+}
+
+.write-review-section {
+	background-color: rgba(map-get($color-map, 'riptide'), .05);
+	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-bottom: 10px;
+
+	.write-review__btn {
+		width: 240px;
+		display: inline-block;
+		vertical-align: middle;
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+
+	}
+}
+
+.write-review__btn {
+	&:disabled {
+			background-color: rgba(map-get($color-map, 'orange-btn-new'), .4);
+	}
+}
+.write-review__content {
+	width: 650px;
+	margin: 0 auto;
+	font-size: 0.1px;
+}
+
+.write-review__input {
+	width: 650px;
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+
+	.form-control[type="text"] {
+		padding: 10px 20px;
+		font-size: 16px;
+		font-weight: $font-semibold ;
+		line-height: 18px;
+	}
+	::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+		font-weight: $font-normal ;
+		font-size: 16px;
+		color: map-get($color-map, 'dim-grey');
+	}
+	::-moz-placeholder { /* Firefox 19+ */
+		font-weight: $font-normal ;
+		font-size: 16px;
+		color: map-get($color-map, 'dim-grey');
+	}
+	:-ms-input-placeholder { /* IE 10+ */
+		font-weight: $font-normal ;
+		font-size: 16px;
+		color: map-get($color-map, 'dim-grey');
+	}
+	:-moz-placeholder { /* Firefox 18- */
+		font-weight: $font-normal ;
+		font-size: 16px;
+		color: map-get($color-map, 'dim-grey');
+	}
+}
+.overall-tabs-container {
+	border-top: 1px solid map-get($color-map, 'smoke-white');
+}
+
+.loc-widget .cityName, .ui-autocomplete-multiselect.ui-state-default {
+	width: 100% !important;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1) {
+     ::i-block-chrome, .review-steps__list-item {
+       width: 32%;
+    }
+}
+@media only screen and (min-width: 768px) {
+	@include how-to-win-desktop();
+}

@@ -1,0 +1,13 @@
+﻿@model Carwale.DTOs.PriceQuote.EmiCalculatorModelData
+
+@{
+ var emiDetails = Model;
+}
+@if(emiDetails != null && emiDetails.IsEligibleForThirdPartyEmi) //Replace with IsEligible flag
+{
+    Html.RenderPartial("~/Views/Shared/m/PriceQuote/_EmiCalculatorVolkswagen.cshtml", Model);
+}
+else
+{
+    @Html.Partial("~/Views/Shared/m/PriceQuote/_EmiCalculatorRoot.cshtml");
+}

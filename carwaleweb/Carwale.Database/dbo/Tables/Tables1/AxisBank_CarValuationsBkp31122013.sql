@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[AxisBank_CarValuationsBkp31122013] (
+    [Id]                   NUMERIC (18)  IDENTITY (1, 1) NOT NULL,
+    [CustomerId]           NUMERIC (18)  NULL,
+    [FileReferenceNumber]  VARCHAR (20)  NULL,
+    [RegistrationNumber]   VARCHAR (50)  NULL,
+    [CarVersionId]         NUMERIC (18)  NOT NULL,
+    [CarYear]              DATETIME      NOT NULL,
+    [City]                 VARCHAR (50)  NULL,
+    [RequestDateTime]      DATETIME      NOT NULL,
+    [ValueExcellent]       NUMERIC (18)  NULL,
+    [ValueGood]            NUMERIC (18)  NULL,
+    [ValueFair]            NUMERIC (18)  NULL,
+    [ValuePoor]            NUMERIC (18)  NULL,
+    [ValueExcellentDealer] NUMERIC (18)  NULL,
+    [ValueGoodDealer]      NUMERIC (18)  NULL,
+    [ValueFairDealer]      NUMERIC (18)  NULL,
+    [ValuePoorDealer]      NUMERIC (18)  NULL,
+    [CarCondition]         VARCHAR (20)  NULL,
+    [ActualSoldPrice]      NUMERIC (18)  NULL,
+    [IsActive]             BIT           NOT NULL,
+    [RemoteHost]           VARCHAR (100) NULL,
+    [Kms]                  NUMERIC (18)  NOT NULL,
+    [ActualCityId]         NUMERIC (18)  NULL,
+    [CityId]               NUMERIC (18)  NULL,
+    [RequestSource]        INT           NULL,
+    [ASC_Id]               NUMERIC (18)  NULL
+);
+

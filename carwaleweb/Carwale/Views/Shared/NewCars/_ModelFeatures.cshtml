@@ -1,0 +1,14 @@
+﻿@model Carwale.Entity.ViewModels.CarData.ModelDataSummary
+
+<h2 class="margin-top15 special-skin-text">@Model.ModelName Features</h2>
+<div class="content-box-shadow content-inner-block-10 margin-top10">
+@{
+    foreach (var feature in Model.ModelFeature)
+    {
+        <div class="margin-top10 display-inline">
+            <p class="font16 text-bold ">@Html.Raw(feature.Feature):</p> <p class="floatLeft">@Html.Raw(feature.Description)</p>
+        </div>
+    }
+}
+<div class="clear"></div>
+</div>

@@ -1,0 +1,65 @@
+﻿@model Carwale.DTOs.CMS.ContentDetailPagesDTO
+@using Carwale.Utility;
+
+<div id="divAdBar">
+    <div id='div-gpt-ad-1419227721763-0' style='width:320px; height:50px; margin:10px auto 0 auto;'>
+        <script type='text/javascript'>
+            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1419227721763-0'); });
+        </script>
+    </div>
+</div>
+
+<div class="grid-12">
+    <div class="inner-container">
+        <div class="margin-top10 margin-bottom10">
+            <h1 class="margin-top10 margin-bottom10 m-special-skin-text">@Model.ArticlePages.Title</h1>
+            <div class="floatleft margin-right20">
+                <span class="margin-bottom10 m-special-skin-text">@Model.ArticlePages.DisplayDate.ToString("MMMM dd, yyyy, hh:mm tt") IST by </span>
+                <span class="blue m-special-skin-text">
+                    @if (!string.IsNullOrEmpty(Model.ArticlePages.AuthorMaskingName))
+                    {
+                        <a href='/m/authors/@Model.ArticlePages.AuthorMaskingName' class="blue">@Model.ArticlePages.AuthorName</a>
+                    }
+                    else
+                    {
+                        @Model.ArticlePages.AuthorName
+                    }
+                </span>
+            </div>
+            <div class="line-border margin-top3"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="inner-container inner-container content-box-shadow content-inner-block-10 rounded-corner2 lp content-details" id="@Model.ArticlePages.BasicId" categoryid="@Model.ArticlePages.CategoryId" categoryname="@Model.ArticlePages.CategoryMaskingName">
+        <div>
+            @foreach (var page in Model.ArticlePages.PageList)
+            {
+                <h2 class="darkgray" id="@Format.RemoveSpecialCharacters(page.PageName)">
+                    @page.PageName
+                </h2>
+                <div class="line-border margin-top5"></div>
+                <div class="darkgray content-font">@Html.Raw(page.Content)</div>
+            }
+        </div>
+    </div>
+
+    <div class="social light-shadow margin-top10 margin-bottom20">
+        <a href='https://m.facebook.com/sharer.php?u=https://carwale.com@(Model.ArticlePages.ArticleUrl)?utm_source=share&t=@Model.ArticlePages.Title' target="_blank"
+           data-role="click-tracking" data-event="CWInteractive" data-action="Facebook" data-cat="share" data-label="@("https://www.carwale.com/m" + Model.ArticlePages.ArticleUrl)">
+            <div id="FbCount" class="contentSocial facebook"></div>
+        </a>
+        <a href='https://twitter.com/share?url=https://www.carwale.com@(Model.ArticlePages.ArticleUrl)?utm_source=share&t=@Model.ArticlePages.Title' target="_blank" style="text-decoration:none;"
+           data-role="click-tracking" data-event="CWInteractive" data-action="Twitter" data-cat="share" data-label="@("https://www.carwale.com/m" + Model.ArticlePages.ArticleUrl)">
+            <div id="TweetCount" class="contentSocial twitter"></div>
+        </a>
+        <a href='mailto:contact@carwale.com?subject=@Model.ArticlePages.Title&body=I was reading https://www.carwale.com@(Model.ArticlePages.ArticleUrl)?utm_source=share on CarWale site and thought to share with you.'
+           data-role="click-tracking" data-event="CWInteractive" data-action="Email" data-cat="share" data-label="@("https://www.carwale.com/m" + Model.ArticlePages.ArticleUrl)">
+            <div class="contentSocial email"></div>
+        </a>
+        <a href="whatsapp://send?text=https://www.carwale.com@(Model.ArticlePages.ArticleUrl)?utm_source=share"
+           data-role="click-tracking" data-event="CWInteractive" data-action="Whatsapp" data-cat="share" data-label="@("https://www.carwale.com/m" + Model.ArticlePages.ArticleUrl)">
+            <div class="contentSocial whatsapp"></div>
+        </a>
+        <div class="clear"></div>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+﻿@using Carwale.Entity.CMS;
+@using System.Configuration;
+@using Carwale.Utility;
+@using Carwale.BL.CMS;
+@model List<Video>
+@{ 
+    string linkTrackAction = string.Empty;
+    string trackCategory = "Make_Videos_slug_d";
+    string videoUrl = string.Empty;
+    int lengthOfDesciption = 135;
+}
+ <section>
+    <h2 class="cotainer__heading">@Model[0].MakeName Videos</h2>
+    <div class="videos-container">
+        <div class="individual-video-container">
+            @{
+                linkTrackAction = string.Format("{0}_{1}", Model[0].MakeName, Model[0].VideoTitle);
+                videoUrl = CMSCommon.GetVideoUrl(Model[0].MakeName, Model[0].MaskingName, Model[0].SubCatName, Model[0].BasicId, false);
+            };
+            <a href="@videoUrl" data-role="click-tracking" title="@Model[0].VideoTitle" data-event="CWInteractive" data-cat="@trackCategory" data-action="Make-Page-Video-Click" data-label="@linkTrackAction">
+                <div class="video-image-container">
+                    <img class="lazy video__image" src="@(CWConfiguration._imgHostUrl + ImageSizes._0X0 + "/statics/grey.gif")" data-original="@("https://img.youtube.com/vi/" + Model[0].VideoId + "/mqdefault.jpg")" title="@Model[0].VideoTitle" alt="@Model[0].VideoTitle" width="100%" height="100%">
+                    <div class="video__youtube-icon"></div>
+                </div>
+            </a>
+            <div class="video-description-container">
+                <a href="@videoUrl" class="video-description__link" title="@Model[0].VideoTitle" data-role="click-tracking" data-event="CWInteractive" data-cat="@trackCategory" data-action="Make-Page-Video-Click" data-label="@linkTrackAction">
+                    <h3 class="description-container__heading">@Model[0].VideoTitle</h3>
+                </a>
+                <p class="video__launch-date">
+                    @(Model[0].DisplayDate.ToString("dd MMM yyyy"))
+                </p>
+                <div class="likes-views-container">
+                    <p class="model-video__likes">@Model[0].Likes Likes</p>
+                    <p class="model-video__views">@Model[0].Views views</p>
+                </div>
+                <div class="video-description">
+                    <span>@Html.Raw(Model[0].Description.GetHtmlSubString(lengthOfDesciption))...</span>
+                    <a href="@videoUrl" class="read-more__link" rel="noopener nofollow" title="@Model[0].VideoTitle" data-role="click-tracking" data-event="CWInteractive" data-cat="@trackCategory" data-action="Make-Page-Video-Click" data-label="@linkTrackAction">Know More</a>
+                </div>
+            </div>
+        </div>
+        @if (Model.Count > 1)
+        {
+            <div class="horizontal__line"></div>
+            <div class="jcarousel-wrapper">
+                <div class="jcarousel">
+                    <ul>
+                        @for (int i = 1; i < Model.Count; i++)
+                        {
+                        <li class="jcarousel__list-item">
+                            <a href="@CMSCommon.GetVideoUrl(Model[i].MakeName, Model[i].MaskingName, Model[i].SubCatName, Model[i].BasicId, false)" class="model-video__link" title="@Model[i].VideoTitle" data-role="click-tracking" data-event="CWInteractive" data-cat="@trackCategory" data-action="Make-Page-Video-Click" data-label="@string.Format("{0}_{1}", Model[i].MakeName, Model[i].VideoTitle)">
+                                <div class="model-video__card-structure">
+                                    <div class="model-video__content-wrapper">
+                                        <div class="model-video__image">
+                                            <img class="lazy" src="@(CWConfiguration._imgHostUrl + ImageSizes._0X0 + "/statics/grey.gif")" data-original="@("https://img.youtube.com/vi/" + Model[i].VideoId + "/mqdefault.jpg")" title="@Model[i].VideoTitle" alt="@Model[i].VideoTitle" width="100%" height="100%" />
+                                            <span class="video__youtube-icon"></span>
+                                        </div>
+                                        <div class="model-video__video-info">
+                                            <header class="videos-section__heading">
+                                                <h3 class="carTitle model-video__title">@Model[i].VideoTitle</h3>
+                                                <div class="model-video__upload-date">
+                                                @(Model[i].DisplayDate.ToString("dd MMM yyyy"))
+                                                </div>
+                                            </header>
+                                            <footer class="video-details-block">
+                                                <div class="model-video__likes"><span class="video-likes-icon"></span> @Model[i].Likes Likes</div>
+                                                <div class="model-video__views"> <span class="video-views-icon"></span> @Model[i].Views views</div>
+                                            </footer>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+
+                        }
+                        </ul>
+                </div>
+                <span class="jcarousel-control-left dynamic-carousel" data-swipecount="2">
+                    <span class="cwsprite jcarousel-control-prev"></span>
+                </span>
+                <span class="jcarousel-control-right dynamic-carousel" data-swipecount="2">
+                    <span class="cwsprite jcarousel-control-next"></span>
+                </span>
+            </div>
+        }
+        <div class="view-all-link-wrapper">
+            <a class="view-all-video__link" href="@string.Format("{0}videos/", ManageCarUrl.CreateMakeUrl(Model[0].MakeName, false))" data-role="click-tracking" data-event="CWInteractive" data-cat="@trackCategory" data-action="Make-Page-Video-Link-Click" data-label="@Model[0].MakeName">All @Model[0].MakeName Videos</a>
+        </div>
+    </div>
+</section>

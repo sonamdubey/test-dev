@@ -1,0 +1,48 @@
+@mixin shortlist-icon ($width: 15px, $height: 20px, $active-bg-color: 'orange-red'){
+	.shortlist-icon {
+		@include shortlist-aaa-icon;
+		width: $width;
+		height: $height;
+		display: inline-block;
+		background-size: contain;
+		position: relative;
+		margin-left: 15px;
+		text-align: center;
+		cursor: pointer;
+
+		&.shortlist--active {
+			@include shortlist-6f6f6f-icon;
+		
+			&:after {
+				@include vendor-prefix('border-radius', 40px);
+				content: '';
+				display: block;
+				height: 7px;
+				width: 7px;
+				position: absolute;
+				right: -3px;
+				top: -3px;
+				background-color: color($active-bg-color);
+			}
+		}
+	}
+
+	.shortlist__count {
+		font-size: 8px;
+		color: color('dim-gray');
+		position: relative;
+		top: -4px;
+	}
+}
+
+@mixin shortlist-action-icon ($width: 9px, $height: 10.9px){
+	.shortlist-action-icon {
+		@include shortlist-6f6f6f-icon;
+		width: $width;
+		height: $height;
+
+		&.shortlist--active {
+			@include shortlist-00afa0-icon;
+		}
+	}
+}

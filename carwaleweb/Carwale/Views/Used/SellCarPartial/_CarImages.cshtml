@@ -1,0 +1,130 @@
+﻿@model Carwale.UI.ViewModels.Used.SellCar.CarImagesViewModel
+<div id="formCarImage" class="car-images-form">
+	<p class="image-toolbar">Your listing is live. Please add images to get better response</p>
+	
+	<div class="screen__head">
+		<p class="screen-head__title">Upload Car Images</p>
+		<p class="font14">Ads with images get 4x responses</p>
+	</div>
+
+	<div class="screen__body">
+        @if (Model.IsStandardImages)
+        {
+		<ul id="imageUploadList" class="option-list category-upload-list cw-dropzone">
+			<li id="item1" class="option-list__item dropzone dz-clickable" data-id="1" data-title="Front Right Corner">
+				<div class="dropzone-placeholder">
+					<span class="list-item__upload-icon front-right-icon"></span>
+					<span class="list-item__upload-label">Front Right Corner</span>
+				</div>
+			</li>
+			<li class="option-list__item dropzone dz-clickable" data-id="2" data-title="Front View">
+				<div class="dropzone-placeholder">
+					<span class="list-item__upload-icon front-view-icon"></span>
+					<span class="list-item__upload-label">Front View</span>
+				</div>
+			</li>
+			<li class="option-list__item dropzone dz-clickable" data-id="3" data-title="Left Side View">
+				<div class="dropzone-placeholder">
+					<span class="list-item__upload-icon left-side-icon"></span>
+					<span class="list-item__upload-label">Left Side View</span>
+				</div>
+			</li>
+			<li class="option-list__item dropzone dz-clickable" data-id="4" data-title="Rear View">
+				<div class="dropzone-placeholder">
+					<span class="list-item__upload-icon rear-view-icon"></span>
+					<span class="list-item__upload-label">Rear View</span>
+				</div>
+			</li>
+			<li class="option-list__item dropzone dz-clickable" data-id="5" data-title="Odometer Reading">
+				<div class="dropzone-placeholder">
+					<span class="list-item__upload-icon odometer-icon"></span>
+					<span class="list-item__upload-label">Odometer Reading</span>
+				</div>
+			</li>
+		</ul>
+        }
+		<div class="cw-dropzone">
+			<div id="add-photos-dropzone" class="others-upload-list dropzone dz-clickable" data-id="7" data-title="Other Images">
+				<div id="add-more-photos" class="option-list__item dz-preview">
+					<span class="more-icon">+</span>
+                    @if (Model.IsStandardImages)
+                    {
+					    <span class="list-item__upload-label">Upload other images</span>
+                    }
+				</div>
+			</div>
+		</div>
+
+		<input type="button" id="submitImages" class="btn btn-orange btn--next" value="Next">
+	</div>
+
+    @if (Model.IsStandardImages) 
+    {
+    <div class="screen__footer">
+        <p class="info-list__title">How to upload images?</p>
+        <ul class="info-list">
+            <li>Click on image icons to upload standard images of car.</li>
+            <li>We accept images in jpeg, png and gif formats up to <strong>8MB</strong>.</li>
+            <li>Of course, If you don't have standard images, you can upload other images by clicking same icons.</li>
+            <li>You can upload more images by using "Other Images" option.</li>
+        </ul>
+    </div>
+    }
+    else
+    {
+        <div class="screen__footer">
+            <p class="info-list__title">Tips</p>
+            <ul class="info-list">
+                <li>Shoot clear pictures of your car and upload as many as possible.</li>
+                <li>If you do not have any photos currently, you can upload them later by logging in to your account</li>
+                <li>We accept images in jpeg, png and gif formats up to <strong>8MB</strong>.</li>
+            </ul>
+        </div>
+    }
+
+	<div id="dropzoneTemplate" class="hide">
+		<div class="dz-preview dz-file-preview">
+			<div class="dz-image">
+				<div class="dz-image-thumbnail">
+					<img data-dz-thumbnail />
+				</div>
+			</div>
+			<div class="dz-error-message"></div>
+			<div class="dz-filename"></div>
+			<div id="spinner-content">
+				<svg class="dz-spinner" width="50px" height="50px" viewBox="0 0 50 50">
+					<circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+				</svg>
+			</div>
+			<div class="dz-progress">
+				<span class="dz-upload" data-dz-uploadprogress></span>
+			</div>
+			<div class="dz-error-mark">
+				<span>Retry</span>
+			</div>
+		</div>
+	</div>
+
+	<div id="otherImageTemplate" class="hide">
+		<div class="option-list__item dz-preview dz-file-preview">
+			<div class="dz-image">
+				<div class="dz-image-thumbnail">
+					<img data-dz-thumbnail />
+				</div>
+			</div>
+			<div class="dz-error-message"></div>
+			<div class="dz-filename"></div>
+			<div id="spinner-content">
+				<svg class="dz-spinner" width="50px" height="50px" viewBox="0 0 50 50">
+					<circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+				</svg>
+			</div>
+			<div class="dz-progress">
+				<span class="dz-upload" data-dz-uploadprogress></span>
+			</div>
+			<div class="dz-error-mark">
+				<span>Retry</span>
+			</div>
+		</div>
+	</div>
+</div>

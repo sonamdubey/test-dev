@@ -1,0 +1,111 @@
+﻿/*Yarris Zone Property CSS Start*/	
+.zone-card-container {
+	padding-top: 10px;
+}
+.swiper-slide.zone-card {
+	height: 360px;
+	width: 310px;
+	border-radius: 3px;
+}
+.zone-card {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	padding: 11px;
+}
+.swiper-slide.zone-card .front {
+	border: none;
+	box-shadow: none;
+}
+.swiper-slide.zone-card .imageWrapper {
+	border-radius: 3px;
+	margin-bottom: 14px;
+	position: relative;
+	height: 179px;
+}
+.swiper-slide.zone-card .carDescWrapper {
+	padding: 0;
+}
+.zone-card__block-heading {
+	font-size: 18px;
+	color: #484848;
+	letter-spacing: .8px;
+	text-transform: uppercase;
+}
+.zone-card__block-data {
+	color: #6f6f6f;
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+.zone-property__seprator {
+	display: inline-block;
+	height: 1px;
+	width: 160px;
+	background-image: -webkit-linear-gradient(to right, #7e7e7e, #5a5a5a 67%, rgba(72, 72, 72, 0));
+	background-image: -moz-linear-gradient(to right, #7e7e7e, #5a5a5a 67%, rgba(72, 72, 72, 0));
+	background-image: -ms-linear-gradient(to right, #7e7e7e, #5a5a5a 67%, rgba(72, 72, 72, 0));
+  background-image: -o-linear-gradient(to right, #7e7e7e, #5a5a5a 67%, rgba(72, 72, 72, 0));
+	background-image: linear-gradient(to right, #7e7e7e, #5a5a5a 67%, rgba(72, 72, 72, 0));
+	margin: 5px 0;
+}
+.zone-card__cta-btn {
+	display: inline-block;
+  width: 99%;
+	color: #ef3f30;
+  text-align: center;
+  padding: 8px;
+	margin: 0 auto;
+  border: 1px solid #ef3f30;
+	border-radius: 3px;
+	font-size: 16px;
+	font-weight: 600;
+}
+.zone-card__first-logo {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	display: inline-block;
+}
+.zone-card__second-logo {
+	position: absolute;
+	bottom: 5px;
+	right: 10px;
+	display: inline-block;
+	width: 72px;
+	height: 45px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/es/yaris-zone/m/logo/toyota-yaris-msite-logo.svg') no-repeat center;
+	background-size: contain;
+}
+.swiper-container-horizontal > .swiper-pagination.zone-swiper-pagination .swiper-pagination-bullet {
+	width: 5px;
+  height: 5px;
+  background-color: #c9c9c9;
+  border: 1px solid #ccc;
+	border-radius: 50%;
+}
+.swiper-container-horizontal > .swiper-pagination.zone-swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+	background-color: #ec2f3d;
+	border-color: #ec2f3d;
+}
+.letter-spacing0 {
+	letter-spacing: 0;
+}
+.zone-card__sponsored-text {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	font-size: 9px;
+	color: #999;
+}	
+@media screen and (max-width: 320px) {
+	.swiper-slide.zone-card {
+		width: 290px;
+		padding: 8px;
+	}
+	.swiper-slide.zone-card .front {
+		min-width: 270px;
+	}
+	.zone-card__block-heading {
+		font-size: 17px;
+	}
+}
+/*Yarris Zone Property CSS Ends*/

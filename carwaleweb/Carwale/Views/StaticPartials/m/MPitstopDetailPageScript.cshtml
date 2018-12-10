@@ -1,0 +1,19 @@
+﻿<script  type="text/javascript"  src="/static/m/js/social.js" ></script>
+<script>
+    $(window).load(function () {
+        try {
+            var basicId = window.location.pathname.split('-').pop().split('/')[0];
+            if (window.localStorage && basicId != undefined) {
+                if (localStorage.BasicId != undefined && localStorage.BasicId.split('|').indexOf(basicId) == -1)
+                    localStorage.BasicId += "|" + basicId;
+                else localStorage.BasicId = basicId;
+            }
+        }
+        catch (e) {
+            console.log(e);
+        }
+    });
+    Common.showCityPopup = false;
+</script>
+
+

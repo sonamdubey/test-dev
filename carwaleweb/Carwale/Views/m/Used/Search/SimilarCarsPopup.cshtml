@@ -1,0 +1,72 @@
+﻿@model List<Carwale.DTOs.Stock.SimiliarCars.StockSummaryDTO>
+@using Carwale.BL.Stock;
+@using Carwale.Entity.Classified.Leads;
+
+@for (int i = 0; i < Model.Count; i++)
+{
+    <li class="popup-recommendedList" data-action-page="search-page" id='RecommendedListing-@i' profileid=@Model[i].ProfileId rankabs='r@(Model[i].Rank)'>
+        <h4 class="margin-bottom10 text-unbold">
+            <a onclick="window.open(this.href, '_blank'); return false;" target="_blank" href='/m@(Model[i].Url)' class="popup-carNameClass">@Model[i].CarName</a>
+        </h4>
+        <div class="carThumb">
+            <a class="imgholder" onclick="window.open(this.href, '_blank'); return false;" target="_blank" href='/m@(Model[i].Url)'>
+                @if (string.IsNullOrEmpty(Model[i].OriginalImgPath))
+                {
+                    <img class="lazy" src="https://img.carwale.com/used/no-cars.jpg" profileId=@Model[i].ProfileId alt="@Model[i].CarName" title="@Model[i].CarName" />
+                }
+                else
+                {
+                    <img class="lazy" src=@(string.Format("{0}{1}{2}?q=80", Model[i].HostUrl, "370x208", Model[i].OriginalImgPath)) profileId=@Model[i].ProfileId alt="@Model[i].CarName" title="@Model[i].CarName" />
+                }
+            </a>
+        </div>
+        <div class="car-details-div">
+            <a class="carDetails text-default" onclick="window.open(this.href, '_blank'); return false;" target="_blank" href='/m@(Model[i].Url)'>
+                <p class="margin-bottom5"><span class="margin-left5 text-grey text-bold">@Model[i].Price</span></p>
+                <p class="font13 margin-bottom5"><span>@Model[i].Km km</span> | <span>@Model[i].Fuel</span> | <span>@Model[i].MakeYear</span></p>
+                <p>
+                    @if (!string.IsNullOrEmpty(Model[i].AreaName))
+                    {
+                        <span>@Model[i].AreaName, </span>
+                    }
+                    <span>@Model[i].CityName</span>
+                </p>
+            </a>
+                @if (!string.IsNullOrWhiteSpace(Model[i].DealerRatingText))
+                {
+                    <span class="top-rated-seller-tag">@Model[i].DealerRatingText</span>
+                    <span class="seller-rating__toast">
+                        <span class="seller-rating-toast__close"></span>
+                        <span>This seller has consistently been rated well by his customers</span>
+                    </span>
+                }
+           </div>
+        <div class="clear"></div>
+        <p class="text-left margin-top10 position-rel seller-btn-detail padding-bottom0">
+            
+            <span class="grid-4 chat-btn-container">
+                <button class="btn-xs chat-btn">
+                    <span id="chatIcon" class="chat-btn--whatsapp-icon" data-chat-lead-type="@LeadType.WhatsAppLead.ToString("D")"></span>
+                    <span class="chat-btn__text">Chat</span>
+                </button>
+            </span>
+            
+            <a class="btn similarCarsViewDetails btn-orange btn-xs gsdAnchorBtn position-rel grid-8" oid="-1" id='similarCarsDetailsBtn-@i' profileId=@Model[i].ProfileId modelName="@Model[i].ModelName" makeYear=@Model[i].MakeYear makeName="@Model[i].MakeName" makeId=@Model[i].MakeId rootId=@Model[i].RootId cityId=@Model[i].CityId cityName="@Model[i].CityName" price=@Model[i].Price bodyStyleId=@Model[i].BodyStyleId versionsubsegmentID=@Model[i].VersionSubSegmentID priceNumeric=@Model[i].PriceNumeric kmNumeric=@Model[i].KmNumeric data-cte-package-id="@Model[i].CtePackageId">
+                <span class="text-bold getSimilarCarSellerDetails">Get Seller Details</span>
+                <span class="oneClickDetails hideImportant">
+                    <span class="font18">1-Click </span>
+                    <span class="font18">View Details</span>
+                </span>
+                <span class="hideSellerDetails hideImportant">Hide Seller Details</span>
+            </a>
+            <span class="applozic-launcher" data-mck-id data-mck-name></span>
+            <span class="clear block"></span>
+        </p>
+
+        @*<!-- recommended car seller details div starts here -->*@
+        <div class="suggestDetails hide" id="suggestDetails-@(i)" style="overflow: hidden">
+            <div class="border-solid content-box-shadow content-inner-block-5 position-rel" style="margin-top:-2px;">
+            </div>
+        </div>
+    </li>
+}

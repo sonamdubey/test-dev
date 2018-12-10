@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7AC4737C-DDF2-498C-B3DE-030FD30C5BAE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AppWebApi</RootNamespace>
+    <AssemblyName>AppWebApi</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AppWebApi.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AppWebApi.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AEPLCore.Cache, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Cache.2.0.7-beta-1\lib\net452\AEPLCore.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Logging, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Logging.1.0.2\lib\net452\AEPLCore.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Queue, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Queue.2.0.10-beta-2\lib\net452\AEPLCore.Queue.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Utils, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Utils.1.0.4\lib\net452\AEPLCore.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\libs\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Carwale.WebServices.PushCRM">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Carwale.WebServices.PushCRM.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Enyim.Caching, Version=2.16.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnyimMemcached.2.16.0\lib\net35\Enyim.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Gelf4Net, Version=3.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gelf4Net.3.0.0.7\lib\net45\Gelf4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net40\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Microsoft.Practices.Unity.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\libs\Microsoft.Practices.Unity.Configuration.DLL</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\libs\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.3.7.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.3.7\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RabbitMQ.Client.5.0.1\lib\net451\RabbitMQ.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <Private>True</Private>
+      <HintPath>..\libs\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor">
+      <Private>True</Private>
+      <HintPath>..\libs\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages">
+      <Private>True</Private>
+      <HintPath>..\libs\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment">
+      <Private>True</Private>
+      <HintPath>..\libs\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor">
+      <Private>True</Private>
+      <HintPath>..\libs\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="TC.TCClientInqProxy">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\TC.TCClientInqProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Utils">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\AppWebApi.dll" />
+    <Content Include="bin\AppWebApi.pdb" />
+    <Content Include="bin\BusinessLogic.dll" />
+    <Content Include="bin\Carwale.Common.dll" />
+    <Content Include="bin\Carwale.CoreDAL.dll" />
+    <Content Include="bin\Carwale.CoreDAL.pdb" />
+    <Content Include="bin\Carwale.Notifications.dll" />
+    <Content Include="bin\Carwale.Notifications.pdb" />
+    <Content Include="bin\Carwale.WebServices.PushCRM.dll" />
+    <Content Include="bin\CommonDAL.dll" />
+    <Content Include="bin\CommonUtility.dll" />
+    <Content Include="bin\DAL.dll" />
+    <Content Include="bin\Enyim.Caching.dll" />
+    <Content Include="bin\log4net.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\NewCarSearch.dll" />
+    <Content Include="bin\NewCarSearch.pdb" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Notifications.dll" />
+    <Content Include="bin\RabbitMQ.Client.dll" />
+    <Content Include="bin\RabbitMqPublishing.dll" />
+    <Content Include="bin\TC.TCClientInqProxy.dll" />
+    <Content Include="bin\Utils.dll" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Global.asax" />
+    <Content Include="images\splash.jpg" />
+    <Content Include="images\splash_autobiz.png" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\CommonOpn.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Common\ErrorClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\CarModelListController.cs" />
+    <Compile Include="Controllers\New Cars\CompareCarVersionsController.cs" />
+    <Compile Include="Controllers\New Cars\CompareCarListController.cs" />
+    <Compile Include="Controllers\New Cars\CompareCarsController.cs" />
+    <Compile Include="Controllers\New Cars\CompareCarsDetailsController.cs" />
+    <Compile Include="Controllers\New Cars\ModelDetailsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\NewCarFilterController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\NewCarPhotosController.cs" />
+    <Compile Include="Controllers\New Cars\NewCarSearchResultController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\NewsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\NewsDetailController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\PqMakesController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\PqModelsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\ReviewsCommentsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\TipsAndAdvicesController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\TipsAndAdvicesDetailController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\UpComingCarDetailController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\UpComingCarsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\UserReviewDetailController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\UserReviewsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controllers\New Cars\VerifyMobileController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CarDetail.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CarModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CarModelList.cs" />
+    <Compile Include="Models\CMSAppCache.cs" />
+    <Compile Include="Models\CompareCarVersions.cs" />
+    <Compile Include="Models\Color.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CompareCarItem.cs" />
+    <Compile Include="Models\CompareCars.cs" />
+    <Compile Include="Models\CompareCarsDetails.cs" />
+    <Compile Include="Models\ModelVideoList.cs" />
+    <Compile Include="Models\Filter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\FilterItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\HtmlContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\HTMLItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Item.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ModelDetails.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ModelVersion.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\NewCarFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\NewCarPhotos.cs" />
+    <Compile Include="Models\NewCarSearchResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\NewCarSearchResultV2.cs" />
+    <Compile Include="Models\NewsDetail.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\NewsItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Photo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\PopulateHtmlContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\PqMakes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\PqModels.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Rating.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Review.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ReviewDetail.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ReviewsComments.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\ReviewVersions.cs" />
+    <Compile Include="Models\Sort.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\SortCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\TipsAdvice.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\TipsAndAdvices.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\TipsAndAdvicesCategory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\TipsAndAdvicesDetail.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UpComingCarDetail.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UpComingCarItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UpComingCars.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UserReviewDetail.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\UserReviews.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\VerifyMobile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\VersionItem.cs" />
+    <Compile Include="Models\ZipDialResponse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NewCarSearch\CarModel.cs" />
+    <Compile Include="NewCarSearch\ModelVersion.cs" />
+    <Compile Include="NewCarSearch\SearchCarModels.cs" />
+    <Compile Include="Routes\WebApiConfig.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="Api\Web.config" />
+    <Content Include="AppWebApi.ruleset" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Carwale.CacheCore\Carwale.Cache.csproj">
+      <Project>{3f685d8d-1086-487a-8467-357ded4edaab}</Project>
+      <Name>Carwale.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.DataAccessLayer\Carwale.DAL.csproj">
+      <Project>{9cf1c70b-6eb2-4f13-8fbf-9ed9e5eb5fef}</Project>
+      <Name>Carwale.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.DTOs\Carwale.DTOs.csproj">
+      <Project>{71d19ca7-5224-4827-9535-570755738374}</Project>
+      <Name>Carwale.DTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Entity\Carwale.Entity.csproj">
+      <Project>{02e68020-d0cf-48a8-9059-48b28c3df144}</Project>
+      <Name>Carwale.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Interface\Carwale.Interfaces.csproj">
+      <Project>{b4e57a71-8ac4-4957-b0cb-82ec72f8d5b7}</Project>
+      <Name>Carwale.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Notifications\Carwale.Notifications.csproj">
+      <Project>{2bd35d9b-e0da-4dab-9234-ebbb75c33001}</Project>
+      <Name>Carwale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Service\Carwale.Service.csproj">
+      <Project>{fb40540b-4265-4ff3-82ef-226dab6593a7}</Project>
+      <Name>Carwale.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Utility\Carwale.Utility.csproj">
+      <Project>{7edc7859-19ea-4b79-acc3-0525860b4199}</Project>
+      <Name>Carwale.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cawale.BL\Carwale.BL.csproj">
+      <Project>{56389ab9-224e-48eb-9717-c80cbe58f48a}</Project>
+      <Name>Carwale.BL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Testing|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <CodeAnalysisRuleSet>AppWebApi.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AppWebApi.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56566</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49196/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:90/</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="DisableAnalyzersForVisualStudioBuild" BeforeTargets="CoreCompile" Condition="'$(BuildingInsideVisualStudio)' == 'True' And '$(BuildingProject)' == 'True'">
+    <!--
+    Disable analyzers when building a project inside Visual Studio. Note that analyzer behavior for IntelliSense
+    purposes is not altered by this.
+  -->
+    <ItemGroup>
+      <Analyzer Remove="@(Analyzer)" />
+    </ItemGroup>
+  </Target>
+</Project>

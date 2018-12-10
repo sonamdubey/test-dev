@@ -1,0 +1,80 @@
+﻿@model Carwale.DTOs.CMS.ContentListDTO
+
+@{
+    ViewBag.Title = Html.Raw(Model.SeoTags.Title);
+    ViewBag.Description = Html.Raw(Model.SeoTags.Description);
+    ViewBag.Canonical = "https://www.carwale.com/" + ViewBag.CanonicalString;
+    ViewBag.CustomJS = "~/Views/StaticPartials/m/MExpertReviewsPageScript.cshtml";
+    ViewBag.adPath = System.Configuration.ConfigurationManager.AppSettings["adPathMobile"];
+    ViewBag.DefineAdSlots =
+        @"<script type='text/javascript'>
+            googletag.cmd.push(function () {
+                googletag.defineSlot('/1017752/" + ViewBag.adPath + @"CarWale_Mobile_ROS_320x50', [320, 50], 'div-gpt-ad-1419227721763-0').addService(googletag.pubads());
+
+                //Ad for quatation page bottom Ad
+                googletag.defineSlot('/1017752/" + ViewBag.adPath + @"CarWale_Mobile_ROS_300x250', [300, 250], 'div-gpt-ad-1435297201507-0').addService(googletag.pubads());
+
+                googletag.pubads().setTargeting('Section', '');
+                googletag.pubads().setTargeting('City', '" + MobileWeb.Common.CookiesCustomers.MasterCity.ToString() + @"');
+                googletag.pubads().setTargeting('Section', '');
+                googletag.pubads().collapseEmptyDivs();
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+            });
+        </script>";
+    Layout = "~/views/shared/m/_MLayout.cshtml";
+}
+<section class="container">
+    
+    @Html.Partial("m/editorial/_ContentListHeader", @Model)
+
+    <div class="grid-12">
+        <div class="margin-bottom10">
+            <div class="content-box-shadow content-inner-block-10 rounded-corner2 margin-bottom10 text-black" onclick="BoxClicked(this);" type="expando" style="position: relative;">
+                <div class="heading">Search By : </div>
+                <div class="plus"></div>
+            </div>
+
+            <div class="box-bot content-inner-block-10 content-box-shadow" style="padding:10px;display:none;">
+                <div class="form-control-box margin-bottom20">
+                    <span class="select-box fa fa-angle-down"></span>
+                    @Html.DropDownList("ddlMakes", new SelectList(ViewBag.CarMakes, "MakeId", "MakeName"), "--Select Make--", new { @class = "form-control" })
+                </div>
+                <div class="form-control-box margin-bottom20">
+                    <span class="select-box fa fa-angle-down"></span>
+                    <select id="ddlModels" class="form-control">
+                        <option>--Select Model--</option>
+                    </select>
+                    <div class="margin-top10">
+                        <div onclick="SearchClicked();" style='display:none;width:60px;height:30px;background-image: url("/m/images/nav.png");background-position: 0px 0px;border-radius:7px;-moz-border-radius:7px;-webkit-border-radius:7px;float:left;'>
+                            <div style="margin:auto;width:50px;height:30px;background-image: url('/m/images/icons-sheet.png');background-position: 12px -672px;"></div>
+                        </div>
+                        <div style="float:left;">
+                            <input type="button" id="btnSubmit" class="btn btn-orange" value="&nbsp;&nbsp;&nbsp;&nbsp;GO&nbsp;&nbsp;&nbsp;&nbsp;" />
+                        </div>
+                        <div id="divLoaderModel" style="margin-left:10px;width:16px;float:left;display:none;">
+                            <img src="/m/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;" />
+                        </div>
+                        <div id="errSearch" class="error" style="padding:8px;float:left;display:none;">&nbsp;Select make</div>
+                        <div style="clear:both;"></div>
+                    </div>
+                </div>
+                <div class="margin-top10">
+                    <a class="normal" href="/m/expert-reviews/">Show all expert reviews&nbsp;&nbsp;<span class="arr-small">»</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clear"></div>
+
+    @Html.Partial("m/editorial/_ContentList", @Model)
+
+</section>
+
+<script language="javascript" type="text/javascript">
+    var makeId = @ViewBag.MakeId;
+    var modelId = @ViewBag.ModelId;
+</script>
+
+<script  type="text/javascript"  src="/static/js/expert-reviews.js" ></script>

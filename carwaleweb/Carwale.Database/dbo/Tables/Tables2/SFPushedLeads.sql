@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[SFPushedLeads] (
+    [QuoteId]  NUMERIC (18)  NOT NULL,
+    [SFLeadId] VARCHAR (100) NOT NULL,
+    CONSTRAINT [PK_SFPushedLeads] PRIMARY KEY CLUSTERED ([QuoteId] ASC, [SFLeadId] ASC) WITH (FILLFACTOR = 90)
+);
+

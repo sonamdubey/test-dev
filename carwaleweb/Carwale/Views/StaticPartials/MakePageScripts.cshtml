@@ -1,0 +1,14 @@
+﻿@model Carwale.DTOs.NewCars.MakePageDTO_Desktop
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+<script type="text/javascript">var makeId = @Model.MakeDetails.MakeId +0;</script>
+<script  type="text/javascript"  src="/static/js/newcarsmake.js" defer></script>
+@if (Model.MakeDetails.MakeId == 16)
+{
+    <script  type="text/javascript"  src="/static/src/jquery.obj.min.js" defer></script>
+}
+<script type="text/javascript">var product = {category: ['new', '@UrlRewrite.FormatSpecial(Model.MakeDetails.MakeName)-cars']};</script>
+@if (HttpContext.Current.User.Identity.IsAuthenticated)
+{
+    <script type="text/javascript">var customer = {mhash: '@CurrentUser.Email.ComputeHash(Hasher.eHashType.SHA256)'};</script>
+}

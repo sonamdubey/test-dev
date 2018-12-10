@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[CMS_CampaignTypes] (
+    [ID]   SMALLINT     NOT NULL,
+    [Name] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_CMS_CampaignTypes] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

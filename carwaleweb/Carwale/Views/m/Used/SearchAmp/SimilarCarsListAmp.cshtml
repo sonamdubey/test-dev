@@ -1,0 +1,81 @@
+﻿@model int
+
+@{
+    string currentHostUrl = Request.Url.GetLeftPart(UriPartial.Authority).Replace("http:", string.Empty).Replace("https:", string.Empty);
+}
+<ul id="popup-suggetions" class="suggestion-list">
+    <span class="similarcar-loading">Loading...</span>
+    <amp-list id="similarcar-list" layout="fixed-height" src="recommendations" [src]="recommendations" height="0" [height]="176 * recommendations.length + 264 * openRecommendations.length" items="." reset-on-refresh>
+        <template type="amp-mustache">
+            <li class="popup-recommendedList">
+                <h4 class="margin-bottom10 text-unbold">
+                    <a target="_blank" href="/m{{Url}}" class="popup-carNameClass">{{CarName}}</a>
+                </h4>
+                <div class="carThumb">
+                    <a class="imgholder" target="_blank" href="/m{{Url}}">
+                        <amp-img layout="responsive" width="41" height="24" src="{{HostUrl}}{{^HostUrl}}https://imgd.aeplcdn.com/{{/HostUrl}}370x208{{OriginalImgPath}}{{^OriginalImgPath}}/statics/grey.gif{{/OriginalImgPath}}" />
+                    </a>
+                </div>
+                <a class="carDetails text-default" target="_blank" href="/m{{Url}}">
+                    <p class="margin-bottom5"><span class="text-grey text-bold">{{Price}}</span></p>
+                    <p class="font13 margin-bottom5"><span>{{Km}} km</span> | <span>{{Fuel}}</span> | <span>{{MakeYear}}</span></p>
+                    <p>
+                        {{#AreaName}}
+                        <span>{{AreaName}}, </span>
+                        {{/AreaName}}
+                        <span>{{CityName}}</span>
+                    </p>
+                </a>
+                <div class="clear"></div>
+                <div class="margin-top10">
+                    <button class="detailsBtn btn btn-orange btn-xs text-uppercase getSellerDetails text-bold" [hidden]="isLeadDataAvailable"
+                            on="tap:AMP.setState({leadProfileId : '{{ProfileId}}', leadOriginId : @Model, leadCity: '{{CityName}}', openRecommendations: openRecommendations.concat(['{{ProfileId}}']), leadRank: '{{Rank}}', leadDeliveryCity: '{{DeliveryCity}}'}), lead-popup">
+                        GET SELLER DETAILS
+                    </button>
+                    <button class="detailsBtn btn btn-orange btn-xs text-uppercase getSellerDetails text-bold" [hidden]="!(isLeadDataAvailable && !openRecommendations.includes('{{ProfileId}}'))" hidden
+                            on="tap:AMP.setState({leadProfileId : '{{ProfileId}}', leadOriginId : @Model, leadCity: '{{CityName}}', openRecommendations: openRecommendations.concat(['{{ProfileId}}']), leadRank: '{{Rank}}', leadDeliveryCity: '{{DeliveryCity}}'}), lead-form.submit">
+                        <span class="font18">1-Click </span>
+                        <span class="font11">VIEW DETAILS</span>
+                    </button>
+                    <button class="detailsBtn btn btn-orange btn-xs text-uppercase getSellerDetails text-bold expand add-grey" [hidden]="!(isLeadDataAvailable && openRecommendations.includes('{{ProfileId}}'))" hidden
+                            on="tap: AMP.setState({openRecommendations: openRecommendations.filter(x => x != '{{ProfileId}}')})">
+                        Hide Seller Details
+                    </button>
+                    {{#DealerRatingText}}
+                    <span class="top-rated-seller-tag">{{DealerRatingText}}</span>
+                    {{/DealerRatingText}}
+                </div>
+                <div class="suggestDetails" [hidden]="!(isLeadDataAvailable && openRecommendations.includes('{{ProfileId}}'))" hidden>
+                    <div class="seller-detail-info border-solid content-box-shadow content-inner-block-5 position-rel">
+                        <ul class="sellerDetails margin-bottom10 content-inner-block-10">
+                            <li>
+                                <span class="buyerprocess-sprite seller-name"></span>
+                                <div id="seller-Name-div" class="leftfloat">
+                                    <p class="seller-Person top-rated-seller-name-field" [text]="sellers.filter(r => r.profileId == '{{ProfileId}}')[0].seller.contactPerson || ''"></p>
+                                    <p class="seller-Name font13 text-light-grey" [text]="sellers.filter(r => r.profileId == '{{ProfileId}}')[0].seller.name || ''"></p>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+                            <li>
+                                <span class="buyerprocess-sprite seller-masking-no"></span>
+                                <p class="leftfloat"><a [href]="'tel:'+sellers.filter(r => r.profileId == '{{ProfileId}}')[0].seller.mobile" class="seller-Contact" [text]="sellers.filter(r => r.profileId == '{{ProfileId}}')[0].seller.mobile || ''"></a></p>
+                                <div class="clear"></div>
+                            </li>
+                            <li>
+                                <span class="buyerprocess-sprite seller-email"></span>
+                                <p class="leftfloat"><a [href]="'mailto:'+sellers.filter(r => r.profileId == '{{ProfileId}}')[0].seller.email" class="seller-Email" [text]="sellers.filter(r => r.profileId == '{{ProfileId}}')[0].seller.email || ''"></a></p>
+                                <div class="clear"></div>
+                            </li>
+                            <li>
+                                <span class="buyerprocess-sprite seller-address"></span>
+                                <p class="leftfloat"><span class="seller-Address" [text]="sellers.filter(r => r.profileId == '{{ProfileId}}')[0].seller.address || ''"></span></p>
+                                <div class="clear"></div>
+                                <p><span class="font10 text-light-grey margin-left10">Your contact details have been shared with the seller</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </template>
+    </amp-list>
+</ul>

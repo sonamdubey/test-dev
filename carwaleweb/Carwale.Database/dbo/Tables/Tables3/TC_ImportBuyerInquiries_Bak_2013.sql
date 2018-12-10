@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[TC_ImportBuyerInquiries_Bak_2013] (
+    [TC_ImportBuyerInquiriesId] BIGINT        IDENTITY (1, 1) NOT NULL,
+    [Name]                      VARCHAR (100) NULL,
+    [Email]                     VARCHAR (100) NULL,
+    [Mobile]                    VARCHAR (15)  NULL,
+    [Location]                  VARCHAR (50)  NULL,
+    [CarMake]                   VARCHAR (50)  NULL,
+    [CarModel]                  VARCHAR (50)  NULL,
+    [Price]                     VARCHAR (50)  NULL,
+    [IsValid]                   BIT           NULL,
+    [IsDeleted]                 BIT           NULL,
+    [UserId]                    BIGINT        NULL,
+    [BranchId]                  BIGINT        NULL,
+    [TC_InquiryOtherSourceId]   TINYINT       NULL,
+    [TC_BuyerInquiriesId]       BIGINT        NULL,
+    [Eagerness]                 TINYINT       NULL,
+    [BuyingTime]                VARCHAR (50)  NULL,
+    [IsNew]                     BIT           NULL,
+    [EntryDate]                 DATETIME      NULL,
+    [CarYear]                   VARCHAR (50)  NULL,
+    [CarDetails]                VARCHAR (100) NULL,
+    [CarVersion]                VARCHAR (50)  NULL,
+    [Comments]                  VARCHAR (500) NULL,
+    [TC_InquirySourceId]        TINYINT       NULL
+);
+

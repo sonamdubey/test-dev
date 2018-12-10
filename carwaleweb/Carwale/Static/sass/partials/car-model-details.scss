@@ -1,0 +1,64 @@
+﻿@import "../mixins/utils";
+@import "../mixins/text";
+@import "../mixins/sprites";
+@import "../mixins/vendor-utils";
+
+.price-in-city {
+	.price-breakup {
+		box-shadow: none;
+		margin-top: 0;
+	}
+}
+
+.model-details {
+	padding: 6px 20px;
+
+	&.model-details--with-image {
+		background-color: map-get($color-map, 'white');
+		border-top: 1px solid map-get($color-map, 'white-smoke-border');
+		border-bottom: 1px solid map-get($color-map, 'white-smoke-border');
+	}
+}
+
+.model-details__image {
+	width: 30%;
+	max-width: 130px;
+	display: table-cell;
+	vertical-align: middle;
+
+	> img {
+		width: 100%;
+	}
+}
+
+.model-details__content {
+	font-size: 16px;
+	font-weight: $font-bold;
+	display: table;
+	padding: 10px 20px;
+	position: relative;
+	background: map-get($color-map, 'white');
+	border-top: 1px solid map-get($color-map, 'white-smoke-border');
+	border-bottom: 1px solid map-get($color-map, 'white-smoke-border');
+}
+
+.model-details__name {
+	font-size: 16px;
+	color: map-get($color-map, 'charcoal');
+	width: 57%;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.model-details__desc {
+	font-size: 13px;
+	padding: 10px 20px;
+	margin-bottom: 1px;
+	background-color: map-get($color-map, 'white');
+}
+
+@media only screen and (max-width: 320px) {
+	.model-details__modelName {
+		max-width: 82%;
+	}
+}

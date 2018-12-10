@@ -1,0 +1,489 @@
+﻿@model Carwale.DTOs.CarData.CompareDetailsModel
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using System.Linq;
+@using System.Configuration;
+@using Carwale.Entity.Enum;
+@{
+    ViewBag.Title = Model.Title + " - Carwale";// "Compare Mercedes-Benz GLC vs Jeep Wrangler - CarWale";
+    ViewBag.Description = Model.Description;// "Compare Mercedes-Benz GLC vs Jeep Wrangler at Carwale. Compare GLC and Wrangler Prices, Mileage, Features, Specs, Colours and much more.";
+    ViewBag.Canonical = "https://www.carwale.com" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString().Split('?')[0].Replace("/m/", "/");
+    Layout = "~/views/shared/m/_MLayoutV2.cshtml";
+    ViewBag.AdId = "1419227721763";
+    ViewBag.CustomJS = "~/Views/StaticPartials/m/MCompareDetailScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MCompareDetailCss.cshtml";
+    
+    ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+       googletag.cmd.push(function () {
+        googletag.defineSlot('/1017752/" + Model.ExperimentAdSlot.Name + "'," + Model.ExperimentAdSlot.Size + ","+ @"'div-gpt-ad-1534140777681-0').addService(googletag.pubads());
+        googletag.defineSlot('/1017752/CarWale_Mobile_Comparecar_320x70', [320, 70], 'div-gpt-ad-1422613980999-0').addService(googletag.pubads());
+		googletag.defineSlot('/1017752/CarWale_Mobile_Comparecar_300x250', [300, 250], 'div-gpt-ad-1520844269592-0').addService(googletag.pubads());
+        googletag.pubads().setTargeting('Mcompare', [" + string.Join(",", Model.CarData.CarDetails.Select(x => string.Format("'{0}'", x.ModelName))) + @"]);
+		googletag.pubads().setTargeting('City', '" + CookiesCustomers.MasterCity + @"');
+		googletag.pubads().setTargeting('Section', '" + string.Join(",", Model.CarData.CarDetails.Select(x => x.ModelName)) + @"');
+		googletag.pubads().collapseEmptyDivs();
+		googletag.pubads().enableSingleRequest();
+		googletag.enableServices();
+	});
+    </script>";
+}
+<div id="divAdBar">
+        @Carwale.UI.HtmlHelpers.Helpers.GetAdBar("1534140777681", 320, 0, 20, 10)
+</div>
+<div class="divVersion hide">
+    <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete">
+        <div class="filterBackArrow" onclick="selectVersion.closeWindow(this)">
+            <span class="cwmsprite back-long-arrow-left-white"></span>
+        </div>
+
+        <div class="filterTitle">Select Version</div>
+        <div class="clear"></div>
+    </div>
+    <div class="popup_content">
+        <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+            <ul data-role="listview" type="ddlVersion1"></ul>
+        </div>
+    </div>
+</div>
+<div data-role="page">
+    <!--Main container starts here-->
+    <div id="main-container">
+        <div class="position-rel" style="padding: 0px 10px;margin-top: 10px; margin-bottom: 10px;">
+            <h1 class="pgsubhead m-special-skin-text" style="display: inline-block;">Compare Cars</h1>
+            <a href="/m/comparecars/" class="edit-compare" style="float: right;" onclick="window.location.href = this.href + '@Html.Raw(Model.CarData.CarDetails.Count>1? string.Format("?car1={0}&car2={1}",Model.CarData.CarDetails[0].VersionId, Model.CarData.CarDetails[1].VersionId):string.Empty)';return false;">
+                Edit Compare
+            </a>
+        </div>
+            <div class="clearDiv"></div>
+
+        <div style="position: static;">
+            <div id="divFloat" class="floating__compare-summary">
+                <div style="padding: 0px 0px; position: static;">
+                    <div type="divCarImage" id="divFloatCarHeader">
+                        @{ int index = 1;
+
+                         foreach (var car in Model.CarData.CarDetails)
+                         {
+                            <div class="compareCarContainer position-rel">
+                                <div class="compareCarBox compareCarBorder-Rt">
+                                    <div class="divImage"></div>
+                                    <div class="new-line5">
+                                        <a class="model-city-link text-link"
+                                           data-ga-action="CompareCarsCardClick_@(CookiesCustomers.MasterCityId>0?CookiesCustomers.MasterCity:"nocity")" data-ga-label="@car.MakeName @car.ModelName"
+                                           data-redirect-url="@ManageCarUrl.CreateModelUrl(car.MakeName,car.MaskingName)?versionId=@car.VersionId" style="text-decoration: none; font-weight: bold;" href="@ManageCarUrl.CreateModelUrl(car.MakeName,car.MaskingName)">
+                                            @car.MakeName @car.ModelName
+                                        </a>
+                                    </div>
+                                    <div class="new-line5" id="compareBoxCarMake">
+                                        <span id="@car.ModelId" type="@index" maskingname="@car.MaskingName" onclick="selectVersion.apiCall.getVersion(selectVersion.bindVersions.selectVersionBinding, this)">
+                                            <span>@car.VersionName</span>
+                                            <span class="cw-m-sprite select-arrow-down margin-left10" style="position: relative;"></span>
+                                        </span>
+                                    </div>
+
+                                    @Html.Raw(Model.CarData.FeaturedCarData != null && Model.CarData.FeaturedCarData.FeaturedVersionId == Convert.ToInt32(car.VersionId) && !string.IsNullOrEmpty(Model.CarData.FeaturedCarData.ExternalLinkTracker) && car.IsNew ? "<div class=\"new-line5\"><a href=" + Model.CarData.FeaturedCarData.ExternalLinkTracker + " target=\"_blank\" data-role=\"click-tracking\" data-event=\"CWInteractive\" data-action=" + "'Click_" + car.MaskingName + "'" + " data-cat=\"CompareCars\" data-label=" + "'" + Model.TargetLabel + "'" + ">" + (string.IsNullOrEmpty(Model.CarData.FeaturedCarData.ExternalLinkText) ? "Explore" : Model.CarData.FeaturedCarData.ExternalLinkText) + " <i class=\"fa fa-external-link text-lighter-grey\"></i></a></div>" : "")
+
+                                    @if (car.IsNew && car.DiscountSummary != null && (car.DiscountSummary.Savings > 0 || (car.DiscountSummary.Savings == 0 && !String.IsNullOrWhiteSpace(car.DiscountSummary.Offers))))
+                                    {
+                                        <div id="divAdvantageLink" class="text-link margin-top10 position-rel advantageSlugCC">
+                                            @if (CookiesCustomers.MasterCityId < 1)
+                                            {
+                                                <a href="javascript:void(0)" id="advantageLink" data-model="@car.ModelId" data-adv-popup="showAdvantageCityPopup" data-role="click-tracking" class="text-link margin-bottom5 text-link font14 text-bold" data-event="CWInteractive" data-action="deals_mobile" data-label="Comparepagemob_link" data-versionid="@car.VersionId" data-advantage-link="/m/@Format.RemoveSpecialCharacters(car.DiscountSummary.Make.MakeName)-cars/@car.MaskingName/advantage/?src=d02&versionid=@car.VersionId&cityid=" data-cat="dealsaccess_mobile">
+                                                    Offer available
+                                                </a>}
+                                            else
+                                            {
+                                                <a href="/m/@Format.RemoveSpecialCharacters(car.DiscountSummary.Make.MakeName)-cars/@car.MaskingName/advantage/?src=d02&cityid=@car.DiscountSummary.City.CityId&versionid=@car.DiscountSummary.Version.VersionId" id="advantageLink" class="text-link margin-bottom5 text-link font14 text-bold" data-label="Comparepagemob_link" data-role="click-tracking" data-event="CWInteractive" data-action="deals_mobile" data-cat="dealsaccess_mobile">@Html.Raw(car.DiscountSummary.Savings > 0 ? "Save ₹ " + Format.FormatNumericCommaSep(car.DiscountSummary.Savings.ToString()) : "Offer available")</a>}
+                                        </div>}
+                                    @if (CookiesCustomers.MasterCityId < 0 && car.IsNew)
+                                    { <span id="text-link font13" class="select-city-link" data-ga-action="CompareCars_ShowPriceInMyCityClick" data-ga-label="" data-redirect-url="@ManageCarUrl.CreateModelUrl(car.MakeName,car.MaskingName)?versionId=@car.VersionId"><a href="javascript:void(0)">@(ConfigurationManager.AppSettings["ShowPriceInCityText"])</a></span>}
+                                </div>
+                            </div> index++;
+                         }}
+                        <div class="clearDiv"></div>
+                    </div>
+                    @if (Model.ComparisonData.IsNotNullOrEmpty() && Model.ComparisonData.Count > 1)
+                    {
+                        <div class="divCompareCarMenu" id="divCompareCarFloatMenu">
+                            <ul>
+                                <li class="listActive" contenttype="CD0" style="width: 33%;">
+                                    <div style="padding: 10px 0px;">Overview</div>
+                                </li>
+                                <li class="list " contenttype="CD2" style="width: 33%;">
+                                    <div style="padding: 10px 0px;" class="compareCarBorder-Rt compareCarBorder-Lt">Features</div>
+                                </li>
+                                <li class="list" contenttype="CD1" style="width: 34%;">
+                                    <div style="padding: 10px 0px;">Specifications</div>
+                                </li>
+                                <li style="clear: both;">
+                            </ul>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div id="divOriginal">
+                <div class="compare-car-summary" type="divCarImage" id="divCarHeader">
+                    @{ index = 1;
+                     foreach (var car in Model.CarData.CarDetails)
+                     {
+                        <div class="compareCarContainer position-rel">
+                            <div class="compareCarBox">
+                                <div class="divImage model-city-link"
+                                     data-ga-action="CompareCarsCardClick_@(CookiesCustomers.MasterCityId>0?CookiesCustomers.MasterCity:"nocity")"
+                                     data-ga-label="@car.MakeName @car.ModelName"
+                                     data-redirect-url="@ManageCarUrl.CreateModelUrl(car.MakeName,car.MaskingName)?versionId=@car.VersionId" id="divImgContainer">
+                                    <a style="color: black; text-decoration: none; font-weight: bold;" href="@ManageCarUrl.CreateVersionUrl(car.MakeName, car.MaskingName, car.VersionMaskingName,true)">
+                                        <img class="lazy" src="https://imgd.aeplcdn.com/110x61/cw/cars/no-cars.jpg" data-original="@ImageSizes.CreateImageUrl(car.HostURL,ImageSizes._110X61,car.OriginalImgPath,85)">
+                                    </a>
+                                </div>
+                                <div class="new-line5" id="divCarMake">
+                                    <div class="new-line5">
+                                        <a class="model-city-link text-link"
+                                           data-ga-action="CompareCarsCardClick_@(CookiesCustomers.MasterCityId>0?CookiesCustomers.MasterCity:"nocity")"
+                                           data-ga-label="@car.MakeName @car.ModelName"
+                                           data-redirect-url="@ManageCarUrl.CreateModelUrl(car.MakeName,car.MaskingName)?versionId=@car.VersionId" style="text-decoration: none; font-weight: bold;" href="@ManageCarUrl.CreateModelUrl(car.MakeName,car.MaskingName)">
+                                            @car.MakeName @car.ModelName
+                                        </a>
+                                    </div>
+                                    <span id="@car.ModelId" type='@index' maskingname="@car.MaskingName" onclick="selectVersion.apiCall.getVersion(selectVersion.bindVersions.selectVersionBinding, this)">
+                                        <span>@car.VersionName</span>
+                                        <span class="cw-m-sprite select-arrow-down margin-left10" style="position: relative;"></span>
+                                    </span>
+                                    @Html.Raw(Model.CarData.FeaturedCarData != null && Model.CarData.FeaturedCarData.FeaturedVersionId == Convert.ToInt32(car.VersionId) && !string.IsNullOrEmpty(Model.CarData.FeaturedCarData.ExternalLinkTracker) ? "<div class=\"new-line5\"><a href=" + Model.CarData.FeaturedCarData.ExternalLinkTracker + " target=\"_blank\" data-role=\"click-tracking\" data-event=\"CWInteractive\" data-action=" + "'Click_" + car.MaskingName + "'" + " data-cat=\"CompareCars\" data-label=" + "'" + Model.TargetLabel + "'" + ">" + (string.IsNullOrEmpty(Model.CarData.FeaturedCarData.ExternalLinkText) ? "Explore" : Model.CarData.FeaturedCarData.ExternalLinkText) + " <i class=\"fa fa-external-link text-lighter-grey\"></i></a></div>" : "")
+                                </div>
+                                <div class="new-line5">
+                                    <span>@ConfigurationManager.AppSettings["rupeeSymbol"] @FormatPrice.GetFormattedPriceV2(car.PriceOverview.Price.ToString())</span>
+                                    <div class='font13 @Html.Raw(Convert.ToInt32(car.PriceOverview.PriceStatus) == (int)Carwale.Entity.PriceBucket.PriceNotAvailable ? "oliveText" : Convert.ToInt32(car.PriceOverview.PriceStatus) == (int)Carwale.Entity.PriceBucket.CarNotSold ? "redText" : "")'>
+                                        @car.PriceOverview.PriceLabel @Html.Raw(Convert.ToInt32(car.PriceOverview.PriceStatus) == (int)Carwale.Entity.PriceBucket.HaveUserCity ? ", " + car.PriceOverview.City.CityName : "")
+                                        <span>@Html.Raw(Convert.ToInt32(car.PriceOverview.PriceStatus) > (int)Carwale.Entity.PriceBucket.HaveUserCity ? "<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + car.PriceOverview.ReasonText + "</p></div>" : "")</span>
+                                    </div>
+                                </div>
+                                @if (car.IsNew && car.DiscountSummary != null && (car.DiscountSummary.Savings > 0 || (car.DiscountSummary.Savings == 0 && !String.IsNullOrWhiteSpace(car.DiscountSummary.Offers))))
+                                {
+                                    <div id="divAdvantageLink" class="text-link margin-top10 position-rel advantageSlugCC">
+                                        @if (CookiesCustomers.MasterCityId < 1)
+                                        {
+                                            <a href="javascript:void(0)" id="advantageLink" data-model="@car.ModelId" data-adv-popup="showAdvantageCityPopup" data-role="click-tracking" class="text-link margin-bottom5 text-link font14 text-bold" data-event="CWInteractive" data-action="deals_mobile" data-label="Comparepagemob_link" data-versionid="@car.VersionId" data-advantage-link="/m/@Format.RemoveSpecialCharacters(car.DiscountSummary.Make.MakeName)-cars/@car.MaskingName/advantage/?src=d02&versionid=@car.VersionId&cityid=" data-cat="dealsaccess_mobile">
+                                                Offer available
+                                            </a>}
+                                        else
+                                        {
+                                            <a href="/m/@Format.RemoveSpecialCharacters(car.DiscountSummary.Make.MakeName)-cars/@car.MaskingName/advantage/?src=d02&cityid=@car.DiscountSummary.City.CityId&versionid=@car.DiscountSummary.Version.VersionId" id="advantageLink" class="text-link margin-bottom5 text-link font14 text-bold" data-label="Comparepagemob_link" data-role="click-tracking" data-event="CWInteractive" data-action="deals_mobile" data-cat="dealsaccess_mobile">@Html.Raw(car.DiscountSummary.Savings > 0 ? "Save ₹ " + Format.FormatNumericCommaSep(car.DiscountSummary.Savings.ToString()) : "Offer available")</a>}
+                                    </div>}
+
+                                @if (CookiesCustomers.MasterCityId < 0 && car.IsNew)
+                                { <span id="text-link font13" class="select-city-link" data-ga-action="CompareCars_ShowPriceInMyCityClick" data-ga-label="" data-redirect-url="@ManageCarUrl.CreateModelUrl(car.MakeName,car.MaskingName)?versionId=@car.VersionId"><a href="javascript:void(0)">@ConfigurationManager.AppSettings["ShowPriceInCityText"]</a></span> }
+                            </div>
+                        </div>index++;
+                     }}
+                    <div class="clearDiv"></div>
+                </div>
+                <aside>
+                    <!-- CarWale_Mobile_Comparecar_320x70 -->
+                    <div id='div-gpt-ad-1422613980999-0' style='margin: 10px auto 0 auto;' class="text-center margin-top10">
+                        <script type='text/javascript'>
+                            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1422613980999-0'); });
+                        </script>
+                    </div>
+                </aside>
+                @if (Model.ComparisonData.IsNotNullOrEmpty())
+                {
+                    <div class="new-line10 divCompareCarMenu" id="divCompareCarMenu">
+                        <ul>
+                            <li class="listActive" style="width: 33%;" contenttype="CD0">
+                                <div style="padding: 10px 0px;">Overview</div>
+                            </li>
+                            <li class="list" style="width: 33%;" contenttype="CD2">
+                                <div style="padding: 10px 0px;" class="compareCarBorder-Rt compareCarBorder-Lt">Features</div>
+                            </li>
+                            <li class="list" contenttype="CD1" style="width: 34%;">
+                                <div style="padding: 10px 0px;">Specifications</div>
+                            </li>
+                            <li style="clear: both;">
+                        </ul>
+                    </div>
+                }
+            </div>
+            @if (Model.ComparisonData.IsNotNullOrEmpty())
+            {
+                <div id="CD0" class="tbl-wrapper">
+                    <table class="table" cellpadding="0" cellspacing="0">
+                        <tbody>
+
+                            @if (Model.Location.CityId > 0) 
+                            { 
+                                <tr class="compareCarItemContainer">
+                                    <td colspan="2">Price and Finance</td>
+                                </tr>
+                                <tr>
+                                    @for (int carNum = 0; carNum < Model.CarData.CarDetails.Count; carNum++)
+                                    {
+                                        <td style="width: 50%;" class="col-design compareCarItemBorder-Rt">
+                                            @ConfigurationManager.AppSettings["rupeeSymbol"] @FormatPrice.GetFormattedPriceV2(Model.CarData.CarDetails[carNum].PriceOverview.Price.ToString())
+                                            <br /><span>@Model.CarData.CarDetails[carNum].PriceOverview.PriceLabel</span>
+
+                                            @if (Model.EmiCalculatorModelData != null && Model.EmiCalculatorModelData.Count > 0)
+                                            {
+                                                var emiData = Model.EmiCalculatorModelData[carNum];
+
+                                                if (emiData != null)
+                                                {
+                                                    <div class="customizeEmiContainer__js" data-divtxtid="@(emiData.UniqueKey)"
+                                                         id="@(emiData.UniqueKey)" data-versionid="@(Model.CarData.CarDetails[carNum].VersionId)"
+                                                         data-makename="@(emiData.MakeName)" data-modelname="@(emiData.ModelName)"
+                                                         data-versionname="@(emiData.VersionName)"
+                                                         data-downpaymentdefaultvalue="@(emiData.DownPaymentDefaultValue)"
+                                                         data-downpaymentminvalue="@(emiData.DownPaymentMinValue)"
+                                                         data-downpaymentmaxvalue="@(emiData.DownPaymentMaxValue)"
+                                                         data-campaign-template="@(emiData.DealerAd != null ? (emiData.DealerAd.PageProperty.Count > 0 ? emiData.DealerAd.PageProperty[0].Template.HTML : "") : "")">
+                                                        <div class="emi-cacl-result">
+                                                            <span class=" customize-emi text-link" id="@(Model.CarData.CarDetails[carNum].VersionId)">
+                                                                <span class="text-underline">EMI <span class="emi-amount-text"></span></span>
+                                                            </span>
+                                                            <span class="info-icon-container emical-tooltip emiTooltip__js class-ad-tooltip">
+                                                                <span class="info-icon deals-car-sprite inline-block"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="emiTooltip__js" data-tooltiptextid="@(emiData.UniqueKey)">
+                                                        <div class="emi-cal-info-content hide font12 customize-emi__info emiTooltipContent__js">
+                                                            EMI Calculated basis <span class="emi-interest-text">9.5</span>% interest rate and loan tenure of <span class="emi-tenure-text">5</span><span class="emi-cust-final-text hide"> as customised by you.</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                            @for (int i = 0; i < Model.ComparisonData[0].Overview.Count; i++)
+                            {
+                                int carNumber = -1;
+
+                                <tr class="compareCarItemContainer">
+                                    <td colspan="2">@Model.ComparisonData[0].Overview[i].Name.Replace("~", "") @Html.Raw((Model.ComparisonData[0].Overview[i].UnitType == "CUSTOM" || Model.ComparisonData[0].Overview[i].UnitType == "BIT" || Model.ComparisonData[0].Overview[i].UnitType == "") ? "" : "(" + Model.ComparisonData[0].Overview[i].UnitType + ")")</td>
+                                </tr>
+                                <tr>
+                                    @for (int ver = 0; ver < Model.CarData.ValidVersionIds.Count; ver++)
+                                    {
+                                        carNumber++;
+                                        <td class="col-design compareCarItemBorder-Rt">
+                                            @Html.Raw(CommonOpn.GetFormatedValue(Model.ComparisonData[ver].Overview[i].Value ?? string.Empty, Model.ComparisonData[ver].Overview[i].DataTypeId))
+                                            @if (Model.ComparisonData[0].Overview[i].ItemMasterId == "255")
+                                            {
+                                                <br />
+                                                if (Model.VersionsWithTyres.Contains(Model.CarData.CarDetails[carNumber].VersionId))
+                                                {
+                                                    <a href="@Format.FormatTyresURL(string.Format("/m/tyres/{0}-{1}-tyres/?cmids={2}&year={3}&versionid={4}",Format.FormatURL(@Model.CarData.CarDetails[carNumber].MakeName),@Model.CarData.CarDetails[carNumber].MaskingName,@Model.CarData.CarDetails[carNumber].ModelId,@DateTime.Now.Year.ToString(),@Model.CarData.CarDetails[carNumber].VersionId))" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-action='Source of traffic' data-cat="Tyres_Section_m" data-label="@string.Format("Comparison Page Click_{0}_{1}",@Model.CarData.CarDetails[carNumber].ModelName,@Model.CarData.CarDetails[carNumber].VersionName)">View all tyres</a>
+                                                }
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div id="CD1" class="tbl-wrapper" style="display: none;">
+                    @for (int i = 0; i < Model.ComparisonData[0].Specs.Count; i++)
+                    {
+                        if (Model.ComparisonData[0].Specs[i].Items != null && Model.ComparisonData[0].Specs[i].Items.Count > 0)
+                        {
+                            <table class="table" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr style="font-weight: bold;">
+                                        <td style="text-align: left; font-size: 14px;" class="subCategoryBorder">
+                                            @(Model.ComparisonData[0].Specs[i].Name == "Suspensions, Brakes, Steering & Tyres" ? "Suspensions, Brakes & Steering" : Model.ComparisonData[0].Specs[i].Name)
+                                        </td>
+                                        <td class="subCategoryBorder">
+                                            <div class="rightMinus" onclick="BoxClicked(this);"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <table class="table tblItem" cellpadding="0" cellspacing="0">
+                                                <tbody>
+                                                    @for (int item = 0; item < Model.ComparisonData[0].Specs[i].Items.Count; item++)
+                                                    {
+                                                        int carNumber = -1;
+                                                        <tr class="compareCarItemContainer" itemmasterid="@Model.ComparisonData[0].Specs[i].Items[item].ItemMasterId">
+                                                            <td colspan="2">@Model.ComparisonData[0].Specs[i].Items[item].Name.Replace("~", "") @((Model.ComparisonData[0].Specs[i].Items[item].UnitType == "CUSTOM" || Model.ComparisonData[0].Specs[i].Items[item].UnitType == "BIT" || Model.ComparisonData[0].Specs[i].Items[item].UnitType == "") ? "" : "(" + Model.ComparisonData[0].Specs[i].Items[item].UnitType + ")")</td>
+                                                        </tr>
+                                                        <tr itemmasterid="@Model.ComparisonData[0].Specs[i].Items[item].ItemMasterId">
+                                                            @for (int val = 0; val < Model.CarData.ValidVersionIds.Count; val++)
+                                                            {
+                                                                carNumber++;
+                                                                <td style="width: 50%;" class="col-design compareCarItemBorder-Rt">
+                                                                    @Html.Raw(CommonOpn.GetFormatedValue(Model.ComparisonData[val].Specs[i].Items[item].Value, Model.ComparisonData[val].Specs[i].Items[item].DataTypeId))
+                                                                    @if (Model.ComparisonData[0].Specs[i].Items[item].ItemMasterId == "255")
+                                                                    {
+                                                                        <br />
+                                                                        if (Model.VersionsWithTyres.Contains(Model.CarData.CarDetails[carNumber].VersionId))
+                                                                        {
+                                                                            <a href="@Format.FormatTyresURL(string.Format("/m/tyres/{0}-{1}-tyres/?cmids={2}&year={3}&versionid={4}", Format.FormatURL(Model.CarData.CarDetails[carNumber].MakeName), Model.CarData.CarDetails[carNumber].MaskingName, Model.CarData.CarDetails[carNumber].ModelId, DateTime.Now.Year.ToString(), Model.CarData.CarDetails[carNumber].VersionId))" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-action='Source of traffic' data-cat="Tyres_Section_m" data-label="@string.Format("Comparison Page Click_{0}_{1}", Model.CarData.CarDetails[carNumber].ModelName, Model.CarData.CarDetails[carNumber].VersionName)">View all tyres</a>
+                                                                        }
+                                                                    }
+                                                                </td>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+                    }
+                </div>
+                <div id="CD2" class="tbl-wrapper" style="display: none;">
+                    @for (int i = 0; i < Model.ComparisonData[0].Features.Count; i++)
+                    {
+                        if (Model.ComparisonData[0].Features[i].Items != null && Model.ComparisonData[0].Features[i].Items.Count > 0)
+                        {
+                            <table class="table" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr style="font-weight: bold;">
+                                        <td style="text-align: left; font-size: 14px;" class="subCategoryBorder">@Model.ComparisonData[0].Features[i].Name</td>
+                                        <td class="subCategoryBorder">
+                                            <div class="rightMinus" onclick="BoxClicked(this);"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <table class="table tblItem" cellpadding="0" cellspacing="0">
+                                                <tbody>
+                                                    @for (int item = 0; item < Model.ComparisonData[0].Features[i].Items.Count; item++)
+                                                    {
+                                                        <tr class="compareCarItemContainer">
+                                                            <td colspan="2">@Model.ComparisonData[0].Features[i].Items[item].Name.Replace("~", "") @((Model.ComparisonData[0].Features[i].Items[item].UnitType == "CUSTOM" || Model.ComparisonData[0].Features[i].Items[item].UnitType == "BIT" || Model.ComparisonData[0].Features[i].Items[item].UnitType == "") ? "" : "(" + Model.ComparisonData[0].Features[i].Items[item].UnitType + ")")</td>
+                                                        </tr>
+                                                        <tr>
+                                                            @for (int version = 0; version < Model.CarData.ValidVersionIds.Count; version++)
+                                                            {
+                                                                <td style="width: 50%;" class="col-design compareCarItemBorder-Rt">@Html.Raw(CommonOpn.GetFormatedValue(Model.ComparisonData[version].Features[i].Items[item].Value, Model.ComparisonData[version].Features[i].Items[item].DataTypeId))</td>}
+                                                        </tr>}
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+                    }
+                </div>
+            }
+        </div>
+        @if (Model.ShowCampaignSlab)
+        {
+            short position = 0;
+            foreach (var car in Model.CarData.CarDetails)
+            {
+                position++;
+                <div class="grid-12 margin-top20 margin-bottom20 grid-6 text-center">
+                    @if (car.SponsoredCampaign != null)
+                    {
+                        <span class="margin-bottom5 margin-left10 font14 btn-white btn-xs" id="divEmiAssistance"
+                              dealercampaignexist="true" sourceclick="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "ComparePageMsite-CampaignWithCity", (short)LeadSources.PQ, (short)Platform.CarwaleMobile)))" leadinquirysource="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "ComparePageMsite-CampaignWithCity", (short)LeadSources.PQ, (short)Platform.CarwaleMobile)))"
+          page="ComparePage" data-role="click-impression"
+                              data-event="CWNonInteractive" data-action="compare_button_msite" data-cat="compare_button_msite" data-label="@string.Format("{0}_{1}_{2}_{3}", car.MakeName, car.MaskingName, (string.IsNullOrWhiteSpace(CookiesCustomers.MasterCity)) ? "No_city": CookiesCustomers.MasterCity , position)" data-cardetails='{"carMakeId":"@car.MakeId", "carMakeName":"@car.MakeName", "carMaskingName":"@car.MaskingName", "carModelName":"@car.ModelName", "carModelId":"@car.ModelId"}' data-versionid="@car.VersionId" data-versionname="@car.VersionName"
+                              data-cityid="@(CookiesCustomers.MasterCityId)" data-sponsordlrname="@car.SponsoredCampaign.Campaign.ContactName" data-campaignid="@car.SponsoredCampaign.Campaign.Id" data-leadpanel="@car.SponsoredCampaign.Campaign.LeadPanel" data-showemail="@car.SponsoredCampaign.Campaign.IsEmailRequired" data-mutualleads="@car.SponsoredCampaign.Campaign.MutualLeads"
+          data-predictionScore="@(car.SponsoredCampaign.Campaign.PredictionData != null ? car.SponsoredCampaign.Campaign.PredictionData.Score : '0')"
+                              data-predictionlabel="@(car.SponsoredCampaign.Campaign.PredictionData != null ? car.SponsoredCampaign.Campaign.PredictionData.Label : "")"
+          data-dealerbustype="@(car.SponsoredCampaign.Campaign.Type)" data-dealeradminid="@(car.SponsoredCampaign.Campaign.DealerAdminId)">
+                            Get Offers
+                        </span>
+
+                    }
+                    else if (car.ShowCampaignLink || (CookiesCustomers.MasterCityId <= 0 && car.IsNew))
+                    {
+                        <span class="margin-bottom5 margin-left10 font14 btn-white btn-xs" id="divEmiAssistance"
+                              dealercampaignexist="false" sourceclick="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "ComparePageMsite-CampaignWithoutCity", (short)LeadSources.PQ, (short)Platform.CarwaleMobile)))" leadinquirysource="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "ComparePageMsite-CampaignWithoutCity", (short)LeadSources.PQ, (short)Platform.CarwaleMobile)))"
+                          page="ComparePage" data-role="click-impression"
+                              data-event="CWNonInteractive" data-action="compare_button_msite" data-cat="compare_button_no_area_msite" data-label="@string.Format("{0}_{1}_{2}_{3}", car.MakeName, car.MaskingName, (string.IsNullOrWhiteSpace(CookiesCustomers.MasterCity)) ? "No_city": CookiesCustomers.MasterCity , position)" data-cardetails='{"carMakeId":"@car.MakeId", "carMakeName":"@car.MakeName", "carMaskingName":"@car.MaskingName", "carModelName":"@car.ModelName", "carModelId":"@car.ModelId"}'
+                              data-versionid="@car.VersionId" data-versionname="@car.VersionName" data-cityid="@(CookiesCustomers.MasterCityId)" data-showemail="False" data-mutualleads="False">
+                            Get Offers
+                        </span>
+                    }
+                </div>
+            }
+        }
+        <div class="clear"></div>
+        @{ var isColorAvailable = Model.CarData.Colors != null && Model.CarData.Colors.Any(x => x.Count > 0);}
+        @if (isColorAvailable)
+        {
+            <div class="box-top new-line5" style="padding: 0px 0px;" id="divCarColourName">
+                @foreach (var car in Model.CarData.CarDetails)
+                {
+                    <div class="compareCarContainer">
+                        <div style="text-align: center; padding: 5px;">
+                            <div class="font16">Colours for @car.MakeName @car.ModelName</div>
+                        </div>
+                    </div>}
+                <div class="clearDiv"></div>
+            </div>
+
+            <div class="box-bot" style="padding: 0px 0px;" type="divCarImage" id="divCarColour">
+                @foreach (var car in Model.CarData.Colors)
+                {
+                    <div class="compareCarContainer">
+                        <div class="compareCarBox" id="">
+                            @foreach (var color in car)
+                            {
+                                <div class="colorBox">
+                                    @{string[] dual = (color.Value ?? string.Empty).Split(',');
+                                    foreach (var value in dual)
+                                    {
+                                        <span class="show" style='background-color: #@value.Trim();height:@Math.Floor(100.0/dual.Length)%;'></span>}}
+                                </div>
+                                <div class="new-line">@color.Name</div>}
+                        </div>
+                    </div>}
+                <div class="clearDiv"></div>
+                <div class="compareCarContainer text-center font11">
+                    @if (Model.CarData.CarDetails[0].ShowAllColorsLink)
+                    {
+                        <a href="@Carwale.UI.PresentationLogic.EditorialContent.GetColorUrl(Model.CarData.CarDetails[0].MakeName, Model.CarData.CarDetails[0].MaskingName, null, 0, true)" data-role="click-tracking" class="margin-bottom10 btn-white btn-xs inline-block" data-event="CWInteractive" data-action="compare_car_button" data-label="@Model.CarData.CarDetails[0].MakeName @Model.CarData.CarDetails[0].ModelName" data-cat="msite_colour_linkages"><span data-role="inview-imp" data-cat="msite_colour_linkages" data-label="@Model.CarData.CarDetails[0].MakeName @Model.CarData.CarDetails[0].ModelName" data-action="compare_car_button_impression">View Colour Images</span></a>
+                    }
+                    else
+                    {<span style="visibility:hidden">x</span>}
+                </div>
+                <div class="compareCarContainer text-center font11">
+                    @if (Model.CarData.CarDetails[1].ShowAllColorsLink)
+                    {
+                        <a href="@Carwale.UI.PresentationLogic.EditorialContent.GetColorUrl(Model.CarData.CarDetails[1].MakeName, Model.CarData.CarDetails[1].MaskingName, null, 0, true)" data-role="click-tracking" class="margin-bottom10 btn-white btn-xs inline-block" data-event="CWInteractive" data-action="compare_car_button" data-label="@Model.CarData.CarDetails[1].MakeName @Model.CarData.CarDetails[1].ModelName" data-cat="msite_colour_linkages"><span data-role="inview-imp" data-cat="msite_colour_linkages" data-label="@Model.CarData.CarDetails[1].MakeName @Model.CarData.CarDetails[1].ModelName" data-action="compare_car_button_impression">View Colour Images</span></a>
+                    }
+                </div>
+                <div class="clearDiv"></div>
+            </div>
+        }
+        @if(!string.IsNullOrWhiteSpace(Model.Summary))
+        {
+            <div id="compareCars"class="content-box-shadow content-inner-block-10 margin-top10">
+                <p class="show">@Model.Summary</p>
+            </div>
+        }
+        <a href="/m/comparecars/all/" class="normal">
+            <div class="box new-line5">
+                <table style="width: 100%; border: 0px;" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <div class="head-big">More Comparisons</div>
+                        </td>
+                        <td class="aro-par" style="font-size: 20px; color: red;">&raquo;</td>
+                    </tr>
+                </table>
+            </div>
+        </a>
+    </div>
+    <!--Main container ends here-->
+</div>
+<div id='div-gpt-ad-1520844269592-0' style='height: 250px; width: 300px; margin: 20px auto 10px auto;'>
+    <script>
+        googletag.cmd.push(function () { googletag.display('div-gpt-ad-1520844269592-0'); });
+    </script>
+</div>
+<div id="br-cr"><a href="/m/" class="normal m-special-skin-text">Home</a> &rsaquo;<a href="/m/comparecars/" class="normal m-special-skin-text"> Compare Cars</a><span class="lightgray m-special-skin-text"> &rsaquo; @Model.Title</span></div>
+<div id="root-container" class="emi-calculator-root"><div id="root"></div></div>

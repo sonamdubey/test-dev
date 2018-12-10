@@ -1,0 +1,111 @@
+﻿@using Carwale.UI.Common;
+@using System.Configuration;
+@using Carwale.Utility;
+
+@{
+    ViewBag.Title = "New Car On-Road Price Quote";
+    ViewBag.Description = "Know On-Road Price of any new car in India. On-road price of a car includes ex-showroom price of the car in your city, insurance charges. road-tax, registration charges, handling charges etc. Finance option is also provided so that you can get a fair idea of EMI and down-payment.";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MPriceQuoteLandingCss.cshtml";
+    ViewBag.AdId = "1435297201507";
+    ViewBag.DefineAdSlots =
+      @"<script type='text/javascript'>
+            var AdSlots = {};
+            googletag.cmd.push(function () {
+                googletag.pubads().disableInitialLoad();
+                googletag.pubads().setCentering(true);
+                AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-0'] = googletag.defineSlot('/1017752/CarWale_Mobile_ROS_300x250', [300, 250], 'div-gpt-ad-1435297201507-0').addService(googletag.pubads());
+                googletag.pubads().setTargeting('City', 'Select City');
+		        googletag.pubads().setTargeting('Section', 'UsedCarValuation');
+                googletag.pubads().collapseEmptyDivs(true);
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+            });
+        </script>";
+    Layout = "~/views/shared/m/_MLayoutV2.cshtml";             
+}
+
+@section Scripts{
+    <script type="text/javascript" src="/static/m/js/pqlanding.js" defer></script>
+}
+
+@{
+    string upcommingcarplaceholder = System.Configuration.ConfigurationManager.AppSettings["upcommingcarplaceholder"];
+    string _imgHostUrl = CWConfiguration._imgHostUrl;
+    string imageurl = ImageSizes.CreateImageUrl(_imgHostUrl, ImageSizes._0X0, "/cw/static/pricequote-rupee-icon-m.png");
+}
+
+<div class=" btn-abtest m-special-skin-body m-no-bg-color">
+    <div id="blackOut-window-pq" class="blackOut-window hide"></div>
+    <div id="loadingCarImg" class="hide">
+        <div class="m-loading-popup">
+            <span class="m-loading-icon"></span>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <section>
+        <div class="container">
+            <div class="pqlanding-banner-div">
+                <!-- Top banner code starts here -->
+                <h2 class="text-uppercase text-white text-center padding-top20 padding-bottom5">check on-road price</h2>
+                <p class="font12 text-white text-center">
+                    On-Road Price = Ex-showroom price + RTO +<br />
+                    Insurance
+                </p>
+            </div>
+            <!-- Top banner code ends here -->
+        </div>
+    </section>
+    <section class="container">
+        <!-- PQLanding form section code starts here -->
+        <div class="grid-12">
+            <div class="bg-white pqlanding-container content-box-shadow margin-minus30">
+                <div class="pqlanding-form-container text-center padding-left30 padding-right30">
+                    <div class="form-control-box margin-top40 margin-bottom20 position-rel">
+                        <input class="form-control" type="text" placeholder="@(upcommingcarplaceholder) ?? type to select car name" id="pqCarSelect">
+                        <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
+                        <span class="cwmsprite error-icon hide brand-error-icon"></span>
+                        <div class="cw-blackbg-tooltip brand-err-msg hide">Please select car model</div>
+                    </div>
+                    <div class="form-control-box margin-bottom20">
+                        <div id="drpCity_" class="select-city-link form-control text-left disable-div fixed-height" data-bind="attr: { 'cityid': CityId, 'cityname': CityName, 'zoneid': ZoneId, 'zonename': ZoneName }" onclick="openCityPopUp(this, cookieCallBackFunction)">
+                            Select City
+                        </div>
+                        <span class="cwmsprite error-icon city-error-icon hide"></span>
+                        <div class="cw-blackbg-tooltip  city-err-msg hide">Please select your city</div>
+                    </div>
+                    <button class="btn btn-orange text-uppercase margin-bottom40" id="btnGetPQ">check now</button>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </section>
+    <section class="container">
+        <!--  No sawaal only jawaab code starts here -->
+        <div class="grid-12">
+            <h2 class="text-uppercase text-center margin-top30 margin-bottom20 m-special-skin-text">No  Approximate. Only  Accurate.</h2>
+            <div class="pq-nosawaal-container content-inner-block-10 content-box-shadow margin-bottom10">
+                <div class="pq-nosawaal-title-box margin-top20 margin-bottom30 text-center">
+                    <p class="font14">
+                        Getting lost with approximate prices?
+                        <br />
+                        We help you find your way to accurate On-Road Price of any car in your city.
+                    </p>
+                </div>
+                <div class="text-center margin-bottom30 lineheight0">
+                    <div><img src="@(imageurl)"></div>
+                </div>
+                <div class="text-center margin-bottom20">
+                    What’s On-Road Price? <a class="font14" href="/m/faq.aspx">Click here</a>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </section>
+    <div id="divBottomAdBar" class="ad-div">
+        <div id='div-gpt-ad-1435297201507-0' class="text-center margin-top10 margin-bottom20">
+            <script type='text/javascript'>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1435297201507-0'); });
+            </script>
+        </div>
+    </div>
+</div>

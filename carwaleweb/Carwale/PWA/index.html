@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title><%= htmlWebpackPlugin.options.title %></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta charset="UTF-8">
+	<%if(htmlWebpackPlugin.options.keywords){ %>
+		<meta name="keywords" content="<%= htmlWebpackPlugin.options.keywords %>" >
+	<%}%>
+	<%if(htmlWebpackPlugin.options.description){ %>
+		<meta itemprop="description" name="description" content="<%= htmlWebpackPlugin.options.description %>" >
+	<%}%>
+	<link rel="SHORTCUT ICON" href="https://imgd.aeplcdn.com/0x0/cw/design15/carwale.png?v=1.1">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<style type="text/css">*,*:before,*:after{box-sizing:border-box}/*speedometer start*/.speedometer__container{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-box-pack:center;-moz-box-pack:center;-ms-flex-pack:center;-webkit-justify-content:center;justify-content:center;-webkit-box-align:center;-moz-box-align:center;-ms-flex-align:center;-webkit-align-items:center;align-items:center;width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0, 0, 0, 0.7);z-index:10}.speedometer-loader__content{width:80px;height:44px;overflow:hidden;margin:0 auto;text-align:center;position:relative}.speedometer-loader{width:80px;height:40px;overflow:hidden;margin:0 auto;text-align:center;position:relative}.speedometer-loader:before{-webkit-animation:rotateSpeedometer 1.5s ease-in-out 50;animation:rotateSpeedometer 1.5s ease-in-out 50;-webkit-transform:rotate(-225deg);transform:rotate(-225deg);border-radius:50%;content:'';width:80px;height:80px;display:block;position:absolute;top:0;left:0;border-width:6px;border-style:solid;border-top-color:#fff;border-right-color:#fff;border-left-color:transparent;border-bottom-color:transparent}.speedometer-loader:after{border-radius:4px;content:'';width:4px;height:40px;background-color:#fff;position:absolute;left:0;right:0;margin:0 auto;text-align:center;bottom:-20px;-webkit-animation:rotateNeedle 1.5s ease-in-out 50;animation:rotateNeedle 1.5s ease-in-out 50;-webkit-transform:rotate(35deg);transform:rotate(35deg)}.speedometer-needle-circle{border-radius:50%;width:8px;height:8px;display:block;background-color:#fff;position:absolute;left:0;right:0;bottom:0;text-align:center;margin:0 auto}@-webkit-keyframes rotateSpeedometer{10%{-webkit-transform:rotate(-55deg);}30%{-webkit-transform:rotate(-85deg);}50%{-webkit-transform:rotate(-65deg);}70%{-webkit-transform:rotate(-105deg);}80%{border-width:6px;}100%{border-width:5px;}}@keyframes rotateSpeedometer{10%{transform:rotate(-55deg);}30%{transform:rotate(-85deg);}50%{transform:rotate(-65deg);}70%{transform:rotate(-105deg);}80%{border-width:6px;}100%{border-width:5px;}}@-webkit-keyframes rotateNeedle{0%{height:40;}10%{-webkit-transform:rotate(-55deg);}30%{-webkit-transform:rotate(-25deg);}50%{-webkit-transform:rotate(-45deg);}100%{-webkit-transform:rotate(45deg);}}@keyframes rotateNeedle{0%{height:40;}10%{transform:rotate(-55deg);}30%{transform:rotate(-25deg);}50%{transform:rotate(-45deg);}100%{transform:rotate(45deg);}}/*speedometer end*/</style>
+	<script>!function(e,t,a,n,r){e[n]=e[n]||[],e[n].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var g=t.getElementsByTagName(a)[0],m=t.createElement(a),s="dataLayer"!=n?"&l="+n:"";m.async=!0,m.src="//www.googletagmanager.com/gtm.js?id="+r+s,g.parentNode.insertBefore(m,g)}(window,document,"script","dataLayer","GTM-W2Z3ZM");</script>
+</head>
+<body>
+	<div id="root">
+		<div class="speedometer__container">
+			<div class="speedometer-loader__content">
+				<div class="speedometer-loader"></div>
+				<div class="speedometer-needle-circle"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,778 @@
+
+// Core variables and mixins
+@import "scss/partials/utils";
+@import "scss/partials/mixins";
+@import "scss/partials/variables";
+@import "scss/partials/typography";
+@import "scss/partials/button";
+@import "scss/mixins/vendor-prefix";
+@import "scss/mixins/icons";
+@import "../../Static/sass/partials/dealer-cta-slug";
+@import "scss/partials/input";
+
+// Core CSS
+@import 'scss/base';
+
+$isMobile: true;
+
+@import 'scss/header';
+
+// Components
+@import "scss/ripple";
+@include toast-box();
+
+// location
+@import 'scss/autocomplete';
+@import 'scss/location';
+
+// budget
+@import 'scss/budget';
+@import 'scss/rheostat';
+
+@import 'scss/find-car-filter-footer';
+
+// body type
+@import 'scss/body-type';
+@import 'scss/body-type-know-more';
+
+// fuel type
+@import 'scss/fuel-type';
+
+
+// listing
+
+// toolbar
+@import 'scss/listing';
+@import 'scss/filter';
+@import 'scss/refine-result';
+
+@import 'scss/navigation-drawer';
+@import 'scss/campaign-cta';
+@import 'scss/footer';
+
+//loader
+@import "scss/mixins/loader";
+@include oxygen-loader;
+@include speedometer-loader;
+
+.emi-slider-body {
+  input[type="tel"],
+  input[type="text"] {
+    color: color('charcoal');
+  }
+}
+
+.emi-header-container {
+  background-color: color('lynch');
+  color: color('white');
+  padding: 10px 20px 4px;
+  position: relative;
+  z-index: 4;
+}
+
+.vehicle-name {
+  font-size: 13px;
+  text-transform: capitalize;
+  span {
+    margin-right: 3px;
+  }
+}
+
+.emi-text {
+  margin-top: 6px;
+  font-size: 14px;
+}
+.emi-total-cost {
+  font-size: 36px;
+}
+
+.emi-total-year {
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.collapse-section {
+  color: color('black');
+  position: relative;
+}
+
+.pie-collapse {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+}
+
+.accordion__head {
+  background-color: color('nile-blue');
+  padding: 8px 20px;
+
+  &.accordion__head--error {
+    background-color: color('orange');
+  }
+}
+
+.accordion-head__title {
+  @include info-circle-filled;
+  color: color('white');
+  font-size: 12px;
+  padding-left: 25px;
+  background-size: 17px 17px;
+}
+
+.accordion-head__content {
+  &:after {
+    @include vendor-prefix(transform, rotate(180deg));
+    @include uparrow;
+    opacity: 1;
+    top: 31%;
+  }
+}
+
+.accordion-item--active {
+  .accordion-head__content {
+    &:after {
+      @include vendor-prefix(transform, rotate(360deg));
+    }
+  }
+}
+
+.black-overlay {
+  @include vendor-prefix(animation, fadein 1s);
+  background-color: color('black', .47);
+  left: 0;
+  right: 0;
+  z-index: 3;
+  position: fixed;
+  bottom: 0;
+  height: 100%;
+  display: none;
+}
+
+@keyframes fadein {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+
+@-moz-keyframes fadein {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+
+@-webkit-keyframes fadein {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+
+.overlayactive {
+  display: block;
+}
+
+.collapse-section {
+  color: color('black');
+  position: relative;
+}
+
+.overlayactive {
+  display: block;
+}
+
+.accordion__body {
+  position: absolute;
+  z-index: 3;
+  background-color: color('white');
+  width: 100%;
+}
+
+.view-breakup-container {
+  padding: 15px;
+}
+
+.pie-breakup-graph {
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.pie-graph-container {
+  position: relative;
+  max-width: 230px;
+  max-height: 230px;
+  margin: 0 auto;
+}
+
+.totalpayment {
+  @include vendor-prefix(transform, translate(-50%, -50%));
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 12px;
+  color: color('charcoal');
+}
+
+.pie-center-amount {
+  font-size: 18px;
+  color: color('charcoal');
+}
+
+.pie-bullet-unit {
+  max-width: 200px;
+  position: relative;
+}
+
+.pieBullet {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: 30px;
+  margin-right: 20px;
+  position: relative;
+}
+
+.pieBullet {
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.pieBullet {
+  &:last-child {
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.pieBullet {
+  &::after {
+    content: "+";
+    display: inline-block;
+    position: absolute;
+    top: -5px;
+    right: -15px;
+    font-size: 16px;
+  }
+}
+
+.pie-breakup-data {
+  text-align: center;
+}
+
+.breakup-unit {
+  display: inline-block;
+  width: 49%;
+  vertical-align: top;
+
+  .title-text {
+    font-size: 12px;
+    margin-bottom: 4px;
+
+    .bullet {
+      width:10px;
+      height: 10px;
+      display: inline-block;
+      border-radius: 30px;
+      margin-right: 3px;
+    }
+  }
+
+  .breakup-amount {
+    font-size: 18px;
+    color: color('charcoal');
+  }
+}
+
+.total-interest {
+  .bullet {
+    background-color: color('carrot-orange');
+  }
+}
+
+.pricipal-loan {
+  .bullet {
+    background-color: color('shamrock-green');
+  }
+}
+
+.emi-slider-body {
+  position: relative;
+  padding-top: 30px;
+  .info-icon {
+    @include info-icon;
+    background-position: 0;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 3px;
+    margin-top: -2px;
+    cursor: pointer;
+    }
+
+  .emi-slider-container {
+    padding: 20px 40px 20px 40px;
+    border-bottom: 1px solid color('very-light-grey');
+    position: relative;
+  }
+
+  .slider-section {
+    padding-top: 50px;
+    margin-bottom: 65px;
+  }
+
+  .slider-input-container {
+    padding: 0;
+    .slider-unit-title {
+      font-size: 13px;
+      margin: 10px 0;
+      .unit-text {
+        color: color('dark-gray');
+        font-size: 11px;
+      }
+    }
+
+    .rheostat {
+      margin-bottom: 30px;
+    }
+
+    .sliderLabel {
+      span {
+        font-size: 11px;
+        color: color('dark-gray');
+      }
+      .sliderLabelLeft {
+        float: left;
+      }
+      .sliderLabelRight {
+        float: right;
+        }
+    }
+
+    .vehicle-loan-text {
+      font-size: 12px;
+      margin: 0 auto 10px;
+      text-align: center;
+      .vehicle-loan-amount {
+        color: color('light-sea-green');
+        font-weight: $font-bold;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .tenure-interest-slider {
+    margin: 0 20px;
+    position: relative;
+    padding-bottom: 60px;
+    .tenure-unit, .interest-unit {
+      display: inline-block;
+      width: 49%;
+      padding:20px;
+      vertical-align: top;
+      .slider-section {
+        margin-bottom: 50px;
+      }
+      .slider-input {
+        padding: 9px 10px;
+      }
+    }
+  }
+}
+
+.toast-popup {
+  background-color: rgba(34, 34, 34,0.8);
+  color: color('white');
+  max-width: 250px;
+  border-radius: 4px;
+  padding: 12px 10px;
+  z-index: 3;
+  position: absolute;
+}
+
+svg {
+  @include vendor-prefix(transform-origin, 50% 50%);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.bodylock {
+  position: fixed;
+  width:100%;
+}
+
+.bodylock #root-container {
+  height: auto;
+}
+
+.bodyunlock {
+  position: static;
+}
+
+.bodyunlock #root-container {
+  /* height: 100vh; */
+}
+
+#root-container {
+  &.emi-calculator-root {
+    z-index: 10;
+  }
+}
+
+.rheostat-handle {
+  &:focus {
+    @include vendor-prefix(box-shadow, 0 0 4px 0 color('dodger-blue'));
+  }
+}
+
+.slider-input {
+  &:focus {
+    @include vendor-prefix(box-shadow, 0 0 4px 0 color('dodger-blue'));
+  }
+}
+.speedometer__container.hide{
+  display: none;
+}
+@media screen and (orientation:landscape) {
+  .collapse-section .black-overlay {
+    height: 68%;
+  }
+
+  .bodylock {
+    position: static;
+  }
+}
+
+.price-table {
+  border-collapse: unset;
+}
+
+.emi-close {
+  position: relative;
+  right: 0;
+  top: 15px;
+  float: right;
+}
+
+.white-close-icon {
+  @include cross-fff-16x16;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  z-index: 1;
+  top: 15px;
+  cursor: pointer;
+}
+
+.emi-popup_blackout-window {
+  display: none;
+}
+
+.oxygen-btn {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.39;
+  padding: 11px 20px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+  border: 1px solid #e2e2e2;
+  background-color: transparent;
+  border-radius: 3px;
+  text-decoration: none;
+  width: 100%;
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+}
+
+.oxygen-btn-primary {
+  color: #fff;
+  font-weight: bold;
+  background-color: #f04031;
+  border-color: #f04031;
+}
+
+.oxygen-btn-secondary {
+  color: #fff;
+  font-weight: bold;
+  background-color: #00afa0;
+  border-color: #00afa0;
+}
+
+.oxygen-btn-outline-secondary {
+  color: #00afa0;
+  font-weight: bold;
+  border-color: #00afa0;
+}
+
+// Styles for desktop (Media Queries)
+@media only screen and (min-width: 768px) {
+  .rheostat-handle-tooltip {
+    font-family: 'Open Sans', sans-serif, Arial;
+  }
+
+  #root-container {
+    &.emi-calculator-root {
+      background-color: transparent;
+      padding-bottom: 0;
+    }
+  }
+
+  .emi-pop-div {
+    position: relative;
+    background-color: color('white');
+    z-index: 1;
+    height: 580px;
+    width: 860px;
+    margin: 4% auto 0;
+    overflow: auto;
+  }
+
+  .emi-slider-body {
+    height: 580px;
+    background-color: inherit;
+    box-shadow: 2px 0 4px 0 rgba(121, 119, 119, 0.29);
+    z-index: 4;
+    width: 50%;
+    padding-top: 0;
+    border-top: 5px solid color('shamrock-green');
+
+    input[type="tel"] {
+      font-weight: 600;
+    }
+
+    .emi-slider-container {
+      border-bottom: none;
+    padding-bottom: 5px;
+    }
+
+    .tenure-interest-slider {
+      padding-bottom: 0;
+
+      .interest-unit,
+      .tenure-unit {
+        padding-bottom: 0;
+      }
+    }
+
+    .error-text {
+      line-height: 1.2;
+    }
+
+    .slider-input-container {
+      .slider-unit-title {
+        font-size: 14px;
+      }
+
+      .rheostat {
+        margin-bottom: 38px;
+      }
+
+      .sliderLabel {
+        span {
+          font-size: 12px;
+        }
+      }
+
+      .vehicle-loan-text {
+        font-size: 14px;
+      }
+    }
+    
+    .dealer-cta-container {
+      position: absolute;
+      right: -100%;
+      bottom: 0;
+      width: 99%;
+    }
+  }
+
+  .white-close-icon {
+    top: 5px;
+    right: -5px;
+  }
+
+  .vehicle-name {
+    padding-top: 15px;
+    font-size: 16px;
+  }
+
+  .emi-total-cost {
+    font-size: 35px;
+  }
+
+  .emi-popup_blackout-window {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: color('black', .8);
+    cursor: pointer;
+  }
+
+  .accordion__head {
+    pointer-events: none;
+  }
+
+  .accordion-head__title {
+    font-size: 14px
+  }
+
+  .accordion-head__content {
+    &:after {
+      content: none;
+    }
+  }
+
+  .totalpayment {
+    font-size: 14px
+  }
+
+  .pie-center-amount {
+    font-size: 16px
+  }
+
+  .emi-slider-body__title {
+    font-size: 20px;
+    font-weight: 600;
+    color: color('charcoal');
+    padding-top: 20px;
+    padding-left: 40px;
+  }
+
+  .slider-rheostat {
+    .rheostat-background {
+      margin-bottom: 19px;
+    }
+  }
+
+  .outer-emi-section {
+    float: right;
+    width: 50%;
+  }
+
+  .pie-breakup-graph {
+    width: 50%;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .pie-breakup-data {
+    width: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 18px;
+    text-align: left;
+  }
+
+  .breakup-unit {
+    width: auto;
+    margin-bottom: 30px;
+
+    .title-text {
+      font-size: 14px;
+    }
+
+    .breakup-amount {
+      font-size: 16px;
+      font-weight: 600;
+      padding-left: 18px;
+    }
+  }
+
+  .total-interest {
+    margin-bottom: 30px;
+  }
+
+  .view-breakup-container {
+    padding: 35px 15px 25px;
+  }
+
+  .pq-btn {
+    width: 78%;
+  }
+
+  .global-search{
+    background: none;
+  }
+
+  .emi-calculator-wrapper {
+   .toast-box{
+		left: 20%;
+		right: auto;
+	  }
+  }
+ 
+
+  .bodylock {
+    position: fixed;
+  }
+
+  .bodyunlock {
+    position: relative;
+  }
+
+  .emi-cacl-result .emi-absent-text{
+    display: inline-block;
+  }
+
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .pie-graph-container > div:last-child {
+      height: 200px;
+    }
+  }
+
+  @media screen and (-webkit-min-device-pixel-ratio:0) {
+    ::i-block-chrome, .pie-graph-container > div:last-child {
+      height: 200px;
+    }
+    .m-container{
+        position: relative;
+    }
+    .bodylock #root-container{
+      height: 100%;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1239px) {
+	.emi-calculator-wrapper .toast-box {
+		left: 22%;
+	}
+}
+@media only screen and (min-width: 1240px) and (max-width: 1365px) {
+	.emi-calculator-wrapper .toast-box {
+		left: 24%;
+	}
+}
+@media only screen and (min-width: 1366px) {
+	.emi-calculator-wrapper .toast-box {
+		left: 26%;
+	}
+}
+
+@media only screen and (min-width: 1440px) {
+  .emi-pop-div {
+    margin-top: 9%;
+  }
+}
+@media only screen and (min-width: 1680px) {
+	.emi-calculator-wrapper .toast-box {
+		left: 32%;
+	}
+}

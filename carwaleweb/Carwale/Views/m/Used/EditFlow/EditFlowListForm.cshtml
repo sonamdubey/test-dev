@@ -1,0 +1,259 @@
+﻿@model Carwale.DTOs.Classified.MyListings.MyListingsDTO
+@using Carwale.Entity.Enum;
+@{
+    ViewBag.Title = "Edit your car details";
+    ViewBag.canonical = "https://www.carwale.com/used/mylistings/search";
+    Layout = Model.Source == Platform.CarwaleMobile ? "~/views/shared/m/_MLayoutV3.cshtml" : "~/views/shared/m/_MLayoutAppV3.cshtml";
+    ViewBag.BodyClass = "bg-white";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MUsedHomePageCss.cshtml";
+    ViewBag.CustomJS = "~/Views/StaticPartials/m/MUsedHomePageScript.cshtml";
+}
+
+@section Plugins{
+    <script type="text/javascript" src="/static/m/js/plugins/chosen-mobile.js" defer></script>
+}
+@section atfcss{
+    <link rel="stylesheet" href="/static/sass/m/css/common-atf.css" type="text/css" inline>
+    <link rel="stylesheet" href="/static/sass/m/css/edit-flow-form.css" type="text/css" inline>
+}
+@section btfcss{
+    <link rel="stylesheet" href="/static/sass/m/css/globalcitypopup.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/globalcarsearch.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/nav.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/footer.css" type="text/css">
+}
+
+@section MetaData{
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+}
+
+@section Scripts{
+    <script type="text/javascript" src="~/Static/js/used/sellcar/editCarTracking.js"></script>
+    <script type="text/javascript" src="~/Static/m/js/used/sellcar/editCarCommon.js"></script>
+    <script type="text/javascript" src="/static/m/js/used/sellcar/edit-flow-form.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/sellcar/validation.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/misc.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/form-misc.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/chosen-selection-misc.js" defer></script>
+}
+<div class="clear"></div>
+@if (Model != null)
+{
+    bool isOtherColorSelected = false;
+    string otherColorText = "";
+<section class="container edit-flow-form-container">
+    <div class="grid-12">
+        <h1 class="text-center font16 screen-head__title margin-bottom20 margin-top20 m-special-skin-text">Car Details</h1>
+        <form class="edit-flow-form padding-left10 padding-right10" data-profileid="@Model.Id">
+            <div class="input-box field-box form-control-box done month-in-number">
+                <span class="fixed-ans-label" data-value-year="@Model.MakeYear" data-value-month="@Model.MakeMonth">@Model.MakeMonthYearFormatted</span>
+                <label for="mfgYear">Mfg Year</label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+                <span class="fa fa-spinner fa-spin hide"></span>
+            </div>
+            <div class="input-box field-box form-control-box done">
+                <span class="fixed-ans-label">@Model.CarName</span>
+                <label for="ProIdSearch">Car</label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+                <span class="fa fa-spinner fa-spin hide"></span>
+            </div>
+
+            <div class="form-control-box">
+                <div id="editVersion" class="select-box field-box no-dropdown-icon version-selectbox done" data-reasons="" data-reasonsid="-1">
+                    <select id="versionSelect" class="chosen-select input-type-number">
+                        @foreach (var version in Model.OtherCarVersions)
+                        {
+                        <option value=@version.ID>@version.Name</option>
+                        }
+                    </select>
+                    <p class="select-label">Version</p>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+
+            <div class="form-control-box" id="EditOwnerForm">
+                <div id="editOwner" class="select-box field-box no-dropdown-icon owner-selectbox done" data-reasons="" data-reasonsid="-1">
+                    <select id="ownerSelect" class="chosen-select input-type-number">
+                        @{
+                        if (Model.SelectedOwner == 0)
+                        {
+                        <option value="0"></option>
+                        }
+
+                        foreach (KeyValuePair<int, string> kvp in Model.Owners)
+                        {
+                        <option value=@kvp.Key>@kvp.Value</option>
+                        }
+                        }
+
+                    </select>
+                    <p class="select-label">Owners</p>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+
+            <div class="form-control-box">
+                <div id="editColor" class="select-box field-box no-dropdown-icon color-selectbox done" data-reasons="" data-reasonsid="-1">
+                    <select id="colorSelect" class="chosen-select input-type-number">
+                        @{
+                        int i = 0;
+                        foreach (var color in Model.CarColors)
+                        {
+                            <option value=@color.Value>@color.Name</option>
+                            if (i == 0 && color.Name.Equals("other", StringComparison.OrdinalIgnoreCase))
+                            {
+                                isOtherColorSelected = true;
+                                otherColorText = color.Value;
+                            }
+                            i++;
+                        }
+                        }
+                    </select>
+                    <p class="select-label">Car color</p>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+
+            <div class="form-control-box other-color-unit @(!isOtherColorSelected?"hide":"")">
+                <div id="otherColorInputBox" class="input-box field-box done">
+                    <input type="text" id="getOtherColor" data-value="" value=@otherColorText>
+                    <label for="OtherColor">Other</label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+
+            <div class="form-control-box">
+                <div id="expectedPriceInputBox" class="input-box field-box input-prefix--rupee prefix-focus--inr done">
+                    <input type="tel" id="getExpectedPrice" maxlength="12" data-value="@Model.Price" value="@Model.PriceFormatted">
+                    <label for="PriceExpct">Expected price</label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+
+            <div class="form-control-box">
+                <div id="kmDriven" class="input-box field-box form-control-box done">
+                    <input type="text" id="getkmDriven" autocomplete="off" maxlength="8" data-value="@Model.Kilometers" value="@Model.KilometersFormatted">
+                    <label for="getkmDriven">kms driven</label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                    <span class="fa fa-spinner fa-spin hide"></span>
+                </div>
+            </div>
+
+            <div class="form-control-box">
+                <div id="editInsurance" class="select-box field-box no-dropdown-icon insurance-selectbox done" data-reasons="" data-reasonsid="-1">
+                    <select id="insuranceSelect" class="chosen-select input-type-number">
+                        @{
+                        if (string.IsNullOrEmpty(Model.SelectedInsurance))
+                        {
+                        <option value="0"></option>
+
+                        }
+                        foreach (KeyValuePair<int, string> kvp in Model.Insurance)
+                        {
+                        <option value=@kvp.Key>@kvp.Value</option>
+                        }
+                        }
+
+                    </select>
+                    <p class="select-label">Insurance</p>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+
+            <div class="form-control-box insurance-year-unit @(string.Equals("expired", Model.SelectedInsurance, StringComparison.OrdinalIgnoreCase) ? "hide" : "done")">
+                <div id="editInsuranceYear" class="select-box field-box no-dropdown-icon insurance-selectbox done" data-reasons="" data-reasonsid="-1">
+                    <select id="insuranceYearSelect" class="chosen-select input-type-number">
+                        @{
+                        if (string.IsNullOrEmpty(Model.SelectedInsurance))
+                        {
+                        <option value="0"></option>
+                        }
+                        foreach (int year in Model.InsuranceYears)
+                        {
+                        <option value=@year>@year</option>
+                        }
+                        }
+
+                    </select>
+                    <p class="select-label">Insurance validity year</p>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+
+
+            <div class="form-control-box insurance-month-unit @(string.Equals("expired", Model.SelectedInsurance, StringComparison.OrdinalIgnoreCase) ? "hide" : "done")">
+                <div id="editInsuranceMonth" class="select-box field-box no-dropdown-icon insuranceMonth-selectbox done" data-reasons="" data-reasonsid="-1">
+                    <select id="insuranceMonthSelect" class="chosen-select input-type-number">
+                        @{
+                        if (string.IsNullOrEmpty(Model.SelectedInsurance))
+                        {
+                        <option value="0"></option>
+                        }
+                        foreach (KeyValuePair<int, string> kvp in Model.InsuranceMonths)
+                        {
+                        <option value=@kvp.Key>@kvp.Value</option>
+                        }
+                        }
+
+                    </select>
+                    <p class="select-label">Insurance validity month</p>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+
+            <div class="form-control-box">
+                <div id="editRegistrationType" class="select-box field-box no-dropdown-icon regType-selectbox done" data-reasons="" data-reasonsid="-1">
+                    <select id="registrationTypeSelect" class="chosen-select input-type-number">
+                        @{
+                        if (Model.SelectedRegType.Equals("0"))
+                        {
+                            <option value="0"></option>
+                        }
+                        foreach (KeyValuePair<int, string> kvp in Model.RegType)
+                        {
+                            <option value=@kvp.Key>@kvp.Value</option>
+                        }
+                        }
+                    </select>
+                    <p class="select-label">Registration Type</p>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+
+            <div class="form-control-box margin-bottom30">
+                <div id="registerNumber" class="input-box field-box form-control-box done">
+                    <input type="text" id="registration-no" autocomplete="off" value="@Model.RegistrationNumber" maxlength="10">
+                    <label for="kmDriven">Registration number</label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+                <div id="screenError" class="screen-body__error">
+                    <span class="error-text"></span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="clear"></div>
+    <div id="modalPopUp" class="modal-box" data-current=""></div>
+    <div id="modalBg" class="modal-bg-layout"></div>
+    <div class="clear"></div>
+    <div id="floatButton" class="form-float-buttons floating-container float-fixed">
+        <input type="button" id="prevBtn" value="Back" class="btn btn-white">
+        <input type="button" id="nextBtn" value="Continue" class="btn btn-orange">
+    </div>
+    <div class="extraDivHt"></div>
+</section>
+}
+<div class="clear"></div>

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Loading - CarWale</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Please Wait, Loading." />
+    <link rel="SHORTCUT ICON" href="https://www.carwale.com/images/icons/carwale.ico" />
+    <style>
+        .blackOut-window, .defaultAlert-window {
+            background: #000;
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            bottom: 0px;
+            opacity: .5;
+            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+            filter: alpha(opacity=50);
+            -moz-opacity: 0.5;
+            -khtml-opacity: 0.5;
+        }
+
+        .row {
+            width: 996px;
+            margin: 0 auto;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .loading-popup {
+            background: transparent;
+            width: 90px;
+            padding: 20px;
+            border-radius: 5px;
+            position: absolute;
+            top: 40%;
+            left: 45%;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -o-border-radius: 5px;
+            -ms-border-radius: 5px;
+            margin: 0 auto;
+        }
+
+        .loading-icon {
+            background: url(https://img.carwale.com/used/cw-loader.gif?v=1.1) no-repeat;
+            width: 90px;
+            height: 61px;
+            display: block;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="blackOut-window"></div>
+        <div id="loadingCarImg">
+            <div class="loading-popup">
+                <span class="loading-icon"></span>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+@import "../../mixins/_grid.scss";
+@import "../../mixins/_margin.scss";
+@import "../../mixins/_utils.scss";
+@import "../../mixins/_text.scss";
+@import "../../mixins/_buttons.scss";
+@import "../../mixins/_fonts.scss";
+@import "../../mixins/_sprites.scss";
+@import "../../mixins/_button-pill.scss";
+@import "../../mixins/_input-box.scss";
+@import "../../partials/_button-tab.scss";
+@import "../../mixins/_loader.scss";
+
+@include margin("bottom", 30);
+@include margin("top", 70);
+@include margin("bottom", 20);
+
+.font-semibold {
+	font-weight: 600;
+}
+
+input {
+	font-weight: normal;
+}
+
+img{max-width:100%;}
+
+.cross-default-15x16 {
+	width: 25px;
+	height: 25px;
+	@include cross-default-15x16();
+	background-position: center;
+	cursor: pointer;
+}
+
+.input-box {
+	position:relative;         
+}
+
+.labeled-mob-no.input-box label {
+	font-size: 11px;
+} 
+.labeled-mob-no input {
+	display: inline-block;
+	width: 100px;
+	border: none;
+	pointer-events: none;      
+}
+.input-box label:not(.label-icon).active {
+	top: 0;
+	-webkit-transform: translateY(-14px) scale(1);
+	transform: translateY(-14px) scale(1);
+	-webkit-transform-origin: 0 0;
+	transform-origin: 0 0;
+}
+
+.banner-img{
+	img{
+		margin:0 auto;
+		display:block;
+	}
+}
+
+
+.resend-text {
+	font-size: 14px;
+	position: absolute;
+	right: 0;
+	top: 37px;
+
+	a{
+		color: #565a5c;
+
+		&:hover {
+			outline: none;
+		}
+	}
+	.resend-prevent-text{
+		position: absolute;
+		right: 0;
+		top: 37px;
+	}
+
+}
+
+.counter-hidden{
+	text-decoration: underline;
+
+	a{
+		color: #0288d1;
+	}
+}
+
+.edit-otp-form{margin-top:30px;
+	
+	.back-arrow-unit{
+		float: left;
+		cursor:pointer;
+		margin-top: 6px;
+	}
+	.edit-otp__title{
+		display:inline-block;
+		text-align:center;
+	}
+
+}
+.edit-flow__title{
+	font-size:16px;
+	margin-top:12px;
+	color:#484848;
+}
+// loader animation
+@include loader-spin-animation;
+
+
+
+
+
+

@@ -1,0 +1,32 @@
+﻿@import '../../mixins/_variables.scss';
+@import '../../mixins/_sprites.scss';
+@import '../../mixins/_vendor-utils.scss';
+@import '../../mixins/_jcarousel.scss';
+
+.content-block {
+	background-color: map-get($color-map, 'white');
+	width: 100%;
+}
+
+.suggested-cars-container {
+	margin-bottom: 30px;
+	padding: 15px 35px 30px;
+
+	@include carousel-body;
+	@include carousel-wrapper;
+	@include carousel-list-item($height:273, $width: 249);
+	@include carousel-control-button;
+	@include carousel-image-wrapper($width: 245, $height: 138);
+	@include carousel-info-wrapper($min-height: 136);
+	@include info-wrapper__model-price($font-size: 14);
+}
+
+@include carousel-container__heading;
+@include carousel__content-wrapper;
+@include info-wrapper__model-name;
+@include info-wrapper__link;
+
+.suggested-carousel-info-wrapper {
+	padding-top: 30px;
+}
+

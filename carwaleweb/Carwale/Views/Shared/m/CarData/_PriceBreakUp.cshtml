@@ -1,0 +1,78 @@
+﻿@{
+	var showORP = Carwale.UI.Common.CookiesCustomers.IsEligibleForORP;
+	var makeName = ViewBag.MakeName?? string.Empty;
+	var modelName = ViewBag.ModelName?? string.Empty;
+	var modelId = Model.ModelDetails.ModelId;
+	var versionName = ViewBag.VersionName?? string.Empty;
+	ViewBag.IsCityPage = ViewBag.IsCityPage ?? false;
+	var cityName = ViewBag.IsCityPage ? ViewBag.CityName : MobileWeb.Common.CookiesCustomers.MasterCity;
+	var cityId = ViewBag.IsCityPage ? ViewBag.CityId : MobileWeb.Common.CookiesCustomers.MasterCityId;
+}
+@if (showORP)
+{
+	<div id="price-breakup-loader" class="price-breakup-loader hide"></div>
+	<div id="price-breakup-pop-up" class="price-break-up-popup price-popup request-callback-popup hide">
+		<div class="globalcity-popup-data text-center">
+			<span class="globalcity-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer" data-bind='event: { click: closePopUp }'></span>
+			<h3 class="margin-bottom15 text-capitalize text-black margin-top30">Price Breakup</h3>
+			<div class="car-buying-popup-detail">
+				<div class="car-buying-model margin-bottom10">
+					<h3 class="text-capitalize">@makeName @modelName</h3>
+				</div>
+				<!--Version Container Start-->
+				<div class="version-top-container padding-left20 padding-right20 clearfix">
+					<div class="grid-6 text-left alpha omega" data-bind="css : {'grid-6' : $root.bothColorPricesAvailable(), 'grid-12' : !$root.bothColorPricesAvailable()}">
+						<div class="form-control-box version-select">
+							<span class="select-box fa fa-angle-down"></span>
+							<select class="form-control" data-bind='options: versions, optionsText: "name", optionsValue: "id", value: selectedVersion, event: { change: function () { $root.bindPriceBreakUp(); return true; } }'></select>
+						</div>
+					</div>
+					<!-- ko if: $root.bothColorPricesAvailable() -->
+					<div class="grid-6 text-right omega">
+						<div class="color-type margin-top10">
+							<ul>
+								<li class="active" data-bind="event: { click: function () { $root.toggleColor(false); return true; } }, attr: { 'ismetallic': 'false' }">Solid Color</li>
+								<li data-bind="event: { click: function () { $root.toggleColor(true); return true; } }, attr: { 'ismetallic': 'true' }">Metallic</li>
+							</ul>
+						</div>
+					</div>
+					<!-- /ko -->
+				</div>
+				<!--Version Container End-->
+				<div class="clear"></div>
+				<div id="pricePopup" class="bg-light-grey padding-left20 padding-right20 padding-top10 padding-bottom10 price-break margin-top20 clearfix">
+					<!-- ko if: $root.priceAvailable() -->
+					<div data-bind="foreach: priceBreakUpList">
+						<div class="car-buying-details clearfix">
+							<span class="leftfloat" data-bind="text: chargeName, attr: { id: $data.chargeId }"></span>
+							<div class="rightfloat">
+								₹<span data-bind="text: formatNumeric($data.chargeValue)"></span>
+							</div>
+						</div>
+					</div>
+					<!-- /ko -->
+					<!-- ko if: !($root.priceAvailable()) -->
+					<p class="car-buying-details text-left">Sorry, we don't have prices available for the selected version in this city.</p>
+					<!-- /ko -->
+					<!-- ko if: $root.priceAvailable() -->
+					<div class="on-road-price-detail font14 padding-bottom10 clearfix border-solid-top padding-top15">
+						<span class="grid-5 alpha omega leftfloat text-left city-name-text">On-Road Price, <br> @cityName</span>
+						<div class="grid-7 alpha omega rightfloat text-right">
+							<span class="block">
+								₹
+								<span class="text-bold" data-bind="text: formatNumeric($root.onRoadPrice())"></span>
+							</span>
+							<!-- ko if: $root.campaignId() > 0 -->
+                            <a id="getOffers" class="offer-blue-link text-bold" data-bind="attr: { 'data-versionid': $root.selectedVersion(), 'isgetoffers-versionlink': true, inquirysourceid : 149, isdealerexistincity: $root.isDealerExistInCity().toString(), dealercampaignexist: $root.dealerCampaignExist().toString(), sourceclick: $root.linkSourceClick(), recoleadsource: $root.linkRecoLeadSource() }, event: { click: function () { $root.getOffers($('#getOffers')); return true; } }">Get Offers from Dealers</a>
+							<!-- /ko -->
+						</div>
+					</div>
+					<!-- /ko -->
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!-- ko if: $root.priceAvailable() && $root.campaignId() > 0 && $root.templateHtml() != '' --><span data-bind="html: $root.templateHtml(), attr: { 'dealerId': $root.campaignId() }"></span>
+		<!-- /ko -->
+	</div>
+}

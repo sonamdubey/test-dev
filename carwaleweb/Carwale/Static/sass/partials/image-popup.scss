@@ -1,0 +1,130 @@
+﻿@import "../mixins/_vendor-utils.scss";
+@import '../mixins/_variables.scss';
+@import '../mixins/_popup.scss';
+@import './_swiper.scss';
+
+.image-popup-outer-container {
+	@include popup(down);
+	background: none;
+	padding: 0;
+	z-index: 10;
+	height: 90vh;
+	top: auto;
+	
+	.image-popup-slide-on {
+		background: map-get($color-map, "fuscous-gray");
+		height: 100%;
+	}
+}
+
+.swiper-pull-unit {
+	padding-top: 10px;
+	text-align: center;
+	color: map-get($color-map, "tapa");
+}
+.pull-lines, .pull-lines::after {
+	@include get-vendor-prefixed("box-shadow", "0 1px 2px 0 rgba(31, 31, 31, 0.6)");
+	background: map-get($color-map, "tapa");
+	border-radius: 10px;
+	height: 3px;
+}
+.pull-lines {
+	width: 70px;	
+	display: block;
+	text-align: center;
+	margin: 0 auto 20px;
+	position: relative;	
+}
+.pull-lines::after {
+	content:'';
+	width: 50px;
+	display: block;
+	position: absolute;
+	top: 8px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+}
+
+.image-popup-container {
+	height: 89%;
+}
+
+.image-popup-carousel {
+	&.swiper-container {
+		margin: 0 auto;
+		bottom: -27%;
+		height: auto;
+		padding: 0 10px;
+	}
+}
+
+.image-pic-count {
+	color: map-get($color-map, "delta");
+	text-align: left;
+	margin-left: 6px;
+	
+	.active-number {
+		font-size: 20px;
+	}
+}
+
+.image-popup-carousel {
+	li{
+		height: 280px;
+		width: 320px;
+		&.swiper-slide-active {
+			.contentWrapper {
+				@include get-vendor-prefixed("transform", scale(1));
+			}
+		}
+		.contentWrapper {
+			@include get-vendor-prefixed("transition", "all 100ms ease-in");
+			@include get-vendor-prefixed("transform", scale(0.94));
+			background: none;
+		}
+		.imageWrapper {
+			height: 180px;		
+		}
+		
+		.carDescWrapper {
+			background: none;
+			text-align: left;
+			padding: 15px 0;
+
+			h3 {
+				color: map-get($color-map, "white");
+				font-weight: normal;
+			}
+			p {
+				color: map-get($color-map, "cloud");
+				font-size: 13px;
+				margin-top: 5px;
+			}
+		}
+	}
+
+}
+@media only screen and (orientation: landscape) {
+  .image-popup-carousel {
+		&.swiper-container {
+			bottom: 0;
+		}
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	.image-popup-carousel {
+		&.swiper-container {
+			bottom: -10%;
+		}
+	}
+}
+
+@media screen and (min-height: 700px) {
+	.image-popup-carousel {
+		&.swiper-container {
+			bottom: -30%;
+		}
+	}
+}

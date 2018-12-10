@@ -1,0 +1,79 @@
+﻿@import '../mixins/_variables.scss';
+@import '../mixins/_vendor-utils.scss';
+@import '../partials/read-more-collapse.scss';
+.write-review-section-wrapper {
+    background: map-get($color-map, 'black-russian');
+    background: -moz-linear-gradient(top, #21222e 0%, #21222e 50%, #21222e 50%, #3c3c40 100%);
+    background: -webkit-linear-gradient(top, #21222e 0%, #21222e 50%, #21222e 50%, #3c3c40 100%);
+    background: linear-gradient(to bottom, #21222e 0%, #21222e 50%, #21222e 50%, #3c3c40 100%);
+    margin-bottom:20px;
+}
+
+.whats-new-container {
+    width: 100%;
+    margin-top: 10px;
+    padding: 20px;
+}
+
+.whats-new-container__title {
+    font-size: 18px;
+    color: map-get($color-map, 'white');
+    margin-bottom: 5px;
+}
+
+.whats-new__description {
+    overflow: hidden;
+    position: relative;
+    color: map-get($color-map, 'snow-white');
+    font-size: 14px;
+    line-height: 23px;
+    a {
+        color: #3fbfff;
+    }
+}
+
+.whats-new__compare-button {
+    border: 1px solid map-get($color-map, 'white');
+    color: map-get($color-map, 'white');
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: $font-bold;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.whats-new__read-more {
+    color: map-get($color-map, 'pacific-blue');
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pros-and-cons-wrapper {
+    margin: 20px 0;
+    background-color: map-get($color-map, 'black-russian');
+}
+
+.compare-cars-button {
+    padding: 0 20px 20px;
+}
+
+.pros-and-cons-container {
+	&.only-review-section {
+		margin-top: 0;
+		margin-bottom: 20px;
+
+		.model-review-container {
+			padding-top: 0;
+		}
+	}
+}
+
+.only-review-section {
+	.model-review-container {
+		padding-top: 0;
+	}
+}

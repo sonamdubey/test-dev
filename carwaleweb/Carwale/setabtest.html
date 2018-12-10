@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <script>
+        function getCookieTime(days) {
+            var now = new Date();
+            var time = now.getTime();
+            time += 1000 * 60 * 60 * 24 * days;
+            now.setTime(time);
+            return (now.toGMTString());
+        }
+        var defaultCookieDomain = window.location.hostname;
+        var cookievalue = window.location.search.split('=')[1]
+        document.cookie = "_abtest=" + cookievalue + "; expires=" + getCookieTime(90) + "; domain=" + defaultCookieDomain + "; path=/";
+    </script>
+</body>
+</html>

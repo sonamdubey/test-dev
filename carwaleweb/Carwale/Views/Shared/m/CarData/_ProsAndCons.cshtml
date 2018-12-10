@@ -1,0 +1,27 @@
+﻿@if (Model.PageList != null && Model.PageList.Count > 1)
+{
+    <div class="pros-cons-card-container" data-role="inview-imp" data-event="CWNonInteractive" data-action="Impression" data-cat="CarWale_Opinion_pros_cons_m" data-label="@Model.VehiclTagsList[0].ModelBase.ModelName">
+        <ul class="pros-cons-card-list" data-cwticat="CarWaleOpinionProsCons" data-cwtiact="Impression" data-cwtilbl="@("modelid=" + Model.VehiclTagsList[0].ModelBase.ModelId + "|source=" + (uint)Carwale.Entity.Enum.Platform.CarwaleMobile)" cwt="">
+            <li class="pros-cons__list-item">
+                <div class="pros-cons__card">
+                    <p class="card__title"><span class="thumbs-up-icon"></span>@Model.PageList[0].PageName</p>
+                    <div class="pros-cons__list-wrapper">
+                        <div class="card-list__container" id="pros-cons__card-list__container">
+                            @Html.Raw(Model.PageList[0].Content)
+                            <span class="view-images__link hide">View Images</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="pros-cons__list-item">
+                <div class="pros-cons__card">
+                    <p class="card__title"><span class="thumbs-down-icon"></span>@Model.PageList[1].PageName</p>
+                    <div class="card-list__container">
+                        @Html.Raw(Model.PageList[1].Content)
+                        <span class="view-images__link hide">View Images</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+}

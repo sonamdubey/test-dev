@@ -1,0 +1,1 @@
+This folder contains dll's which are having same name as the dll's in the bin folder but different version. For example, log4net.dll which is present in this folder as well as bin folder. But, framework version of log4net.dll is 1.1 required by ICICI payment gateway .dll while enyimcache .dll require log4net of framework version 2.0.

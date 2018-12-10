@@ -1,0 +1,21 @@
+﻿@model Carwale.DTOs.Classified.CarDetails.CarDetailsWeb
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+<div id="features" class="cw-tabs-data hide">
+    <div class="features-list">
+        <ul id="featureList">
+            @foreach (var feature in Model.Features)
+            {
+                <li>
+                    <h2 class="font18 margin-bottom10 padding-left10">@feature.CategoryName</h2>
+                    @foreach (var item in feature.FeatureItemList)
+                    {
+                        <div class="equal-width @(item.ItemValue.Equals(true) ? " " : " opacity5")" title="@item.ItemName">@item.ItemName</div>
+                    }
+                    <div class="clear"></div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+

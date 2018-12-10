@@ -1,0 +1,30 @@
+<section class="popup-box-container hide">
+    <div class="stop-showing-ad-popup-container">
+        <div class="cross-default-15x16 cross-lg-dark-grey rightfloat close-icon"></div>
+        <p class="stop-ad-title margin-bottom15">Please choose a reason to remove the car from listing</p>
+        <div class="form-control-box">
+
+            <div id="reasonsInputBox" class="select-box field-box no-dropdown-icon reason-selectbox select-box-no-input" data-reasons="" data-reasonsid="-1">
+                <select id="getReason" class="chosen-select input-type-number" data-title="Reason to remove from listing">
+                    <option value="0"></option>
+                    <option value="2">Sold through Carwale.com</option>
+                    <option value="3">Sold through other dealer/individual</option>
+                    <option value="4">I am not satisfied with Carwale.com services</option>
+                    <option value="6">I am not selling it any more</option>
+                </select>
+                <p class="select-label">Reason to remove from listing</p>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+            </div>
+
+        </div>
+        <div class="form-control-box">
+            <textarea class="comment-textarea js-comment-box" name="comment" placeholder="Comments" id="comment"></textarea>
+        </div>
+        <div class="stop-ad-btn-unit">
+            <input type="button" value="Remove My Car" class="btn-orange" id="remove-car">
+            <input type="button" value="Cancel" class="btn-white" id="cancel-reason">
+        </div>
+    </div>
+
+</section>

@@ -1,0 +1,84 @@
+﻿@mixin modal-background($selector) {
+	#{$selector} {
+		width: 100%;
+		height: 100%;
+		display: none;
+		background: rgba(0, 0, 0, 0.6);
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 10;
+	}
+}
+
+@mixin modal-box($width) {
+	.modal-box {
+		width: $width * 1px;
+		min-height: 170px;
+		padding: 10px;
+		text-align: center;
+		display: none;
+		position: fixed;
+		top: 30%;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		background: #fff;
+		border-radius: 4px;
+		z-index: 11;
+
+		.btn {
+			margin: 20px 5px 0;
+		}
+	}
+}
+
+@mixin modal-header($font-size) {
+	.modal__header {
+		font-size: $font-size * 1px;
+		font-weight: 600;
+		color: #1a1a1a;
+	}
+}
+
+@mixin modal-description() {
+	.modal__description {
+		margin-top: 15px;
+	}
+}
+
+@mixin modal-default-cross-icon {
+	.cross-default-15x16 {
+		width: 25px;
+		height: 25px;
+		@include cross-default-15x16();
+		background-position: center;
+		cursor: pointer;
+	}
+
+	.modal-box {
+		.cross-default-15x16 {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+	}
+}
+
+@mixin modal-btn($sizeName) {
+	@if($sizeName == "default") {
+		.modal__btn-#{$sizeName} {
+			width: 124px;
+			padding: 7px;
+			font-size: 14px;
+		}
+	}
+	@else {
+		@warn "Invalid size name. Sizes available: default";
+	}
+}
+
+.lock-browser-scroll {
+	overflow-y: hidden;
+	width: 100%;
+}

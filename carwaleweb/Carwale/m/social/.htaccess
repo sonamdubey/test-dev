@@ -1,0 +1,7 @@
+RewriteEngine on
+
+RewriteRule ^$			socialHub.aspx? [NC,L]
+
+
+
+

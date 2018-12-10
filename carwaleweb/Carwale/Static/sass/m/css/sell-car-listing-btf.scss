@@ -1,0 +1,192 @@
+
+@import "../../mixins/_chosen.scss";
+@import "../../mixins/_buttons.scss";
+@include btn-color("white");
+
+.lock-browser-scroll {
+	overflow-y: hidden;
+	width: 100%;
+}
+// modal popup
+
+	#modalBg {
+		width: 100%;
+		height: 100%;
+		display: none;
+		background: rgba(0, 0, 0, 0.6);
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 5;
+		cursor: pointer;
+	}
+
+	.modal-box {
+		width: 320px;
+		min-height: 170px;
+		padding:30px 10px;
+		text-align: center;
+		display: none;
+		position: fixed;
+		top: 30%;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		background: #fff;
+		border-radius: 4px;
+		z-index: 6;
+
+		.btn {
+			margin: 20px 0 0;
+		}
+    
+		.cross-default-15x16 {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+		.modal__header {
+			font-size: 14px;
+			font-weight: 700;
+			color: #1a1a1a;
+		}
+
+		.modal__description {
+			margin-top: 15px;
+		}
+	}
+
+.stop-showing-ad-popup-container{
+		.stop-ad-title{
+			font-size:14px;
+			color:#565a5c;
+			font-weight:700;
+		}
+		.comment-textarea{
+			width:100%;
+			height:66px;
+			border:1px solid #cccccc;
+			padding:6px;
+			resize: none;
+			font-family:'LatoWeb';
+			font-size: 12px;
+			color: #a8afb3;
+		}
+		.reason-selectbox{
+			margin-top:15px;
+			text-align:left;
+		}
+		.stop-ad-btn-unit input{
+			padding:8px 29px;
+			margin-top:10px;		
+		}
+	}
+.mylistingContainer{
+	.input-box {
+		height: auto;
+		position:relative;         
+	}
+
+	.labeled-mob-no.input-box label {
+		font-size: 11px;
+	} 
+	.labeled-mob-no input {
+		display: inline-block;
+		width: 100px;
+		border: none;
+		pointer-events: none;      
+	}
+	.input-box label:not(.label-icon).active {
+		top: 0;
+		-webkit-transform: translateY(-14px) scale(1);
+		transform: translateY(-14px) scale(1);
+		-webkit-transform-origin: 0 0;
+		transform-origin: 0 0;
+	}
+
+	
+
+	.stop-ad-btn-unit input:first-child{
+		margin-right:5px;
+	}
+
+
+	.ad-bottom-slide-popup{
+		background:#ffffff;
+		border:1px solid #ccc;
+		padding:10px 20px 0;
+		position:fixed;
+		height:350px;
+		z-index:7;
+		bottom:-1000px;
+		left:0;
+		width:100%;
+		-webkit-transition:  bottom 0.5s; 
+		-moz-transition:  bottom 0.5s; 
+		-o-transition:  bottom 0.5s; 
+		transition:  bottom 0.5s;
+
+		.screen-head__title{
+			color:#565a5c;
+		}
+		.cw-tabs-flex li{
+			min-width:auto;
+		}
+		.cw-tabs-data{
+			position:relative;
+			max-height:200px;
+			overflow-y:scroll;
+		}
+		.ad-seller-details li{
+			background:#f9f9f9;
+			padding:15px 20px 5px;
+			margin-bottom:10px;
+			font-size:14px;
+
+			.ad-seller-info{
+				margin-bottom:10px;
+				
+				&.ad-seller-mob a {
+					color: #00afa0;
+					font-weight: 600;
+				}
+				
+				img{
+					vertical-align: baseline;
+					margin-right: 8px;
+				}
+			}
+			.ad-seller-info img{
+						vertical-align: sub;
+					}
+
+		}
+		.ad-text-error{
+			color:#ef3f30;
+			text-align: center;
+		}
+	}
+	.ad-bottom-slide-popup.expandedBottom{
+		bottom:0;
+		left:0;
+		overflow-y:scroll;
+	}
+
+	.chosen-container.focusOn + .select-label {
+		top: -12px;
+		font-size: 11px;
+		z-index: 2;
+	}
+}
+
+.select-box{ 
+    .chosen-container {
+        z-index: 3;
+    }
+    &.done {
+	    .select-label {
+		    font-size: 11px;
+		    top: -12px;
+	    }
+    }
+}

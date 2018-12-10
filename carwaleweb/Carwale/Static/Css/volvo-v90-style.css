@@ -1,0 +1,1858 @@
+﻿/*specific*/
+.padding-lr-40 {
+  padding: 0 40px;
+}
+
+.buy-automatic-car {
+  background-position: center top;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-image: url("https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/pq-d.jpg");
+}
+
+.lead-form-button {
+  position: fixed;
+  top: 50%;
+  z-index: 2;
+  right: 0;
+  right: -138px;
+  cursor: pointer;
+}
+
+.top-banner {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/banner-d.jpg?201707101151272245") no-repeat center top #fff;
+  min-height: 432px;
+}
+
+.address-textbox {
+  height: 125px;
+  width: 100%;
+}
+
+.ad-container {
+  position: absolute;
+  top: 33%;
+  left: 19%;
+}
+
+.heading {
+  font-size: 30px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.offer-heading {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.btn-white {
+  background: #fff;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.top-container {
+  padding: 15px;
+  position: relative;
+}
+
+.top-container .title {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.top-container .explain {
+  line-height: 1.8;
+}
+
+.neg-margin {
+  margin-top: -40px;
+}
+
+#ad-container__startBooking:hover,#ad-container__startBooking {
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  border: 1px solid #000;
+}
+
+@charset "utf-8";
+/* CSS Document */
+img {
+  vertical-align: middle;
+}
+
+.billboard-ads {
+  width: 100%;
+  height: 365px;
+}
+
+.hide {
+  display: none;
+}
+
+.clear {
+  clear: both;
+}
+
+.vertical-top {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+}
+
+.responsive-img {
+  max-width: 100%;
+  width: auto;
+}
+
+.request-callback-box {
+  width: 996px;
+  margin: 0 auto;
+}
+
+.request-callback-box .grid-4 {
+  padding: 0 20px;
+  position: relative;
+  right: 50px;
+}
+/*5 reasons widget section*/
+.reason-heading {
+  font-size: 22px;
+  font-weight: 600;
+  color: #003058;
+  margin: 15px 0;
+  padding: 0 15px;
+}
+
+.reason-container {
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 600px;
+  text-align: center;
+  position: relative;
+}
+
+.cw-tabs-panel {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+  max-width: 640px;
+}
+
+.cw-tabs-flex ul {
+  margin-bottom: 26px;
+}
+
+.cw-tabs-data {
+  display: none;
+  width: 100%;
+  margin: auto;
+  float: left;
+  position: relative;
+  margin-top: 40px;
+}
+
+.reason-sprite {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/m-sprite.png?201707111151272350);
+  width: 55px;
+  height: 55px;
+  display: inline-block;
+}
+
+.safety {
+  background-position: -32px -87px;
+}
+
+.power {
+  background-position: -32px -17px;
+}
+
+.design {
+  background-position: -32px -320px;
+}
+
+.comfort {
+  background-position: -32px -163px;
+}
+
+.innovation {
+  background-position: -32px -239px;
+}
+
+.state-tabs-text {
+  display: block;
+}
+
+.cross-icon {
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/cross.png);
+  position: absolute;
+  z-index: 1;
+  right: 5px;
+  top: 5px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fff;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.white-patch {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #fff;
+  opacity: 0.5;
+}
+
+.reason-explain {
+  padding: 15px;
+}
+
+.cw-tabs-flex li {
+  color: #003058;
+}
+
+.cw-tabs-flex li:hover:not(.disabled) {
+  color: #003058;
+}
+
+.cw-tabs-flex ul {
+  border-color: #003058;
+}
+
+.scroll-list li.active .reason-sprite, .scroll-list li:hover .reason-sprite {
+  border: 1px solid rgba(0,45,88,1);
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.scroll-list li:hover p {
+  text-decoration: underline;
+}
+
+.scroll-list li.active:hover p {
+  text-decoration: none;
+}
+
+.scroll-list li .reason-sprite {
+  border: 1px solid rgba(0,0,0,0);
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+
+/*5 reasons widget section ends*/
+
+/*gallery and video section*/
+.gallery__li {
+  float: left;
+  width: 32%;
+  cursor: pointer;
+}
+
+.gallery__li:nth-child(1) {
+  width: 66%;
+  padding-bottom: 16px;
+}
+
+.gallery__li:nth-child(2), .gallery__li:nth-child(6) {
+  float: right;
+}
+
+.gallery__li:nth-child(3) {
+  padding-top: 16px;
+  float: right;
+}
+
+.gallery__li:nth-child(4) {
+  clear: both;
+}
+
+.gallery__li:nth-child(5) {
+  margin-left: 14px;
+}
+
+.gallery__popup {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  top: 1.5%;
+}
+
+.gallery__cross {
+  position: absolute;
+  top: 6px;
+  right: 11px;
+  width: 22px;
+  height: 22px;
+  background: #fff url("https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/cross.png") no-repeat center;
+  cursor: pointer;
+  z-index: 1;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.video-iframe-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+ /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+}
+
+.video-iframe-wrapper iframe {
+  position: absolute;
+  top: 0.5%;
+  left: 0.5%;
+  width: 99%;
+  height: 96%;
+}
+
+.video-iframe-wrapper iframe {
+  top: -5%\0;
+}
+
+@-moz-document url-prefix() {
+ 
+  .video-iframe-wrapper iframe {
+    top: -3%;
+  }
+}
+
+/*gallery and video section ends*/
+
+/*booking section*/
+
+.booking__car-info {
+  width: 29%;
+  border: 1px solid #e2e2e2;
+  float: right;
+  margin: 5px 5px 5px 0;
+  padding-bottom: 10px;
+}
+
+.booking__intro {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/engine-intro.jpg") no-repeat center;
+  height: 556px;
+  padding: 30px;
+}
+
+.booking__intro-text {
+  color: #fff;
+  font-size: 25px;
+  font-weight: normal;
+}
+
+.booking__price-text {
+  color: #fff;
+  font-size: 14px;
+  font-weight: normal;
+  padding-bottom: 5px;
+}
+
+.call-text {
+  color: #000;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: absolute;
+  bottom: 1px;
+}
+
+.terms-cond {
+  font-size: 12px;
+  color: #fff;
+  padding-top: 5px;
+}
+
+.booking__contact, .booking__variant, .booking__dealer, .booking__payment, .booking__variant {
+  width: 69%;
+  border: 1px solid #e2e2e2;
+  margin: 5px;
+  float: left;
+}
+
+.btn--white {
+  background-color: #fff;
+  color: #003057;
+  font-weight: 600;
+}
+
+.btn--blue {
+  background-color: #003058;
+  color: #fff;
+}
+
+.btn--blue:hover {
+  text-decoration: none;
+}
+
+.btn--white:hover {
+  text-decoration: none;
+}
+
+.booking__title {
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.cheque__payment__title {
+  border-top: 1px solid #e2e2e2;
+}
+
+.booking__inputContainer {
+  width: 50%;
+}
+
+.booking__version-details .error-text {
+  position: absolute;
+  top: 30px;
+}
+
+.booking__exterior-container .error-text {
+  position: absolute;
+  bottom: -10px;
+}
+
+.booking__interior-container .error-text {
+  position: absolute;
+  bottom: -10px;
+}
+
+.booking__version-details .check {
+  top: 12px;
+}
+
+.booking__exterior, .booking__interior {
+  width: 65px;
+  height: 65px;
+  border: 1px solid #e2e2e2;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -o-border-radius: 100%;
+  -ms-border-radius: 100%;
+  border-radius: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+.booking__exterior__li, .booking__interior__li {
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px;
+  width: 65px;
+}
+
+.booking__exterior.active, .booking__interior.active {
+  padding: 2px;
+  border: 2px solid #fff;
+  width: 63px;
+  height: 63px;
+  box-shadow: 0px 3px 7px #000;
+}
+
+.color_name {
+  text-align: center;
+  display: block;
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+.booking__dealer .form-control-box {
+  width: 42%;
+  float: left;
+  margin-right: 20px;
+}
+
+.booking__address-details label {
+  position: relative;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.booking__address-details input {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.booking__address-details span {
+  display: block;
+}
+
+.booking__address-details li {
+  width: 49%;
+}
+
+.address-title {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.status-text {
+  position: absolute;
+  top: 40px;
+  left: 5px;
+  font-size: 16px;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+}
+
+.status-text span {
+  display: block;
+}
+
+.booking__status li {
+  width: 16%;
+  height: 50px;
+  display: inline-block;
+  position: relative;
+  top: 16px;
+}
+
+.booking__status li:last-child::before {
+  display: none;
+}
+
+.booking__status li:last-child {
+  width: 0;
+}
+
+.booking__status li::before {
+  display: block;
+  position: absolute;
+  content: '';
+  height: 10px;
+  width: 100%;
+  margin: auto;
+  background-color: #a7afb2;
+}
+
+.booking__status li::after {
+  display: block;
+  position: absolute;
+  content: '';
+  height: 45px;
+  width: 45px;
+  top: -18px;
+  left: -18px;
+  margin: auto;
+  background-color: #a7afb2;
+  background-image: url("https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/m-sprite-booking.png");
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -o-border-radius: 100%;
+  -ms-border-radius: 100%;
+  border-radius: 100%;
+}
+
+.booking__status li:nth-child(1)::after {
+  background-position: 2px -2px;
+}
+
+.booking__status li:nth-child(2)::after {
+  background-position: 2px -40px;
+}
+
+.booking__status li:nth-child(3)::after {
+  background-position: 2px -78px;
+}
+
+.booking__status li:nth-child(4)::after {
+  background-position: 3px -116px;
+}
+
+.booking__status.first li:nth-child(1)::after {
+  background-color: #003058;
+}
+
+.booking__status.second li:nth-child(1)::before, .booking__status.second li:nth-child(1)::after, .booking__status.second li:nth-child(2)::after {
+  background-color: #003058;
+}
+
+.booking__status.third li:nth-child(1)::before, .booking__status.third li:nth-child(1)::after, .booking__status.third li:nth-child(2)::before, .booking__status.third li:nth-child(2)::after, .booking__status.third li:nth-child(3)::after {
+  background-color: #003058;
+}
+
+.booking__status.fourth li:nth-child(1)::before, .booking__status.fourth li:nth-child(1)::after, .booking__status.fourth li:nth-child(2)::before, .booking__status.fourth li:nth-child(2)::after, .booking__status.fourth li:nth-child(3)::before, .booking__status.fourth li:nth-child(3)::after, .booking__status.fourth li:nth-child(4)::after {
+  background-color: #003058;
+}
+
+.error-text {
+  color: red;
+}
+
+.receipt-confirmation {
+  margin-top: 120px;
+  margin-bottom: 20px;
+}
+
+.or-div p {
+  margin: auto;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #1a1a1a;
+  border-radius: 50%;
+  padding: 10px;
+}
+/*booking section ends*/
+
+.twitter-border {
+  border: solid 1px #e9ebee !important;
+}
+/*.quick-links { padding:10px 5px 0 0; }*/
+.plus-icon {
+  background-position: 0 -7px;
+  width: 12px;
+  height: 7px;
+}
+
+.minus-icon {
+  background-position: 0 0;
+  width: 12px;
+  height: 7px;
+}
+
+.content-inner-block-15nr {
+  padding: 15px 10px 15px 10px;
+}
+
+.content-inner-block-30 {
+  padding: 30px;
+}
+
+.content-inner-block-15lr {
+  padding: 0 15px 0 15px;
+}
+
+.content-inner-block-30-lr {
+  padding: 0 30px 0 30px;
+}
+
+.content-inner-block-30-lrt {
+  padding: 30px 30px 0 30px;
+}
+
+.lineht-pt8 {
+  line-height: 1.8;
+}
+
+#divAdBar {
+  display: none;
+}
+
+.carousel-box {
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid #ccc;
+  display: inline-block;
+  height: 375px;
+  overflow: hidden;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.image-container {
+  height: 174px;
+  overflow: hidden;
+  text-align: center;
+  width: 300px;
+  display: table;
+}
+
+.image-container a {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.inner-full-carousel {
+  width: 100%;
+}
+
+#es-thankyou {
+  margin: 95px 0 0;
+  text-align: center;
+}
+
+/* lead for left container classes */
+.buy-car-btn {
+  margin-top: 80px;
+}
+
+.tuv-icon {
+  max-width: 100%;
+  width: auto;
+  display: block;
+}
+
+.full-box-icon {
+  height: 87px;
+  width: 210px;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.other-models {
+  width: 33%;
+  margin: 10px auto;
+  border: 1px solid grey;
+  padding: 10px;
+}
+
+.other-models-text {
+  font-size: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.other-models-img {
+  display: inline-block;
+  vertical-align: middle;
+  width: 55%;
+}
+
+.other-models-text a {
+  color: #565a5c;
+  text-decoration: none;
+}
+
+.other-models-text a:hover {
+  color: #565a5c;
+  text-decoration: none;
+}
+
+.mobile-head {
+  display: none;
+}
+
+.desktop-head {
+  display: block;
+}
+
+.jcarousel-control-left, .jcarousel-control-right {
+  top: 28%;
+}
+
+.term-parent {
+  height: 20px;
+}
+
+.term-section {
+  position: relative;
+  color: #999;
+}
+
+/*custom radio*/
+.custom-radio-list {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.custom-radio-list input[type=radio] {
+  position: absolute;
+  visibility: hidden;
+}
+
+.custom-radio-list label {
+  display: block;
+  position: relative;
+  padding: 0 20px 0px 30px;
+  margin: 10px auto;
+  z-index: 9;
+  cursor: pointer;
+}
+
+.custom-radio-list:hover label {
+}
+
+ul li .check {
+  display: block;
+  position: absolute;
+  border: 1px solid #AAAAAA;
+  height: 15px;
+  width: 15px;
+  top: 15px;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -o-border-radius: 100%;
+  -ms-border-radius: 100%;
+  border-radius: 100%;
+}
+
+.custom-radio-list .check::before {
+  display: block;
+  position: absolute;
+  content: '';
+  height: 7px;
+  width: 7px;
+  top: 3px;
+  left: 3px;
+  margin: auto;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -o-border-radius: 100%;
+  -ms-border-radius: 100%;
+  border-radius: 100%;
+}
+
+input[type=radio]:checked ~ .check {
+  border: 1px solid #014380;
+}
+
+input[type=radio]:checked ~ .check::before {
+  background: #014380;
+}
+    
+/*custo radio ends */
+
+#divMap {
+  width: 100%;
+  min-height: 310px;
+}
+
+.map-dealer-list {
+  height: 202px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.map-dealer-list .map-dealer-list-card:first-child {
+  margin-top: 0;
+  border-top: 0;
+  padding-top: 0;
+}
+
+.map-dealer-list .map-dealer-list-card {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #e2e2e2;
+  cursor: pointer;
+}
+
+.uncheck {
+  background: #fff;
+  border: 1px solid #4d5057;
+  width: 13px;
+  height: 13px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-right: 2px;
+}
+
+
+
+/*Media Review*/
+.media-review__img {
+  width: 51%;
+  height: 198px;
+  float: left;
+  position: relative;
+  background-position: 50%;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  padding-left: 13%;
+  padding-top: 22%;
+}
+
+.media-review__content {
+  width: 45%;
+  height: 198px;
+  background-color: #fff;
+  float: left;
+  position: relative;
+  z-index: 1;
+}
+
+.right-arrow, .left-arrow {
+  border: 10px solid;
+  border-right: none;
+  border-color: #fff transparent;
+  position: absolute;
+  left: -10px;
+  top: 90px;
+}
+
+.left-arrow {
+  left: auto;
+  right: -10px;
+}
+
+.arrow:before, 
+.arrow:after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  bottom: 0;
+  height: 90px;
+  background: #fff;
+  right: 0px;
+}
+
+.right-arrow:after {
+  bottom: 10px;
+}
+
+.right-arrow:before {
+  top: 10px;
+  height: 88px;
+}
+
+.left-arrow:after {
+  bottom: 10px;
+  height: 88px;
+}
+
+.left-arrow:before {
+  top: 10px;
+}
+
+.review-text {
+  padding: 60px 40px 40px;
+  font-size: 20px;
+}
+
+.review-title-text {
+  font-size: 20px;
+  text-align: right;
+  padding: 20px 40px;
+  font-weight: 700;
+}
+
+.main-review {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/review-bg.jpg?q=85");
+  height: 442px;
+}
+
+.scroll-reviews {
+  max-height: 442px;
+  overflow: auto;
+}
+
+.media-review__content p {
+  top: 28%;
+  position: relative;
+  margin-left: 15px;
+  font-weight: 600;
+}
+
+.reverse {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+@media only screen and (max-width:1000px) {
+  body {
+    min-width: 100%;
+  }
+
+  .mb-margin {
+    margin: 10px 10px 0 10px;
+  }
+
+  .jcarousel-pagination {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .ask-expert {
+    display: none;
+  }
+
+  .container {
+    width: 100% !important;
+  }
+
+  .buy-automatic-car .form-mb-margin {
+    padding-left: 20px;
+  }
+
+  .jcarousel-pagination {
+    margin-bottom: 10px;
+  }
+
+  .buy-automatic-car .grid-4 {
+    width: 31%;
+  }
+
+  .ad-container {
+    left: 13%;
+  }
+
+  .gallery__li:nth-child(3) {
+    padding-top: 12px;
+  }
+}
+
+@media only screen and (max-width:980px) {
+  .image-container {
+    width: 290px;
+  }
+
+  .image-container img {
+    width: 100%;
+  }
+
+  .buy-automatic-car .grid-4 {
+    width: 30%;
+  }
+
+  .icon-content {
+    max-width: 168px;
+  }
+
+  .content-inner-block-15nr {
+    padding: 15px 40px 20px 40px;
+  }
+
+  .car-buying-guide .content-inner-block-15nr {
+    padding: 15px 20px 20px 20px;
+  }
+}
+
+@media only screen and (max-width:900px) {
+  .image-container {
+    width: 260px;
+    height: auto;
+  }
+
+  .buy-automatic-car {
+    background: #f6f5f1;
+  }
+
+  .buy-automatic-car .grid-7, .buy-automatic-car .grid-4 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .buy-car-btn {
+    display: none;
+  }
+
+  .request-callback-box .grid-4 {
+    right: 0;
+  }
+
+  .request-callback-box {
+    width: 100%;
+  }
+
+  .car-name-container {
+    float: left;
+    height: 84px;
+  }
+}
+
+@media only screen and (max-width:800px) {
+  .car-buying-guide .grid-6, .car-buying-guide .grid-5 {
+    float: none;
+    width: 100%;
+  }
+
+  .car-buying-guide .grid-7 {
+    width: 100%;
+  }
+
+  .icon-content {
+    max-width: 100%;
+    margin-top: 15px;
+  }
+
+  .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .image-container {
+    width: 242px;
+  }
+
+  img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 55px 0;
+  }
+
+  .video-iframe-wrapper iframe {
+    height: 95%\0;
+    top: -6%\0;
+  }
+@  -moz-document url-prefix() {
+    .video-iframe-wrapper iframe { top: -4%;
+  }
+}
+}
+
+@media only screen and (max-width:768px) {
+  .image-container {
+    width: 229px;
+  }
+
+  #es-thankyou {
+    margin: 10px 0 0;
+    text-align: center;
+  }
+
+  .padding-lr-40 {
+    padding: 0 20px;
+  }
+
+  .car-buying-guide .content-inner-block-15nr {
+    padding: 15px 10px 20px;
+  }
+
+  .content-inner-block-15nr {
+    padding: 15px 20px 20px;
+  }
+
+  .quick-links li {
+    width: 80%;
+    margin-bottom: 15px;
+    font-size: 11px;
+  }
+
+  .quick-links li.comp-border-right {
+    border: none;
+  }
+
+  .request-callback-box .grid-4 {
+    background: url("https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/pq-m.jpg") no-repeat center top;
+    background-size: cover;
+    top: 0px;
+  }
+
+  .buy-automatic-car {
+    height: 432px;
+    padding: 0px;
+    background: #fafbfd;
+  }
+
+  .request-callback-box #es-leadform {
+    position: relative;
+    top: 110px;
+    padding: 0 10px;
+  }
+
+  .bb-left-side {
+    display: none;
+  }
+
+  .bb-top-side {
+    display: block;
+  }
+
+  .cw-data {
+    width: 100%;
+  }
+
+  .billboard-ads {
+    height: auto;
+  }
+
+  .vertical-top {
+    position: relative;
+    top: 0;
+    transform: translateY(0%);
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    -o-transform: translateY(0%);
+  }
+
+  .ad-container {
+    top: 33%;
+    left: 8%;
+  }
+
+  .ad-container .heading {
+    font-size: 18px;
+  }
+
+  .ad-container .offer-heading {
+    font-size: 14px;
+  }
+
+  .top-banner {
+    background: url("https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/banner-t.jpg?201707101151272245") no-repeat center top #fff;
+    min-height: 232px;
+  }
+
+  .booking__inputContainer {
+    width: 90%;
+  }
+
+  .booking__contact, .booking__variant, .booking__dealer, .booking__payment, .booking__variant {
+    width: 100%;
+    margin: 0px;
+    border: 0px;
+  }
+
+  .booking__car-info {
+    width: 100%;
+    float: left;
+  }
+
+  .booking__intro {
+    background: url("https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/engine-intro-m.jpg") no-repeat center;
+    height: 457px;
+    padding: 20px;
+  }
+
+  .gallery__popup {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    top: 1%;
+  }
+
+  .gallery__cross {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 22px;
+    height: 22px;
+    background: #fff url("https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/cross.png") no-repeat center;
+    cursor: pointer;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+  }
+
+  #pageFbContainer.grid-6, #twiiterContainer.grid-6 {
+    width: 100%;
+  }
+@  -moz-document url-prefix() {
+    .gallery__cross { right: 10px;
+  }
+}
+
+.video-iframe-wrapper iframe {
+  height: 90%\0;
+  top: -12%\0;
+}
+}
+}
+
+@media only screen and (max-width:640px) {
+  img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 55px 0;
+  }
+
+  .grid-1, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .grid-7, .grid-8, .grid-9, .grid-10, .grid-11, .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .video-bg {
+    margin: 0 15px 0 15px;
+  }
+
+  .content-inner-block-30-lr {
+    padding: 0 15px 0 15px;
+  }
+
+  .content-inner-block-30-lrt {
+    padding: 15px 15px 0 15px;
+  }
+
+  .video-container iframe {
+    height: 306px;
+  }
+
+  .manual-transmission-bg {
+    background: none;
+  }
+
+  .point1, .point2, .point3, .point4, .point5 {
+    width: 100%;
+    margin: 10px 0 10px 0;
+    float: none;
+  }
+
+  .bottomr::after {
+    left: 0;
+  }
+
+  .point2, .point4 {
+    padding-left: 0;
+  }
+
+  .car-models li.grid-4 {
+    width: 33%;
+  }
+
+  .ad-container .btn {
+    font-size: 12px;
+  }
+
+  .ameo-content-box {
+    -ms-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+    top: 0;
+  }
+
+  .swap-parent {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+ /* optional */
+    -webkit-box-align: start;
+    -moz-box-align: start;
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+  }
+
+  .swap-parent .first_div {
+    -webkit-box-ordinal-group: 2;
+    -moz-box-ordinal-group: 2;
+    -ms-flex-order: 2;
+    -webkit-order: 2;
+    order: 2;
+  }
+
+  .swap-parent .second_div {
+    -webkit-box-ordinal-group: 1;
+    -moz-box-ordinal-group: 1;
+    -ms-flex-order: 1;
+    -webkit-order: 1;
+    order: 1;
+  }
+
+  .car-name-container {
+    float: left;
+    height: 104px;
+  }
+
+  .ameo-features li {
+    width: 100%;
+  }
+
+  .other-models-text {
+    font-size: 10px;
+  }
+
+  .other-models {
+    padding: 5px;
+  }
+
+  .other-models-img {
+    width: 40%;
+  }
+
+  .mobile-head {
+    display: block;
+    border-top: 1px solid #e7d4d4;
+  }
+
+  .mobile-head-first {
+    border-top: none;
+  }
+
+  .desktop-head {
+    display: none;
+  }
+
+  .spec-sprite, .spec-parent {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .spec-parent {
+    width: 170px;
+    margin-left: 20px;
+  }
+
+  .spec-head, .spec-details {
+    text-align: left;
+  }
+
+  .specs-container {
+    text-align: center;
+  }
+
+  .inline-block-right-side {
+    font-size: 13px;
+  }
+
+  .reason-heading {
+    font-size: 17px;
+  }
+
+  .cw-tabs-flex ul {
+    margin-bottom: 10px;
+  }
+
+  .video-iframe-wrapper iframe {
+    height: 95%\0;
+    top: -6%\0;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .ad-container {
+    top: auto;
+    bottom: 4%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .ad-container #ad-container__startBooking {
+    padding: 0;
+    background: transparent;
+    color: white;
+    text-decoration: underline;
+    border: none;
+  }
+
+  .ad-container .offer-heading {
+    margin-bottom: 0px;
+  }
+
+  .top-banner {
+    background: url("https://imgd.aeplcdn.com/0x0/cw/es/volvo/v90/banner-m.jpg?201707101151272245") no-repeat center top #fff;
+    min-height: 200px;
+  }
+
+  .scroll-list {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .cw-tabs-panel {
+    width: 90%;
+  }
+
+  .neg-margin {
+    margin-top: 40px;
+  }
+
+  .cw-tabs-data {
+    margin-top: 0px;
+  }
+
+  .status-text {
+    font-size: 14px;
+  }
+
+  .booking__inputContainer {
+    width: 100%;
+  }
+
+  .gallery__li:nth-child(5) {
+    margin-left: 10px;
+  }
+
+  .booking__status li {
+    width: 24%;
+  }
+
+  .ad-container .btn {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .nissan-main {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .full-width-carousel {
+    height: auto;
+  }
+
+  .jcarousel-wrapper {
+    width: 100%;
+  }
+
+  .jcarousel {
+    padding: 10px 0 10px;
+  }
+
+  .jcarousel-control-prev, .jcarousel-control-next {
+    background-size: 130px auto;
+    height: 34px;
+    left: 2px;
+    padding: 0;
+    position: relative;
+    top: 3px;
+    width: 20px;
+  }
+
+  .jcarousel-control-left {
+    left: 0;
+  }
+
+  .jcarousel-control-right {
+    right: 0;
+  }
+
+  .jcarousel-control-prev {
+    background-position: -21px -82px;
+  }
+
+  .jcarousel-control-prev:hover {
+    background-position: -21px -82px;
+  }
+
+  .jcarousel-control-next {
+    background-position: -42px -82px;
+  }
+
+  .jcarousel-control-next:hover {
+    background-position: -42px -82px;
+  }
+
+  .jcarousel-control-prev.inactive {
+    background-position: -21px -16px;
+  }
+
+  .jcarousel-control-next.inactive {
+    background-position: -42px -16px;
+  }
+/*.buy-automatic-car{ background:#f6f5f1;}*/
+  .buy-automatic-car .grid-4 {
+    margin-bottom: 20px;
+  }
+
+  .video-container iframe {
+    height: 222px;
+  }
+
+  .nissan-main .nissan-main.cw-tabs-flex li {
+    font-size: 14px;
+  }
+
+  .compare-img-container img {
+    width: 100%;
+  }
+
+  .terrano-compare-main .grid-6 {
+    width: 50%;
+  }
+
+  .select-compare-car {
+  }
+
+  .select-compare-car .accordion-sprite {
+    margin-top: 6px;
+  }
+
+  .select-compare-car2 {
+  }
+
+  .select-compare-car2 .accordion-sprite {
+    margin-top: 6px;
+  }
+
+  .car-models li h4 {
+    font-size: 16px;
+  }
+
+  .comparo-accordion li h5, .sarafi-accordion li span {
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+  .compare-img-container img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 75px 0;
+  }
+
+  .compare-img-container {
+    padding: 13px;
+    width: 100%;
+  }
+
+  .bottom-link {
+    font-size: 15px;
+  }
+
+  .cw-tabs-flex li {
+    font-size: 15px;
+  }
+
+  .cw-tabs-flex li sub {
+    font-size: 12px;
+  }
+
+  .car-name-head {
+    font-size: 13px;
+    font-weight: 600;
+    padding-left: 10px;
+  }
+
+  .car-version {
+    font-size: 13px;
+    padding-left: 10px;
+  }
+
+  .car-price {
+    font-size: 11px;
+    padding-left: 10px;
+  }
+
+  .ameo-features li {
+    width: 100%;
+  }
+
+  .jcarousel-control-left, .jcarousel-control-right {
+    top: 36%;
+  }
+
+  .inline-block-right-side {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .inline-block-right-side:first-child {
+    text-align: center;
+  }
+
+  .reason-heading {
+    font-size: 19px;
+  }
+
+  .gallery__li:nth-child(3) {
+    padding-top: 6px;
+  }
+
+  .gallery__li:nth-child(5) {
+    margin-left: 6px;
+  }
+
+  .gallery__li:nth-child(1) {
+    padding-bottom: 6px;
+  }
+
+  .booking__intro-text {
+    color: #fff;
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+  .booking__price-text {
+    color: #fff;
+    font-size: 13px;
+    font-weight: normal;
+  }
+
+  .call-text {
+    color: #000;
+    padding-top: 5px;
+    padding-bottom: 1px;
+  }
+
+  .terms-cond {
+    font-size: 12px;
+    color: #fff;
+    padding-top: 5px;
+  }
+
+  .main-review {
+    height: auto;
+    width: 100%;
+  }
+
+  .review-text {
+    font-size: 18px;
+  }
+
+  .scroll-reviews {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width:412px) {
+  .icon-content {
+    margin-top: 0;
+    max-width: 170px;
+  }
+
+  .ad-container .heading {
+    font-size: 15px;
+  }
+
+  .ad-container {
+    top: auto;
+    bottom: 2%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn-sm {
+    padding: 5px 10px;
+  }
+
+  .status-text {
+    font-size: 12px;
+  }
+
+}
+
+@media only screen and (max-width:360px) {
+  .jcarousel-control-left, .jcarousel-control-right {
+    top: 31%;
+  }
+
+  .video-container iframe {
+    height: 159px;
+  }
+
+  .manual-transmission-bg img {
+    width: 100%;
+  }
+
+  .manual-transmission-bg img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 75px 0;
+  }
+
+  .btn-sm {
+    padding: 5px 10px;
+  }
+
+  .ameo-carousel li {
+    width: 255px;
+  }
+
+  .status-text {
+    font-size: 11px;
+  }
+@-moz-document url-prefix() {
+    .video-iframe-wrapper iframe { position: absolute;
+    top: -8%;
+    left: 0.5%;
+    width: 99%;
+    height: 88%;
+  }
+}
+
+.video-iframe-wrapper iframe {
+  height: 87%\0;
+  top: -16%\0;
+  width: 98%\0;
+  left: 1%\0;
+}
+}
+}
+
+@media only screen and (max-width: 320px) {
+  .mb-view img {
+    width: 100%;
+  }
+
+  .video-container iframe {
+    height: 140px;
+  }
+
+  .car-models li h4 {
+    font-size: 14px;
+  }
+
+  .comparo-accordion li h5, .sarafi-accordion li span {
+    font-size: 14px;
+  }
+@-moz-document url-prefix() {
+    .video-iframe-wrapper iframe { top: -9%;
+  }
+}
+}
+
+@media only screen and (max-width: 240px) {
+  .mb-view img {
+    width: 100%;
+  }
+
+  img[src$="circle-loader.gif"] {
+    margin: 40px 0;
+  }
+
+  .padding-lr-40 {
+    padding: 0 10px;
+  }
+
+  .content-inner-block-15nr {
+    padding: 10px 10px 10px;
+  }
+
+  .comparo-accordion li {
+    padding: 8px 10px;
+  }
+
+  .data-table-td {
+    padding: 4px 10px 0;
+    font-size: 12px;
+  }
+
+  .data-table-tr div:first-child {
+    padding: 0 10px;
+  }
+
+  h2, .font20 {
+    font-size: 16px;
+  }
+}
+
+@media all and (min-width: 240px) and (max-width: 768px) {
+}

@@ -1,0 +1,205 @@
+﻿@model Carwale.DTOs.PriceQuote.QuotationPageMobileDTO
+
+@using Carwale.Utility;
+@using Carwale.Entity.Enum;
+
+@{
+    int solidPriceQuoteCount = 0;
+    int metallicPriceQuoteCount = 0;
+    int showChargeGroupsCount = Model.OptionalChargesDisplayCount;
+    string modelName = Model.CarDetails.MakeName;
+}
+
+@{
+    <section class="optional-packages">
+        <div class="optional-packages__container js-optional-popup">
+            @for (int k = 0; k < Model.PriceQuote.Count; k++)
+            {
+                var ModelPq = Model.PriceQuote[k];
+                if (ModelPq.ChargeGroup != null)
+                {
+                    for (int l = 0; l < ModelPq.ChargeGroup.Count; l++)
+                    {
+
+                        var pqChargeGroup = ModelPq.ChargeGroup[l];
+                        if (pqChargeGroup.Id != (int)Charge.COP && pqChargeGroup.Type == (int)ChargeGroupType.Optional)
+                        {
+                            if (ModelPq.IsMetallic)
+                            {
+                                ++metallicPriceQuoteCount;
+                            }
+                            else
+                            {
+                                ++solidPriceQuoteCount;
+                            }
+
+                            if ((ModelPq.IsMetallic && metallicPriceQuoteCount == 1) || (!ModelPq.IsMetallic && solidPriceQuoteCount == 1))
+                            {
+                                <p class="optional-packages__title left-right-margin @(ModelPq.IsMetallic ? "metallic-compulsory" : "solid-compulsory")">Optional Packages</p>
+                                <p class="optional-packages__description left-right-margin @(ModelPq.IsMetallic ? "metallic-compulsory" : "solid-compulsory")">Additional Packages available from OEM’s or dealers</p>
+                            }
+
+                            @* ToolTip Code Starts here *@
+                            <span class="hide @(Model.CardNo)_@(ModelPq.IsMetallic? "m" : "s")_@(pqChargeGroup.Id)">
+                                @{ bool showTooltipIcon = false; }
+                                @if (!String.IsNullOrEmpty(@pqChargeGroup.Explanation))
+                                {
+                                    showTooltipIcon = true;
+                                    <span>
+                                        @pqChargeGroup.Explanation
+                                    </span>
+                                }
+                                else
+                                {
+                                    for (int m = 0; m < pqChargeGroup.ChargePrice.Count; m++)
+                                    {
+                                        if (!String.IsNullOrEmpty(pqChargeGroup.ChargePrice[m].Charge.Explanation))
+                                        {
+                                            showTooltipIcon = true;
+                                            <li>
+                                                @pqChargeGroup.ChargePrice[m].Charge.Name : @pqChargeGroup.ChargePrice[m].Charge.Explanation
+                                            </li>
+                                        }
+                                    }
+                                }
+                            </span>
+                            @* ToolTip Ends Starts here *@
+
+                            if (pqChargeGroup.SelectionOption == (int)SelectionOption.SingleSelect)
+                            {
+                                <div class='left-right-margin @((ModelPq.IsMetallic ? metallicPriceQuoteCount : solidPriceQuoteCount) > showChargeGroupsCount ? "hidden-package hide " : "visible-pacakage ") @(ModelPq.IsMetallic ? "metallic-compulsory" : "solid-compulsory") js-oem-package-item'>
+                                    <ul class="other-oem-packages-title">
+                                        <li class="other-oem-packages__li-title">
+                                            <span class="other-oem-packages__description">@pqChargeGroup.Name<span class="instruction-icon @(!showTooltipIcon ? "hide" : "")" spnidentifier="@(Model.CardNo)_@(ModelPq.IsMetallic? "m" : "s")_@(pqChargeGroup.Id)"></span></span>
+                                            <a class="reset-package hide"
+                                               chargegroup-id="@pqChargeGroup.Id"
+                                               card-no="card@(Model.CardNo)"
+                                               parent-id="total_@(pqChargeGroup.Id)_@(ModelPq.IsMetallic ? "m" : "s")_@(Model.CardNo)"
+                                               onclick="priceQuote.charge.reset(this);">Reset</a>
+
+                                            <span class="other-oem-packages__amount chargegroup_total hide card@(Model.CardNo)" id="total_@(pqChargeGroup.Id)_@(ModelPq.IsMetallic ? "m" : "s")_@(Model.CardNo)">₹ <span class="charge_total"></span></span>
+                                        </li>
+                                    </ul>
+                                    <ul class="other-oem-packages catg-insurance">
+                                        @for (int m = 0; m < pqChargeGroup.ChargePrice.Count; m++)
+                                        {
+                                            <li class="other-oem-packages__li">
+                                                <input id='@("rdb" + pqChargeGroup.ChargePrice[m].Charge.Id)_@(ModelPq.IsMetallic ? "m" : "s")_@(Model.CardNo)' type="radio" name='@(pqChargeGroup.Name)_@(Model.CardNo)' value="1"
+                                                       chargegroup-id="@pqChargeGroup.Id"
+                                                       chargegroup-name="@pqChargeGroup.Name"
+                                                       charge-id="@pqChargeGroup.ChargePrice[m].Charge.Id"
+                                                       charge-name="@pqChargeGroup.ChargePrice[m].Charge.Name"
+                                                       chargegroup-sortorder="@pqChargeGroup.SortOrder"
+                                                       charge-sortorder="@pqChargeGroup.ChargePrice[m].Charge.SortOrder"
+                                                       selection-option="@pqChargeGroup.SelectionOption"
+                                                       price="@pqChargeGroup.ChargePrice[m].Price"
+                                                       card-no="card@(Model.CardNo)"
+                                                       parent-id="total_@(pqChargeGroup.Id)_@(ModelPq.IsMetallic ? "m" : "s")_@(Model.CardNo)"
+                                                       data-role="click-tracking"
+                                                       data-event="CWInteractive"
+                                                       data-cat="MSite_PQ_Optional_Interaction"
+                                                       data-action="@pqChargeGroup.Name"
+                                                       data-label="selected"
+                                                       onclick="priceQuoteCommon.chargeGroup.showTotal(this);priceQuote.showPriceBreakup(this);">
+                                                <label class="other-oem-packages__description" for='@("rdb" + pqChargeGroup.ChargePrice[m].Charge.Id)_@(ModelPq.IsMetallic ? "m" : "s")_@(Model.CardNo)'>
+                                                    <span class="custom-radio"><span></span></span>
+                                                    <span class="other-oem-packages__descriptionText">@pqChargeGroup.ChargePrice[m].Charge.Name</span>
+                                                    <span class="other-oem-packages__amount">&#8377; @Format.FormatNumericCommaSep(pqChargeGroup.ChargePrice[m].Price.ToString())</span>
+                                                </label>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+
+                            if (pqChargeGroup.SelectionOption == (int)SelectionOption.MultiSelect)
+                            {
+                                <div class='@((ModelPq.IsMetallic ? metallicPriceQuoteCount : solidPriceQuoteCount) > showChargeGroupsCount ? "hidden-package hide" : "visible-pacakage left-right-margin") @(ModelPq.IsMetallic ? "metallic-compulsory" : "solid-compulsory") js-oem-package-item'>
+                                    <ul class="other-oem-packages-title @((ModelPq.IsMetallic ? metallicPriceQuoteCount : solidPriceQuoteCount) > showChargeGroupsCount ? "left-right-margin" : "")">
+                                        <li class="other-oem-packages__li-title other-oem-packages__li-titleAccessories">
+                                            <span class="other-oem-packages__description">@pqChargeGroup.Name<span class="instruction-icon @(!showTooltipIcon ? "hide" : "")" spnidentifier="@(Model.CardNo)_@(ModelPq.IsMetallic? "m" : "s")_@(pqChargeGroup.Id)"></span></span>
+                                            <a class="reset-package hide"
+                                               chargegroup-id="@pqChargeGroup.Id"
+                                               card-no="card@(Model.CardNo)"
+                                               parent-id="total_@(pqChargeGroup.Id)_@(ModelPq.IsMetallic ? "m" : "s")_@(Model.CardNo)"
+                                               onclick="priceQuote.charge.reset(this);">Reset</a>
+
+                                            <span class="other-oem-packages__amount chargegroup_total hide card@(Model.CardNo)" id="total_@(pqChargeGroup.Id)_@(ModelPq.IsMetallic ? "m" : "s")_@(Model.CardNo)">₹ <span class="charge_total"></span></span>
+                                        </li>
+                                    </ul>
+                                    <ul class="other-oem-packages catg-accessories">
+                                        @for (int m = 0; m < pqChargeGroup.ChargePrice.Count; m++)
+                                        {
+                                            <li class="other-oem-packages__li-accessories">
+                                                <input id='@("ms" + pqChargeGroup.ChargePrice[m].Charge.Id)_@(ModelPq.IsMetallic ? "m" : "s")_@(Model.CardNo)' type="checkbox" name="@(pqChargeGroup.ChargePrice[m].Charge.Id)@(ModelPq.IsMetallic ? "m" : "s")" value="1"
+                                                       class="hide"
+                                                       chargegroup-id="@pqChargeGroup.Id"
+                                                       chargegroup-name="@pqChargeGroup.Name"
+                                                       charge-id="@pqChargeGroup.ChargePrice[m].Charge.Id"
+                                                       charge-name="@pqChargeGroup.ChargePrice[m].Charge.Name"
+                                                       chargegroup-sortorder="@pqChargeGroup.SortOrder"
+                                                       charge-sortorder="@pqChargeGroup.ChargePrice[m].Charge.SortOrder"
+                                                       selection-option="@pqChargeGroup.SelectionOption"
+                                                       price="@pqChargeGroup.ChargePrice[m].Price"
+                                                       card-no="card@(Model.CardNo)"
+                                                       parent-id="total_@(pqChargeGroup.Id)_@(ModelPq.IsMetallic ? "m" : "s")_@(Model.CardNo)"
+                                                       data-role="click-tracking"
+                                                       data-event="CWInteractive"
+                                                       data-cat="MSite_PQ_Optional_Interaction"
+                                                       data-action="@pqChargeGroup.Name"
+                                                       data-label="selected"
+                                                       onclick="priceQuoteCommon.chargeGroup.showTotal(this);priceQuote.showPriceBreakup(this);">
+                                                <label class="other-oem-packages__description" for='@("ms" + pqChargeGroup.ChargePrice[m].Charge.Id)_@(ModelPq.IsMetallic ? "m" : "s")_@(Model.CardNo)'>
+                                                    <span>@pqChargeGroup.ChargePrice[m].Charge.Name</span>
+                                                    <span class="other-oem-packages__amount">&#8377; @Format.FormatNumericCommaSep(pqChargeGroup.ChargePrice[m].Price.ToString())</span>
+                                                </label>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                        }
+                    }
+                }
+            }
+            @if (solidPriceQuoteCount - showChargeGroupsCount > 0)
+            {
+                <span data-role="click-tracking"
+                      data-event="CWInteractive"
+                      data-cat="MSite_PQ_Optional_categories_expand"
+                      data-action="categories_expand_click"
+                      data-label="@modelName">
+                    <a href="#" class="more-packages left-right-margin solid-compulsory"
+                       data-role="impression-tracking"
+                       data-event="CWNonInteractive"
+                       data-cat="MSite_PQ_Optional_categories_expand"
+                       data-action="categories_expand"
+                       data-label="@modelName">
+                        View @(solidPriceQuoteCount - showChargeGroupsCount) Other Packages
+                    </a>
+                </span>
+            }
+            @if (metallicPriceQuoteCount - showChargeGroupsCount > 0)
+            {
+                <a href="#" class="more-packages left-right-margin metallic-compulsory">View @(metallicPriceQuoteCount - showChargeGroupsCount) Other Packages</a>
+            }
+
+        </div>
+
+        @{ string action = "optional"; }
+        @if (solidPriceQuoteCount > 0 || metallicPriceQuoteCount > 0)
+        {
+            <div class="customize-car left-right-margin">
+                <span class="pq-btn pq-btn-l customize-car__btn">Customize Your Car</span>
+                <p class="optional-packages__description">Additional Packages available from OEM’s or dealers</p>
+            </div>
+        }
+        else
+        {
+            action = action + "_not";
+        }
+        <span data-role="impression-tracking" data-event="CWNonInteractive" data-cat="MSite_PQ_loaded_optional_On" data-action="@action" data-label="@modelName" class="hide"></span>
+
+
+    </section>
+}

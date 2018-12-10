@@ -1,0 +1,19 @@
+﻿@model Carwale.DTOs.CarData.PriceInOtherCitiesDTO
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+<h2 class="section-heading">@(Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName) Price in @(Model.CityId > 0 ? "cities near " + Model.CityName : "Popular Cities") </h2>
+<table class="content-box-shadow padding10 city-price-table">
+    <thead><tr><th class="text-left">City</th><th class="text-right">On-Road Prices</th></tr></thead>
+    <tbody>
+        @foreach (var priceInCities in Model.PriceInOtherCities)
+        {
+            string cityName = priceInCities.CityName + (UrlRewrite.FormatSpecial(priceInCities.CityName).Equals(priceInCities.CityMaskingName) ? "" : ", " + priceInCities.StateName);
+        <tr>
+            <td>
+                <a title="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName price in @cityName" href="@ManageCarUrl.CreatePriceInCityUrl(Model.ModelDetails.MakeName,Model.ModelDetails.MaskingName, priceInCities.CityMaskingName)">@priceInCities.CityName</a>
+            </td>
+            <td class="text-right">₹ @Html.Raw(FormatPrice.GetFormattedPriceV2(priceInCities.MinPrice.ToString())) onwards</td>
+        </tr>        
+        }
+    </tbody>
+</table>

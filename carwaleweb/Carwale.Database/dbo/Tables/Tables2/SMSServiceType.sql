@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[SMSServiceType] (
+    [ID]   INT          NOT NULL,
+    [Name] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_SMSServiceType] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

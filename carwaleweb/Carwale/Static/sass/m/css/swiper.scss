@@ -1,0 +1,28 @@
+﻿@import "../../partials/_swiper.scss";
+
+.btn-abtest {
+    .btn-orange {
+        background: #e53012
+    }
+
+    .btn-green {
+        background: #00afa0
+    }
+
+    .m-call-slug {
+        background: rgba(255, 255, 255, 0.9) none repeat scroll 0 0;
+        bottom: 0;
+        color: #fff;
+        padding: 5px;
+        position: fixed;
+        width: 100%;
+        z-index: 5;
+        box-shadow: #d2d2d2 0 -1px 10px;
+
+        .btn {
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+    }
+}

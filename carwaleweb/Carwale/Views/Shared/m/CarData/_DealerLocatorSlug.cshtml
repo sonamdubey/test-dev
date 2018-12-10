@@ -1,0 +1,47 @@
+@model Tuple<Carwale.DTO.Dealers.DealerDetails, Carwale.Entity.Campaigns.PredictionModelResponse>
+@using Carwale.Entity.Enum;
+
+<section>
+    <div class="authorized-dealer-slug">
+	<h3 class="text-black margin-bottom10 margin-left10 m-special-skin-text">Authorized Dealer: @(ViewBag.IsVersionPage || ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityNameForDLSlug)</h3>
+
+        <div class="content-box-shadow dealer-info-slug margin-bottom20 content-inner-block-10">
+            <h3 class="text-black margin-bottom10 font14">@Model.Item1.Name</h3>
+            <p class="margin-bottom10">@Model.Item1.Address</p>
+            @if (!String.IsNullOrWhiteSpace(ViewBag.DealerMaskingNumber))
+            {
+                <a class="font16 text-black text-bold margin-bottom10" data-role="click-impression"
+                   href="tel:@(ViewBag.DealerMaskingNumber)"
+                   data-event="CWNonInteractive"
+                   data-action="DealerAddrSlugNumber"
+                   data-cat="Call-Slug-Behaviour"
+                   data-label="@(ViewBag.CallSlugTrackingLabel)"
+                   data-cwtccat="@(ViewBag.IsCityPage ? "CityPage" : (ViewBag.IsVersionPage ? "VersionPage" : "ModelPage"))" data-cwtcact="MaskingNumberClick"
+                   data-cwtclbl="make=@ViewBag.MakeName|model=@ViewBag.ModelName|@(ViewBag.IsVersionPage ? "version=" + ViewBag.VersionName + "|" : "")city=@ViewBag.CityZone">
+                    <span class="margin-top10 margin-bottom10" data-role="click-impression"
+                          data-event="CWNonInteractive"
+                          data-action="DealerAddrSlugNumber"
+                          data-cat="@(ViewBag.IsCityPage ? "MSite-PriceInCityPage-LeadSlug" : (ViewBag.IsVersionPage ? "MSite-VersionPage-LeadSlug" : "MSite-ModelPage-LeadSlug"))"
+                          data-label='@(ViewBag.IsCityPage ? (ViewBag.ModelName + "," + ViewBag.CityName) : (ViewBag.ModelName + "," + ViewBag.CityZone))'>
+                        <span class="fa fa-phone"></span>@ViewBag.DealerMaskingNumber
+                    </span>
+                </a>
+            }
+            
+
+            <button class="btn btn-white btn-md btn-full-width margin-bottom10" id="btnDealerLocatorSlug" dealercampaignexist="true"
+                    sourceclick="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "ButtonDealer", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleMobile)))"
+                    leadinquirysource="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "ButtonDealer", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleMobile)))"
+                    page="@(ViewBag.IsCityPage ? "CityPage" : (ViewBag.IsVersionPage ? "VersionPage" : "ModelPage"))"
+                    data-role="click-impression" data-event="CWNonInteractive"
+                    data-action="DealerAddrSlugBtn"
+                    data-cat="@(ViewBag.IsCityPage ? "MSite-PriceInCityPage-LeadSlug" : (ViewBag.IsVersionPage ? "MSite-VersionPage-LeadSlug" : "MSite-ModelPage-LeadSlug"))"
+                    data-label='@(ViewBag.IsCityPage ? (ViewBag.ModelName + "," + ViewBag.CityName) : (ViewBag.ModelName + "," + ViewBag.CityZone))'
+                    recoleadsource='@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "RecoButtonDealer", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleMobile)))'
+                    recoinquirysource='@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "RecoButtonDealer", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleMobile)))'
+                    dealerlocatorname="@Model.Item1.Name" data-predictionScore="@Model.Item2.Score" data-predictionLabel="@Model.Item2.Label">
+                Get Hassle Free Assistance
+            </button>
+        </div>
+    </div>
+</section>

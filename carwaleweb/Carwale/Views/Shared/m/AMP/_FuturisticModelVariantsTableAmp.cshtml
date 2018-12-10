@@ -1,0 +1,57 @@
+﻿@model Carwale.DTOs.NewCars.ModelPageDTO_Mobile
+@using Carwale.Utility;
+@using System.Text.RegularExpressions;
+<header class="margin-top15 margin-bottom10 margin-left10">
+    <h2 class="font18 text-normal text-black">@(string.Format("{0} Details", Model.ModelDetails.ModelName))</h2>
+    <p class="font10">All following details are tentative.</p>
+</header>
+
+<div id="variants" class="variant-list-container margin-top10">    
+    <div class="show-all-variant-list">
+        <div >
+            <div class="position-rel clearfix ">
+                <table class="variant-table">
+                    <thead class="text-left">
+                        <tr>
+                            <th class="variant-table__head">Variant</th>
+@if (Model.ShowPriceColumn)
+{
+                            <th class="variant-table__head">Expected Price</th>
+}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var version in Model.NewCarVersions)
+                        {
+                            <tr class="variant">
+                                <td class="variant__name-cell">
+                                    @if (version.IsSpecsExist)
+                                    {
+                                    <a href="@ManageCarUrl.CreateVersionUrl(Model.ModelDetails.MakeName, version.MaskingName, version.VersionMaskingName, true)" class="variant__link text--truncate">@version.Version</a>
+                                    }
+                                    else
+                                    {
+                                        <span class="variant__link text--truncate">@version.Version</span>
+                                    }
+                                    <p class="font12 text-light-grey text--truncate">@Regex.Replace(version.SpecsSummary, @"\d+cc", string.Empty)</p>
+                                </td>
+                                @if (Model.ShowPriceColumn)
+                                {
+                                <td class="variant__price-cell ">
+                                    @if (version.CarPriceOverview != null)
+                                    {
+                                    <p class="font14  text-bold text-black">
+                                        <span>@version.CarPriceOverview.Price.ToString()</span>
+                                    </p>
+                                    }
+                                </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <p class="font14 text-center paddint-top15 padding-bottom15 display-none">Sorry, no matching variants found.</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+﻿@model Carwale.DTOs.PriceQuote.OptionalPricesDto
+
+@using Carwale.Entity.Enum;
+@using System.Text;
+
+@{var colorType = Model.PriceQuote.IsMetallic ? "js-metallic" : "js-solid"; }
+
+<div class="@colorType">
+    <div class="content-card content-card__optional-packages" data-role="impression" data-event="CWNonInteractive" data-cat="Desktop_PQ_OptionalWidget" data-action="Desktop_PQ_OptionalWidget" data-label="@(Model.MakeName + "_" + Model.ModelName)">
+        <span class="content-card-details__image content-card__optional-packages-icon"></span>
+        <div class="content-card-details">
+            <h3 class="content-card-details__title">
+                Optional Packages
+            </h3>
+            <span class="content-card-details__subtitle">
+                Additional Packages available from OEM’s or dealers
+            </span>
+            <span class="content-card-details__subtitle">
+
+            </span>
+            <p class="content-card-details__description @colorType">
+                @{
+                    StringBuilder optionalPackages = new StringBuilder();
+                    optionalPackages.Append("Optional packages include ");
+                    var chargeGroupCount = Model.PriceQuote.ChargeGroup.Count;
+                    for (int i = 0; i < 2 && i < chargeGroupCount; i++)
+                    {
+                        if (i != 0)
+                        {
+                            optionalPackages.Append(", ");
+                        }
+
+                        optionalPackages.Append(Model.PriceQuote.ChargeGroup[i].Name);
+                    }
+                    if (chargeGroupCount > 1)
+                    {
+                        optionalPackages.Append(", etc.");
+                    }
+                }
+                @optionalPackages.ToString()
+            </p>
+
+            <span class="content-optional-packages__price">
+                Effective price &#x20b9;53,389
+            </span>
+        </div>
+        <span class="content-card-details__link js-customize-car-link @colorType" data-popup="customizeCar_@colorType" data-role="click" data-event="CWInteractive" data-cat="Desktop_PQ_OptionalWidget" data-action="Desktop_PQ_OptionalWidget" data-label="@(Model.MakeName + "_" + Model.ModelName)">
+            Customise your Car
+        </span>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[UP_Moderators] (
+    [UserId] NUMERIC (18) NOT NULL,
+    CONSTRAINT [PK_UP_Moderators] PRIMARY KEY CLUSTERED ([UserId] ASC) WITH (FILLFACTOR = 90)
+);
+

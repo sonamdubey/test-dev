@@ -1,0 +1,10 @@
+﻿@model Carwale.Entity.ViewModels.HomeModel
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+<script>var landingPage = true;</script>
+<script  type="text/javascript"  src="/static/js/home.js" defer></script>
+@if (HttpContext.Current.User.Identity.IsAuthenticated)
+{
+    <script type="text/javascript">var customer = {mhash: '@CurrentUser.Email.ComputeHash(Hasher.eHashType.SHA256)'};</script>
+}
+<script type="text/javascript" src="/static/js/zone-property-script.js" defer></script>

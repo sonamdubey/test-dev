@@ -1,0 +1,36 @@
+.suggested-car__image {
+  display: inline-block;
+  vertical-align: top;
+  width: 30%;
+  margin: 15px 0;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.suggested-cars-info {
+  display: inline-block;
+  width: 70%;
+  font-size: 13px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.suggested-cars-info__heading {
+  font-size: 16px;
+  color: map-get($color-map, "charcoal");
+  font-weight: $font-bold;
+}
+
+.suggested-cars-info__title {
+  color: map-get($color-map, "dark-gray");
+  margin: 3px 0;
+}
+
+.suggested-car-wrapper {
+  .check-box__icon {
+    @include vendor-prefix("transform", translateY(-50%));
+    top: 50%;
+  }
+}

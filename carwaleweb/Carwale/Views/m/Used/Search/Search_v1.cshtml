@@ -1,0 +1,169 @@
+﻿@model Carwale.UI.ViewModels.Used.Search.SearchViewModel
+@using Carwale.UI.ViewModels.Used.Lead;
+@{
+    var metaKeywords = Model.MetaKeywords;
+    ViewBag.Title = metaKeywords.SearchPageTitle;
+    ViewBag.Description = metaKeywords.PageDescription;
+    ViewBag.Canonical = metaKeywords.Canonical;
+    ViewBag.Prev = metaKeywords.PreviousPageUrl;
+    ViewBag.Next = metaKeywords.NextPageUrl;
+    ViewBag.Keywords = metaKeywords.PageKeywords;
+    ViewBag.Amphtml = metaKeywords.AmpUrl;
+    Layout = "~/views/shared/m/_MLayoutV2.cshtml";
+    ViewBag.ShowUsedCarsMyChats = true;
+    ViewBag.CustomCss = "~/Views/m/Used/Search/SearchCss_v1.cshtml";
+}
+@section MetaTags{
+    <link rel="alternate" type="text/html" media="handheld" href="@metaKeywords.AltUrl" title="Desktop" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+}
+<script type="text/javascript">
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    googletag.cmd.push(function () {
+        googletag.pubads().enableSingleRequest();
+        googletag.pubads().disableInitialLoad();
+        googletag.pubads().collapseEmptyDivs();
+        googletag.enableServices();
+    });
+
+    function showAd(id, slotName, city, carName, budget) {
+        googletag.cmd.push(function () {
+            var slot = googletag.defineSlot('/1017752/UsedCarSearch_Mobile_320x50_' + slotName, [[320, 50]], id).
+                setTargeting("UsedCarSearch_Mobile_City", city).
+                setTargeting("UsedCarSearch_Mobile_MakeModel", carName).
+                setTargeting("BudgetRange", budget).
+                addService(googletag.pubads());
+            googletag.display(id);
+            googletag.pubads().refresh([slot]);
+        });
+    }
+</script>
+
+@*<!--Main Content of Search Page start here-->*@
+<div id="body">
+    @{Html.RenderPartial("~/Views/m/Used/Search/SearchMainContent_v1.cshtml", Model);}
+</div>
+
+@*<!--Sort Popup div starts here-->*@
+<div id="sort-div" class="hide">
+    @{Html.RenderPartial("~/Views/m/Used/Search/SortPopup.cshtml");}
+</div>
+
+@*<!--Filter Popup div starts here-->*@
+<div id="filter-div" class="filter__popup hide">
+</div>
+
+<div id="m-blackOut-window" class="hide"></div>
+<div id="cwmLoadingIcon" class="m-loading-popup hide" style="position:fixed; top: 40%; right: 50%; left: 50%;z-index:10001;">
+    <img src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" width="16" height="16" alt="" title="" />
+</div>
+
+@*<!--Finance Frame start here-->*@
+<div id="financeIframe" class="hide" style="z-index:9;overflow-x: hidden;overflow-y: hidden;">
+    <div class="top-corner" style="padding:0px">
+        <span id="FinanceFormBack" class="btn content-inner-block-10 padding-right30">
+            <span>Close</span>
+        </span>
+    </div>
+    <div class="search-loading-pic popup-loading-pic hideImportant" style="overflow: hidden; display: block;">
+        <img src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" width="16" height="16" alt="" title="">
+    </div>
+    <div id="iframecontent" class="hide" style="width:100%;height:100%"></div>
+    <div id="iframeTimeOut" data-overlay-theme="a" data-theme="c" data-dismissible="false" class="text-center timeout-popup rounded-corner2 content-box-shadow hide">
+        <span class="error padding-left10 padding-right10 block">We could not fetch loan details right now. Please try again later.</span>
+        <a href="javascript:void(0)" data-role="button" class="btn btn-xs btn-white btn-full-width margin-top15" id="iframeTimeOutClick">OK</a>
+    </div>
+</div>
+
+@*<!--Check right price popup starts here-->*@
+<div class="valuation-result-section hide">
+    <div class="top-corner valuationHeader">
+        <a id="evaluateResultPopupBackArrow" class="btn content-inner-block-10 padding-right30">
+            <span class="cwmsprite back-long-arrow-left-white"></span>
+        </a>
+    </div>
+    <div class="valuation-result-content"></div>
+</div>
+
+@*<!-- Go to top code starts here -->*@
+<div id="gotoTop" class="position-fixed pos-right10 cur-pointer hide">
+    <span class="go-top-icon"></span>
+</div>
+
+@*<!--Similar Car Popup starts here-->*@
+<div id="showSimilarCar" class="hide">
+    <div class="top-corner">
+        <a id="simillarCarsPopupBackArrow" class="btn content-inner-block-10 padding-right30">
+            <span class="cwmsprite back-long-arrow-left-white"></span>
+        </a>
+        <span class="margin-left10 m-special-skin-text">Similar Cars</span>
+    </div>
+    <div id="recommendedCarsPopup">
+        <div class="popup-suggestion-box hide">
+            <ul id="popup-suggetions" class="suggestion-list"></ul>
+        </div>
+    </div>
+</div>
+
+@*<!-- Lead Form starts here-->*@
+<div id="buyerForm" class="buyerProcess padding-top10 text-center hide">
+    @{ Html.RenderPartial("~/Views/m/Used/LeadForm.cshtml", new LeadViewModel { DeliveryCity = string.Empty, StockCity = string.Empty });}
+</div>
+
+@{ Html.RenderPartial("~/Views/m/Used/Search/ErrorPopup.cshtml");}
+
+@*<!--Seller Details div starts here-->*@
+<div id="sellerDetailsDiv" class="hide">
+    @{ Html.RenderPartial("~/Views/m/Used/SellerDetail.cshtml");}
+</div>
+
+@*<!-- chat -->*@
+<div id="chatPopup">
+</div>
+@{Html.RenderPartial("~/Views/Shared/m/_Location.cshtml");}
+
+@section Scripts{
+    <script type="text/javascript">
+        var currQs = "@HttpUtility.JavaScriptStringEncode(Model.CurrQS)";
+        var isIphone = (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) ? true : false;
+        var toTriggermanualChangeEvent = true;
+        var usedCarSection = true;
+    </script>
+    <script type="text/javascript" src="~/static/js/utils/redux-watch.js" defer></script>
+    <script type="text/javascript" src="/static/Src/otp-verification.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/plugins.js" defer></script>
+    <script type="text/javascript" src="/static/Src/commonUtilities.js" defer></script>
+    <script type="text/javascript" src="/static/js/used/cwUsedTracking.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/events.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/cookie.js" defer></script>
+    <script type="text/javascript" src="/static/js/utils/accordion.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/locationValue.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/globalCity.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/filterValues.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/slider.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/Sort.js" defer> </script>
+    <script type="text/javascript" src="/static/m/js/used/filters.js" defer></script>
+    <script type="text/javascript" src="/static/js/used/chatProcess.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/buyerProcess.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/rightPrice.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/EmiFinance.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/search_v1.js" defer></script>
+    <script type="text/javascript" src="/static/js/promise-polyfill.min.js" defer></script>
+
+    <script type="text/javascript" src="~/Static/js/chatApplozic/jquery.min.js" defer></script>
+    <script type="text/javascript" src="~/Static/js/chatApplozic/applozic.plugins.min.js" defer></script>
+    <script type="text/javascript" src="~/Static/js/chatApplozic/applozic.widget.min.js" defer></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyDKfWHzu9X7Z2hByeW4RRFJrD9SizOzZt4&libraries=places" defer></script>
+    <script type="text/javascript" src="~/Static/js/chatApplozic/locationpicker.jquery.min.js" defer></script>
+    <script type="text/javascript" src="~/Static/js/chatApplozic/applozic.chat.js" defer></script>
+    <script type="text/javascript" src="~/Static/js/chatApplozic/applozic.sidebox.js" defer></script>
+}
+
+
+
+
+

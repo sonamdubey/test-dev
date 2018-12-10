@@ -1,0 +1,38 @@
+﻿
+@import "../mixins/_index.scss";
+
+.additional-suggested-list {
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 20px;
+	overflow-y: auto;
+}
+.additional-list .suggested-list-details,
+.suggested-list > .suggested-list-item {
+    border: 1px solid map-get($color-map, "gainsboro");
+    border-radius: 3px;
+    padding: 20px;
+}
+@include check-box(20 , 'right');
+.additional-list-count {
+    display: none;
+}
+.suggested-list {
+     &> .suggested-list-item {
+        margin-top: 10px;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+}
+.suggested-list-item__info {
+    width: 100%;
+	font-size: 0;
+}
+
+.suggested-list-details{
+	height: 100%;
+	overflow: hidden;
+}
+

@@ -1,0 +1,46 @@
+﻿@model Carwale.DTOs.CarData.CarKeyFeaturesDto
+
+@if (Model != null)
+{
+    <section class="margin-bottom20 margin-top20">
+        <h2 class="margin-left10 special-skin-text m-special-skin-text">@Model.MakeName @Model.ModelName Key Specifications</h2>
+    <table class="model-key-specs">
+        @if (!string.IsNullOrWhiteSpace(Model.Price))
+        {
+        <tr>
+            <th class="left-data">Price</th>
+            <td class="right-data">
+                <span><span class="rupee-icon">Rs.</span> @Model.Price</span><br />
+            </td>
+        </tr>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.Mileage))
+        {
+        <tr>
+            <th class="left-data">Mileage</th>
+            <td class="right-data">
+                <span> @(Model.Mileage)</span><br />
+            </td>
+        </tr>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.Engine))
+        {
+        <tr>
+            <th class="left-data">Engine</th>
+            <td class="right-data">
+                <span> @(Model.Engine)</span><br />
+            </td>
+        </tr>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.Transmission))
+        {
+        <tr>
+            <th class="left-data">Transmission</th>
+            <td class="right-data">
+                <span> @(Model.Transmission)</span><br />
+            </td>
+        </tr>
+        }
+    </table>
+       </section>
+}

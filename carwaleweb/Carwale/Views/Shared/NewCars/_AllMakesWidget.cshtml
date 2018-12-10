@@ -1,0 +1,31 @@
+﻿@model List<string>
+@using System;
+@using Carwale.Utility;            
+<div class="cw-tabs-data" id="brand-type">
+    <div class="brand-type-container">
+        @if (Model.Count > 0)
+        {
+            <ul>
+                @foreach (var make in Model)
+                {
+                    if (!string.IsNullOrEmpty(make))
+                    {
+                        <li>
+                            <a href="@(ManageCarUrl.CreateMakeUrl(make,ViewBag.IsMobile))">
+                                <span class="brand-type-title">@(make)</span>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        }
+    </div>
+    @if (Model.Count > 10)
+    {
+        <div class="view-brandLogo text-center padding-top10">
+            <a href="#" id="view-brandLogo" class="view-more-btn font16">View <span>more</span> brands</a>
+        </div>
+    }
+</div>
+
+

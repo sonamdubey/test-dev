@@ -1,0 +1,533 @@
+﻿@model Carwale.DTOs.NewCars.MakePageDTO_Mobile
+@using Carwale.Utility;
+@using Carwale.UI.PresentationLogic;
+@using MobileWeb.Common;
+@using Carwale.Entity.Enum;
+@using System.Globalization;
+@using System.Configuration;
+@using Carwale.Entity
+@{
+    string FormattedMakeName = CommonOpn.FormatSpecial(Model.MakeDetails.MakeName);
+    string currentHost = Request.Url.GetLeftPart(UriPartial.Authority).Replace("http:",string.Empty).Replace("https:",string.Empty); 
+    ViewBag.Title = Model.MetaData.Title;
+    ViewBag.Description = Model.MetaData.Description;
+    ViewBag.Canonical = string.Format("{0}{1}-cars/", "https://www.carwale.com/", FormattedMakeName);
+    Layout = "~/views/shared/m/_MLayoutAmp.cshtml";
+}
+<!-- only one style tag is allowed, and it must have an "amp-custom" attribute -->
+
+@section Scripts{
+    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+}
+@section CustomAMPCSS{
+.list-count span,.model__rank__slug>div,.rating-sprite,.triangle{display:inline-block}.list-count,.position-abt{position:absolute}.model__card{background:#fff;padding:0 10px 10px;color:#000}.model__card h2{color:#0288d1;margin:0 0 5px}main,section{padding:10px}.rating-sprite{background:url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/review-rating-sprite.png) no-repeat;width:100px;height:20px;vertical-align:text-bottom}.empty-rating{background-position:-102px 0}.half-rating{background-position:-80px -29px}.one-rating{background-position:-80px 0}.oneHalf-rating{background-position:-59px -29px}.two-rating{background-position:-59px 0}.twoHalf-rating{background-position:-38px -29px}.three-rating{background-position:-39px 0}.threeHalf-rating{background-position:-20px -29px}.four-rating{background-position:-20px 0}.fourHalf-rating{background-position:0 -29px}.five-rating{background-position:0 0}.list-count,.list-count span{background:#317c9b;border-radius:30px;color:#fff}.list-count{font-size:16px;font-weight:600;padding:2px 1px 1px;right:0;z-index:1;width:34px;height:34px;line-height:28px}.list-count span{border:1px solid #fff;width:30px;height:30px}.model__rank__slug{background-color:#fff;padding:10px 10px 10px 45px;border-top:1px solid #f5f5f5}.show-city-price{padding:10px;color:#0288d1}.triangle{vertical-align:middle}.triangle-left,.triangle-right{width:4px;height:3px;position:absolute;bottom:-42px;border-bottom:solid 4px transparent;border-top:solid 4px transparent}.triangle-left{left:-22px;border-left:solid 6px #103f53}.triangle-right{right:11px;border-right:solid 6px #103f53}.text-center{text-align:center}.model__list li{margin-bottom:10px}.pos-left10{left:10px}.position-rel{position:relative}.city__form{padding-left:10px;padding-right:10px;top:-20px}.city__search{background:#f2f3f5}.search__form{width:100%;padding:10px;box-shadow:inset 0 1px 1px rgba(0,0,0,.075);border-radius:4px;background:#fff;border:1px solid #ccc;box-sizing:border-box}.close{color:#fff;top:0;right:15px;font-size:40px;font-weight:100}.city-banner-div{background:url(https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/m/city-banner.png) left top no-repeat #333434;background-size:cover;height:170px}.city-banner-div span{padding-top:70px;margin:0 auto;font-size:18px;font-weight:500;color:#fff;display:block}.contentWrapper{width:280px;height:319px;border:1px solid #ccc;background:#fff}.imageWrapper{width:280px;height:160px}.carDescWrapper{padding:15px}.oliveText{color:#c1a611}.bg-white{left:56px;background-color:#fff}.text-black{color:#1a1a1a}.margin-bottom5{margin-bottom:5px}.margin-bottom10{margin-bottom:10px}.margin-bottom15{margin-bottom:15px}.text-light-grey{color:#82888b}.text-bold{font-weight:600}.upcoming-cars__contentWrapper{width:280px;height:380px;border:1px solid #ccc;position:relative;background:#fff}.alert-circle-icon{background-position:-107px -121px;z-index:1;width:33px;height:33px;cursor:pointer;position:absolute;right:10px;top:10px}.font24{font-size:24px}.font18{font-size:18px}.font25{font-size:25px}.font14{font-size:14px}.model-news-heading{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;margin-bottom:15px;font-size:15px;color:#1a1a1a}
+.model__list li{margin-bottom:10px;position:relative;}
+.pos-left10{left:10px}
+.position-abt{position:absolute}
+.position-rel{position:relative} 
+.just-launched-section {position: absolute;width: 100%;z-index: 1;top: -8px; margin-left: 7px;}
+.just-launched-section .launch-date-unit {display: inline-block;background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48c3ZnIHdpZHRoPSI0M3B4IiBoZWlnaHQ9IjQwcHgiIHZpZXdCb3g9IjAgMCA0MyA0MCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4gICAgICAgIDx0aXRsZT5OZXcgdGFnPC90aXRsZT4gICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+ICAgIDxkZWZzPiAgICAgICAgPHBhdGggZD0iTTMsLTEuMTM2ODY4MzhlLTEzIEMxMy42NjY2NjY3LC0xLjEzNjg2ODM4ZS0xMyAyNC4zMzMzMzMzLC0xLjEzNjg2ODM4ZS0xMyAzNSwtMS4xMzY4NjgzOGUtMTMgQzMzLjY0MjU5MjQsMy4yMzAzNDE3NWUtMTMgMzMuMjMwMDk3NiwxMC4zNTkwMzEzIDMzLjc2MjUxNTYsMzEuMDc3MDkzOSBMMzMuNzYyNTEyLDMxLjA3NzA5NCBDMzMuNzc2NywzMS42MjkxOTQ1IDMzLjM0MDYzNTgsMzIuMDg4MjYyIDMyLjc4ODUzNTMsMzIuMTAyNDUgQzMyLjcxNjgxNTUsMzIuMTA0MjkzMSAzMi42NDUxMDU2LDMyLjA5ODQxMjcgMzIuNTc0NjQ0MSwzMi4wODQ5MTA0IEwxNi41MzA2MDI0LDI5LjAxMDQ0NzUgTDE2LjUzMDYwMjQsMjkuMDEwNDQ3NSBDMTYuNDAyMDc2LDI4Ljk4NTgxODQgMTYuMjY5OTY1LDI4Ljk4NjY1NTkgMTYuMTQxNzYxMiwyOS4wMTI5MTI2IEwxLjIwMDYzOTA5LDMyLjA3MjkxMDEgTDEuMjAwNjM5MDksMzIuMDcyOTEwMSBDMC42NTk1ODQ5MywzMi4xODM3MiAwLjEzMTE0NDY4NiwzMS44MzQ5MzgyIDAuMDIwMzM0Nzc0NSwzMS4yOTM4ODQgQzAuMDA2ODEyODkzMDYsMzEuMjI3ODYwNCAxLjU3OTk1Mjc5ZS0xNSwzMS4xNjA2Mzg5IDEuMzMyMjY3NjNlLTE1LDMxLjA5MzI0NDkgTDAsMyBMMCwzIEMtMi4wMjkwNjEyNWUtMTYsMS4zNDMxNDU3NSAxLjM0MzE0NTc1LC0xLjEzMzgyNDc5ZS0xMyAzLC0xLjEzNjg2ODM4ZS0xMyBaIiBpZD0icGF0aC0xIj48L3BhdGg+ICAgICAgICA8ZmlsdGVyIHg9Ii0xOC42JSIgeT0iLTE3LjElIiB3aWR0aD0iMTM3LjElIiBoZWlnaHQ9IjE0MC41JSIgZmlsdGVyVW5pdHM9Im9iamVjdEJvdW5kaW5nQm94IiBpZD0iZmlsdGVyLTIiPiAgICAgICAgICAgIDxmZU9mZnNldCBkeD0iMCIgZHk9IjEiIGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJzaGFkb3dPZmZzZXRPdXRlcjEiPjwvZmVPZmZzZXQ+ICAgICAgICAgICAgPGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMiIgaW49InNoYWRvd09mZnNldE91dGVyMSIgcmVzdWx0PSJzaGFkb3dCbHVyT3V0ZXIxIj48L2ZlR2F1c3NpYW5CbHVyPiAgICAgICAgICAgIDxmZUNvbG9yTWF0cml4IHZhbHVlcz0iMCAwIDAgMCAwLjA5NjYxOTg5OCAgIDAgMCAwIDAgMC4wOTY2MTk4OTggICAwIDAgMCAwIDAuMDk2NjE5ODk4ICAwIDAgMCAwLjQzNzEwMzcxNCAwIiB0eXBlPSJtYXRyaXgiIGluPSJzaGFkb3dCbHVyT3V0ZXIxIj48L2ZlQ29sb3JNYXRyaXg+ICAgICAgICA8L2ZpbHRlcj4gICAgPC9kZWZzPiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4gICAgICAgIDxnIGlkPSJKdXN0LWxhdW5jaGVkX21vZGVsLXBhZ2UiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0yMTEuMDAwMDAwLCAtNTYzLjAwMDAwMCkiPiAgICAgICAgICAgIDxnIGlkPSJOZXctdGFnIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMTUuMDAwMDAwLCA1NjYuMDAwMDAwKSI+ICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0zNy41Mzk0ODk3LDQuOTk3MjUzNDIgQzM2Ljk3MTEzMDQsNC45OTcyNTM0MiAzNS40MjQwNTE5LDQuOTk3MjUzNDIgMzIuODk4MjU0NCw0Ljk5NzI1MzQyIEMzMi45NTY4MDc1LDMuODAwNTU3NDUgMzIuOTg2MDg0LDIuNzY1MDE0NjUgMzIuOTg2MDg0LDEuODkwNjI1IEMzMi44MzY1NDc5LDAuODY1MTkzNjg1IDMzLjU4NTgzMTQsMC4yMzUzMTA4NzIgMzUuMjMzOTM0NywwLjAwMDk3NjU2MjUgQzM2LjYzMDM0NjQsMC4yNTg5MTExMzMgMzcuMzk4ODY0NywxLjkyNDMzNjc1IDM3LjUzOTQ4OTcsNC45OTcyNTM0MiBaIiBpZD0iUGF0aC0yIiBmaWxsPSIjMDg3Qzg2Ij48L3BhdGg+ICAgICAgICAgICAgICAgIDxnIGlkPSJSZWN0YW5nbGUtMTYiPiAgICAgICAgICAgICAgICAgICAgPHVzZSBmaWxsPSJibGFjayIgZmlsbC1vcGFjaXR5PSIxIiBmaWx0ZXI9InVybCgjZmlsdGVyLTIpIiB4bGluazpocmVmPSIjcGF0aC0xIj48L3VzZT4gICAgICAgICAgICAgICAgICAgIDx1c2UgZmlsbD0iIzA0QjRDNCIgZmlsbC1ydWxlPSJldmVub2RkIiB4bGluazpocmVmPSIjcGF0aC0xIj48L3VzZT4gICAgICAgICAgICAgICAgPC9nPiAgICAgICAgICAgIDwvZz4gICAgICAgIDwvZz4gICAgPC9nPjwvc3ZnPg==);background-repeat: no-repeat;width: 44px;height: 40px;color: #fff;text-align: center;line-height: 11px;padding-top: 3px; }
+.just-launched-section .launch-date-unit .launch-date {font-size: 12px; }
+.just-launched-section .launch-date-unit .launch-date .lauch-date-unit {font-size: 8px;vertical-align: super; }
+.just-launched-section .launch-date-unit .launch-month {font-size: 10px; }
+.just-launched-section .launch-title {display: inline-block;font-size: 9px;text-transform: uppercase;color: #A8AFB3;font-weight: 600;vertical-align: super; }
+.brand-type-container ul {
+  -moz-transition: max-height .5s;
+  -webkit-transition: max-height .5s;
+  -o-transition: max-height .5s;
+  -ms-transition: max-height .5s;
+  transition: max-height .5s;
+  overflow: hidden;
+  will-change: max-height;
+  text-align: left;
+  font-size: 0; }
+  .brand-type-container ul > li {
+    display: inline-block;
+    vertical-align: middle;
+    min-width: 133px;
+    width: 50%;
+    height: 20px;
+    margin-top: 7px;
+
+    text-align: left;
+    font-size: 14px; }
+    .brand-type-container ul > li a {
+    display: block;
+    padding-left: 5px;
+    padding-right: 5px;    
+    }
+.brand-type-title {
+  display: block;
+  cursor: pointer;
+  color: #0288d1; }
+.other-brand__view-more {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    color: #0288d1;
+    padding-top: 10px;
+}
+.other-brand__view-more:focus {
+    outline: none;    
+}
+.content-box-shadow {
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    -moz-box-shadow: 0 1px 2px #e5e5e5;
+    -webkit-box-shadow: 0 1px 2px #e5e5e5;
+    -o-box-shadow: 0 1px 2px #e5e5e5;
+    -ms-box-shadow: 0 1px 2px #e5e5e5;
+    box-shadow: 0 1px 2px #e5e5e5;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -o-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+}
+.font20 {
+    font-size: 20px;
+}
+.alpha {
+    padding-left: 0;
+}
+.omega {
+    padding-right: 0;
+}
+.delta {
+    padding-top: 0;
+}
+.upcoming-label {
+    background-color: #565a5c;
+    padding: 1px 10px 2px 20px;
+    position: absolute;
+    right: 11px;
+    color: #fff;
+    z-index: 1;
+}
+.upcoming-label:before {
+    border-left: 10px solid #fff;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    position: absolute;
+    left: 0;
+    content: '';
+    top: 0;
+}
+.image-grid__link {
+    display: block;
+}
+.image-grid-container {
+    -moz-backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    height: 350px;
+    background: #fff;
+    overflow: visible;
+    min-width: 278px;
+    display: table;
+    border-radius: 3px;
+    width: 100%;
+}
+.image-grid__content-wrapper {
+    width: 100%;
+    height: 100%;
+}
+.section-heading {
+    color: #1a1a1a;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 17px;
+    margin-left: 10px;
+    font-weight: 700;
+}
+.model-news-heading {
+    margin-top: 0;
+}
+.carDescWrapper {
+    padding: 15px;
+}
+imageWrapper {
+    width: 278px;
+    height: 160px;
+}
+.review-sm-lgt-grey {
+    background-position: -59px -306px;
+    width: 16px;
+    height: 10px;
+}
+.thumbs-up-icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 14px;
+    height: 13px;
+    background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/82888b/like-14x13.png);
+}
+.image-grid-wrapper {
+    width: 100%;
+    height: 278px;
+    overflow: hidden;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.margin-bottom20 {
+    margin-bottom: 20px;
+}
+.margin-top20 {
+    margin-top: 20px;
+}
+.image-grid-list {
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.image-grid__list-item {
+    position: relative;
+}
+.image-grid__list-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 5px solid #fff;
+}
+    .image-grid__list-item img {
+    width: 100%;
+    height: 100%;
+}
+    .image-grid__info-wrapper {
+    font-size: 0;
+    padding: 0 5px;
+}
+    .image-grid-info__model-name {
+    width: 50%;
+    display: inline-block;
+}
+    .image-grid-info__model-name .make-name {
+    font-size: 14px;
+    color: #aaaaaa;
+    font-weight: 400;
+    display: block;
+}
+    .image-grid-info__model-name .model-name {
+    font-size: 16px;
+    color: #484848;
+    font-weight: 700;
+    display: block;
+}
+    .image-grid-info__image-count {
+    width: 50%;
+    display: inline-block;
+    text-align: right;
+}
+    .image-grid-info__image-count .image-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/565a5c/image-icon.svg) no-repeat center;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+    .image-grid-info__image-count .image-count {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6f6f6f;
+    margin-left: 5px;
+    vertical-align: bottom;
+}
+.image-grid-list[data-grid='6'] .image-grid__list-item:nth-child(6n+1),
+.image-grid-list[data-grid='6'] .image-grid__list-item:nth-child(6n+2),
+.image-grid-list[data-grid='6'] .image-grid__list-item:nth-child(6n+3),
+.image-grid-list[data-grid='6'] .image-grid__list-item:nth-child(6n+4),
+.image-grid-list[data-grid='6'] .image-grid__list-item:nth-child(6n+6) {
+    width: 33.33%;
+    height: 33.33%;
+    display: inline-block;
+    float: left;
+}
+.image-grid-list[data-grid='4'] .image-grid__list-item:nth-child(4n+1),
+.image-grid-list[data-grid='4'] .image-grid__list-item:nth-child(4n+2),
+.image-grid-list[data-grid='4'] .image-grid__list-item:nth-child(4n+3),
+.image-grid-list[data-grid='4'] .image-grid__list-item:nth-child(4n+4) {
+	width: 50%;
+	height: 50%;
+	display: inline-block;
+    float: left;
+}
+.image-grid-list[data-grid='6'] .image-grid__list-item:nth-child(6n+5) {
+    width: 66.66%;
+    height: 66.66%;
+    float: right;
+}
+    .image-grid-list[data-grid='6'] .image-grid__list-item:nth-child(6n+6) {
+    float: left;
+}
+.image-grid-list[data-grid='1'].image-grid__list-item {
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+.image-swiper-carousel .contentWrapper {
+    height: 350px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.view-all-images__link {
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+}
+.font-bold {
+    font-weight: 700;
+}
+.make-images-carousel:only-child,
+#video .amp-carousel-slide:only-child {
+    position: absolute;
+    left: 50%;
+    -moz-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+.view-all-images-container {
+    text-align: center;
+}
+.image-swiper-container__heading {
+    font-weight: 700;
+    margin-left: 10px;
+    font-size: 20px;
+}
+}
+<aside class="adblock">
+    <div id="top_banner_ad" class="adblock-content">
+        <amp-ad width=320 height=50 type="doubleclick" data-slot="/1017752/CarWale_Mobile_ROS_320x50">
+            <div placeholder></div>
+        </amp-ad>
+    </div>
+</aside>
+<main role="main">
+    @if (Model.NewCarModels.Count > 0)
+    {
+    <h1>@Model.MakeDetails.MakeName Cars</h1>
+
+        <hr /> 
+    <ul class="model__list">
+        @foreach (var item in Model.NewCarModels)
+        {
+        <li>
+            @if (!item.New)
+            {
+                <div class="upcoming-label">
+                    <span class="modelType">Upcoming</span>
+                </div>
+            }
+      @if (item.ShowDate)
+         {
+            <div class="just-launched-section">
+                <div class="launch-title">
+                    @if (item.New)
+                    {
+                        @Html.Raw("LAUNCHED ON");
+                    }
+                    else
+                    {
+                        @Html.Raw("EXPECTED TO LAUNCH ON");
+                    }
+                </div>
+                <div class="launch-date-unit">
+                    <span class="launch-date">@item.LaunchDate.Day<span class="lauch-date-unit">@Format.GetNumberSuffix(item.LaunchDate.Day)</span></span><br>
+                    <span class="launch-month">@item.LaunchDate.ToString("MMM", CultureInfo.InvariantCulture).ToUpper()</span>
+                </div>
+            </div>
+          }
+            <a title="@Model.MakeDetails.MakeName @item.ModelName"
+               data-vars-event-label="amp-@item.ModelName"
+               href='@ManageCarUrl.CreateModelUrl(Model.MakeDetails.MakeName,item.MaskingName)'>
+                <div>
+                    @if (!string.IsNullOrEmpty(item.OriginalImage))
+                    {
+                    <amp-img src="@ImageSizes.CreateImageUrl(item.HostUrl,ImageSizes._272X153, item.OriginalImage)"
+                             width="227"
+                             height="128"
+                             layout="responsive">
+                    </amp-img>
+                    }
+                    else
+                    {
+                    <amp-img src="https://imgd.aeplcdn.com/272X153/cw/cars/no-cars.jpg" title="@Model.MakeDetails.MakeName @item.ModelName" alt="@Model.MakeDetails.MakeName @item.ModelName"
+                             width="227"
+                             height="128"
+                             layout="responsive">
+                    </amp-img>
+                    }
+                </div>
+            </a>
+            <div class="model__card">
+
+                <a title="@Model.MakeDetails.MakeName @item.ModelName"
+                   data-vars-event-label="amp-@item.ModelName"
+                   href='@ManageCarUrl.CreateModelUrl(Model.MakeDetails.MakeName,item.MaskingName)'>
+                    <h2>@item.ModelName</h2>
+                </a>
+                @if (item.CarPriceOverview != null)
+                { 
+                <div class="margin-bottom5">
+                    <b>@item.CarPriceOverview.PricePrefix <span>@item.CarPriceOverview.Price</span> @item.CarPriceOverview.PriceSuffix</b>
+                    @if (CookiesCustomers.MasterCityId <= 0)
+                    {
+                    <a data-vars-event-label="amp-@item.ModelName-showpic" href="@ManageCarUrl.CreateModelUrl(Model.MakeDetails.MakeName,item.MaskingName)?q=globalcity" class="show-city-price text-center" tabindex="0">Show Price in my city</a>
+                    }
+                    <br />
+                    @Html.Raw(item.CarPriceOverview.PriceLabel)@(!string.IsNullOrEmpty(item.CarPriceOverview.City.Name) ? ", " + item.CarPriceOverview.City.Name : string.Empty)
+                </div>
+                }
+                @if (!item.New && !item.ShowDate)
+                {
+                    @Html.Raw(ConfigurationManager.AppSettings["MakePageUpcomingMonthText"] + " <span class='text-bold'>" + item.LaunchDate.ToString("MMMM yyyy") + "</span>");
+                }
+                @if (item.ReviewCount > 0)
+                {
+                <div class="rating-sprite @CommonOpn.GetRateImage(item.ModelRating)"></div><span> @item.ReviewCount User Reviews</span>
+                }
+            </div>
+
+            @if (item.Rank > 0)
+            {
+            <div class="model__rank__slug">
+                <div class="position-abt text-center">
+                    <span class="list-count text-lighter-grey"><span>@item.Rank</span></span>
+                    <div class="triangle triangle-left"></div>
+                    <div class="triangle triangle-right"></div>
+                </div>
+                <div class="position-rel pos-left10">
+                    <p><b>No.@item.Rank in Top@(item.NoOfTopCarsInBodyType.Equals(10) ? " 10" : string.Empty) @(item.BodyStyleId.ToFriendlyString() + "s")</b></p>
+                    <a data-vars-event-label="amp-@(item.BodyStyleId.ToFriendlyString() + "s")-@Model.MakeDetails.MakeName" title="@HtmlAttributes.GetTopBodyTypeLinkTitle(item.NoOfTopCarsInBodyType, item.BodyStyleId)" href="@ManageCarUrl.CreateTopCarsByBodyTypeUrl(item.BodyStyleId.ToUrlString())">View Complete List</a>
+                </div>
+            </div>
+            }
+
+
+        </li>
+        }
+    </ul>
+    }
+        @{Html.RenderAction("Description", "ModelComponent", new { makeId = Model.MakeDetails.MakeId, makeName = Model.MakeDetails.MakeName, isAmp = true });}
+    <section id="news" class="alpha omega">
+        @{Html.RenderAction("TopLatestNewsForMake", "ModelComponent", new { makeId = Model.MakeDetails.MakeId, makeName = Model.MakeDetails.MakeName, isAmp = true });}
+    </section>
+    <section id="othermakes" class="bg-white content-box-shadow">
+        @{Html.RenderAction("AllMakesWidget", "CarWidgets", new { excludeMakeId = Model.MakeDetails.MakeId, isMobile = false, isAmp = true });}
+    </section>
+    @if (Model.Images!=null  && Model.Images.ModelPhotos.IsNotNullOrEmpty()  && Model.Images.ModelPhotos.Count > 0)
+    {
+        <div>
+            @{Html.RenderPartial("~/Views/Shared/m/AMP/_ImagesCarouselAmp.cshtml", Model.Images);}
+        </div>
+    }
+    <section id="video" class="alpha omega delta">
+     @{Html.RenderAction("VideosByCarId", "ModelComponent", new {id=Model.MakeDetails.MakeId,page=ContentPages.MakePage, videos=Model.MakeVideos });}
+    </section>
+</main>
+    <aside class="adblock">
+        <div id="bottom_banner_ad" class="adblock-content">
+            <amp-ad width="300" height="250" type="doubleclick" data-slot="/1017752/CarWale_Mobile_ROS_300x250">
+                <div placeholder></div>
+            </amp-ad>
+        </div>
+    </aside>
+    @section Tracking{
+        <!-- Google Analytics Tracking -->
+        <amp-analytics type="googleanalytics" id="google-analytics">
+            <script type="application/json">
+                {
+                "vars":{
+                "account": "UA-337359-1"
+                },
+                "triggers":{
+                "defaultPageview":{
+                "on": "visible",
+                "request": "pageview",
+                "vars":{
+                "title": "@ViewBag.Title"
+                }
+                },
+                "trackModelClicks":{
+                "on": "click",
+                "selector": ".model__list > li  a",
+                "request": "event",
+                "vars":{
+                "eventCategory": "AMP-make",
+                "eventAction": "click",
+                "eventLabel": "${eventLabel}"
+                }
+                },
+                "trackViewBestClicks":{
+                "on": "click",
+                "selector": ".model__rank__slug a",
+                "request": "event",
+                "vars":{
+                "eventCategory": "AMP-make",
+                "eventAction": "click",
+                "eventLabel": "${eventLabel}"
+                }
+                }
+                ,
+                "trackShowPriceInCityClicks":{
+                "on": "click",
+                "selector": ".show-city-price",
+                "request": "event",
+                "vars":{
+                "eventCategory": "AMP-make",
+                "eventAction": "click",
+                "eventLabel": "${eventLabel}"
+                }
+                },
+                "trackNewsLinkClick":{
+                "on": "click",
+                "selector": "#news a",
+                "request": "event",
+                "vars":{
+                "eventCategory": "msite_news_linkages",
+                "eventAction": "make_page_news_click",
+                "eventLabel": "make_page_news"
+                }
+                },
+                "trackImageCarouselClick":{
+                "on":"click",
+                "selector":".image-grid-list",
+                "request":"event",
+                "vars":{
+                "eventCategory": "Make_Images_slug_m",
+                "eventAction": "${ea}",
+                "eventLabel": "${el}"
+                }
+                },
+                "trackAllMakeImageLinkClick":{
+                "on":"click",
+                "selector":".view-all-images__link",
+                "request":"event",
+                "vars":{
+                "eventCategory": "Make_Images_slug_m",
+                "eventAction": "${ea}",
+                "eventLabel": "${el}"
+                }
+                },
+                "trackVideoLinkClick":{
+                "on": "click",
+                "selector": "#video a[data-vars-ec]",
+                "request": "event",
+                "vars":{
+                "eventCategory": "${ec}",
+                "eventAction": "${ea}",
+                "eventLabel": "${el}"
+                }
+                }
+                }
+                }
+            </script>
+        </amp-analytics>
+    }

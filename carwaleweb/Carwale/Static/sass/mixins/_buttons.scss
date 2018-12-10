@@ -1,0 +1,121 @@
+﻿@import "_variables";
+@import "_opacity";
+
+%btn {
+    display: inline-block;
+    padding: 8px 42px;
+    font-size: 16px;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    outline: none;
+    text-decoration: none;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    font-family: 'LatoWeb', sans-serif, Arial;
+    -webkit-appearance: none;
+}
+
+@mixin btn-color($color){
+    @if map-has-key($color-map , $color ){
+    .btn-#{$color}{
+        @extend %btn;
+        background: map-get($color-map , $color+"-bg" );
+        color: map-get($color-map , $color+"-btn-text" );
+        border: 1px solid map-get($color-map , $color+"-btn-border" );
+        &:hover{
+            background: map-get($color-map , $color+"-btn-hover" );
+            color:map-get($color-map , $color+"-btn-hover-text" );
+            border:1px solid map-get($color-map , $color+"-btn-hover-border" );
+            text-decoration: none;
+        }
+    }
+  }
+  @else{
+      @warn "Please add the color to $color-map";
+  }
+}
+
+@mixin btn-disable{
+    @include opacity-class(30);    
+    .btn-disable{
+        @extend .opacity30;
+        cursor:not-allowed;
+    }
+}
+
+@mixin btn-size-class($sizeName){
+    @if($sizeName != "full" ){
+    .btn-#{$sizeName}{
+    @if($sizeName == "xs"){
+        padding: 8px;
+    }
+    @else if ($sizeName == "sm"){
+        padding: 8px 25px;
+    }
+    @else if ($sizeName == "md"){
+        padding: 8px 30px;
+    }
+    @else if ($sizeName == "lg"){
+        padding: 12px 42px;
+    }
+    @else if ($sizeName == "xlg"){
+        padding: 12px 52px;
+    }
+  }
+ }
+ @else if ($sizeName == "full"){
+     .btn-full-width { 
+         display: block; 
+         width: 100%; 
+    }
+ }
+ @else{
+     @warn "Invalid size name.Options : xs,sm,md,lg,xlg,full";
+ }
+}
+
+@mixin btn {
+    .btn {
+        @extend %btn;
+    }
+}
+
+@mixin btn-secondary {
+	.btn-secondary {
+		@include vendor-prefix('transition', background-color .2s linear);
+		border-color: map-get($color-map, 'shamrockGreen');
+		background-color: map-get($color-map, 'white');
+		color: map-get($color-map, 'shamrockGreen');
+		border-radius: 3px;
+		padding-top: 10px;
+		padding-bottom: 10px;
+
+		&:hover {
+			text-decoration: none;
+			background-color: map-get($color-map, 'snow-white');
+		}
+	}
+}
+
+@mixin btn-orange {
+	.btn-orange {
+		@include vendor-prefix('transition', background-color .2s linear);
+		background: map-get($color-map, 'red-orange');
+		color: map-get($color-map, 'white');
+
+		&:hover {
+			text-decoration: none;
+			background-color: map-get($color-map, 'harley-havidson-orange');
+		}
+	}
+}

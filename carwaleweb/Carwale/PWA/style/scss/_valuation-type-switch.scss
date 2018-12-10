@@ -1,0 +1,42 @@
+.valuation-switch__container {
+	padding-top: 15px;
+    padding-bottom: 15px;
+}
+.valuation-switch__title {
+	font-size: 11px;
+	color: color('dim-gray');
+	text-transform: uppercase;
+	padding-left: 20px;
+	display: inline-block;
+	margin-right: 10px;
+}
+@mixin valuation-switch__togglewrapper($activeColor:color('shamrock-green')) {
+    .valuation-switch__togglewrapper {
+        @include vendor-prefix('border-radius', 50px);
+        border: 1px solid color('dark-gray');
+        display: inline-block;
+        
+        input[type="radio"] {
+            height: 0;
+            width: 0;
+            &:checked {
+                + label {
+                    background-color: $activeColor;
+                    color: color('white');
+                    border-radius: 50px;	
+                }
+            }
+        }
+    }
+}
+
+.input-radio {
+	display: inline-block;
+	> label {
+		padding: 9px 21px;
+		font-size: 10px;
+		color: color('dim-gray');
+		text-transform: uppercase;
+		display: inline-block;
+	}
+}

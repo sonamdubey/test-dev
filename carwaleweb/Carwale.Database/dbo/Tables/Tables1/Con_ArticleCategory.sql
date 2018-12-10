@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Con_ArticleCategory] (
+    [Id]   NUMERIC (18)  IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [Name] VARCHAR (100) NOT NULL,
+    CONSTRAINT [PK_Con_ArticleCategory] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

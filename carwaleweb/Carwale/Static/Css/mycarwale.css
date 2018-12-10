@@ -1,0 +1,218 @@
+﻿/* Other css used in MyCarwale home page */
+.my-cw-icons {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/mg-icons.png?v1=04032016) no-repeat;
+  float: left;
+  margin-right: 5px;
+}
+
+.my-cw-icons#tab1 {
+  background-position: 0px 0px;
+  width: 60px;
+  height: 45px;
+}
+
+.my-cw-icons#tab2 {
+  background-position: 0px -47px;
+  width: 55px;
+  height: 45px;
+  margin-top: 3px;
+}
+
+.my-cw-icons#tab3 {
+  background-position: 0px -90px;
+  width: 45px;
+  height: 45px;
+}
+
+.ui-tabs-nav .tabTxt {
+  float: left;
+  padding-top: 4px;
+}
+
+.manage_car {
+  width: 295px;
+  margin: 0;
+  float: left;
+  margin: 10px 0 5px 5px;
+}
+
+.manage_car .icons_bg {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/mc-icons.png?v1=04032016) no-repeat;
+  float: left;
+  margin: 13px 0 0 0;
+}
+
+.manage_car .ownership {
+  background-position: -5px -185px;
+  width: 30px;
+  height: 30px;
+}
+
+.manage_car .service {
+  background-position: -0 -137px;
+  width: 30px;
+  height: 30px;
+}
+
+.manage_car .reminders {
+  background-position: -0 -170px;
+  width: 35px;
+  height: 35px;
+}
+
+.manage_car .cardocs {
+  background-position: 0 -300px;
+  width: 30px;
+  height: 30px;
+}
+
+.manage_car .fuel-log {
+  background-position: 0 -241px;
+  width: 40px;
+  height: 39px;
+}
+
+.manage_car .next-service-cost {
+  background-position: 0 -280px;
+  width: 35px;
+  height: 35px;
+}
+
+.manage_car .manage-block {
+  float: left;
+  width: 225px;
+  padding-top: 17px;
+  margin-left: 10px;
+}
+
+.manage_car .manage-block p {
+  margin: 10px 0;
+}
+
+.manage_car .manage-block span {
+  float: right;
+};
+
+.manage_car .manage-block h2.hd2 {
+  color: #003569;
+  font-weight: bold;
+  border-bottom: 1px solid #B4D0DE;
+  padding-bottom: 4px;
+}
+
+.manage_car .headlt {
+  float: left;
+}
+
+#mgTabs ul li {
+  list-style: none;
+}
+
+#defaultTab {
+  padding-top: 10px;
+}
+
+#defaultTab table td {
+  text-align: left;
+}
+
+.effectBG {
+  background-color: #FFFDDF;
+}
+
+.my_info {
+  width: 235px;
+}
+
+.my_grp {
+  width: 300px;
+  height: 90px;
+}
+
+.my_icon {
+  width: 45px;
+}
+
+.highlight-box {
+  border: 1px solid #e2e2e2;
+  padding: 10px;
+}
+
+.highlight-box li {
+  width: 196px;
+  margin-right: 8px;
+  border-right: 1px solid #e2e2e2;
+  float: left;
+}
+
+.highlight-box li.last {
+  margin-right: 0px;
+  border-right: 0px;
+}
+
+.highlight-box li div.title-place {
+  width: 110px;
+  float: left;
+}
+
+.highlight-box li div.icon-placer {
+  float: left;
+  margin-right: 10px;
+}
+
+.highlight-box li h3 {
+  color: #034fb6 !important;
+  font-size: 13px;
+}
+
+.highlight-box li .link-list {
+  margin-top: 15px;
+}
+
+.highlight-box li .link-list li {
+  border-right: 0px;
+}
+
+.highlight-box li .link-list li {
+  margin-bottom: 5px;
+  font-size: 11px;
+}
+
+.highlight-box li .link-list li span.arrow-blue, .link-list li span.arrow-grey {
+  width: 6px;
+  height: 5px;
+  margin-right: 5px;
+  position: relative;
+  top: -1px;
+}
+
+.highlight-box li .link-list li span.arrow-grey {
+  background-position: 0 -181px;
+}
+
+.highlight-box li .link-list li span.arrow-blue {
+  background-position: 0 -171px;
+}
+
+.my-cw-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/my-cw-sprite.png?v1=04032016) no-repeat;
+  display: inline-block;
+}
+
+.manage-icon {
+  background-position: 0 0px;
+  width: 72px;
+  height: 40px;
+}
+
+.view-icon {
+  background-position: 0 -61px;
+  width: 60px;
+  height: 40px;
+}
+
+.garage-icon {
+  background-position: 0 -120px;
+  width: 60px;
+  height: 40px;
+}

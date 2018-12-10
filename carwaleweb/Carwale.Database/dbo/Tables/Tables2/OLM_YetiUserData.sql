@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[OLM_YetiUserData] (
+    [Id]               NUMERIC (18)  IDENTITY (1, 1) NOT NULL,
+    [FirstName]        VARCHAR (100) NOT NULL,
+    [LastName]         VARCHAR (100) NOT NULL,
+    [Email]            VARCHAR (100) NOT NULL,
+    [Mobile]           VARCHAR (15)  NOT NULL,
+    [City]             VARCHAR (15)  NULL,
+    [Age]              INT           NULL,
+    [DiningPlace]      VARCHAR (100) NULL,
+    [DiningLocation]   VARCHAR (100) NULL,
+    [FoodPlace]        VARCHAR (100) NULL,
+    [FoodLocation]     VARCHAR (100) NULL,
+    [ShoppingPlace]    VARCHAR (100) NULL,
+    [ShoppingLocation] VARCHAR (100) NULL,
+    [LandmarkPlace]    VARCHAR (100) NULL,
+    [LandmarkLocation] VARCHAR (100) NULL,
+    [RelaxPlace]       VARCHAR (100) NULL,
+    [RelaxLocation]    VARCHAR (100) NULL,
+    [Comments]         VARCHAR (500) NULL,
+    [FacebookId]       VARCHAR (50)  NULL,
+    [TweetId]          VARCHAR (50)  NULL,
+    [BlogId]           VARCHAR (50)  NULL,
+    [IpAddress]        VARCHAR (20)  NULL,
+    [EntryDate]        DATETIME      NULL,
+    CONSTRAINT [PK_OLM_YetiUserData] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

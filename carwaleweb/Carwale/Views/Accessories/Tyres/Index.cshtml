@@ -1,0 +1,192 @@
+﻿@model List<Carwale.Entity.CMS.Articles.ArticleSummary>
+@using Carwale.Utility
+@using Carwale.UI.HtmlHelpers
+@{
+    ViewBag.Title = "Car Tyre Price, Size in India ";
+    ViewBag.landingPage = true;
+    ViewBag.Canonical = "https://www.carwale.com" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.Alternate = "https://www.carwale.com/m" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.Description = "Checkout Car Tyre Price and Size in India.";
+    ViewBag.Responsive = false;
+    ViewBag.CustomCss = "~/Views/StaticPartials/TyreSection/TyreSectionCss.cshtml";
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+    ViewBag.HeaderClass = "header-landing";
+    ViewBag.BodyClass = "special-landing-page";
+    ViewBag.DefineAdSlots =
+        @"<script type='text/javascript'>
+            var AdSlots = {};
+            googletag.cmd.push(function () {
+            googletag.pubads().disableInitialLoad();
+            googletag.pubads().setCentering(true);
+            AdSlots['div-gpt-ad-1520343950918-0'] = googletag.defineSlot('/1017752/" + ViewBag.DomainName + @"CarWale_TyresHome_FirstSlot_976x400', [[976, 250], [976, 550], [976, 300], [976, 90], [976, 400], [976, 350], [976, 60], [976, 500], [970, 90], [976, 150], [976, 450]], 'div-gpt-ad-1520343950918-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+            AdSlots['div-gpt-ad-1520343950918-1'] = googletag.defineSlot('/1017752/" + ViewBag.DomainName + @"CarWale_TyresHome_SecondSlot_976x400', [[976, 250], [976, 550], [976, 300], [976, 90], [976, 400], [976, 350], [976, 60], [976, 500], [970, 90], [976, 150], [976, 450]], 'div-gpt-ad-1520343950918-1').addService(googletag.pubads());
+            googletag.pubads().collapseEmptyDivs(true);
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+        </script>";
+}
+<script>var landingPage = true;</script>
+@section Styles{
+    <noscript class="deferred-styles"><link rel="stylesheet" href="/static/css/tyre-section.css" type="text/css"></noscript>
+}
+<section>
+	<!-- Top banner code starts here -->
+	<div class="tyre-home-banner">
+		<div class="container">
+		   	<div class="welcome-box">
+		   		<h1 class="text-uppercase text-white text-center">Find the right tyre</h1>
+		   	</div>
+		</div>
+	</div><!-- Top banner code ends here -->
+</section>
+<section class="container">
+    <div class="grid-12">
+        <div class="cw-tabs-panel brand-budget-body-wrapper content-box-shadow margin-minus60 tyre-tabs">
+            <div class="cw-tabs cw-tabs-flex">
+                <ul>
+					<li class="active" data-tabs="vehicle-tyre"><h2>Vehicle</h2></li>
+                </ul>
+            </div>
+            <div class="cw-tabs-data" id="vehicle-tyre">
+                <div class="content-inner-block-10 text-center">
+                    <div class="form-control-box margin-bottom20 position-rel inline-block tyre-car-selection">
+                        <input class="form-control" type="text" placeholder="Type to select car name" id="tyreCarRoot" data-role="click-tracking" data-event="CWInteractive" data-action="Search by vehicle clicked HP" data-cat="Tyres_Section_d" data-label="Search by vehicle clicked HP">
+                        <span class="fa fa-spinner fa-spin position-abt pos-right15 pos-top5 text-black" style="display: none"></span>
+                        <span class="cwmsprite error-icon hide brand-error-icon"></span>
+                        <div id="errTxtCarRoot" class="cw-blackbg-tooltip brand-err-msg hide">Please select car model</div>
+                    </div>
+                    <div id="tyreYearSelection" class="form-control-box margin-bottom20 inline-block tyre-year-selection reset-inline-margin">
+                        <select class="select-box position-rel font13 form-control manufacture-year" id="drpManufYear" data-bind='options:tyreDate, optionsCaption: "Select car manufacturing year", optionsDisableDefault: true'></select>
+                        <span class="cwsprite error-icon hide"></span>
+                        <div id="errManufactYear" class="cw-blackbg-tooltip hide">Please select your car manufacturing year</div>
+                    </div>
+                    <div class="text-center margin-bottom15 margin-top5">
+                        <a href="javascript:void(0)" id="tyreSearch" class="text-uppercase btn btn-orange btn-md">Search</a>
+                    </div>
+                </div>
+            </div>
+            <div class="cw-tabs-data hide" id="size-tyre">
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+<aside>
+    <div class="container overflow-x-auto">
+        <div class="grid-12">
+            @Helpers.GetAdBar("1520343950918", 976, 0, 20, 0, true, 0)
+        </div>
+        <div class="clear"></div>
+    </div>
+</aside>
+
+<section class="container margin-top40 margin-bottom40">
+    <div class="grid-12">
+        <div class="bg-white brand-wrapper content-box-shadow text-center">
+            <h2 class="text-uppercase text-center margin-bottom10 margin-top10">Browse tyres by brands</h2>
+            <div class="tyre-brand content-inner-block-10">
+                <a href="/tyres/apollo/" class="pill-box font14" data-role="click-tracking" data-event="CWInteractive" data-action="HP Tyres by Brand Click" data-cat="Tyres_Section_d" data-label="Apollo">Apollo</a>
+                <a href="/tyres/bridgestone/" class="pill-box font14" data-role="click-tracking" data-event="CWInteractive" data-action="HP Tyres by Brand Click" data-cat="Tyres_Section_d" data-label="Bridgestone">Bridgestone</a>
+                <a href="/tyres/ceat/" class="pill-box font14" data-role="click-tracking" data-event="CWInteractive" data-action="HP Tyres by Brand Click" data-cat="Tyres_Section_d" data-label="CEAT">CEAT</a>
+                <a href="/tyres/continental/" class="pill-box font14" data-role="click-tracking" data-event="CWInteractive" data-action="HP Tyres by Brand Click" data-cat="Tyres_Section_d" data-label="Continental">Continental</a>
+                <a href="/tyres/falken/" class="pill-box font14" data-role="click-tracking" data-event="CWInteractive" data-action="HP Tyres by Brand Click" data-cat="Tyres_Section_d" data-label="Falken">Falken</a>
+                <a href="/tyres/goodyear/" class="pill-box font14" data-role="click-tracking" data-event="CWInteractive" data-action="HP Tyres by Brand Click" data-cat="Tyres_Section_d" data-label="GoodYear">GoodYear</a>
+                <a href="/tyres/jktyre/" class="pill-box font14" data-role="click-tracking" data-event="CWInteractive" data-action="HP Tyres by Brand Click" data-cat="Tyres_Section_d" data-label="JK Tyre">JK Tyre</a>
+                <a href="/tyres/maxxis/" class="pill-box font14" data-role="click-tracking" data-event="CWInteractive" data-action="HP Tyres by Brand Click" data-cat="Tyres_Section_d" data-label="Maxxis">Maxxis</a>
+                <a href="/tyres/michelin/" class="pill-box font14" data-role="click-tracking" data-event="CWInteractive" data-action="HP Tyres by Brand Click" data-cat="Tyres_Section_d" data-label="Michelin">Michelin</a>
+                <a href="/tyres/mrf/" class="pill-box font14" data-role="click-tracking" data-event="CWInteractive" data-action="HP Tyres by Brand Click" data-cat="Tyres_Section_d" data-label="MRF">MRF</a>
+                <a href="/tyres/pirelli/" class="pill-box font14" data-role="click-tracking" data-event="CWInteractive" data-action="HP Tyres by Brand Click" data-cat="Tyres_Section_d" data-label="Pirelli">Pirelli</a>
+                <a href="/tyres/yokohama/" class="pill-box font14" data-role="click-tracking" data-event="CWInteractive" data-action="HP Tyres by Brand Click" data-cat="Tyres_Section_d" data-label="Yokohama">Yokohama</a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+<div class="clear"></div>
+<section class="container text-center margin-top20 margin-bottom20">
+    <img src="https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/d/tyre-spec-970x394.jpg?v16011909" title="How to read a tyre" alt="How to read a tyre" />
+</section>
+<div class="search-popup rounded-corner2">
+    <div class="globalcity-popup-data text-center">
+        <div class="tyre-info-close position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer"></div>
+        <div class="text-center">
+            <div class="font16 padding-left10 padding-top10 padding-bottom15 text-black">Please select your car model</div>
+            <ul id="showModels" data-bind="foreach: $data.modelsData()">
+                <li class="displayModel" data-bind="attr: { 'ModelIds': modelIds ,'MakeName' : makeName, 'ModelName': displayName }">
+                    <span data-bind="text: displayName"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<aside>
+    <div class="container overflow-x-auto">
+        <div class="grid-12">
+            @Helpers.GetAdBar("1520343950918", 976, 0, 20, 0, false, 1)
+        </div>
+        <div class="clear"></div>
+    </div>
+</aside>
+
+@if (Model != null)
+{
+<section class="container margin-top20 margin-bottom20">
+    <div class="grid-12">
+        <div class="content-box-shadow padding-left20 padding-right20">
+            <h2 class="text-uppercase text-center margin-bottom20 margin-top10">All About Tyres</h2>
+            <div class="tyre-home-carousel">
+                <div class="news-type-container">
+                    <ul>
+                        @{
+                            int newsNumber = 0;
+                        }
+                        @foreach (var news in Model)
+                        {
+                            <li class="padding-bottom50 @(@newsNumber>1 ? "news-body-list hide":"")">
+                                @if (newsNumber % 2 == 0)
+                                {
+                                    <div class="grid-5 alpha">
+                                        <div class="img-preview">
+                                            <a href="@news.ArticleUrl"><img width="393" height="221" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(news.HostUrl, ImageSizes._393X221, news.OriginalImgUrl)" title="@news.Title" alt="@news.Title"></a>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="grid-7 omega">
+                                    <p class="margin-bottom20 font20"><a href="@news.ArticleUrl" class="text-black">@news.Title</a></p>
+                                    <div class="margin-bottom15 font14 line-height">@Html.Raw(news.Description)</div>
+                                    <div class="margin-bottom15">
+                                        <a href="@news.ArticleUrl" class="margin-right25 btn btn-white btn-md text-uppercase leftfloat">Read More</a>
+                                        <p class="leftfloat margin-top10 text-light-grey font14 special-skin-text">@ExtensionMethods.ConvertDateToDays(news.DisplayDate) by <span class="text-dark-grey">@news.AuthorName</span></p>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                @if (newsNumber % 2 == 1)
+                                {
+                                    <div class="grid-5 omega">
+                                        <div class="img-preview">
+                                            <a href="@news.ArticleUrl"><img width="393" height="221" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(news.HostUrl, ImageSizes._393X221, news.OriginalImgUrl)" title="@news.Title" alt="@news.Title"></a>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="clear"></div>
+                            </li>
+                            {
+                                newsNumber = newsNumber + 1;
+                            }
+                        }
+                    </ul>
+                   
+                </div>
+                <div class="padding-bottom50 text-center">
+                    <a href="javascript:void()" rel="nofollow" class="font16 view-more-btn">View <span>more</span> news</a>
+                </div>               
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+}
+<script type="text/javascript" src="/static/js/tyre-section.js" defer></script>
+<script type="text/javascript" src="/static/js/chosen.jquery.min.js" defer></script>

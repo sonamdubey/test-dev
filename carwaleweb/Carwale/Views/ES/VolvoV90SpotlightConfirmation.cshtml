@@ -1,0 +1,88 @@
+﻿@model Carwale.Entity.ES.EsBookingSummary
+@using Carwale.Utility;
+@{
+    ViewBag.Title = "Volvo V90 Cross Country";
+    ViewBag.BodyClass = "bg-light-grey";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+    ViewBag.landingPage = false;
+    ViewBag.Responsive = true;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.CustomCss = "~/Views/StaticPartials/ES/VolvoV90ConfirmationCss.cshtml";
+    Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? (ViewBag.isApp ? "~/views/shared/m/_MLayoutAppV2.cshtml" :"~/views/shared/m/_MLayoutV2.cshtml") : "~/views/shared/_LayoutV2.cshtml");
+    <script>var isMobile = false;</script>
+    if (ViewBag.isMobile != null && ViewBag.isMobile)
+    {
+        <script>isMobile = true;</script>
+    } 
+}
+@section Styles{
+    <noscript class="deferred-styles"><link rel="stylesheet" href="/static/css/volvo-v90-style.css" type="text/css"></noscript>
+}
+<div class="@(ViewBag.isMobile ? "" : "receipt-confirmation")">
+    <section>
+        <div class="container top-box">
+            <div class="grid-12 bg-white content-box-shadow">
+                <div id="step5">
+                    <div class="booking__container padding-left20 padding-right20">
+                        <p class="booking__title font20 padding-top20 padding-bottom20 text-bold">Receipt</p>
+                        @if (Model.IsSuccess)
+                        {
+                            <div id="receiptContent" class="font14">
+                                <p class="@(ViewBag.isMobile ? "font16" : "font18") margin-top20">Congratulations! @(Model.PaymentMode == 2 ? "You've successfully placed a request for cheque payment." : "")</p>
+                                <p class="margin-top20 text-bold">Summary:</p>
+                                <p class="margin-top5">Reference ID : <span class="font14 text-unbold">@Model.TransactionId</span></p>
+                                <p class="margin-top5">Amount @(Model.PaymentMode == 2 ? "to be " : "") Received : <span>@Format.FormatFullPrice(Model.BookingAmount.ToString(), true) (Rupees Fifty Thousand) towards the booking of @Model.CarMake @Model.CarModel @Model.CarVersion</span></p>
+                                <p class="booking__title margin-top20"></p>
+                                <p class="margin-top20 text-bold">Customer Details:</p>
+                                <p class="margin-top5">Name : <span>@Model.CustomerName</span></p>
+                                <p class="margin-top5">Mobile : <span>@Model.CustomerMobile</span></p>
+                                <p class="margin-top5">Payment Date : <span>@Model.InquiryDate.ToString("dd MMM, yyyy")</span></p>
+                                <p class="margin-top5">City: <span> @Model.CityName</span></p>
+                                @if (Model.Address != null && Model.Address != "")
+                                {
+                                    <p class="font14 margin-top5">Address: <span> @Model.Address</span></p>
+                                }
+
+                                <p class="booking__title margin-top20"></p>
+                                <p class="margin-top20 text-bold">Selected Volvo Dealer:</p>
+                                <p class="margin-top5">@Model.DealerName</p>
+                                <p class="margin-top5">@Model.DealerAddress</p>
+                                <p class="margin-top5">Call - @Model.DealerMobile</p>
+                                <p class="booking__title margin-top20"></p>
+                                <p class="margin-top20 text-bold">Model Details:</p>
+                                <p class="margin-top5">Model: @Model.CarModel</p>
+                                <p class="margin-top5">Engine & Transmission: @Model.Transmission</p>
+                                <p class="margin-top5">Exterior Color: @Model.ExteriorColor</p>
+                                <p class="margin-top5">Interior Color: @Model.InteriorColor</p>
+                                <p class="booking__title margin-top20"></p>
+                                <p class="margin-top20">Please note that we'll send you an email towards confirmation of your booking and a call within 24 hours with further details.</p>
+                                <p class="margin-top5">Thank you for choosing Volvo.</p>
+                            </div>
+                            <div id="editor"></div>
+                            <div id="mailDoc" class="btn btn--blue btn-sm margin-top20 margin-bottom20 margin-left10 text-uppercase font13" data-role="click-tracking" data-event="CWInteractive" data-cat="volvo-v90-booking-engine" data-action="confirmation-page-clicked" data-label="Email">Email</div>
+                            if (!ViewBag.isApp)
+                            {
+                            <div id="printDoc" class="btn btn--blue btn-sm margin-top20 margin-bottom20 margin-left10 text-uppercase font13" data-role="click-tracking" data-event="CWInteractive" data-cat="volvo-v90-booking-engine" data-action="confirmation-page-clicked" data-label="Print">Print</div>                            
+                            <div id="downloadDoc" class="btn btn--blue btn-sm margin-top20 margin-bottom20 margin-left10 text-uppercase font13" data-role="click-tracking" data-event="CWInteractive" data-cat="volvo-v90-booking-engine" data-action="confirmation-page-clicked" data-label="Save">Save</div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="font14 margin-top20">
+                                <p class="font18 margin-top20">Sorry!</p>
+                                <p class="margin-top20">Your Online booking request for Volvo V90 Cross Country could not be completed.</p>
+                                <p class="margin-top20">But don't worry, our team will call you back within 24 hours to help with you the issue.</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+</div>    
+<script>var modelData = @Html.Raw(Json.Encode(Model));</script>
+<script type="text/javascript" src="/static/js/volvo-v90-confirmation.js" defer></script>
+<script type="text/javascript" src="/static/js/jspdf.js" defer></script>

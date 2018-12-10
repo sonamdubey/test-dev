@@ -1,0 +1,31 @@
+@import '../mixins/_animation.scss';
+@import '../mixins/_sprites.scss';
+@import '../mixins/_vendor-prefix.scss';
+
+@mixin arrow($width: 14, $height: 8, $opacity: .5, $position: absolute, $top: 7, $right: 0, $angle: 0, $direction: 'down') {
+    @include down-arrow;
+    @include opacity($opacity);
+    content: '';
+    background-repeat: no-repeat;
+    width: $width * 1px;
+    height: $height * 1px;
+    display: block;
+    position: $position;
+    top: $top * 1px;
+    right: $right * 1px;
+    will-change: transform;
+    cursor: pointer;
+
+     @if $direction == 'left' {
+        @include vendor-prefix(transform, rotate(90deg));
+    }
+     @else if $direction == 'right' {
+        @include vendor-prefix(transform, rotate(-90deg));
+    }
+     @else if $direction == 'up' {
+        @include vendor-prefix(transform, rotate(180deg));
+    }
+     @else if $direction == 'down' {
+        @include vendor-prefix(transform, rotate(0));
+    }
+}

@@ -1,0 +1,157 @@
+﻿.pg-gallery {
+  width: 600px;
+}
+
+.pg-gallery, .pg-gallery * {
+  margin: 0;
+  padding: 0;
+}
+
+.pg-gallery .pg-image-wrapper {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pg-gallery .pg-image-wrapper .pg-loader {
+  position: absolute;
+  z-index: 10;
+  top: 48%;
+  left: 48%;
+  border: 1px solid #CCC;
+}
+
+.pg-gallery .pg-image-wrapper .pg-next {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 25%;
+  height: 100%;
+  cursor: pointer;
+  display: block;
+  z-index: 2;
+}
+
+.pg-gallery .pg-image-wrapper .pg-prev {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25%;
+  height: 100%;
+  cursor: pointer;
+  display: block;
+  z-index: 2;
+}
+
+.pg-gallery .pg-image-wrapper .pg-prev, .pg-gallery .pg-image-wrapper .pg-next {
+/* Or else IE will hide it*/
+  background: url(https://img.carwale.com/adgallery/non-existing.jpg);
+}
+
+.pg-gallery .pg-image-wrapper .pg-prev .pg-prev-image, .pg-gallery .pg-image-wrapper .pg-next .pg-next-image {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/ad_prev.png?v1=04032016);
+  width: 40px;
+  height: 66px;
+  display: none;
+  position: absolute;
+  top: 47%;
+  left: 0;
+  z-index: 2;
+}
+
+.pg-gallery .pg-image-wrapper .pg-next .pg-next-image {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/ad_next.png?v1=04032016);
+  width: 40px;
+  height: 66px;
+  right: 0;
+  left: auto;
+}
+
+.pg-gallery .pg-image-wrapper .pg-image {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.pg-gallery .pg-image-wrapper .pg-image a img {
+  border: 0;
+}
+
+.pg-gallery .pg-image-wrapper .pg-image .pg-image-description {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  padding: 7px;
+  text-align: left;
+  width: 100%;
+  z-index: 2;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/opa75.png?v1=04032016);
+  color: #000;
+}
+
+* html .pg-gallery .pg-image-wrapper .pg-image .pg-image-description {
+  background: none;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader (enabled=true, sizingMethod=scale, src='https://imgd.aeplcdn.com/0x0/cw/design15/opa75.png?v1=04032016');
+}
+
+.pg-gallery .pg-image-wrapper .pg-image .pg-image-description .pg-description-title {
+  display: block;
+}
+
+.pg-gallery .pg-controls {
+  height: 20px;
+}
+
+.pg-gallery .pg-info {
+  float: right;
+}
+
+.pg-gallery .pg-slideshow-controls {
+  float: right;
+}
+
+.pg-gallery .pg-slideshow-controls .pg-slideshow-start, .pg-gallery .pg-slideshow-controls .pg-slideshow-stop {
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.pg-gallery .pg-slideshow-controls .pg-slideshow-countdown {
+  padding-left: 5px;
+  font-size: 0.9em;
+}
+
+.pg-gallery .pg-slideshow-running .pg-slideshow-start {
+  cursor: default;
+  font-style: italic;
+}
+
+.pg-gallery .pg-nav {
+  width: 100%;
+  position: relative;
+  *height: 80px;
+  *overflow: hidden;
+  *top: -60px;
+}
+
+.pg-gallery .pg-forward, .pg-gallery .pg-back {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 2;
+}
+/* IE 6 doesn't like height: 100% */
+* html .pg-gallery .pg-forward, .pg-gallery .pg-back {height: 100px;}
+.pg-gallery .pg-back {cursor: pointer;left: 0px;width: 13px;display: block;background: url(https://imgd.aeplcdn.com/0x0/cw/design15/ad_scroll_back.png?v1=04032016) 0px 22px no-repeat; *top:-10px;top:-22px;}
+.pg-gallery .pg-forward {cursor: pointer;display: block;right: 0px;width: 15px; height:150px; background: url(https://imgd.aeplcdn.com/0x0/cw/design15/ad_scroll_forward.png?v1=04032016) 0px 22px no-repeat; *top:-10px;top:-22px;}
+.pg-gallery .pg-nav .pg-thumbs {overflow: hidden; width: 600px; *width:600px;}
+.pg-gallery .pg-thumbs .pg-thumb-list {float: left;width: 9000px;list-style: none;}
+.pg-gallery .pg-thumbs li {float: left;padding-right: 5px;}
+.pg-gallery .pg-thumbs li a {display: block;}
+.pg-gallery .pg-thumbs li a img {border: 3px solid #CCC;display: block;}
+.pg-gallery .pg-thumbs li a.pg-active img {border: 3px solid #FFF;}
+/* Can't do display none, since Opera won't load the images then */
+.pg-preloads{position: absolute;left: -9000px;top: -9000px;}

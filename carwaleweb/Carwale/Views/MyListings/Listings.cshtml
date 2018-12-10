@@ -1,0 +1,56 @@
+﻿@model Carwale.UI.ViewModels.Used.MyListings.MyListingsViewModel
+@using Carwale.Entity.Enum;
+@using Carwale.Notifications.Logs
+@{
+    Layout = (ViewBag.Redirect != null && ViewBag.Redirect) ? (Model.Source == Platform.CarwaleMobile ? "~/views/shared/m/_MLayoutV3.cshtml" : "~/views/shared/m/_MLayoutAppV3.cshtml") : null;
+    ViewBag.BodyClass = "bg-white";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MUsedHomePageCss.cshtml";
+    ViewBag.CustomJS = "~/Views/StaticPartials/m/MUsedHomePageScript.cshtml";
+}
+@if (ViewBag.Redirect != null && ViewBag.Redirect)
+{
+
+    @section Plugins{
+        <script type="text/javascript" src="/static/m/js/plugins/chosen-mobile.js" defer></script>
+    }
+
+    @section atfcss{
+        <link rel="stylesheet" href="/static/sass/m/css/common-atf.css" type="text/css" inline>
+        <link rel="stylesheet" href="/static/sass/m/css/sell-car-listing-atf.css" type="text/css" inline />
+    }
+    @section btfcss{
+        <link rel="stylesheet" href="/static/sass/m/css/sell-car-editflow.css" type="text/css">
+        <link rel="stylesheet" href="/static/sass/m/css/globalcitypopup.css" type="text/css">
+        <link rel="stylesheet" href="/static/sass/m/css/globalcarsearch.css" type="text/css">
+        <link rel="stylesheet" href="/static/sass/m/css/nav.css" type="text/css">
+        <link rel="stylesheet" href="/static/sass/m/css/footer.css" type="text/css">
+        <link rel="stylesheet" href="/static/sass/m/css/sell-car-listing-btf.css" type="text/css" />
+    }
+    
+    @section MetaData{
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    }
+    
+    @section Scripts{
+        <script type="text/javascript" src="/static/m/js/used/sellcar/validation.js" defer></script>
+        <script type="text/javascript" src="~/Static/js/used/sellcar/editCarTracking.js"></script>
+        <script type="text/javascript" src="~/Static/m/js/used/sellcar/editCarCommon.js"></script>
+        <script type="text/javascript" src="/static/m/js/used/sellcar/edit-flow-listing.js" defer></script>
+        <script type="text/javascript" src="/static/m/js/misc.js" defer></script>
+        <script type="text/javascript" src="/static/m/js/form-misc.js" defer></script>
+        <script type="text/javascript" src="/static/m/js/chosen-selection-misc.js" defer></script>
+    }
+}
+@if (ViewBag.Redirect != null && ViewBag.Redirect)
+{
+    <section class="container">
+        <div class="grid-12">
+            @{Html.RenderPartial("~/Views/MyListings/ListingsView.cshtml");}
+        </div>
+        <div class="clear"></div>
+    </section>
+}
+else
+{
+    Html.RenderPartial("~/Views/MyListings/ListingsView.cshtml");
+}

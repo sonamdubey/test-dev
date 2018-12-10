@@ -1,0 +1,82 @@
+﻿@model Carwale.DTOs.Accessories.Tyres.VersionTyresDTO
+@{
+    if (Model != null && Model.Tyres.Count > 0)
+    {
+        ViewBag.Title = string.Format("{0} Tyre Price in India", Model.Tyres[0].BrandName);
+        ViewBag.Description = string.Format("{0} Tyres Price in India. Checkout {0} Tyre Size at CarWale.", Model.Tyres[0].BrandName);
+    }
+    ViewBag.BodyClass = "header-fixed-inner";
+    ViewBag.landingPage = false;
+    ViewBag.Responsive = false;
+    ViewBag.CustomCss = "~/Views/StaticPartials/TyreSection/TyreListCss.cshtml";
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+}
+@section Styles{
+    <noscript class="deferred-styles"><link rel="stylesheet" href="/static/css/tyre-section.css" type="text/css"></noscript>
+}
+@if (Model != null && Model.Tyres.Count > 0)
+{
+    <section class="container">
+        <div class="grid-12">
+            <div class="margin-top5 margin-bottom10">
+                <a href="/">Home</a> &rsaquo;
+                <a href='/tyres/'>Tyres</a> &rsaquo;
+                <span class="lightgray special-skin-text">@(Model.Tyres[0].BrandName)</span>
+            </div>
+            <div id="carData">
+                <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+                <div class="tyre-model-view content-box-shadow margin-bottom10 padding-top10">
+                    <div class="car-desc">
+                        <div>
+                            <h1 class="car-name text-uppercase margin-left10 margin-bottom10">@Model.Tyres[0].BrandName TYRES</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </section>
+    if(Model.Tyres[0].BrandId == 7)
+    {
+    <section class="container">
+        <div class="grid-12">
+            <div class="dealer-slug-view content-box-shadow margin-bottom10 padding-top20 padding-bottom20">
+                <div class="dealer-slug">
+                    <div>
+                        <span class="dealer-slug__icon"></span>
+                        <p class="dealer-slug__title text-uppercase">find a tyre dealer near your location</p>
+                        <a href="/new/michelin-dealers/india/" class="text-capitalize dealer-slug__btn btn--red" rel="nofollow">view dealers</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </section>
+    }
+    <section class="container">
+        <div class="grid-12 alpha omega" id="tyresList">
+            <div class="loading-popup">
+                <span class="defaultAlert-window"></span>   
+                <span class="loading-icon"></span>
+                <div class="clear"></div>
+            </div>
+            <ul class="tyre-list">
+                @{Html.RenderPartial("~/Views/Shared/m/Accessories/Tyres/_TyresList.cshtml", Model); }
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </section>    
+}
+else
+{
+    <div class="not-found-section text-center" id="noDataFound">
+        <h1 class="text-black font18 margin-bottom10">Oops!</h1>
+        <p class="text-black font18 margin-bottom10">Sorry we couldn't find any tyre.</p>
+        <img src="https://imgd.aeplcdn.com/0x0/cw/es/tyres/tyres-no-result.png" alt="No Tyres Found" title="No Tyres Found">
+    </div>
+}
+<div class="clear"></div>
+@section Scripts{
+    <script type="text/javascript"> var brandId = '@(Model != null && Model.Tyres.Count > 0 ? Model.Tyres[0].BrandId : 0)'</script>
+    <script type="text/javascript" src="/static/js/tyreBrand.js" defer></script>
+}

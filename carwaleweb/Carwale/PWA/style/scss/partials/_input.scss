@@ -1,0 +1,71 @@
+//
+// Input
+// --------------------------------------------------
+// normalize input
+input {
+	border: none;
+	outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	font-weight: $font-normal;
+
+	&:focus {
+		border-color: $focus-color !important;
+		outline: none;
+	}
+}
+$isMobile: 320px;
+$isDesktop: 768px;
+input {
+	@media screen and (min-width: $isMobile) {
+		font-family: 'LatoWeb', sans-serif, Arial;
+	}
+	@media screen and (min-width: $isDesktop) {
+		font-family: 'Open Sans', sans-serif, Arial;
+	}
+}
+
+$input-text-color: $base-color;
+$input-border-color: color("dark-gray");
+
+.form-group {
+	position: relative;
+}
+
+.form-control {
+	@include vendor-prefix("border-radius", 4px);
+	width: 100%;
+	color: $input-text-color;
+	padding: 12px 17px;
+	font-size: 15px;
+	border: 1px solid $input-border-color;
+	box-shadow: none;
+
+	&:-webkit-input-placeholder {
+		color: $input-border-color;
+	}
+}
+
+.invalid {
+	.form-control {
+		border-color: $error-color;
+	}
+}
+
+.valid {
+	.form-control {
+		border-color: $success-color;
+	}
+}
+
+.error-text {
+	font-size: 11px;
+	color: color('orange');
+	display: none;
+}
+/*
+TODO
+- Error message scenario
+- Validation icons
+*/

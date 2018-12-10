@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[CH_TCAssignedTasks] (
+    [TCID]     NUMERIC (18) NOT NULL,
+    [TBCType]  SMALLINT     NOT NULL,
+    [CallType] SMALLINT     NOT NULL,
+    CONSTRAINT [PK_CH_TCAssignedTasks] PRIMARY KEY CLUSTERED ([TCID] ASC, [TBCType] ASC, [CallType] ASC) WITH (FILLFACTOR = 90)
+);
+

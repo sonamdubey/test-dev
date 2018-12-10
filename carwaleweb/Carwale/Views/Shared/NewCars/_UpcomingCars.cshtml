@@ -1,0 +1,45 @@
+﻿@model Carwale.UI.ViewModels.NewCars.UpcomingCarWidget
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using Carwale.BL.Experiments;
+
+<section class="content-box-shadow content-inner-block-10 margin-bottom20">
+    @if (ViewBag.UpcomingSimilarCars==true)
+    {
+        <h2 class="font20">Similar Upcoming Cars</h2>
+    }
+    else
+    {
+        <h2 class="font20">Upcoming @ViewBag.MakeName Cars</h2>
+    }
+<div id="divUpcomingCar" class="uc-ver margin-top10" >
+    @if (Model.UpcomingCarsList.IsNotNullOrEmpty())
+    {
+        foreach (var upcomming in Model.UpcomingCarsList)
+        {
+            if (upcomming != null)
+            {
+                <div class="lt margin-bottom15">
+                    <div class="grid-4 alpha">
+                        <a href="/@UrlRewrite.FormatSpecial(upcomming.MakeName)-cars/@upcomming.MaskingName/">
+                            <img src="@(ImageSizes.CreateImageUrl(upcomming.Image?.HostUrl,ImageSizes._80X52, upcomming.Image?.ImagePath,70))" width="87" height="49" title="@(upcomming.MakeName + " " + upcomming.ModelName)" alt="@(upcomming.MakeName + " " + upcomming.ModelName)" />
+                        </a>
+                    </div>
+                    <div class="grid-8 omega">
+                        <a title="@upcomming.MakeName @upcomming.ModelName" href="/@UrlRewrite.FormatSpecial(upcomming.MakeName)-cars/@upcomming.MaskingName/">@Html.Raw(upcomming.MakeName + " " + upcomming.ModelName)</a>
+                        <p class="font12">@Html.Raw(upcomming.ExpectedLaunch)</p> 
+                        ₹ <span class="font12">@Html.Raw(upcomming.Price?.MaxPrice == upcomming.Price?.MinPrice ? FormatPrice.GetFormattedPriceV2(upcomming.Price?.MinPrice.ToString()) : FormatPrice.GetFormattedPriceV2(upcomming.Price?.MinPrice.ToString(),upcomming.Price?.MaxPrice.ToString()))</span>
+                    </div>
+                    <div class="clear"></div>
+               </div>
+            }
+        }
+    }
+    else
+    {
+        @Html.Raw("There is no Upcoming car expected from " + ViewBag.MakeName + " in near future")
+    }
+</div>
+<a class="redirect-rt" style="float:right" href="@(ViewBag.UpcomingSimilarCars == true? string.Format("/upcoming-cars/"):string.Format("/{0}-cars/upcoming/", UrlRewrite.FormatSpecial(ViewBag.MakeName ?? "")))" > All Upcoming Cars</a><span class="icon-sheet more-link"></span>
+<div class="clear"></div>
+</section>

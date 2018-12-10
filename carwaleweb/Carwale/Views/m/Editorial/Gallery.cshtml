@@ -1,0 +1,669 @@
+﻿@model Carwale.DTOs.CarData.PhotoGalleryDTO_V2
+@using Carwale.Utility;
+@using Carwale.Entity.Enum;
+@using Carwale.UI.PresentationLogic;
+@using MobileWeb.Common;
+@using Carwale.Utility;
+@using Carwale.BL.CMS;
+@using Carwale.Entity.Enum;
+@using Carwale.DTOs.CMS.ThreeSixtyView;
+@{
+    ViewBag.BodyClass = "bg-white";
+    if (Model.GalleryState.ActiveSection.Equals(GallerySections.VideosSection))
+    {
+        ViewBag.Title = Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoTitle;
+        ViewBag.Canonical = "https://www.carwale.com" + Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoTitleUrl;
+    }
+    else
+    {
+        ViewBag.Title = Model.ModelDetails.MakeName+ " " +Model.ModelDetails.ModelName + " Images, Interior & Exterior Photo Gallery";
+        ViewBag.Canonical = "https://www.carwale.com" + Request.ServerVariables["http_x_rewrite_url"].Split('?')[0].Replace("/m/", "/");
+    }
+    ViewBag.landingPage = false;
+    ViewBag.IsCityPage = false;
+    ViewBag.TrackingText = "PhotoGallery";
+    ViewBag.Responsive = true;
+    ViewBag.PageId = "666";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MGalleryPageCss.cshtml";
+    
+    string threeSixtyPageUrl = string.Empty;
+    if (Model.ModelDetails != null && !string.IsNullOrEmpty(Model.ModelDetails.MakeName)) { 
+        threeSixtyPageUrl = EditorialContent.Get360PageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, CMSCommon.Get360DefaultCategory(AutoMapper.Mapper.Map<ThreeSixtyAvailabilityDTO>(Model.ModelDetails)), true);
+    }
+    Layout = "~/views/shared/m/_MLayoutV2.cshtml";
+}
+@section MetaTags {
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    @switch (Model.GalleryState.ActiveSection)
+    {
+        case GallerySections.VideosSection:
+            <meta property="og:url" content="@("https://www.carwale.com/m" + Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoTitleUrl)" />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoTitle" />
+            <meta property="og:description" content="@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].Description" />
+            <meta property="og:image" content="@("https://img.youtube.com/vi/" + Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoId+"/sddefault.jpg")" />
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:site" content="@("@CarWale")">
+            <meta name="twitter:title" content="@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoTitle">
+            <meta name="twitter:description" content="@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].Description">
+            <meta name="twitter:creator" content="@("@CarWale")">
+            <meta name="twitter:image" content="@("https://img.youtube.com/vi/" + Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoId+"/sddefault.jpg")">
+            <link rel="canonical" href="@("https://www.carwale.com" + Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoTitleUrl)" />
+            break;
+        case GallerySections.PhotosDetail:
+            <meta property="og:url" content="@("https://www.carwale.com/m/" + Format.FormatSpecial(Model.ModelDetails.MakeName) + "-cars/" + Model.ModelDetails.MaskingName + "/images/")" />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName Gallery" />
+            <meta property="og:description" content="@Model.ModelImages[Model.GalleryState.ActiveSlideIndex].ImageDescription" />
+            <meta property="og:image" itemprop="image" content="@(Model.ModelImages[Model.GalleryState.ActiveSlideIndex].HostUrl+Model.ModelImages[Model.GalleryState.ActiveSlideIndex].ImagePathLarge)" />
+            <meta name="twitter:card" content="summary_large_image">
+            <meta name="twitter:site" content="@("@CarWale")">
+            <meta name="twitter:title" content="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName Gallery">
+            <meta name="twitter:description" content="@Model.ModelImages[Model.GalleryState.ActiveSlideIndex].ImageDescription">
+            <meta name="twitter:creator" content="@("@CarWale")">
+            <meta name="twitter:image" content="@(Model.ModelImages[Model.GalleryState.ActiveSlideIndex].HostUrl+Model.ModelImages[Model.GalleryState.ActiveSlideIndex].ImagePathLarge)">
+            break;
+        default:
+        <meta property="og:url" content="@("https://www.carwale.com/m/"+Format.FormatSpecial(Model.ModelDetails.MakeName)+"-cars/"+Model.ModelDetails.MaskingName+"/images/")" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName Gallery" />
+        <meta property="og:description" content="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName interior and exterior photos and videos." />
+        <meta property="og:image" content="@Model.ModelDetails.ModelImageLarge" />
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@("@CarWale")">
+        <meta name="twitter:title" content="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName Gallery">
+        <meta name="twitter:description" content="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName interior and exterior photos and videos.">
+        <meta name="twitter:creator" content="@("@CarWale")">
+        <meta name="twitter:image" content="@Model.ModelDetails.ModelImageLarge">
+            break;
+    }
+
+    <meta property="fb:admins" content="154881297559" />
+    <meta property="fb:pages" content="154881297559" />
+}
+@section Plugins{
+    <script type="text/javascript" src="/static/m/js/plugins/swiper.js" defer></script>
+}
+<style>
+    #root{height:auto!important;}
+    .hideImportant{display:none!important;}
+</style>
+    <link rel="SHORTCUT ICON" href="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/carwale.png?staticimgsfix" />
+    @Html.Partial("~/Views/Shared/_CrazyEggView.cshtml")
+    <div class="bg-white margin-bottom5" id="root">
+        <!-- ko component: {
+                                                    name: "gallery",
+                                                    params: {
+                                                                galleryData  : GALLERY_DATA
+                                                            }
+                           } -->
+        @if (Model.GalleryState.ActiveSection.Equals(GallerySections.PhotosListing) && Model.ModelImages.Count > 0)
+        {
+            <div id="titleHeader">
+                <h1 class="text-dark-grey margin-top10 text-center margin-bottom10">@(Model.ModelDetails.MakeName + " " + Model.ModelImages[0].ModelBase.ModelName + (Model.GalleryState.ActiveFilter.Equals(GalleryFilters.AllPhotos) ? "" : (Model.GalleryState.ActiveFilter.Equals(GalleryFilters.InteriorPhotos) ? " Interior" : " Exterior")) + " ")Images</h1>
+                <div class="gallery-allphotos-close-btn position-abt pos-top15 pos-right20 cwmsprite cross-lg-dark-grey cur-pointer"></div>
+            </div>
+            <section class="all-photos-section content-inner-block-10 ">
+                <div class="all-photo-container">
+                    @{int i = 0;}
+                    @foreach (var photo in Model.ModelImages)
+                    {
+                        <div class="gallery-image">
+                            <a href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Format.FormatSpecial(Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName, photo.ImageName, photo.ImageId, true)">
+                                <img class="lazy" data-original="@ImageSizes.CreateImageUrl(photo.HostUrl,"589x331",photo.OriginalImgPath,80)" alt="@photo.MakeBase.MakeName @photo.ModelBase.ModelName @photo.ImageCategory" title="@photo.MakeBase.MakeName @photo.ModelBase.ModelName @photo.ImageCategory">
+                                <noscript><img src="@ImageSizes.CreateImageUrl(photo.HostUrl, "589x331", photo.OriginalImgPath,80)"></noscript>
+                            </a>
+                        </div>
+                        i++;
+                    }
+                </div>
+            </section>
+        }
+        else if (Model.GalleryState.ActiveSection.Equals(GallerySections.PhotosDetail) && Model.ModelImages.Count > 0)
+        {
+            <section class="news-photo-gallery-container container ">
+                <div class="news-photo-heading">
+                    <h1 class="font16 text-white content-inner-block-10">@Model.ModelImages[0].MakeBase.MakeName @Model.ModelImages[0].ModelBase.ModelName Photos</h1>
+                    <div class="gallery-close-btn position-abt pos-top15 pos-right15 cwmsprite cross-md-white cur-pointer"></div>
+                </div>
+                <div id="car-gallery-popup">
+                    <div class="connected-carousels-photos">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                @{int i = 0;}
+                                @foreach (var photo in Model.ModelImages)
+                                {
+                                    <div class="swiper-slide">
+                                        <img data-src="@ImageSizes.CreateImageUrl(photo.HostUrl,"589x331",photo.OriginalImgPath)" class="swiper-lazy" alt="@photo.MakeBase.MakeName @photo.ModelBase.ModelName @photo.ImageCategory">
+                                        <div class="swiper-lazy-preloader"></div>
+                                    </div>
+                                    i++;
+                                }
+
+                            </div>
+                            <div class="cwmsprite swiper-button-next"></div>
+                            <div class="cwmsprite swiper-button-prev"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+        else if (Model.GalleryState.ActiveSection.Equals(GallerySections.VideosSection) && Model.ModelVideos.Count > 0)
+        {
+            <section class="all-videos-section">
+                <div class="news-video-container">
+                    <div class="news-video-view">
+                        <div>
+                            <div class="video-frame">
+                                <iframe id="VideoIFrame" src="https://www.youtube.com/embed/@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoId?rel=0&autoplay=1&enablejsapi=1&version=3&playerapiid=ytplayer&controls=2"></iframe>
+                                <div class="next-prev-btns @(Model.ModelVideos.Count > 1 ? "" : "hide")">
+                                    <div onclick="Javascript:goToAdjVideo($('.news-video-options.active').prev());"  class="video-prev-btn arrow-fff-10 hide"></div>
+                                    <div onclick="Javascript:goToAdjVideo($('.news-video-options.active').next());"  class="video-next-btn arrow-fff-10 video-btn-active"></div>
+                                </div>
+                            </div>
+                            <div class="video-view-info content-inner-block-10 padding-bottom15 border-solid-bottom">
+                                <div  class="video-title font13 text-black text-bold">@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoTitle</div>
+                                <div class="font12 text-light-grey margin-top5"><span>@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].Views</span> views</div>
+                            </div>
+                        </div>
+                        <div class="news-video-options-container margin-top5 content-inner-block-10">
+                            @foreach (var video in Model.ModelVideos)
+                            {
+                                <div class="news-video-options margin-bottom5 @(video.BasicId == Model.ModelVideos[0].BasicId ? "active" : "")">
+                                    <div class="video-view">
+                                        <img class="lazy" src="https://img.youtube.com/vi/@video.VideoId/mqdefault.jpg" title="@(video.MakeName + " " + video.ModelName + " : " + video.SubCatName)" alt="@(video.MakeName + " " + video.ModelName + " : " + video.SubCatName)">
+                                    </div>
+                                    <div class="video-option-detail">
+                                        <div class="font13">@(video.MakeName + " " + video.ModelName)</div>
+                                        <div class="font12 margin-top5">@video.SubCatName</div>
+                                        <div class="font11 text-light-grey margin-top5 margin-top5"><span>@video.Views</span> views</div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+        <div class="news-photo-options-container">
+            <div class="news-photo-filter-options hide">
+                <a class="news-filter-tag bg-light-grey" id="dealer-button">
+                    <div class="news-filter-icons">
+                        <span class="news-contact-dealer-icon"></span>
+                    </div>
+                    <span class="news-photo-filter-title">Contact Dealer</span>
+                </a><a class="news-filter-tag bg-white" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Format.FormatSpecial(Model.ModelDetails.MakeName == null ? string.Empty : Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName, null, 0, true)?category=interior">
+                    <div class="news-filter-icons">
+                        <span class="news-interior-icon"></span>
+                    </div>
+                    <span class="news-photo-filter-title">Interior Photos</span>
+                </a><a class="news-filter-tag bg-light-grey" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Format.FormatSpecial(Model.ModelDetails.MakeName == null ? string.Empty : Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName, null, 0, true)?category=exterior">
+                    <div class="news-filter-icons"><span class="news-exterior-icon"></span></div>
+                    <span class="news-photo-filter-title">Exterior Photos</span>
+                </a><a class="news-filter-tag bg-white" href="#">
+                    <div class="news-filter-icons"><span class="news-videos-icon"></span></div>
+                    <span class="news-photo-filter-title">Videos</span>
+                </a><a class="news-filter-tag bg-light-grey" src="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Format.FormatSpecial(Model.ModelDetails.MakeName == null ? string.Empty : Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName, null, 0, true)">
+                    <div class="news-filter-icons"><span class="news-all-photos-icon"></span></div>
+                    <span class="news-photo-filter-title">All Photos</span>
+                </a>
+
+                <div class="news-filter-tag bg-white">
+
+                </div>
+
+            </div>
+            <div class="news-photo-share-container bg-white hide">
+                <p class="text-center font16 text-black text-bold padding-top20 padding-bottom10">Share</p>
+                <a class="share-icon-container" target="_blank">
+                    <div class="news-share-icons">
+                        <span class="cwmsprite news-fb-icon"></span>
+                    </div>
+                    <span class="news-share-title text-bold font13 text-dark-grey margin-top10 block">Facebook</span>
+                </a>
+                <a class="share-icon-container" href="https://www.google.co.in/" target="_blank">
+                    <div class="news-share-icons">
+                        <span class="cwmsprite news-wp-icon"></span>
+                    </div>
+                    <span class="news-share-title text-bold font13 text-dark-grey margin-top10 block">Whatsapp</span>
+                </a>
+                <a class="share-icon-container" href="https://www.google.co.in/" target="_blank">
+                    <div class="news-share-icons">
+                        <span class="cwmsprite news-gm-icon"></span>
+                    </div>
+                    <span class="news-share-title text-bold font13 text-dark-grey margin-top10 block">Gmail</span>
+                </a>
+                <a class="share-icon-container" href="https://accounts.google.com/ServiceLogin?service=mail&passive=true&rm=false&continue=https://mail.google.com/mail/&ss=1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1#identifier" target="_blank">
+                    <div class="news-share-icons">
+                        <span class="cwmsprite news-tw-icon"></span>
+                    </div>
+                    <span class="news-share-title text-bold font13 text-dark-grey margin-top10 block">Twitter</span>
+                </a>
+                <a class="share-icon-container" href="https://www.instagram.com/?hl=en" target="_blank">
+                    <div class="news-share-icons">
+                        <span class="cwmsprite news-ins-icon"></span>
+                    </div>
+                    <span class="news-share-title text-bold font13 text-dark-grey margin-top10 block">Instagram</span>
+                </a>
+            </div>
+            <div class="clear">
+                <div class="news-photo-options bg-light-grey hide">
+                    <div class="share-pic inline-block"><span class="cwmsprite news-photo-share"></span></div>
+                    <div class="gallery-count inline-block"><span class="cwmsprite news-photo-count"></span> <span class="image-count"></span></div>
+                    <div class="download-pic inline-block"><span class="cwmsprite news-photo-download"></span></div>
+                    <div class="fullscreen-pic inline-block"><span class="cwmsprite news-photo-fullscreen"></span></div>
+                    <div class="smallscreen-pic inline-block hide"><span class="cwmsprite news-photo-smallscreen"></span></div>
+                </div>
+                <div class="news-photo-filter"><span class="cwmsprite three-dots"></span></div>
+            </div>
+        </div>
+        <!-- /ko -->
+        <div class="clear"></div>
+    </div> 
+	<noscript id="advantage_popup">
+		<script type="text/html" src="/static/m/ui/advantagecitypopup.html">
+		</script>
+	</noscript>
+    <script type="text/html" id="gallery-template">
+        <!-- ko if : state().activeSection == SECTIONS.photosListing -->
+        <!-- ko component: {
+                                            name: "photos-listing",
+                                            params: {
+                                                       photoList : galleryData[state().activeFilter],
+                                                       modelDetails:galleryData.modelDetails,
+                                                       filterName : FILTER_NAMES[state().activeFilter]
+                                                    }
+                            } -->
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if : state().activeSection == SECTIONS.photosDetail -->
+        <!-- ko component: {
+                                            name: "photos-detail",
+                                            params: {
+                                                       photoList : galleryData[state().activeFilter],
+                                                       selectedSlideIndex : state().activeSlideIndex,
+                                                       modelDetails:galleryData.modelDetails,
+                                                       filterName : FILTER_NAMES[state().activeFilter]
+                                                    }
+                            } -->
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko if : state().activeSection == SECTIONS.videosSection -->
+        <!-- ko component: {
+                                        name: "videos-section",
+                                        params: {
+                                                    videoList : galleryData.videos,
+                                                    selectedVideoIndex : state().activeVideoIndex
+                                                }
+                        } -->
+        <!-- /ko -->
+        <!-- /ko -->
+
+
+
+
+        <div class="news-photo-options-container" data-bind="visible: showFilterMenu,template:{name:'photo-filter-options',data:$data}">
+
+        </div>
+
+
+        <div class="news-photo-filter" data-bind="event:{click:function(){ postAction(ACTIONS.SHOW_FILTER_MENU)}},visible: (showFilterIcon() && !showFilterMenu())">
+            <span class="cwmsprite three-dots"></span>
+        </div>
+
+        <!-- ko if : showBlackout -->
+        <div class="blackout-window" data-bind="event:{click:function(){ postAction(ACTIONS.BLACKOUT_CLICK)}}"></div>
+        <!-- /ko -->
+    </script>
+    <script type="text/html" id="photo-filter-options">
+        <div class="news-photo-filter-options">
+            <a href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Format.FormatSpecial(Model.ModelDetails.MakeName == null ? string.Empty : Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName, null, 0, true)?category=interior" data-bind="attr:{class: galleryData[FILTERS.interiorPhotos].length > 0 ?'news-filter-tag'+(highlightedTile()==2?' active-option':''):'news-filter-tag disabled-option'}">
+                <div class="news-filter-icons"><span class="news-interior-icon"></span></div><span class="news-photo-filter-title">Interior Photos</span>
+            </a>
+			<a href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Format.FormatSpecial(Model.ModelDetails.MakeName == null ? string.Empty : Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName, null, 0, true)?category=exterior"data-bind="attr:{class: galleryData[FILTERS.exteriorPhotos].length > 0 ?'news-filter-tag'+(highlightedTile()==3?' active-option':''):'news-filter-tag disabled-option'}">
+                <div class=" news-filter-icons"><span class="news-exterior-icon"></span></div>
+                <span class="news-photo-filter-title">Exterior Photos</span>
+            </a>
+			<a data-bind="event:{click:function(){ postAction(ACTIONS.VIDEO_SECTION_CLICK)}},attr:{class: galleryData.videos.length > 0 ?'news-filter-tag'+(highlightedTile()==4?' active-option':''):'news-filter-tag disabled-option'}">
+                <div class="news-filter-icons"><span class="news-videos-icon"></span></div>
+                <span class="news-photo-filter-title">Videos</span>
+            </a>
+			<a href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Format.FormatSpecial(Model.ModelDetails.MakeName == null ? string.Empty : Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName, null, 0, true)" class="news-filter-tag" data-bind="attr:{class: galleryData[FILTERS.allPhotos].length > 0 ?'news-filter-tag'+(highlightedTile()==1?' active-option':''):'news-filter-tag disabled-option'}">
+                <div class="news-filter-icons"><span class="news-all-photos-icon"></span></div>
+                <span class="news-photo-filter-title">All Photos</span>
+            </a>
+			@if (ViewBag.IsAdAvailable && Model.ModelDetails.New && Model.ModelDetails.MinPrice > 0)
+            {
+				<a class="news-filter-tag" id="btnGenericSlug"
+                data-bind="event:{click:function(data,event){ postAction(ACTIONS.CONTACT_DEALER_CLICK); bindGenericDealerSlug(event.currentTarget);}}"
+                dealercampaignexist="@ViewBag.IsAdAvailable.ToString()"
+                sourceclick="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "MSiteGallery", (short)LeadSources.PQ, (short)Platform.CarwaleMobile)))"
+                leadinquirysource="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "MSiteGallery", (short)LeadSources.PQ, (short)Platform.CarwaleMobile)))"
+                page=""
+                data-role="click-impression" data-event="CWNonInteractive"
+                data-action="GenericSlugBtn"
+                data-cat="Photo-Gallery-Msite"
+                data-label='@("Photo-Gallery-Msite-" + Model.ModelDetails.ModelName)'
+                recoleadsource='@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "RecoMSiteGallery", (short)LeadSources.PQ, (short)Platform.CarwaleMobile)))'
+                recoinquirysource='@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "RecoMSiteGallery", (short)LeadSources.PQ, (short)Platform.CarwaleMobile)))'>
+                <div class="news-filter-icons">
+                    <span class="news-contact-dealer-icon"></span>
+                </div>
+                <span class="news-photo-filter-title">Contact Dealer</span>
+            </a>
+            if (!String.IsNullOrWhiteSpace(ViewBag.SponsoredDealer.DealerMobile))
+            {
+                <a href="tel:@(ViewBag.SponsoredDealer.DealerMobile)" class="news-filter-tag" data-role="click-impression"
+                   data-event="CWNonInteractive"
+                   data-action="GenericSlugNumber"
+                   data-cat="Call-Slug-Behaviour"
+                   data-label="@(ViewBag.CallSlugTrackingLabel)">
+                    <div class="news-filter-icons" data-role="click-impression"
+                         data-event="CWNonInteractive"
+                         data-action="GenericSlugNumber"
+                         data-cat="Photo-Gallery-Msite"
+                         data-label='@("Photo-Gallery-Msite-"+Model.ModelDetails.ModelName)'>
+                        <span class="news-call-dealer-icon"></span>
+                    </div><span class="news-photo-filter-title">@ViewBag.SponsoredDealer.DealerMobile</span>
+                </a>
+            }
+            }
+            else if (Model.DiscountSummary != null && (Model.DiscountSummary.MaxDiscount > 0 || !string.IsNullOrWhiteSpace(Model.DiscountSummary.Offers)))
+            {
+                if (CookiesCustomers.MasterCityId > 0)
+                {
+					<a class="news-filter-tag" href="/m/@Advanatge.GetAdvantageURL(Model.ModelDetails.MakeName, Model.DiscountSummary.MaskingName, CookiesCustomers.MasterCityId)">
+                    <div class="news-filter-icons advantage-filter-icons"><span class="red-advantage-icon"></span></div>
+                    <span class="news-photo-filter-title">
+                        @if (Model.DiscountSummary.MaxDiscount > 0)
+                        {
+                            <span>Save&nbsp;₹ @Format.FormatNumericCommaSep(Model.DiscountSummary.MaxDiscount.ToString())</span>
+                        }
+                        else
+                        {
+                            <span>Offer available</span>
+                        }
+                    </span>
+                	</a>
+				}
+                else{
+					<a class="news-filter-tag" data-adv-popup="showAdvantageCityPopup" href="javascript:void(0)" data-model="@Model.DiscountSummary.ModelId"
+                    data-advantage-link="/m/@Carwale.UI.Common.UrlRewrite.FormatSpecial(Model.ModelDetails.MakeName)-cars/@Model.DiscountSummary.MaskingName/advantage/?cityid=">
+                    <div class="news-filter-icons advantage-filter-icons"><span class="red-advantage-icon"></span></div>
+                    <span class="news-photo-filter-title">
+                        Offer available
+                    </span>
+                </a>
+				}
+            }
+            @if (CMSCommon.IsThreeSixtyViewAvailable(Model.ModelDetails))
+            {
+                if (ViewBag.OptionsCount == 4)
+                {
+                    <a class="news-filter-tag" href="@threeSixtyPageUrl" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_linkages" data-action="@((HttpContext.Current.Request.QueryString["gallery"] == null ? "images" : "gallery") + "_page_menu")" data-label="@(Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName)">
+                        <div class="news-filter-icons"><span class="teal-360-icon-36"></span></div>
+                        <span class="news-photo-filter-title">360 View</span>
+                    </a>
+                    <div class="news-filter-tag"></div>
+                }
+                else if (ViewBag.OptionsCount == 5)
+                {
+                    <a class="news-filter-tag" href="@threeSixtyPageUrl" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_linkages" data-action="@((HttpContext.Current.Request.QueryString["gallery"] == null ? "images" : "gallery") + "_page_menu")" data-label="@(Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName)">
+                        <div class="news-filter-icons"><span class="teal-360-icon-36"></span></div>
+                        <span class="news-photo-filter-title">360 View</span>
+                    </a>
+                }
+                else
+                {
+                    <a class="news-filter-tag" href="@threeSixtyPageUrl" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_linkages" data-action="@((HttpContext.Current.Request.QueryString["gallery"] == null ? "images" : "gallery") + "_page_menu")" data-label="@(Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName)">
+                        <div class="news-filter-icons"><span class="teal-360-icon-36"></span></div>
+                        <span class="news-photo-filter-title">360 View</span>
+                    </a>
+					<div class="news-filter-tag"></div>
+					<div class="news-filter-tag"></div>
+                }
+            }
+        </div>
+
+    </script>
+
+    <script type="text/html" id="photos-listing-wrapper">
+        <div class="photo-list-heading">
+            <h1 class="text-dark-grey padding-top10 text-center">@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName<span data-bind="text: filterName"></span> Images</h1>
+        </div>
+        <section class="all-photos-section" data-bind="template:{name:'photos-listing-template',data:$data,afterRender:afterRender}"></section>
+    </script>
+    <script type="text/html" id="photos-listing-template">
+
+        <div class="all-photo-container" data-bind="foreach:{data:photoList}">
+
+            <div class="gallery-image bg-white">
+                <img class="lazy" data-bind="attr:{'data-original': createImageUrl(HostUrl,'589x331',OriginalImgPath,80),alt: $parent.modelDetails.MakeName + ' ' + $parent.modelDetails.ModelName + ' '  + ImageCategory},event:{click:function(){ $parent.postAction(ACTIONS.PHOTO_CLICK,$index())}}" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif">            </div>
+           </div>
+
+    </script>
+    <script type="text/html" id="photos-detail-wrapper">
+        <section class="news-photo-gallery-container container" data-bind="template:{name:'photos-detail-template',data:$data,afterRender:afterRender}"></section>
+        <div class="clear"></div>
+    </script>
+    <script type="text/html" id="photos-detail-template">
+        <!-- ko if : showPhotoHeading -->
+        <div class="header news-photo-heading">
+            <h1 class="font16 text-white content-inner-block-10" data-bind="text:  modelDetails.ModelName + filterName +'Images '+'('+(currentSlideIndex()+1)+'/'+photoList.length+')'"></h1>
+            <div><div class="gallery-close-btn position-abt pos-top15 pos-right15 cwmsprite cross-md-white cur-pointer" data-bind="event:{click:function(){ postAction(ACTIONS.CLOSE_PHOTO_DETAILS)}}"></div></div>
+        </div>
+        <!-- /ko -->
+        <div id="car-gallery-popup">
+            <div class="connected-carousels-photos">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper" data-bind="foreach:photoList">
+                        <div class="swiper-slide">
+                            <img data-bind="attr:{'data-src': createImageUrl(HostUrl, '589x331', OriginalImgPath, 80),alt: $parent.modelDetails.MakeName + ' ' + $parent.modelDetails.ModelName + ' ' + ImageCategory}" class="swiper-lazy">
+                            <div class="swiper-lazy-preloader"></div>
+                        </div>
+                    </div>
+                    <div class="cwmsprite swiper-button-next"></div>
+                    <div class="cwmsprite swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+        <div class="news-photo-options-container">
+            <!-- ko if : showShareMenu -->
+            <div class="news-photo-share-container bg-white">
+                <p class="text-center font16 text-black text-bold padding-top20 padding-bottom10">Share</p>
+                <a class="share-icon-container" data-bind="attr:{href:'https://www.facebook.com/sharer/sharer.php?u='+encodeURI(window.location.href)},event:{click:function(){ postAction(ACTIONS.SHARE_IMAGE,'Facebook');return true;}}" target="_blank">
+                    <div class="news-share-icons">
+                        <span class="cwmsprite news-fb-icon"></span>
+                    </div>
+                    <span class="news-share-title text-bold font13 text-dark-grey margin-top10 block">Facebook</span>
+                </a>
+                <a class="share-icon-container" data-bind="attr:{href:'whatsapp://send?text=Check out '+ photoList[currentSlideIndex()].ImageDescription +' '+window.location.href },event:{click:function(){ postAction(ACTIONS.SHARE_IMAGE,'Whatsapp');return true;}}">
+                    <div class="news-share-icons">
+                        <span class="cwmsprite news-wp-icon"></span>
+                    </div>
+                    <span class="news-share-title text-bold font13 text-dark-grey margin-top10 block">Whatsapp</span>
+                </a>
+                <a class="share-icon-container" data-bind="attr:{href:'mailto:?subject=Checkout this photo&body='+ window.location.href},event:{click:function(){ postAction(ACTIONS.SHARE_IMAGE,'Email');return true;}}" target="_blank">
+                    <div class="news-share-icons">
+                        <span class="cwmsprite news-gm-icon"></span>
+                    </div>
+                    <span class="news-share-title text-bold font13 text-dark-grey margin-top10 block">Email</span>
+                </a>
+                <a class="share-icon-container" data-bind="attr:{href:'https://twitter.com/intent/tweet?status='+encodeURI(window.location.href)},event:{click:function(){ postAction(ACTIONS.SHARE_IMAGE,'Twitter');return true;}}" target="_blank">
+                    <div class="news-share-icons">
+                        <span class="cwmsprite news-tw-icon"></span>
+                    </div>
+                    <span class="news-share-title text-bold font13 text-dark-grey margin-top10 block">Twitter</span>
+                </a>
+            </div>
+            <!-- /ko -->
+
+            <div class="clear" data-bind="visible: (showActionBar() && !showShareMenu())">
+                <div class="news-photo-options bg-light-grey">
+                    <div class="share-pic inline-block" data-bind="event:{click:function(){ postAction(ACTIONS.SHOW_SHARE_MENU)}}"><span class="cwmsprite news-photo-share"></span></div>
+                    <div class="gallery-count inline-block" data-bind="event:{click:function(){ postAction(ACTIONS.GOTO_PHOTO_LISTING)}}"><span class="cwmsprite news-photo-count"></span> <span class="image-count" data-bind="text:photoList.length"></span></div>
+                    <div class="download-pic inline-block"><a data-bind="attr:{href:photoList[currentSlideIndex()].HostUrl + '0x0' + photoList[currentSlideIndex()].OriginalImgPath,'download':photoList[currentSlideIndex()].ImageName+'.jpg'},event:{click:function(){ postAction(ACTIONS.DOWNLOAD_IMAGE);return true;}}"><span class="cwmsprite news-photo-download"></span></a></div>
+                    <!-- ko if: showFullScreenIcon -->
+                    <div class="fullscreen-pic inline-block" data-bind="event:{click:function(){ postAction(ACTIONS.EXPAND_IMAGE)}}"><span class="cwmsprite news-photo-fullscreen"></span></div>
+                    <!-- /ko -->
+                    <!-- ko if: showSmallScreenIcon -->
+                    <div class="smallscreen-pic inline-block" data-bind="event:{click:function(){ postAction(ACTIONS.CONTRACT_IMAGE)}}"><span class="cwmsprite news-photo-smallscreen"></span></div>
+                    <!-- /ko -->
+                    @if (CMSCommon.IsThreeSixtyViewAvailable(Model.ModelDetails))
+                    {
+					    <div class="inline-block">
+							<a href="@threeSixtyPageUrl" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_linkages" data-action="gallery_page_toolbar" data-label="@(Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName)">
+								<span class="teal-360-icon-36"></span>
+								<span class="new-tag-icon-28"></span>
+							</a>
+						</div>
+                    }
+                </div>
+                <div class="bg-dark-grey snackbar-single text-white"> For best experience, switch to landscape mode.</div>
+            </div>
+
+        </div>
+    </script>
+    <script type="text/html" id="videos-section-wrapper">
+        <section class="all-videos-section" data-bind="template:{name:'videos-section-template',data:$data,afterRender:afterRender}"></section>
+    </script>
+    <script type="text/html" id="videos-section-template">
+        <div class="news-video-container">
+            <div id="lbAds" style="text-align:center;"></div>
+            <div class="news-video-view">
+                <div class="">
+                    <!-- ko if :  showVideo-->
+                    <div   class="video-frame">
+                        <iframe id="videoIframe" src="https://www.youtube.com/embed/@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoId?rel=0&autoplay=1&enablejsapi=1&version=3&playerapiid=ytplayer&controls=2" data-bind="attr:{class:'video-iframe','data-id':selectedVideo().VideoId},event:{afterRender:onVideoIframeReady(selectedVideo().VideoId)}" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <div data-bind="attr:{class:'next-prev-btns ' + (videoListCount() == 1 ? 'hide' : '')}"class="next-prev-btns">
+                            <div onclick="Javascript:goToAdjVideo($('.news-video-options.active').prev());" data-role="click-impression" data-event="CWNonInteractive" data-cat="msite_video_details" data-label="@(String.Format("{0} {1}",Model.ModelDetails.MakeName,Model.ModelDetails.ModelName))" data-action="prev_button" class="video-prev-btn arrow-fff-10 hide"></div>
+                            <div onclick="Javascript:goToAdjVideo($('.news-video-options.active').next());" data-role="click-impression" data-event="CWInteractive" data-cat="msite_video_details" data-label="@(String.Format("{0} {1}",Model.ModelDetails.MakeName,Model.ModelDetails.ModelName))" data-action="next_button" class="video-next-btn arrow-fff-10 video-btn-active"></div>
+                        </div>
+                    </div>
+                    <div class="video-view-info content-inner-block-10 padding-bottom15 border-solid-bottom">
+                        <h1 class="model-video-title font14 text-black text-bold" data-bind="text:selectedVideo().VideoTitle"></h1>
+                        <div class="font12 text-light-grey margin-top5"><span class="video-viewsCount" data-bind="text:selectedVideo().Views"></span> views</div>
+                        @if (@Model.ModelDetails.ModelId == 1082) { 
+                        <div id="temp" class="margin-top10">
+                            <ul>
+                                <li><a href="https://www.carwale.com/m/marutisuzuki-cars/@Model.ModelDetails.MaskingName/images/">View New Dzire Images</a></li>
+                                <li class="margin-top10"><a href="@ManageCarUrl.CreateModelUrl("Maruti Suzuki",Model.ModelDetails.MaskingName,true)">Explore the New Dzire</a></li>
+                            </ul>
+                        </div>
+                        }
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <div data-bind="attr: { class: videoListCount() > 1 ? 'switch-container' : 'hide' }">
+                    <span class="switch-label text-bold">Up next</span>
+                    <div class="rightfloat">
+                    <span class="switch-label">Autoplay</span>
+                    <div class="switch">
+                        <input onchange="Javascript:toggleAutoPlay()" id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" data-bind="attr:{checked: isAutoPlay()}" checked>
+                        <label for="cmn-toggle-1"></label>
+                    </div>
+                        </div>
+                </div>
+                <div class="clear"></div>
+                <div data-bind="foreach:videoList, attr: { class: videoListCount() == 1 ? 'news-video-options-container margin-top5 content-inner-block-5' : 'news-video-options-container margin-top5 content-inner-block-10' }">
+                    <div onclick="Javascript:goToAdjVideo($(this))" class="news-video-options margin-bottom5" data-bind="attr:{class: $index() == $parent.selectedVideoIndex() ? 'news-video-options margin-bottom5 active' : 'news-video-options margin-bottom5', 'data-videoid':VideoId, 'data-videotitle':VideoTitle, 'data-videotitleurl':VideoTitleUrl, 'data-views':Views, 'data-index':$index()}">
+                        <div class="video-view">
+                            <img class="lazy" data-bind="attr:{src:'https://img.youtube.com/vi/'+ VideoId+'/mqdefault.jpg'}" title="" alt="">
+                        </div>
+                        <div class="video-option-detail">
+                            <div class="font13" data-bind="text: VideoTitle"></div>
+                            <div class="views-container font11 text-light-grey margin-top5 margin-top5">
+                                <span data-bind="text: Views"></span> views
+                            </div>
+                            <div data-bind="attr:{class: $index() == $parent.selectedVideoIndex() ? 'watching-container' : 'watching-container hideImportant' }" >
+                                <span class="text-light-grey watching">Watching now...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+                <!-- ko if: showSimilarVideos -->
+                <div data-bind="attr: { class: videoListCount() == 1 ? 'video-similiar-info content-inner-block-10' : 'video-view-similar-info content-inner-block-10 border-solid-top' }">
+                    <div class="video-title font13 text-black text-bold"><h2 class="font13 text-bold">Other Recommended Videos</h2></div>
+                </div>
+                <div class="news-video-options-container margin-top-minus-19 content-inner-block-10" data-bind="foreach: similarVideos">
+                    <a class="no-link-decoration" data-bind="attr: { href:'/m' + $data.VideoTitleUrl }">
+                        <div class="news-video-options margin-bottom5" data-bind="event: { click: function () { $parent.trackRecommendedVideos($data.VideoTitleUrl); return true; } }">
+                            <div class="video-view">
+                                <img class="lazy" data-bind="attr: { src:'https://img.youtube.com/vi/' + $data.VideoId + '/mqdefault.jpg' }" title="" alt="">
+                            </div>
+                            <div class="video-option-detail">
+                                <div class="font13" data-bind="text: $data.VideoTitle"></div>
+                                <div class="font11 text-light-grey margin-top5 margin-top5"><span data-bind="text: $data.Views"></span> views</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <!-- /ko -->
+                
+            </div>
+        </div>
+    </script>
+    <script>
+        var GALLERY_DATA = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+        var cwTrackingPath = '@System.Configuration.ConfigurationManager.AppSettings["HostUrl"]';
+        var insuranceKeys = {
+            cholaStates: [@System.Configuration.ConfigurationManager.AppSettings["InsuranceStates"]],
+        };
+        var defaultCookieDomain = '@Carwale.UI.Common.CookiesCustomers.CookieDomain';
+        var isEligibleForORP = '@Carwale.UI.Common.CookiesCustomers.IsEligibleForORP' === 'True';
+        var abTestKey = "@System.Configuration.ConfigurationManager.AppSettings["AbTestVersion"]";
+        var abTestKeyMaxValue = "@System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMaxValue"]";
+        var abTestKeyMinValue = "@System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMinValue"]";
+        var askingAreaCityId = [@System.Configuration.ConfigurationManager.AppSettings["AskingAreaCityIds"]];
+    </script>
+    @section Scripts{
+        <script type="text/javascript" src="https://www.youtube.com/iframe_api" defer></script>
+        <script type="text/javascript" src="/static/src/jquery.dfp.min.js" defer></script>
+        <script type="text/javascript" src="/static/js/videostracking.js" defer></script>        
+        <script type="text/javascript" src="/static/js/comscore.js" defer></script>
+        <script type="text/javascript" src="~/static/js/editorial-common.js" defer></script>
+        <script type="text/javascript" src="/static/m/js/media-gallery.js" defer></script>
+        @if (ViewBag.IsAdAvailable)
+        {
+            Html.RenderPartial("m/_DealerLeadPopUpAsync", new Tuple<Carwale.Entity.CarData.CarModelDetails, Carwale.Entity.Dealers.SponsoredDealer>(Model.ModelDetails, @ViewBag.SponsoredDealer));
+            <script type="text/javascript" src="/static/m/js/lead-form-support.js" defer></script>
+        }
+    @Html.Partial("~/Views/Shared/_Comscore.cshtml")
+        <script>
+
+                var isModelCityPage = '@ViewBag.IsCityPage';
+                var futuristicString = '@Model.ModelDetails.Futuristic'.toLowerCase();
+                var futuristic = (futuristicString === 'true');
+                var newString = '@Model.ModelDetails.New'.toLowerCase();
+                var newFlag = (newString === "true")
+                var oemDealers = '@System.Configuration.ConfigurationManager.AppSettings["OEMDealerId"]';
+                var userCityId = @(ViewBag.IsCityPage ? ViewBag.CityId: MobileWeb.Common.CookiesCustomers.MasterCityId);
+                var sponsorDlrBusType,sponsorDlrName,campaignId,sponsorDlrLeadPanel,showEmail,defaultVerId= "", defaultVerName = "",sponsoredDealerId;
+                var pageId = @ViewBag.PageId;
+                var reEmailUpcomming = /^(([^<>()[\]\\.,;:\s@@\"]+(\.[^<>()[\]\\.,;:\s@@\"]+)*)|(\".+\"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+                var callSlugDisplay = true;
+                var zoneId = "";
+                var dealerAdminId = "@(ViewBag.SponsoredDealerAd != null ? ViewBag.SponsoredDealerAd.DealerAdminId : 0)";   // Identifies dealers group id
+                @if (ViewBag.ZoneId>0)
+                {
+                <text>
+                    zoneId = "@ViewBag.ZoneId";
+                </text>
+                }
+                var PageId=@ViewBag.PageId;
+                var ModelName= '@Model.ModelDetails.ModelName';
+                var CityName='';
+                var IsCity='@ViewBag.IsCityPage';
+                if (IsCity=='True')
+                {
+                    CityName = '@ViewBag.CityName';
+                }
+                else if(IsCity=='False'){
+                    CityName='@MobileWeb.Common.CookiesCustomers.MasterCity';
+                }
+                var is360Available = '@(CMSCommon.IsThreeSixtyViewAvailable(Model.ModelDetails))' == 'True';
+        </script>
+    }

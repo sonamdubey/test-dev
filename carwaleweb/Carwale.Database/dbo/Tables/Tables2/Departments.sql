@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Departments] (
+    [ID]   NUMERIC (18) NOT NULL,
+    [NAME] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_Departments] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

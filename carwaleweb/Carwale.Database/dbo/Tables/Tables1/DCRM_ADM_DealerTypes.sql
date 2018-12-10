@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[DCRM_ADM_DealerTypes] (
+    [Id]    SMALLINT      IDENTITY (1, 1) NOT NULL,
+    [Name]  VARCHAR (50)  NOT NULL,
+    [Descr] VARCHAR (150) NULL,
+    CONSTRAINT [PK_DCRM_ADM_DealerTypes] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

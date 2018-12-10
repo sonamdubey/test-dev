@@ -1,0 +1,23 @@
+﻿@model Carwale.Entity.CMS.CarSynopsisEntity
+@{Layout = null;}
+@if (Model != null && !string.IsNullOrEmpty(Model.Content))
+{
+    <section>
+        <h2 class="margin-bottom10 margin-left10 m-special-skin-text">@ViewBag.ModelName Review</h2>
+        <div id="divShortSynopsis" class="content-box-shadow content-inner-block-10 margin-bottom20 @(ViewBag.isUpcoming?"hide": "")">
+            <div id="divShortDescContent">@Html.Raw(Model.Description)</div>
+            @if (Model.Content.Length > 451)
+            {
+                <div class="darkblue text-link">
+                    <span id="spnShortSynopsis" onclick="FullReview()">...read full review&nbsp;&nbsp;</span>
+                </div>
+            }
+        </div>
+        <div id="divFullSynopsis" class="content-box-shadow content-inner-block-10 margin-bottom20 @(ViewBag.isUpcoming?"": "hide")">
+            <div>@Html.Raw(Model.Content)</div>
+            <div class="darkblue text-link text-center">
+                <span id="spnFullSynopsis" onclick="HideReview()">Hide full review&nbsp;&nbsp;</span>
+            </div>
+        </div>
+    </section>
+}

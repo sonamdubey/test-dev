@@ -1,0 +1,58 @@
+﻿@using Carwale.UI.PresentationLogic;
+@model Carwale.DTOs.LeadForm.LeadFormModelData
+
+@{
+    var testDriveText = System.Configuration.ConfigurationManager.AppSettings["TestDriveCtaText"] ?? "";    
+}
+<!-- Test Drive Block Starts Here -->
+@if(Model != null)
+{
+    foreach (var campaignData in Model.DealerAd)
+    {
+        if (campaignData.Campaign != null && campaignData.CampaignType == (int)Carwale.Entity.Enum.CampaignAdType.Pq)
+        { 
+<div class="test-drive-block content-box-shadow margin-top20 content-inner-block-20 border-solid" style="background-color:#f2fdf7">
+    <span class="cw-circle-icon test-drive-image margin-right20"></span>
+    <div class="rightfloat test-drive-content">
+        <div class="test-drive-info inline-block">
+            <div class="text-capitalize text-unbold font18">
+                Contact @campaignData.Campaign.ContactName
+                @*@if (Model.MaskingNumberEnabled && !String.IsNullOrWhiteSpace(Model.DealerMobile))
+                {
+                    <span class="block text-bold font16"><span class="price-quote-all-imgs circle-call-icon"></span>@Model.DealerMobile</span>
+                }*@
+            </div>
+            <p class="margin-top5">
+                Get in touch for the best buying options from your authorised dealer
+            </p>
+        </div>
+       
+        <div id="btnGetEMIAssistanceOnTestDrive"
+             data-cwtccat="CityPage"
+             data-cwtcact="BestDealClick"
+             data-cwtclbl="make:@ViewBag.MakeName|model:@ViewBag.ModelName|city:@(ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone)|TemplateButtonText:Get The Best Deal"
+             class="hvr-animate-btn btn btn-orange btn-xs margin-top50"
+             data-role="click-impression"
+             data-event="DealerLeadPopUpBehaviour"
+             data-action="Button"
+             data-cat="TestDriveSlugModelPriceInCity"
+             data-predictionscore="@(campaignData.Campaign.PredictionData != null ? campaignData.Campaign.PredictionData.Score : 0)"
+             data-predictionlabel="@(campaignData.Campaign.PredictionData != null ? campaignData.Campaign.PredictionData.Label : "")"
+             campaigncta
+             propertyid="8"
+             userlocation='{"cityId":@String.Format("{0}", Model.CustLocation.CityId), "cityName":"@Model.CustLocation.CityName"}'
+             campaignid_dealerid=@String.Format("{0}_{1}",campaignData.Campaign.Id,campaignData.Campaign.DealerId)
+             testdrivechecked=@((campaignData.Campaign.IsTestDriveCampaign) ? "true" : "false")>
+            @((campaignData.Campaign.IsTestDriveCampaign) ? testDriveText : "Get The Best Deal")
+
+        </div>
+        
+    </div>
+    <div class="clear"></div>
+</div>
+            break;
+}
+}
+}
+<div class="show-target block clear"></div>
+<!-- Test Drive Block Ends Here -->

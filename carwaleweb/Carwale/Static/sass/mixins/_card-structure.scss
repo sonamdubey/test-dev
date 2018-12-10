@@ -1,0 +1,47 @@
+﻿@import "../mixins/_variables.scss";
+@import "../mixins/_sprites.scss";
+
+
+@mixin card-detail-title ($color: 'charcoal', $font-size: 16, $font-weight: $font-semibold) {
+    .card-detail-block__title {
+		font-weight: $font-weight;
+		color: map-get($color-map, $color);
+		font-size: $font-size * 1px;
+		margin-bottom: 10px;
+    }
+}
+
+@mixin card-detail-info ($color: 'charcoal', $font-size: 14) {
+    .card-detail-block__info {
+		color: map-get($color-map, $color);
+		font-size: $font-size * 1px;
+		width: 100%;
+		font-weight: $font-normal;
+    }
+}
+
+@mixin car-choices-unit ($color: 'sky-blue', $font-size: 15, $text-align: left) {
+    .car-choices{
+		@include choices-icon;
+		background-position: left top;
+		background-size: 25px 20px;
+		font-size: $font-size * 1px;
+		color: map-get($color-map, $color);
+		text-align: $text-align;
+		cursor: pointer;
+		padding-left: 32px;
+		display: inline-block;
+		margin-right: 20px;
+    }
+}
+
+@mixin car-data-amount ($color: 'charcoal', $font-size: 18, $font-weight: $font-semibold) {
+    .car-unit-data__amount{
+		font-weight: $font-weight;
+		font-size: $font-size * 1px;
+		color: map-get($color-map, $color);
+		-webkit-tap-highlight-color: transparent;
+		vertical-align: top;
+		display:inline-block;
+    }
+}

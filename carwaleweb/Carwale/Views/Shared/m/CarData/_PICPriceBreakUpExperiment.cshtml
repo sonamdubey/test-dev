@@ -1,0 +1,126 @@
+﻿@model Carwale.DTOs.CarData.CarOverviewDTOV2
+@using MobileWeb.Common;
+@using Carwale.Utility;
+@using Carwale.Entity;
+@using Carwale.Entity.Enum;
+@using Newtonsoft.Json;
+
+@{
+string orp = Model.CarPriceOverview.PriceForSorting > 0 ? Format.FormatNumericCommaSep(Model.CarPriceOverview.PriceForSorting.ToString()) : "N/A";
+bool isToolTipCampaign = Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.ToolTip);
+bool isCampaignAvailable = (Model.AdAvailable && !string.IsNullOrEmpty(Model.LeadCTA)) || Model.ShowCampaignLink;
+string userlocation = Model.UserLocation != null ? JsonConvert.SerializeObject(Model.UserLocation) : "";
+}
+<div class="price-breakup">
+
+@{
+	int i = 0;
+}
+<table class="price-breakup__table">
+
+@if (Model.VersionPriceQuote.PricesList != null)
+{
+	foreach (var pqItem in Model.VersionPriceQuote.PricesList)
+	{
+		i++;
+		if (pqItem.OnRoadPriceInd)
+		{
+			<tr class="break-up @(Model.VersionPriceQuote.PricesList.Count.Equals(i) ? "bottomline" : "" )">
+				<td>
+					@pqItem.PQItemName
+				@if (pqItem.ChargeGroupPrice.Id.Equals((short)ChargeGroup.CompulsoryInsurance) && Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.Insurance))
+				{
+					<div class="inline-block" data-event="CWNonInteractive" data-role="impression" data-action="PIC_Insurance_m" data-cat="SponsoredLink_Shown" data-label='@("campaign_" + Model.CampaignTemplates[(short)PageProperties.Insurance].Id)'>
+						<div data-event="CWInteractive" data-role="click-tracking" data-action="PIC_Insurance_m" data-cat="SponsoredLink_Click" data-label='@("campaign_" + Model.CampaignTemplates[(short)PageProperties.Insurance].Id)'>
+							@Html.Raw(Model.CampaignTemplates[(short)PageProperties.Insurance].Name)
+						</div>
+					</div>
+				}
+			</td>
+			<td class="text-right">&#8377; @Format.FormatNumericCommaSep(pqItem.PQItemValue.ToString())</td>
+		</tr>
+        }
+    }
+}
+@if (Model.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity)
+	{
+		<tr class="font15 price-total">
+			<td><p>@Model.ModelName @(Model.VersionName??string.Empty) Price in @Model.CarPriceOverview.City.Name:</p></td>
+			<td class="text-right"><span class="text-bold version-orp">&#8377; @orp</span></td>
+		</tr>
+    }
+else
+{
+    <div class="price-breakup__head text-center">
+    <p class="font26 text-black text-bold version-orp">&#8377; @orp</p>
+    <p class="font12 price-label @Model.CarPriceOverview.LabelColor">
+        <span class="label-text">@Html.Raw(Model.CarPriceOverview.PriceLabel ?? "")@Html.Raw(!string.IsNullOrEmpty(Model.CarPriceOverview.City.Name) ? ", " + Model.CarPriceOverview.City.Name : string.Empty)</span>&nbsp;
+        <span class="reason-text">@(Model.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<span class='average-info-tooltip class-ad-tooltip info-icon deals-car-sprite inline-block'></span><span class='average-info-content hide'>" + Model.CarPriceOverview.ReasonText + "</span>") : Html.Raw(""))</span>
+    </p>
+    </div>
+}
+@if (Model.AdAvailable)
+{
+	<tr class="price-table__get-offers">
+		<td colspan="2">
+            <div class="margin-top5" id="pic-divEmiAssistance" data-role="click-impression" data-event="CWNonInteractive" data-action="CampaignLink_with_city" 
+                 data-cat="ModelCityPage_Lead_CTA_MSite_PicPQTest" data-label='@(ViewBag.CityName + "," + Model.ModelName)' 
+                 data-predictionscore="@(Model.PredictionData != null ? Model.PredictionData.Score : 0)" data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")"
+                 modelid=@Model.ModelId versionid="@Model.VersionId" campaigncta campaignid_dealerid=@Model.CampaignDealerId propertyid="1" userlocation='@Html.Raw(userlocation)'>
+                @((!string.IsNullOrEmpty(Model.CampaignLeadCTA)) ? Model.CampaignLeadCTA : "Get Offers from dealer")
+            </div>
+		</td>
+	</tr>
+}
+else if (Model.ShowCampaignLink)
+{
+	<tr class="price-table__get-offers">
+		<td colspan="2">
+            <div class="margin-top5" id="pic-divEmiAssistance"
+                 data-role="click-impression" data-event="CWNonInteractive" data-action="CampaignLink_with_city_no_area" data-cat="ModelCityPage_Lead_CTA_MSite_PicPQTest"
+                 data-label='@(ViewBag.CityName + "," + Model.ModelName)' data-predictionscore="@(Model.PredictionData != null ? Model.PredictionData.Score : 0)"
+                 data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")"
+                 modelid=@Model.ModelId versionid="@Model.VersionId" campaigncta propertyid="1" userlocation='@Html.Raw(userlocation)'>
+                Get Offers from dealer
+            </div>
+		</td>
+	</tr>
+
+}
+</table>
+
+</div>
+<div class="price-breakup__emi pic-breackup-emi" data-dealercampaignexist="@isCampaignAvailable" data-price-status="@(CustomParser.parseIntObject(Model.CarPriceOverview.PriceStatus))">
+@if (Model.EmiCalculatorModelData != null)
+{
+	{ Html.RenderPartial("~/Views/Shared/m/CarData/_EmiCalculatorLink.cshtml", Model); }
+}
+
+@if (Model.AdAvailable && !string.IsNullOrEmpty(Model.LeadCTA))
+{
+    <span class="text-link price-breakup__emi--get-assistance margin-top5" id="divEmiAssistance" dealercampaignexist="@Model.AdAvailable.ToString()"
+          data-role="click-impression" data-event="CWNonInteractive" data-action="CampaignLink_with_city" data-cat="ModelCityPage_Lead_CTA_MSite" 
+          data-label='@(ViewBag.CityName + "," + Model.ModelName)' data-predictionscore="@(Model.DealerAd.Campaign.PredictionData != null ? Model.DealerAd.Campaign.PredictionData.Score : 0)"
+          data-predictionlabel="@(Model.DealerAd.Campaign.PredictionData != null ? Model.DealerAd.Campaign.PredictionData.Label : "")" 
+          modelid=@Model.ModelId versionid="@Model.VersionId" campaigncta campaignid_dealerid=@Model.CampaignDealerId propertyid="12" userlocation='@Html.Raw(userlocation)'>
+        @Model.LeadCTA
+    </span>
+}
+else if (Model.ShowCampaignLink)
+{
+    <span class="text-link price-breakup__emi--get-assistance margin-top5" data-role="click-impression"
+          data-event="CWNonInteractive" data-action="CampaignLink_with_city_no_area" data-cat="ModelCityPage_Lead_CTA_MSite" data-label='@(ViewBag.CityName + "," + Model.ModelName)'
+          modelid=@Model.ModelId versionid="@Model.VersionId" campaigncta propertyid="12" userlocation='@Html.Raw(userlocation)'>
+        Get EMI Assistance
+    </span>
+}
+</div>
+
+@if (Model.New && Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.Overview))
+{
+<div data-event=" cwnoninteractive" data-role="impression" data-action="PIC_OverView_m" data-cat="SponsoredLink_Shown" data-label='@("campaign_" + Model.CampaignTemplates[(short)PageProperties.Overview].Id)'>
+	<div data-event="CWInteractive" data-role="click-tracking" data-action="PIC_OverView_m" data-cat="SponsoredLink_Click" data-label='@("campaign_" + Model.CampaignTemplates[(short)PageProperties.Overview].Id)'>
+		@Html.Raw(Model.CampaignTemplates[(short)PageProperties.Overview].Name)
+	</div>
+</div>
+}

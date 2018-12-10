@@ -1,0 +1,23 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.pqlanding-banner-div {
+  background: #161209 url(https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/m/get-final-price-banner.jpg) no-repeat right top;
+  background-size: cover;
+  height: 130px;
+}
+
+.pq-nosawaal-details ul li {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+  width: 120px;
+  height: 130px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.pq-nosawaal-details ul li span.nosawaal-logo-details, .pq-nosawaal-details ul li span.nosawaal-logo {
+  display: block;
+}
+                                            

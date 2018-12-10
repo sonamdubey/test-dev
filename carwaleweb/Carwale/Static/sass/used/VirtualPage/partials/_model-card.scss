@@ -1,0 +1,252 @@
+@import "../../../mixins/_variables.scss";
+@import "../mixins/_container.scss";
+@import "../../../mixins/_card-structure.scss";
+@import "../../../mixins/_aspect-ratio-container.scss";
+@import "../../../mixins/_tag.scss";
+@import "../../../mixins/_no-image-container.scss";
+@import "../../../mixins/_sprites.scss";
+@import "../../../mixins/_text.scss";
+@import "../../../mixins/_buttons.scss"; 
+
+@include container-head;
+@include container-title;
+@include container-body;
+
+.model-stock-container {
+    .container-head {
+        padding-bottom: 10px;
+    }
+
+    .container-body {
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 10px;
+    }
+}
+
+.model-stock__list {
+    text-align: center;
+}
+
+.model-stock-list__item {
+    margin: 10px;
+    display: inline-block;
+
+    a {
+        -webkit-tap-highlight-color: transparent
+    }
+}
+
+.model-stock-list__link {
+    display: block;
+    width: 320px;
+    margin: 0 auto;
+    cursor: pointer;
+    border: 1px solid map-get($color-map, 'gainsboro-bg');
+    border-radius: 3px;
+}
+
+/*image container css start*/
+.model-image-container {
+    position: relative;
+}
+
+/*No image css*/
+@include no-image-container;
+@include no-image-text;
+
+@include aspect-ratio-wrapper($aspect-ratio: '4:3');
+@include aspect-ratio-container;
+
+.image__wrapper{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.car-model__image {
+    width: 100%;
+}
+
+.certified-tag__img {
+    @include cw-logo-white-icon;
+    width: 15px;
+    height: 9px;
+    display: inline-block;
+    position: relative;
+    top: 1px;
+}
+
+.certified__tag {
+    @include tag ($background-color: 'shamrockGreen');
+    position: absolute;
+    bottom: -11px;
+    left: 20px;
+    line-height: 12px;
+}
+/*image container css end*/
+
+/*card information css start*/
+@include card-detail-title;
+@include card-detail-info;
+@include car-data-amount( $font-weight: $font-bold);
+
+.card-detail-block {
+	position: relative;
+	text-align: left;
+	padding: 15px 20px 10px;
+	color: map-get($color-map, 'charcoal');
+}
+
+.card-detail-block__title {
+    @include text-truncate ($width: 100%);
+}
+
+.car-unit-data__amount {
+    display: block;
+}
+
+.card-detail-block__data {
+	position: relative;
+	text-align: left;
+	color: map-get($color-map, 'charcoal');
+    font-size: 18px;
+    font-weight: $font-bold;
+    display: block;
+    padding-bottom: 10px;
+    -webkit-tap-highlight-color: transparent;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.card-detail-block__data-table {
+	width: 100%;
+	border-collapse: collapse;
+    table-layout: fixed;
+    padding: 0 0 5px 0;
+}
+
+.card-detail__vehicle-information {
+	padding: 0;
+}
+
+.card-detail__vehicle-data {
+    font-size: 14px;
+    font-weight: $font-normal;
+    color: map-get($color-map, 'grey-text');
+    background-color: map-get($color-map, 'white-bg');
+    border: solid 1px map-get($color-map, 'white-smoke-border');
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    border-collapse: collapse;
+    padding-left: 6px;
+    padding-right: 6px;
+
+	.vehicle-data__item {
+	    padding-left: 6px;
+
+		&::before {
+			content: '';
+			width: 5px;
+			height: 5px;
+			background-color: map-get($color-map, 'grey-text');
+			opacity: .5;
+			display: inline-block;
+			position: relative;
+			top: -2px;
+			left: -6px;
+			border-radius: 50%;
+		}
+	}
+	
+	td{
+	    padding: 11px 6px;
+	}
+}
+
+@include btn-secondary;
+
+.btn-secondary {
+    @include vendor-prefix('transition', 'none');
+    width: 100%;
+    font-size: 15px;
+    font-weight: $font-semibold;
+    border-width: 1px;
+    border-style: solid;
+    line-height: 1.42857143;
+    text-transform: capitalize;
+    cursor: pointer;
+
+    &:hover {
+        background-color: map-get($color-map, 'white');
+    }
+}
+
+/*card information css end*/
+
+.view-all-car-container {
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+.view-all-car__link {
+    color: map-get($color-map, 'sky-blue');
+    font-size: 16px;
+    font-weight: $font-bold;
+    border: none;
+    background-color: map-get($color-map, 'white');
+}
+
+@media (min-width: 680px) {
+    .model-stock-container {
+        .container-head {
+            padding-bottom: 10px;
+        }
+
+        .container-body {
+            font-size: 0;
+        }
+    }
+
+    .model-stock__list {
+        text-align: left;
+    }
+
+    .model-stock__list {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .model-stock-container {
+        .container-head {
+            padding-top: 40px;
+        }
+    }
+
+    .model-stock__list {
+        max-width: 956px;
+    }
+
+    .model-stock-list__link {
+        width: 298px;
+    }
+
+    .btn-secondary {
+        &:hover {
+            background-color: map-get($color-map, 'shamrockGreen');
+            color: map-get($color-map, 'white');
+        }
+    }
+}
+
+@media (max-width: 320px) {
+    .model-stock-list__item {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

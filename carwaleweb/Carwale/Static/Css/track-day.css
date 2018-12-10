@@ -1,0 +1,676 @@
+﻿img {
+  max-width: 100%;
+}
+
+.trackday-banner-div {
+  background: #161209 url(https://imgd.aeplcdn.com/1280x720/cw/es/trackday/2016/cw-trackday/landing-images/track-day-banner-mini-cooper-d.jpg) no-repeat center top;
+  background-size: cover;
+  height: 385px;
+}
+
+.trackday-banner-title {
+  position: absolute;
+  bottom: 5%;
+  right: 10%;
+}
+
+.top-img-container, .top-section-content {
+  display: inline-block;
+  width: 48%;
+  vertical-align: top;
+}
+
+.top-img-container {
+  width: 50%;
+}
+
+.top-section-content {
+  width: 48%;
+}
+
+.top-section-content p {
+  line-height: 18px;
+}
+
+.article-box li {
+  display: inline-block;
+  width: 31.7%;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  vertical-align: top;
+}
+
+.article-box li .imageWrapper {
+  width: 100%;
+}
+
+.article-box li .carDescWrapper {
+  vertical-align: top;
+}
+
+.article-box .last-article-box {
+  margin-right: 0;
+}
+
+.driver-img {
+  float: left;
+  width: 46%;
+  vertical-align: top;
+}
+
+.driver-profile-info {
+  display: inline-block;
+  width: 52%;
+  padding: 7px 0 7px 0;
+}
+
+.take-day-expert li {
+  display: inline-block;
+  vertical-align: top;
+  width: 31.7%;
+  margin-right: 19px;
+  margin-bottom: 10px;
+  min-height: 280px;
+  max-height: 300px;
+}
+
+.take-day-expert li .imageWrapper {
+  width: 100%;
+}
+
+.take-day-expert .last-article-box {
+  margin-right: 0;
+}
+
+.top-img-container img {
+  display: block;
+}
+
+.connected-carousels .carousel-navigation {
+  background: none;
+}
+
+.trackday-main-video iframe {
+  width: 100%;
+}
+
+.expert-name {
+  position: absolute;
+  bottom: 16px;
+  background: rgba(255,255,255,0.7);
+  width: 100%;
+  font-weight: bold;
+}
+/* gallery */
+.connected-carousels-photos {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 5px;
+}
+
+.stage-media, .navigation-media {
+  width: 974px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.stage-media ul, .navigation-media ul {
+  width: 20000em;
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-stage-media {
+  min-height: 400px;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-stage-media li {
+  float: left;
+  width: 975px;
+  min-height: 400px;
+}
+
+.gallery-photo-img-container {
+  width: 100%;
+  display: table;
+  text-align: center;
+}
+
+.gallery-photo-img-container span {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
+}
+
+.gallery-photo-img-container img {
+  width: 100%;
+  min-height: 400px;
+}
+
+.carousel-navigation-media {
+  width: 99%;
+  background: none;
+  padding-left: 0;
+  overflow: hidden;
+  position: relative;
+  margin: 5px 0 0 0;
+}
+
+.carousel-navigation-media li {
+  display: block;
+  float: left;
+  width: 110px;
+  height: 63px;
+  margin-right: 10px;
+}
+
+.carousel-navigation-media li:first-child {
+  margin-left: 10px;
+}
+
+.carousel-navigation-media li:last-child {
+  margin-right: 10px;
+}
+
+.carousel-navigation-media li:hover {
+  cursor: pointer;
+}
+
+.carousel-navigation-media img {
+  border: 1px solid rgba(34,34,34,0.1);
+}
+
+.gallery-photo-nav-img-container {
+  display: table;
+  width: 110px;
+  height: 61px;
+  text-align: center;
+}
+
+.gallery-photo-nav-img-container span {
+  display: table-cell;
+  width: 110px;
+  vertical-align: middle;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
+  position: relative;
+}
+
+.carousel-navigation-media .active img {
+  border: 1px solid #2a2a2a;
+}
+/** Stage carousel controls **/
+.media-prev-next-stage {
+  width: 35px;
+  height: 60px;
+  padding: 5px;
+  position: absolute;
+  top: 40%;
+  z-index: 1;
+  text-indent: -9999px;
+  border: 1px solid #e2e2e2;
+  background-color: #fff;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.photos-prev-stage {
+  background-position: -33px -83px;
+  left: -10px;
+}
+
+.photos-next-stage {
+  background-position: -67px -83px;
+  right: -10px;
+}
+
+.photos-prev-stage:hover {
+  background-position: -33px -138px;
+}
+
+.photos-next-stage:hover {
+  background-position: -67px -138px;
+}
+
+.photos-prev-stage.inactive, .photos-next-stage.inactive {
+  cursor: not-allowed;
+}
+
+.photos-prev-stage.inactive {
+  background-position: -33px -83px;
+  cursor: not-allowed;
+}
+
+.photos-next-stage.inactive {
+  background-position: -67px -83px;
+  cursor: not-allowed;
+}
+/** Navigation carousel controls **/
+.photos-prev-navigation,.photos-next-navigation {
+  background-color: #fff;
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 30px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+}
+
+.photos-prev-navigation {
+  left: -5px;
+  top: 22px;
+  text-indent: 6px;
+  z-index: 1;
+}
+
+.photos-next-navigation {
+  right: -5px;
+  top: 22px;
+  text-indent: 20px;
+  z-index: 1;
+}
+
+.photos-prev-navigation.inactive,.photos-next-navigation.inactive {
+  opacity: .5;
+  cursor: default;
+}
+
+.photos-next-navigation {
+  background-position: -79px -153px;
+}
+
+.photos-prev-navigation {
+  background-position: -37px -153px;
+}
+/* active gallery */
+.gallery-active #gallery-blackOut-window {
+  display: block;
+}
+
+.gallery-active .gallery-photo-nav-img-container span:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 65px;
+  display: block;
+  background: #2a2a2a;
+  opacity: .4;
+}
+
+.gallery-active .active .gallery-photo-nav-img-container span:after {
+  content: none;
+}
+
+.gallery-active .carousel-navigation-media .active img {
+  border: 1px solid #ccc;
+}
+
+.gallery-photo-img-container span {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/sprites/m/circleloader.gif) no-repeat center;
+}
+
+.gallery-active .trackday-gallery-section .connected-carousels-photos {
+  z-index: 10;
+}
+/* Gallery Style */
+#gallery-close-btn {
+  display: none;
+}
+
+#gallery-blackOut-window {
+  display: none;
+  background: #000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  opacity: .9;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  filter: alpha(opacity=90);
+  -moz-opacity: 0.9;
+  -khtml-opacity: 0.9;
+}
+
+.gallery-active #gallery-blackOut-window {
+  display: block;
+}
+
+.gallery-active .connected-carousels-photos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: hidden;
+}
+
+.gallery-active #gallery-close-btn {
+  display: block;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 15;
+  cursor: pointer;
+}
+
+/* Details Page styles */
+.article-heading {
+  font-size: 25px;
+}
+
+.intro-box img {
+  margin: 0 auto;
+  display: block;
+}
+
+.trackday-img > img {
+  display: block;
+  width: 100%;
+}
+
+.trackday-content > p {
+  line-height: 1.8;
+}
+
+.trackday-logo {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/es/trackday/2016/cwm-trackday/landing-images/trackday-logo.png") no-repeat;
+  background-size: 120px auto;
+  display: block;
+  height: 35px;
+  width: 120px;
+  text-align: center;
+  margin: 10px auto;
+}
+
+.intro-box h1.content-inner-block-10 {
+  padding-bottom: 0;
+}
+
+.author-name {
+  padding: 10px 0;
+  text-align: center;
+}
+
+.trackday-spec li {
+  display: inline-block;
+}
+
+.trackday-spec li span {
+  text-transform: uppercase;
+}
+
+.trackday-spec .divider {
+  border-left: 1px dashed #e2e2e2;
+  border-right: 1px dashed #a3a3a3;
+  height: 26px;
+  margin: 0 26px;
+}
+
+.article-heading:before, .article-heading:after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  bottom: 0;
+  left: 5%;
+  right: 5%;
+  margin: 0 auto;
+}
+
+.article-heading:before {
+  width: 62px;
+  border-top: 1px solid #b62e32;
+  z-index: 1;
+}
+
+.article-heading:after {
+  width: 172px;
+  border-top: 1px solid #d0d0d0;
+}
+
+.related-articles-list {
+  margin-bottom: 25px;
+  margin-left: 17px;
+}
+
+.related-articles-list li {
+  list-style: disc;
+  margin-top: 10px;
+}
+
+.author-name > p {
+  cursor: text;
+}
+
+@media only screen and (max-width:1024px) {
+  .article-box .last-article-box {
+    margin-right: 20px;
+  }
+
+  .stage-media, .navigation-media {
+    width: 860px;
+  }
+
+  .carousel-stage-media li {
+    width: 860px;
+  }
+}
+
+@media only screen and (min-width:769px) and (max-width:800px) {
+  .stage-media, .navigation-media {
+    width: 749px;
+  }
+
+  .carousel-stage-media li {
+    width: 749px;
+  }
+}
+
+
+ 
+/* Track day carousel Vivek Aggarwal */
+
+/*specific*/
+.trackday-carousel {
+  line-height: 1.8;
+  position: relative;
+}
+
+.trackday-carousel a {
+  outline: none;
+}
+
+.trackday-carousel img {
+  vertical-align: middle;
+}
+
+.full-width-carousel .jcarousel-wrapper {
+  width: 100%;
+}
+
+.full-width-carousel .jcarousel {
+  padding: 0;
+  width: 100%;
+}
+
+.full-width-carousel .jcarousel li {
+  width: auto;
+  height: auto;
+  margin-right: 0;
+}
+
+.full-width-carousel .jcarousel li img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+.full-width-carousel .jcarousel-control-left {
+  left: 1px;
+}
+
+.full-width-carousel .jcarousel-control-right {
+  right: 1px;
+}
+
+.jcarousel li:hover {
+  -webkit-transform: none !important;
+  -moz-transform: none !important;
+  -ms-transform: none !important;
+  transform: none !important;
+}
+
+.jcarousel-control-next {
+  background-position: -65px -135px;
+}
+
+.jcarousel-control-prev {
+  background-position: -33px -135px;
+}
+
+@media all and (width:1920px) {
+  .full-width-carousel .jcarousel li img {
+    height: 400px;
+  }
+}
+
+@media only screen and (max-width:1000px) {
+  body {
+    min-width: 100%;
+  }
+
+  .trackday-banner-title .title {
+    font-size: 30px;
+  }
+
+  .trackday-banner-title .subtitle {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width:800px) {
+  .jcarousel-control-prev, .jcarousel-control-next {
+    background-size: 130px auto;
+    height: 34px;
+    left: 2px;
+    padding: 0;
+    position: relative;
+    top: 3px;
+    width: 20px;
+  }
+
+  .jcarousel-control-prev {
+    background-position: -21px -82px;
+  }
+
+  .jcarousel-control-prev:hover {
+    background-position: -21px -82px;
+  }
+
+  .jcarousel-control-next {
+    background-position: -42px -82px;
+  }
+
+  .jcarousel-control-next:hover {
+    background-position: -42px -82px;
+  }
+
+  .jcarousel-control-prev.inactive {
+    background-position: -21px -16px;
+    opacity: 1;
+  }
+
+  .jcarousel-control-next.inactive {
+    background-position: -42px -16px;
+    opacity: 1;
+  }
+
+  .trackday-banner-title .title {
+    font-size: 25px;
+  }
+
+  .trackday-banner-title .subtitle {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (max-width:768px) {
+  .jcarousel-control-left, .jcarousel-control-right {
+    top: 36%;
+  }
+
+  .trackday-banner-title {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .trackday-carousel {
+    width: 100%;
+  }
+
+  .jcarousel-wrapper {
+    width: 100%;
+  }
+
+  .jcarousel {
+    padding: 10px 0 10px;
+  }
+
+  .jcarousel-control-prev, .jcarousel-control-next {
+    background-size: 130px auto;
+    height: 34px;
+    left: 2px;
+    padding: 0;
+    position: relative;
+    top: 3px;
+    width: 20px;
+  }
+
+  .jcarousel-control-left {
+    left: 0;
+  }
+
+  .jcarousel-control-right {
+    right: 0;
+  }
+
+  .jcarousel-control-prev {
+    background-position: -21px -82px;
+  }
+
+  .jcarousel-control-prev:hover {
+    background-position: -21px -82px;
+  }
+
+  .jcarousel-control-next {
+    background-position: -42px -82px;
+  }
+
+  .jcarousel-control-next:hover {
+    background-position: -42px -82px;
+  }
+
+  .jcarousel-control-prev.inactive {
+    background-position: -21px -16px;
+  }
+
+  .jcarousel-control-next.inactive {
+    background-position: -42px -16px;
+  }
+} 
+
+/* Track day carousel Vivek Aggarwal */

@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[NCS_FAZones] (
+    [Id]       NUMERIC (18)  IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [FAId]     NUMERIC (18)  NULL,
+    [ZoneName] VARCHAR (100) NULL,
+    [IsActive] BIT           CONSTRAINT [DF_NCS_FAZones_IsActive] DEFAULT ((1)) NOT NULL,
+    CONSTRAINT [PK_NCS_FAZones] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

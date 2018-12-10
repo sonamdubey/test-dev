@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[UP_FavPhotos] (
+    [Id]         NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [CustomerId] NUMERIC (18) NULL,
+    [PhotoId]    NUMERIC (18) NULL,
+    [DateAdded]  DATETIME     NULL,
+    CONSTRAINT [PK_UP_FavPhotos] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

@@ -1,0 +1,253 @@
+﻿@using System.Configuration;
+@using Carwale.UI.Common;
+@using Carwale.BL.UserProfiling;
+@using Carwale.Entity.Enum;
+@using Carwale.BL.Experiments;
+@{
+    bool showExperimentalColor = ProductExperiments.IsShowExperimentalColor(CookiesCustomers.AbTest);
+    bool isMobile = Carwale.UI.ClientBL.DeviceDetectionManager.IsMobile(new HttpContextWrapper(HttpContext.Current));
+    bool showCustomNotificationPopup = ProductExperiments.showCustomNotificationPopup(isMobile);
+
+}
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage">
+<head>
+    <meta charset="utf-8">
+    <title itemprop="name">@ViewBag.Title - CarWale</title>
+    @if (ViewBag.Description != null)
+    {
+        <meta itemprop="name" name="description" content="@Html.Raw(System.Text.RegularExpressions.Regex.Replace(ViewBag.Description.ToString(), @"<[^>]*>", string.Empty))" />
+    }
+    <meta name="keywords" content="@(ViewBag.Keywords ?? "")" />
+    @RenderSection("MetaTags", false)
+    @if (!string.IsNullOrEmpty(ViewBag.Canonical))
+    {
+        <link rel="canonical" href="@ViewBag.Canonical" />
+    }
+    @if (ViewBag.Amphtml != null && ViewBag.Amphtml != "")
+    {
+        <link rel="amphtml" href="@ViewBag.Amphtml" />
+    }
+    @if (ViewBag.DeeplinkAlternativesAndroid != null)
+    {
+        <link rel="alternate" href="android-app://com.carwale/carwaleandroid1/www.carwale.com@(ViewBag.DeeplinkAlternativesAndroid)" />
+    }
+    @if (!String.IsNullOrWhiteSpace(ViewBag.Prev))
+    {
+        <link rel="prev" href="@ViewBag.Prev" />
+    }
+    @if (!String.IsNullOrWhiteSpace(ViewBag.Next))
+    {
+        <link rel="next" href="@ViewBag.Next" />
+    }
+    @if (showExperimentalColor)
+    {
+        <style>.btn-abtest .btn-orange {background: #e53012;}.btn-abtest .btn-green {background: #00afa0;}.btn-abtest .m-call-slug .btn {border-radius: 6px;font-size: 18px;font-weight: 700;}.btn-abtest .m-call-slug {background: rgba(255, 255, 255, 0.9) none repeat scroll 0 0;bottom: 0;color: #fff;padding: 5px;position: fixed;width: 100%;z-index: 5;box-shadow: #d2d2d2 0 -1px 10px;}</style>
+    }
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="google-site-verification" content="y33JBqCALrAtfZBeI-VVHz7jyLJrZqpOsggckAZlBj8" />
+    <link href="https://www.googletagmanager.com" rel="dns-prefetch">
+    <link href="https://www.googletagservices.com" rel="dns-prefetch">
+    <link href="https://connect.facebook.net" rel="dns-prefetch">
+    <link href="https://s3.amazonaws.com" rel="dns-prefetch">
+    <link href="https://stats.g.doubleclick.net" rel="dns-prefetch">
+    <link href="https://imgd.aeplcdn.com" rel="dns-prefetch">
+    <link href="https://stc.aeplcdn.com" rel="dns-prefetch">
+    <link rel="SHORTCUT ICON" href="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/carwale.png?v=1.1" />
+    <link rel="stylesheet" href="/static/m/css/cwm-common-style.css" type="text/css">
+    <link rel="stylesheet" href="/static/cwfontawesome/cw-font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="/static/m/css/easy-autocomplete.css" type="text/css">
+
+    @if (ViewBag.CustomCss != null)
+    {
+        if (ViewBag.CustomCss.IndexOf(".css") > 0)
+        {
+            <link href="@ViewBag.CustomCss" rel="stylesheet" type="text/css"> }
+        else
+        {
+            Html.RenderPartial((string)ViewBag.CustomCss);
+        }
+    }
+    @RenderSection("Styles", false)
+    <link rel="stylesheet" href="/static/sass/partials/android-app-download.css" type="text/css">
+    @{
+        Html.RenderPartial("~/Views/Shared/_GoogleTagManagerView.cshtml");
+        Html.RenderPartial("~/Views/Shared/_GoogleTagServicesView.cshtml");
+    }
+    <script type="text/javascript" src="/static/m/js/frameworks.js"></script>
+
+    <!-- Global Site Tag (gtag.js) - Google AdWords: 999894061 -->
+    @{ Html.RenderPartial("~/Views/Shared/_GlobalSiteTagScript.cshtml");}
+    @{if (ViewBag.DefineAdSlots != null)
+    {
+        @Html.Raw(ViewBag.DefineAdSlots);
+        Html.RenderAction("GetAdTagetingData", "UserProfile", new { cwcCookieId = CurrentUser.CWC, platform = Platform.CarwaleMobile });
+    }
+    }
+
+</head>
+<body class="@ViewBag.BodyClass bg-light-grey m-special-skin-body m-no-bg-color @(showExperimentalColor ? "btn-abtest" : "")">
+    @{
+        Html.RenderPartial("~/Views/Shared/_GoogleTagManagerNoScript.cshtml");
+        Html.RenderPartial("m/_AndroidAppDownload");
+    }
+    <div id="divOverlay" style="display:none;"></div>
+    <div id="globalPopupBlackOut" class="blackOut-window"></div>
+    @{ Html.RenderPartial("~/Views/Shared/m/_NavigationMenu.cshtml");}
+    <div id="global-search-popup-cars" class="global-search-popup hide">
+        <!-- global-search-popup code starts here -->
+        <div class="form-control-box">
+            <span class="back-arrow-box" id="gs-close">
+                <span class="cwmsprite back-long-arrow-left"></span>
+            </span>
+            <span class="cross-box hide" id="gs-text-clear">
+                <span class="cwmsprite cross-md-dark-grey"></span>
+            </span>
+            <input type="text" id="globalSearchPopup" class="form-control" placeholder="Search">
+            <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none; right:40px;"></span>
+        </div>
+        <div class="js-voice-search bg-color-grey font14">Would you like to use voice search? <span id="yes-link" class="action-btn text-link margin-left15">Yes</span><span id="no-link" class="action-btn text-link"> No</span></div>
+        @Html.Partial("m/_GlobalSearch")
+
+    </div> <!-- global-search-popup code ends here -->
+    <div id="global-search-popup-pq" class="global-search-popup hide">
+        <!-- global-search-popup pq code starts here -->
+        <div class="form-control-box">
+            <span class="back-arrow-box" id="gs-close-pq">
+                <span class="cwmsprite back-long-arrow-left"></span>
+            </span>
+            <span class="cross-box hide" id="gs-text-clear-pq">
+                <span class="cwmsprite cross-md-dark-grey"></span>
+            </span>
+            <input type="text" id="globalSearchPQ" class="form-control" placeholder="Search">
+            <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none; right:40px;"></span>
+        </div>
+        <div class="js-voice-search bg-color-grey font14">Would you like to use voice search? <span id="yes-link" class="action-btn text-link margin-left15">Yes</span><span id="no-link" class="action-btn text-link"> No</span></div>
+        @Html.Partial("m/_GlobalSearch")
+    </div> <!-- global-search-popup pq code ends here -->
+    <!-- global-location-popup code starts here -->
+    <noscript id="location_popup">
+        <script type="text/html" src="/static/m/ui/location.html">
+        </script>
+    </noscript>
+    <!-- global-location-popup code ends here -->
+    <noscript id="advantage_popup">
+        <script type="text/html" src="/static/m/ui/advantagecitypopup.html">
+        </script>
+    </noscript>
+    <link rel="stylesheet" href="/static/m/css/white-header-style.css" type="text/css" inline>
+    @{Html.RenderPartial("~/Views/Shared/m/_WhiteHeader.cshtml"); }
+
+    <div class="clear"></div>
+    @RenderBody()
+
+    <footer class="bg-footer padding-top30 padding-bottom15">
+        <!-- Footer section code starts here -->
+        <div class="container">
+            <div class="grid-12 text-center">
+                <div class="footer-logo-section border-solid-bottom margin-bottom5">
+                    <div class="inline-block margin-right15">
+                        <a href="/m/" class="cwmsprite cw-logo"></a>
+                        <p class="text-medium-grey margin-left15 font11 ask-expert-text">ask the experts</p>
+                    </div>
+                    <div class="inline-block margin-right15">
+                        <a href="https://m.cartrade.com/" target="_blank" class="cwmsprite ct-logo"></a>
+                    </div>
+                    <div class="inline-block">
+                        <a href="https://www.bikewale.com/m/" target="_blank" class="cwmsprite bw-logo"></a>
+                    </div>
+                </div>
+                <div>
+                    <ul>
+                        <li><a href="/m/forums/">Forums</a></li>
+                        <li><a href="/m/social/">Social Hub</a> </li>
+                    </ul>
+                </div>
+                <div class="app-download-menu padding-left15 padding-top5">
+                    <div class="margin-bottom10 text-white">Download Mobile App</div>
+                    <div class="app-link-container">
+                        <a target="_blank" href="https://itunes.apple.com/in/app/carwale/id910137745?mt=8"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/app-store-img.png" alt="Download App" title="Download App"></a>
+                        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.carwale&referrer=utm_source%3DCarWaleMsite%26utm_medium%3DFooter%26utm_campaign=CarWale%2520MobilesiteFooter"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/google-store-img.png" alt="Download App" title="Download App"></a>
+                    </div>
+                </div>
+                <div class="border-solid-top text-white font11 margin-top5 padding-top10">
+                    <div class="grid-4 alpha text-left">&copy; CarWale India</div>
+                    <div class="grid-8 omega text-right">
+                        <a href="/visitoragreement.aspx" class="text-white">Visitor Agreement </a>&
+                        <a href="/privacypolicy.aspx" class="text-white">Privacy Policy</a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </footer> <!-- Ends here -->
+    <div id="detailsNode"></div>
+    <!-- all other js plugins -->
+    @if (ViewBag.City != null)
+    {
+        <script type="text/javascript"> geoCityId = '@ViewBag.City.CityId', geoCityName = '@ViewBag.City.CityName';</script>
+    }
+    <script type="text/javascript">
+        var cwTrackingPath = '@ConfigurationManager.AppSettings["HostUrl"]';
+        var insuranceKeys = {
+            cholaStates: [@System.Configuration.ConfigurationManager.AppSettings["InsuranceStates"]],
+        };
+        var defaultCookieDomain = '@Carwale.UI.Common.CookiesCustomers.CookieDomain';
+        var isEligibleForORP = ('@CookiesCustomers.IsEligibleForORP' === 'True');
+        var abTestKey = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestVersion"])";
+        var abTestKeyMaxValue = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMaxValue"])";
+        var abTestKeyMinValue = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMinValue"])";
+        var askingAreaCityId = [@System.Configuration.ConfigurationManager.AppSettings["AskingAreaCityIds"]];
+        var testDriveCampaignIds = [@System.Configuration.ConfigurationManager.AppSettings["TestDriveCampaignIds"]];
+    </script>
+    <script type="text/javascript" src="/static/m/js/plugins.js"></script>
+    <script type="text/javascript" src="/static/m/js/easy-autocomplete.js"></script>
+    <script type="text/javascript" src="/static/js/adsense.js"></script>
+    <script type="text/javascript" src="/static/js/v2/app/clientcache.js"></script>
+    <script type="text/javascript" src="/static/js/globalSearch.js"></script>
+    <script type="text/javascript" src="/static/m/js/sponsored-navigation.js"></script>
+    <script type="text/javascript" src="/static/js/error-logger.js"></script>
+    <script type="text/javascript" src="/static/m/js/v2/app/common.js"></script>
+    <script type="text/javascript" src="/static/js/lead-conversion-tracking.js"></script>
+    <script type="text/javascript" src="/static/m/js/location.js"></script>
+    <script type="text/javascript" src="/static/js/advantage-citypopup.js"></script>
+    <script type="text/javascript" src="/static/js/cookie-migration.js"></script>
+    <script type="text/javascript" src="/static/m/js/v2/app/new-car-common.js"></script>
+
+    <script type="text/javascript" src="/static/js/v2/app/cwTracking.js"></script>
+
+    @if (ViewBag.CustomJs != null)
+    {
+        if (ViewBag.CustomJs.IndexOf(".js") > 0)
+        {
+            <script type="text/javascript" src="@ViewBag.CustomJS"></script>}
+        else
+        {
+            Html.RenderPartial((string)ViewBag.CustomJs);
+        }
+    }
+    @RenderSection("Scripts", false)
+    @RenderSection("LoadScript", false)
+    @if (!(Request.RawUrl.StartsWith("/m/used") ||  Request.RawUrl.StartsWith("/used") || Request.RawUrl.Contains("/advantage")) )
+    {
+        Html.RenderPartial(showCustomNotificationPopup ? "~/Views/Shared/Notification/_CustomNotificationPopup.cshtml" : "~/Views/Shared/Notification/_NotificationPopupScript.cshtml");
+    }
+    @{
+        Html.RenderPartial("~/Views/Shared/_FacebookScriptView.cshtml");
+        Html.RenderPartial("~/Views/Shared/_OutbrainScriptView.cshtml");
+    }
+
+    <script>
+        var logoUrl = '@System.Configuration.ConfigurationManager.AppSettings["BridgestoneUrl"]';
+        $('#bridgestoneurl').attr('href', logoUrl);
+    </script>
+
+    <!-- Google Code for Remarketing Tag -->
+    @{Html.RenderPartial("~/Views/Shared/_GoogleAdRemarketingConversionScript.cshtml"); }
+    <!-- Google Code for Remarketing Tag Ends -->
+
+</body>
+</html>

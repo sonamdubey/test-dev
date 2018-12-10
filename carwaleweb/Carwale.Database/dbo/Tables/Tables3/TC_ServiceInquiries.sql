@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[TC_ServiceInquiries] (
+    [TC_ServiceInquiriesId] INT           IDENTITY (1, 1) NOT NULL,
+    [BranchId]              INT           NULL,
+    [TC_UserId]             INT           NULL,
+    [CustomerName]          VARCHAR (25)  NULL,
+    [CustomerMobile]        VARCHAR (15)  NULL,
+    [CustomerEmail]         VARCHAR (50)  NULL,
+    [RegNo]                 VARCHAR (25)  NULL,
+    [CarModelId]            INT           NULL,
+    [VersionId]             INT           NULL,
+    [ServiceDate]           DATETIME      NULL,
+    [RequestDate]           DATETIME      NULL,
+    [Kms]                   INT           NULL,
+    [ManufactureYear]       DATETIME      NULL,
+    [TC_ServiceStatusId]    TINYINT       NULL,
+    [TC_ServiceCenterId]    INT           NULL,
+    [TC_ServiceInqSourceId] TINYINT       NULL,
+    [CustomerAddress]       VARCHAR (250) NULL,
+    [AreaId]                INT           NULL,
+    [CityId]                INT           NULL,
+    [Pincode]               VARCHAR (10)  NULL,
+    [StateId]               INT           NULL,
+    [ModifiedBy]            INT           NULL,
+    [ModifiedDate]          DATETIME      NULL,
+    [ServicingComments]     VARCHAR (60)  NULL,
+    [PickupRequest]         BIT           NULL
+);
+

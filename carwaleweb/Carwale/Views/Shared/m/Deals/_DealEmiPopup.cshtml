@@ -1,0 +1,238 @@
+﻿
+    <div class="enquiry-poup-container hide">
+        <div class="clear position-rel">
+            <div class="margin-top10 globalcity-close-btn enquiry-popup-close-btn margin-right10 cwmsprite rightfloat cross-lg-lgt-grey cur-pointer"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="enquiry-first-screen">
+
+                <div class="enquire-step1 padding-left15 padding-right20">
+                    <h2 class="font16 text-bold">Enquire for <span id="selectedCarInfo" class="gallery-heading"></span></h2>
+                    <span class="text-light-grey font12">(<span id="popupColorName"></span>)</span>
+                    <p id="popupDealerLocation" class="margin-top10 text-light-grey font12"></p>
+                    <div class="check-options margin-top10 margin-bottom10">
+                        <div class="margin-bottom10">
+                            <label class="font14"><input type="checkbox" id="chkColorFlexible" /> I am flexible with my choice of colour</label>
+                        </div>
+                        @*<div class="margin-bottom10">
+                            <label class="font14"><input type="checkbox" /> I'm ok with other variants</label>
+                        </div>*@
+                    </div>
+                    <div class="enquiry-form-container margin-top20">
+                        <div class="form-control-box margin-bottom20">
+                <select class="form-control drpPurchaseTimeframe" id="drpPurchaseTimeframe">
+                                <option value="0" disabled="" selected="selected">When do you plan to purchase your car?</option>
+                                <option value="1">Immediately</option>
+                                <option value="2">Within 2 weeks</option>
+                                <option value="3">Within a month</option>
+                                <option value="4">Next few months</option>
+                            </select>
+                        </div>
+                        <div class="form-control-box margin-bottom15">
+                            <span class="form-mobile-prefix">+91</span>
+                            <input type="tel" name="personMobEnquiryPopup" placeholder="Mobile No." id="personMobEnquiryPopup" class="form-control padding-left40" maxlength="10" autofocus="">
+                            <span class="cwsprite error-icon hide"></span>
+                            <div class="cw-blackbg-tooltip hide">Please enter mobile number</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="bg-light-grey padding-top15 padding-bottom15  padding-left15 padding-right20">
+                    <p>For any queries, call <span><span class="fa fa-phone text-green"></span> <span>1800 209 0230</span></span> (Toll free)</p>
+                    <p>Read complete <a href="/m/advantage/faq/" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-cat="deals_mobile"
+                                        data-action="popup2_faq_clicked" data-label="mobile">FAQs</a> here</p>
+                </div>
+                <div class="clear wht-you-get-content margin-top20 padding-bottom60">
+                    <div class="margin-left10">
+                        <h3 class="text-grey font16 text-bold margin-bottom15">What you get</h3>
+                        <ul class="font13 text-left what-get-list-container">
+                            <li class="margin-bottom20 text-black">
+                                <span class="fa fa-user margin-right5 text-light-gray"></span>
+                                <div class="what-get-list-detail">
+                                    <span class="what-you-get-title text-grey">Connect with authorized dealer</span>
+                                    <p>Get all your queries solved by our executives</p>
+                                </div>
+                            </li>
+                            <li class="margin-bottom20 text-black">
+                                <span class="fa fa-inr margin-right5 text-light-gray"></span>
+                                <div class="what-get-list-detail">
+                                    <span class="what-you-get-title text-grey">EMI, price breakup & T-permit information</span>
+                                    <p>Get to know all details in one call</p>
+                                </div>
+                            </li>
+                            <li class="margin-bottom10 text-black">
+                                <span class="fa fa-calendar margin-right5 text-light-gray"></span>
+                                <div class="what-get-list-detail">
+                                    <span class="what-you-get-title text-grey">Schedule a dealer visit and get a test drive</span>
+                                    <p>Get your car delivered on priority</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            <div class="container aged-car-btn-section content-inner-block-20 padding-top10 padding-bottom10 bg-grey text-center">
+                <button class="btn btn-orange btn-full-width btn-width text-uppercase font14 padding-left15 padding-right15 margin-right5 display-inline" id="submit-request">Assist me</button>
+            </div>
+
+        </div>
+        <div class="enquiry-second-screen hide">
+            <div class="enquire-thanks-container text-center">
+                <div class="thanks-top-content padding-left10 padding-right10">
+                    <h2 class="font18 text-bold margin-bottom20">Thank You</h2>
+                    <span class="cw-circle-icon green-thanks-icon"></span>
+                    <p class="font14 padding-top20 padding-bottom20 padding-left30 padding-right30">You would soon get a call  from our business executive to help you with your requested queries.</p>
+                </div>
+            </div>
+
+            <div class="recommendedCarsDetail bg-white pos-top0 margin-top10" id="recommendedCarsDetail">
+                <div class="content-inner-block-10">
+                    <h3 class="margin-top10 margin-bottom5 font18 text-black text-center">Other car offers for you</h3>
+                    <p class="font13 text-center padding-left5 padding-right5">Select the offers in which you are interested to get further assistance.</p>
+
+                    <div id="selectRecommendation" class="inline-block margin-top5">
+                        <p class="text-link font14 select-all toggle-selection-view">
+                            <span class="inline-block valign-middle text-bold toggle-selection-txt padding-right5">Select All</span>
+                            <span class="select-bar inline-block valign-middle">
+                                <span class="circle-icon"><img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/toggle-slider-circle.png"></span>
+                            </span>
+                        </p>
+                    </div>
+
+                    <ul class="list-rcmd-cars margin-top10" data-bind="foreach: deals">
+                        <li class="contentWrapper table cur-pointer" data-bind="attr:{'data-stockid': $data.stockId, 'data-dealerid' : $data.dealerId}">
+                            <div class="cust-checkbox-wrap table-cell padding-right5"><span class="cust-checkbox fa fa-square-o" data-check="unchecked"></span></div>
+                            <div class="imageWrapper table-cell padding-left5 padding-right5">
+                                <img width="90" height="60" data-bind="attr: { 'src': $data.carImgDetails.hostUrl + '310x174' + $data.carImgDetails.originalImgPath }" alt="" title="">
+                            </div>
+                            <div class="table-cell padding-left10 text-left">
+                                <h4 class="font14 text-unbold"><a class="car-model-name text-default" target="_blank" data-bind="attr: { 'href': '/m/' + Common.utils.formatSpecial($data.carMake.makeName) + '-cars/' + $data.carModel.maskingName + '/advantage/?src=m20&cityid=' + $data.cityId }"><span data-bind="text: $data.carMake.makeName + ' ' + Common.utils.filterModelName($data.carModel.modelName)"></span></a></h4>
+                                <div class="variant-price-info margin-top5 margin-bottom5">
+                                    <p class="striked-amount text-grey">
+                                        <span class="striked-line"></span>₹ <span data-bind="text: Common.utils.formatNumeric($data.onRoadPrice)"></span>
+                                    </p>
+                                    <!-- ko 'if':$data.savings > 0 -->
+                                    <p class="text-green font13 margin-left10">(₹ <span data-bind="text: Common.utils.formatNumeric($data.savings)+' off)'"></span></p>
+                                    <!-- /ko -->
+                                    <!-- ko 'if':$data.savings == 0 -->
+                                    <p class="text-green font13 margin-left10">Offer Available</p>
+                                    <!-- /ko -->
+                                </div>
+                                <div class="font13 text-black">
+                                    ₹ <span class="font14 text-bold" data-bind="text: Common.utils.formatNumeric($data.offerPrice)"></span>
+                                    <!-- ko 'if':$data.stockCount == 1 -->
+                                    <span class="text-grey">Only <span data-bind="text: $data.stockCount"></span> car left</span>
+                                    <!-- /ko -->
+                                    <!-- ko 'if':$data.stockCount > 1 && $data.stockCount < 4 -->
+                                    <span class="text-grey">Only <span data-bind="text: $data.stockCount"></span> cars left</span>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                    <div class="error hide VINSelectError">
+                        *Please select atleast one cars
+                    </div>
+                    <input class="btn btn-white btn-full-width text-uppercase margin-top20 margin-bottom5" type="button" id="multiLeadPush" value="request assistance" />
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /detailPopup -->
+        <div class="clear"></div>
+        <!-- /recommendedCarsDetail -->
+    </div>
+    <div class="clear"></div>
+
+<div class="contact-det-popup" id="contact-det-popup" style="display:none">
+    <div class="clear contact-det-popup-header bg-light-grey border-solid-bottom">
+        <div class="advantage-logo-section margin-bottom5">
+            <span class="deals-car-sprite book-now-thumb"></span>
+            <span class="deals-car-sprite advantage-icon"></span>
+        </div>
+        <div class="margin-top10 globalcity-close-btn contact-det-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer"></div>
+    </div>
+    <!-- global city pop up code starts here -->
+    <div id="detailPopup" class="globalcity-popup-data text-center">
+        <h3 class="font18 text-black text-left padding-left20 padding-right20 padding-top10" id="lblSavings"><span class="offers-holder">Attractive offers available</span><span class="savings-holder"><span>Get savings of</span>&nbsp;₹ <span id="popup-savings"></span></span> on <span id="popup-make-model"></span></h3>
+        <div class="contact-det-popup-content text-center margin-bottom15 margin-top15">
+            <div class="form-control-box margin-bottom20">
+                <input value="unknown" autofocus="autofocus" class="form-control hide" data-val-required="Please enter Name" id="personName" maxlength="50" name="DealsInquiryDetails.CustomerName" placeholder="Name" type="text">
+                <span class="cwmsprite error-icon hide"></span>
+                <div class="cw-blackbg-tooltip hide">Please enter Name</div>
+            </div>
+            <div class="form-control-box margin-bottom20">
+                <span class="position-abt pos-right15 pos-top15 cwmsprite cross-sm-dark-grey cur-pointer"></span>
+                <input value="unknown@unknown.com" class="form-control padding-right30 hide" data-val-required="Please enter email id" id="personEmail" maxlength="100" name="DealsInquiryDetails.CustomerEmail" placeholder="Email" type="text">
+                <span class="cwmsprite error-icon hide"></span>
+                <div class="cw-blackbg-tooltip hide">Please enter email id</div>
+            </div>
+            <div class="form-control-box margin-bottom20">
+                <span class="form-mobile-prefix pos-left0">+91</span>
+                <input class="form-control padding-left40" data-val-required="Please enter mobile number" id="personMob" maxlength="10" name="DealsInquiryDetails.CustomerMobile" placeholder="Mobile No." type="tel" value="">
+                <span class="cwmsprite error-icon hide"></span>
+                <div class="cw-blackbg-tooltip hide">Please enter mobile number</div>
+            </div>
+            <div class="form-control-box margin-bottom20">
+                <p class="text-black font14 margin-bottom5 text-left">When do you plan to purchase your car?</p>
+                <select class="form-control drpPurchaseTimeframe" id="drpPurchaseTimeframe">
+                    <option value="0" disabled selected="selected">Select</option>
+                    <option value="1">Immediately</option>
+                    <option value="2">Within 2 weeks</option>
+                    <option value="3">Within a month</option>
+                    <option value="4">Next few months</option>
+                </select>
+            </div>
+            <div>
+                <button class="btn btn-orange font18 text-uppercase hide finalOfferButton" type="button" id="proceedBtn"
+                        data-role="click-tracking" data-event="Advantage" data-action="deals_clickinterestLink" data-cat="deals_mobile" data-label="proceedBtn">
+                    PROCEED
+                </button>
+                <button class="btn btn-orange font18 text-uppercase hide" type="button" id="btnAssistance"
+                        data-role="click-tracking" data-event="Advantage" data-action="deals_submitleadfrombutton" data-cat="deals_mobile" data-label="btnAssistance">
+                    REQUEST ASSISTANCE
+                </button>
+                <div id="nextBtnProcessing">
+                    <img src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" width="16" height="16" style="position: relative; top: 4px;" />&nbsp;&nbsp;Loading....
+                </div>
+            </div>
+        </div>
+        <div id="whatWeGet" class="clear form-helper-content hide">
+             <div class="3ReasonsSlug content-inner-block-10 text-center">
+                <h3 class="margin-bottom15 font20 align-center">Why you should reserve this car now</h3>
+                <ul class="font14 reserve-car-list reasons">
+                    <li class="margin-bottom15 text-black">
+                        <p class="text-black text-bold"><span class="cwmsprite disc-tag-icon margin-right5 font16"></span>&nbsp;<span class="reasonHeading"></span></p>
+                        <span class="font12 margin-bottom5 block reserve-car-text reasonDescription"></span>
+                    </li>
+                    <li class="margin-bottom15 text-black">
+                        <p class="text-black text-bold"><span class="cwmsprite authorized-dealer-icon margin-right5 font16"></span>&nbsp;<span class="reasonHeading"></span></p>
+                        <span class="font12 margin-bottom5 block reserve-car-text reasonDescription"></span>
+                    </li>
+                    <li class="margin-bottom15 text-black">
+                        <p class="text-black text-bold"><span class="cwmsprite check-calender margin-right5 font16"></span>&nbsp;<span class="reasonHeading"></span></p>
+                        <span class="font12 margin-bottom5 block reserve-car-text reasonDescription"></span>
+                    </li>
+                    <li class="margin-bottom15 text-black">
+                        <p class="text-black text-bold"><span class="cwmsprite clock-icon margin-right5 font16"></span> Limited Stock</p>
+                        <span class="font12 margin-bottom5 block reserve-car-text reasonDescription">Lock your discount before someone else does</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+            
+        </div>
+    <div id="blockCar" class="clear block-car-content margin-top10 padding-left10 padding-right10 text-center hide">
+        <div class="gallery-thankyou-page text-center">
+            <div class="thanks-top-content padding-left10 padding-right10">
+                <h2 class="font18 text-bold margin-bottom20">Thank You</h2>
+                <span class="cw-circle-icon green-thanks-icon"></span>
+                <p class="font14 padding-top20 padding-bottom20 padding-left30 padding-right30">You would soon get a call  from our business executive to help you with your requested queries.</p>
+            </div>
+        </div>
+     </div>
+   </div>
+

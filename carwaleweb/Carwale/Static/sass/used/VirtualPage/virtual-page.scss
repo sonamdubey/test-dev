@@ -1,0 +1,16 @@
+@import "../../mixins/_variables.scss";
+
+@import "../../partials/_reset.scss";
+@import "../../mixins/_grid.scss";
+@import "../VirtualPage/partials/_responsive.scss";
+@import "../VirtualPage/partials/_navigation.scss";
+@import "../VirtualPage/partials/_model-card.scss";
+@import "../VirtualPage/partials/_available-services.scss";
+
+body {
+    background-color: map-get($color-map, 'white');
+}
+
+.hide {
+    display: none;
+}

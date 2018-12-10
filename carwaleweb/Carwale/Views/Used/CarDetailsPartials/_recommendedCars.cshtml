@@ -1,0 +1,33 @@
+﻿<div class="margin-bottom10 display-none" data-bind="css:{'hide': !D_carDetailsPage.similarCars.SIMILARLISTING() || D_carDetailsPage.similarCars.SIMILARLISTING().length==0}" id="recommendCarsDiv">
+    <div class="font20 margin-bottom10 special-skin-text"><strong>Similar Cars</strong></div>
+    <div class="content-box-shadow content-inner-block-10 similar-car-carousel">
+        <div class="jcarousel-wrapper">
+            <div class="jcarousel">
+                <ul data-bind="foreach:D_carDetailsPage.similarCars.SIMILARLISTING">
+                    <li class="front">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a data-bind="attr:{ href: Url }" target="_blank">
+                                    <img data-bind="attr: { alt: CarName, title: CarName,'src':PhotoCount==0?'https://img.carwale.com/used/no-cars.jpg':HostUrl + '227X128' + OriginalImgPath}">
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div class="carTitle margin-bottom10">
+                                    <h3>
+                                        <a data-bind="text:CarName, attr:{title: CarName, href: Url }" target="_blank"></a>
+                                    </h3>
+                                </div>
+                                <a data-bind="attr:{'class':'margin-bottom10 font20 text-light-grey', title: CarName, href: Url }" target="_blank">
+                                    <span data-bind="text:Price"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <span class="jcarousel-control-left"><span class="cwsprite jcarousel-control-prev"></span></span>
+            <span class="jcarousel-control-right"><span class="cwsprite jcarousel-control-next"></span></span>
+        </div>
+    </div>
+</div>
+

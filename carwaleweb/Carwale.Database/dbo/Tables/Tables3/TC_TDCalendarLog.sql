@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[TC_TDCalendarLog] (
+    [TC_TDCalendarLogId]     BIGINT        IDENTITY (1, 1) NOT NULL,
+    [TC_TDCalendarId]        BIGINT        NOT NULL,
+    [BranchId]               BIGINT        NOT NULL,
+    [TC_CustomerId]          BIGINT        NOT NULL,
+    [TC_TDCarsId]            INT           NULL,
+    [TDCarDetails]           VARCHAR (100) NULL,
+    [AreaName]               VARCHAR (100) NULL,
+    [ArealId]                BIGINT        NOT NULL,
+    [TC_UsersId]             BIGINT        NOT NULL,
+    [TC_SourceId]            SMALLINT      NOT NULL,
+    [TDDate]                 DATE          NULL,
+    [TDStartTime]            TIME (0)      NULL,
+    [TDEndTime]              TIME (0)      NULL,
+    [TDStatus]               TINYINT       NULL,
+    [EntryDate]              DATETIME      NOT NULL,
+    [TDDriverId]             BIGINT        NULL,
+    [TDStatusDate]           DATETIME      NULL,
+    [Comments]               VARCHAR (500) NULL,
+    [ModifiedDate]           DATETIME      NULL,
+    [ModifiedBy]             BIGINT        NULL,
+    [TC_NewCarInquiriesId]   INT           NULL,
+    [TDAddress]              VARCHAR (200) NULL,
+    [TC_ActionApplicationId] INT           NULL
+);
+

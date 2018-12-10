@@ -1,0 +1,377 @@
+﻿@model Carwale.UI.ViewModels.Used.SellCar.CarDetails
+<div id="formCarDetail">
+	<ul class="horizontal-form step-group--count-5">
+		<li id="bodyYearform" class="form__step-group group-box">
+			<div id="carYearForm" class="form__step">
+				<div class="form-step__head">
+					<p class="step__title">Make Year</p>
+					<p id="editTooltipContent" class="step__selection">
+						<span class="selection__label"></span>
+					</p>
+				</div>
+				<div id="getYear" class="form-step__body step--scrollbar">
+					<ul class="step__option-list radio-box">
+						@foreach (var year in Model.MakeYears)
+                        {
+                            <li class="option-list__item">
+                                <input type="radio" name="makeYear" id="@string.Format("year{0}",year)" value="@year">
+                                <label for="@string.Format("year{0}",year)">@year</label>
+                            </li>
+                        }
+					</ul>
+				</div>
+			</div>
+			<div id="carMonthForm" class="form__step">
+				<div class="form-step__head">
+					<p class="step__title">Make Month</p>
+					<p class="step__selection">
+						<span class="selection__label"></span>
+					</p>
+				</div>
+				<div id="getMonth" class="form-step__body step--scrollbar">
+					<ul class="step__option-list radio-box">
+						<li class="option-list__item">
+							<input type="radio" name="makeMonth" id="month1" value="1">
+							<label for="month1">Jan</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="makeMonth" id="month2" value="2">
+							<label for="month2">Feb</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="makeMonth" id="month3" value="3">
+							<label for="month3">Mar</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="makeMonth" id="month4" value="4">
+							<label for="month4">Apr</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="makeMonth" id="month5" value="5">
+							<label for="month5">May</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="makeMonth" id="month6" value="6">
+							<label for="month6">Jun</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="makeMonth" id="month7" value="7">
+							<label for="month7">Jul</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="makeMonth" id="month8" value="8">
+							<label for="month8">Aug</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="makeMonth" id="month9" value="9">
+							<label for="month9">Sep</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="makeMonth" id="month10" value="10">
+							<label for="month10">Oct</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="makeMonth" id="month11" value="11">
+							<label for="month11">Nov</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="makeMonth" id="month12" value="12">
+							<label for="month12">Dec</label>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</li>
+		<li id="bodyCarForm" class="form__step-group group-box">
+			<div id="carMakeForm" class="form__step">
+				<div class="form-step__head">
+					<p class="step__title">Make</p>
+					<p class="step__selection">
+						<span class="selection__label"></span>
+					</p>
+				</div>
+				<div id="getCarMake" class="form-step__body step--scrollbar">
+					<p class="step__list-title">Popular Makes</p>
+					<ul class="step__option-list radio-box">
+                        @foreach (var popularMake in Model.PopularMakes)
+                        {
+                            <li class="option-list__item">
+                                <input type="radio" name="carMake" id="@string.Format("carMake{0}", popularMake.MakeId)" value="@popularMake.MakeId">
+                                <label for="@string.Format("carMake{0}", popularMake.MakeId)">@popularMake.MakeName</label>
+                            </li>
+                        }
+					</ul>
+					<p class="step__list-title">Other Makes</p>
+					<ul class="step__option-list radio-box">
+						@foreach (var make in Model.Makes)
+                        {
+                            <li class="option-list__item">
+                                <input type="radio" name="carMake" id="@string.Format("carMake{0}", make.MakeId)" value="@make.MakeId">
+                                <label for="@string.Format("carMake{0}", make.MakeId)">@make.MakeName</label>
+                            </li>
+                        }
+					</ul>
+				</div>
+			</div>
+
+			<div id="carModelForm" class="form__step">
+				<div class="form-step__head">
+					<p class="step__title">Model</p>
+					<p class="step__selection">
+						<span class="selection__label"></span>
+					</p>
+				</div>
+				<div id="getCarModel" class="form-step__body step--scrollbar" data-name="carModel">
+					<ul class="step__option-list radio-box"></ul>
+					<p class="step__error error-text"></p>
+				</div>
+			</div>
+
+			<div id="carVersionForm" class="form__step">
+				<div class="form-step__head">
+					<p class="step__title">Version</p>
+					<p class="step__selection">
+						<span class="selection__label"></span>
+					</p>
+				</div>
+				<div id="getCarVersion" class="form-step__body step--scrollbar" data-name="carVersion">
+					<ul class="step__option-list radio-box"></ul>
+					<p class="step__error error-text"></p>
+				</div>
+			</div>
+		</li>
+		<li class="form__step-group">
+			<div id="bodyColorForm" class="form__step">
+				<div class="form-step__head">
+					<p class="step__title">Colour</p>
+					<p class="step__selection">
+						<span class="selection__label"></span>
+					</p>
+				</div>
+				<div class="form-step__body step--scrollbar">
+					<ul class="step__option-list color-option-list radio-box">
+					</ul>
+
+					<div id="otherColorField" class="form-step__condition-body padding-right10">
+						<div class="input-box field-box">
+							<input type="text" id="getOtherColour" maxlength="20">
+							<label for="getOtherColour">Type other colour</label>
+							<span class="boundary"></span>
+							<span class="error-text"></span>
+						</div>
+						<input type="button" id="submitOtherColour" class="btn btn-orange btn--next" value="Next">
+					</div>
+				</div>
+			</div>
+			<div id="alternateFuelForm" class="form__step">
+				<div class="form-step__head">
+					<p class="step__title">Alternate Fuel</p>
+					<p class="step__selection">
+						<span class="selection__label"></span>
+					</p>
+				</div>
+				<div class="form-step__body">
+					<ul class="step__option-list radio-box">
+						<li class="option-list__item">
+							<input type="radio" name="alternateFuel" id="fuel1" value="1">
+							<label for="fuel1">CNG</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="alternateFuel" id="fuel2" value="2">
+							<label for="fuel2">LPG</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="alternateFuel" id="fuel0" value="0">
+							<label for="fuel0">None</label>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="bodyOwnerForm" class="form__step">
+				<div class="form-step__head">
+					<p class="step__title">Owner</p>
+					<p class="step__selection">
+						<span class="selection__label"></span>
+					</p>
+				</div>
+				<div class="form-step__body">
+					<ul class="step__option-list radio-box">
+						<li class="option-list__item">
+							<input type="radio" name="carOwner" id="carOwner1" value="1">
+							<label for="carOwner1">First owner</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="carOwner" id="carOwner2" value="2">
+							<label for="carOwner2">Second owner</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="carOwner" id="carOwner3" value="3">
+							<label for="carOwner3">Third owner</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="carOwner" id="carOwner4" value="8">
+							<label for="carOwner4">Four or more owners</label>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</li>
+		<li class="form__step-group">
+			<div id="bodyKilometer" class="form__step">
+				<div class="form-step__head hide--selection">
+					<p class="step__title">Kilometers Driven</p>
+					<p class="step__selection">
+						<span class="selection__label" data-title="Kms driven" data-suffix="Km"></span>
+					</p>
+				</div>
+				<div class="padding-right10">
+					<div class="input-box field-box">
+						<input type="tel" id="getKms" maxlength="8">
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+                        <div class="getNumbersInWord"></div>
+					</div>
+				</div>
+			</div>
+			<div id="bodyExpectedPrice" class="form__step" data-url="@Model.BuyingIndexApiUrl">
+				<div class="form-step__head hide--selection">
+					<p class="step__title">Expected Selling Price</p>
+					<p class="step__selection">
+						<span class="selection__label" data-title="Expected price" data-prefix="&#x20b9;"></span>
+					</p>
+				</div>
+				<div class="padding-right10">
+                    <p class="font12 margin-bottom20">Cars priced realistically sold 3 times faster</p>
+					<div class="recommend-price-box">
+						<span class="check-box">
+							<input type="checkbox" id="recommendedCheckbox" value="">
+							<label for="recommendedCheckbox">
+								<span class="price-box__label">Recommended Price</span>
+								<span class="price-box__value">
+									&#x20b9;
+									<span id="recommendedPriceText" class="font-semibold"></span>
+								</span>
+							</label>
+						</span>
+					</div>
+
+					<div id="expectedPriceInputBox" class="input-box field-box input-prefix--rupee prefix-focus--inr">
+						<input type="tel" id="getExpectedPrice" maxlength="12">
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+                        <div class="getNumbersInWord"></div>
+					</div>
+				</div>
+			</div>
+
+			<input type="button" id="submitKilometerExpectedPrice" class="btn btn-orange btn--next margin-top10" value="Next">
+		</li>
+		<li id="bodyInsurance" class="form__step-group">
+            <div id="bodyRegistrationType" class="form__step">
+                <div class="form-step__head">
+                    <p class="step__title">Registration Type</p>
+                    <p class="step__selection">
+                        <span class="selection__label"></span>
+                    </p>
+                </div>
+                <div class="form-step__body">
+                    <ul class="step__option-list radio-box">
+                        <li class="option-list__item">
+                            <input type="radio" name="carRegistrationType" id="carRegistrationType1" value="1">
+                            <label for="carRegistrationType1">Individual</label>
+                        </li>
+                        <li class="option-list__item">
+                            <input type="radio" name="carRegistrationType" id="carRegistrationType2" value="2">
+                            <label for="carRegistrationType2">Corporate</label>
+                        </li>
+                        <li class="option-list__item">
+                            <input type="radio" name="carRegistrationType" id="carRegistrationType3" value="3">
+                            <label for="carRegistrationType3">Taxi</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+			<div class="form__step margin-bottom0">
+				<div class="form-step__head">
+					<p class="step__title">Insurance Type</p>
+					<p class="step__selection">
+						<span class="selection__label"></span>
+					</p>
+				</div>
+				<div class="form-step__body">
+					<ul class="step__option-list radio-box">
+						<li class="option-list__item">
+							<input type="radio" name="carInsurance" id="insurance1" value="1">
+							<label for="insurance1">Comprehensive</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="carInsurance" id="insurance2" value="2">
+							<label for="insurance2">Third Party</label>
+						</li>
+						<li class="option-list__item">
+							<input type="radio" name="carInsurance" id="insurance3" value="3">
+							<label for="insurance3">Expired</label>
+						</li>
+					</ul>
+				</div>
+
+				<div id="insuranceValidity" class="form-step__condition-body">
+					<p class="step__title">Insurance validity</p>
+					
+					<div class="select-box field-box select-box-no-input">
+						<select id="getInsuranceMonth" class="chosen-select" data-title="Month">
+							<option value="0"></option>
+							<option value="1">Jan</option>
+							<option value="2">Feb</option>
+							<option value="3">Mar</option>
+							<option value="4">Apr</option>
+							<option value="5">May</option>
+							<option value="6">Jun</option>
+							<option value="7">Jul</option>
+							<option value="8">Aug</option>
+							<option value="9">Sept</option>
+							<option value="10">Oct</option>
+							<option value="11">Nov</option>
+							<option value="12">Dec</option>
+						</select>
+						<p class="select-label">Month</p>
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+					</div>
+
+					<div class="select-box field-box select-box-no-input">
+						<select id="getInsuranceYear" class="chosen-select" data-title="Year">
+							<option value="0"></option>
+                            @foreach (var year in Model.InsuranceYears)
+                            {
+                                <option value="@year">@year</option>
+                            }
+						</select>
+						<p class="select-label">Year</p>
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+					</div>
+				</div>
+			</div>
+
+			<div id="registrationNumber" class="form__step">
+				<div class="form-step__head hide--selection">
+					<p class="step__title">Registration Number</p>
+					<p class="step__selection">
+						<span class="selection__label"></span>
+					</p>
+				</div>
+				<div class="form-step__body">
+					<p class="registration-example">Eg : MH-04 BW 4236</p>
+					<div id="getRegistration" class="field-box">
+						<input type="text" class="register__input register--input-1" maxlength="2">
+						<input type="text" class="register__input register--input-2" maxlength="8">
+						<p class="error-text"></p>
+					</div>
+				</div>
+			</div>
+
+			<input type="button" id="submitInsurance" class="btn btn-orange" value="Post your ad">
+		</li>
+	</ul>
+</div>

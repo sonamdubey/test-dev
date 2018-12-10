@@ -1,0 +1,130 @@
+﻿@model Carwale.DTOs.CarData.PhotoGalleryDTO_V2
+
+@using Carwale.BL.CMS;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Entity.Enum;
+@using Carwale.DTOs.CMS.ThreeSixtyView;
+@using AutoMapper;
+
+@{
+   string carName = string.Empty;
+   if (Model.GalleryState.ActiveSection != GallerySections.VideosSection) { 
+        carName = Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName;
+   }
+   else
+   {
+       carName = Model.ModelVideos[0].VideoTitle;
+   }
+}
+
+<div id="media-gallery--root">
+    <!-- ko component: {
+                                                    name: "media-gallery"
+                           } -->
+    <!-- /ko -->
+</div>
+<script type="text/html" id="media-gallery--wrapper">
+    <div id="media-gallery--blackout">
+        <!-- ko if : isLoading -->
+        <!-- ko component: {
+                                               name: "media-gallery--loader"
+                      } -->
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko ifnot : isLoading -->
+        <!-- ko component: {
+                                           name: "media-gallery--detail-frame",
+                                           params:{
+                                           carData:carData(),
+                                           galleryData:galleryData,
+                                           state:state
+                                           }
+                  } -->
+        <!-- /ko -->
+        <!-- /ko -->
+    </div>
+    <div id="media-gallery--close" onclick="mediaGallery.closeGallery('CloseButton');">
+        <span class="fa fa-times-thin fa-4x"></span>
+    </div>
+</script>
+<script type="text/html" id="media-gallery--loader-wrapper">
+    <div id="media-gallery--loader">
+        <span class="loading-icon"></span>
+    </div>
+</script>
+
+<script type="text/html" id="media-gallery--detail-frame-wrapper">
+    <div id="media-gallery--detail-frame">
+        <div id="media-gallery--header">
+            <h1 id="media-gallery--model-name" data-bind="text: videoTitle"></h1>
+            
+            <ul id="media-gallery--actions-list">
+                <li id="share-list" data-bind="attr:{class:shareIconsVisible()?'media-gallery--actions-share':''},event: { mouseleave: shareIconsVisible() ? mediaGallery.toggleShare : ''}">
+                    <!-- ko if:shareIconsVisible()-->
+                    <a data-bind="attr:{href:'https://www.facebook.com/sharer/sharer.php?u='+encodeURI(window.location.href + '?utm_source=share'),target:'_blank'},event:{click:function(){Common.Tracking.socialShare('FacebookShare');return true;}}"><span class="fa fa-facebook"></span></a>
+                    <a data-bind="attr:{href:'https://twitter.com/home?status='+encodeURI(window.location.href + '?utm_source=share'),target:'_blank'},event:{click:function(){Common.Tracking.socialShare('TwitterShare');return true;}}"><span class="fa fa-twitter"></span></a>
+                    <a data-bind="attr:{href:'https://plus.google.com/share?url='+encodeURI(window.location.href + '?utm_source=share'),target:'_blank'},event:{click:function(){Common.Tracking.socialShare('GooglePlusShare');return true;}}" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><span class="fa fa-google-plus"></span></a>
+                    <!-- /ko -->
+                    <span class="fa fa-share-alt" data-bind="event: { click: mediaGallery.toggleShare}"></span>
+                </li>
+            </ul>
+            <!-- ko ifnot:shareIconsVisible()-->
+            <ul id="media-gallery--sections-list">
+                @if (Model.ModelDetails.PhotoCount > 0)
+                {
+                    <li>
+                        <a href="@CMSCommon.GetImageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName)" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_image_linkages" data-action="video_details_page" data-label="@carName">
+                            <span data-role="impression" data-event="CWNonInteractive" data-cat="desktop_image_linkages" data-action="video_details_page_impression" data-label="@carName">Images</span>
+                        </a>
+                    </li>
+                }
+                @if (CMSCommon.IsThreeSixtyViewAvailable(Model.ModelDetails))
+                {
+                    <li class="three-sixty-linkage">
+                        <a href="@EditorialContent.Get360PageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, CMSCommon.Get360DefaultCategory(Mapper.Map<ThreeSixtyAvailabilityDTO>(Model.ModelDetails)), false)" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_linkages" data-action="video_details_page" data-label="@carName">
+                            <span data-role="impression" data-event="CWNonInteractive" data-cat="desktop_360_linkages" data-action="video_details_page_impression" data-label="@carName">360° View</span>
+                            <span class="margin-left5 cwsprite new-red-tag-icon"></span>
+                        </a>
+                    </li>
+                }
+                <li data-bind="attr:{class: 'active'},visible:galleryData['videos'].length > 0" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_linkages" data-action="gallery_model_page" data-label="@carName"><span>Videos</span></li>
+            </ul>
+            <!-- /ko -->
+            <div class="clear"></div>
+        </div>
+
+        <div id="media-gallery--content">
+            <!-- ko component: {
+                                       name: "media-gallery--detail-videos",
+                                       params:{
+                                       videos:galleryData.videos,
+                                       activeVideoIndex : state.activeVideoIndex
+                                       }
+              } -->
+            <!-- /ko -->
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="media-gallery--detail-videos-wrapper">
+    <div id="media-gallery--videos-large">
+        <!-- ko if : showVideo -->
+        <iframe id="videoIframe" data-bind="attr:{src:'https://www.youtube.com/embed/'+videos[activeVideoIndex()].VideoId+'?rel=0&fs=1&enablejsapi=1&modestbranding=0&autoplay=true', 'data-id':videos[activeVideoIndex()].VideoId},event:{afterRender:onYouTubeIframeReady(videos[activeVideoIndex()].VideoId)}" webkitallowfullscreen mozallowfullscreen allowfullscreen width="100%" height="70%"></iframe>
+        <div data-bind="html:videos[activeVideoIndex()].Description"></div>
+        <!-- /ko -->
+        <!-- ko if : videos.length > 1 -->
+        <span data-role="impression" data-event="CWNonInteractive" data-cat="desktop_video_details" data-action="prev_button_impression" data-bind="attr:{'data-label': 'videos[activeVideoIndex()].VideoTitle'}"><span data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_details" data-action="prev_button" data-bind="attr:{'data-label': 'videos[activeVideoIndex()].VideoTitle'}" class="gallery-control-prev hide  icon-gallery-arrow_carousel" onclick="mediaGallery.gotoPrevVideo()"></span></span>
+        <span data-role="impression" data-event="CWNonInteractive" data-cat="desktop_video_details" data-action="next_button_impression" data-bind="attr:{'data-label': 'videos[activeVideoIndex()].VideoTitle'}"><span data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_details" data-action="next_button" data-bind="attr:{'data-label': 'videos[activeVideoIndex()].VideoTitle'}" class="gallery-control-next icon-gallery-arrow_carousel" onclick="mediaGallery.gotoNextVideo()"></span></span>
+        <!-- /ko -->
+    </div>
+    <div id="media-gallery--videos-thumbnail">
+        <ul data-bind="foreach:videos" id="media-gallery--videos-thumbnail-list">
+            <li data-bind="attr:{index:$index(),class:'media-gallery--video-thumbnail '}" onclick="mediaGallery.gotoVideoIndex(this.getAttribute('index'));">
+                <img data-bind="attr:{src:'https://img.youtube.com/vi/'+ VideoId+'/mqdefault.jpg'}" />
+                <div data-bind="text:SubCatName" class="media-gallery--video-thumbnail-category"></div>
+            </li>
+        </ul>
+    </div>
+    <span data-bind="template: { afterRender: bindClickTracking }"></span>
+</script>

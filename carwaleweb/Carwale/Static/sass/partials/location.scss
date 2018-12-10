@@ -1,0 +1,142 @@
+﻿@import "../mixins/_utils.scss";
+@import "../mixins/_text.scss";
+@import "../mixins/_variables.scss";
+@import "../mixins/_sprites.scss";
+@import "../mixins/flexbox";
+@import "../mixins/_vendor-prefix.scss";
+@import "../mixins/_animation.scss";
+@import "../mixins/_buttons.scss";
+@import "./_popup.scss";
+@include animateSkyline;
+
+.location-selection-screen {
+	@include close-button($button-color: 'black');
+
+	padding-top: 0;
+	width: 439px;
+	height: 536px;
+	display: none;
+
+	&.popup--active {
+		display: block;
+
+		.screen-head {
+			&::after {
+				@include vendor-prefix('animation', animateSkyline 30s linear 10);
+			}
+		}
+	}
+
+	.screen-head {
+		&::after {
+			@include skyline-bg;
+			content: '';
+			position: absolute;
+			bottom: 0;
+			width: 2048px;
+			height: 90px;
+			display: block;
+			background-position: bottom;
+			opacity: .1;
+			will-change: transform;
+		}
+	}
+
+	.screen-body {
+		position: relative;
+		top: -20px;
+		width: 100%;
+		padding: 0 25px 25px;
+	}
+
+	.city__input-container {
+		padding-left: 20px;
+		padding-right: 20px;
+
+		.location-plugin-btn {
+			width: auto;
+			min-width: 155px;
+		}
+	}
+
+	.btn-secondary {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.cw-blackbg-tooltip {
+		display: block;
+		top: auto;
+		left: 0;
+		bottom: -20px;
+		text-align: left;
+		padding: 0;
+		background-color: map-get($color-map, 'white');
+		color: map-get($color-map, 'tomato-red');
+
+		&::before {
+			content: none;
+		}
+	}
+	.invalid {
+		.ui-autocomplete-input {
+			border-color: map-get($color-map, 'tomato-red');
+		}
+
+		.areaErrorMsg,
+		.cityErrorMsg  {
+			display: block;
+		}
+	}
+
+	.areaErrorMsg,
+	.cityErrorMsg  {
+		display: none;
+	}
+
+	.location-plugin-btn {
+		margin-top: 20px;
+		text-transform: capitalize;
+	}
+}
+
+.screen-head {
+	position: relative;
+    height: 170px;
+    background-color: map-get($color-map, 'snow');
+    text-align: center;
+    overflow: hidden;
+}
+
+.select-city-head__title {
+	font-size: 18px;
+	padding-top: 25px;
+	color: map-get($color-map, 'charcoal');
+	font-weight: $font-bold;
+}
+
+.select-city-head__description {
+	font-size: 14px;
+	color: map-get($color-map, 'text-grey');
+}
+
+.area-input-box > input,
+.city-input-box > input {
+	padding: 13px 20px 14px;
+}
+
+@include btn-secondary;
+
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+	.location-selection-screen {
+		&.popup--active {
+			.screen-head {
+				&::after {
+					@include vendor-prefix('animation', none);
+					width: 100%;
+				}
+			}
+		}
+	}
+}

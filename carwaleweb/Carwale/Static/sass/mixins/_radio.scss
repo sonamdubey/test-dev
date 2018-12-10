@@ -1,0 +1,29 @@
+﻿@mixin radio-box($size: 15) {
+	.radio-box {
+		display: inline-block;
+		vertical-align: middle;
+		width: $size * 1px;
+		height: $size * 1px;
+		border: 1px solid map-get($color-map, 'light-grey-border');
+		border-radius: 30px;
+		background-color: map-get($color-map, 'white');	
+	}
+}
+
+@mixin radio-box-active($size: 15) {
+	.radio-box {
+		border-color: map-get($color-map, 'shamrockGreen');
+
+		&:after {
+			content: '';
+			display: block;
+			height: $size - 6 * 1px;
+			width: $size - 6 * 1px;
+			background-color: map-get($color-map, 'shamrockGreen');
+			border-radius: 30px;
+			position: relative;
+			top: 2px;
+			left: 2px;
+		}
+	}
+}

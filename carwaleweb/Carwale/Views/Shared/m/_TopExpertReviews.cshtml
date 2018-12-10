@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Carwale.Entity.CMS.Articles.ArticleSummary>
+@using Carwale.Entity.CMS.Articles
+@using Carwale.UI.Common;
+<div class="swiper-container"><ul class="swiper-wrapper">
+		@if (Model != null && Model.Any())
+		{
+			foreach (var item in Model)
+			{
+				<li class="swiper-slide"><a href="@string.Format("{0}{1}{2}","/","m", item.ArticleUrl)"><div class="front"><div class="contentWrapper"><div class="imageWrapper"><img class="lazy" alt="@item.MakeName @item.ModelName" title="@item.MakeName @item.ModelName" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(item.HostUrl, Carwale.Utility.ImageSizes._272X153, item.OriginalImgUrl)" width="393" height="221" src=""></div><div class="carDescWrapper"><div class="carTitle margin-bottom15"><h3 class="text-black">@item.Title</h3></div><div class="margin-bottom10 text-light-grey">@item.DisplayDate.ToString("MMMM dd, yyyy") by <span class="text-dark-grey">@item.AuthorName</span></div></div></div></div></a></li>
+			}
+		}
+	</ul><div class="clear"></div><!-- Add Pagination --><div class="swiper-pagination swiper-pagination-white"></div><!-- Navigation --><div class="swiper-button-next swiper-button-white"></div><div class="swiper-button-prev swiper-button-white"></div></div>

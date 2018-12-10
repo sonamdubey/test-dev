@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [Forum]
+    AUTHORIZATION [dbo];
+

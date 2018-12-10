@@ -1,0 +1,46 @@
+﻿@model Carwale.UI.ViewModels.NewCars.Make.VersionListViewModel
+
+@if(Model != null && Model.Versions.Count > 0)
+{
+    <ul class="card-wrapper version-list__content">
+        @foreach(var version in Model.Versions)
+        {
+            <li class="card-wrapper__item version-list__item">
+                <div data-version="@version.Id" class="version-list__item-content">
+                    <div class="version__container">
+                        <div class="version__card">
+                            <div class="version__content">
+                                <a href="@Carwale.Utility.ManageCarUrl.CreateVersionUrl(Model.MakeName,version.MaskingName,version.VersionMaskingName,true)" title="" class="version__box">
+                                    <h3><span class="version__name">@version.Version</span></h3>
+                                    <ul class="version__feature-list">
+                                        <li class="feature-list__item">@version.MaxPower</li>
+                                        <li class="feature-list__item">@version.Displacement</li>
+                                        <li class="feature-list__item">@version.TransmissionType</li>
+                                        <li class="feature-list__item"> @version.CarFuelType </li>
+                                    </ul>
+                                </a>
+                                @if (version.CarPriceOverview?.Price != null)
+                                {
+                                    string priceLable = version.CarPriceOverview.PriceStatus == (int)Carwale.Entity.PriceBucket.HaveUserCity ? (version.CarPriceOverview.PriceLabel?.Replace(" (incl. GST, Estimated)", string.Empty)?.Replace(" (incl. GST)", string.Empty) + ", " + version.CarPriceOverview?.City?.CityName ?? string.Empty) : version.CarPriceOverview.PriceLabel;
+                                    <div class="on-road-price__content">
+                                        <div class="price__content">
+                                            <div class="price__column">
+                                                <span class="price-content__amount">₹ @Carwale.UI.Common.CommonOpn.FormatNumeric(version.CarPriceOverview.Price.ToString())</span>
+                                                <p class="price-content__title">@priceLable</p>
+                                            </div>
+                                            <div class="price__emi-content text--italic">
+                                                <p class="price-content__title">Emi</p>
+                                                <span class="price-content__emi-amount">₹ @Carwale.BL.Calculation.Calculation.CalculateEmi(version.CarPriceOverview.Price)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }        
+    </ul>
+}
+

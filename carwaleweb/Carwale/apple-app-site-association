@@ -1,0 +1,25 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "98HA255XLU.com.carwale.Carwale",
+                "paths": [
+                    "NOT /*-cars/*/expert-reviews*",
+                    "NOT /*-cars/*/advantage/*",
+                    "NOT /upcoming-cars*",
+                    "NOT /recommend-cars*",
+                    "NOT /*-cars/*/news/*",
+					          "NOT /*-cars/*/features/*",
+                    "NOT /*-cars/*/userreviews*",
+                    "NOT /*-cars/*/mileage*",
+					          "NOT /*-cars/*/images*",
+					          "NOT /*-cars/*/videos*",
+                    "NOT /*-cars/*/360-view*",
+                    "NOT /*-cars/",
+                    "/*-cars/*"
+                ]
+            }
+        ]
+    }
+}

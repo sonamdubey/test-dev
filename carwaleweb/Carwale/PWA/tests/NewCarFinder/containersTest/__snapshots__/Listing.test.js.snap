@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for Listing component should render snapshot 1`] = `
+<Listing
+  history={
+    Object {
+      "replace": [MockFunction],
+    }
+  }
+  location={
+    Object {
+      "pathname": "/find-car/results/",
+      "search": "?cityId=1&budget=1465060&bodyStyleIds=3%2C1",
+    }
+  }
+  maxScreens={4}
+  setCurrentScreen={[Function]}
+  showFooter={[Function]}
+  showHeader={[Function]}
+  state={
+    Object {
+      "location": Object {
+        "cityId": 1,
+        "cityname": "Mumbai",
+        "userConfirmed": false,
+      },
+      "newCarFinder": Object {
+        "bodyType": Object {
+          "data": Array [],
+          "displayName": "Body Type",
+          "isFetching": false,
+        },
+        "budget": Object {
+          "displayName": "Budget",
+          "inputBox": Object {
+            "value": 300000,
+          },
+          "slider": Object {
+            "max": 10000000,
+            "min": 200000,
+            "snapPoints": Array [
+              200000,
+              250000,
+              300000,
+              350000,
+              400000,
+              450000,
+              500000,
+              550000,
+              600000,
+              650000,
+              700000,
+              750000,
+              800000,
+              850000,
+              900000,
+              950000,
+              1000000,
+              1050000,
+              1100000,
+              1150000,
+              1200000,
+              1250000,
+              1300000,
+              1400000,
+              1500000,
+              1600000,
+              1700000,
+              1800000,
+              1900000,
+              2000000,
+              2100000,
+              2200000,
+              2300000,
+              2400000,
+              2500000,
+              2600000,
+              2700000,
+              2800000,
+              3000000,
+              3200000,
+              3400000,
+              3500000,
+              4000000,
+              4500000,
+              5000000,
+              5500000,
+              6000000,
+              6500000,
+              7000000,
+              7500000,
+              8000000,
+              9000000,
+              10000000,
+            ],
+            "userChange": false,
+            "values": Array [
+              300000,
+            ],
+          },
+        },
+        "filter": Object {
+          "filterScreens": Object {
+            "screenOrder": Array [
+              Object {
+                "name": "BudgetFilter",
+                "path": "/find-car/filters/budget",
+              },
+              Object {
+                "name": "BodyTypeFilter",
+                "path": "/find-car/filters/body-type",
+              },
+              Object {
+                "name": "FuelTypeFilter",
+                "path": "/find-car/filters/fuel-type",
+              },
+              Object {
+                "name": "MakeFilter",
+                "path": "/find-car/filters/make",
+              },
+            ],
+          },
+        },
+        "fuelType": Object {
+          "data": Array [],
+          "displayName": "Fuel Type",
+          "isFetching": false,
+        },
+        "make": Object {
+          "data": Array [],
+          "displayName": "Make",
+          "isFetching": false,
+        },
+      },
+      "toast": Object {
+        "duration": 3000,
+        "isVisible": false,
+        "message": "",
+        "style": null,
+        "toastTimerId": null,
+      },
+    }
+  }
+/>
+`;

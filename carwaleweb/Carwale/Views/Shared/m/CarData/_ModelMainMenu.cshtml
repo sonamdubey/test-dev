@@ -1,0 +1,35 @@
+﻿@model Carwale.DTOs.CarData.ModelMenuDTO_V1
+@using Carwale.Entity.Enum;
+@using Carwale.Utility;
+@using Carwale.BL.CMS;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.DTOs.CMS;
+@{
+    var urlPrefix = ManageCarUrl.CreateModelUrl(Model.MakeName, Model.MaskingName);
+    Layout = null;
+    bool isModelPage = Model.ActiveSection == ModelMenuEnum.Overview;
+    bool isVersionPage = Model.ActiveSection == ModelMenuEnum.VersionPage;
+	bool isMileagePage = Model.ActiveSection == ModelMenuEnum.MileagePage;
+    string trackingAction360 = string.Empty;
+    switch (Model.ActiveSection)
+    {
+        case ModelMenuEnum.Overview: trackingAction360 = "model"; break;
+        case ModelMenuEnum.PriceInCity: trackingAction360 = "price_in_city"; break;
+        case ModelMenuEnum.VersionPage: trackingAction360 = "version"; break;
+        case ModelMenuEnum.MileagePage: trackingAction360 = "mileagepage"; break;
+    }
+}
+<style>
+.ab-test-second-menu #model-section-list{padding-top:16px}.ab-test-second-menu li.model-section-tab a{color:#484848;padding:13em 0 12px;margin:0 .86em;text-transform:uppercase;font-weight:600;font-size:13px}.ab-test-second-menu li.model-section-active a{color:#00afa0;border-bottom:4px solid #00afa0}#model-main-menu.ab-test-second-menu{height:50px;box-shadow:#ccc 0 2px 3px;background:#fff;-webkit-animation:fadein .5s;-moz-animation:fadein .5s;-ms-animation:fadein .5s;-o-animation:fadein .5s;animation:fadein .5s;perspective:1000px;transition:all .3s ease}#model-main-menu.ab-test-second-menu.model-main-menu--fixed{margin-top: 0;position: fixed;top: 0;z-index: 6;}::-webkit-scrollbar {width: 0;background: transparent;}#model-section-list{overflow-y:hidden;}
+</style>
+<div>
+<div class="blank-model-layer hide"></div><div id="model-main-menu" class="ab-test-second-menu"><ul id="model-section-list">
+    <li class="model-section-tab @(isModelPage ?"model-section-active":string.Empty)" isversionpage="@isVersionPage"><a data-role = "click-tracking" data-event = "CWInteractive" data-cat = "Sub Navigation" data-action="@Model.ModelName" data-label="@Model.TrackingLabel" href="@(urlPrefix)" title="@Model.ModelName">@Model.ModelName</a></li>
+        @if (Model.IsVariantAvailable){<li class="model-section-tab"><a data-role = "click-tracking" data-event = "CWInteractive" data-cat = "Sub Navigation" data-action="Variants" data-label="@Model.TrackingLabel"  href="@(!isModelPage ? urlPrefix : string.Empty)#variants">Variants</a></li>}
+        @if (Model.Is360Available){<li class="model-section-tab" data-role="inview-imp" data-cat="msite_360_linkages" data-action="@(trackingAction360 + "_page_top_menu_impression")" data-label="@Model.CarName"><a href="@Carwale.UI.PresentationLogic.EditorialContent.Get360PageUrl(Model.MakeName, Model.MaskingName, Model.Default360Category, true)" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_linkages" data-action="@(trackingAction360 + "_page_top_menu")">360° View <span class="position-rel pos-top3 model-section-tab__new-icon"></span></a></li>}
+		@if (Model.PhotoCount > 0){<li class="model-section-tab"><a  href="@CMSCommon.GetImageUrl(Model.MakeName, Model.MaskingName, null, 0, true)" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_images" data-action="@(trackingAction360 + "_top_menu")" data-label="@(Model.CarName)">Images</a></li>}
+        @if (Model.IsExpertReviewAvailable){<li class="model-section-tab"><a href="@EditorialContent.GetListingPaginationUrl(0, true, new Carwale.DTOs.CMS.NewsListingDTO { category = "expert-reviews", make = new Car { name = Model.MakeName }, model = new Car { name = Model.MaskingName } })" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_expert_reviews" data-action="@(trackingAction360 + "_top_menu")" data-label="@(Model.CarName)">Expert Reviews</a></li>}
+		@if (Model.IsColorAvailable){<li class="model-section-tab"><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="Colours" data-label="@Model.TrackingLabel"  href="@(Model.IsColorsImagesAvailable ? EditorialContent.GetColorUrl(Model.MakeName, Model.MaskingName, null, 0, true) : (urlPrefix + "#colours"))">Colours</a></li>}
+		@if (Model.VideoCount > 0) {<li class="model-section-tab" data-role="inview-imp" data-cat="msite_video_linkages" data-label="@Model.CarName" data-action="@Html.Raw(trackingAction360)_page_top_menu_impression"><a data-role="click-tracking" data-event="CWInteractive" data-cat="msite_video_linkages" data-action="model_page_top_menu" data-label="@Model.CarName"  href="@CMSCommon.GetVideoUrl(Model.MakeName, Model.MaskingName, null, 0, true)">Videos</a></li>}
+		@if (Model.IsMileageAvailable){<li class="model-section-tab @(Model.ActiveSection == ModelMenuEnum.MileagePage ?"model-section-active":string.Empty)"><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="Mileage" data-label="@Model.TrackingLabel"  href="@(Model.ActiveSection!=ModelMenuEnum.Overview && Model.ActiveSection!=ModelMenuEnum.MileagePage ? urlPrefix:string.Empty)#mileage">Mileage</a></li>}
+	</ul></div></div>

@@ -1,0 +1,267 @@
+﻿
+@model Carwale.UI.ViewModels.Used.Search.SearchViewModel
+@using System.Configuration;
+@using Carwale.BL.Stock;
+@using Carwale.Entity.Classified.Enum;
+@using Carwale.Entity.Classified.Leads;
+@using Carwale.Entity.Enum;
+@using Carwale.Utility.Classified;
+@{
+    var financeUrlText = ConfigurationManager.AppSettings["FinanceLinkText"];
+    Random rand = new Random();
+    var originId = 5; @*default origin id is5 which is for used search city wise listing*@
+}
+@{var previousNearbyCarsBucket = Model.LastNearbyCarsBucket; }
+@{bool foundBucket1Stocks = false, foundBucket2Stocks = false, foundDefaultBucketStocks=false; }
+@*Case where cars not available for area*@
+@if (Model.StockList.Count != 0 && Model.StockList[0].NearbyCarsBucket == NearbyCarsBucket.Bucket2 && Model.SearchParams.Pn == 1)
+{
+    <div class="area-near-cars">
+        <span>No cars found near <span class="near-by-city">@(string.IsNullOrWhiteSpace(Model.CustAreaName) ? "you" : Model.CustAreaName )</span></span>
+        <button class="change-area-btn">Change Area</button>
+    </div>
+}
+
+@for (int i = 0; i < Model.StockList.Count; i++)
+{
+    var stock = Model.StockList[i];
+    if (!string.IsNullOrEmpty(stock.NearbyCityText))
+    {
+        <div class="city-near-cars">@stock.NearbyCityText</div>
+    }
+    if (previousNearbyCarsBucket != stock.NearbyCarsBucket)
+    {
+        previousNearbyCarsBucket = stock.NearbyCarsBucket;
+        if (!foundBucket1Stocks && stock.NearbyCarsBucket == NearbyCarsBucket.Bucket1 && Model.SearchParams.City == 2)
+        {
+            <div class="area-near-cars">
+                <label class="check-box">
+                    <input type="checkbox" @(Model.IsCustomerAreaAvailable && Model.ShouldFetchNearbyCars ? "checked" : "")>
+                    <span class="check-box__icon"></span>
+                    <span class="check-box__label">
+                        @if (Model.IsCustomerAreaAvailable)
+                        {
+                            <span class="near-by-city">@Model.CarsNearMeLabel</span>
+                            originId = 43;
+                        }
+                        else
+                        {
+                            @Model.CarsNearMeLabel
+                            originId = 41;
+                        }
+                    </span>
+                </label>
+
+                <button class="change-area-btn" data-role="click-tracking" data-event="CWInteractive" data-action="ChangeArea" data-cat="MSite_UsedCarSearch" data-label="@( (string.IsNullOrWhiteSpace(Model.FilterCityName) ? "" : Model.FilterCityName) + (string.IsNullOrWhiteSpace(Model.CustAreaName) ? "" : "|" + Model.CustAreaName)) ">Change Area</button>
+            </div>
+            foundBucket1Stocks = true;
+        }
+        else if (!foundBucket2Stocks && stock.NearbyCarsBucket == NearbyCarsBucket.Bucket2 && Model.SearchParams.City == 2)
+        {
+            <div class="city-near-cars">Cars from rest of @Model.FilterCityName</div>
+            originId = Model.IsCustomerAreaAvailable ? 44 : 42;
+            foundBucket2Stocks = true;
+        }
+    }
+    else if (!foundDefaultBucketStocks && Model.SearchParams.City == 2 && !Model.ShouldFetchNearbyCars && Model.SearchParams.Pn == 1 && Model.IsCustomerAreaAvailable)
+    {
+        <div class="area-near-cars">
+            <label class="check-box">
+                <input type="checkbox" @(Model.IsCustomerAreaAvailable && Model.ShouldFetchNearbyCars ? "checked" : "")>
+                <span class="check-box__icon"></span>
+                <span class="check-box__label">
+                    @if (Model.IsCustomerAreaAvailable)
+                    {
+                        <span class="near-by-city">@Model.CarsNearMeLabel</span>
+                        originId = 43;
+                    }
+                    else
+                    {
+                        @Model.CarsNearMeLabel
+                        originId = 41;
+                    }
+                </span>
+            </label>
+
+            <button class="change-area-btn" data-role="click-tracking" data-event="CWInteractive" data-action="ChangeArea" data-cat="MSite_UsedCarSearch" data-label="@( (string.IsNullOrWhiteSpace(Model.FilterCityName) ? "" : Model.FilterCityName) + (string.IsNullOrWhiteSpace(Model.CustAreaName) ? "" : "|" + Model.CustAreaName)) ">Change Area</button>
+        </div>
+        foundDefaultBucketStocks = true;
+    }
+
+
+    <li class="usedsearch-car-item filter-list listingData card-list-container @(Model.StockList[i].CwBasePackageId == CwBasePackageId.Franchise ? "card-list-container--franchisee": string.Empty)" data-role="click-tracking" data-event="CWNonInteractive" data-action="ListingClick" data-cat="MSite_UsedCarSearch" data-action-page="search_page" data-slot-id="@stock.SlotId" data-cte-package-id="@stock.CtePackageId" id='searchListingMobile-@(Model.StockFetched+i)' nearbyCityText="@(stock.NearbyCityText)" rankAbs=@(Model.StockFetched+i+1) @(stock.IsPremium ? "isPremium=true" : string.Empty) @(stock.IsNearbyCityListing ? "isNearbyCityListing=true" : string.Empty) profileid="@stock.ProfileId" @(!string.IsNullOrWhiteSpace(stock.DealerRatingText) ? "isTopRatedSeller=true" : string.Empty) @(stock.CertificationId != 0 ? "isCertified=true" : string.Empty)>
+        <div class="position-rel">
+            <div class="image__wrapper">
+                <div class="image-wrapper__container">
+                <a class="usedsearch-img-holder mozillaBlankTabBugFix car-item__image-link" onclick="return false;" target="_blank" href='/m@(stock.Url)' title="@stock.CarName">
+                    @if (string.IsNullOrEmpty(stock.OriginalImgPath))
+                    {
+                        <div class="no-image-container">
+                            <img class="no-image-container__image" src="https://imgd.aeplcdn.com/0x0/cw/static/used/no-car-images.svg" alt="No Cars" title="No Cars" />
+                            <p class="no-image-container__text">No Image</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <img class="lazy car-item__image" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" profileId="@stock.ProfileId" alt="@stock.CarName" title="@stock.CarName" data-original='@string.Format("{0}{1}{2}?q=85", stock.HostUrl, "300x225", stock.OriginalImgPath))' />
+                    }
+                    @if (stock.IsPremium)
+                    {
+                        <span class="featured__tag">Featured</span>
+                    }
+                </a>
+                    </div>
+            </div>
+
+            @if (stock.CertificationScore != null && stock.CertificationId == Convert.ToInt32(Constants.CarTradeCertificationId))
+            {
+                <a class="mozillaBlankTabBugFix certified__tag" onclick="return false;" target="_blank" href='/m@(stock.Url)' title="Certified Car">
+                    <span class="certified-tag__img"></span>
+                    Certified
+                </a>
+            }
+            @if (!string.IsNullOrEmpty(stock.CertProgLogoUrl))
+            {
+                <div class="dealers-logo__container">
+                    <div class="dealers-logo__tag" data-event="CWInteractive" data-cat="MSite_UsedCarSearch" data-action="Certification_Program_Click" data-label="@(stock.CertProgId)"> 
+                        <img class="dealer-logo__img" src="@stock.CertProgLogoUrl" max-width="70px" max-height="34px" alt="Dealers Logo" title="Dealers Logo"/> 
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="stockDetailsBlock card-detail-block">
+
+            <a class="listingTxt no-direct mozillaBlankTabBugFix card-detail-block__data" id="listingTxt" title="@stock.CarName" onclick="return false;" profileid=@stock.ProfileId target="_blank" href='/m@(stock.Url)'>
+                <table class="card-detail-block__data-table" itemscope itemtype="http://schema.org/Cars">
+                <table class="card-detail-block__data-table" itemscope itemtype="http://schema.org/Cars">
+                    <tr>
+                        <td>
+                            <h2 itemprop="carName" class="card-detail-block__title">@stock.CarName</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="car-unit-data">
+                                <a class="listingTxt no-direct car-unit-data__amount" profileid=@stock.ProfileId title=""> @*TODO: href missing*@
+
+                                    ₹ <span itemprop="price">@stock.Price</span>
+                                </a>
+                                <a data-href="@Html.Raw(stock.ValuationUrl)" profileid=@stock.ProfileId class="view-market-price custom-top emi-unit-data__link">
+                                    Check Right Price
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="card-detail__vehicle-information">
+                            <table class="card-detail__vehicle-data">
+                                <tr>
+                                    <td><span class="vehicle-data__item" itemprop="mileage">@stock.Km km</span></td>
+                                    <td><span class="vehicle-data__item" itemprop="fuelType">@(string.IsNullOrEmpty(stock.AdditionalFuel) ? stock.Fuel : $"{ stock.Fuel} + 1")</span></td>
+                                    <td><span class="vehicle-data__item" itemprop="manufacturedyear">@stock.MakeYear</span></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="card-detail-block__info">
+                                <span class="rsz-lyt city-info__text-truncate area-location__wrapper" itemscope itemtype="https://schema.org/city">
+                                    @if (!string.IsNullOrEmpty(stock.AreaName))
+                                    {
+                                        <span itemprop="areaName" class="city-info__area-name">@stock.AreaName</span>
+                                        <span itemprop="cityName"> , @stock.CityName</span>
+                                    }
+                                    else
+                                    {
+                                        <span itemprop="areaName" class="block" target="_blank">@stock.CityName</span>
+                                    }
+                                </span>
+                            </div>
+                            @if (!string.IsNullOrEmpty(stock.DeliveryText))
+                            {
+                                <span itemprop="cityName" class="city-info__text-truncate delivery-text block" cityid=@stock.DeliveryCity>@stock.DeliveryText</span>
+                            }
+                        </td>
+                    </tr>
+                </table>
+                <span class="block clear"></span>
+            </a>
+
+            <div class="seller-btn-detail">
+                 
+                <div class="grid-4 chat-btn-container">
+                    <button class="btn-xs chat-btn">
+                        <span id="chatIcon" class="chat-btn--whatsapp-icon" data-chat-lead-type="@LeadType.WhatsAppLead.ToString("D")"></span>
+                        <span class="chat-btn__text">Chat</span>
+                    </button>
+                </div>
+                
+                <a oid="@originId" class="detailsBtn btn btn-orange btn-xs getSellerDetails grid-8" popupurl=@stock.SimilarCarsUrl data-dealercarsurl="@stock.DealerCarsUrl" profileid=@stock.ProfileId rootid=@stock.RootId cityname="@stock.CityName" dc="@stock.DeliveryCity" dctext="@stock.DeliveryText" isnearbycitylisting="@stock.IsNearbyCityListing" data-cte-package-id="@stock.CtePackageId">
+                    <div class="text-bold getSimilarCarSellerDetails font18">Get Seller Details</div>
+                    <div class="oneClickDetails hideImportant">
+                        <span class="font18">1-Click </span>
+                        <span class="font18">View Details</span>
+                    </div>
+                </a>
+                <div class="clear"></div>
+                <span class="applozic-launcher" data-mck-id data-mck-name data-mck-topicid>
+                </span>
+
+            </div>
+                @if (Model.IsSimilarCarAvailable)
+                {
+                    string dataAction = "";
+                    string dataAct = "";
+                    string popupUrl = "";
+                    string text = "";
+                    if (stock.CwBasePackageId == CwBasePackageId.Franchise)
+                        {
+                          dataAction = "ShowMoreCars_Click";
+                          dataAct = "ShowMoreCars_Impressions";
+                          popupUrl = stock.DealerCarsUrl;
+                          text = "More Cars of this Dealer";
+                        }
+                        else
+                        {
+                          dataAction = "ShowSimilarCars_Click";
+                          dataAct = "ShowSimilarCars_Impressions";
+                          popupUrl = stock.SimilarCarsUrl;
+                          text = "Similar Cars";
+                        }
+                    <p class="recommendedCarsPopupBtn m-special-skin-text car-choices car-detail-block__similar-car" data-role="click-tracking" data-event="CWNonInteractive" data-action=@dataAction data-label=@stock.ProfileId data-cat="MSite_UsedCarSearch" data-act=@dataAct popupurl=@popupUrl>
+                        @text
+                    </p>
+                }
+        </div>
+    </li>
+    if ((Model.StockFetched + i + 1) % 4 == 0)
+    {
+        int randomNo = rand.Next();
+        string adUnit = "Top";
+        switch ((Model.StockFetched + i + 1) % 3)
+        {
+            case 0:
+                adUnit = "Bottom";
+                break;
+            case 1:
+                adUnit = "Top";
+                break;
+            case 2:
+                adUnit = "Middle";
+                break;
+        }
+        <li class="adslotUsedMsiteSearch">
+            <div id='div-gpt-ad-@(randomNo)' style='width: 320px; height: 50px; margin: 10px auto 10px auto;'>
+                <script>
+            showAd('div-gpt-ad-@(randomNo)', '@adUnit', '@Model.FilterCityName', '@Model.AdUnit.AdMakeOrRootName', '@Model.AdUnit.AdBudgetRange');
+                </script>
+            </div>
+        </li>
+    }
+}
+<script>
+    totalstockFetched = @(Model.StockFetched + Model.StockList.Count);
+    nextPageUrl = "@HttpUtility.JavaScriptStringEncode(Model.NextPageUrl)";
+</script>

@@ -1,0 +1,43 @@
+﻿@import "_vendor-utils";
+@mixin rounded-corner($radius:2,$unit:px){
+    
+    @if unitless($radius){
+        .rounded-corner#{$radius}{
+            @include get-vendor-prefixed(border-radius,#{$radius+$unit});
+        }
+    }
+    @else{
+        @warn "Please provide unitless radius";
+    }
+}
+
+@mixin rounded-corner-percent($radius:50,$unit:"%"){
+    
+    @if unitless($radius){
+        .rounded-corner#{$radius}percent{
+            @include get-vendor-prefixed(border-radius,#{$radius+$unit});
+        }
+    }
+    @else{
+        @warn "Please provide unitless radius";
+    }
+}
+
+@mixin rounded-corner-no ($direction:"left"){
+    $radius-property : 0 2px 2px 0 !default;
+    @if $direction == "bottom"{
+        $radius-property : 2px 2px 0 0;
+    }
+    @else if $direction == "top"{
+        $radius-property : 0 0 2px 2px;
+    }
+    @else if $direction == "right"{
+        $radius-property : 2px 0 0 2px;
+    }
+    @else{
+        $radius-property : 0 2px 2px 0;
+    }
+    .rounded-corner-no-#{$direction}{
+        @include get-vendor-prefixed(border-radius,$radius-property);
+    }
+}

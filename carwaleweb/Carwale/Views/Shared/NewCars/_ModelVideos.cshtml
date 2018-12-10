@@ -1,0 +1,59 @@
+﻿@model Tuple<List<Carwale.Entity.CMS.Video>,ContentPages>
+@using Carwale.UI.Common;
+@using Carwale.Entity.Enum;
+@using Carwale.UI.PresentationLogic;
+
+ @{
+     string action = "";
+     switch(Model.Item2)
+     {
+         case ContentPages.ModelPage:
+             action = "model_page_video_slug";
+             break;
+         case ContentPages.GalleryPage:
+             action = "image_gallery";
+             break;
+         case ContentPages.UserReviewDetailsPage:
+             action = "user_reviews_carousel";
+             break;
+     }     
+   }
+
+    <div class="inline-block-noalign">
+        <h2 class="margin-bottom10 special-skin-text">@ViewBag.MakeName @ViewBag.ModelName Videos</h2>
+        <div id="divModelVideos" class="jcarousel-wrapper content-box-shadow content-inner-block-10" style="width:644px;">
+            @if (Model.Item1.Count > 0)
+            {
+                int i = 0;
+                <div class="videos jcarousel" style="padding-bottom: 8px; margin-top: -10px;" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_linkages" data-label="@ViewBag.MakeName @ViewBag.ModelName" data-action="@action">
+                    <ul data-role="inview-imp" data-event="CWNonInteractive" data-cat="desktop_video_linkages" data-label="@ViewBag.MakeName @ViewBag.ModelName" data-action="@(action + "_imp")">
+                        @foreach (var video in Model.Item1)
+                        {
+                            if (video != null)
+                            {
+                                <li style="width:622px;" class="position-rel cur-pointer">
+                                    <a class="videoLink hover-no-underline" href="@Carwale.BL.CMS.CMSCommon.GetVideoUrl(ViewBag.MakeName,ViewBag.MaskingName,video.SubCatName,video.BasicId,false)">
+                                        <h3 class="margin-bottom10 text-unbold font18 text-grey">@video.VideoTitle</h3>
+                                        <div style="overflow: hidden;">
+                                            <img class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@("https://img.youtube.com/vi/" + video.VideoId + "/hqdefault.jpg")"
+                                                 border="0" title="@video.VideoTitle" alt="@video.VideoTitle" style="margin:-75px 0;width:100%;" />
+                                        </div>
+                                        <div class="youtube-video-icon review-yt-video-icon"></div>
+                                    </a>
+                                </li>
+                                i++;
+                            }                                
+                        }
+                    </ul>
+                </div>if (Model.Item1.Count > 1)
+{
+    <span class="jcarousel-control-left" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_linkages" data-label="@ViewBag.MakeName @ViewBag.ModelName" data-action="@(action + "_prev")"><span class="cwsprite jcarousel-control-prev"></span></span>
+    <span class="jcarousel-control-right" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_linkages" data-label="@ViewBag.MakeName @ViewBag.ModelName" data-action="@(action + "_next")"><span class="cwsprite jcarousel-control-next"></span></span>}
+            }
+            <div class="text-center margin-top10">
+                <a data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_linkages" data-label="@ViewBag.MakeName @ViewBag.ModelName" data-action="@(action + "_view_all")" href="/@UrlRewrite.FormatSpecial(ViewBag.MakeName??"")-cars/@ViewBag.MaskingName/videos/" title="@(ViewBag.ModelName) Videos">All @(ViewBag.MakeName) @(ViewBag.ModelName) Videos</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+<script>var videoSlider = 1;</script>

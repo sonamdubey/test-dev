@@ -1,0 +1,39 @@
+﻿@model List<Carwale.Entity.CMS.Video>
+@using MobileWeb.Common;
+@using Carwale.Utility;
+@if (Model != null && Model.Count > 0)
+{
+<h2 class="section-heading">@ViewBag.MakeName  @ViewBag.ModelName Video Review</h2>
+<amp-carousel height="320" layout="fixed-height" type="carousel">
+@foreach (var video in Model)
+{
+    <div class="contentWrapper">
+
+        <div class="imageWrapper">
+            <a data-vars-ec="contentcons" data-vars-ea="Model-Page-Video-Click" data-vars-el="@ViewBag.ModelName" href=" @("/m" + video.VideoTitleUrl) " class=" text-black" title="@ViewBag.MakeName  @ViewBag.ModelName">
+                <amp-img class="max-width-100-percent" src="@("https://img.youtube.com/vi/"+video.VideoId+"/mqdefault.jpg")" title="@video.VideoTitle" alt="@video.VideoTitle" width="278" height="160" layout="responsive"></amp-img>
+            </a>
+        </div>
+        <div class="carDescWrapper">
+            <a data-vars-ec="contentcons" data-vars-ea="Model-Page-Video-Click" data-vars-el="@ViewBag.ModelName" href="@("/m"+video.VideoTitleUrl)">
+                <header>
+                    <h3 class="model-news-heading">@video.VideoTitle</h3>
+                </header>
+                <footer>
+                    <div class="margin-bottom10 text-light-grey">
+                        <span class="cwmsprite review-sm-lgt-grey"></span> Views @video.Views
+                    </div>
+                    <div class="text-light-grey">
+                        <span class="thumbs-up-icon"></span> Likes @video.Likes
+                    </div>
+                </footer>
+            </a>
+
+        </div>
+    </div>
+}
+</amp-carousel>
+<div class="text-center margin-bottom20 margin-top20">
+    <a class="font14" href="/m/@CommonOpn.FormatSpecial(ViewBag.MakeName)-cars/@ViewBag.MaskingName/videos/">All @ViewBag.MakeName @ViewBag.ModelName videos</a>
+</div>
+}

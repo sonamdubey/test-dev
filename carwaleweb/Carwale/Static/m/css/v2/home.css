@@ -1,0 +1,659 @@
+﻿.banner-home {
+  background: #161209 url(https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/m/home-top-banner-v1.jpg?q=85) no-repeat scroll right top;
+  background-size: cover;
+  height: 340px;
+  position: relative;
+}
+/* welcome box home page classes */
+.welcome-box {
+  text-align: center;
+  color: #fff;
+}
+
+.cw-tabs-flex {
+  display: table;
+  width: 100%;
+}
+
+.cw-tabs-flex ul {
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 45px;
+}
+
+.cw-tabs-flex li {
+  display: table-cell;
+  padding: 10px;
+  text-align: center;
+  width: 1%;
+  color: #82888b;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.cw-tabs-flex li:hover {
+  color: #565a5c;
+}
+
+.cw-tabs-flex li.active {
+  border-bottom: 3px solid #ef3f30;
+  color: #565a5c;
+  cursor: default;
+}
+
+.cw-tabs-inner-margin10 ul {
+  margin-bottom: 10px;
+}
+
+.cw-tabs-inner-margin15 ul {
+  margin-bottom: 15px;
+}
+
+.cw-tabs-inner-margin20 ul {
+  margin-bottom: 20px;
+}
+
+.cw-tabs-inner-margin25 ul {
+  margin-bottom: 25px;
+}
+
+.cw-tabs-inner-margin30 ul {
+  margin-bottom: 30px;
+}
+
+.cw-tabs-inner-margin35 ul {
+  margin-bottom: 35px;
+}
+
+.cw-tabs-inner-margin40 ul {
+  margin-bottom: 40px;
+}
+
+.new-used-search-container {
+  width: 180px;
+  display: inline-block;
+}
+
+.used-search {
+  width: 140px;
+  display: inline-block;
+  float: left;
+}
+
+.new-cars-search input[type="text"] {
+  border: 1px solid #ccc;
+}
+
+.new-cars-search input[type="text"] {
+  width: 100%;
+  border-radius: 0 5px 5px 0;
+  -webkit-border-radius: 0 5px 5px 0;
+  -moz-border-radius: 0 5px 5px 0;
+  -o-border-radius: 0 5px 5px 0;
+  padding: 12px 10px;
+  border-left: none;
+  line-height: 16px;
+}
+
+.used-search input[type="text"] {
+  width: 100%;
+  padding: 12px 10px;
+  border: none;
+  line-height: 18px;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -o-border-radius: 0;
+}
+
+.home-tabs {
+  background: #fff;
+  display: inline-block;
+  overflow: hidden;
+  border: 1px solid #cccccc;
+  border-right: none;
+  border-radius: 5px 0 0px 5px;
+  -webkit-border-radius: 5px 0 0px 5px;
+  -moz-border-radius: 5px 0 0px 5px;
+  -o-border-radius: 5px 0 0px 5px;
+  margin: 0;
+}
+
+.home-tabs ul {
+  width: 85px;
+}
+
+.home-tabs li {
+  color: #ccc;
+  padding: 6px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 14px;
+  padding: 10px 0;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -o-border-radius: 0;
+  display: none;
+}
+
+.home-tabs .selected-car-tab li {
+  display: inline-block;
+  padding: 9px 5px;
+  line-height: 22px;
+}
+
+.home-tabs li.active {
+  cursor: default;
+  border-radius: 5px 0 0px 5px;
+  -webkit-border-radius: 5px 0 0px 5px;
+  -moz-border-radius: 5px 0 0px 5px;
+  -o-border-radius: 5px 0 0px 5px;
+  padding-left: 13px;
+}
+
+.tab-car-menu,.tab-car-menu.activeUl {
+  overflow-y: hidden;
+  -webkit-transition: height 800ms ease-in;
+  -moz-transition: height 800ms ease-in;
+  -o-transition: height 800ms ease-in;
+  transition: height 800ms ease-in;
+}
+
+.tab-car-menu {
+  position: absolute;
+  left: 28px;
+  height: 0;
+  top: 15px;
+}
+
+.tab-car-menu.activeUl {
+  border: none;
+  height: 120px;
+  top: 39px;
+  border-top: 1px solid #ccc;
+  left: 17px;
+}
+
+.tab-car-menu.activeUl li, .home-tabs .selected-car-tab li.active {
+  background: #eeeced;
+  color: #565a5d;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tab-car-menu.activeUl li {
+  display: block;
+  padding: 10px 14px;
+}
+
+.list-item .fa {
+  font-size: 22px;
+  vertical-align: top;
+  margin-left: 3px;
+  display: none;
+}
+
+.list-item.active .fa {
+  display: inline-block;
+  float: right;
+  margin-right: 10px;
+}
+
+/*Swiper Carousel On Home Page*/
+#upComingCars .swiper-slide.card {
+  height: 380px;
+}
+
+.swiper-container .front, .swiper-container .back {
+  overflow: visible;
+  min-width: 280px;
+}
+
+.swiper-container li.card {
+  perspective: 560px;
+  position: relative;
+}
+
+.swiper-container .card .front, .swiper-container .card .back {
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  position: absolute;
+  z-index: 1;
+  transition: all 0.5s ease-out;
+}
+
+.swiper-container .card .back {
+  transform: rotateY(180deg);
+  z-index: 0;
+}
+
+.swiper-container .contentWrapper, .swiper-container .formWrapper {
+  width: 100%;
+}
+
+.swiper-container .imageWrapper img {
+  height: auto;
+}
+
+.swiper-container .front .btn {
+  font-size: 14px;
+}
+
+/* Carousel */
+.upComingCars li {
+  height: 400px;
+}
+
+.compareCarsHomePage li {
+  width: 976px;
+}
+
+.cardWrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.front, .back {
+  height: 320px;
+  background: #fff;
+  overflow: hidden;
+ /*display: inline-block;*/
+  display: table;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  width: 100%;
+}
+
+.front:hover, .back:hover {
+  box-shadow: 0px 0px 5px #ccc;
+}
+
+.contentWrapper, .formWrapper {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 155px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.imageWrapper a {
+  display: block;
+}
+
+.imageWrapper img {
+  width: 100%;
+}
+
+.carDescWrapper {
+  padding: 15px;
+  background: #fff;
+}
+
+.carTitle a {
+  color: #1a1a1a;
+  font-size: 18px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.formContent {
+  padding: 30px 20px 20px 20px;
+}
+
+.car-preview {
+  text-align: center;
+}
+
+.car-preview img {
+  width: 100%;
+}
+
+#News li .imageWrapper {
+  height: 153px;
+}
+
+.vs-circle-vert {
+  position: relative;
+  border-radius: 50%;
+  background: #f2f2f2;
+  border: 1px solid #e2e2e2;
+  padding: 20px;
+  display: block;
+  font-size: 25px;
+  margin: 110px auto 0 auto;
+  width: 72px;
+  height: 72px;
+}
+
+.vs-circle-vert-line {
+  width: 1px;
+  height: 265px;
+  background: #e4e4e4;
+  position: absolute;
+  top: -90px;
+  left: 70px;
+}
+
+/* Home Page Car Buying Assitance Section Style */
+.car-buying-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/cba/car-buying-asst-sprite.png?v1) -68px 7px no-repeat;
+}
+
+.car-buying-icons {
+  display: inline-block;
+  width: 67px;
+  height: 67px;
+}
+
+.car-buying-offers {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/cba/cba-dotted-line-bg.png) 32px 70px repeat-y;
+  padding-bottom: 22px;
+}
+
+.contact-dealer-icon {
+  width: 67px;
+  height: 67px;
+  background-position: 0 0px;
+}
+
+.offers-available-icon {
+  width: 67px;
+  height: 67px;
+  background-position: 0 -75px;
+}
+
+.final-price-icon {
+  width: 67px;
+  height: 67px;
+  background-position: 0 -153px;
+}
+
+.car-buying-options {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 13px;
+  margin-left: 15px;
+}
+
+.car-buying-options span {
+  color: #82888b;
+}
+
+.car-buying-assitance .no-bg {
+  background: none;
+}
+
+/* Home page car insurance and loan carousel section style */
+.loanInsCarousel .swiper-slide .front {
+  height: 300px;
+}
+
+.cwm-md-circle {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-md-circle-icon.png?v2.2") no-repeat scroll 0 0;
+  width: 65px;
+  height: 65px;
+  display: block;
+}
+
+.cwm-md-circle.saving50per {
+  background-position: -940px 0;
+}
+
+.cwm-md-circle.web-pointer {
+  background-position: -381px 0;
+}
+
+.cwm-md-circle.finance {
+  background-position: -1013px 0;
+}
+
+.cwm-md-circle.certificate {
+  background-position: -1086px 0;
+}
+
+/* Swiper Carousel Flip Section Styles */
+.alert-circle-icon, .info-circle-icon, .back-circle-icon, .rupee-circle-icon {
+  width: 33px;
+  height: 33px;
+  cursor: pointer;
+}
+
+.alert-circle-icon {
+  background-position: -107px -121px;
+  z-index: 1;
+}
+
+.back-circle-icon {
+  background-position: -107px -291px;
+}
+
+.info-circle-icon {
+  background-position: -107px -207px;
+  z-index: 1;
+}
+
+.rupee-circle-icon {
+  background-position: -59px -333px;
+}
+
+.swiper-slide.card:hover .alert-circle-icon {
+  background-position: -107px -164px;
+}
+
+.swiper-slide.card:hover .info-circle-icon {
+  background-position: -107px -249px;
+}
+
+.swiper-slide.card:hover .back-circle-icon {
+  background-position: -150px -291px;
+}
+
+.swiper-slide.card:hover .rupee-circle-icon {
+  background-position: -102px -333px;
+}
+
+.home-getFinalPrice-banner {
+  background: #161209 url(https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/m/get-final-price-banner.jpg) no-repeat center top;
+  height: 312px;
+}
+
+.advantage-link-divider {
+  width: 70%;
+}
+
+/* Offer Ribbon Section Style */
+.offers-title {
+  position: relative;
+  background: #12415b;
+  left: -8px;
+  line-height: 16px;
+  text-align: center;
+  padding: 3px 10px 2px 9px;
+  margin: 3px 0 5px -4px;
+  display: inline-block;
+}
+
+.offers-title .offers-text {
+  padding: 0 0 0 5px;
+  line-height: 16px;
+}
+
+.offers-title .offers-top-shadow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 8px 12px;
+  border-color: transparent transparent #0a2838 transparent;
+  position: absolute;
+  top: -7px;
+  left: 0px;
+}
+
+.offers-right-ribbon {
+  position: absolute;
+  top: -12px;
+  right: 0;
+}
+
+.ribbon {
+  height: 13px !important;
+  position: absolute;
+  z-index: 2;
+  width: 0;
+  height: 0;
+}
+
+.ribbon.top {
+  border-bottom: 14px solid transparent;
+  top: 12px;
+  border-top: 0px solid transparent;
+  border-left: 14px solid #12415b;
+  border-right: none;
+}
+
+.ribbon.bottom {
+  top: 19px;
+  border-top: 14px solid transparent;
+  border-bottom: 0px solid transparent;
+  border-left: 14px solid #12415b;
+}
+/* Advantage Carousel Section Style */
+
+.best-saving-car .swiper-slide {
+  height: 326px;
+}
+
+.best-saving-linkless.best-saving-linkless .swiper-slide {
+  height: 290px;
+}
+
+.no-offer-link {
+  visibility: hidden;
+}
+
+.deals-car-sprite {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/aged-car-sprite.png?201611091627546064);
+  display: inline-block;
+}
+/*.advt-icon{background-position: -115px -190px;width: 21px;height: 22px;}
+.advt-logo-111x14{background-position: 0 -293px;width: 111px;height: 14px;}*/
+.book-now-thumb {
+  background-position: -110px -79px;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  margin: 0 3px 3px 0;
+}
+
+.advantage-red-logo {
+  background-position: 0px -267px;
+  width: 146px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.swiper-slide.view-all-card {
+  display: block;
+}
+
+.car-search-unit {
+  padding-top: 1px;
+}
+
+.car-search-unit .welcome-box {
+  margin-top: 120px;
+}
+
+.home-page-search-panel .cw-tabs-panel {
+  position: relative;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.cw-tabs-container {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.used-city-search {
+  float: left;
+  padding: 9px 4px 9px 1px;
+  border-radius: 0;
+  border: 1px solid #cccccc;
+  border-left: none;
+  line-height: 16px;
+}
+
+.used-city-search .fa.fa-map-marker {
+  font-size: 21px;
+  border-left: 1px solid #ccc;
+  padding: 0 6px 0 8px;
+  display: inline-block;
+  line-height: 22px;
+}
+
+.offer-link-unit {
+  clear: both;
+  padding: 3px 0 0 0;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.offer-link-unit a {
+  color: #ffffff;
+}
+
+.right-offer-link {
+  text-align: right;
+  padding-right: 20px;
+}
+
+.used-search .arrow-up {
+  width: 0;
+  float: right;
+  margin: 0 10px 0 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 8px solid #fff;
+}
+
+#btnFindCarHome {
+  vertical-align: top;
+}
+
+#btnFindCarHome .btn {
+  vertical-align: top;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ffffff;
+  padding: 9px 10px;
+  line-height: 22px;
+  border-radius: 0 2px 2px 0;
+  -webkit-border-radius: 0 2px 2px 0;
+  -moz-border-radius: 0 2px 2px 0;
+  -o-border-radius: 0 2px 2px 0;
+}
+
+@-moz-document url-prefix() {
+  #btnFindCarHome .btn {
+    line-height: 20px;
+  }
+}

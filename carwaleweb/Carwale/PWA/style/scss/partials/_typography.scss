@@ -1,0 +1,27 @@
+//
+// Typography
+// --------------------------------------------------
+
+$h1: 20px;
+$h2: 18px;
+$h3: 16px;
+$h4: 15px;
+$h5: 13px;
+
+//## Font family
+$font-family-Lato: 'Lato', sans-serif;
+$font-family-Lato-weight-map: (
+	'light': 300,
+	'normal': 400,
+	'bold': 700
+);
+
+//## Set theme typography
+$base-font-family: $font-family-Lato;
+$base-font-weight: $font-family-Lato-weight-map;
+$base-font-size: 14px;
+
+$font-light: font-weight('light');
+$font-normal: font-weight('normal');
+$font-semibold: font-weight('bold');
+$font-bold: font-weight('bold');

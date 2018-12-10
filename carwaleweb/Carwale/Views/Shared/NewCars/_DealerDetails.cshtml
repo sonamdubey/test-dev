@@ -1,0 +1,57 @@
+﻿@model Carwale.Entity.Dealers.NewCarDealerEntiy
+@using Carwale.Utility;
+@using Carwale.Entity.Enum;
+
+<section id="divFAQ" class="mid-box blue-block">
+    <h2 class="hd2 special-skin-text">@ViewBag.Make Dealers in @ViewBag.CityName</h2>
+    <p class="text-grey font12 special-skin-text">@ViewBag.Make car company has @Model.NewCarDealers.Count new car dealers/showrooms in @ViewBag.CityName.</p>
+    <div class="content-box-shadow margin-top10 margin-bottom10">
+        <ul>
+            <!-- Price In City For Premium Dealer List Starts Here -->
+                @foreach (var premiumDealer in Model.NewCarDealers)
+                {
+                    if (premiumDealer.IsPremium)
+                    {
+                        <li class="clear content-inner-block-10 padding-top0 border-solid-bottom padding-bottom15">
+                            <h3 class="font20 margin-bottom5">@premiumDealer.Name</h3>
+                            @if (premiumDealer.Address != "")
+                            {
+                                <p class="font14">Address: @(premiumDealer.Address + ", " + premiumDealer.CityName + ", " + premiumDealer.State + " " + premiumDealer.PinCode)</p>
+                            }
+                            @if (premiumDealer.MobileNo != "")
+                            {
+                                <p class="font18 text-black text-bold margin-top10 margin-bottom10">
+                                    <span class="fa fa-phone"></span> @premiumDealer.MobileNo
+                                </p>
+                            }
+                            <a class="btn btn-white font14 btn-md btn-requestcallback" pageid="55"
+                            campaigncta campaignid_dealerid=@String.Format("{0}_{1}",premiumDealer.CampaignId ,premiumDealer.DealerId) leadpanel="@premiumDealer.LeadPanel" 
+                            userlocation='{"cityId":@String.Format("{0}", Model.CustLocation.CityId), "cityName":"@Model.CustLocation.CityName"}' propertyid ="7">Get Buying Assistance</a>
+                        </li>
+                    }
+                }
+            <!-- Price In City For Premium Dealer List Ends Here -->
+            <!-- Price In City For Non Premium Dealer List Starts Here -->
+           
+                @foreach (var nonPremiumDealer in Model.NewCarDealers)
+                {
+                    if (!nonPremiumDealer.IsPremium)
+                    {
+                        <li class="clear content-inner-block-10 padding-top0 border-solid-bottom padding-bottom15">
+                            <h3 class="font20 margin-bottom5">@nonPremiumDealer.Name</h3>
+                            @if (nonPremiumDealer.WorkingTime!= null && nonPremiumDealer.WorkingTime != "-")
+                            {
+                                <p class="font13 margin-top10 margin-bottom10">Time: @((DateTime.Parse(nonPremiumDealer.WorkingTime.Split('-')[0].ToString()).ToString("hh:mm tt")) + "-" + (DateTime.Parse(nonPremiumDealer.WorkingTime.Split('-')[1].ToString()).ToString("hh:mm tt")))</p>
+                            }
+                            @if (nonPremiumDealer.Address != "")
+                            {
+                                <p class="font14">Address: @(nonPremiumDealer.Address + ", " + nonPremiumDealer.CityName + ", " + nonPremiumDealer.State + " " + nonPremiumDealer.PinCode)</p>
+                            }
+                        </li>
+                    }
+                }
+            <!-- Price In City For Non Premium Dealer List Ends Here -->
+        </ul>
+        <a class="margin-top5 margin-bottom5 block" style="margin-left: 5px;" href="/@(Format.RemoveSpecialCharacters(ViewBag.Make) + "-dealer-showrooms/" + Format.RemoveSpecialCharacters(ViewBag.CityName) + "-" + Format.RemoveSpecialCharacters(ViewBag.CityId.ToString())+"/")">View contact details of all @ViewBag.Make Dealers in @ViewBag.CityName</a>
+    </div>
+</section>

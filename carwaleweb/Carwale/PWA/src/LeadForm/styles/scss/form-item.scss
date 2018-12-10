@@ -1,0 +1,16 @@
+.oxygen-form-item-help {
+  margin-top: 3px;
+  font-size: 12px;
+
+  .has-error & {
+    color: #ff653f;
+  }
+}
+
+.oxygen-form-item-control {
+  margin-bottom: 25px;
+
+  .oxygen-form-item-with-help & {
+    margin-bottom: 5px;
+  }
+}

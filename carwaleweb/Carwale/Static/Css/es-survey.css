@@ -1,0 +1,628 @@
+﻿/*specific*/
+body.bg-light-grey {
+  background: #fff;
+}
+
+.font54 {
+  font-size: 54px;
+}
+
+.font32 {
+  font-size: 32px;
+}
+
+.margin-top100 {
+  margin-top: 100px;
+}
+
+.landing-padding {
+  padding: 192px 10px 150px;
+}
+
+.kwid-container {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/es/renault-kwid/landing-bg.jpg?201610071603361763);
+  background-repeat: no-repeat;
+  background-position: right -120px;
+  background-size: 500px auto;
+}
+
+.question-nav {
+  margin: 0 0 146px 0;
+  position: relative;
+  display: inline-block;
+}
+
+.question-nav.hide {
+  display: none;
+}
+
+.question-nav::before {
+  border-top: 1px solid #0a405c;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: 17px;
+  width: 100%;
+}
+
+.kwid-questions .form-control-box div {
+  margin: 20px 0 0 0;
+}
+
+.ques-sec {
+  margin-top: 100px;
+  min-height: 385px;
+  height: auto !important;
+}
+
+.title-class {
+  min-height: 20px;
+  padding-left: 40px;
+}
+
+.es-survey-specific.ques-sec {
+  margin-top: 60px;
+}
+
+.ques-sec label {
+  cursor: pointer;
+}
+
+.ques-sec .form-control-box {
+  margin-left: 30px;
+}
+
+.ques-comm {
+  outline: solid 7px #fff;
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  border: solid 2px #38647a;
+  border-radius: 16px;
+  -moz-border-radius: 16px;
+  -o-border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -ms-border-radius: 16px;
+  position: relative;
+  cursor: pointer;
+  transition: linear 0.2s;
+}
+
+.ques-comm-bg {
+  width: 42px;
+  height: 42px;
+  background: #fff;
+  position: absolute;
+  top: 0;
+  left: -5px;
+}
+
+.ques-comm::before {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 10px solid #38647a;
+  content: "";
+  left: 8px;
+  position: absolute;
+  top: 29px;
+  width: 0;
+  transition: linear 0.1s;
+}
+
+.ques-comm::after {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 11px solid #fff;
+  content: "";
+  left: 9px;
+  position: absolute;
+  top: 26px;
+  width: 0;
+  transition: linear 0.1s;
+}
+
+.nav-car {
+  display: none;
+  height: 102px;
+  position: absolute;
+  width: 106px;
+  top: 0;
+  left: -23px;
+  transition: linear 0.2s;
+}
+
+.round-container {
+  float: left;
+  margin: 0 17px;
+  position: relative;
+  width: 32px;
+  height: 32px;
+  z-index: 2;
+}
+
+.kwid-nav-active .nav-car {
+  display: block;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/es/renault-kwid/nav-car.jpg) no-repeat scroll 0 45px;
+  transition: linear 0.2s;
+}
+
+.filled .ques-comm {
+  background: #38647a;
+  transition: linear 0.1s;
+}
+
+.filled .ques-comm::after {
+  border-top: 10px solid #38647a;
+  transition: linear 0.1s;
+}
+
+.line-height1 {
+  line-height: 1;
+}
+
+.empty {
+  pointer-events: none;
+}
+
+.que-box {
+  position: relative;
+  padding-left: 30px;
+}
+/*.que-box::before {content:"Q."; position:absolute; left:0;}*/
+.kwid-next {
+  margin-left: 30px;
+}
+
+.survey-textarea {
+  margin: 10px 0 0 0px;
+}
+
+.survey-textarea textarea {
+  resize: none;
+  font-family: 'Open Sans', sans-serif, Arial;
+  width: 91%;
+  height: 80px;
+  padding: 5px;
+}
+
+.font24 {
+  font-size: 16px;
+}
+
+@media only screen and (max-width:1000px) {
+  body {
+    min-width: 100%;
+  }
+
+  .landing-section .font54 {
+    font-size: 40px;
+  }
+
+  .landing-section .grid-8 {
+    width: 40%;
+  }
+
+  .kwid-questions .grid-8 {
+    width: 80%;
+  }
+
+  .kwid-form .grid-6 {
+    width: 80%;
+  }
+
+  .kwid-container {
+    padding: 0 10px 0 10px;
+  }
+
+  .question-nav {
+    left: 15px;
+  }
+}
+
+@media only screen and (max-width:980px) {
+  .font25 {
+    font-size: 20px;
+  }
+
+  .font24 {
+    font-size: 20px;
+  }
+
+  .container {
+    width: 90%;
+  }
+}
+
+@media only screen and (max-width:900px) {
+  .landing-padding {
+    padding: 120px 10px 128px;
+  }
+
+  .question-nav {
+    margin: 0 0 90px;
+  }
+
+  .kwid-container {
+    background-size: 500px auto;
+  }
+}
+
+@media only screen and (max-width:800px) {
+  .kwid-container {
+    background-size: 440px auto;
+  }
+
+  .kwid-questions .grid-8 {
+    width: 80%;
+  }
+
+  .landing-section .grid-8 {
+    width: 32%;
+  }
+
+  .landing-section .font54 {
+    font-size: 36px;
+  }
+
+  .font16 {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width:768px) {
+  .kwid-container {
+    background-size: 390px auto;
+  }
+
+  .ques-sec {
+    min-height: 470px;
+  }
+
+  .title-class {
+    min-height: 20px;
+    margin-top: 50px;
+  }
+
+  .es-survey-specific.ques-sec {
+    margin-top: 20px;
+  }
+
+  .font24 {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width:732px) {
+  .kwid-container {
+    background-size: 406px auto;
+  }
+
+  .landing-section .grid-8 {
+    width: 34%;
+  }
+
+  .kwid-questions .grid-8 {
+    width: 80%;
+  }
+
+  .ques-sec {
+    min-height: 505px;
+  }
+
+  .title-class {
+    min-height: 20px;
+  }
+
+  .margin-top40.kwid-next {
+    margin-top: 30px;
+  }
+}
+
+@media only screen and (max-width:640px) {
+  .container {
+    width: 100%;
+  }
+
+  .landing-section .font54 {
+    font-size: 30px;
+  }
+
+  .font16 {
+    font-size: 15px;
+  }
+
+  .landing-section .grid-8, .kwid-questions .grid-8 {
+    width: 100%;
+  }
+
+  .font25 {
+    font-size: 18px;
+  }
+
+  .font24 {
+    font-size: 15px;
+  }
+
+  .question-nav::before {
+    top: 10px;
+  }
+
+  .round-container {
+    height: 32px;
+    margin: 0 10px;
+    width: 20px;
+  }
+
+  .ques-comm::before {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid #38647a;
+    left: 3px;
+    top: 16px;
+  }
+
+  .ques-comm::after {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 11px solid #fff;
+    left: 3px;
+    top: 10px;
+  }
+
+  .ques-comm {
+    border: 2px solid #38647a;
+    height: 32px;
+    height: 20px;
+    outline: 4px solid #fff;
+    width: 20px;
+  }
+
+  .nav-car {
+    background-size: 60px auto;
+    height: 72px;
+    left: -12px;
+    top: -16px;
+    width: 64px;
+  }
+
+  .kwid-nav-active .nav-car {
+    background-size: 60px auto;
+  }
+
+  .ques-sec {
+    min-height: auto;
+    margin-top: 20px;
+  }
+
+  .ques-sec label {
+    position: relative;
+    top: -1px;
+  }
+
+  .btn {
+    padding: 8px 25px;
+  }
+
+  .landing-padding {
+    padding: 92px 10px 92px;
+  }
+
+  .kwid-form .grid-6 {
+    width: 100%;
+  }
+
+  .question-nav {
+    margin: 30px 0 50px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .landing-padding {
+    padding: 40px 10px 50px;
+  }
+
+  .font32 {
+    font-size: 21px;
+  }
+
+  .font25 {
+    font-size: 16px;
+  }
+
+  .font24 {
+    font-size: 15px;
+  }
+
+  .font16 {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width:414px) {
+  .landing-section .font54 {
+    font-size: 25px;
+  }
+
+  .round-container {
+    margin: 0 7px;
+  }
+
+  .font32 {
+    font-size: 20px;
+  }
+
+  .btn.margin-top40 {
+    margin-top: 20px;
+  }
+
+  .landing-padding {
+    padding: 30px 10px 45px;
+  }
+
+  .ques-sec {
+    margin-top: 18px;
+  }
+
+  .font24 {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width:360px) {
+  .kwid-container {
+    background-image: none;
+  }
+
+  .font25 {
+    font-size: 15px;
+  }
+
+  .font24 {
+    font-size: 14px;
+  }
+
+  .font16 {
+    font-size: 13px;
+  }
+
+  .question-nav {
+    left: 10px;
+  }
+
+  .round-container {
+    margin: 0 5px;
+  }
+
+  .ques-comm {
+    outline: 3px solid #fff;
+  }
+
+  .btn {
+    padding: 5px 20px;
+    font-size: 13px;
+  }
+
+  .que-box {
+    padding-left: 20px;
+  }
+
+  .ques-sec .form-control-box {
+    margin-left: 20px;
+  }
+
+  .title-class {
+    padding-left: 30px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .ques-comm {
+    border: 1px solid #38647a;
+    height: 14px;
+    outline: 4px solid #fff;
+    width: 14px;
+  }
+
+  .question-nav::before {
+    top: 7px;
+  }
+
+  .round-container {
+    margin: 0 2px;
+  }
+
+  .ques-comm::before {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid #38647a;
+    left: 2px;
+    top: 12px;
+  }
+
+  .ques-comm::after {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 11px solid #fff;
+    left: 1px;
+    top: 5px;
+  }
+
+  .nav-car {
+    top: -23px;
+  }
+
+  .que-box {
+    padding-left: 20px;
+  }
+
+  .ques-sec .form-control-box {
+    margin-left: 20px;
+  }
+
+  .que-nav-margin {
+    margin-left: 20px;
+  }
+}
+
+@media only screen and (max-width: 240px) {
+  .kwid-container {
+    padding: 0 0;
+  }
+
+  .font25 {
+    font-size: 15px;
+  }
+
+  .font24 {
+    font-size: 14px;
+  }
+
+  .round-container {
+    width: 18px;
+  }
+
+  .ques-comm {
+    outline: 2px solid #fff;
+  }
+
+  .landing-padding {
+    padding: 30px 10px 40px 10px;
+  }
+
+  .landing-section .font54 {
+    font-size: 16px;
+  }
+
+  .kwid-questions .form-control-box div {
+    margin: 10px 0 0;
+  }
+
+  .kwid-nav-active .nav-car {
+    background-size: 31px auto;
+  }
+
+  .nav-car {
+    left: -6px;
+  }
+
+  .que-nav-margin {
+    margin-left: 0;
+  }
+
+  .question-nav {
+    margin: 30px 0 20px;
+  }
+}
+
+@media only screen and (min-width:768px) {
+  .survey-textarea {
+    margin: 10px 0 0 0;
+  }
+}
+
+.textarea-error {
+  border: 1px solid #ef3f30;
+}   
+ 

@@ -1,0 +1,219 @@
+﻿@model Carwale.UI.ViewModels.Used.Dealers.VirtualPageViewModel
+@using Carwale.Utility.Classified;
+@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title itemprop="name">@Model.Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="~/static/sass/used/VirtualPage/virtual-page.css" inline/>
+        <style>
+            @@font-face {font-family: 'LatoWeb';font-display: swap;src: url('https://stc.aeplcdn.com/fonts/lato-bold-webfont.woff') format('woff');font-weight: 700;font-style: normal;}
+            @@font-face {font-family: 'LatoWeb';font-display: swap;src: url('https://stc.aeplcdn.com/fonts/lato-regular-webfont.woff') format('woff');font-weight: 400;font-style: normal;}
+        </style>
+    </head>
+    <body>
+        <div id="pageContainer">
+            <section class="navigation-container">
+                <div class="referrer-link-container">
+                    <a id="referrerLink" title="Back To Carwale" role="button" tabindex="0" class="referrer__link">
+                        <span class="referrer-link__back-arrow"></span>
+                        <span class="referrer-link__text">Back to CarWale.com</span>
+                    </a>
+                </div>
+                <div class="navigation-menu-container">
+                    <div class="navigation-container__header">
+                        <div class="navigation-header__franchisee-logo">
+                            <img class="franchisee-logo__image" src="@(Constants.FranchiseLogoUrl)" alt="Carwale Franchisee Logo" title="Carwale Franchisee Logo" width="120" height="40" />
+                        </div>
+                        <div id="navigationMenu" class="overall-tabs-container navigation-header-menu-container">
+                            <div class="overall-tabs-wrapper">
+                                <ul class="overall-tabs-wrapper__list">
+                                    <li class="tab-list__item" data-href="available-stock">
+                                        <span class="tab-list-item__content">
+                                            Available Stock
+                                        </span>
+                                    </li>
+                                    @*
+                                        TODO: as different sections are enabled, uncomment the li elements
+
+                                        <li class="tab-list__item" data-href="dealer-info">
+                                        <span class="tab-list-item__content">
+                                            Dealer Info
+                                        </span>
+                                    </li>
+                                    <li class="tab-list__item" data-href="reviews">
+                                        <span class="tab-list-item__content">
+                                            Reviews
+                                        </span>
+                                    </li>
+                                    <li class="tab-list__item" data-href="services-available">
+                                        <span class="tab-list-item__content">
+                                            Services Available
+                                        </span>
+                                    </li>
+                                    <li class="tab-list__item" data-href="contact-details">
+                                        <span class="tab-list-item__content">
+                                            Contact details
+                                        </span>
+                                    </li>
+                                        *@
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="navigation-header__dealer-logo @(string.IsNullOrWhiteSpace(Model.DealerLogo) ? "hide" : string.Empty)">
+                            <img class="dealer-logo__image" src='@(Model.DealerLogo)' alt='@Model.DealerName' title='@Model.DealerName' width="72" height="40" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="model-stock data-tab" data-id="available-stock">
+                <div class="container model-stock-container">
+                    <div class="container-head">
+                        @if(!string.IsNullOrWhiteSpace(Model.DealerName))
+                        { 
+                            <h2 class="container__title">@Model.DealerName</h2>
+                        }
+                    </div>
+                    <div class="container-body">
+                        <ul class="model-stock__list">
+
+                            @for(int i = 0; i < Model.Results.Count; i++ )
+                            { 
+                                var stock = Model.Results[i];
+                                <li class="model-stock-list__item card-list-container @(i < Model.FirstFoldStocksCount ? string.Empty : "hide")">
+                                    <a href='@stock.Url' title="@stock.CarName" class="model-stock-list__link">
+                                        <div class="model-image-container">
+                                            <div class="image__wrapper">
+                                                <div class="image-wrapper__container">
+                                                    @if (string.IsNullOrEmpty(stock.OriginalImgPath))
+                                                    { 
+                                                        <div class="no-image-container">
+                                                            <img class="no-image-container__image" src="https://imgd.aeplcdn.com/0x0/cw/static/used/no-car-images.svg" alt="No Cars" title="No Cars" />
+                                                            <p class="no-image-container__text">No Image</p>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    { 
+                                                        <img class="lazy car-model__image" src='@string.Format("{0}{1}{2}?q=85", stock.HostUrl, "300x225", stock.OriginalImgPath))' alt="@stock.CarName" title="@stock.CarName">
+                                                    }
+                                                </div>
+                                            </div>
+                                            @if (stock.CertificationId == Convert.ToInt32(Constants.CarTradeCertificationId))
+                                            { 
+                                                <span class="certified__tag">
+                                                    <span class="certified-tag__img"></span>
+                                                    Certified
+                                                </span>
+                                            }
+                                        </div>
+                                        <div class="card-detail-block">
+                                            <div class="card-detail-block__data">
+                                                <table class="card-detail-block__data-table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <h2 class="card-detail-block__title">@stock.CarName</h2>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="car-unit-data">
+                                                                <p class="car-unit-data__amount">₹<span>@stock.Price</span></p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="card-detail__vehicle-information">
+                                                                <table class="card-detail__vehicle-data">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <span class="vehicle-data__item">@stock.Km</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span class="vehicle-data__item">@(string.IsNullOrEmpty(stock.AdditionalFuel) ? stock.Fuel : $"{ stock.Fuel} + 1")</span>
+                                                                            </td>
+                                                                            <td>
+                                                                                <span class="vehicle-data__item">@stock.MakeYear</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <button class="btn-secondary more-detail-btn" type="button">view more details</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <div class="view-all-car-container @(Model.Results.Count <= Model.FirstFoldStocksCount ? "hide" : string.Empty)">
+                <button id="viewAllCars" class="view-all-car__link" title="View All Cars">View all cars</button>
+            </div>
+            <section class="services data-tab" data-id="services-available">
+                @*
+                    TODO: as different sections are enabled, uncomment the li elements
+
+                    <div class="container services-container">
+                    <div class="container-head">
+                        <h2 class="container__title">services available</h2>
+                    </div>
+                    <div class="container-body">
+                        <ul class="services__list">
+                            <li class="services-list__item">
+                                <p class="services-list__item-content">Park & Sell Facilities</p>
+                            </li>
+                            <li class="services-list__item">
+                                <p class="services-list__item-content">Post Sale Service</p>
+                            </li>
+                            <li class="services-list__item">
+                                <p class="services-list__item-content">Insurance Renewals</p>
+                            </li>
+                            <li class="services-list__item">
+                                <p class="services-list__item-content">Denting & Painting Job work</p>
+                            </li>
+                            <li class="services-list__item">
+                                <p class="services-list__item-content">Polishing with our own Garage Men at dealer</p>
+                            </li>
+                            <li class="services-list__item">
+                                <p class="services-list__item-content">CNG & LPG Fitting Wholesale Rate</p>
+                            </li>
+                            <li class="services-list__item">
+                                <p class="services-list__item-content">Exchange Offers (On Spot Payment)</p>
+                            </li>
+                            <li class="services-list__item">
+                                <p class="services-list__item-content">Number Plate within 2hrs</p>
+                            </li>
+                            <li class="services-list__item">
+                                <p class="services-list__item-content">Music System's & Accessories recommendation</p>
+                            </li>
+                            <li class="services-list__item">
+                                <p class="services-list__item-content">New Tyres at discounted rates</p>
+                            </li>
+                            <li class="services-list__item">
+                                <p class="services-list__item-content">Loan facility's with reputed banks</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>*@
+            </section>
+        </div>
+        <script type="text/javascript" src="/static/js/utils/scroll-to.js" defer></script>
+        <script type="text/javascript" src="/static/js/utils/scroll-spy.js" defer></script>
+        <script type="text/javascript" src="/static/js/used/virtual-page.js" defer></script>
+    </body>
+</html>
+

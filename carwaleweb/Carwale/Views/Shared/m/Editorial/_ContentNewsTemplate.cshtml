@@ -1,0 +1,66 @@
+﻿<script type="text/html" id="newsTemplate">
+    <span data-bind="attr:{id : 'dfp_' + basicId}"></span>
+    <div class="scroll-container" data-bind="attr:{divbasicId:basicId}">
+        <div class="inner-container padding-left15 padding-right15">
+            <div class="margin-top10 margin-bottom10">
+                <h1 class="margin-top10 margin-bottom10 m-special-skin-text" data-bind="text: title"></h1>
+                <div class="floatleft margin-right20 m-special-skin-text">
+                    <span data-bind="if : authorMaskingName != null && authorMaskingName != '' ">
+                        <span data-bind="text : Editorial.utils.getDisplayDate(publishedDate) + ' IST by ' "></span><a data-bind="attr:{href : '/m/authors/' + authorMaskingName + '/'}"><span data-bind="text :  authorName"></span></a>
+                    </span>
+                    <span data-bind="if : authorMaskingName == null || authorMaskingName == ''">
+                        <span data-bind="text: Editorial.utils.getDisplayDate(publishedDate) + ' IST by ' + authorName"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="article-reading-content bg-white">
+            <div class="content-inner-block-15 margin-bottom10 rounded-corner2 content-details related-details" data-bind="attr : {id : basicId,categoryid : categoryId,categoryname : 'news'}">
+                <div class="inner-container" id="divDesc">
+                    <div data-bind="if:imagePath!='' ">
+                        <div data-bind="if:mainImgCaption!='' ">
+                            <div style='text-align:center;'>
+                                <img width="100%" class="margin-top-minus-15" data-bind="attr:{title:title,alt:title,src:hostUrl + '566X318' + imagePath}" border='0' />
+                            </div>
+                            <div data-bind="text:mainImgCaption">
+                            </div>
+                        </div>
+                        <div data-bind="if:mainImgCaption=='' ">
+                            <div style='text-align:center;'>
+                                <img class="margin-top-minus-15" data-bind="attr:{title:title,alt:title,src:hostUrl + '566X318' + imagePath}" border='0' width='100%' />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-font" data-bind="html:content"></div>
+                    <div style='clear: both'></div>
+                </div>
+                <div data-bind="if:tagsList.length > 0">
+                    <div class="inner-container margin-top10">
+                        <span class="fa fa-tag floatleft"></span>
+                        <span class="" data-bind="text:tagsList"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="social light-shadow padding-bottom15">
+                <a data-bind="attr:{href:'https://m.facebook.com/sharer.php?u=https://carwale.com' + articleUrl + '?utm_source=share&t=' + title, 'data-label':'https://www.carwale.com/m' + articleUrl}"
+                   data-role="click-tracking" data-event="CWInteractive" data-action="Facebook" data-cat="share" target='_blank'>
+                    <div id="FbCount" class="contentSocial facebook margin-bottom10 margin-left15"></div>
+                </a>
+                <a data-bind="attr:{href:'https://twitter.com/share?url=https://www.carwale.com' + articleUrl + '?utm_source=share&t=' + title, 'data-label':'https://www.carwale.com/m' + articleUrl}"
+                   data-role="click-tracking" data-event="CWInteractive" data-action="Twitter" data-cat="share" target='_blank' style='text-decoration:none;'>
+                    <div id="TweetCount" class="contentSocial twitter margin-bottom10"></div>
+                </a>
+                <a data-bind="attr:{href:'mailto:contact@carwale.com?subject=' + title + '&body=I was reading https://www.carwale.com' + articleUrl + '?utm_source=share on CarWale site and thought to share with you.', 'data-label':'https://www.carwale.com/m' + articleUrl }"
+                   data-role="click-tracking" data-event="CWInteractive" data-action="Email" data-cat="share">
+                    <div class="contentSocial email margin-bottom10"></div>
+                </a>
+                <a data-bind="attr:{href:'whatsapp://send?text=https://www.carwale.com'+articleUrl+'?utm_source=share', 'data-label':'https://www.carwale.com/m'+articleUrl}"
+                   data-role="click-tracking" data-event="CWInteractive" data-action="Whatsapp" data-cat="share">
+                    <div class="contentSocial whatsapp margin-bottom10"></div>
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</script>

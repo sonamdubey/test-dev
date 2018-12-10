@@ -1,0 +1,101 @@
+﻿@import "../mixins/_utils.scss";
+@import "../mixins/_rounded-corner.scss";
+@import "../mixins/_position.scss";
+@import "../mixins/_sprites.scss";
+@import "../mixins/_padding.scss";
+@import "../mixins/_fonts.scss";
+@import "../mixins/_text.scss";
+@import "../mixins/_grid.scss";
+@import "../mixins/_margin.scss";
+@import "../mixins/_form.scss";
+@import "../mixins/_heading.scss";
+@import "../mixins/_fontawesome.scss";
+@import "../partials/_autocomplete.scss";
+
+
+@include h2;
+@include show;
+@include hide;
+@include rounded-corner(2);
+@include position("top",10);
+@include position("top",15);
+@include position("right",10);
+@include position("abt");
+@include position("rel");
+@include cross-lg-white;
+@include cur-pointer;
+@include container;
+@include padding("top",70);
+@include padding("top",10);
+@include margin("bottom",15);
+@include font-size-class(20);
+@include font-size-class(10);
+@include text-color("white");
+@include text-color("red");
+@include text-color("black");
+@include text-align("center");
+@include text-transform("capitalize");
+@include edit-city-icon;
+@include error-icon;
+@include grid-size(12);
+@include form-control;
+@include input;
+@include margin-minus(30);
+@include table;
+@include get-font-icon("spinner");
+@include fa-spin;
+
+
+
+.landing-city-popup{
+    top: 0;
+    bottom: 0;
+    margin: 0;
+    left: 0;
+    right: 0;
+    z-index: 12;
+    background: #f2f3f5;
+    overflow-y: auto;
+    position: fixed;
+
+    .validWidget{ 
+        .ui-autocomplete-input::-webkit-input-placeholder,.ui-autocomplete-input:-moz-placeholder,.ui-autocomplete-input:-ms-input-placeholder { color: #555;}
+         .ui-autocomplete-input:-moz-placeholder,.ui-autocomplete-input:-ms-input-placeholder{opacity:1}
+}
+}
+
+.loc-widget {
+    padding: 0;
+}
+
+.city-banner-div{
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/m/city-banner.png) left top no-repeat #333434;
+    background-size: cover;
+    height: 170px;
+}
+
+.cityNameWrap {
+    padding: 0;
+    min-height: initial;
+    width:100%;
+    text-align:left;
+       
+}
+.globalcity-close-btn{padding:5px;}
+
+.global-city-section .loc-widget .cityName {
+    background: #fff;
+    padding-bottom: 9px;
+        width: 100%;
+    min-height: 30px;
+    padding-left: 10px;
+    color: #555;
+}
+
+ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
+
+.astrick-text {
+    position: absolute;
+    top: 25px;
+    right: 5px;
+}

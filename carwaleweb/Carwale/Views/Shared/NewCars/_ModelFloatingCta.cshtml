@@ -1,0 +1,53 @@
+﻿@model Carwale.DTOs.ViewModels.New.ModelFloatingCtaViewModel
+
+<script type="text/javascript" src="~/static/js/modelfloatingcta.js" defer></script>
+
+<!--Floating CTA code--->
+<div class="floating-cta" data-role="click-impression" data-event="CWInteractive" data-action="ModelPage" data-cat="FloatingbannerClicked">
+    <div class="container">
+        <ul class="floating-cta__list">
+            <li>
+                <span class="floating-cta__image"><img src="@Carwale.Utility.ImageSizes.CreateImageUrl(Carwale.Utility.CWConfiguration._imgHostUrl, Carwale.Utility.ImageSizes._310X174, Model.ModelImagePath)" onerror="this.onerror=null;this.src='@Carwale.Utility.ImageSizes.CreateImageUrl(Carwale.Utility.CWConfiguration._imgHostUrl, Carwale.Utility.ImageSizes._310X174, "/cw/cars/no-cars.jpg")';" alt="@Model.CarName Images" title="@Model.CarName Images" /></span>
+                <div class="floating-cta__model-block">
+                    <span class="floating-cta__model-name">@Model.CarName</span>
+                    <span class="floating-cta__model-details"><span class="text-bold selected-version__price">@Html.Raw(Model.PriceText)</span>&nbsp;<span class="selected-version__price-label">@Model.PriceLabel</span></span>
+                </div>
+            </li>
+            @if (!string.IsNullOrWhiteSpace(Model.VersionName))
+            {
+                <li>
+                    <div class="floating-cta__version-block">
+                        <span class="floating-cta__version-heading">Version</span>
+                        <span class="floating-cta__version-details selected-version__name">@Model.VersionName </span>
+                    </div>
+                </li>
+            }
+            @if (Model.CityId > 0)
+            {
+                <li>
+                    <div class="floating-cta__city-block">
+                        <span class="floating-cta__city-heading">City</span>
+                        <span class="floating-cta__city-details">@Model.CityName </span>
+                    </div>
+                </li>
+            }
+            @if (Model.IsAdAvailable)
+            {
+                <li>
+                    <div class="floating-cta__get-offers-block">
+                        <span class="floating-cta__get-offers-btn btn btn-orange getLeadAssistance" data-cwtccat="ModelPage" data-cwtcact="GetOffersFromDealersClick" data-cwtclbl=@("make:" + Model.MakeName + "|model:" + Model.ModelName + (Model.CityId > 0 ? "|city:" + Model.CityTrackingLabel : "")) pageid="@Model.PageId" leadclicksource="365" inquirysourceid="114" emiadavailable="@(Model.ShowCampaignLink ? "false" : "true")" data-role="click-impression" data-event="CWNonInteractive" data-action=@("CampaignButton_" + (Model.CityId > 0 ? "with" : "without") + "_city") data-cat="ModelPage_Lead_CTA_Desktop" data-label=@((Model.CityId > 0 ? Model.CityTrackingLabel + "," : "") + Model.ModelName) data-predictionScore="@(Model.PredicationScore)" data-predictionLabel="@(Model.PredicationLabel)">Get Offers from Dealers</span>
+                    </div>
+                </li>
+            }
+            else if (Model.CityId <= 0)
+            {
+                <li>
+                    <div class="floating-cta__get-offers-block">
+                        <span class="floating-cta__get-offers-btn btn btn-orange btnCityPopUp" data-role="click-inview-imp" data-action="showpriceinmycity" data-cat="Desktop_ModelPage_Overview" data-label="@Model.ModelName">@Carwale.Utility.CWConfiguration.orpText</span>
+                    </div>
+                </li>
+            }
+        </ul>
+
+    </div>
+</div>

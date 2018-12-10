@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[OLM_AudiBE_Transactions] (
+    [Id]                NUMERIC (18)  IDENTITY (1, 1) NOT NULL,
+    [CustomerId]        NUMERIC (18)  NULL,
+    [ModelId]           NUMERIC (18)  NOT NULL,
+    [VersionId]         NUMERIC (18)  NULL,
+    [FuelTypeId]        INT           NULL,
+    [GradeId]           NUMERIC (18)  NULL,
+    [ModelColorId]      NUMERIC (18)  NULL,
+    [UpholestryColorId] NUMERIC (18)  NULL,
+    [CityId]            NUMERIC (18)  NULL,
+    [ExShowRoomPrice]   VARCHAR (50)  NULL,
+    [VersionPriceId]    NUMERIC (18)  NULL,
+    [DealerId]          NUMERIC (18)  NULL,
+    [PaymentMode]       INT           NULL,
+    [PaymentType]       INT           NULL,
+    [Amount]            NUMERIC (18)  NULL,
+    [ChequeAddress]     VARCHAR (300) NULL,
+    [ChequeCity]        VARCHAR (50)  NULL,
+    [ChequeDate]        VARCHAR (50)  NULL,
+    [ChequePinCode]     VARCHAR (10)  NULL,
+    [ChequeStateId]     INT           NULL,
+    [PGTransactionId]   NUMERIC (18)  NULL,
+    [SourceId]          INT           NULL,
+    [TransactionDate]   DATETIME      NULL,
+    CONSTRAINT [PK_OLM_AudiBE_Transactions] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

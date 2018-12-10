@@ -1,0 +1,199 @@
+﻿@import "_variables";
+
+
+
+%fa{
+   /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'CWFontAwesome' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  display:inline-block;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+%filter-none{
+        filter:none;
+}
+
+
+
+@mixin get-font-icon($icon){
+    @if map-has-key($icon-map , $icon ){
+    .fa-#{$icon}{
+        @extend %fa;
+    &:before{
+        content : #{"\"\\"}#{map-get($icon-map , $icon ) + "\""};
+    }
+    }
+    }
+    @else{
+        @warn "Icon does not exist in icon map. Please add to $icon-map first.";
+    }
+}
+
+@mixin fa-spin{
+    .fa-spin { 
+        -webkit-animation: fa-spin 2s infinite linear; 
+        animation: fa-spin 2s infinite linear;
+         }
+        @-webkit-keyframes fa-spin {  0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        }
+        100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+        }
+        }
+        @keyframes fa-spin {  0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+        }
+        100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+        }
+        }
+}
+
+
+@mixin fa-rotate($angle){
+    .fa-rotate-#{$angle}{
+        @extend %filter-none;
+        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$angle/90}); 
+        -webkit-transform: rotate($angle+deg); 
+        -ms-transform: rotate($angle+deg); 
+        transform: rotate($angle+deg); 
+    }
+}
+
+@mixin fa-flip-horizontal{
+    .fa-flip-horizontal {
+        @extend %filter-none;
+        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1); 
+        -webkit-transform: scale(-1, 1); 
+        -ms-transform: scale(-1, 1); 
+        transform: scale(-1, 1);
+    }
+}
+
+@mixin fa-flip-vertical{
+    .fa-flip-vertical {
+        @extend %filter-none;
+        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1); 
+        -webkit-transform: scale(1, -1); 
+        -ms-transform: scale(1, -1); 
+        transform: scale(1, -1); 
+        }
+}
+
+
+@mixin fa-stack{
+    .fa-stack{
+    position: relative; 
+    display: inline-block; 
+    width: 2em; 
+    height: 2em; 
+    line-height: 2em; 
+    vertical-align: middle; 
+    }
+}
+
+%fa-stack-nx{
+    position: absolute; 
+    left: 0; 
+    width: 100%; 
+    text-align: center; 
+}
+
+@mixin fa-stack-1x{
+    .fa-stack-1x{
+        @extend %fa-stack-nx;
+        line-height:inherit;
+    }
+}
+
+@mixin fa-stack-2x{
+    .fa-stack-2x{
+        @extend %fa-stack-nx;
+        font-size: 2em;
+    }
+}
+
+@mixin fa-lg{
+    .fa-lg { 
+        font-size: 1.33333333em; 
+        line-height: .75em; 
+        vertical-align: -15%;
+         }
+}
+
+@mixin fa-nx($factor){
+    @if ($factor < 6 ){
+        .fa-#{$factor}x{
+            font-size: $factor+em;
+        }
+    }
+    @else{
+        @warn "Invalid scale factor";
+    }
+}
+
+@mixin fa-fw{
+    .fa-fw { 
+        width: 1.28571429em; 
+        text-align: center;
+    }
+}
+
+@mixin fa-ul{
+.fa-ul {
+    padding-left: 0; 
+    margin-left: 2.14285714em; 
+    list-style-type: none;
+    li {
+        position: relative;
+    }
+    }
+}
+
+@mixin fa-li{
+.fa-li { 
+    position: absolute; 
+    left: -2.14285714em; 
+    width: 2.14285714em; 
+    top: .14285714em; 
+    text-align: center;
+  }
+  .fa-li.fa-lg { 
+      left: -1.85714286em;
+   }
+}
+
+@mixin fa-border{
+    .fa-border { 
+        padding: .2em .25em .15em; 
+        border: solid .08em #eee; 
+        border-radius: .1em; 
+    }
+}
+
+@mixin fa-right-float{
+    .pull-right { float: right; }
+    .fa.pull-right { margin-left: .3em; }
+}
+
+@mixin fa-left-float{
+    .pull-left { float: left; }
+    .fa.pull-left { margin-right: .3em; }
+}
+
+@mixin fa-inverse{
+    .fa-inverse { color: #fff; }
+}

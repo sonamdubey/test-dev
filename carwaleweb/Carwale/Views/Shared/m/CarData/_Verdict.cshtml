@@ -1,0 +1,15 @@
+﻿@model Carwale.Entity.ViewModels.CarData.OpinionData
+
+<div class="verdict-container">
+    <h3 class="verdict-container__title" data-role="inview-imp" data-event="CWNonInteractive" data-action="Impression" data-cat="CarWale_Opinion_verdict_m" data-label="@Model.ModelName">@Model.ModelName Verdict</h3>
+    <div class="verdict__description" id="verdictDescription" data-cwticat="CarWaleOpinionVerdict" data-cwtiact="Impression" data-cwtilbl="@("modelid=" + Model.ModelId+  "|source=" + (uint)Carwale.Entity.Enum.Platform.CarwaleMobile)" cwt="">
+        <div class="read-more-collapse-container">
+            <div class="read-more-collapse-initial-text">@Html.Raw(Model.SmallDescription)</div>
+            @if (!string.IsNullOrEmpty(Model.LargeDescription))
+            {
+                <div class="read-more-collapse-final-text">@Html.Raw(Model.LargeDescription)</div>
+                <span class="read-more-collapse-link">...More</span><div class="clear"></div>
+            }
+        </div>
+    </div>
+</div>

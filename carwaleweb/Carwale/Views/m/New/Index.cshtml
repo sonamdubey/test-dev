@@ -1,0 +1,198 @@
+﻿@using Carwale.UI.PresentationLogic;
+
+@model Carwale.Entity.ViewModels.HomeModel
+@{
+    ViewBag.DeeplinkAlternatives = "/new/";
+    ViewBag.Title = ViewBag.IsSBIAd ? "Best SBI offers on CarWale" : "New Cars in India, New Cars in " + DateTime.Now.Year.ToString() + " – Search by Price & Manufacturer";
+    ViewBag.Keywords = "";
+    Layout = "~/views/shared/m/_MLayoutV2.cshtml";
+    ViewBag.BodyClass = "m-special-landing-page";
+    ViewBag.Canonical = "https://www.carwale.com/new/";
+    if (!ViewBag.IsSBIAd)
+    {
+     ViewBag.DefineAdSlots =
+         @"<script type='text/javascript'>
+             googletag.cmd.push(function () {
+                     googletag.defineSlot('/1017752/Carwale_Mobile_NewHome_FirstSlot_320x150', [[320, 100], [320, 50], [320, 150], [320, 425]], 'div-gpt-ad-1439285119107-0').addService(googletag.pubads());
+                     googletag.defineSlot('/1017752/Carwale_Mobile_NewHome_SecondSlot_320x150', [[320, 100], [320, 50], [320, 150]], 'div-gpt-ad-1439285119107-1').addService(googletag.pubads());
+                     googletag.pubads().setTargeting('City','" + @MobileWeb.Common.CookiesCustomers.MasterCity.ToString() + @"');
+                     googletag.pubads().enableSingleRequest();
+                     googletag.pubads().collapseEmptyDivs();
+                     googletag.enableServices();
+                 });
+     
+     </script>";
+    }
+    ViewBag.CustomJS = "~/Views/StaticPartials/m/MNewCarPageScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MNewCarPageCss.cshtml";
+	bool isNCFEnabled = true;
+}
+
+@if (ViewBag.IsSBIAd)
+{
+ <section>
+     <div class="container bg-white">
+     @Html.Partial("~/Views/Shared/NewCars/_SbiYono.cshtml")
+     </div>
+ </section>
+}
+else
+{
+	if (isNCFEnabled)
+{
+	 <div id="nfcWidget" data-pagename="newPage">
+        @Html.Partial("~/Views/Shared/m/_NCFPrimarySlug.cshtml")
+    </div>
+}
+else
+{
+   <section>
+		<div class="container">
+		
+			<div class="newcars-banner-div position-rel">
+				<!-- Top banner code starts here -->
+				<h2 class="text-uppercase text-white text-center padding-top40">NEW CARS</h2>
+			</div><!-- Top banner code ends here -->
+		</div>
+	</section>
+}
+}
+
+	<section class="container">
+		<!-- Brand section code starts here -->
+		@{Html.RenderAction("BrandWidget", "Make");}
+        @{Html.RenderPartial("~/Views/Shared/m/_FuelTypeWidget.cshtml");}
+	</section>
+@if (!ViewBag.IsSBIAd)
+{
+ <div class="container">
+     <!-- /1017752/Carwale_Mobile_NewHome_FirstSlot_320x150 -->
+     <div id='div-gpt-ad-1439285119107-0' class="margin-top20 text-center">
+         <script type='text/javascript' async>
+             googletag.cmd.push(function () { googletag.display('div-gpt-ad-1439285119107-0'); });
+         </script>
+     </div>
+ </div>
+}
+
+<section>
+    <!--  Upcoming, New Launches and Top Selling code starts here -->
+    <div class="container" id="UNTCarouselContainer">
+        <div class="clear"></div>
+        <div class="grid-12">
+            <h2 class="text-uppercase text-center margin-top25 margin-bottom20 m-special-skin-text">Featured cars</h2>
+            <div class="cw-tabs-panel">
+                <div class="cw-tabs margin-bottom15">
+                    <div class="form-control-box">
+                        <span class="select-box fa fa-angle-down"></span>
+                        <select class="form-control" id="UNTDrp" onchange="UNTDrpChange(this, 'UNTCarouselContainer')">
+                            <option value="topSelling">Popular</option>
+                            <option value="newLaunches">Just Launched</option>
+                            <option value="upComingCars">Upcoming Cars</option>
+                        </select>
+                    </div>
+                </div>
+                @Html.Partial("m/_TopSellingCarousel", Model.TopSellingModel, new ViewDataDictionary { { "pageId", "62" } })
+                @Html.Partial("m/_NewLaunchesCarousel", Model.NewLaunches, new ViewDataDictionary { { "pageId", "67" } })
+                @Html.Partial("m/_UpcomingCarousel", Model.Upcoming)
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+</section>
+
+@{Html.RenderAction("TopCarsByBodyTypeCarousel", "CarWidgets", new { isMobile = true });}
+
+@if (!ViewBag.IsSBIAd)
+{
+ <div class="container">
+     <!-- /1017752/Carwale_Mobile_NewHome_SecondSlot_320x150 -->
+     <div id='div-gpt-ad-1439285119107-1' class="margin-top20 margin-bottom20 text-center">
+         <script type='text/javascript' async>
+             googletag.cmd.push(function () { googletag.display('div-gpt-ad-1439285119107-1'); });
+         </script>
+     </div>
+ </div>
+}
+<section class="grid-12">
+    <div class="content-box-shadow comparo-on-nc m-no-bg-color">
+        <!--  Compare section code starts here -->
+        @Html.Partial("m/_TopComparisons", Model.HotComparisons)
+    </div>
+</section>
+<section class="container">
+    <!-- Tools you may need code starts here -->
+    <div class="grid-12">
+        <h2 class="text-uppercase text-center margin-top25 margin-bottom20 m-special-skin-text">Tools you may need</h2>
+        <div class="tools-need-container margin-bottom30 text-center">
+            <ul>
+            @if (!ViewBag.IsSBIAd)
+            {
+                <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom10 position-rel">
+                    <a target="_blank" href="http://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|tools_newcars_mobile&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide&variantOptions=mobileRequired" onclick="dataLayer.push({ event: 'es_cw_gtm', cat: 'new_car_laon', act: 'car_laon' })" rel="nofollow">
+                        <span class="position-abt pos-top0 pos-right5 text-medium-grey font11">Ad</span>
+                        <span class="tools-need-logo">
+                            <span class="cwm-circle-icon car-loan-icon"></span>
+                        </span>
+                        <span class="tools-need-desc text-left">
+                            <span class="font18 text-black">Car Loans</span>
+                            <br>
+                            <span class="font14 tools-need-text">Get attractive loan options.</span>
+                        </span>
+                    </a>
+                </li>
+            }
+                <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom10">
+                    <a href="/quotation/landing/">
+                        <span class="tools-need-logo">
+                            <span class="cwm-circle-icon getfinalprice-icon"></span>
+                        </span>
+                        <span class="tools-need-desc text-left">
+                            <span class="font18 text-black">Check On-Road Price</span>
+                            <br>
+                            <span class="font14 tools-need-text">Check on-road price without filling any form</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom10">
+                    <a href="/m/research/locatedealerpopup.aspx">
+                        <span class="tools-need-logo">
+                            <span class="cwm-circle-icon locatedealer-icon"></span>
+                        </span>
+                        <span class="tools-need-desc text-left">
+                            <span class="font18 text-black">Locate Dealer</span>
+                            <br>
+                            <span class="font14 tools-need-text">Find a dealer near your current location</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom10">
+                    <a href="/userreviews/" data-cwtccat="ReviewLandingLinkage" data-cwtcact="NewCarBottonLabelClick" data-cwtclbl="source=43">
+                        <span class="tools-need-logo">
+                            <span class="cwm-circle-icon userreview-icon"></span>
+                        </span>
+                        <span class="tools-need-desc text-left">
+                            <span class="font18 text-black">User Reviews</span>
+                            <br>
+                            <span class="font14 tools-need-text">Read user reviews of the car of your choice</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+<div id="blackOut-window-pq" class="blackOut-window hide"></div>
+<div id="loadingCarImg" class="hide">
+    <div class="m-loading-popup">
+        <span class="m-loading-icon"></span>
+        <div class="clear"></div>
+    </div>
+</div>
+@section Plugins{
+    <script type="text/javascript" src="/static/m/js/plugins/swiper.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/plugins/beauty-tooltips.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/plugins/flip.js" defer></script>
+}

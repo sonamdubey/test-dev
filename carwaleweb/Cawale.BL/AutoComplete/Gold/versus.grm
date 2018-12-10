@@ -1,0 +1,31 @@
+"Name"     = 'Versus grammar'
+"Author"   = 'Pratik Vasa'
+"Version"  = '0.1'
+
+"Start Symbol" = <start>
+
+! -------------------------------------------------
+! Character Sets
+! -------------------------------------------------
+
+
+! -------------------------------------------------
+! Terminals
+! -------------------------------------------------
+
+Versus = 'vs'|'v/s'|'versus'|'v'
+
+Identifier    = {Letter}{AlphaNumeric}*
+
+! ------------------------------------------------
+! Rules
+! -------------------------------------------------
+
+! The grammar starts below
+<start> ::= <versussuggest>
+
+<versussuggest> ::= <carpart> Versus
+
+<carpart> ::= Identifier
+        | <carpart> Identifier
+            

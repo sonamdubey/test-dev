@@ -1,0 +1,34 @@
+﻿@model List<Carwale.Entity.BreadcrumbEntity>
+    @if (Model != null)
+    {
+        <div class="breadcrumb margin-bottom10 special-skin-text m-special-skin-text">
+            <ul class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+                @{ short entityIndex = 2;
+                 string currentPage = string.Empty;
+                }
+                <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="@(ViewBag.IsMobile==true ? "/m/":"/")" itemprop="item" title="Carwale"><span itemprop="name">Home</span></a> &rsaquo;<meta itemprop="position" content="1" /></li>
+                @foreach (var breadcrumbEntity in Model)
+                {
+                    if (breadcrumbEntity != null && !string.IsNullOrWhiteSpace(breadcrumbEntity.Link))
+                    {
+                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                            <a href="@breadcrumbEntity.Link" itemprop="item" title="@(!string.IsNullOrWhiteSpace(breadcrumbEntity.Title) ? breadcrumbEntity.Title : string.Empty)"><span itemprop="name">@breadcrumbEntity.Text</span></a>@Html.Raw(" &rsaquo;")
+                            <meta itemprop="position" content="@entityIndex" />
+                        </li>
+
+                    }
+                    else
+                    {
+                        { currentPage = breadcrumbEntity.Text; }
+                    }
+
+                    { entityIndex++; }
+                }
+                @if (!string.IsNullOrWhiteSpace(currentPage))
+                {
+                <li><span>@currentPage</span></li>
+                }
+            </ul>
+        </div>
+    }
+    <div class="clear"></div>

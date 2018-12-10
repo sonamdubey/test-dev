@@ -1,0 +1,111 @@
+﻿@model Carwale.DTOs.CarData.PhotoGalleryDTO_V2
+
+@using Carwale.UI.PresentationLogic
+@using Carwale.Utility
+@using Carwale.Entity.Enum
+@using System.Configuration;
+@using Carwale.BL.CMS;
+@using Carwale.DTOs.CMS.ThreeSixtyView;
+@using AutoMapper;
+
+@{
+    string imageSize = string.Empty;
+    short remainder = 0;
+    int activeSlideIndex = Model.GalleryState.ActiveSlideIndex;
+    int counter = 0;
+    GalleryFilters activeFilter = Model.GalleryState.ActiveFilter;
+    ThreeSixtyViewCategory threeSixtyIconCategory = ThreeSixtyViewCategory.Closed;
+    bool isShow360Icon = CMSCommon.IsThreeSixtyViewAvailable(Model.ModelDetails);
+    if (isShow360Icon)
+    {
+        switch (activeFilter)
+        {
+            case GalleryFilters.ExteriorPhotos:
+                threeSixtyIconCategory = CMSCommon.CheckCategoryAvailable(Model.ModelDetails, ThreeSixtyViewCategory.Closed) ? ThreeSixtyViewCategory.Closed : ThreeSixtyViewCategory.Open;
+                break;
+            case GalleryFilters.InteriorPhotos:
+                threeSixtyIconCategory = ThreeSixtyViewCategory.Interior;
+                break;
+            default:
+                threeSixtyIconCategory = CMSCommon.Get360DefaultCategory(Mapper.Map<ThreeSixtyAvailabilityDTO>(Model.ModelDetails));
+                break;
+        }
+        isShow360Icon = CMSCommon.CheckCategoryAvailable(Model.ModelDetails, threeSixtyIconCategory);   
+    }
+    
+    bool isShowVideo = activeFilter == GalleryFilters.AllPhotos && Model.ModelVideos != null && Model.ModelVideos.Count > 0;
+    string threeSixtyPageUrl = string.Empty;
+    string threeSixtySlugImage = string.Empty;
+    string dataTrack360Action = string.Empty;
+    if (isShow360Icon)
+    {
+        threeSixtyPageUrl = EditorialContent.Get360PageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, threeSixtyIconCategory, false);
+        threeSixtySlugImage = EditorialContent.Get360SlugImage(Model.ModelDetails.MakeName, Model.ModelDetails.ModelId, threeSixtyIconCategory, ImageSizes._370X208, false);
+        dataTrack360Action = ((threeSixtyIconCategory == ThreeSixtyViewCategory.Interior) ? "interior" : "exterior") + "_slug_image_gallery";
+    }
+    string cdnHostUrl = ConfigurationManager.AppSettings["CDNHostURL"].ToString();
+    string greyGifUrl = cdnHostUrl + ImageSizes._0X0 + "/statics/grey.gif";
+}
+<ul class="content-box-shadow photos-grid-list">
+    @{imageSize = ImageSizes._370X208;}
+    <li data-role="inview-imp" data-cat="desktop_image_gallery" data-action="image_impression" data-label="@Model.ModelDetails.ModelName" data-index="0" data-image-size="@imageSize" class="photos-grid__list-item">
+        @if(Model.ModelImages[activeSlideIndex]!=null)
+        {
+            <a data-role="click-tracking" data-event="CWInteractive" data-action="thumbnail" data-cat="desktop_image_gallery" data-label="thumbnail"
+           href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, Model.ModelImages[activeSlideIndex].ImageName, Model.ModelImages[activeSlideIndex].ImageId)" onclick="event.preventDefault()">
+            <img class="lazy" data-original="@ImageSizes.CreateImageUrl(Model.ModelImages[activeSlideIndex].HostUrl, imageSize, Model.ModelImages[activeSlideIndex].OriginalImgPath, 80)" src="@greyGifUrl" alt="@Model.ModelImages[activeSlideIndex].ImageName" title="@(Model.ModelImages[activeSlideIndex].ImageName?.Replace("-"," "))" data-image-id="@Model.ModelImages[activeSlideIndex].ImageId"/>
+        </a>
+        }
+    </li>
+    @for (int i = 0; i < Model.ModelImages.Count; i++)
+    {
+        if (i == activeSlideIndex)
+        { continue; }
+        remainder = (short)((counter - 2) % 8);
+        if (remainder == 0)
+        {
+            imageSize = ImageSizes._476X268;
+        }
+        else
+            if (remainder > 4 || remainder < 0)
+            {
+                imageSize = ImageSizes._370X208;
+            }
+            else
+            {
+                imageSize = ImageSizes._272X153;
+            }
+        <li data-role="inview-imp" data-cat="desktop_image_gallery" data-action="image_impression" data-label="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName" data-index="@(i > activeSlideIndex ? i : i + 1)" data-image-size="@imageSize" class="photos-grid__list-item @Html.Raw(counter > 17 ? "hide" : string.Empty)">
+            <a data-role="click-tracking" data-event="CWInteractive" data-action="thumbnail" data-cat="desktop_image_gallery" data-label="thumbnail"
+               href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, Model.ModelImages[i].ImageName, Model.ModelImages[i].ImageId)" onclick="event.preventDefault()">
+                <img class="lazy" data-original="@ImageSizes.CreateImageUrl(Model.ModelImages[i].HostUrl, imageSize, Model.ModelImages[i].OriginalImgPath, 80)" src="@greyGifUrl" alt="@Model.ModelImages[i].ImageName" title="@(Model.ModelImages[i].ImageName?.Replace("-", " "))" data-image-id="@Model.ModelImages[i].ImageId"/>
+            </a>
+        </li>
+        counter++;
+        if (isShow360Icon && counter == 1)
+        {
+            <li data-event="CWInteractive" data-action="@dataTrack360Action" data-cat="msite_360_linkages" data-label="@Model.ModelDetails.ModelName" class="photos-grid__list-item">
+                <a href="@threeSixtyPageUrl" class="swiper-overlay-bg text-center">
+                    <div class="vertical-center-container">
+                        <span class="grid-list__360-icon"></span>
+                        <span class="grid-list__experience-button">Experience Now</span>
+                    </div>
+                </a>
+                <img class="lazy" data-original="@threeSixtySlugImage" src="@greyGifUrl" alt="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName 360" title="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName 360" />
+            </li>
+            counter++;
+        }
+        if (isShowVideo && counter == 10)
+        {
+            <li data-role="inview-imp" data-cat="desktop_image_gallery" data-action="middle_video_slug_imp" data-label="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName" class="photos-grid__list-item">
+                <a data-role="click-tracking" data-event="CWInteractive" data-action="middle_video_slug" data-cat="desktop_image_gallery" data-label="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName" class="videoLink  swiper-overlay-bg" href="@CMSCommon.GetVideoUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, Model.ModelVideos[0].SubCatName, Model.ModelVideos[0].BasicId)">
+                    <div class="youtube-video-icon gallery-video-card-icon"></div>
+                </a>
+                <div style="overflow: hidden;">
+                    <img class="lazy" src="@greyGifUrl" data-original="https://img.youtube.com/vi/@Model.ModelVideos[0].VideoId/hqdefault.jpg" border="0" title="@Model.ModelVideos[0].VideoTitle" alt="@Model.ModelVideos[0].VideoTitle" style="margin-top:-45px;">
+                </div>
+            </li>
+            counter++;
+        }
+    }
+</ul>

@@ -1,0 +1,36 @@
+@mixin button-tab($size: 'default', $background: '#f9f9f9') {
+	$padding: 3px 8px 7px;
+	$key-font-size: 12px;
+	$key-color: color('dark-gray');
+	$value-font-size: 13px;
+	$value-color: $base-color;
+
+	.btn-tab {
+		@include vendor-prefix('border-radius', 2px);
+		@include vendor-prefix('user-select', none);
+		max-width: 130px;
+		padding: $padding;
+		background: #{$background};
+		display: inline-block;
+		vertical-align: middle;
+		cursor: pointer;
+		white-space: nowrap;
+
+		.tab__key {
+			font-size: $key-font-size;
+			color: $key-color;
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 5px;
+		}
+
+		.tab__value {
+			@include text-truncate;
+			font-size: $value-font-size;
+			color: $value-color;
+			display: inline-block;
+			vertical-align: middle;
+			max-width: 55px;
+		}
+	}
+}

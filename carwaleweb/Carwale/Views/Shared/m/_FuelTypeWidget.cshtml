@@ -1,0 +1,26 @@
+﻿@using Carwale.Utility;
+@{
+    List<string> FuelTypes = new List<string> { "Petrol", "Diesel", "CNG", "Electric" };
+}
+<div class="grid-12 margin-bottom20">
+    <div class="bg-white brand-wrapper content-box-shadow margin-top10">
+        <h2 class="content-inner-block-10 text-uppercase text-center margin-top10 margin-bottom10">Fuel Type</h2>
+        <div class="brand-type-container">
+            @if (FuelTypes.Count > 0)
+            {
+                <ul id="brand-nav" class="text-center">
+                    @foreach (var type in FuelTypes)
+                    {
+                        <li data-role="click-tracking" data-event="CWInteractive" data-action="Fueltype_click" data-cat="NewCarsPage" data-label="@(type.ToLower())">
+
+                            <a href="@(string.IsNullOrEmpty(type) ? string.Empty : ManageCarUrl.CreateFuelTypeUrl(type))">
+                                <span class="brand-type-title">@(string.IsNullOrEmpty(type) ? string.Empty : type)</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>
+<div class="clear"></div>

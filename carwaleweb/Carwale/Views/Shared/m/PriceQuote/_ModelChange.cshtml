@@ -1,0 +1,48 @@
+﻿@model Carwale.DTOs.PriceQuote.PqModelChangeDTO
+
+<link href="/static/sass/partials/model-change.css" rel="stylesheet" type="text/css" />
+<script>
+    var modelChangeData = {"cityId" : @Model.Location.CityId, "areaId" : @Model.Location.AreaId};
+</script>
+
+<script type="text/javascript" src="/static/m/js/model-change.js" defer></script>
+
+<div id="editModelPopup" class="edit-model-popup">
+    <div class="change-model-title">
+        <div class="change-model__label">Change car</div>
+        <span class="edit-model-popup__close-btn"></span>
+    </div>
+    <div class="model-content-wrapper">
+        <div class="model-input-wrapper">
+            <input id="suggestedCarList" type="text" name="model-name" class="model-name-input" />
+            <label class="model-name-input__placeholder" for="suggestedCarList">Type to select car name</label>
+            <input type="button" class="model-input__clrBtn hide" value="Clear" aria-label="clear-btn">
+        </div>
+        <div class="suggested-cars-wrapper">
+            @if (Model.AlternateCarList.Count > 0)
+            {
+                <span class="suggested-cars-wrapper__title">Other suggested cars</span>
+                <div id="divModelSwiper" class="swiper-container noSwiper">
+                    <ul class="swiper-wrapper suggested-cars">
+                        @for (int model = 0; model < Model.AlternateCarList.Count; model++)
+                        {
+                            var currentModel = Model.AlternateCarList[model];
+                            <li class="swiper-slide suggested-cars__listItem" data-role="click" data-event="CWInteractive" data-action="PQ_ModelChange_ModelSelected_Carousal_Card@(model + 1)" data-cat="MSite_PQ_ModelChange" data-label="@(currentModel.ModelName)">
+                                <a data-role="click" data-event="CWInteractive" data-action="PQ_ModelChange_ModelSelected_Carousal" data-cat="MSite_PQ_ModelChange" data-label="@(currentModel.ModelName)"
+                                   href='/quotation/?m=@currentModel.ModelId&c=@Model.Location.CityId&a=@Model.Location.AreaId&p=137'>
+                                    <div class="suggested-car-container">
+                                        <img src="@(Carwale.Utility.ImageSizes.CreateImageUrl(currentModel.HostUrl, Carwale.Utility.ImageSizes._272X153, currentModel.ModelImageOriginal))" alt=@(currentModel.MakeName + ' ' + currentModel.ModelName) class="suggested-car-image" />
+                                        <div class="suggested-car-details">
+                                            <p>@(currentModel.MakeName + ' ' + currentModel.ModelName)</p>
+                                            <span>&#8377; @Carwale.Utility.Format.FormatNumericCommaSep(currentModel.PricesOverview.Price.ToString()) Onwards</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+</div>

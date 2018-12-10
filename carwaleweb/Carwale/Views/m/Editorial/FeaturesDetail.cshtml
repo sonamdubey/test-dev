@@ -1,0 +1,104 @@
+﻿@model Carwale.DTOs.CMS.ContentDetailPagesDTO
+
+@{
+    ViewBag.Title = Model.ArticlePages.Title;
+    ViewBag.Description = Html.Raw(System.Text.RegularExpressions.Regex.Replace(Model.ArticlePages.Description, @"<[^>]*>", string.Empty));
+    ViewBag.Canonical = "https://www.carwale.com" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString().Replace("/m/", "/");
+    ViewBag.adPath = System.Configuration.ConfigurationManager.AppSettings["adPathMobile"];
+    ViewBag.DefineAdSlots =
+        @"<script type='text/javascript'>
+            googletag.cmd.push(function () {
+                googletag.defineSlot('/1017752/" + ViewBag.adPath + @"CarWale_Mobile_ROS_320x50', [320, 50], 'div-gpt-ad-1419227721763-0').addService(googletag.pubads());
+
+                //Ad for quatation page bottom Ad
+                googletag.defineSlot('/1017752/" + ViewBag.adPath + @"CarWale_Mobile_ROS_300x250', [300, 250], 'div-gpt-ad-1435297201507-0').addService(googletag.pubads());
+
+                googletag.pubads().setTargeting('Section', '');
+                googletag.pubads().setTargeting('City', '" + MobileWeb.Common.CookiesCustomers.MasterCity.ToString() + @"');
+                googletag.pubads().setTargeting('Section', '');
+                googletag.pubads().collapseEmptyDivs();
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+            });
+        </script>";
+    Layout = "~/views/shared/m/_MLayoutV2.cshtml";
+    ViewBag.CustomJs = "~/Views/StaticPartials/m/MFeaturesPageScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MFeaturesPageCss.cshtml";
+    var mainImage = @Carwale.Utility.ImageSizes.CreateImageUrl(@Model.ArticlePages.HostUrl, Carwale.Utility.ImageSizes._566X318, @Model.ArticlePages.OriginalImgUrl);    
+}
+
+@section MetaTags {
+    <meta property="og:url" content="@("https://www.carwale.com" + Request.ServerVariables["http_x_rewrite_url"])" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:description" content="@ViewBag.Description" />
+    <meta property="og:image" content="@mainImage" />
+    <meta property="og:site_name" content="CarWale" />
+    <meta property="article:published_time" content="@Model.ArticlePages.DisplayDate.ToString("s")" />
+    <meta property="article:section" content="Car News" />
+    <meta property="article:tag" content="@string.Join(",",Model.ArticlePages.TagsList.ToArray())" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@("@CarWale")">
+    <meta name="twitter:title" content="@ViewBag.Title">
+    <meta name="twitter:description" content="@ViewBag.Description">
+    <meta name="twitter:creator" content="@("@CarWale")">
+    <meta name="twitter:image" content="@mainImage">
+    <meta property="fb:admins" content="154881297559" />
+    <meta property="fb:pages" content="154881297559" />
+}
+
+@section Styles{
+    <script type="application/ld+json">
+        {
+        "@@context":"http://schema.org",
+        "@@type":"NewsArticle",
+        "inLanguage":"English",
+        "headline":"@Model.ArticlePages.Title",
+        "description":"@Model.ArticlePages.Description",
+        "mainEntityOfPage":{
+        "@@type": "WebPage",
+        "@@id": "@String.Format("https://www.carwale.com/m{0}", Model.ArticlePages.ArticleUrl)"
+        },
+        "datePublished":"@Model.ArticlePages.DisplayDate.ToString("MM/dd/yyyy")",
+        "dateModified":"@Model.ArticlePages.DisplayDate.ToString("MM/dd/yyyy")",
+        "url":"@String.Format("https://www.carwale.com/m{0}", Model.ArticlePages.ArticleUrl)",
+        "publisher":{
+        "@@type":"Organization",
+        "name":"CarWale",
+        "url":"https://www.carwale.com",
+        "logo":{
+        "@@type":"ImageObject",
+        "url":"https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/cw-logo-v1.png",
+        "height":"60",
+        "width":"294"
+        }
+        },
+        "author":{
+        "@@type":"Person",
+        "name":"@Model.ArticlePages.AuthorName"
+        },
+        "image":{
+        "@@type":"ImageObject",
+        "url":"https://imgd.aeplcdn.com/@Model.ArticlePages.LargePicUrl",
+        "height":"361",
+        "width":"642"
+        }
+        }
+    </script>
+}
+<section class="container">
+    @Html.Partial("m/editorial/_ContentDetailPages", @Model)
+
+    @Html.Partial("m/editorial/_ContentFooter")
+</section>
+<script>
+    var articleBasicid = '@Model.ArticlePages.BasicId';
+    var element = document.querySelectorAll('img.lazy');
+    if(element.length > 0)
+    {
+        element = element[0];
+        element.src = element.getAttribute('data-original');
+        element.style.minHeight = "180px";
+    }
+</script>
+

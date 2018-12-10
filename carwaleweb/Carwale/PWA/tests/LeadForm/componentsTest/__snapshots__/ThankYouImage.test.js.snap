@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component ThankYouImage Snapshot RenderedTree 1`] = `
+<div
+  className="thankyou-screen"
+>
+  <div
+    className="thankyou-text"
+  >
+    A car consultant would get in touch with you shortly to assist on your purchase.
+  </div>
+</div>
+`;

@@ -1,0 +1,38 @@
+"Name"     = 'Car suggestion'
+"Author"   = 'Pratik'
+"Version"  = '0.2'
+"About"    = 'Car suggestions'
+
+"Start Symbol" = <start>
+
+! -------------------------------------------------
+! Character Sets
+! -------------------------------------------------
+
+
+! -------------------------------------------------
+! Terminals
+! -------------------------------------------------
+
+Identifier    = {AlphaNumeric}+
+             
+
+Versus = 'vs'|'v/s'|'versus'
+
+
+! ------------------------------------------------
+! Rules
+! -------------------------------------------------
+
+! The grammar starts below
+<start> ::= <secondcar>
+
+<secondcar> ::= <versusSecond> Identifier
+			|<secondcar> Identifier
+			
+		   
+<versusSecond> ::= <firstcar> Versus
+			
+<firstcar> ::= Identifier
+			|<firstcar> Identifier
+			

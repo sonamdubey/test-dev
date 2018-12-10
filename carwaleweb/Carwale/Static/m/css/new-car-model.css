@@ -1,0 +1,950 @@
+﻿/* model pills list */
+.list-type-pills {
+  padding-right: 10px;
+}
+
+.list-type-pills__item {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  background: #efefef;
+  border-radius: 13px;
+  line-height: 11px;
+  margin-left: 5px;
+}
+
+.list-type-pills__item:first-child {
+  margin-left: 0;
+}
+
+.item--padding {
+  padding: 5px 11px;
+}
+
+.item--360-padding {
+  padding: 3px 13px;
+}
+
+.list-type-pills__item span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.list-type-pills__item a {
+  display: block;
+}
+
+.list-item__target:hover {
+  text-decoration: none;
+}
+
+.list-item__label {
+  font-size: 11px;
+  color: #565a5c;
+  font-weight: 700;
+}
+
+.item--icon-right-margin {
+  margin-right: 7px;
+}
+
+.media-image-icon {
+  width: 15px;
+  height: 16px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/media-image-15.png') no-repeat;
+  display: inline-block;
+}
+
+.dark-grey-360-31 {
+  width: 31px;
+  height: 20px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/360icons/360-dark-grey-31.png') no-repeat;
+  display: inline-block;
+}
+
+.upcoming-label {
+  background-color: #565a5c;
+  color: #000;
+  padding: 3px 10px 3px 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  z-index: 1;
+}
+
+.upcoming-label:before {
+  border: 12px solid #565a5c;
+  border-left-color: transparent;
+  position: absolute;
+  left: -12px;
+  content: '';
+  top: 0;
+}
+
+.advantage-logo {
+  background-position: 0 -248px;
+  width: 70px;
+  height: 13px;
+  position: relative;
+  top: 2px;
+}
+
+.book-now-thumb {
+  background-position: -110px -79px;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+}
+
+.book-element-text .btn {
+  padding: 4px 3px 4px 3px;
+  margin: -2px 0 0 2px;
+}
+
+.know-more-text {
+  padding: 3px 3px 3px 3px;
+  border-radius: 3px;
+}
+
+.modelColorBox {
+  margin: auto;
+  width: 80px;
+  height: 20px;
+  border: 1px solid #c1c1c1;
+}
+
+.fullWidth {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.arr-small {
+  color: red;
+  font-size: 15px;
+}
+
+.arr-big {
+  color: red;
+  font-size: 20px;
+}
+
+.compareCarPopUpBtn,.expandCompareCar,.collapsCompareCar,.arrowDownGray,.arrowUpGray,.closeBtnLeft,.closeBtnRight,.leftPlus {
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi');
+}
+
+.divCheck.chkbox__img {
+  background-image: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi");
+  background-position: -3px -1668px;
+  height: 30px;
+  margin: 0 auto;
+  width: 25px;
+}
+
+.divUnCheck.chkbox__img {
+  background-image: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi");
+  background-position: -3px -1616px;
+  height: 30px;
+  margin: 0 auto;
+  width: 25px;
+}
+
+.compareCarPopUpBtn {
+  position: relative;
+  margin: auto;
+  top: 3px;
+  width: 120px;
+  background-position: 0 -1395px;
+  background-repeat: no-repeat;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.compareCarContainer {
+  float: left;
+  width: 50%;
+}
+
+.expandCompareCar {
+  position: relative;
+  margin: auto;
+  top: 3px;
+  width: 150px;
+  background-position: 0 -1395px;
+  background-repeat: no-repeat;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.collapsCompareCar {
+  position: relative;
+  margin: auto;
+  top: 3px;
+  width: 150px;
+  background-position: 0 -1395px;
+  background-repeat: no-repeat;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.arrowDownGray {
+  margin-left: 2px;
+  background-position: 3px -1437px;
+  background-repeat: no-repeat;
+  padding: 8px;
+}
+
+.arrowUpGray {
+  margin-left: 2px;
+  background-position: 3px -1353px;
+  background-repeat: no-repeat;
+  padding: 8px;
+}
+
+.popupDialog {
+  max-width: 1336px;
+  top: 493.5px;
+  left: 382.5px;
+}
+
+.vsDiv {
+  width: 25px;
+  height: 24px;
+  position: absolute;
+  z-index: 1;
+  right: -12px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi') no-repeat scroll 0 0 transparent;
+  background-position: 0 -1148px;
+}
+
+.closeBtnLeft {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  height: 25px;
+  width: 30px;
+  background-position: 3px -1580px;
+}
+
+.closeBtnRight {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  height: 25px;
+  width: 30px;
+  background-position: 3px -1580px;
+}
+
+.compareCarBox {
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.colorborderLt {
+  border-left: 1px solid #bbb;
+}
+
+.colorborderRt {
+  border-right: 1px solid #bbb;
+}
+
+.leftPlus {
+  width: 18px;
+  height: 18px;
+  background-position: -2px -248px;
+  float: left;
+  margin-right: 10px;
+}
+
+.addAnotherBtn {
+  width: 45px;
+  height: 40px;
+  position: absolute;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi') no-repeat scroll 0 0 transparent;
+  background-position: 0 -1480px;
+}
+
+.m-call-slug {
+  background: rgba(48,48,48,0.7) none repeat scroll 0 0;
+  bottom: 0;
+  color: #fff;
+  padding: 10px 5px 10px 15px;
+  position: fixed;
+  width: 100%;
+  z-index: 5;
+}
+
+.box-footer-text {
+  font-weight: bold;
+  position: relative;
+  top: -2px;
+}
+
+.head-big {
+  font-size: 18px;
+  color: #252628;
+}
+
+.table {
+  width: 100%;
+  border: 0;
+}
+
+a.req-call-btn,a.call-details-btn {
+  border-radius: 3px;
+  padding: 5px 8px;
+  text-decoration: none;
+  color: #fff!important;
+  font-size: 13px;
+  line-height: 1;
+}
+
+a.req-call-btn {
+  border: 1px solid #f04031;
+  background: #f04031;
+  margin-right: 10px;
+}
+
+a.call-details-btn {
+  background: #038d07;
+  border: 1px solid #038d07;
+}
+
+.nc-pg-sprite {
+  background: rgba(0,0,0,0) url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/dlp-input-icon-sprite.png?300615-v1") no-repeat scroll 0 0;
+  display: inline-block;
+}
+
+.easy-steps-list {
+  margin: 11px 0 0 15%;
+  padding: 0;
+  display: block;
+}
+
+.easy-steps-list li {
+  text-align: left;
+}
+
+.easy-step-container {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.call-detail-icon {
+  background-position: 0 -647px;
+  height: 15px;
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+  width: 15px;
+}
+
+.float-call-slug {
+  padding: 5px 5px 5px 5px;
+}
+
+a.req-call-btn.float-call-btn {
+  float: left;
+  padding: 8px 10px;
+  margin-left: 3%;
+}
+
+.advt-right-slug a:hover {
+  text-decoration: none;
+}
+/* Car suggested for you css starts here */
+.cardSuggestSingle li {
+  width: 100%;
+}
+
+.cardSuggestSingle li .img-max-width {
+  max-width: 100%;
+  width: inherit;
+  height: auto;
+}
+
+.carsuggested .imageWrapper {
+  height: inherit;
+}
+
+.carTitle a, .textOverflow {
+  font-size: 16px;
+  width: 248px;
+  overflow: hidden;
+  max-height: 2.6em;
+  line-height: 1.3em;
+}
+
+.carsuggested .swiper-slide {
+  height: 283px;
+}
+
+.carsuggested .swiper-slide-short {
+  height: 255px;
+}
+/* Car suggested for you css ends here */
+.city-price-table {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.city-price-table td {
+  padding: 5px 0;
+  width: 50%;
+}
+
+.version-table-list {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.version-table-list a:hover {
+  text-decoration: none;
+}
+
+.variant-car-detail {
+  padding: 10px;
+}
+/*Model Variants price table*/
+.version-price-table tr {
+  border: 1px solid #ccc;
+}
+
+.na {
+  color: lightgrey;
+}
+
+.version-price-table th {
+  text-align: left;
+  padding: 10px;
+  color: #1a1a1a;
+}
+
+.version-price-table th,.version-price-table td {
+  border-right: 1px solid #ccc;
+}
+
+.version-price-table tbody tr:nth-child(odd) {
+  background-color: #eee;
+}
+
+.version-price-table .comparehead {
+  padding-left: 5px;
+  padding-right: 0px;
+}
+
+.version-price-table .comparetd {
+  width: 1%;
+}
+
+.model-section-table {
+  display: table;
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+  margin: 10px 0px;
+  background: #fff;
+  width: 100%;
+}
+
+.model-section-table thead tr, .model-section-table tbody tr {
+  display: table-row;
+}
+
+.model-section-table thead tr td, .model-section-table tbody tr td {
+  padding: 6px 10px;
+  width: 12%;
+  display: table-cell;
+}
+
+.smallImageWrapper {
+  overflow: hidden;
+  height: 0;
+  padding-bottom: 18%;
+}
+
+/* Photo Grid Style*/
+.photos-grid-list {
+  overflow: hidden;
+  padding-right: 2px;
+  padding-left: 2px;
+  margin-bottom: 20px;
+}
+
+.photos-grid-list li {
+  float: left;
+  height: 0;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  margin: 3px 10px 0 0;
+}
+
+.photos-grid-list img {
+  width: 100%;
+}
+
+.photos-grid-list li:nth-child(6n+1), .photos-grid-list li:nth-child(6n+2), .photos-grid-list li:nth-child(6n+3) {
+  width: 31%;
+  padding-bottom: 20%;
+}
+
+.photos-grid-list li:nth-child(6n+3) {
+  margin: 3px 0 0 0;
+  float: right;
+}
+
+.photos-grid-list li:nth-child(6n+4) {
+  width: 65.5%;
+  padding-bottom: 42%;
+}
+
+.photos-grid-list li:nth-child(6n+5), .photos-grid-list li:nth-child(6n+6) {
+  float: right;
+  width: 31%;
+  padding-bottom: 20%;
+  margin: 3px 0 0 0;
+}
+
+.photos-grid-list li:nth-child(6n+6) {
+  padding-bottom: 15.6%;
+}
+
+.gallery-image-count {
+  background: rgba(64,64,64,0.7);
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 0;
+  color: #fff;
+  font-weight: bold;
+  height: 100%;
+  padding: 4px 10px 0 10px;
+}
+
+/*price in city revamp start*/
+.price-breakup {
+  margin: 10px;
+  color: #82888B;
+  box-shadow: 0px 2px 5px #ccc, 0px 1px 5px #ccc;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+  padding: 5px;
+  text-align: left;
+}
+
+.price-breakup__head {
+  padding: 10px 0 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.price-breakup__table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.price-breakup__table td {
+  padding: 8px 3px;
+}
+
+.price-breakup__table td:first-child {
+  width: 70%;
+}
+
+.price-breakup__table td:last-child {
+  width: 30%;
+}
+
+.bottomline {
+  border-bottom: 1px solid #ccc;
+}
+
+.price-breakup__emi--rupeecolor {
+  color: #260000;
+}
+
+.price-table__get-offers {
+  text-align: right;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  color: #0288d1;
+}
+
+.price-table__get-offers td {
+  padding: 0;
+}
+
+.price-breakup__emi {
+  margin: 20px 10px;
+  color: #555555;
+  box-shadow: 0px 2px 5px #ccc, 0px 1px 5px #ccc;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+  padding: 10px 7px;
+  font-size: 14px;
+  overflow: auto;
+  text-align: left;
+}
+
+.price-breakup__emi--starts {
+  display: inline-block;
+  padding-top: 5px;
+}
+
+.price-breakup__emi--get-assistance {
+  padding: 4px 7px;
+  color: #21bccb;
+  border: 1px solid #21bccb;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  font-weight: 700;
+  float: right;
+  font-size: 11px;
+}
+
+.price-breakup__emi--get-assistance:hover {
+  text-decoration: none;
+}
+
+.price-breakup__emi--info-icon {
+  height: 10px;
+  width: 10px;
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/icons/565a5c/info-10x10.png");
+}
+
+.font15 {
+  font-size: 15px;
+}
+.price-breakup__emi .finacial-services-slug--logo {
+    margin-left: 0;
+    padding: 0;
+}
+
+@media only screen and (max-width:359px) {
+  .price-breakup__emi {
+    font-size: 13px;
+  }
+
+  .price-breakup__emi--get-assistance {
+      padding: 4px 3px;
+      font-size: 11px;
+  }
+}
+
+/*price in city revamp end*/
+
+
+@media only screen and (max-width:320px) {
+  .gallery-image-count {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (min-width:360px) {
+  .gallery-image-count {
+    padding: 10px 10px 0 10px;
+  }
+}
+
+@media only screen and (min-width:460px) {
+  .photos-grid-list li:nth-child(6n+1), .photos-grid-list li:nth-child(6n+2) {
+    width: 32.1%;
+  }
+
+  .photos-grid-list li:nth-child(6n+4) {
+    width: 66.5%;
+  }
+
+  .gallery-image-count {
+    padding: 25px 0 0 0;
+  }
+
+  .photos-grid-list li:nth-child(6n+6) {
+    padding-bottom: 16.7%;
+  }
+}
+
+@media only screen and (min-width:560px) {
+  .photos-grid-list li:nth-child(6n+1), .photos-grid-list li:nth-child(6n+2) {
+    width: 32.6%;
+  }
+
+  .photos-grid-list li:nth-child(6n+4) {
+    width: 66.8%;
+  }
+
+  .gallery-image-count {
+    padding: 35px 10px 0 10px;
+  }
+}
+
+@media only screen and (min-width:750px) {
+  .gallery-image-count {
+    padding: 50px 10px 0 10px;
+  }
+}
+
+#divModelImg {
+  border: none;
+}
+
+.carmodel-image-swipper .swiper-slide {
+  width: 100%;
+  height: auto;
+}
+
+.carmodel-image-swipper .imageWrapper {
+  height: 170px;
+}
+
+.arrow-fff-10 {
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/arrow-fff-10x18.png') no-repeat;
+  display: inline-block;
+}
+
+.model-swiper-prev-btn,
+.model-swiper-next-btn {
+  position: absolute;
+  top: 50%;
+  width: 24px;
+  height: 32px;
+  margin-top: -22px;
+  text-indent: -9999px;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  border: none;
+  cursor: pointer;
+}
+
+.model-swiper-prev-btn {
+  background-position: 6px 7px;
+  left: 0;
+}
+
+.model-swiper-next-btn {
+  background-position: -16px 7px;
+  right: 0;
+}
+
+.carmodel-image-swipper .swiper-wrapper {
+  padding: 0;
+}
+
+.swiper-overlay-bg {
+  background: rgba(31,31,31,0.7);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.swiper-overlay-bg .count-image {
+  color: #fff;
+  position: absolute;
+  font-size: 14px;
+  left: 45%;
+  top: 40%;
+}
+
+.count-image span {
+  font-weight: bold;
+}
+
+.carmodel-image-swipper {
+  margin-bottom: 7px;
+}
+
+.carmodel-image-swipper .imageWrapper img {
+  width: auto;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.carmodel-image-swipper .imageWrapper {
+  max-height: 202px;
+  height: 100%;
+}
+
+@media only screen and (max-width: 320px) {
+  .carmodel-image-swipper .imageWrapper {
+    max-height: 180px;
+    height: 100%;
+  }
+}
+
+.list-count {
+  font-size: 16px;
+  font-weight: 700;
+  position: absolute;
+  color: #fff;
+  background: #317c9b;
+  padding: 2px 1px 1px 1px;
+  border-radius: 30px;
+  right: 0;
+  width: 34px;
+  height: 34px;
+  z-index: 1;
+  line-height: 28px;
+}
+
+.list-count span {
+  background: #317c9b;
+  border-radius: 30px;
+  border: 1px solid #fff;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  color: white;
+}
+
+.model__rank__slug {
+  background-color: white;
+  padding: 10px 10px 10px 45px;
+}
+
+.model__rank__slug > div {
+  display: inline-block;
+}
+
+.triangle {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.triangle-right, .triangle-left {
+  width: 4px;
+  height: 3px;
+  position: absolute;
+  bottom: -39px;
+  border-bottom: solid 4px transparent;
+  border-top: solid 4px transparent;
+}
+
+.triangle-left {
+  left: -22px;
+  border-left: solid 6px #103f53;
+}
+
+.triangle-right {
+  right: 11px;
+  border-right: solid 6px #103f53;
+}
+
+.carousel-360-link {
+  z-index: 1;
+}
+
+/*360 slug and new icon code starts here*/
+.swipper-slide__new-icon {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ef3f30/new-tag-43x21.png);
+  width: 43px;
+  height: 21px;
+  display: block;
+  margin-left: 13px;
+}
+
+.swiper-slide__360-icon {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ef3f30/new-tag-43x21.png) center top no-repeat, url(https://imgd.aeplcdn.com/0x0/cw/static/icons/fff/360-68x45.png) center bottom no-repeat;
+  width: 69px;
+  height: 71px;
+  display: inline-block;
+}
+
+.center-container {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.experience-now-button {
+  display: block;
+  color: #fff;
+  border: solid 1px #fff;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-top: 5px;
+  background: #04b4c4;
+}
+
+.icons-container {
+  width: 85px;
+  height: 85px;
+  border: 1px solid #FFFFFF;
+  border-radius: 2px;
+  position: relative;
+  display: inline-block;
+}
+
+.link-container {
+  width: 210px;
+  height: 85px;
+}
+
+.last-slide-icons {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ef3f30/new-tag-36x17.png) center top no-repeat, url(https://imgd.aeplcdn.com/0x0/cw/static/icons/fff/360-43x28.png) center no-repeat;
+  width: 69px;
+  height: 71px;
+  display: inline-block;
+}
+
+.image-link-container__item {
+  width: 100%;
+}
+
+.icons-container__new-icon {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ef3f30/new-tag-30x15.png?1502099988287) no-repeat center top;
+  height: 15px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.icons-container__three-sixty-icon {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/fff/360-43x28.png) no-repeat center;
+  height: 28px;
+  display: block;
+}
+/*360 slug and new icon code ends here*/
+
+/*Lead form block style*/
+.request-callback-box {
+    padding: 15px 10px;
+}
+
+.error-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/f03f30/error.png') no-repeat right;
+    width: 20px;
+    background-size: 20px;
+}
+
+/* price in city vwfs */
+.price-breakup__emi .finacial-services-slug--logo__image {
+    max-width: 110px;
+}
+ .price-breakup__emi .finacial-services-slug {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}

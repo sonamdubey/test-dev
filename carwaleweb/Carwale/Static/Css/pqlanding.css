@@ -1,0 +1,47 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.price-quote-banner {
+  background: #161209 url(https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/d/price-quote-banner.jpg) no-repeat center top;
+  background-size: cover;
+  height: 285px;
+  padding-top: 1px;
+}
+
+.pqlanding-container {
+  background: #fff;
+}
+
+.pqlanding-form-container {
+  margin: 0 auto;
+  width: 540px;
+}
+
+.pq-nosawaal-container {
+  background: #fff;
+}
+
+.pq-nosawaal-details ul li {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+  width: 200px;
+  height: 140px;
+  text-align: center;
+}
+
+.pq-nosawaal-details ul li span.nosawaal-logo-details, .pq-nosawaal-details ul li span.nosawaal-logo {
+  display: block;
+}
+
+.faqPopUpContainer {
+  width: 950px;
+  height: 500px;
+  background: #fff;
+  z-index: 10;
+  margin: 0 auto;
+  position: fixed;
+  top: 15%;
+  left: 5%;
+  right: 5%;
+}

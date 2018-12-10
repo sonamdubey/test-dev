@@ -1,0 +1,68 @@
+﻿@model List<Carwale.Entity.Classified.StockSummary>
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+
+<section class="margin-bottom20" id="divUsedLuxuryCars">
+    <div class="cwd-carousel-single">
+        <div class="content-box-shadow">
+            <div class="content-inner-block-10">
+                <div class="content-inner-block cw-relative">
+                    <h2 class="font20 margin-bottom10">Pre-Owned Alternatives</h2>
+                    <span class="font11 light-grey-text cw-spons">Sponsored</span>
+                </div>
+                <div class="dlp-cw-carousel text-center">
+                    <p class="margin-bottom10 font16 text-bold">Big Boy Toyz, <span class="font11 light-grey-text bold">New Delhi</span></p>
+                    <div class="main-carousel-div margin-bottom10">
+                        <div class="list_carousel_widget">
+                            <div class="jcarousel-container">
+                                <span><span class="jcarousel-control-prev"></span></span>
+                                <span><span class="jcarousel-control-next"></span></span>
+                                <div class="jcarousel" style="padding-bottom: 10px;">
+                                    <ul class="jcarousel-list pre-owned-box" id="authorCarousel">
+                                    @foreach (var eachluxury in Model)
+                                    {
+                                        if(eachluxury != null)
+                                        {
+                                            <li>
+                                                <div class="jcarouseldiv">
+                                                    <div class="imgheight" id="luxuryCarImage">
+                                                        <a href="/used/cars-in-@UrlRewrite.FormatSpecial(eachluxury.CityName.ToString())/@UrlRewrite.FormatSpecial(eachluxury.MakeName.ToString())-@eachluxury.MaskingName.ToString()-@eachluxury.ProfileId/" class="carname">
+                                                            <img border="0" alt="@(eachluxury.MakeName.ToString() + " " + eachluxury.ModelName.ToString() + " " + eachluxury.VersionName.ToString())" title="@(eachluxury.MakeName.ToString() + " " + eachluxury.ModelName.ToString() + " "+ eachluxury.VersionName.ToString())" src="@(String.IsNullOrEmpty(eachluxury.HostUrl) || String.IsNullOrEmpty(eachluxury.OriginalImgPath) ? "http://imgd.aeplcdn.com/0x0/cw/design15/nocars-placeholder2.jpg" : ImageSizes.CreateImageUrl(eachluxury.HostUrl.ToString(), ImageSizes._227X128, eachluxury.OriginalImgPath.ToString()))">
+                                                        </a>
+                                                    </div>
+                                                    <div class="margin-top10 text-left" id="luxuryCarTitle">
+                                                        <a title="@(eachluxury.MakeName.ToString() + " " + eachluxury.ModelName.ToString() + " " + eachluxury.VersionName.ToString())" href="/used/cars-in-@UrlRewrite.FormatSpecial(eachluxury.CityName.ToString())/@UrlRewrite.FormatSpecial(eachluxury.MakeName.ToString())-@eachluxury.MaskingName.ToString()-@eachluxury.ProfileId/" class="carname">@Html.Raw(eachluxury.MakeYear.ToString()) Used @Html.Raw(eachluxury.MakeName.ToString() + " " + eachluxury.ModelName.ToString() + " "+ eachluxury.VersionName.ToString())</a>
+                                                    </div>
+                                                    <div class="margin-top10 bold" id="luxuryCarPriceKm">
+                                                        <a class="used-luxury-widget" href="/used/cars-in-@UrlRewrite.FormatSpecial(eachluxury.CityName.ToString())/@UrlRewrite.FormatSpecial(eachluxury.MakeName.ToString())-@eachluxury.MaskingName.ToString()-@eachluxury.ProfileId/" class="carname">
+                                                            <span class="cw-sprite rupee-medium"></span>
+                                                            <span>@Html.Raw(!string.IsNullOrEmpty(eachluxury.Price.ToString()) ? Format.FormatFullPrice(eachluxury.Price.ToString()) : " ")</span><span class="light-grey-text"> | </span><span>@Html.Raw(!string.IsNullOrEmpty(eachluxury.Km.ToString()) ? Format.Numeric(eachluxury.Km.ToString()) : " ")</span><span> kms</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="margin-top10">
+                                                        <div class="cw-tel @(!String.IsNullOrEmpty(eachluxury.MaskingNumber.ToString()) ? "" : "hide")">
+                                                            <span class="dealer-sprite call-ico"></span>
+                                                            <span class="disblock bold">@eachluxury.MaskingNumber</span>
+                                                        </div>
+                                                        <div class="margin-top5" id="showroomBtn">
+                                                            <a href="/dealer/PremiumDealerShowroom.aspx?dealerId=3849" class="btn btn-orange btn-xs">More Cars from this Dealer</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</section>
+<!-- Carousel code ends here-->  

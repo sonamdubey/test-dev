@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[LA_RuleParams] (
+    [LAId]   NUMERIC (18) NOT NULL,
+    [MakeId] NUMERIC (18) NOT NULL,
+    [CityId] NUMERIC (18) NOT NULL,
+    CONSTRAINT [PK_LA_RuleParams] PRIMARY KEY CLUSTERED ([LAId] ASC, [MakeId] ASC, [CityId] ASC) WITH (FILLFACTOR = 90)
+);
+

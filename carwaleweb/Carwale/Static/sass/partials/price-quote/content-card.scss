@@ -1,0 +1,212 @@
+﻿@import '../../mixins/_utils.scss';
+@import '../../mixins/_variables.scss';
+@import '../../mixins/_sprites.scss';
+@import '../../mixins/_vendor-prefix.scss';
+@import '../../mixins/_vendor-utils.scss';
+
+.content-card {
+	display: block;
+	border-radius: 4px;
+	background-color: map-get($color-map, 'white');
+	padding: 20px 20px 25px;
+	position: relative;
+	margin-bottom: 20px;
+	border: 1px solid map-get($color-map, 'gainsboro');
+
+	&::after {
+		content: '';
+		display: table;
+		width: 100%;
+		float: none;
+	}
+}
+
+.content-card-details__image {
+	height: 36px;
+	width: 36px;
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom: 10px;
+	margin-top: 5px;
+	float: left;
+}
+
+.content-card-details {
+	display: block;
+	padding-left: 56px;
+}
+
+.content-card-details__title {
+	font-size: 18px;
+	font-weight: $font-bold;
+	color: map-get($color-map, 'charcoal');
+	margin-bottom: 10px;
+}
+
+.content-card-details__subtitle,
+.emi-absent-text,  
+.emi-present-text {
+	font-size: 16px;
+	color: map-get($color-map, 'charcoal');
+}
+
+.content-card-details__description {
+	font-size: 14px;
+	color: map-get($color-map, 'text-grey');
+}
+
+.content-card-details__link {
+	cursor: pointer;
+	font-size: 16px;
+	color: map-get($color-map, 'sky-blue');
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+
+.cust-emi__link {
+	font-size: 16px;
+	color: map-get($color-map, 'summer-sky');
+	cursor: pointer;
+}
+
+.cust-emi__btn {
+	cursor: pointer;
+	font-size: 16px;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+
+.change-emi_link{
+	cursor: pointer;
+    font-size: 16px;
+    color: map-get($color-map, 'summer-sky');
+	font-weight: $font-bold;
+}
+
+.cust-emi-with-tooltip__link {
+    font-size: 16px;
+    color: map-get($color-map, 'summer-sky');
+    cursor: pointer;
+}
+
+.margin-top-emi__link {
+	margin-top: 10px;
+}
+
+.content-card__percent-icon {
+	@include calculator-6f6f6f-icon;
+	background-size: contain;
+	background-position: center;
+}
+
+.content-optional-packages__price {
+	display: none;
+	font-size: 16px;
+	font-weight: $font-bold;
+	color: map-get($color-map, 'charcoal');
+	margin-top: 10px;
+}
+
+.content-card--selected {
+	.content-card-details__description {
+		color: map-get($color-map, 'shamrockGreen');
+	}
+
+	.content-card-details__subtitle {
+		display: none;
+	}
+
+	.content-optional-packages__price {
+		display: block;
+	}
+}
+
+.content-card__sell-car {
+	.content-card-details__title {
+		margin-bottom: 0;
+	}
+
+	.content-card-details__description {
+		margin-bottom: 10px;
+	}
+}
+
+.content-card__sell-car-icon {
+	@include sellcar-6f6f6f-icon;
+	background-position: center;
+}
+
+.content-card__optional-packages-icon {
+	@include optional-packages-6f6f6f;
+	background-position: center;
+}
+
+.content-card-details__list {
+	font-size: 14px;
+	color: map-get($color-map, 'charcoal');
+	line-height: 26px;
+	list-style-type: decimal;
+	list-style-position: inside;
+
+	&::after {
+		content: '';
+		display: table;
+		width: 100%;
+		float: none;
+	}
+
+	> li {
+		margin-right: 15px;
+		float: left;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}
+
+.content-card--small {
+	padding: 30px;
+
+	.content-card-details__image {
+		margin: 0 10px 0 0;
+	}
+
+	.content-card-details__title {
+		margin-top: 7px;
+	}
+
+	.content-card-details {
+		padding-left: 0;
+	}
+
+	.content-card-details__list {
+		list-style-position: outside;
+		padding-left: 20px;
+		padding-top: 25px;
+
+		> li {
+			float: none;
+			margin-right: 0;
+			margin-bottom: 20px;
+			font-size: 16px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.content-card-details__link {
+		position: static;
+		font-weight: $font-bold;
+		padding: 10px 35px;
+		border: 1px solid map-get($color-map, 'shamrockGreen');
+		color: map-get($color-map, 'shamrockGreen');
+		border-radius: 3px;
+		display: inline-block;
+		margin-top: 20px;
+	}
+}

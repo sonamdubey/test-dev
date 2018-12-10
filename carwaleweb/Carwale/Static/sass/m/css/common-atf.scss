@@ -1,0 +1,61 @@
+@import "../../mixins/_grid.scss";
+@import "../../mixins/_margin.scss";
+@import "../../mixins/_utils.scss";
+@import "../../mixins/_text.scss";
+@import "../../mixins/_buttons.scss";
+@import "../../mixins/_rounded-corner.scss";
+@import "../../mixins/_fonts.scss";
+@import "../../mixins/_fontawesome.scss";
+@import "../../mixins/_background.scss";
+@import "../../mixins/_position.scss";
+@import "../../partials/_reset.scss";
+@import "../../partials/_mheader.scss";
+@import "../../partials/_androiddownload.scss";
+@import "../../mixins/_sprites.scss";
+
+@include blackout-window;
+@include grid-size(12);
+@include margin("bottom",10);
+@include margin("bottom",15);
+@include margin("top",20);
+@include content-inner-block(10);
+@include content-box-shadow;
+@include text-link;
+@include text-bold;
+@include text-color("black");
+@include text-color("light-grey");
+@include show;
+@include hide;
+@include get-font-icon("rupee");
+@include bg-color("light-grey");
+@include inline-block;
+@include ad-div;
+@include position("left",10);
+@include position("rel");
+@include btn-color("orange");
+
+body {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.screen-head__title {
+	color: map-get($color-map, "black");
+	font-size: 18px;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+
+.btn-fullwidth-48 {
+	width: 100%;
+	padding: 13px;
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+.modal-box, {
+	display: none;
+}
+
+.select-box .chosen-container {
+	z-index: 3;
+}

@@ -1,0 +1,344 @@
+﻿/* CSS Document */
+.newcars-banner-div {
+  background: #161209 url('https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/m/new-cars-banner.jpg') no-repeat left top;
+  background-size: cover;
+  height: 130px;
+}
+
+/* Brand - Budget - Body type */
+.brand-type-container ul li {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+  width: 90px;
+  height: 70px;
+  margin: 0 0 15px;
+  text-align: center;
+}
+
+.brand-type-title {
+  display: block;
+}
+
+.brand-type-container a {
+  text-decoration: none;
+  color: #565a5c;
+  display: inline-block;
+}
+
+.brand-type-container ul li:hover span.brand-type-title {
+  font-weight: bold;
+}
+
+.brandlogosprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/brand-logo-sprite.png?201608301212360599) no-repeat;
+  display: inline-block;
+}
+
+.ashok-leyland, .aston-martin, .audi, .bentley, .bmw, .bugatti, .caterham, .chevrolet, .datsun, .eicher, .ferrari, .fiat,
+.force-motors, .ford, .honda, .hyundai, .icml, .isuzu, .jaguar, .lamborghini, .land-rover, .mahindra, .maruti-suzuki,
+.maserati, .mercedes, .mini, .mitsubishi, .nissan, .porsche, .premier, .renault, .rolls-royce, .skoda, .ssangyong, .tata,
+.toyota, .volkswagen, .volvo, .dc, .jeep, .lexus {
+  height: 30px;
+}
+
+.ashok-leyland {
+  width: 30px;
+  background-position: 0 0;
+}
+
+.aston-martin {
+  width: 83px;
+  background-position: -35px 0;
+}
+
+.audi {
+  width: 82px;
+  background-position: -136px 0;
+}
+
+.bentley {
+  width: 87px;
+  background-position: -224px 0;
+}
+
+.bmw {
+  width: 30px;
+  background-position: -316px 0;
+}
+
+.bugatti {
+  width: 57px;
+  background-position: -351px 0;
+}
+
+.caterham {
+  width: 31px;
+  background-position: -413px 0;
+}
+
+.chevrolet {
+  width: 64px;
+  background-position: -450px 0;
+}
+
+.datsun {
+  width: 52px;
+  background-position: -521px 0;
+}
+
+.eicher {
+  width: 57px;
+  background-position: -579px 0;
+}
+
+.ferrari {
+  width: 19px;
+  background-position: -642px 0;
+}
+
+.fiat {
+  width: 29px;
+  background-position: -667px 0;
+}
+
+.force-motors {
+  width: 45px;
+  background-position: -701px 0;
+}
+
+.ford {
+  width: 75px;
+  background-position: -751px 0;
+}
+
+.honda {
+  width: 38px;
+  background-position: -830px 0;
+}
+
+.hyundai {
+  width: 59px;
+  background-position: -872px 0;
+}
+
+.icml {
+  width: 38px;
+  background-position: -935px 0;
+}
+
+.isuzu {
+  width: 84px;
+  background-position: -977px 0;
+}
+
+.jaguar {
+  width: 80px;
+  background-position: -1077px 0;
+}
+
+.lamborghini {
+  width: 27px;
+  background-position: -1161px 0;
+}
+
+.land-rover {
+  width: 55px;
+  background-position: -1193px 0;
+}
+
+.mahindra {
+  width: 64px;
+  background-position: -1254px 0;
+}
+
+.maruti-suzuki {
+  width: 59px;
+  background-position: -1323px 0;
+}
+
+.maserati {
+  width: 66px;
+  background-position: -1388px 0;
+}
+
+.mercedes {
+  width: 28px;
+  background-position: -1459px 0;
+}
+
+.mini {
+  width: 69px;
+  background-position: -1492px 0;
+}
+
+.mitsubishi {
+  width: 34px;
+  background-position: -1566px 0;
+}
+
+.nissan {
+  width: 35px;
+  background-position: -1606px 0;
+}
+
+.porsche {
+  width: 25px;
+  background-position: -1646px 0;
+}
+
+.premier {
+  width: 47px;
+  background-position: -1676px 0;
+}
+
+.renault {
+  width: 26px;
+  background-position: -1727px 0;
+}
+
+.rolls-royce {
+  width: 19px;
+  background-position: -1757px 0;
+}
+
+.skoda {
+  width: 27px;
+  background-position: -1780px 0;
+}
+
+.ssangyong {
+  width: 54px;
+  background-position: -1811px 0;
+}
+
+.tata {
+  width: 44px;
+  background-position: -1869px 0;
+}
+
+.toyota {
+  width: 50px;
+  background-position: -1917px 0;
+}
+
+.volkswagen {
+  width: 31px;
+  background-position: -1970px 0;
+}
+
+.volvo {
+  width: 32px;
+  background-position: -2005px 0;
+}
+
+.dc {
+  width: 85px;
+  background-position: -2041px 0;
+}
+
+.jeep {
+  width: 58px;
+  background-position: -2135px 0;
+}
+
+.lexus {
+  width: 120px;
+  background-position: -2219px 0;
+}
+
+/* compare cars */
+.compare-cars-container {
+  background-color: #fff;
+}
+
+/* tools you may need */
+.tools-need-container ul li a {
+  display: table;
+  text-decoration: none;
+}
+
+.tools-need-container ul li a span.tools-need-logo {
+  display: table-cell;
+  vertical-align: top;
+  width: 92px;
+  height: 92px;
+  overflow: hidden;
+}
+
+.tools-need-container ul li a span.tools-need-desc {
+  display: table-cell;
+  color: #565a5c;
+  padding-left: 20px;
+}
+
+.tools-need-container ul li a span.tools-need-text {
+  display: block;
+  margin-top: 20px;
+}
+
+/* tools logo required */
+.cwm-circle-icon {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-circle-icon.png?v19012016) no-repeat;
+  display: inline-block;
+}
+
+.locatedealer-icon, .car-loan-icon, .car-insurance-icon,.userreview-icon, .getfinalprice-icon {
+  width: 92px;
+  height: 92px;
+}
+
+.car-loan-icon {
+  background-position: -1827px 0;
+}
+
+.car-insurance-icon {
+  background-position: -1930px 0;
+}
+
+.locatedealer-icon {
+  background-position: -102px 0;
+}
+
+.userreview-icon {
+  background-position: -204px 0;
+}
+
+.getfinalprice-icon {
+  background-position: 0 0;
+}
+
+.newcars-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/newcars-sprite.png) no-repeat;
+  display: inline-block;
+}
+
+.final-price-logo, .locate-dealer-logo, .user-review-logo {
+  width: 92px;
+  height: 92px;
+}
+
+.final-price-logo {
+  background-position: 0 -154px;
+}
+
+.locate-dealer-logo {
+  background-position: 0 -255px;
+}
+
+.user-review-logo {
+  background-position: 0 -356px;
+}
+
+.brand-type-container ul li {
+  height: 30px;
+}
+
+.brand-type-container ul li a {
+  color: #0288d1;
+}
+
+.brand-type-container li .brandlogosprite {
+  display: none;
+}

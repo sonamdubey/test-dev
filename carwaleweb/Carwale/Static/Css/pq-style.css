@@ -1,0 +1,3522 @@
+﻿#divPDData {
+  zoom: 1;
+}
+
+td.numeri-cell {
+  padding-right: 50px;
+  text-align: right;
+}
+
+/* Price Quote Sliders */
+.ui-slider {
+  position: relative;
+  text-align: left;
+  width: 100px;
+  float: left;
+  margin: 7px 0 0 20px;
+}
+
+.ui-slider .ui-slider-handle {
+  position: absolute;
+  z-index: 2;
+  width: 1.5em;
+  height: 1em;
+  cursor: default;
+}
+
+.ui-slider .ui-slider-range {
+  position: absolute;
+  z-index: 1;
+  font-size: .7em;
+  display: block;
+  border: 0;
+  background-position: 0 0;
+}
+
+.ui-slider-horizontal {
+  height: .2em;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/slider-bg.gif?static1fix) repeat-x;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+  top: -.3em;
+  margin-left: -.6em;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/slider-handle.gif?static1fix) no-repeat;
+  outline: none;
+}
+
+.ui-slider-horizontal .ui-slider-range {
+  top: 0;
+  height: 100%;
+}
+
+.ui-slider-horizontal .ui-slider-range-min {
+  left: 0;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/slider-blue.gif?static1fix) repeat-x;
+}
+
+.ui-slider-horizontal .ui-slider-range-max {
+  right: 0;
+}
+
+/* PQ Miscellaneous */
+.p-status {
+  background-color: #FFFF99;
+  padding: 4px;
+  font-weight: bold!important;
+}
+
+.vw_tag {
+  background-color: #E2E2E2;
+  padding: 5px 10px 6px 0;
+  width: 280px;
+  float: right;
+  margin-right: 10px;
+  text-align: center;
+  font-size: 11px;
+}
+
+#ncs {
+  float: left;
+  border: 1px solid #dadada;
+  background: #fff url(https://imgd.aeplcdn.com/0x0/cw/design15/bg.gif?static1fix) repeat-x left top;
+  line-height: 18px;
+  width: 100%;
+}
+
+.ncsLeftContainer {
+  width: 143px;
+  float: left;
+  border-right: 1px solid #DFDFDF;
+  margin: 10px 0;
+}
+
+.ncsRightContainer {
+  float: left;
+  width: 495px;
+}
+
+.note {
+  font-size: 10px;
+}
+
+.cursor {
+  cursor: pointer;
+}
+/* New PQ CSS starts here */
+
+/* Title */
+ul {
+  list-style-type: none;
+}
+
+h1.hd1 .orange {
+  color: #f88d1a;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Left Div */
+.price-quote-container {
+  width: 964px;
+}
+
+.leftfulldiv {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/design15/leftMid-2.png?static1fix);
+  background-repeat: repeat-y;
+  width: 373px;
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  height: 646px;
+}
+
+.top-tail {
+  position: relative;
+  left: 363px;
+  top: 8px;
+  _top: 15px;
+}
+
+.bottom-tail {
+  position: relative;
+  left: 363px;
+  top: -8px;
+  _top: -8px;
+}
+
+.active-pointer {
+  position: relative;
+  left: 363px;
+}
+
+.car-display-area {
+  margin: 0px 5px 5px;
+}
+
+.white-bg-block {
+  background-color: #FFF;
+  height: 165px;
+  padding-top: 5px;
+}
+
+.left-fix-div {
+  width: 363px;
+}
+
+.leftheader {
+  color: #000!important;
+  font-weight: normal;
+  font-size: 18px;
+}
+
+.left-offer-test {
+  padding: 0px;
+}
+
+.testi-top-spacing {
+  margin-top: -40px;
+}
+
+.img-placer {
+  width: 39px;
+}
+
+.text-placer {
+  width: 295px;
+  _width: 290px;
+}
+
+h5.smalltxt {
+  color: #000!important;
+  margin-left: 46px;
+  _margin-left: 56px;
+}
+
+.addbox-arrow {
+  margin-top: 55px;
+  color: #FFF;
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 2px #000;
+  -moz-text-shadow: 2px 2px 2px #000;
+  -webkit-text-shadow: 2px 2px 2px #000;
+  -o-text-shadow: 2px 2px 2px #000;
+  -ms-text-shadow: 2px 2px 2px #000;
+}
+
+/* Right Div */
+.rhtfulldiv {
+  width: 589px;
+  height: 640px;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  top: 16px;
+  left: -3px;
+  z-index: 0;
+}
+
+.yellowbtn {
+  font-size: 16px;
+  padding: 5px 10px!important;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+ /* For FF */
+  -webkit-border-radius: 5px;
+ /* For Safari and Chrome */
+  -o-border-radius: 5px;
+ /* For Opera */
+  -ms-border-radius: 5px;
+ /* For IE */;
+}
+
+.bluebtndiv {
+  width: 278px;
+  margin-left: 5px;
+}
+
+.bluebtn {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/design15/btn_blue.png?static1fix);
+  background-repeat: repeat-x;
+  line-height: 1;
+  border-left: 0px solid #0072bc;
+  border-top: 1px solid #16567c;
+  border-right: 1px solid #16567c;
+  border-bottom: 1px solid #16567c;
+  border-radius: 0px 5px 5px 0px;
+  -moz-border-radius: 0px 5px 5px 0px;
+ /* For FF */
+  -webkit-border-radius: 0px 5px 5px 0px;
+ /* For Safari and Chrome */
+  -o-border-radius: 0px 5px 5px 0px;
+ /* For Opera */
+  -ms-border-radius: 0px 5px 5px 0px;
+ /* For IE */
+  color: #FFFFFF !important;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
+  margin-top: 1px;
+  overflow: visible;
+  padding: 6px 8px 7px 0;
+  text-align: center;
+  text-decoration: none !important;
+  width: auto;
+  font-size: 14px;
+}
+
+.bluebtnleft {
+  width: 40px;
+  height: 28px;
+  border-left: 1px solid #16567c;
+  border-top: 1px solid #16567c;
+  border-bottom: 1px solid #16567c;
+  margin-top: 1px;
+  border-radius: 5px 0px 0px 5px;
+  -moz-border-radius: 5px 0px 0px 5px;
+ /* For FF */
+  -webkit-border-radius: 5px 0px 0px 5px;
+ /* For Safari and Chrome */
+  -o-border-radius: 5px 0px 0px 5px;
+ /* For Opera */
+  -ms-border-radius: 5px 0px 0px 5px;
+ /* For IE */;
+}
+
+.shadow-bottom {
+  margin-top: 16px;
+  _margin-top: 16px;
+}
+
+/* Common CSS */
+.blacktxt {
+  color: #000;
+}
+
+.greytxt {
+  color: #333333;
+}
+
+.lightgray {
+  color: #666666;
+}
+
+.font12 {
+  font-size: 12px;
+}
+
+.normal {
+  font-weight: normal;
+}
+
+.whiteborder {
+  border-top: 1px solid #FFFFFF;
+  height: 1px;
+}
+
+.leftfloat {
+  float: left;
+}
+
+.rightfloat {
+  float: right;
+}
+
+.content-block10 {
+  margin: 10px;
+}
+
+.content-block15 {
+  margin: 15px;
+}
+
+.content-block5 {
+  margin: 5px;
+}
+
+.margin-top15 {
+  margin-top: 15px;
+}
+
+.marginleft10 {
+  margin-left: 10px;
+}
+
+.marginleft15 {
+  margin-left: 15px;
+}
+
+.marginleft20 {
+  margin-left: 20px;
+}
+
+.marginright10 {
+  margin-right: 10px;
+}
+
+.marginbottom10 {
+  margin-bottom: 10px;
+}
+
+.marginbottom20 {
+  margin-bottom: 20px;
+}
+
+.center-align {
+  text-align: center;
+}
+
+.width100 {
+  width: 100px;
+}
+
+.textcolor {
+  color: #333333;
+}
+
+.spnColor {
+  color: #ce0001;
+}
+
+.smsMsg {
+  background-color: #FFCCCC;
+  padding: 4px;
+  line-height: 40px;
+  font-weight: bold;
+  border: 1px solid #EBEBEB;
+  color: #000000;
+}
+
+.loading {
+  position: absolute;
+  margin: -28px 195px;
+}
+
+.loader {
+  position: absolute;
+  margin: -38px 236px;
+}
+
+.imgloader {
+  position: absolute;
+  margin: 14px 4px;
+}
+
+.border {
+  border: 3px solid #dfdfdf;
+  margin: 5px;
+}
+
+.padding-left85 {
+  padding-left: 85px;
+}
+/* Price Quote sprite css */
+.price-quote-all-imgs {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/price-quote-sprite.png?static1fix) no-repeat;
+  display: inline-block;
+}
+
+.btm-white-shadow {
+  background-position: 0 0;
+  width: 145px;
+  height: 10px;
+}
+
+.active-pointer-tsmonial {
+  background-position: 0 -15px;
+  width: 23px;
+  height: 44px;
+}
+
+.right-blue-icon {
+  background-position: 0 -64px;
+  width: 36px;
+  height: 27px;
+}
+
+.sponsored-blue-arrow {
+  background-position: 0 -96px;
+  width: 190px;
+  height: 42px;
+}
+
+.top-right-tail {
+  background-position: 0 -152px;
+  width: 8px;
+  height: 9px;
+}
+
+.btm-right-tail {
+  background-position: 0 -142px;
+  width: 8px;
+  height: 9px;
+}
+
+.left-mid-part {
+  background-position: 0 -166px;
+  background-repeat: repeat-y;
+  width: 373px;
+}
+
+.btn-blue-bg {
+  background-position: 0 -182px;
+  background-repeat: repeat-y;
+  height: 30px;
+}
+
+.btn-yellow-bg {
+  background-position: 0 -215px;
+  background-repeat: repeat-y;
+  height: 32px;
+}
+
+.disc-icon {
+  background-position: 0 -247px;
+  width: 35px;
+  height: 39px;
+  display: block;
+}
+
+.test-drive-icon {
+  background-position: 0 -286px;
+  width: 35px;
+  height: 40px;
+  display: block;
+}
+
+.expert-icon {
+  background-position: 0 -326px;
+  width: 35px;
+  height: 40px;
+  display: block;
+}
+
+.testimonial-icon {
+  background-position: 0 -366px;
+  width: 35px;
+  height: 41px;
+  display: block;
+}
+
+.mobile-verification {
+  width: 220px;
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+.carLoan {
+  background-color: #fbf9d7;
+  border: 1px solid #DFDFDF;
+  margin-top: 5px;
+  margin-bottom: 8px;
+}
+
+.lrg-call-icon {
+  background-position: 0 -508px;
+  width: 23px;
+  height: 22px;
+  display: block;
+}
+
+.circle-call-icon {
+  background-position: -53px -577px;
+  width: 19px;
+  height: 19px;
+  position: relative;
+  top: 2px;
+  *top: -3px;
+  margin-right: 5px;
+}
+
+.pq-pointer {
+  background-position: 0 -475px;
+  width: 16px;
+  height: 23px;
+  display: block;
+  float: left;
+  position: absolute;
+  left: -1px;
+  top: 95px;
+}
+
+.close-btn.fa-close {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  font-size: 12px;
+  color: #999;
+}
+
+.close-btn.fa-close:hover {
+  color: #F83F35;
+}
+
+.dwnArrow {
+  background-position: -166px -751px;
+  float: right;
+  height: 16px;
+  margin-left: 10px;
+  width: 11px;
+}
+
+.addCarIcon {
+  background-position: 0 -579px;
+  width: 43px;
+  height: 39px;
+}
+
+.dealer-sprite {
+  background: url("https://img2.aeplcdn.com/dealer/dealer-sprite.png?v1=04032016") no-repeat;
+  display: inline-block;
+}
+
+.dealer-checked-btn {
+  background-position: 0 0;
+  width: 14px;
+  height: 14px;
+}
+
+.dealer-unchecked-btn {
+  background-position: -25px 0;
+  width: 14px;
+  height: 14px;
+}
+
+.dealer-call-icon-red {
+  background-position: -50px 0;
+  width: 21px;
+  height: 23px;
+}
+
+.dealer-validation-icon {
+  background-position: -80px 0;
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+}
+
+.dealer-left-arrow {
+  background-position: 0 -28px;
+  width: 10px;
+  height: 16px;
+}
+
+.dealer-right-arrow {
+  background-position: -20px -28px;
+  width: 10px;
+  height: 16px;
+}
+
+.dealer-user-icon, .dealer-email-icon-lg {
+  position: absolute;
+  right: 11px;
+}
+
+.dealer-user-icon {
+  background-position: -40px -28px;
+  width: 24px;
+  height: 22px;
+  top: 10px;
+}
+
+.dealer-email-icon-lg {
+  background-position: -77px -31px;
+  width: 17px;
+  height: 12px;
+  top: 14px;
+}
+
+.dealer-camera-pic {
+  background-position: 0 -59px;
+  width: 16px;
+  height: 13px;
+}
+
+.dealer-search {
+  background-position: -27px -57px;
+  width: 10px;
+  height: 15px;
+  position: relative;
+  top: -2px;
+}
+
+.dealer-clock-pic {
+  background-position: -48px -58px;
+  width: 15px;
+  height: 16px;
+}
+
+.dealer-get-direction-pic {
+  background-position: -73px -57px;
+  width: 12px;
+  height: 12px;
+}
+
+.dealer-email-icon-sm {
+  background-position: 0 -78px;
+  width: 15px;
+  height: 15px;
+}
+
+.dealer-buying-assistance-pic {
+  background-position: -25px -81px;
+  width: 16px;
+  height: 12px;
+}
+
+.dealer-call-icon-grey {
+  background-position: -51px -81px;
+  width: 10px;
+  height: 12px;
+}
+
+.dealer-call-icon-small {
+  background-position: -51px -81px;
+  width: 10px;
+  height: 12px;
+  position: absolute;
+  right: 12px;
+  top: 13px;
+}
+
+.popup-close-btn {
+  background-position: -71px -82px;
+  cursor: pointer;
+  height: 15px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 15px;
+}
+
+.popup-close-btn:hover {
+  background-position: -96px -82px;
+}
+
+.select-services {
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.select-services li, .select-services li.checked {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/inputUnchecked.png?static1fix") no-repeat  0 1px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 18px;
+  padding: 0 0 2px 25px;
+}
+
+.select-services li.checked {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/inputchecked.png?static1fix") no-repeat  0 1px;
+}
+
+
+
+
+/* Quotation new classes */
+.quotation-box {
+  border-top: 1px solid #E2E2E2;
+  margin-top: -1px;
+}
+
+.quotation-tabs {
+  box-sizing: border-box;
+  margin-bottom: -1px;
+  border: 1px solid #E2E2E2;
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/tab-bg.jpg?static1fix") repeat-x bottom left #fff;
+}
+
+.quotation-tabs li {
+  position: relative;
+  border-top: 3px solid transparent;
+  cursor: pointer;
+  border-right: 1px solid #E2E2E2;
+  padding: 10px;
+  text-align: center;
+  float: left;
+  display: block;
+  width: 218.5px;
+  height: 78px;
+  background: none;
+}
+
+.quotation-tabs li.quo-active {
+  cursor: default;
+  border-bottom: 4px solid #F83F35;
+  margin-bottom: -1px;
+  padding-bottom: 11px;
+}
+
+.quotation-tabs li.quo-active .car-city-details {
+  width: 94%;
+}
+
+.quotation-tabs li.quo-active .car-name {
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 15px;
+  width: 96%;
+}
+
+.quotation-tabs li span.car-name {
+  color: #666;
+  font-weight: normal;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quotation-tabs li span.pq-car-data {
+  width: inherit;
+  display: inline-block;
+}
+
+.quotation-tabs li h4 {
+  font-size: 14px;
+  font-weight: normal;
+  height: 35px;
+  margin-bottom: 5px;
+  overflow: hidden;
+}
+
+.quotation-tabs li.sponsored {
+  border-left: 0px;
+}
+
+.quotation-cars {
+  padding: 0 10px 10px;
+}
+
+.quo-car-place {
+  width: 220px;
+  float: left;
+}
+
+.quo-car-place img {
+  width: 100%;
+}
+
+.price-place {
+  float: left;
+  font-size: 15px;
+}
+
+.tabs {
+  border-top: 0px none;
+}
+
+.stNext {
+  right: -47px;
+}
+
+
+/* some new classes for pq tab re-design */
+.quotation-tabs li .pq-car-thumb {
+  float: left;
+  width: 100px;
+  overflow: hidden;
+}
+
+.quotation-tabs li .pq-car-thumb img {
+  width: 85px;
+}
+
+.quotation-tabs li .pq-car-data {
+  width: 150px;
+  text-align: center;
+  position: relative;
+}
+
+.quotation-tabs li .pq-car-data .spd-box {
+  position: absolute;
+  bottom: -24px;
+  left: -100px;
+  font-size: 10px;
+}
+
+.quotation-tabs li .pq-car-data.active {
+  width: 220px;
+}
+
+.quotation-tabs li .pq-car-data.active h4 {
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.sponsored-text {
+  position: absolute;
+  top: 1px;
+  right: 19px;
+  font-size: 9px;
+  color: #999;
+}
+
+.inner td:first-child {
+  padding-left: 50px;
+}
+
+.excol {
+  width: 20px;
+  height: 16px;
+  float: left;
+  cursor: pointer;
+}
+
+.excol-ex {
+  background-position: -166px -585px;
+}
+
+.excol-col {
+  background-position: -166px -620px;
+}
+
+.trcat td:first-child {
+  padding-left: 30px;
+}
+
+.full-box {
+  margin-bottom: 14px!important;
+  background-color: #FFF;
+}
+
+.ul-disclaimer {
+  font-size: 12px;
+  list-style: none;
+}
+
+.ul-disclaimer li {
+  background-position: 0px 7px;
+  padding: 2px 0 2px 7px;
+}
+
+.imgloading-pricequote {
+  position: absolute;
+  margin: -1px 246px;
+}
+
+.div1 {
+  width: 982px!important;
+}
+
+.tbl-border {
+  border: 1px solid #e2e2e2;
+}
+
+.pq-data-highlight {
+  width: 660px;
+  float: left;
+  margin: 10px 0px 0;
+}
+
+.pq-data-highlight-call {
+  position: relative;
+  float: right;
+  width: 290px;
+  min-height: 210px;
+  margin: 10px 10px 10px 0px;
+  text-align: center;
+  padding: 10px 10px 10px 20px;
+  border: 1px solid #e2e2e2;
+  border-radius: 5px;
+}
+
+.pq-data-highlight-call.sds-box {
+  background: #f4e3c8;
+}
+
+.lrg-calling-area {
+  position: relative;
+  margin: 25px 0 30px 0;
+  text-align: center;
+}
+
+.calling-bg {
+  float: left;
+  margin: 6px 8px 0 30px;
+}
+
+.calling-num {
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.person-name {
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.static-links {
+  text-align: left;
+  margin-left: 20px;
+}
+
+.static-links ul {
+  margin-left: 15px;
+  color: #034FB6;
+}
+
+.static-links li {
+  list-style: disc;
+  margin-bottom: 10px;
+}
+
+.pq-data-highlight-call.cross-cell-slug {
+  padding: 0;
+}
+
+.pq-data-highlight-call.cross-cell-slug .slug-car-place .car-img-wrap {
+  height: auto;
+  display: inline-block;
+  max-width: 100px;
+  padding-left: 20px;
+}
+
+.pq-data-highlight-call.cross-cell-slug .slug-car-place .car-img-wrap img {
+  max-width: 100%;
+  height: auto;
+}
+
+.pq-data-highlight-call.cross-cell-slug .slug-car-place img {
+  height: 100%;
+  width: auto;
+}
+
+.pq-data-highlight-call.cross-cell-slug .circle-call-icon {
+  right: 8px;
+  top: 3px;
+  margin-right: 0;
+}
+
+.rounded-corner-no-bottom5 {
+  -moz-border-radius: 5px 5px 0 0;
+  -webkit-border-radius: 5px 5px 0 0;
+  -o-border-radius: 5px 5px 0 0;
+  -ms-border-radius: 5px 5px 0 0;
+  border-radius: 5px 5px 0 0;
+}
+
+.cross-sell-car-detail {
+  width: 61%;
+  text-align: left;
+}
+
+/* override classes */
+.tblDefault td.no-border {
+  border-bottom: 0px;
+}
+
+.tblDefault td.no-padding {
+  padding: 0px;
+}
+
+.margin-right3 {
+  margin-right: 3px!important;
+}
+
+.tblDefault td {
+  border-bottom: 0;
+  padding: 8px 8px 14px;
+}
+
+/* Css for UsedCarRecommendationWidget Carousel*/
+#usedCarWidget {
+  overflow: hidden!important;
+}
+
+.list_carousel_widget {
+  width: 296px;
+}
+
+.list_carousel_widget ul {
+  list-style: none;
+  display: block;
+}
+
+.list_carousel_widget li {
+  width: 296px;
+  background-color: #FFF;
+  padding: 0px;
+  margin-right: 12px;
+  display: block;
+  overflow: hidden!important;
+  float: left!important;
+  text-align: left;
+}
+
+.list_carousel li img {
+  border: 1px solid #e2e2e2;
+  width: 296px;
+}
+
+.jcarousel-container-horizontal {
+  width: 285px;
+}
+
+.jcarousel-clip {
+  overflow: hidden;
+}
+
+.jcarousel-clip-horizontal, .jcarousel-clip-vertical {
+  width: 296px;
+  height: auto;
+}
+
+#prev_next a.prev, #prev_next a.next {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-sprite_v1.3.png?static1fix) no-repeat transparent;
+  width: 11px!important;
+  height: 19px;
+  display: block;
+  position: relative;
+}
+
+#prev_next a.prev {
+  background-position: -21px -272px;
+  float: left;
+}
+
+#prev_next a.prev:hover {
+  background-position: -21px -301px;
+}
+
+#prev_next a.prev.disabled {
+  background-position: -21px -330px !important;
+}
+
+#prev_next a.next {
+  background-position: 0 -272px;
+  width: 11px!important;
+  float: right;
+}
+
+#prev_next a.next:hover {
+  background-position: 0px -301px;
+}
+
+#prev_next a.next.disabled, #prev_next a.next.disabled {
+  background-position: 0px -330px !important;
+}
+
+#prev_next a.prev.disabled, #prev_next a.next.disabled, 
+#prev_next a.prev.disabled,
+#prev_next a.next.disabled {
+  cursor: default;
+}
+
+.arrow-position {
+  margin-top: -29px;
+  width: 30px;
+  margin-right: 10px;
+}
+
+.usedcarimgheight {
+  height: 200px;
+  overflow: hidden;
+}
+
+.version-box {
+  position: relative;
+}
+
+.vName {
+  cursor: pointer;
+  outline: 0 none;
+  text-align: right;
+}
+
+.selVersions {
+  float: left;
+  overflow: visible;
+  width: 100px;
+  position: absolute;
+  right: 0px;
+  top: 20px;
+  z-index: 999;
+}
+
+.ulSelect {
+  border: 1px solid #E8E8E8;
+  position: relative;
+  height: 100px;
+  overflow: auto;
+  display: none;
+  z-index: 9999;
+}
+
+.ulSelect li {
+  background-color: #FFFFFF;
+  cursor: pointer;
+  padding: 2px 5px;
+}
+
+.ulSelect li:hover {
+  background-color: #efefef;
+}
+/* For custom select box */
+span.customSelect {
+  font-size: 13px;
+  color: #333;
+  padding: 5px 0px;
+  text-align: left;
+  width: 135px !important;
+}
+
+.customSelectInner {
+  width: 135px !important;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-sprite_v1.3.png?static1fix) -48px -586px no-repeat;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #ccc;
+}
+
+/* for select box initially hide on load */
+/*select#drpPqCity, select#drpPqVersion { border:0px !important; opacity:0; }*/
+#drpPqVersion_chosen.chosen-container, #drpPqDealer_chosen.chosen-container, #drpDealer_chosen.chosen-container {
+  text-align: left;
+  border: 1px solid #E2E2E2;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+}
+
+#drpPqDealer_chosen.chosen-container, #drpDealer_chosen.chosen-container {
+  background: #fff;
+  border: 1px solid #c9c9c9;
+  padding: 7px 5px;
+  text-align: left;
+  width: 320px !important;
+}
+
+#drpPqDealer_chosen a.chosen-single, #drpDealer_chosen a.chosen-single {
+  text-align: left;
+  padding-left: 0px;
+}
+
+#drpDealer_chosen.chosen-container {
+  margin-bottom: 10px;
+}
+
+/* @group Base */
+.chosen-container {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 13px;
+  zoom: 1;
+  *display: inline;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.chosen-container .chosen-drop {
+  position: absolute;
+  top: 100%;
+  left: -9999px;
+  z-index: 1010;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #aaa;
+  border-top: 0;
+  background: #fff;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+}
+
+.chosen-container.chosen-with-drop .chosen-drop {
+  left: 0;
+}
+
+.chosen-container a {
+  cursor: pointer;
+}
+
+/* @end */
+/* @group Single Chosen */
+.chosen-container-single .chosen-single {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 0 0 0 8px;
+  height: 23px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  color: #444;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 24px;
+  text-align: right;
+  padding-right: 30px;
+}
+
+#drpPqVersion_chosen .chosen-single {
+  text-align: left;
+}
+
+.chosen-container-single .chosen-default {
+  color: #999;
+}
+
+.chosen-container-single .chosen-single span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chosen-container-single .chosen-single-with-deselect span {
+  margin-right: 38px;
+}
+
+.chosen-container-single .chosen-single abbr {
+  position: absolute;
+  top: 6px;
+  right: 26px;
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-sprite_v1.3.png?static1fix) -48px -586px no-repeat;
+  font-size: 1px;
+}
+
+.chosen-container-single .chosen-single abbr:hover {
+  background-position: -42px -10px;
+}
+
+.chosen-container-single.chosen-disabled .chosen-single abbr:hover {
+  background-position: -42px -10px;
+}
+
+.chosen-container-single .chosen-single div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: 18px;
+  height: 100%;
+}
+
+.chosen-container-single .chosen-single div b {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-sprite_v1.3.png?static1fix) -166px -747px no-repeat;
+}
+
+.chosen-container-single .chosen-search {
+  position: relative;
+  z-index: 1010;
+  margin: 0;
+  padding: 3px 4px;
+  white-space: nowrap;
+}
+
+.chosen-container-single .chosen-search input[type="text"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 1px 0;
+  padding: 4px 20px 4px 5px;
+  width: 100%;
+  height: auto;
+  outline: 0;
+  border: 1px solid #aaa;
+  /*background: white url('/images/chosen-sprite.png') no-repeat 100% -20px;
+  background: url('/images/chosen-sprite.png') no-repeat 100% -20px;*/
+  font-size: 1em;
+  font-family: sans-serif;
+  line-height: normal;
+  border-radius: 0;
+}
+
+.chosen-container-single .chosen-drop {
+  margin-top: -1px;
+  border-radius: 0 0 4px 4px;
+  background-clip: padding-box;
+}
+
+.chosen-container-single.chosen-container-single-nosearch .chosen-search {
+  position: absolute;
+  left: -9999px;
+}
+
+/* @end */
+/* @group Results */
+.chosen-container .chosen-results {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0 4px 4px 0;
+  padding: 0 0 0 4px;
+  max-height: 240px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dealer-box .chosen-container .chosen-results {
+  max-height: 120px;
+}
+
+.chosen-container .chosen-results li {
+  display: none;
+  margin: 0;
+  padding: 5px 6px;
+  list-style: none;
+  line-height: 15px;
+  -webkit-touch-callout: none;
+}
+
+.chosen-container .chosen-results li.active-result {
+  display: list-item;
+  cursor: pointer;
+}
+
+.chosen-container .chosen-results li.disabled-result {
+  display: list-item;
+  color: #ccc;
+  cursor: default;
+}
+
+.chosen-container .chosen-results li.highlighted {
+  background-color: #3875d7;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #3875d7), color-stop(90%, #2a62bc));
+  background-image: -webkit-linear-gradient(#3875d7 20%, #2a62bc 90%);
+  background-image: -moz-linear-gradient(#3875d7 20%, #2a62bc 90%);
+  background-image: -o-linear-gradient(#3875d7 20%, #2a62bc 90%);
+  background-image: linear-gradient(#3875d7 20%, #2a62bc 90%);
+  color: #fff;
+}
+
+.chosen-container .chosen-results li.no-results {
+  display: list-item;
+  background: #f4f4f4;
+}
+
+.chosen-container .chosen-results li.group-result {
+  display: list-item;
+  font-weight: bold;
+  cursor: default;
+}
+
+.chosen-container .chosen-results li.group-option {
+  padding-left: 15px;
+}
+
+.chosen-container .chosen-results li em {
+  font-style: normal;
+  text-decoration: underline;
+}
+
+/* @end */
+
+/* @end */
+/* @group Active  */
+.chosen-container-active .chosen-single {
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single {
+  border: 1px solid #aaa;
+  -moz-border-radius-bottomright: 0;
+  border-bottom-right-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  border-bottom-left-radius: 0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #eeeeee), color-stop(80%, #ffffff));
+  background-image: -webkit-linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: -moz-linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: -o-linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);
+  box-shadow: 0 1px 0 #fff inset;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single div {
+  border-left: none;
+  background: transparent;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single div b {
+  background-position: -18px 2px;
+}
+
+.chosen-container-active .chosen-choices {
+  border: 1px solid #5897fb;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.chosen-container-active .chosen-choices li.search-field input[type="text"] {
+  color: #111 !important;
+}
+
+/* @end */
+/* @group Disabled Support */
+.chosen-disabled {
+  opacity: 0.5 !important;
+  cursor: default;
+}
+
+.chosen-disabled .chosen-single {
+  cursor: default;
+}
+
+.chosen-disabled .chosen-choices .search-choice .search-choice-close {
+  cursor: default;
+}
+
+/* @end */
+/* @group Right to Left */
+.chosen-rtl {
+  text-align: right;
+}
+
+.chosen-rtl .chosen-single {
+  overflow: visible;
+  padding: 0 8px 0 0;
+}
+
+.chosen-rtl .chosen-single span {
+  margin-right: 0;
+  margin-left: 26px;
+  direction: rtl;
+}
+
+.chosen-rtl .chosen-single-with-deselect span {
+  margin-left: 38px;
+}
+
+.chosen-rtl .chosen-single div {
+  right: auto;
+  left: 3px;
+}
+
+.chosen-rtl .chosen-single abbr {
+  right: auto;
+  left: 26px;
+}
+
+.chosen-rtl .chosen-choices li {
+  float: right;
+}
+
+.chosen-rtl .chosen-choices li.search-field input[type="text"] {
+  direction: rtl;
+}
+
+.chosen-rtl .chosen-choices li.search-choice {
+  margin: 3px 5px 3px 0;
+  padding: 3px 5px 3px 19px;
+}
+
+.chosen-rtl .chosen-choices li.search-choice .search-choice-close {
+  right: auto;
+  left: 4px;
+}
+
+.chosen-rtl.chosen-container-single-nosearch .chosen-search,
+.chosen-rtl .chosen-drop {
+  left: 9999px;
+}
+
+.chosen-rtl.chosen-container-single .chosen-results {
+  margin: 0 0 4px 4px;
+  padding: 0 4px 0 0;
+}
+
+.chosen-rtl .chosen-results li.group-option {
+  padding-right: 15px;
+  padding-left: 0;
+}
+
+.chosen-rtl.chosen-container-active.chosen-with-drop .chosen-single div {
+  border-right: none;
+}
+
+.chosen-rtl .chosen-search input[type="text"] {
+  padding: 4px 5px 4px 20px;
+  /*background: white url('/images/chosen-sprite.png') no-repeat -30px -20px;
+  background: url('/images/chosen-sprite.png') no-repeat -30px -20px;*/
+  direction: rtl;
+}
+
+.chosen-rtl.chosen-container-single .chosen-single div b {
+  background-position: 6px 2px;
+}
+
+.chosen-rtl.chosen-container-single.chosen-with-drop .chosen-single div b {
+  background-position: -12px 2px;
+}
+
+/* @end */
+/* @group Retina compatibility */
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi) {
+  .chosen-rtl .chosen-search input[type="text"],
+  .chosen-container-single .chosen-single abbr,
+  .chosen-container-single .chosen-single div b,
+  .chosen-container-single .chosen-search input[type="text"],
+  .chosen-container-multi .chosen-choices .search-choice .search-choice-close,
+  .chosen-container .chosen-results-scroll-down span,
+  .chosen-container .chosen-results-scroll-up span {
+    background-image: url('/images/chosen-sprite@2x.png') !important;
+    background-size: 52px 37px !important;
+    background-repeat: no-repeat !important;
+  }
+}
+/* @end */
+
+/* Loading box */
+#cw-loading-box {
+  position: relative;
+}
+
+.loading-popup {
+  background: transparent;
+  width: 90px;
+  padding: 20px;
+  border-radius: 5px;
+  position: absolute;
+  top: 40%;
+  left: 45%;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  margin: 0 auto;
+}
+
+.loading-icon {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/cw-loader.gif?static1fix) no-repeat;
+  width: 90px;
+  height: 61px;
+  display: block;
+  float: left;
+}
+
+.blackOut-window, .defaultAlert-window {
+  background: #000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: .8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+}
+
+.defaultAlert, .defaultAlertCustomerInfo, .without-bg {
+  width: 450px;
+  min-height: 250px;
+  position: fixed;
+  top: 10%;
+  left: 33%;
+  z-index: 99999;
+}
+
+.defaultAlertContent {
+  padding: 30px;
+  background: #FFF;
+}
+
+.defaultAlertBtn {
+  background: #f2f2f2;
+  padding: 15px 15px 10px 15px;
+  text-align: right;
+}
+
+.defaultAlertBtn input[type="button"] {
+  padding: 5px 20px;
+}
+
+.defaultAlertCustomerInfo, .without-bg {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/pq-pop-bg-new2.jpg?static1fix) no-repeat top center;
+  width: 966px;
+  height: 592px;
+  top: 50%;
+  left: 50%;
+  margin-left: -487px;
+  margin-top: -300px;
+  border: 4px solid #fff;
+  border-radius: 5px;
+}
+
+.without-bg {
+  background: #0d435f url("https://imgd.aeplcdn.com/0x0/cw/design15/pattern.png?static1fix");
+}
+
+.defaultAlertCustomerInfoContent {
+  padding: 10px;
+  text-align: center;
+}
+
+.defaultAlertCustomerInfoContent h2 {
+  color: #fff !important;
+  font-size: 40px;
+  font-weight: normal;
+}
+
+.defaultAlertCustomerInfoContent table.tbl_pq_widget {
+  margin: 0 auto;
+}
+
+.defaultAlertCustomerInfoContent table.tbl_pq_widget td input[type="text"],
+.defaultAlertCustomerInfoContent table.tbl_pq_widget td select {
+  margin-bottom: 15px;
+  width: 322px;
+  padding: 11px 5px;
+  color: #333;
+  font-size: 13px;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  box-shadow: 0 0 3px #dcdcdc inset;
+  -moz-box-shadow: 0 0 3px #dcdcdc inset;
+  -webkit-box-shadow: 0 0 3px #dcdcdc inset;
+  -o-box-shadow: 0 0 3px #dcdcdc inset;
+  -ms-box-shadow: 0 0 3px #dcdcdc inset;
+}
+
+.defaultAlertCustomerInfoContent table.tbl_pq_widget td select {
+  width: 333px;
+} /*color:#999;*/
+.defaultAlertCustomerInfoContent table.tbl_pq_widget td input[type="text"]:focus,
+.defaultAlertCustomerInfoContent table.tbl_pq_widget td input[type="text"]:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #aaa;
+}
+
+#btnDealerSave, #okDefault {
+  padding: 8px 0px;
+  background: #eb8e0c;
+  width: 332px;
+  text-align: center;
+  font-weight: normal;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+#btnDealerSave:focus, #okDefault:focus {
+  background: #d47f07;
+}
+
+#okDefault {
+  width: 200px;
+  margin-top: 30px;
+}
+
+.line-height-min {
+  margin-top: 5px;
+}
+
+.line-height-min, .line-height-min a {
+  line-height: 1.5;
+  color: #fff;
+  font-size: 12px;
+}
+
+input[type="checkbox"]#userAgreement {
+  position: relative;
+  top: 2px;
+  *top: 1px;
+}
+
+input[type="button"]#btnDealerOffer {
+  width: 210px;
+}
+
+.pq-four-box {
+  text-align: center;
+  margin: 20px 0px 15px 0px;
+  line-height: 1.3;
+  *margin-left: 200px;
+}
+
+.pq-four-box li {
+  width: 115px;
+  text-align: center;
+  display: inline-block;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 12px;
+  *float: left;
+}
+
+.pq-white-box {
+  background: #FFF;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 15px auto;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+}
+
+.error-pq-txt {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+/* pop up sprite classes */
+/* below code for preload of pq-pop-sprite-preload starts here */
+.pq-pop-sprite-preload {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/pq-pop-sprite.png?static1fix) no-repeat;
+  display: none;
+}
+/* below code for preload of pq-pop-sprite-preload ends here */
+
+.pq-pop-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/pq-pop-sprite.png?static1fix) no-repeat;
+  display: inline-block;
+}
+
+.close-btn-new {
+  background-position: 0 0;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+}
+
+.close-btn-new:hover {
+  background-position: -30px 0;
+}
+
+.pq-test-drive-icon {
+  background-position: 0 -30px;
+  width: 45px;
+  height: 45px;
+  margin-top: 18px;
+}
+
+.pq-rupee-emi-icon {
+  background-position: 0 -85px;
+  width: 27px;
+  height: 40px;
+  margin-top: 22px;
+}
+
+.pq-discount-icon {
+  background-position: 0 -135px;
+  width: 35px;
+  height: 36px;
+  margin-top: 21px;
+}
+
+.pq-exc-offer-icon {
+  background-position: 0 -181px;
+  width: 47px;
+  height: 36px;
+  margin-top: 24px;
+}
+
+.car-data {
+  margin-top: 15px;
+}
+
+.car-data-new {
+  margin-top: 0 !important;
+}
+
+span.detailed-version-quote {
+  color: #034FB6;
+  cursor: pointer;
+}
+
+span.detailed-version-quote:hover {
+  color: #333;
+  text-decoration: underline;
+}
+
+/* new classes for Zone base tabbing*/
+.zone-tabs {
+  display: block;
+  float: left;
+  margin-left: 8px;
+}
+
+.zone-tabs ul {
+  display: block;
+  float: left;
+}
+
+.zone-tabs li {
+  font-size: 12px;
+  cursor: pointer;
+  display: block;
+  float: left;
+  color: #034fb6;
+  margin: 10px 10px 0 0;
+  border-left: 1px solid #034fb6;
+  line-height: 1;
+  padding-left: 10px;
+}
+
+.zone-tabs li:first-child {
+  border-left: 0px;
+  padding-left: 0px;
+}
+
+.zone-tabs li.active {
+  font-weight: bold;
+  cursor: default;
+  color: #0b3874;
+}
+
+.question-box {
+  float: left;
+  margin-top: 8px;
+}
+
+.question-box p {
+  font-size: 12px;
+}
+
+.question-icon {
+  background-position: -127px -604px;
+  width: 14px;
+  height: 14px;
+}
+
+/* added new classes for new design of pq slot */
+.new-highlight-points, .sponsored-dealer-slot {
+  text-align: left;
+  margin-top: 4px;
+}
+
+.new-highlight-points h2, .sponsored-dealer-slot h2 {
+  color: #333 !important;
+  margin-bottom: 10px;
+}
+
+.new-highlight-points li, .sponsored-dealer-slot li {
+  display: block;
+  margin: 5px 0 8px 0;
+}
+/*logos form make start*/
+.sds-ashokleyland-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-ashokleyland-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-astonmartin-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-astonmartin-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-audi-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-audi-logo-new.png?201606171609585767) no-repeat 92% bottom;
+}
+
+.sds-bentley-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-bentley-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-bmw-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-bmw-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-bugatti-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-bugatti-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-caterham-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-caterham-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-chevrolet-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-chevrolet-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-dastsun-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-dastsun-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-ferrari-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-ferrari-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-fiat-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-fiat-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-force-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-force-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-ford-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-ford-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-honda-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-honda-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-hyundai-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-hyundai-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-icml-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-icml-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-isuzu-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-isuzu-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-jaguar-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-jaguar-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-lamborghini-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-lamborghini-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-landrover-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-landrover-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-mahindra-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-mahindra-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-marutisuzuki-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-marutisuzuki-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-maserati-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-maserati-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-mercedes-benz-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-mercedes-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-mini-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-mini-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-mitsubishi-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-mitsubishi-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-nissan-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-nissan-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-porsche-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-porsche-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-premier-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-premier-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-renault-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-renault-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-rexton-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-rexton-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-rolls-royce-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-rollsroyce-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-skoda-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-skoda-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-ssangyong-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-ssangyong-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-tata-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-tata-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-toyota-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-toyota-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-volkswagen-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-volkswagen-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sds-volvo-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-volvo-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+#capital {
+  text-transform: capitalize;
+}
+/*logos form make end*/
+/* additional sprite classes */
+.door-icon, .door-step-icon, .offer-discount-icon, .drive-home-icon {
+  width: 14px;
+  height: 20px;
+  position: relative;
+  top: 8px;
+  *top: 4px;
+  margin-right: 4px;
+}
+
+.door-icon {
+  background-position: -149px -605px;
+}
+
+.door-step-icon {
+  background-position: -170px -605px;
+}
+
+.offer-discount-icon {
+  background-position: -191px -604px;
+}
+
+.drive-home-icon {
+  background-position: -213px -605px;
+}
+
+.call-icon-new {
+  background-position: -237px -605px;
+  width: 15px;
+  height: 14px;
+}
+
+.pq-tick-icon {
+  background-position: -262px -605px;
+  width: 11px;
+  height: 10px;
+  margin-right: 10px;
+}
+
+.thanks-text h3 {
+  font-size: 50px;
+  margin-top: 150px;
+  margin-bottom: 20px;
+  color: #fff !important;
+}
+
+.thanks-text p {
+  color: #fff;
+  font-size: 20px;
+  font-weight: normal;
+}
+/*input[type="text"]#custMobile { padding:11px 5px 11px 35px; width:292px; }*/
+.plusNum {
+  position: relative;
+  margin-right: -32px;
+  margin-left: 8px;
+  color: #333;
+  z-index: 999;
+  *top: -26px;
+  *zoom: 1;
+}
+
+::-webkit-input-placeholder {
+  color: #333;
+}
+
+:-moz-placeholder {
+  color: #333;
+}
+
+::-moz-placeholder {
+  color: #333;
+}
+
+:-ms-input-placeholder {
+  color: #333;
+}
+
+/*--From page--*/
+.sc-ver {
+  width: 100%;
+}
+
+.sc-ver .lt {
+  width: 49%;
+  float: left;
+  padding: 8px 2px;
+}
+
+.sc-ver .lt img {
+  float: left;
+  border: 1px solid #E1E1E1;
+  padding: 10px 5px;
+  margin-right: 10px;
+  background-color: #ffffff;
+}
+
+.sc-hor {
+  width: 100%;
+}
+
+.sc-hor .lt {
+  width: 158px;
+  float: left;
+  padding: 8px 0px;
+}
+
+.sc-hor .lt img {
+  float: left;
+  border: 1px solid #E1E1E1;
+  padding: 5px;
+  margin-right: 46px;
+  background-color: #ffffff;
+}
+
+.featuredSim {
+  background-color: #FBF5B2;
+}
+
+/* dealer locator new classes - Ulka */
+.dlp-panel-group {
+  border: 1px solid #e2e2e2;
+}
+
+.dlp-cw-tabs ul {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  border-right: 5px solid #dfdfdf \9;
+  -webkit-box-shadow: 8px 0 5px -2px #dfdfdf;
+  box-shadow: 8px 0 5px -2px #dfdfdf;
+}
+
+.dlp-cw-tabs li {
+  display: block;
+  border-bottom: 1px solid #dfdfdf;
+  border-right: 1px solid #dfdfdf;
+  padding: 42px 20px;
+  width: 122px;
+  cursor: pointer;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/dlp-tab-bg.jpg?static1fix) repeat-x #f3f1f2;
+  position: relative;
+}
+
+.dlp-cw-tabs li:last-child {
+  border-bottom: 0px solid #dfdfdf;
+}
+
+.dlp-cw-tabs li.active {
+  background: #fff;
+  font-weight: bold;
+}
+
+.dlp-cw-tabs li.active span.dlparrow {
+  background-position: -101px -50px;
+  height: 24px;
+  width: 18px;
+  right: -18px;
+  position: absolute;
+  display: inline-block;
+}
+
+.dlp-cw-data {
+  padding: 10px 10px 10px 20px;
+  vertical-align: top;
+  width: 755px;
+}
+/* dlp tabs css ends here */
+
+.dlp-cw-call-ico {
+  background-position: -50px -1px;
+  height: 20px;
+  width: 22px;
+}
+
+.dlp-cw-address li {
+  margin-bottom: 20px;
+}
+
+.dlp-cw-address li .dlp-content {
+  width: 320px;
+}
+
+.dlp-cw-search {
+  background-position: -27px -57px;
+  height: 15px;
+  position: relative;
+  top: 0px;
+  width: 10px;
+}
+
+.dlp-cw-clock-pic {
+  background-position: -48px -58px;
+  height: 16px;
+  width: 15px;
+}
+
+.dlp-cw-email-icon-sm {
+  background-position: 0 -79px;
+  height: 15px;
+  width: 15px;
+}
+
+.dlp-cw-call-icon-grey {
+  background-position: -51px -81px;
+  height: 12px;
+  width: 10px;
+}
+
+#gallery .dealer-photo-gallery {
+  width: 100%;
+}
+
+#gallery .dealer-photo-gallery li {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  line-height: 0px;
+}
+
+#gallery .dealer-photo-gallery li img {
+  border-right: 1px solid #e2e2e2;
+  width: 100%;
+}
+
+.emi-quote-popup {
+  position: relative;
+}
+
+.emi-pop-head {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+}
+
+.dlp-cw #gb-window {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.dlp-cw #gb-window #gb-head {
+  border-bottom: 1px solid #ccc !important;
+  padding-top: 7px;
+}
+
+.dlp-cw #gb-window #gb-head .gb-close {
+  top: -9px;
+  position: relative;
+}
+
+.dlp-cw #gb-window #gb-content {
+  height: 350px !important;
+}
+
+.dlp-cw-carousel .main-carousel-div {
+  border-bottom: 0px;
+}
+
+.dlp-cw-carousel .list_carousel_widget li a {
+  border: 0px;
+  height: auto;
+}
+
+.dlp-cw-carousel .jcarousel-clip-horizontal, .dlp-cw-carousel .jcarousel-clip-vertical {
+  width: 960px;
+}
+
+.dlp-cw-carousel .jcarousel-container-horizontal {
+  width: 960px;
+}
+
+.dlp-cw-carousel .list_carousel_widget {
+  width: 960px;
+  margin-left: 0px;
+}
+
+.dlp-cw-carousel .list_carousel_widget li {
+  width: 305px;
+}
+
+.dlp-cw-carousel .dealer-carousel-pic {
+  margin-right: 10px;
+  padding: 0px 5px;
+}
+
+.dlp-cw-carousel .list_carousel_widget li a img {
+  width: 120px;
+}
+
+.dlp-cw-indicative-head {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 50px;
+}
+
+.dlp-cw-indicative-rupee {
+  font-size: 30px;
+  margin-top: 30px;
+  vertical-align: top;
+  display: block;
+}
+
+.dlp-cw-indicative-btn {
+  margin-top: 25px;
+}
+
+.dlp-cw-slider-left {
+  float: left;
+  width: 385px;
+}
+
+.dlp-cw-slider-right {
+  float: right;
+  width: 120px;
+  border: 2px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.dlp-cw-slider-box-l {
+  float: left;
+  width: 620px;
+  border-right: 1px solid #ccc;
+  padding-right: 15px;
+}
+
+.dlp-cw-slider-box-r {
+  text-align: center;
+  float: right;
+  width: 330px;
+}
+
+.dlp-cw-slider-box {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 15px;
+}
+
+.dlp-cw-slider-left .ui-slider {
+  position: relative;
+  text-align: left;
+}
+
+.dlp-cw-slider-left .ui-slider .ui-slider-handle {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/us-sprite.png?v1=04032016") no-repeat scroll 0 -140px;
+  cursor: pointer;
+  height: 20px;
+  margin-left: -9px;
+  position: absolute;
+  text-decoration: none;
+  top: -8px;
+  width: 20px;
+  z-index: 1;
+}
+
+.dlp-cw-slider-left .ui-slider .ui-slider-range {
+  border: none;
+  display: block;
+  font-size: 0.7em;
+  position: absolute;
+  z-index: 1;
+  border-radius: 0px;
+}
+
+.dlp-cw-slider-left .ui-slider-vertical {
+  height: 91px;
+  width: 5px;
+}
+
+.dlp-cw-slider-left .ui-slider-vertical .ui-slider-handle {
+  left: -7px;
+  margin-bottom: -10px;
+  margin-left: 0;
+}
+
+.dlp-cw-slider-left .ui-slider-vertical .ui-slider-range {
+  left: 0;
+  width: 100%;
+}
+
+.dlp-cw-slider-left .ui-slider-vertical .ui-slider-range-min {
+  bottom: 0;
+}
+
+.dlp-cw-slider-left .ui-slider-vertical .ui-slider-range-max {
+  top: 0;
+}
+
+.dlp-cw-slider-left .ui-widget-content {
+  background: #e2e2e2;
+  height: 7px;
+  margin: 10px 0;
+  width: 100%;
+  border-radius: 0px;
+}
+
+.dlp-cw-slider-left .ui-widget-header {
+  background: #545A5D;
+  height: 7px;
+  width: 198px;
+}
+
+.dlp-cw-range-points {
+  position: relative;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.dlp-cw-range-points ul li {
+  float: left;
+  width: 77px;
+  text-align: center;
+  position: relative;
+}
+
+.interest-rate-slider ul li {
+    width:58px;
+}
+
+.dlp-cw-range-points ul li:first-child {
+  text-align: left;
+  left: 0;
+}
+
+.dlp-cw-range-points ul li:last-child {
+  text-align: right;
+}
+
+.dlp-slider-bar {
+  background-position: -114px -34px;
+  width: 1px;
+  height: 6px;
+  top: -10px;
+  *top: -20px;
+  left: 0px;
+}
+
+.dlp-slider-bar div {
+  padding-top: 5px;
+  margin-left: -9px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.dlp-slider-bar-first {
+  margin-left: -2px !important;
+}
+
+.dlp-slider-bar-last {
+  margin-left: -8px !important;
+}
+
+.dlp-cw-range-points ul.tenure li {
+  width: 14%;
+}
+
+.dlp-cw-range-points ul.tenure li:last-child {
+  text-align: right;
+}
+
+.dlp-cw-range-points ul.tenure li div {
+  margin-left: -3px;
+}
+
+.dlp-cw-slider-left .ui-slider .ui-slider-handle {
+  border: 0px solid blue;
+}
+
+.errMsg {
+  color: #CC0000;
+  font-size: 12px;
+}
+
+.dlp-cw-big-rupee {
+  background-position: 10px -207px;
+  height: 22px;
+  width: 22px;
+  *width: 25px;
+  *height: 30px;
+}
+
+.dlp-cw-carousel .list_carousel_widget li em {
+  display: inline-block;
+}
+
+.dlp-position-set {
+  display: inline-table;
+} /* vertical-align:top; */
+.dlp-panel-group ul.contact-details1 {
+}
+
+.dlp-panel-group .contact-details1 li {
+  position: relative;
+}
+
+.dlp-panel-group .contact-details1 input {
+  width: 280px;
+  background: #f8f8f8;
+  border-radius: 2px;
+  box-shadow: 2px 2px 5px #e2e2e2 inset;
+  color: #666;
+  outline: medium none;
+  padding: 10px;
+}
+
+.dip-mob-no-box1 input#customerMobile {
+  width: 250px;
+  padding-left: 40px !important;
+}
+
+.dip-mob-no-box1 .country-code {
+  left: 10px;
+  position: absolute;
+  top: 10px;
+  width: 30px;
+}
+
+.contact-details1 input[type=text]::-ms-clear {
+  display: none;
+}
+
+/***************************************************** carwale popup ************************************/
+#blackOut-window {
+  background: #000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 9 !important;
+}
+
+.thank-you-popup {
+  position: fixed;
+  width: 438px;
+  height: 251px;
+  padding: 10px;
+  border-radius: 5px;
+  background: #fff;
+  top: 30%;
+  left: 30%;
+  z-index: 999;
+}
+
+.thank-you-popup h2 {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #cccccc;
+}
+
+.dealer-mob-no span {
+  float: left;
+  width: 30px;
+  position: relative;
+  top: 3px;
+}
+
+.dealer-mob-no p {
+  float: left;
+  width: 200px;
+}
+
+/* coachmark css starts here */
+
+.coachmark-box {
+  background: #fff;
+  position: absolute;
+  z-index: 2;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #333;
+  -moz-box-shadow: 0 2px 2px #666;
+  -ms-box-shadow: 0 2px 2px #666;
+  -o-box-shadow: 0 2px 2px #666;
+  -webkit-box-shadow: 0 2px 2px #666;
+  box-shadow: 0 2px 2px #666;
+}
+
+.step1-box {
+  top: 80px;
+  left: 30px;
+  width: 380px;
+  display: none;
+}
+
+.step2-box {
+  top: 40px;
+  left: -50px;
+  width: 300px;
+}
+
+.step3-box {
+  top: 270px;
+  right: -45px;
+  width: 330px;
+}
+
+.step4-box {
+  top: -10px;
+  right: 190px;
+  width: 380px;
+}
+
+.global-city-coachmark {
+  top: 30px;
+  right: -45px;
+  width: 350px;
+  color: #565a5c;
+}
+
+.coachmark-arrow {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #333;
+  position: absolute;
+}
+
+.coachmark-arrow:before {
+  width: 0;
+  height: 0;
+  content: " ";
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #fff;
+  position: absolute;
+  left: -8px;
+  top: 2px;
+}
+
+.coachmark-arrow-left {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 40px;
+  left: -9px;
+  border-top: 8px solid transparent;
+  border-right: 8px solid #333;
+  border-bottom: 8px solid transparent;
+}
+
+.coachmark-arrow-left:before {
+  width: 0;
+  height: 0;
+  content: " ";
+  position: absolute;
+  top: -8px;
+  left: 2px;
+  border-top: 8px solid transparent;
+  border-right: 8px solid #fff;
+  border-bottom: 8px solid transparent;
+}
+
+.coachmark-arrow-right {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 40px;
+  right: -9px;
+  border-top: 8px solid transparent;
+  border-left: 8px solid #333;
+  border-bottom: 8px solid transparent;
+}
+
+.coachmark-arrow-right:before {
+  width: 0;
+  height: 0;
+  content: " ";
+  position: absolute;
+  top: -8px;
+  left: -10px;
+  border-top: 8px solid transparent;
+  border-left: 8px solid #fff;
+  border-bottom: 8px solid transparent;
+}
+
+.coachmark-arrow1 {
+  top: -8px;
+  left: 50px;
+}
+
+.coachmark-arrow2 {
+  top: -8px;
+  left: 100px;
+}
+
+.coachmark-arrow3 {
+  top: -8px;
+  left: 134px;
+}
+
+.coachmark-arrow-globalcity {
+  top: -8px;
+  left: 230px;
+}
+
+/************************************************ dealer locator pages *********************************/
+
+.margin-top30 {
+  margin-top: 30px;
+}
+
+.font20 {
+  font-size: 20px;
+}
+
+.dealer-left-lg, .dealer-right-lg, .dealer-right-sm, .dealer-left-sm, .dealer-left-md, .dealer-right-md {
+  display: block;
+  float: left;
+}
+
+.dealer-left-lg {
+  width: 633px;
+}
+
+.dealer-right-lg {
+  width: 695px;
+}
+
+.dealer-right-sm {
+  width: 320px;
+  border-left: 1px solid #e2e2e2;
+}
+
+.dealer-left-sm {
+  width: 260px;
+}
+
+.dealer-left-md {
+  width: 477px;
+}
+
+.dealer-right-md {
+  width: 476px;
+  border-left: 1px solid #e2e2e2;
+}
+
+#gallery .dealer-photo-gallery {
+  width: 100%;
+  overflow: hidden;
+}
+
+#gallery .dealer-photo-gallery li {
+  border: 1px solid #e2e2e2;
+  display: block;
+  float: left;
+  margin: 10px 5px 0;
+  overflow: hidden;
+  width: 225px;
+  height: 127px;
+}
+
+#gallery .dealer-photo-gallery li img {
+  border-right: 1px solid #e2e2e2;
+  overflow: hidden;
+  width: 100%;
+  max-width: 225px;
+}
+
+.defaultAlertCustomerInfoContent table.tbl_pq_widget {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.defaultAlertCustomerInfoContent table.tbl_pq_widget input[type="text"]#custMobile {
+  padding: 11px 5px 11px 35px;
+  width: 322px;
+  width: 292px\9\0;
+}
+
+.plusNum {
+  position: relative;
+  margin-right: -32px;
+  margin-left: 8px;
+  color: #333;
+  z-index: 999;
+  *top: -26px;
+  *zoom: 1;
+}
+
+.addtxtQuote {
+  top: -6px;
+  right: 0;
+}
+
+/* Css for OEM offers box */
+
+.content-inner-block-10{
+    padding: 10px;
+}
+
+.addOffers{
+    vertical-align: bottom;
+}
+
+
+
+.truncate-offer{
+  width: auto;
+  max-width: 680px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.oem-offers__li:first-child{
+    display: block;
+}
+
+.open-all-offers{
+    color: #0589ba;
+    cursor: pointer;
+}
+
+.hide > div{
+    border-bottom: 0;
+}
+
+.offerPara{
+    width: 85%;
+    padding: 25px 0 25px 0;
+    border-bottom: 1px solid #cccccc;
+}
+
+.oem-offers__li:last-child .offerPara{
+    border-bottom: 0;
+}
+.border-bottom0 {
+    border-bottom: 0;
+}
+.dealer-assist-btn {
+    width: 215px;
+    height: 44px;
+    margin-left: 78px;
+    background: #ef3f30;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    border: 1px solid #ef3f30;
+    border-radius: 2px;
+}
+
+.dealer-assist-link {
+    margin-left: 78px;
+}
+
+.oemTnC{
+    cursor: pointer;
+}
+
+.info-wrapper{
+  right: 20px;
+  bottom: 20px;
+  font-family: Lato, Helvetica, sans-serif;
+}
+
+.oemTnC:hover .oemTnC-tooltip{
+    visibility: visible;
+    text-align: left;
+}
+
+.instruction-icon{
+    background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/pq-new/info-icon.svg?v1);
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.oemTnC-tooltip{
+    visibility: hidden;
+    font-size: 11px;
+    padding: 15px 5px 15px 5px;
+    width: 350px;
+    background-color: #5a5a5a;
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+    position: absolute;
+    bottom: 145%;
+    left: -123px;
+    word-break: break-word;
+}
+
+.offer-oem-disclaimer {
+    border-bottom: 1px solid;
+    padding-bottom: 5px;
+}
+
+.oemTnC-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 93%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color:  #5a5a5a transparent transparent transparent;
+}
+
+.tncData{
+    list-style-type: disc;
+    text-align: justify;
+    margin-top: 5px;
+    padding: 0 15px 0 15px;
+}
+
+/* Css for grey overlay box */
+.gb-content {
+  color: #222222;
+}
+
+#gb-window {
+  position: fixed;
+  padding: .1em;
+  width: 300px;
+  z-index: 100002;
+  display: none;
+  border: 1px solid #a6c9e2;
+  background-color: #fff;
+}
+
+#gb-window #gb-head {
+  font-weight: bold;
+  font-size: 16px;
+  border-bottom: 1px solid #CCCCCC;
+  margin: 10px;
+  color: #000000;
+}
+
+#gb-window #gb-title {
+  float: left;
+  margin: 10px 0;
+}
+
+#gb-window #gb-content {
+  border: 0;
+  padding: 10px;
+  background: none;
+  overflow: auto;
+  zoom: 1;
+}
+
+#gb-window #loading {
+  margin: 7px 0 7px 7px;
+}
+
+#gb-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #1A1A1A;
+  opacity: .30;
+  filter: Alpha(Opacity=30);
+  display: none;
+  z-index: 100001;
+}
+
+.process {
+  width: 145px;
+  top: 300px;
+  height: 48px;
+  background: #F7F7F7 url(https://imgd.aeplcdn.com/0x0/cw/design15/loading.gif?v1=04032016) no-repeat;
+  background-position: 12% 50%;
+  z-index: 100002;
+  display: none;
+  position: absolute;
+}
+
+.process-inline {
+  background: #fff url(https://imgd.aeplcdn.com/0x0/cw/design15/loader.gif?v1=04032016) no-repeat;
+  display: none;
+  width: 20px;
+  height: 20px;
+  margin: 3px 0 0 5px;
+}
+
+.gb-close {
+  float: right;
+  margin: 0;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/controls-sprite-dark.png?v1=04032016) -25px 0px no-repeat;
+  width: 25px;
+  height: 25px;
+}
+
+.gb-close:hover {
+  background-position: -25px -25px;
+}
+
+.gb-back {
+  float: right;
+  margin: 0;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/controls-sprite-dark.png?v1=04032016) -75px 0px no-repeat;
+  width: 25px;
+  height: 25px;
+}
+/*----------------- Class to handle Asp.Net trace background ---------------------------*/
+.cw-tabs-data {
+  height: 294px;
+  overflow: hidden;
+}
+
+.btnOfferLink:hover .fa.fa-rupee {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 1024px) {
+  .pq-data-highlight {
+    width: 625px;
+  }
+}
+/* PQ Ad Slug Animation Style Starts */
+@-webkit-keyframes flipinx {
+  0% {
+    -webkit-transform: perspective(400px) rotate3d(1,0,0,90deg);
+    transform: perspective(400px) rotate3d(1,0,0,90deg);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    -webkit-transform: perspective(400px) rotate3d(1,0,0,-20deg);
+    transform: perspective(400px) rotate3d(1,0,0,-20deg);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    -webkit-transform: perspective(400px) rotate3d(1,0,0,10deg);
+    transform: perspective(400px) rotate3d(1,0,0,10deg);
+    opacity: 1;
+  }
+
+  80% {
+    -webkit-transform: perspective(400px) rotate3d(1,0,0,-5deg);
+    transform: perspective(400px) rotate3d(1,0,0,-5deg);
+  }
+
+  100% {
+    -webkit-transform: perspective(400px);
+    transform: perspective(400px);
+  }
+}
+
+@keyframes flipinx {
+  0% {
+    -webkit-transform: perspective(400px) rotate3d(1,0,0,90deg);
+    transform: perspective(400px) rotate3d(1,0,0,90deg);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    -webkit-transform: perspective(400px) rotate3d(1,0,0,-20deg);
+    transform: perspective(400px) rotate3d(1,0,0,-20deg);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    -webkit-transform: perspective(400px) rotate3d(1,0,0,10deg);
+    transform: perspective(400px) rotate3d(1,0,0,10deg);
+    opacity: 1;
+  }
+
+  80% {
+    -webkit-transform: perspective(400px) rotate3d(1,0,0,-5deg);
+    transform: perspective(400px) rotate3d(1,0,0,-5deg);
+  }
+
+  100% {
+    -webkit-transform: perspective(400px);
+    transform: perspective(400px);
+  }
+}
+
+.flipinx {
+  -moz-opacity: 1;
+  -webkit-opacity: 1;
+  -khtml-opacity: 1;
+  opacity: 1;
+  animation-name: flipinx;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-delay: 0;
+  -webkit-backface-visibility: visible!important;
+  backface-visibility: visible!important;
+}
+
+body.show-animate .pq-data-highlight-call {
+  -moz-opacity: 1;
+  -webkit-opacity: 1;
+  -khtml-opacity: 1;
+  opacity: 1;
+}
+
+.animate-ad .pq-data-highlight-call, .pq-data-highlight-call {
+  -moz-opacity: 0;
+  -webkit-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .pq-data-highlight-call {
+    animation-name: none\0;
+  }
+}
+/* PQ Ad Slug Animation Style Ends */
+
+.cross-cell-slug:hover .bt-wrapper {
+  text-align: left;
+  left: -200px !important;
+  font-size: 12px;
+  color: #000;
+}
+
+.pq-data-highlight-call.cross-cell-slug .action-button {
+  padding: 6px 15px;
+}
+
+.multiple-ad-container.cross-sell-carousel .contact-dealer-detail {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.multiple-ad-container.cross-sell-carousel .authorized-dealer-text {
+  padding-left: 20px;
+}
+
+/* Buying Assitance Tab Details Starts Here */
+.buy-asstnc-services .checkboxes li {
+  display: inline-block;
+  padding-right: 15px;
+  width: 33%;
+}
+
+ul.buy-asstnc-form {
+  width: 100%;
+  max-width: 715px;
+  display: inline-block;
+}
+
+ul.buy-asstnc-form li {
+  display: inline-block;
+  vertical-align: middle;
+  width: 45%;
+  margin-right: 22px;
+  margin-bottom: 0;
+  height: auto;
+}
+
+.contactdetails .buy-asstnc-btn input {
+  padding: 6px 40px;
+}
+/* Buying Assitance Tab Details Ends Here */
+
+/* css for version custom dropdown */
+.selectcustom-container {
+  position: relative;
+  z-index: 2;
+}
+
+.selectcustom-input {
+  height: 100%;
+  width: 218px;
+  padding-left: 10px;
+  padding-right: 20px;
+  line-height: 34px;
+  font-size: 12px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selectcustom-input-box-holder {
+  background: #fff url("https://imgd.aeplcdn.com/0x0/cw/design15/dropArrowBg.png?static1fix") no-repeat 97% 50%;
+  min-height: 6px;
+  min-width: 11px;
+  height: 38px;
+  width: 100%;
+  border-radius: 5px;
+  text-transform: capitalize;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  -o-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  -ms-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  cursor: pointer;
+}
+
+.selectcustom-input .pop-version-name {
+  font-size: 12px;
+  color: #666;
+  text-transform: capitalize;
+  display: block;
+  width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selectcustom-content {
+  width: 130%;
+  max-height: 218px;
+  text-transform: capitalize;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 2px -1px #7f7f7f;
+  -webkit-box-shadow: 0 0 2px -1px #7f7f7f;
+  -moz-box-shadow: 0 0 2px -1px #7f7f7f;
+  -o-box-shadow: 0 0 2px -1px #7f7f7f;
+  -ms-box-shadow: 0 0 2px -1px #ccc;
+  background: #fff;
+  display: none;
+  overflow-y: auto !important;
+  position: absolute;
+  top: 35px;
+  left: 0px;
+}
+
+.selectcustom-content ul li {
+  list-style: none;
+  padding: 5px 5px 5px 10px;
+  cursor: pointer;
+}
+
+ul.selectcustom li:hover,  ul.selectcustom li.selected {
+  background: #F2F2F2;
+}
+
+.selectcustom-active {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+
+.selectcustom-input-box-holder:active {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+} 
+/*next line css*/
+.pop-grey {
+  color: #81888e;
+}
+
+.pricecolor {
+  color: #1c1c1c;
+}
+
+.rupeecolor {
+  color: #888888;
+}
+
+.pop-version-info {
+  font-size: 12px;
+}
+
+.pop-version-name {
+  color: #000;
+  font-weight: normal;
+  font-size: 14px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 250px;
+}
+
+.pop-version-diesel, .pop-version-manual {
+  border-right: 2px solid #ccc;
+  padding: 0 5px 0 0;
+  margin-right: 3px;
+  color: #81888e;
+}
+
+.clickcustom {
+  cursor: pointer;
+}
+
+.clickcustom:hover {
+  text-decoration: none;
+}
+
+.price-available {
+  display: inline-block;
+}
+/* css for version custom dropdown */
+
+/*bankbazaar link below on road price*/
+.bankbazaar {
+  border-bottom: none!important;
+  padding-top: 0px;
+  font-weight: bold;
+}
+
+/* sell car slug */
+.inline-grid-10, .inline-grid-2 {
+  display: inline-block;
+  margin-right: -4px;
+}
+
+.inline-grid-10 {
+  width: 83.33333333%;
+}
+
+.inline-grid-2 {
+  width: 16.66666667%;
+}
+
+.vertical-middle {
+  vertical-align: middle;
+}
+
+.list-type-numeric {
+  list-style-type: decimal;
+}
+
+.list-item-left li {
+  float: left;
+  margin-left: 25px;
+}
+
+.hover-no-underline:hover {
+  text-decoration: none;
+}
+
+.icon-wrapper-15 {
+  width: 15px;
+  height: 15px;
+  overflow: hidden;
+}
+
+.icon-wrapper-40 {
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+}
+
+.icon-wrapper-47 {
+  width: 47px;
+  height: 47px;
+  overflow: hidden;
+  margin-left: 10px;
+}
+
+.icon-wrapper-58 {
+  width: 58px;
+  height: 58px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: grey;
+  position: relative;
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/fff/offer-tag.svg);
+  background-size: 28px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.gst-unit-row td {
+  padding: 3px 0 0 10px;
+}
+
+#gb-window.area-shown #gb-content{height:auto !important;}
+
+.right-input-box-arrow {
+    background: #fff url(https://imgd.aeplcdn.com/0x0/cw/static/pq/grey-icons/gray-right-arrow-6x9.png) no-repeat 97% 50%;
+    padding-left: 25px;
+    padding-right: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.location-image {
+  position: absolute;
+  top: 9px;
+  left: 7px;
+}
+
+.location-image img {
+  max-width: 20px;
+  height: 20px;
+}
+
+
+/*price not available */
+.no-price-message{
+    width: 84%;
+    padding-left: 15px;
+}
+.change-options{
+    list-style-type: disc;
+     margin-top: 20px;
+}
+.change-options li{color: #babfc3;}
+.or-text {
+     background-color: #fff; 
+     width: 80%; 
+     position: relative;
+     padding: 3px;
+     text-align: center;
+     display: inline-block;
+     margin-bottom: 10px;
+     margin-top: 12px;
+}
+.or-text:before { 
+    content:"";
+    border-top: 1px dashed #ccc;
+    left: 0;position: absolute;
+   top: 5px; width: 100%;
+}
+
+.or-text:after {
+    left: 47%;
+    position: absolute; 
+    content: "or";
+    top: -5px;
+    background-color: white;
+    width: 20px;
+}
+.or-text div {
+     background: #fff;
+     display: inline-block; 
+     padding: 0 2px;
+     position: relative;
+}
+.price-not-avalable{
+    padding: 20px 10px;
+}
+
+.insurance-tooltip-icon {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/pq-new/info-icon.svg?v1);
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 3px;
+  position: relative;
+}

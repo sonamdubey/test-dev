@@ -1,0 +1,70 @@
+﻿@using Carwale.UI.PresentationLogic;
+@model Carwale.Entity.Dealers.SponsoredDealer
+
+@{
+    var testDriveText = System.Configuration.ConfigurationManager.AppSettings["TestDriveCtaText"] ?? "";    
+}
+<!-- Test Drive Block Starts Here -->
+@if(Model != null)
+{ 
+<div class="test-drive-block content-box-shadow margin-top20 content-inner-block-20 border-solid" style="background-color:#f2fdf7">
+    <span class="cw-circle-icon test-drive-image margin-right20"></span>
+    <div class="rightfloat test-drive-content">
+        <div class="test-drive-info inline-block">
+            <div class="text-capitalize text-unbold font18">
+                Contact @Model.DealerName
+                @if (Model.MaskingNumberEnabled && !String.IsNullOrWhiteSpace(Model.DealerMobile))
+                {
+                    <span class="block text-bold font16"><span class="price-quote-all-imgs circle-call-icon"></span>@Model.DealerMobile</span>
+                }
+            </div>
+            <p class="margin-top5">
+                Get in touch for the best buying options from your authorised dealer
+            </p>
+        </div>
+        @if (ViewBag.IsVersionPage != null && ViewBag.IsVersionPage == true)
+        {
+            <div id="btnGetEMIAssistanceOnTestDrive"
+                 data-cwtccat="VersionPage"
+                 data-cwtcact="BestDealClick"
+                 data-cwtclbl="make:@ViewBag.MakeName|model:@ViewBag.ModelName|version:@ViewBag.CarVersionName|city:@ViewBag.CityZone|TemplateButtonText:Get The Best Deal"
+                 class="btn btn-orange btn-xs margin-top50"
+                 pageid="@ViewBag.PageId"
+                 leadclicksource="129"
+                 inquirysourceid="122"
+                 emiadavailable="true"
+                 data-role="click-impression"
+                 data-event="DealerLeadPopUpBehaviour"
+                 data-action="Button"
+                 data-cat="TestDriveSlugVersion"
+                 data-predictionScore="@(Model.PredictionData != null ? Model.PredictionData.Score: 0)"
+                 data-predictionLabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")">
+                @(SponsoredCampaignLogic.TestDriveCampaignIds.Contains(Model.DealerId) ? testDriveText : "Get The Best Deal")
+            </div>
+        }
+        else
+        {
+            <div id="btnGetEMIAssistanceOnTestDrive" 
+                 data-cwtccat="@(ViewBag.IsCityPage ? "CityPage" : "ModelPage")" 
+                 data-cwtcact="BestDealClick" 
+                 data-cwtclbl="make:@ViewBag.MakeName|model:@ViewBag.ModelName|city:@(ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone)|TemplateButtonText:Get The Best Deal" 
+                 class="hvr-animate-btn btn btn-orange btn-xs margin-top50" 
+                 pageid="@ViewBag.PageId" 
+                 leadclicksource="@(ViewBag.IsCityPage ? "133" : "128")" 
+                 inquirysourceid="@(ViewBag.IsCityPage ? "126" : "121")" 
+                 emiadavailable="true" 
+                 data-role="click-impression" 
+                 data-event="DealerLeadPopUpBehaviour" 
+                 data-action="Button" 
+                 data-cat="@(ViewBag.IsCityPage ? "TestDriveSlugModelPriceInCity" : "TestDriveSlugModel")"
+                 data-predictionScore="@(Model.PredictionData != null ? Model.PredictionData.Score: 0)" 
+                 data-predictionLabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")">
+                    @(SponsoredCampaignLogic.TestDriveCampaignIds.Contains(Model.DealerId) ? testDriveText : "Get The Best Deal")
+            </div>
+        }
+    </div>
+    <div class="clear"></div>
+</div>
+}
+<div class="show-target block clear"></div>
+<!-- Test Drive Block Ends Here -->

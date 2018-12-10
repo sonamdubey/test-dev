@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<panorama appversion="5.1" id="node1" apprev="15722">
+  <input tilescale="1.002667" levelingroll="0" tile0url="1.jpg?v=20170801085323&amp;ao=1" tile1url="2.jpg?v=20170801085323&amp;ao=1" tile2url="3.jpg?v=20170801085323&amp;ao=1" tile3url="4.jpg?v=20170801085323&amp;ao=1" tile4url="5.jpg?v=20170801085323&amp;ao=1" tile5url="6.jpg?v=20170801085323&amp;ao=1" prev0url="1_preview.jpg?v=20170801085323&amp;ao=1" prev1url="2_preview.jpg?v=20170801085323&amp;ao=1" prev2url="3_preview.jpg?v=20170801085323&amp;ao=1" prev3url="4_preview.jpg?v=20170801085323&amp;ao=1" prev4url="5_preview.jpg?v=20170801085323&amp;ao=1" prev5url="6_preview.jpg?v=20170801085323&amp;ao=1" tilesize="3750" levelingpitch="0">
+    <preview color="0x808080"/>
+  </input>
+  <view fovmode="0" pannorth="0">
+    <start pan="0" projection="4" tilt="0" fov="70"/>
+    <flyin pan="0" projection="9" tilt="-90" fov="170"/>
+    <min pan="0" tilt="-90" fov="5"/>
+    <max pan="360" scaletofit="1" tilt="90" fovstereographic="270" fov="80" fovfisheye="360"/>
+  </view>
+  <userdata author="" tags="" source="" longitude="" description="" latitude="" info="" datetime="12/04/17 12:16 PM" copyright="" comment="" customnodeid="" title=""/>
+  <hotspots height="20" width="180" wordwrap="1">
+    <label height="20" enabled="1" borderalpha="1" backgroundcolor="0xffffff" textalpha="1" width="180" borderradius="1" bordercolor="0x000000" textcolor="0x000000" background="1" wordwrap="1" backgroundalpha="1" border="1"/>
+    <polystyle handcursor="1" borderalpha="1" mode="0" backgroundcolor="0x0000ff" bordercolor="0x0000ff" backgroundalpha="0.2509803921568627"/>
+  </hotspots>
+  <media/>
+  <transition blendtime="1" softedge="0" zoomout="0" enabled="0" zoomspeed="5" zoomoutpause="1" type="crossdissolve" zoomin="0" zoomfov="20" blendcolor="0x000000"/>
+  <control lockedkeyboard="0" speedwheel="2" lockedkeyboardzoom="0" contextprojections="0" dblclickfullscreen="0" sensitivity="8" hideabout="0" simulatemass="1" invertcontrol="1" contextfullscreen="0" lockedmouse="0" invertwheel="0" rubberband="0" lockedwheel="0"/>
+</panorama>

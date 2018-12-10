@@ -1,0 +1,69 @@
+.additional-suggested-list {
+  padding: 20px 18px;
+  overflow-y: auto;
+}
+
+.additional-suggested-list .suggested-list .oxygen-checkbox-group-item {
+  border: 1px solid map-get($color-map, "gainsboro");
+  border-radius: 3px;
+  padding: 20px;
+  width: 100%;
+}
+
+.additional-list-count {
+  display: none;
+}
+.suggested-list {
+  & > .oxygen-checkbox-group-item {
+    margin-top: 10px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}
+.suggested-list-item__info {
+  width: 100%;
+  font-size: 0;
+}
+
+.suggested-list-details {
+  height: 100%;
+  overflow: hidden;
+}
+
+.suggested-dealer-name {
+  color: map-get($color-map, "default");
+  font-size: 14px;
+  font-weight: $font-bold;
+  display: inline-block;
+  padding-right: 0;
+}
+
+.dealer-info-slug {
+  font-size: 12px;
+}
+
+.dealer-info__city-name:before {
+  @include location-icon;
+  width: 10px;
+  content: "";
+  height: 15px;
+  display: inline-block;
+  margin-right: 5px;
+  background-size: 9px;
+  background-position-y: 3px;
+}
+
+.dealer-info__distance:before {
+  content: "|";
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+@media only screen and (min-width: 780px) {
+  .additional-suggested-list {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}

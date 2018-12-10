@@ -1,0 +1,34 @@
+﻿@model List<Carwale.Entity.CMS.Articles.ArticleSummary>
+@using Carwale.Utility;
+@{Layout = null;}
+@if (Model.Count > 0)
+{
+<section id="expertreviews">
+	<h2 class="margin-bottom10 margin-left10 m-special-skin-text">@ViewBag.MakeName @ViewBag.ModelName Expert Reviews</h2>
+	<ul id="divRoadTests" class="margin-bottom20">
+		@foreach (var review in Model)
+		{
+			<li>
+				<article>
+					<a title="Review of @ViewBag.ModelName-@review.Title" class="text-black content-box-shadow content-inner-block-10 block margin-bottom10" href="@string.Format("{0}{1}{2}","/","m", review.ArticleUrl)">						
+						<div class="container image-title-container margin-bottom5 clearfix">
+							<div class="leftfloat margin-right10 smallImageWrapper">
+								<img class="lazy" title="@review.Title" alt="@review.Title" style="width:100px; max-width:100%;" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original='@Carwale.Utility.ImageSizes.CreateImageUrl(review.HostUrl, @Carwale.Utility.ImageSizes._160X89, review.OriginalImgUrl)'>
+							</div>
+							<div class="leftfloat image-heading-details">
+								<header>
+									<b>@review.Title.ToString()</b>
+								</header>
+								<footer>@review.DisplayDate.ConvertDateToDays() | @review.AuthorName</footer>
+							</div>
+						</div>
+						<p>@Html.Raw(Format.LimitText(review.Description, 450))<span data-role="click" data-event="CWInteractive" data-cat="msite_expert_review_linkages" data-action="model_page_read_more" data-label="@ViewBag.MakeName @ViewBag.ModelName" class="text-link"> Read more</span></p>
+					</a>
+				</article>
+			</li>
+        }
+	</ul>
+    <div class="text-center margin-bottom20"><a class="font14" data-role="click" data-event="CWInteractive" data-cat="msite_expert_reviews" data-action="model_page_view_all" data-label="@ViewBag.MakeName @ViewBag.ModelName" href="/m/@MobileWeb.Common.CommonOpn.FormatSpecial(ViewBag.MakeName)-cars/@ViewBag.MaskingName/expert-reviews/"><span data-role="impression" data-event="CWNonInteractive" data-cat="msite_expert_reviews" data-action="model_page_view_all_imp" data-label="@ViewBag.MakeName @ViewBag.ModelName">All @ViewBag.MakeName @ViewBag.ModelName Expert Reviews</span></a></div>
+	<style type="text/css">.image-heading-details {width: 55%;}</style>
+</section>
+}

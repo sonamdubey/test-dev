@@ -1,0 +1,58 @@
+﻿@model Carwale.Entity.ViewModels.CarData.ImageCarousal
+@using Carwale.Utility;
+@{
+    int position = 1;
+}
+<section class="image-grid-section">
+    <h1 class="image-grid-section__heading">@Model.Title</h1>
+    <div class="image-grid-section__block">
+        <div class="jcarousel-wrapper image-grid-section__wrapper">
+            <div class="jcarousel">
+                <ul>
+                    @foreach (var carModel in Model.ModelPhotos)
+                    {
+                        if (carModel.Images.Count > 0)
+                        {
+                            <li class="jcarousel__card">
+                                <a href="@carModel.ModelImagePageUrl" title="@string.Format("{0} {1} Images",carModel.MakeName,carModel.ModelName)" class="image-grid__link">
+                                    <div class="image-grid-container">
+                                        <div class="image-grid__content-wrapper">
+                                            <div class="image-grid-wrapper">
+                                                <div class="image-grid-list" data-grid="@carModel.Images.Count" data-role="click-tracking" data-event="CWInteractive" data-action="position_@position" data-cat="Make_Images_slug_d" data-label="@string.Format("{0}_{1}", carModel.MakeName, carModel.ModelName)">
+                                                    @foreach (var modelPhoto in carModel.Images)
+                                                    {
+                                                        <span class="image-grid__list-item"><img class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(modelPhoto.HostUrl, ImageSizes._424x424, modelPhoto.OriginalImgPath)" alt="@carModel.ModelName image" /></span>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="image-grid__info-wrapper">
+                                                <h3 class="image-grid-info__model-name">
+                                                    <span class="make-name">@carModel.MakeName</span>
+                                                    <span class="model-name">@carModel.ModelName</span>
+                                                </h3>
+                                                <div class="image-grid-info__image-count">
+                                                    <span class="image-icon"></span>
+                                                    <span class="image-count">@carModel.RecordCount</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            position++;
+                        }
+                    }
+                </ul>
+            </div>
+            <span class="jcarousel-control-left dynamic-carousel" data-swipecount="2">
+                <span class="cwsprite jcarousel-control-prev"></span>
+            </span>
+            <span class="jcarousel-control-right dynamic-carousel" data-swipecount="2">
+                <span class="cwsprite jcarousel-control-next"></span>
+            </span>
+            <div class="view-all-images-wrapper">
+                <a href="@Model.LandingUrl" title="" class="view-all-images__link" data-role="click-tracking" data-event="CWInteractive" data-action="Make-Page-Image-Link-Click" data-cat="Make_Images_slug_d" data-label="@Model.MakeName">All @Model.Title</a>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,79 @@
+RewriteEngine On
+
+RewriteMap map_cities txt:../UrlMappings/map_cities.txt
+RewriteMap map_makes txt:../UrlMappings/map_makes.txt
+RewriteMap lowercase int:tolower
+
+RewriteRule ^guarantee-payment/			- [G]
+RewriteRule ^guarantee-offer/			- [G]
+RewriteRule ^guarantee/					- [G]
+RewriteRule ^moneybackterms.aspx		- [G]
+RewriteRule	^ShowCarInCity-(.*)-(.*)\.html		/used/cars-in-$2/ [R=301,NC,L,CL]
+RewriteRule ^ShowCarInCity.aspx		/used/cars-for-sale/	[R=301,NC,L,QSA]
+
+##------------------------------------ Car Details Page-----------------------------------------------------
+RewriteRule	^cardetails-(.*)-(.*)-(.*)-(.*)-(.*)-(.*)\.html			cardetails.aspx?$1=$2&$3=$4&$5=$6 [R=301,NC]
+RewriteRule	^cardetails-(.*)-(.*)-(.*)-(.*)\.html					cardetails.aspx?$1=$2&$3=$4 [R=301,NC]
+RewriteRule	^cardetails-(.*)-(.*)\.html								/classifieddetails/cardetails/?car=$2 [R=301,NC,L]
+RewriteRule ^cars-in-(.*)/(.*)-(.*)-(.*)/							/classifieddetails/cardetails/?car=$4 [QSA,NC,L]
+RewriteRule ^cardetails.aspx										/classifieddetails/cardetails/ [QSA,NC,L]
+RewriteRule ^carsold.aspx - [G,NC]
+RewriteRule ^BrowseCarsByModel-make-(.*).html     				     usedsearch.aspx/?make=$1 [R=301,NC,L]
+RewriteRule ^BrowseCarsByModel-(.*).html - [G]
+
+## Used Search Page
+RewriteRule ^([a-zA-Z]+)-(.*)-cars-in-(.*)/page-(.*)/		usedsearch.aspx?cityname=$3&make=${map_makes:${lowercase:$1}}&model=${map_makes:${lowercase:$1}}.${lowercase:$2}&root=${lowercase:$2}&pn=$4 [QSA,NC,L]
+RewriteRule ^([a-zA-Z]+)-(.*)-cars-in-(.*)/		usedsearch.aspx?cityname=$3&make=${map_makes:${lowercase:$1}}&model=${map_makes:${lowercase:$1}}.${lowercase:$2}&root=${lowercase:$2} [QSA,NC,L]
+RewriteRule ^(.*)-cars-in-(.*)/page-(.*)/					usedsearch.aspx?cityname=$2&make=${map_makes:${lowercase:$1}}&pn=$3 [QSA,NC,L]
+RewriteRule ^(.*)-cars-in-(.*)/					usedsearch.aspx?cityname=$2&make=${map_makes:${lowercase:$1}} [QSA,NC,L]
+RewriteRule ^cars-for-sale/page-(.*)/			usedsearch.aspx?pn=$1 [QSA,NC,L]
+RewriteRule ^cars-for-sale/						usedsearch.aspx [QSA,NC,L]
+
+RewriteRule ^cars-in-(.*)/page-(.*)/						usedsearch.aspx?cityname=$1&pn=$2 [QSA,NC,L]
+RewriteRule ^cars-in-(.*)/						usedsearch.aspx?cityname=$1 [QSA,NC,L]
+
+RewriteRule ^([a-zA-Z]+)-(.*)-cars/page-(.*)/	usedsearch.aspx?make=${map_makes:${lowercase:$1}}&model=${map_makes:${lowercase:$1}}.${lowercase:$2}&root=${lowercase:$2}&pn=$3 [QSA,NC,L]
+RewriteRule ^([a-zA-Z]+)-(.*)-cars/				usedsearch.aspx?make=${map_makes:${lowercase:$1}}&model=${map_makes:${lowercase:$1}}.${lowercase:$2}&root=${lowercase:$2} [QSA,NC,L]
+RewriteRule ^(.*)-cars/page-(.*)/				usedsearch.aspx?make=${map_makes:${lowercase:$1}}&pn=$2 [QSA,NC,L]
+RewriteRule ^(.*)-cars/							usedsearch.aspx?make=${map_makes:${lowercase:$1}} [QSA,NC,L]
+RewriteRule ^usedsearch.aspx$					cars-for-sale/	[R=301,QSA,NC,L]
+
+# dealers page
+RewriteRule ^dealers-in-(.*)/(.*)-([\d]+)/dealerstockdetails.aspx		/Dealer/dealerstockdetails.aspx	[NC,L]
+RewriteRule ^dealers-in-(.*)/(.*)-3849/$                                /Dealer/premiumDealerShowroom.aspx?dealerId=3849	[NC,L]
+RewriteRule ^dealers-in-(.*)/(.*)-([\d]+)/$								/Dealer/UsedShowroom.aspx?dealerId=$3	[NC,L]
+RewriteRule ^dealers-in-(.*)/$											Dealers/DealersUsed.aspx?cityid=${map_cities:${lowercase:$1}}	[NC,L]	
+RewriteRule ^carwaleguarantee.aspx$				- [G]
+RewriteRule ^guaranteeterms.aspx$				- [G]
+RewriteRule ^dealerplans.aspx$					- [G]
+
+# Sell Car page
+#RewriteRule ^sell/$								SellCar/AboutCar.aspx	[NC,L,QSA]
+RewriteRule ^sell/aboutcar.aspx$				sell/	[R=301,NC,L]
+RewriteRule ^sell/sellcar.aspx$					sell/	[R=301,NC,L]
+RewriteRule ^sellcar.aspx$						sell/	[R=301,NC,L]
+RewriteRule ^sell/payment.aspx$					- [G]
+RewriteRule ^sell/redirecttocca.aspx$			- [G]
+RewriteRule ^sell/yt_video_upload_guide.pdf$	- [G]
+RewriteRule ^sellcarmain.aspx$					/used/sell/ [R=301,NC,L]
+
+RewriteRule ^$									/used/default/	[NC,L]
+RewriteRule ^default.aspx$						/used/default/	[NC,L]
+
+#Car Valuation
+RewriteRule ^carvaluation/valuationreport.aspx$    carvaluation/? [R=301,NC,L]
+
+#-----------search.aspx urls--------------------------
+RewriteCond %{QUERY_STRING} model=[\d+]
+RewriteRule ^search.aspx		usedsearch.aspx/	[NC,L,QSA]
+	#  above rule is only excute if querystring contains "model={some digits}" and url is search.aspx
+RewriteRule ^search.aspx		cars-for-sale/?	[R=301,NC,L]
+#-----------------------------------------------------
+
+#some gone urls
+RewriteRule ^usedCarPreferences.aspx			- [G,NC]
+RewriteRule ^DealerProfile.aspx					- [G,NC]
+RewriteRule ^locateservicecenters.aspx			- [G,NC]
+RewriteRule ^sellerfeedback.aspx				- [G,NC]
+RewriteRule ^car-buying-guides/					- [G,NC]
+RewriteRule ^searchListing.aspx					- [G,NC]

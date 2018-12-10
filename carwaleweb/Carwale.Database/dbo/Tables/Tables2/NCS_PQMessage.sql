@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[NCS_PQMessage] (
+    [Id]       NUMERIC (5)    IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [Message]  VARCHAR (1000) NULL,
+    [IsActive] BIT            CONSTRAINT [DF_NCS_PQMessage_Active] DEFAULT ((1)) NOT NULL,
+    CONSTRAINT [PK_NCS_PQMessage] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

@@ -1,0 +1,25 @@
+@mixin filter-item($bgcolor: white-smoke, $color: charcoal) {
+	.filter-item {
+		@include vendor-prefix('border-radius', 2px);
+		@include cross-dark-gray;
+		background-position: right 10px center;
+		background-size: 8px;
+		padding: 6px 25px 7px 10px;
+		margin-right: 10px;
+		color: color($color);
+		font-size: 12px;
+		background-color: color($bgcolor);
+		display: inline-block;
+		text-transform: capitalize;
+		position: relative;
+		overflow: hidden;
+		max-width: 110px;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		cursor: pointer;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}

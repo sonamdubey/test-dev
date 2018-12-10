@@ -1,0 +1,52 @@
+﻿@model Carwale.DTOs.CarData.SimilarCarsDTO
+@using Carwale.Utility;
+@using Carwale.Entity;
+
+
+<h2 class="section-heading">@(ViewBag.IsCityPage ? "Prices of cars similar to " + @Model.SourceModelName + " in " + ViewBag.CityName : Model.SourceModelName + " Alternatives")</h2>
+<amp-carousel height="320" layout="fixed-height" type="carousel">
+    @foreach (var similarCar in Model.SimilarCarModels)
+    {
+        string title_tag = string.Format("{0} {1} {2}", similarCar.MakeName, similarCar.ModelName, (ViewBag.IsCityPage ? "price in " + ViewBag.CityName : string.Empty));
+        <div class="contentWrapper">
+            <div class="imageWrapper">
+                <a href="@(ViewBag.IsCityPage ? ManageCarUrl.CreatePriceInCityUrl(similarCar.MakeName,similarCar.MaskingName,ViewBag.CityMaskingName) : ManageCarUrl.CreateModelUrl(similarCar.MakeName, similarCar.MaskingName))" class="text-black text-no-decoration" title="@title_tag">
+                    <amp-img class="max-width-100-percent" src=@ImageSizes.CreateImageUrl(similarCar.HostUrl,ImageSizes._272X153,similarCar.ModelImageOriginal) title="@title_tag" alt="@title_tag" width="278" height="160" layout="responsive"></amp-img>
+                </a>
+            </div>
+            <div class="carDescWrapper">
+                <h3 class="text-black margin-bottom10 font16 text--truncate">
+                    <a title="@title_tag" href="@(ViewBag.IsCityPage ? ManageCarUrl.CreatePriceInCityUrl(similarCar.MakeName,similarCar.MaskingName,ViewBag.CityMaskingName) : ManageCarUrl.CreateModelUrl(similarCar.MakeName, similarCar.MaskingName))">@title_tag</a>
+                </h3>
+				@if (similarCar.PricesOverview != null)
+				{
+					<p class="font16">
+                    @similarCar.PricesOverview.PricePrefix @similarCar.PricesOverview.Price
+                    <span class="font13">@similarCar.PricesOverview.PriceSuffix</span>
+                    </p>
+				}
+               
+                @if (similarCar.PricesOverview != null && similarCar.PricesOverview.PriceStatus >= (int)PriceBucket.HaveUserCity)
+                {
+                        <span class="font10">@((similarCar.PricesOverview.PriceLabel ?? string.Empty) + ", " + similarCar.PricesOverview.City.Name)</span>
+                }
+                else
+                {
+					 if (similarCar.PricesOverview != null)
+					 {
+                    <span class="font10">@similarCar.PricesOverview.PriceLabel</span>
+					 }
+                    <div class="margin-top10">
+                        <a href="@ManageCarUrl.CreateModelUrl(similarCar.MakeName,similarCar.MaskingName)?q=globalcity">Show price in my city</a>
+                    </div>
+                }      
+                @if (!string.IsNullOrWhiteSpace(similarCar.CompareCarUrl))
+                {
+                <div class="margin-top10">
+                    <a href="@similarCar.CompareCarUrl?source=@(Model.WidgetPageSource)" title="Compare @Model.SourceModelName with @similarCar.ModelName">Compare with @Model.SourceModelName</a>
+                </div>
+                }
+            </div>
+        </div>
+    }
+</amp-carousel>

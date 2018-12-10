@@ -1,0 +1,111 @@
+.budget-screen {
+	padding: 80px 40px 50px;
+
+	.screen__head {
+		margin-bottom: 70px;
+		text-align: center;
+	}
+
+	.screen-head__title {
+		font-size: 18px;
+		font-weight: $font-normal;
+	}
+}
+
+@include budget-image();
+
+.budget-image,
+.budget-rheostat,
+.slider-rheostat {
+	margin-bottom: 60px;
+}
+
+.budget-rheostat,
+.slider-rheostat {
+	.rheostat-background {
+		margin-bottom: 14px;
+	}
+
+	.pit-item {
+		font-size: 12px;
+		color: color("dark-gray");
+
+		&:last-child {
+			left: auto !important;
+			right: 0;
+		}
+	}
+}
+
+.input-box {
+	position: relative;
+	margin-bottom: 35px;
+}
+
+input[type="tel"]:focus {
+	outline: 0 !important;
+	user-select: none;
+}
+
+input[type="tel"].budget-input, input[type="tel"].slider-input, input[type="text"].slider-input {
+	width: 100%;
+	height: auto;
+	font-size: 20px;
+	padding: 9px 45px;
+	border: 1px solid color("light-gray");
+	@include vendor-prefix("border-radius", 4px);
+	text-indent: 0;
+	text-align: center;
+	@include vendor-prefix("user-select", none);
+
+	&.disable--cursor {
+		color: transparent;
+		text-shadow: 0 0 0 #2d4552;
+	}
+}
+
+.budget-input-prefix, .slider-input-prefix {
+	position: absolute;
+	top: 9px;
+	left: 15px;
+	font-size: 22px;
+}
+
+.status-invalid {
+	input {
+		border-color: color("orange") !important;
+	}
+}
+
+.input-box {
+	.error-text {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		margin-top: 10px;
+		font-size: 12px;
+		color: color("orange");
+		display: block;
+	}
+} 
+
+@media (min-width: 540px) {
+	.budget-screen {
+		padding-right: 50px;
+		padding-left: 50px;
+	}
+
+	.budget-image {
+		width: 354px;
+		height: 177px;
+	}
+}
+
+// Styles for desktop
+@media only screen and (min-width: 768px) {
+	.slider-rheostat {
+		.pit-item {
+			font-size: 14px;
+		}
+	}
+}

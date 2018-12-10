@@ -1,0 +1,55 @@
+﻿@model Carwale.DTOs.Campaigns.DealerAdDTO
+@using Carwale.Entity.Enum;
+<section>
+    <div class="dealer-info-slug">
+        <h3 class="text-black margin-bottom10 margin-left10">@ViewBag.ModelName - Best Buying Options</h3>
+        <div class="content-box-shadow dealer-info-slug margin-bottom20 text-center content-inner-block-10">
+            <span class="test-drive-circle-icon"></span>
+
+            @if (ViewBag.IsVersionPage)
+            {
+                <h3 class="text-black margin-bottom10">Contact @Model.Campaign.ContactName</h3>
+                <p>Get in touch for the best buying options from your authorized dealer</p>
+                if (Model.Campaign.MaskingNumberEnabled && !String.IsNullOrWhiteSpace(Model.Campaign.ContactNumber))
+                {
+                    <a href="tel:@(Model.Campaign.ContactNumber)" class="font16 text-black text-bold margin-top10 margin-bottom10"
+                       data-vars-ea="GenericSlugNumber_click"
+                       data-vars-ec="Call-Slug-Behaviour"
+                       data-vars-el="@(ViewBag.CallSlugTrackingLabel)">
+                    <span data-vars-ea="GenericSlugNumber_click"
+                          data-vars-ec="MSite-VersionPage-LeadSlug"
+                          data-vars-el="@(ViewBag.ModelName + "," + ViewBag.CityZone)">
+                        <span class="phone-icon"></span>@Model.Campaign.ContactNumber
+                    </span>
+                    </a>
+                }
+            }
+            else
+            {
+                <h3 class="text-black margin-bottom10">Contact @Model.Campaign.ContactName</h3>
+                <p>Get in touch with your authorised dealership for the best buying options</p>
+                
+                if (Model.Campaign.MaskingNumberEnabled && !String.IsNullOrWhiteSpace(Model.Campaign.ContactNumber))
+                    {
+                        <a href="tel:@(Model.Campaign.ContactNumber)" class="font16 text-black text-bold margin-top10 margin-bottom10"
+                           data-vars-ea="GenericSlugNumber_click"
+                           data-vars-ec="Call-Slug-Behaviour"
+                           data-vars-el="@(ViewBag.CallSlugTrackingLabel)">
+                            <span class="margin-top10 margin-bottom10"
+                                  data-vars-ea="GenericSlugNumber_click"
+                                  data-vars-ec="@(ViewBag.IsCityPage ? "MSite-PriceInCityPage-LeadSlug" : "MSite-ModelPage-LeadSlug")"
+                                  data-vars-el='@(ViewBag.IsCityPage ? (ViewBag.ModelName + "," + ViewBag.CityName) : (ViewBag.ModelName + "," + ViewBag.CityZone))'>
+                                <span class="phone-icon"></span>@Model.Campaign.ContactNumber
+                            </span>
+                        </a>
+                    }
+            }
+            <a class="big-red-button" href="@ViewBag.NonAmpUrl?q=lead&propertyid=3"
+               data-vars-ea="GenericSlugBtn_click"
+               data-vars-ec="@(ViewBag.IsCityPage ? "MSite-PriceInCityPage-LeadSlug" : (ViewBag.IsVersionPage ? "MSite-VersionPage-LeadSlug" : "MSite-ModelPage-LeadSlug"))"
+               data-vars-el='@(ViewBag.IsCityPage ? (ViewBag.ModelName + "," + ViewBag.CityName) : (ViewBag.ModelName + "," + ViewBag.CityZone))'>
+                Get The Best Deal
+            </a>
+</div>
+    </div>
+</section>

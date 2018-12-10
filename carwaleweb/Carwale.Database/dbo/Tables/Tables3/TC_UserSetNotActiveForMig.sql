@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[TC_UserSetNotActiveForMig] (
+    [Id]                  INT                 IDENTITY (1, 1) NOT NULL,
+    [BranchId]            NUMERIC (18)        NOT NULL,
+    [RoleId]              INT                 NULL,
+    [UserName]            VARCHAR (150)       NULL,
+    [Email]               VARCHAR (100)       NOT NULL,
+    [Password]            VARCHAR (20)        NOT NULL,
+    [Mobile]              VARCHAR (15)        NULL,
+    [EntryDate]           DATETIME            NOT NULL,
+    [DOB]                 DATE                NULL,
+    [DOJ]                 DATE                NULL,
+    [Sex]                 VARCHAR (6)         NULL,
+    [Address]             VARCHAR (500)       NULL,
+    [IsActive]            BIT                 NOT NULL,
+    [ModifiedBy]          INT                 NULL,
+    [ModifiedDate]        DATETIME            NULL,
+    [IsFirstTimeLoggedIn] BIT                 NULL,
+    [IsCarwaleUser]       BIT                 NULL,
+    [UniqueId]            VARCHAR (50)        NULL,
+    [TodaysCallCount]     SMALLINT            NULL,
+    [HierId]              [sys].[hierarchyid] NULL,
+    [lvl]                 SMALLINT            NULL,
+    [NodeCode]            NVARCHAR (4000)     NULL,
+    [GCMRegistrationId]   VARCHAR (250)       NULL,
+    [PwdRecoveryEmail]    VARCHAR (50)        NULL,
+    [VTONumbers]          VARCHAR (50)        NULL
+);
+

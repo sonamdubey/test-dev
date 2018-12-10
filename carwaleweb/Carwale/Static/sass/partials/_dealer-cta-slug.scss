@@ -1,0 +1,51 @@
+﻿
+.dealer-cta-container {
+    width: 100%;
+    padding: 10px;
+    background: map-get($color-map, 'sea-shell');
+}
+.dealer-info {
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.dealer-icon {
+    @include dealer;
+    width: 40px;
+    height: 32px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dealer-name-container {
+    text-align: left;
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dealer-name {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.pq-btn {
+    padding: 10px;
+    border: 1px solid map-get($color-map, 'shamrockGreen');
+    color: map-get($color-map, 'white');
+    background-color: map-get($color-map, 'shamrockGreen');
+    font-weight: 600;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+    width: 96%;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    margin-bottom: 11px;
+    font-size: 15px;
+
+    &:hover {
+        text-decoration: none;
+    }
+}

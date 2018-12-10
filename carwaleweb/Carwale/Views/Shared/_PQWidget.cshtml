@@ -1,0 +1,22 @@
+﻿<!--  Get Final Price code starts here -->
+
+
+    <div class="bg-light-grey bg-light-grey-with-alpha content-inner-block-15 margin-top70 shake-form-container">
+    <p class="font25 text-black text-uppercase margin-bottom20">Check on-road price</p>
+
+    <div class="form-control-box margin-bottom20">
+        <input class="form-control ui-autocomplete-input blur" type="text" placeholder="@(ViewData["PQWidget"] ?? "Type to select car name")" id="inputModelPQWidget" >
+        <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
+        <span class="cwsprite error-icon PriceCarErrIcn hide"></span>
+        <div class="cw-blackbg-tooltip PriceCarErrMsg hide">Please select your car</div>
+    </div>
+    <div class="form-control-box margin-bottom20">
+        <input type="text" id="inputCityPQWidget" disabled="disabled"  class="form-control" value="Select City" placeholder="Select City" readonly="readonly">
+        <span class="cwsprite error-icon city-error-icon hide"></span>
+        <div class="cw-blackbg-tooltip city-error-msg hide">Please select your city</div>
+    </div>
+    <button class="btn btn-orange text-uppercase margin-bottom30" id="finalprice">check now</button>
+    <p>Contact details are not needed to get the price</p>
+    </div>
+
+

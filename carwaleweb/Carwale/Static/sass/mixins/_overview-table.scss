@@ -1,0 +1,99 @@
+﻿@mixin price-table($color: 'charcoal', $border: none) {
+	.price-table {
+		width: 100%;
+		color: map-get($color-map, $color);
+		padding-top: 15px;
+		font-size: 14px;
+		border-collapse: collapse;
+		position: relative;
+
+		tbody {
+			position: relative;
+		}
+
+		tr {
+			position: relative;
+
+			&::after {
+				content: '';
+				border-top: $border;
+				display: inline-block;
+				position: absolute;
+				left: 20px;
+				right: 20px;
+			}
+
+			&:first-child {
+				&::after {
+					content: none;
+				}
+			}
+		}
+
+		td {
+			padding-bottom: 10px;
+			padding-top: 10px;
+			vertical-align: top;
+		}
+
+		&__description {
+			width: 62%;
+			padding-left: 20px;
+		}
+
+		&__amount {
+			width: 38%;
+			text-align: right;
+			padding-right: 20px;
+		}
+
+		.instruction-icon {
+			@include instruction-tooltip;
+			
+			.instruction-tooltip {
+				@include vendor-prefix('transform', translateX(-50%));
+				bottom: auto;
+			}
+		}
+
+		.price-table-desc__instruction {
+			position: relative;
+			width: auto;
+			height: auto;
+			background-image: none;
+		}
+	}
+}
+
+@mixin price-table__total($background-color: 'snow-white', $font-weight: $font-bold, $font-size: 16) {
+	.price-table__total {
+		font-size: $font-size * 1px;
+		> td {
+			padding-top: 15px;
+			padding-bottom: 15px;
+			background-color: map-get($color-map, $background-color);
+			font-weight: $font-weight;
+		}
+
+		@include instruction-tooltip;
+
+		.instruction-tooltip {
+			font-weight: $font-normal;
+		}
+	}
+
+	@include instruction-icon;
+
+	.price-table {
+		.price-table__total {
+			&::after {
+				content: none;
+			}
+		}
+
+		.instruction-icon {
+			margin-bottom: 3px;
+			margin-left: 3px;
+		}
+	}
+}

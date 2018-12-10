@@ -1,0 +1,51 @@
+﻿@import "../mixins/_sprites";
+@import "../mixins/_vendor-prefix.scss";
+@import "../mixins/_variables.scss";
+
+.slug-teal-target {
+    display: block;
+    color: map-get($color-map, 'white');    
+    position: relative;
+}
+
+.shamrockGreen {
+    background-color: map-get($color-map, 'shamrockGreen');    
+}
+
+.GreyBlue {
+    background-color: map-get($color-map, 'grey-blue');
+}
+
+.contest-slug-sm {
+    font-size: 13px;
+    padding: 8px 10px;
+}
+
+.trophy-white {
+    @include trophy-white;
+    width: 15px;
+    height: 16px;
+}
+
+.contest-slug__label,
+.trophy-white {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.contest-slug__label {
+    width: 92%;
+    color: map-get($color-map, 'white');
+    padding-left: 6px;
+}
+
+.arrow-white-right {
+    @include arrow-white-down-icon;
+    @include vendor-prefix('transform', rotate(-90deg));
+    display: inline-block;
+    vertical-align: middle;
+    height: 12px;
+    width: 12px;
+    position: absolute;
+    top: 33%;
+}

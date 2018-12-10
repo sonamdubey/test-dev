@@ -1,0 +1,112 @@
+﻿@import '../mixins/_variables.scss';
+@import '../mixins/_sprites.scss';
+
+.notification-popup-container #notification-popup {
+    top: 50px;
+    z-index: 0;
+    right: inherit;
+    position: fixed;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#notification-popup {
+    position: fixed;
+    z-index: 9;
+    width: 340px;
+    min-height: 132px;
+    background-color: map-get($color-map, 'white-bg');
+    top: 43%;
+    left: 0px;
+    right: 0px;
+    margin: 0 auto;
+    padding: 20px 15px 15px;
+    box-shadow: 0 4px 4px 0 map-get($color-map, 'dim-grey');
+}
+
+.notification-content-line1 {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.21;
+    color: map-get($color-map, 'charcoal');
+    margin-bottom: 5px;
+}
+
+.notification-content-line2 {
+    width: 250px;
+    font-size: 12px;
+    line-height: 13px;
+    color: map-get($color-map, 'dim-grey');    
+}
+
+#notification-no-btn {
+    font-size: 12px;
+    font-weight: bold;
+    color: map-get($color-map, 'summer-sky');
+    margin-right: 23px;
+    background-color: map-get($color-map, 'white-bg');
+    padding: 8px 0px;
+    border: 1px solid transparent;
+}
+
+#notification-notify-btn {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.25;
+    letter-spacing: normal;
+    border: 1px solid map-get($color-map, 'orange-btn-new');
+    color: map-get($color-map, 'orange-btn-new');
+    padding: 0px 10px;
+    width: 90px;
+    height: 32px;
+    border-radius: 3px;
+    background-color: map-get($color-map, 'white-bg');
+}
+
+.notification-bell-icon {
+    @include bell-icon;
+    width: 20px;
+    height: 40px;
+    display: inline-block;
+    background-position: center;
+    vertical-align: top;
+    margin-right: 15px;
+}
+
+#notification-greyout {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.75);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+.notification-button-wrapper {
+    text-align: right;
+    margin-top: 12px;
+}
+
+.content-wrapper__data {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.notification-close-btn {
+    @include cross-default-15x16;
+    width: 20px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    background-size: 10px;
+}
+
+/* layout properties */
+.lock-browser-scroll {
+    position: fixed;
+    overflow-y: scroll;
+    width: 100%;
+}

@@ -1,0 +1,129 @@
+@import  "../mixins/_padding";
+@import  "../mixins/_vendor-utils";
+@import "../mixins/_sprites";
+@import "../mixins/_fontawesome";
+@import "../mixins/_opacity.scss";
+@import "../mixins/_margin.scss";
+@import "../mixins/_text.scss";
+@import "../mixins/_fonts.scss";
+
+@include home-icon;
+@include newCars-icon;
+@include usedCars-icon;
+@include sellCars-icon;
+@include reviews-icon;
+@include new-red-tag-icon;
+@include specials-icon;
+@include insurance-icon;
+@include electriccar-icon;
+@include nav-loan-icon;
+@include ae-new-label-icon;
+@include opacity-class(60);
+@include get-font-icon("angle-down");
+@include get-font-icon("phone");
+@include margin("left",10);
+@include margin("left",25);
+@include text-color("grey");
+@include font-size-class(12);
+
+#nav{
+    background: #fff; 
+    width: 260px; 
+    position: fixed; 
+    top: 0; 
+    right: 0; 
+    bottom: 0; 
+    left: -260px; 
+    overflow-y: scroll; 
+    z-index: 10; 
+}
+.navUL{
+    padding-top:20px;
+    li { 
+        display: block; 
+        position: relative;
+
+        a { 
+            color: #1a1a1a; 
+            font-size: 14px; 
+            text-decoration: none; 
+            display: block; 
+            height: 48px; 
+            padding: 6px 0 0 15px;
+
+            &:hover,&.active{
+                font-weight: 600;
+            }
+
+            &.open{
+                font-weight: bold;
+            }
+            span.nav-drop { 
+                position: absolute; 
+                right: 10px; 
+                top: 15px; 
+                font-size: 20px; 
+                color: #565a5c; 
+            }
+
+            &:hover span.nav-drop{
+                color: #1a1a1a;
+            }
+
+            &.sept-nav-list { 
+                padding: 15px 0 0 55px; 
+                color: #82888b; 
+                height: 36px; 
+            }
+            &.sponsored-ad-text{
+                padding-top:13px;
+                span{
+                    font-size: 11px; 
+                    color:#0288d1; 
+                    position: absolute; 
+                    bottom:10px;
+                }
+            }
+            span.nav-drop, &.open span.nav-drop.fa-angle-down{
+                @include get-vendor-prefixed(transition,"transform .3s");
+            }
+            &.open span.nav-drop.fa-angle-down{
+                @include get-vendor-prefixed(transform,"rotateZ(180deg)");
+            }
+        }
+        .nestedUL li{
+            a:hover,a.open{
+                border-left: 4px solid red; 
+                font-weight: bold; 
+                background: #fff;
+            }
+        }
+        ul { 
+            display: none; 
+            border-top: 1px solid #ebecec;
+            border-bottom: 1px solid #ebecec;
+            background: #f6f7f7;
+            a { 
+                padding: 13px 0 0 51px; 
+                border-left: 4px solid transparent;
+
+                &:hover,&.active{
+                    background: #fff; 
+                    border-left: 4px solid #ef3f30;
+                }
+             }
+        }
+    }
+    .app-download-menu{
+        padding-left: 15px;
+            a{
+                display: inline-block;
+                vertical-align: top;
+                height: auto;
+                padding:0 6px 0 0;
+            }
+    }
+    .adv-menu-link a{
+        padding-top:5px;
+        }
+}

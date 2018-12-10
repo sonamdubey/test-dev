@@ -1,0 +1,49 @@
+﻿@model Carwale.DTOs.Accessories.Tyres.VersionTyresDTO
+@using Carwale.Utility;
+
+@{int i = 0;}
+@if (Model.Tyres != null && Model.Tyres.Count > 0)
+{
+    if (Model.LoadAdslot && !Model.Tyres[0].IsSponsored && ViewBag.ShowAd != null && ViewBag.ShowAd)
+    {
+        if (ViewBag.IsMobile != null && ViewBag.IsMobile)
+        {
+            <li class='ad-slot'>@Helpers.GetAdBar("1520418163044", 175, 0, 0, 0, true)</li>
+        }
+        else
+        {
+            <li class='ad-slot'>@Helpers.GetAdBar("1520418101365", 228, 0, 0, 0, true)</li>
+        }
+    }
+    foreach (var item in Model.Tyres)
+    {
+        <li id="@item.ItemId" class="@(item.IsSponsored ? "sponsored" : "")">
+            <div class="imageWrapper @(item.IsSponsored ? "sponsored" : "")">
+                <a href="@(ViewBag.IsMobile ? "/m" : "")/tyres/@Format.FormatTyresURL(string.Format("{0}/{1}/{2}-{3}", item.BrandName, item.ModelName, item.Size.Replace("/", "-"), item.ItemId))/" data-role="click-tracking" data-event="CWInteractive" data-action="@(item.IsSponsored ? "apollo_Click" : "Search result selected")" data-cat="@(ViewBag.IsMobile ? (item.IsSponsored ? "Tyres_sponsored_m" : "Tyres_Section_m") : (item.IsSponsored ? "Tyres_sponsored_d": "Tyres_Section_d"))" data-label="@(item.BrandName)_@(item.ModelName)_@item.Price">
+                    <img class="lazy" title="@item.BrandName @item.ModelName" alt="@item.BrandName @item.ModelName" data-original='@(item.HostUrl + Carwale.Utility.ImageSizes._370X208 + item.OriginalImgPath)' src="https://imgd.aeplcdn.com/0x0/statics/grey.gif">
+                </a>
+                <span class="sponsored-on-image">@(item.IsSponsored ? "Sponsored" : "")</span>
+            </div>
+            <div class="carDescWrapper text-left @(item.IsSponsored ? "sponsored" : "")">
+                <div class="carTitle padding-left10">
+                    <a href="@(ViewBag.IsMobile ? "/m" : "")/tyres/@Format.FormatTyresURL(string.Format("{0}/{1}/{2}-{3}", item.BrandName, item.ModelName, item.Size.Replace("/", "-"), item.ItemId))/" data-role="click-tracking" data-event="CWInteractive" data-action="@(item.IsSponsored ? "apollo_Click" : "Search result selected")" data-cat="@(ViewBag.IsMobile ? (item.IsSponsored ? "Tyres_sponsored_m" : "Tyres_Section_m") : (item.IsSponsored ? "Tyres_sponsored_d": "Tyres_Section_d"))" data-label="@(item.BrandName)_@(item.ModelName)_@item.Price">
+                        <h3 class="font16 text-black">@item.BrandName</h3>
+                        <h3 class="font16 text-black tyre-model-name text-ellipsis">@item.ModelName</h3>
+                    </a>
+                </div>
+                <div class="font13 text-black text-bold padding-left10 margin-top5 margin-bottom5">@item.Size</div>
+                <div class="font13 text-black text-bold padding-left10 margin-top5 margin-bottom5">@(item.Tubeless ? "Tubeless" : "Tube")</div>
+                <div class="padding-left10 font12 warranty-text @(item.Warranty == null ? "hideFeatures" : "")">
+                    <span class="cwmsprite warranty-icon"></span>@(item.Warranty != null ? (item.Warranty + " Warranty"): "")
+                </div>
+                <div class="tyre-tag-type font16">@(item.Price > 0 ? string.Format("₹ {0}/-", Format.FormatNumericCommaSep(item.Price.ToString())) : "₹ NA")</div>
+                <span class="@(++i == (Model.Tyres.Count() - (ViewBag.IsMobile ? 2 :4 )) ? "next-page-trigger" : "")" id="@item.ItemId"></span>
+            </div>
+        </li>
+    }
+    if (ViewBag.PageNo == 1)
+    {
+        <input id="hdnTyreCount" type="hidden" value="@Model.Count" />
+        <input id="hdnVersionTyreSize" type="hidden" value="@Model.VersionTyreSize" />
+    }
+}

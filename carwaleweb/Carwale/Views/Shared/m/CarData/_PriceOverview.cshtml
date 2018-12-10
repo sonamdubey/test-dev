@@ -1,0 +1,138 @@
+@model Carwale.DTOs.CarData.CarOverviewDTOV2
+@using Carwale.Utility;
+@using Carwale.Entity;
+@using MobileWeb.Common;
+@using Carwale.Entity.Enum;
+@using System.Configuration;
+
+@{
+    var campaignDealerId = Model.DealerAd != null && Model.DealerAd.Campaign != null ? String.Format("{0}_{1}", Model.DealerAd.Campaign.Id, Model.DealerAd.Campaign.DealerId) : "0";
+}
+
+<span class="font20 version-price">
+    @Html.Raw(Model.CarPriceOverview.PricePrefix + " ")
+    @Model.CarPriceOverview.Price
+</span>
+@if (CookiesCustomers.IsEligibleForORP && Model.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity)
+{
+    <a href="javascript:void(0)" class="font12 text-bold price-breakup-link" modelid="@(Model.ModelId)" versionid="@(Model.VersionId)" cityid="@Model.CarPriceOverview.City.Id" cityname="@Model.CarPriceOverview.City.Name"
+       onclick="redirectOrOpenPopup(this, @(Model.PQPageId))" rel="nofollow">@System.Configuration.ConfigurationManager.AppSettings["ViewPriceBreakupText"]</a><br />
+}
+<span class='font13 price-label @Model.CarPriceOverview.LabelColor'>
+    <span class="label-text">@Html.Raw(Model.CarPriceOverview.PriceLabel ?? "")@Html.Raw(!string.IsNullOrEmpty(Model.CarPriceOverview.City.Name) ? ", " + Model.CarPriceOverview.City.Name : string.Empty)</span>
+    <span class="reason-text">@(Model.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + Model.CarPriceOverview.ReasonText + "</p></div>") : Html.Raw(""))</span>
+
+    @if (CookiesCustomers.IsEligibleForORP && !string.IsNullOrEmpty(ViewBag.PricingEventAction) && !string.IsNullOrEmpty(ViewBag.PricingEventLabel))
+    {
+        <span data-role="impression" data-event="CWNonInteractive" data-cat="Pricing" data-action="@ViewBag.PricingEventAction" data-label="@(ViewBag.PricingEventLabel)@(Model.IsVersionPage ? "" : "_NA")"></span>
+    }
+</span>
+
+@if (Model.EmiCalculatorModelData != null)
+{
+    @*Emi Slug Starts Here*@
+    { Html.RenderPartial("~/Views/Shared/m/CarData/_EmiCalculatorLink.cshtml", Model); }
+    @* Emi Slug Ends Here *@
+}
+@if (CustomerCookie.MasterCityId < 1 && Model.CarPriceOverview.PriceForSorting > 0)
+{
+    <span class="check-your-emi-link checkYourEmiLink__js">Check your EMI</span>
+}
+@if (Model.New)
+{
+    if (Model.AdAvailable)
+    {
+        if (!string.IsNullOrEmpty(Model.LeadCTA))
+        {
+            <div class="text-link get-assistance-link @(Model.EmiCalculatorModelData != null ? "top-border" : "")" id="divEmiAssistance" dealercampaignexist="@Model.AdAvailable.ToString()"
+                 sourceclick="@(ViewBag.IsCityPage ? 132 : (Model.IsVersionPage ? 112 : 111))" page="@(ViewBag.IsCityPage ? "CityPage" : (Model.IsVersionPage ? "VersionPage" : "ModelPage"))" data-role="click-impression"
+                 data-event="CWNonInteractive" data-action="@(Model.AdAvailable ? (CookiesCustomers.MasterCityId >= 1 ? "CampaignLink_with_city" : "CampaignLink_without_city") : "Link_without_city")" data-cat="@(ViewBag.IsCityPage ? "ModelCityPage_Lead_CTA_MSite" : (Model.IsVersionPage ? "VersionPage_Lead_CTA_MSite" : "ModelPage_Lead_CTA_MSite"))" data-label='@(ViewBag.IsCityPage ? (ViewBag.CityName + "," + Model.ModelName) : (ViewBag.CityZone + "," + Model.ModelName))' data-cwtccat="@(ViewBag.IsCityPage ? "CityPage" : (Model.IsVersionPage ? "VersionPage" : "ModelPage"))" data-cwtcact="EmiAssistanceButtonClick" data-predictionscore="@(Model.PredictionData != null ? Model.PredictionData.Score : 0)" data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")" data-cwtclbl="make:@Model.MakeName|model:@Model.ModelName|@(Model.IsVersionPage?"version:"+Model.VersionName+"|":"")city:@ViewBag.CityZone" >
+                <u class="text-bold font16" modelid=@Model.ModelId versionid="@Model.VersionId" campaigncta campaignid_dealerid="@Model.CampaignDealerId" propertyid="1">@Model.LeadCTA</u>
+            </div>
+        }
+    }
+    else if ((!Model.AdAvailable && Model.UserLocation != null && Model.UserLocation.CityId < 1) || Model.ShowCampaignLink)
+    {
+        <div class="text-link get-assistance-link @(Model.EmiCalculatorModelData != null ? "top-border" : "")" id="divEmiAssistance" dealercampaignexist="@Model.AdAvailable.ToString()" isdealerexistincity="false" sourceclick="@(ViewBag.IsCityPage ? 132 : (Model.IsVersionPage ? 140 : 139))" page="@(ViewBag.IsCityPage ? "CityPage" : (Model.IsVersionPage ? "VersionPage" : "ModelPage"))" data-role="click-impression" data-event="CWInteractive" data-action="Link_without_city" data-cat="@(ViewBag.IsCityPage ? "ModelCityPage_Lead_CTA_MSite" : (Model.IsVersionPage ? "VersionPage_Lead_CTA_MSite" : "ModelPage_Lead_CTA_MSite"))" data-label='@(ViewBag.IsCityPage ? (ViewBag.CityName + "," + Model.ModelName) : (ViewBag.CityZone + "," + Model.ModelName))' data-cwtccat="@(ViewBag.IsCityPage ? "CityPage" : (Model.IsVersionPage ? "VersionPage" : "ModelPage"))" data-cwtcact="EmiAssistanceButtonClick" data-predictionscore="@(Model.PredictionData != null ? Model.PredictionData.Score : 0)" data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")" data-cwtclbl="make:@Model.MakeName|model:@Model.ModelName|@(Model.IsVersionPage?"version:"+Model.VersionName+"|":"")city:@ViewBag.CityZone"><u class="text-bold font16" modelid=@Model.ModelId versionid="@Model.VersionId" campaigncta campaignid_dealerid=@Model.CampaignDealerId propertyid="1">Get EMI Assistance</u></div>
+    }
+    else if ((Model.UserLocation != null && Model.UserLocation.CityId > 0) && Model.AdvantageAdData != null && (Model.AdvantageAdData.Savings > 0 || (Model.AdvantageAdData.Savings == 0 && !String.IsNullOrWhiteSpace(Model.AdvantageAdData.Offers))) && Model.AdvantageAdData.IsSimilarCar == false)
+    {
+        if (!Model.IsVersionPage)
+        {
+            <section class="margin-top5">
+                <p class="font13 text-bold margin-bottom5">CarWale Exclusive:</p>
+                <div id="divAdvantageLink" class="text-link font13 margin-bottom5">
+                    <span class="advantage-link__thumbsup"></span>
+
+                    @if (Model.AdvantageAdData.Savings > 0)
+                    {
+                        <span class="advantage-text-slug text-black">
+                            Save
+                            <span class="text-bold">&#x20b9; </span>
+                            <span data-max-discount="@Model.AdvantageAdData.Savings.ToString()" class="discount_m text-bold">@Carwale.Utility.Format.FormatNumericCommaSep(Model.AdvantageAdData.Savings.ToString())</span>
+                            &nbsp;on @Carwale.Utility.Format.FilterModelName(Model.AdvantageAdData.Model.ModelName)
+                        </span>
+                    }
+                    else if ((Model.AdvantageAdData.Savings == 0) && (!String.IsNullOrWhiteSpace(Model.AdvantageAdData.Offers)))
+                    {
+                        <span class="advantage-text-slug text-black">
+                            Great Offers on @Carwale.Utility.Format.FilterModelName(Model.AdvantageAdData.Model.ModelName)
+                        </span>
+                    }
+                    <a id="advantageSlugCity" class="font12 btn btn-white know-more-text" onclick="Common.utils.trackAction('CWInteractive','deals_mobile', 'dealsaccess_mobile', '@(ViewBag.IsCityPage ? "priceincitypagemob" : (Model.IsVersionPage ? "versionpagemob" : "modelpagemob"))');" href="/m/@Carwale.UI.Common.UrlRewrite.FormatSpecial(Model.MakeName)-cars/@Model.AdvantageAdData.Model.MaskingName/advantage/?src=m04&cityid=@Model.AdvantageAdData.City.CityId" data-role="click-impression" data-event="CWNonInteractive" data-action="Advantage_with_city" data-cat="@(ViewBag.IsCityPage ? "ModelCityPage_Lead_CTA_MSite" : (Model.IsVersionPage ? "VersionPage_Lead_CTA_MSite" : "ModelPage_Lead_CTA_MSite"))" data-label='@(ViewBag.CityZone + "," + Model.ModelName)' data-cwtccat="@(ViewBag.IsCityPage ? "CityPage" : (Model.IsVersionPage ? "VersionPage" : "ModelPage"))" data-cwtcact="BestDealClick" data-cwtclbl="make:@Model.MakeName|model:@Model.ModelName|@(Model.IsVersionPage?"version:"+Model.VersionName+"|":"")city:@ViewBag.CityZone">
+                        SHOW OFFER
+                    </a>
+                </div>
+            </section>
+        }
+        else
+        {
+            <p class="font13 text-bold margin-top5">CarWale Exclusive:</p>
+            <div class="text-link font13 margin-top5 margin-bottom5" id="divAdvantageLink">
+                <span class="advantage-link__thumbsup"></span>
+
+                @if (Model.AdvantageAdData.Savings > 0)
+                {
+                    <span class="advantage-text-slug text-black">
+                        Save
+                        <span class="text-bold">₹ </span>
+                        <span data-max-discount="@Model.AdvantageAdData.Savings.ToString()" class="discount_m text-bold">@Carwale.Utility.Format.FormatNumericCommaSep(Model.AdvantageAdData.Savings.ToString()) </span> on
+                        @if (Model.AdvantageAdData.Version.ID == Model.VersionId)
+                        {
+                            <span> this car</span>
+                        }
+                        else
+                        {
+                            @Carwale.Utility.Format.FilterModelName(Model.AdvantageAdData.Model.ModelName)
+                        }
+                    </span>
+                }
+                else if ((Model.AdvantageAdData.Savings == 0) && (!String.IsNullOrWhiteSpace(Model.AdvantageAdData.Offers)))
+                {
+                    <span class="advantage-text-slug text-black">
+                        @if (Model.AdvantageAdData.Version.ID == Model.VersionId)
+                        {
+                            <span>Offer available on this variant</span>
+                        }
+                        else
+                        {
+                            <span>Great Offers on </span>
+                            @Carwale.Utility.Format.FilterModelName(Model.AdvantageAdData.Model.ModelName)
+                        }
+                    </span>
+                }
+                <a id="advantageSlugCity" class="font12 btn btn-white know-more-text" onclick="Common.utils.trackAction('CWInteractive','deals_mobile', 'dealsaccess_mobile', '@(ViewBag.IsCityPage ? "priceincitypagemob" : "versionpagemob")');" href="/m/@Carwale.UI.Common.UrlRewrite.FormatSpecial(Model.MakeName)-cars/@Model.AdvantageAdData.Model.MaskingName/advantage/?src=m04&cityid=@Model.AdvantageAdData.City.CityId&versionid=@Model.AdvantageAdData.Version.ID" data-role="click-impression" data-event="CWNonInteractive" data-action="Advantage_with_city" data-cat="@(ViewBag.IsCityPage ? "ModelCityPage_Lead_CTA_MSite" : "VersionPage_Lead_CTA_MSite")" data-label='@(ViewBag.CityZone + "," + Model.ModelName)' data-cwtccat="@(ViewBag.IsCityPage ? "CityPage" : "VersionPage")" data-cwtcact="BestDealClick" data-cwtclbl="make:@Model.MakeName|model:@Model.ModelName|@(Model.IsVersionPage?"version:"+Model.VersionName+"|":"")city:@ViewBag.CityZone">
+                    SHOW OFFER
+                </a>
+            </div>
+        }
+    }
+    else if (Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((int)PageProperties.Overview))
+    {
+        <div data-event="CWNonInteractive" data-role="impression" data-action="@(Model.IsVersionPage ? "VersionPage_Overview_m" : "ModelPage_Overview_m")" data-cat="SponsoredLink_Shown" data-label='@("campaign_" + Model.CampaignTemplates[(int)PageProperties.Overview].Id)'>
+            <div data-event="CWInteractive" data-role="click-tracking" data-action="@(Model.IsVersionPage ? "VersionPage_Overview_m" : "ModelPage_Overview_m")" data-cat="SponsoredLink_Click" data-label='@("campaign_" + Model.CampaignTemplates[(int)PageProperties.Overview].Id)'>
+                @Html.Raw(Model.CampaignTemplates[(int)PageProperties.Overview].Name)
+            </div>
+        </div>
+    }
+}

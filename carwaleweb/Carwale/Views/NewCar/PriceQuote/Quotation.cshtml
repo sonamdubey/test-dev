@@ -1,0 +1,616 @@
+﻿@model Carwale.DTOs.PriceQuote.QuotationPageDesktopDTO
+@using Carwale.Entity.Enum;
+@using Carwale.Utility;
+@using System.Text;
+@using Carwale.Entity.Common;
+@using System.Text.RegularExpressions;
+@using Carwale.DTOs.PriceQuote;
+
+@{
+    string location = Model.Location.ZoneId > 0 ? Regex.Replace(Model.Location.ZoneName, @"\""|\'|\(|\)", "") : Model.Location.CityName;
+
+    ViewBag.Title = string.Format("{0} On Road Price in {1}", Model.CarDetails.CarModel.ModelName, Model.Location.CityName);
+    Layout = "~/views/shared/_LayoutV3.cshtml";
+    ViewBag.CustomJS = "~/Views/StaticPartials/PriceQuote/QuotationPageScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/QuotationPageCss.cshtml";
+    ViewBag.BodyClass = "header-fixed-inner bg-white";
+    double predictionScore = 0;
+    string predictionLabel = "";
+    IdName overview = null;
+    IdName turboWidget = null;
+    if (Model.IsCampaignPresent && Model.DealerAd.Campaign.PredictionData != null)
+    {
+        predictionScore = Model.DealerAd.Campaign.PredictionData.Score;
+        predictionLabel = Model.DealerAd.Campaign.PredictionData.Label;
+    }
+    if (Model.CampaignTemplates != null)
+    {
+        Model.CampaignTemplates.TryGetValue((short)PageProperties.Overview, out overview);
+        Model.CampaignTemplates.TryGetValue((short)PageProperties.TurboWidget, out turboWidget);
+    }
+    ViewBag.AdId = "pq_page_ad";
+    ViewBag.DefineAdSlots =
+      @"<script type='text/javascript'>
+            var AdSlots = {};
+            googletag.cmd.push(function () {
+                googletag.pubads().disableInitialLoad();
+                googletag.pubads().setCentering(true);
+                AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-0'] = googletag.defineSlot('/1017752/PriceQuote_ATF_970x90', [[970, 90],[960,60],[970,66],[960,66],[970,60],[728,90]], 'div-gpt-ad-" + ViewBag.AdId + @"-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+                AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-1'] = googletag.defineSlot('/1017752/PriceQuote_970x90', [[970, 90]], 'div-gpt-ad-" + ViewBag.AdId + @"-1').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+                googletag.pubads().setTargeting('Models','" + Model.CarDetails.CarModel.ModelName + @"');
+                googletag.pubads().setTargeting('City', '" + location + @"');
+                googletag.pubads().collapseEmptyDivs(true);
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+            });
+        </script>";
+    ViewBag.PageId = 107;
+    int cardNo = 1; //since only one car is shown on desktop
+}
+
+@{
+    int abTestValue = Carwale.Utility.CustomerCookie.AbTest;
+}
+@section MetaTags{
+    <meta name="robots" content="noindex" />
+}
+
+<script type="text/javascript">
+    var pageParams = {
+        modelId: @(Model.CarDetails.CarModel.ModelId),
+        versionId: @(Model.CarDetails.CarVersion.Id),
+        cityId: @(Model.Location.CityId),
+        areaId: @(Model.Location.AreaId),
+        isSolidPricePresent : "@(Model.IsSolidCompulsoryPricePresent)" == "True",
+        isMetallicPricePresent : "@(Model.IsMetallicCompulsoryPricePresent)" == "True"
+    };
+</script> 
+
+<div class="overall-container">
+    <div class="popup-container edit-model-popup" id="editModel">
+        <div class="popup-overlay"></div>
+        <div class="popup">
+            <div class="edit-model-popup_head popup-head__content">
+                <span class="popup-close-button"></span>
+                <p class="edit-model-popup_title">
+                    Change your car
+                </p>
+            </div>
+            <div class="edit-model-popup_body">
+                <div class="model-search-wrapper autocomplete-field">
+                    <input type="text" id="js-suggestedCarInput" placeholder="Select Model" class="form-control model-search" autocomplete="off">
+                    <span class="clear-field-target" id="js-input__clrBtn">Clear</span>
+                </div>
+                @if (Model.SimilarModelList.IsNotNullOrEmpty())
+                {
+                    <div class="suggested-cars-container">
+                        <h2 class="carousel-container__heading">Other suggested cars</h2>
+                        <div class="jcarousel-wrapper carousel-wrapper">
+                            <div class="jcarousel carousel-body">
+                                <ul class="carousel-list">
+                                    @{int similarModelListCount = @Model.SimilarModelList.Count;}
+                                    @for (int i = 0; i < @similarModelListCount; i++)
+                                    {
+                                        var similarModel = @Model.SimilarModelList[i];
+                                        var makeName = @similarModel.MakeName;
+                                        var modelName = @similarModel.ModelName;
+                                        var makeModelName = string.Format("{0} {1}", makeName, modelName);
+
+                                        var imgUrl = ImageSizes.CreateImageUrl(@similarModel.HostUrl, Carwale.Utility.ImageSizes._310X174, @similarModel.ModelImageOriginal);
+                                        var pqPageUrl = string.Format("/quotation/?m={0}&v={1}&c={2}&a={3}&p={4}", @similarModel.ModelId, @similarModel.PopularVersionId, @Model.Location.CityId, @Model.Location.AreaId, "137");
+                                        string modelPageUrl = ManageCarUrl.CreateModelUrl(@makeName, @similarModel.MaskingName);
+                                        <li class="carousel-list-item">
+                                            <div class="carousel__content-wrapper">
+                                                <div class="carousel-image-wrapper">
+                                                    <a href="@modelPageUrl" title="" target="_blank"><img class="lazy" data-original="@imgUrl" title="@makeModelName" alt="@makeModelName" src="@imgUrl"></a>
+                                                </div>
+                                                <div class="carousel-info-wrapper">
+                                                    <div class="car-info-container">
+                                                        <a href="@modelPageUrl" title="@makeModelName" class="info-wrapper__model-name" target="_blank">@makeModelName</a>
+                                                        @{ var price = similarModel?.PriceOverview?.FormattedFullPrice ?? "N/A"; }
+                                                        <p class="info-wrapper__model-price"> @price  onwards</p>
+                                                    </div>
+                                                    <div class="price-breakup-link-wrapper">
+                                                         <span class="info-wrapper__link redirect-pqpage__js" data-modelid="@similarModel.ModelId" data-versionid="@similarModel.PopularVersionId"
+                                                              data-cityid="@Model.Location.CityId" data-areaid="@Model.Location.AreaId" data-pageid="137">
+                                                            View Price Breakup
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                            @if (similarModelListCount > @Model.AlternateCars.WidgetCardCount)
+                            {
+                                <span class="carousel-button carousel-prev-button jcarousel-control-prev"></span>
+                                <span class="carousel-button carousel-next-button jcarousel-control-next"></span>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="ad-slot__wrapper">
+        <div class="ad-slot__container container" id="div-gpt-ad-pq_page_ad-0" data-load-immediate="true">
+            <script type="text/javascript">
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-pq_page_ad-0'); });
+            </script>
+        </div>
+    </div>
+    <section class="section overview-section">
+        <div class="container">
+            @if (Model.BreadcrumbEntitylist != null)
+            {
+                Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist);
+            }
+            <h1 class="page-title">On-Road Price Quote</h1>
+
+            <section class="grid-12 model-overview flex-container alpha omega pq-container" card-no="card@(cardNo)">
+                <div class="grid-8 flex-container alpha">
+                    <div class="model-overview__content">
+                        <div class="model-content">
+                            <div class="model-content__image">
+                                @{string modelUrl = ManageCarUrl.CreateModelUrl(@Model.CarDetails.CarMake.MakeName, @Model.CarDetails.CarModel.MaskingName);}
+                                <a href="@modelUrl" target="_blank">
+                                    <img src="@(Carwale.Utility.ImageSizes.CreateImageUrl(Model.CarDetails.CarImageBase.HostUrl, Carwale.Utility.ImageSizes._310X174, Model.CarDetails.CarImageBase.OriginalImgPath))" alt="">
+                                </a>
+                            </div>
+                            <div class="model-content__details">
+                                <h2 class="model-details__content model-details__name">
+                                    <span class="model-details__make-name">
+                                        @Model.CarDetails.CarMake.MakeName
+                                    </span>
+                                    <span class="model-details__name-container">
+                                        <span class="model-details__model-name">
+                                            @Model.CarDetails.CarModel.ModelName
+                                        </span>
+                                        <span class="car-model-details__changeModelIcon open-modelchange-popup js-edit-model-link" data-popup="editModel"></span>
+                                    </span>
+                                </h2>
+                                <div id="versionDropDown" class="model-details__content custom-select-dropdown version-dropdown">
+                                    <div class="form-control-box selectcustom-container">
+                                        <div class="selectcustom-input-box-holder js-selectcustom-input-box-holder">
+                                            <div class="custom-dropdown__input-container">
+                                                <span class="custom-box-label">Version</span>
+                                                <div class="selectcustom-input selected-version__name">@Model.CarDetails.CarVersion.Name</div>
+                                            </div>
+
+                                            <span class="drop-arrow"></span>
+                                        </div>
+
+                                        <div class="selectcustom-content">
+                                            <ul class="selectcustom versiondrp__list versiondrp__list_js">
+
+                                                @if (Model.VersionList.IsNotNullOrEmpty())
+                                                {
+                                                    for (int i = 0; i < Model.VersionList.Count; i++)
+                                                    {
+                                                        <li data-role="click" data-event="CWInteractive" class=" versiondrp__item versiondrp__item_js" data-versionid=@Model.VersionList[i].Id>
+                                                            <div class="clickcustom">
+                                                                <div class="custom-dropdown-title">@Model.VersionList[i].Name</div>
+                                                                <ul class="custom-dropdown-info">
+                                                                    <li class="dropdown-info-text">@Model.VersionList[i].FuelType</li>
+                                                                    <li class="dropdown-info-text">@Model.VersionList[i].Transmission</li>
+                                                                    <li class="dropdown-info-text">
+                                                                        @{ var price = Model.VersionList[i].FormattedPrice; }
+                                                                        <span class="pricecolor">
+                                                                            @Model.VersionList[i].FormattedPrice
+                                                                        </span>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="model-details__content model-details__city-selection js-model-details__city-selection">
+                                    <span class="city-selection__container">
+                                        <span class="city-selection__label">
+                                            City
+                                        </span>
+                                        <span class="city-selection__name">
+                                            @(String.IsNullOrEmpty(Model.Location.AreaName) ? "" : Model.Location.AreaName + ", ") @Model.Location.CityName
+                                        </span>
+                                    </span>
+                                    <span class="city-selection__icon"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="model-overview__content-details">
+                            <div class="model-overview__switch">
+                                @if (Model.IsSolidCompulsoryPricePresent && Model.IsMetallicCompulsoryPricePresent)
+                                {
+                                    Html.RenderPartial("~/Views/Shared/NewCars/PriceQuote/_SolidMetallicToggle.cshtml", 1);
+                                }
+                            </div>
+
+                            <section class="price-breakup-section">
+                                <table class="price-table">
+                                    @if (Model.IsSolidCompulsoryPricePresent)
+                                    {
+                                        Html.RenderPartial("~/Views/Shared/NewCars/PriceQuote/_CompulsoryPrices.cshtml", Model.SolidCompulsoryList);
+                                    }
+                                    @if (Model.IsMetallicCompulsoryPricePresent)
+                                    {
+                                        Html.RenderPartial("~/Views/Shared/NewCars/PriceQuote/_CompulsoryPrices.cshtml", Model.MetallicCompulsoryList);
+                                    }
+                                    @if (Model.IsSolidCompulsoryPricePresent || Model.IsMetallicCompulsoryPricePresent)
+                                    {
+                                        <tfoot>
+                                            @if (Model.IsCampaignPresent)
+                                        {
+                                                <tr>
+                                                    <td colspan="2" class="get-offer-link">
+                                                        <a class="btnOfferLink btn btn-orange" campaigncta modelid="@Model.DealerAd.FeaturedCarData.ModelId" propertyid="20"
+                                                           userlocation='{"cityId":@String.Format("{0}",Model.Location.CityId), "cityName":"@Model.Location.CityName", "areaId":"@Model.Location.AreaId", "areaName":"@Model.Location.AreaName"}'
+                                                           versionid="@Model.DealerAd.FeaturedCarData.VersionId" campaignid_dealerid=@String.Format("{0}_{1}",Model.DealerAd.Campaign.Id,Model.DealerAd.Campaign.DealerId)>
+                                                            @Model.DealerAd.Campaign.ActionText
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                        }
+                                        else if (Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.Overview))
+                                        {
+                                            <tr>
+                                                <td align="right" class="bankbazaar" colspan="2">
+                                                    <div data-event="CWNonInteractive" data-role="impression" data-action="PQ_Overview_d" data-cat="SponsoredLink_Shown"
+                                                         data-label='@("campaign_" + overview.Id)'>
+                                                        <div class="loan-offers__link" data-role="click-tracking" data-event="CWInteractive" data-action="PQ_Overview_d" data-cat="SponsoredLink_Click"
+                                                             data-label='@("campaign_" + overview.Id)'>
+                                                            @Html.Raw(overview.Name)
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                        </tfoot>
+                                    }
+                                </table>
+
+                                @if (!Model.IsSolidCompulsoryPricePresent && !Model.IsMetallicCompulsoryPricePresent)
+                                {
+                                    <div class="price-not-available-section">
+                                        @{  Html.RenderPartial("~/Views/Shared/NewCars/PriceQuote/_PriceNotAvailable.cshtml", Model.NearByCities); }
+                                    </div>
+                                }
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-4 flex-container omega">
+
+                    @if(Model.IsCampaignPresent)
+                    {
+                        <div class="model-offers-container">
+                            @{ Html.RenderPartial("~/Views/Shared/m/OfferAndDealerAd/_OfferAndDealerAd_v1.cshtml", Model.OfferAndDealerAd); }
+                        </div>
+                    }
+                    else if(Model.CrossSellList.Count > 0)
+                    {
+                        <div class="recommended-car-container">
+                            <h2 class="recommended-car__title">recommended for you</h2>
+                            <div class="jcarousel-wrapper recommended-carousel-wrapper">
+                                <div class="jcarousel recommended-car-carousel">
+                                    <ul class="recommended-carousel-list">
+                                        @foreach(var crossSell in Model.CrossSellList)
+                                        {
+                                            var imgUrl = ImageSizes.CreateImageUrl(@crossSell.DealerAd.FeaturedCarData.HostUrl, Carwale.Utility.ImageSizes._310X174, @crossSell.DealerAd.FeaturedCarData.OriginalImage);
+
+                                            <li class="recommended-carousel-list-item js-recommendcar-carousel"
+                                                data-modelid="@crossSell.DealerAd.FeaturedCarData.ModelId"
+                                                data-versionid="@crossSell.DealerAd.FeaturedCarData.VersionId"
+                                                data-cityid="@Model.Location.CityId"
+                                                data-areaid="@Model.Location.AreaId"
+                                                data-pqpageid="59">
+
+                                                <div class="recommended-carousel-image-wrapper" onclick="priceQuoteCommon.openQuotationPage(this)">
+                                                    <img class="recommended__car-image lazy" data-original="@imgUrl" src="@(CWConfiguration._imgHostUrl + ImageSizes._0X0 + "/statics/grey.gif")" alt="@(crossSell.DealerAd.FeaturedCarData.MakeName + " " + crossSell.DealerAd.FeaturedCarData.ModelName)" title="@(crossSell.DealerAd.FeaturedCarData.MakeName + " " + crossSell.DealerAd.FeaturedCarData.ModelName)" width="200" height="118" />
+                                                </div>
+                                                <div class="recommended-carousel-data-container">
+                                                    <div class="recommended__car-data recommended__car-data_details" onclick="priceQuoteCommon.openQuotationPage(this)">
+                                                        <h3 class="car-data__title">@(crossSell.DealerAd.FeaturedCarData.MakeName + " " + crossSell.DealerAd.FeaturedCarData.ModelName)</h3>
+                                                        <p class="car-data__subtitle"><span class="car-data__price">@crossSell.OnRoadPrice</span> on road price, @Model.Location.CityName </p>
+                                                    </div>
+                                                    @if(crossSell.DealerAd.Campaign != null)
+                                                    {
+                                                        <div class="recommended__car-data">
+                                                            <p class="dealer-info__name">@(crossSell.DealerAd.Campaign.ContactName), @Model.Location.CityName</p>
+                                                            <div class="dealer-info-wrapper">
+                                                                <span class="dealer-info__tag">authorised dealer</span>
+                                                                @if(crossSell.DealerAd.Campaign.ContactNumber.IsNotNullOrEmpty())
+                                                                {
+                                                                    <span class="dealer-info__contact-no">@(crossSell.DealerAd.Campaign.ContactNumber)</span>
+                                                                }
+                                                            </div>
+                                                            <a class="btn btn-secondary dealer-info__button" role="button" rel="nofollow"
+                                                               campaigncta modelid="@crossSell.DealerAd.FeaturedCarData.ModelId"
+                                                               userlocation='{"cityId":@String.Format("{0}",Model.Location.CityId), "cityName":"@Model.Location.CityName", "areaId":"@Model.Location.AreaId", "areaName":"@Model.Location.AreaName"}'
+                                                               versionid="@crossSell.DealerAd.FeaturedCarData.VersionId"
+                                                               campaignid_dealerid=@String.Format("{0}_{1}",crossSell.DealerAd.Campaign.Id,crossSell.DealerAd.Campaign.DealerId)
+                                                               propertyid="22" onclick="event.stopPropagation()">assist me</a>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                                @if (Model.CrossSellList.Count > 1)
+                                {
+                                    <div class="dynamic-carousel " data-swipecount="1">
+                                        <span class="jcarousel-control-prev recommended-carousel-button carousel-prev-button"></span>
+                                    </div>
+                                    <div class="dynamic-carousel" data-swipecount="1">
+                                        <span class="jcarousel-control-next recommended-carousel-button carousel-next-button"></span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else if (Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.TurboWidget))
+                    {
+                        <div data-event="CWNonInteractive" data-role="impression" data-action="PQ_TurboWidget_d" data-cat="SponsoredLink_Shown"
+                             data-label='@("campaign_" + turboWidget.Id)'>
+                            <div class="margin-right5" data-role="click-tracking" data-event="CWInteractive" data-action="PQ_TurboWidget_d" data-cat="SponsoredLink_Click"
+                                 data-label='@("campaign_" + turboWidget.Id)'>
+                                @Html.Raw(turboWidget.Name)
+                            </div>
+                        </div>
+                   }
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <section class="section quotation-section">
+        <div class="container">
+            <section class="grid-12 model-overview flex-container alpha omega">
+                <div class="grid-8 flex-container alpha">
+                    <div class="quotation-template-wrapper">
+                        @if (Model.EmiCalculatorModelLink?.Count > 0)
+                        {
+                            { Html.RenderPartial("~/Views/Shared/NewCars/PriceQuote/_EmiCalculatorDesktopSlug.cshtml", Model.EmiCalculatorModelLink); }
+                        }
+
+                        @if (Model.IsSolidOptionalPricePresent)
+                        {
+                            Html.RenderPartial("~/Views/Shared/NewCars/PriceQuote/_OptionalPricesWidget.cshtml", Model.SolidOptionalList);
+                            Html.RenderPartial("~/Views/Shared/NewCars/PriceQuote/_OptionalPrices.cshtml", Model.SolidOptionalList);
+                        }
+                        @if (Model.IsMetallicOptionalPricePresent)
+                        {
+                            Html.RenderPartial("~/Views/Shared/NewCars/PriceQuote/_OptionalPricesWidget.cshtml", Model.MetallicOptionalList);
+                            Html.RenderPartial("~/Views/Shared/NewCars/PriceQuote/_OptionalPrices.cshtml", Model.MetallicOptionalList);
+                        }
+
+
+                        @if (Model.ShowSellCarTwoThirdSlug)
+                        {
+                            <div class="content-card content-card__sell-car">
+                                <span class="content-card-details__image content-card__sell-car-icon"></span>
+                                <div class="content-card-details">
+                                    <h3 class="content-card-details__title">
+                                        Sell Car
+                                    </h3>
+                                    <p class="content-card-details__description">
+                                        Find out the true market value
+                                    </p>
+                                    <ol class="content-card-details__list">
+                                        <li>
+                                            Fill Car Details.
+                                        </li>
+                                        <li>
+                                            Fill Personal Details.
+                                        </li>
+                                        <li>
+                                            Know Exact Valuation for your car and list
+                                        </li>
+                                    </ol>
+                                </div>
+                                <span class="content-card-details__link" onclick="priceQuote.redirectToSellCar();">
+                                    List Your Car for Free
+                                </span>
+                            </div>
+                        }
+                        @if (false)
+                        {
+                            //Removed open lead form for phase 1. Since this code is never merged to master, this will not be recoverable if deleted
+                            @*<div class="open-lead-form-container">
+                                    <div class="open-lead-form__content">
+                                        <div class="open-lead-form__head">
+                                            <span class="open-lead-form__hands-icon"></span>
+                                            <div class="open-lead-form__info-wrapper">
+                                                <h2 class="open-lead-form__heading">Modi Hyundai, Santacruz</h2>
+                                                <div class="open-lead-form__subheading">
+                                                    <p class="dealer-info-container">
+                                                        <span class="dealer-info__name">Authorised Hyundai Dealer</span>
+                                                        <span class="dealer-info__location">Andheri (E)</span>
+                                                    </p>
+                                                    <span class="dealer-info__contact">+91 9024286644 </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="open-lead-form__body">
+                                            <div class="grid-12 flex-container alpha omega">
+                                                <div class="open-lead-form__services-wrapper">
+                                                    <p class="services-section__heading">select the services you want</p>
+                                                    <div class="services-section__body">
+                                                        <ul class="services-list">
+                                                            <li class="services-list__list-item">
+                                                                <label class="check-box service-list__label">
+                                                                    <input type="checkbox">
+                                                                    <span class="check-box__icon"></span>
+                                                                    <span class="check-box__label">select the services you want</span>
+                                                                </label>
+                                                            </li>
+                                                            <li class="services-list__list-item">
+                                                                <label class="check-box service-list__label">
+                                                                    <input type="checkbox">
+                                                                    <span class="check-box__icon"></span>
+                                                                    <span class="check-box__label">complete product brochure</span>
+                                                                </label>
+                                                            </li>
+                                                            <li class="services-list__list-item">
+                                                                <label class="check-box service-list__label">
+                                                                    <input type="checkbox">
+                                                                    <span class="check-box__icon"></span>
+                                                                    <span class="check-box__label">offer &#38; discount information </span>
+                                                                </label>
+                                                            </li>
+                                                            <li class="services-list__list-item">
+                                                                <label class="check-box service-list__label">
+                                                                    <input type="checkbox">
+                                                                    <span class="check-box__icon"></span>
+                                                                    <span class="check-box__label">other assistance</span>
+                                                                </label>
+                                                            </li>
+                                                            <li class="services-list__list-item">
+                                                                <label class="check-box service-list__label">
+                                                                    <input type="checkbox">
+                                                                    <span class="check-box__icon"></span>
+                                                                    <span class="check-box__label">door-step test drive</span>
+                                                                </label>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="open-lead-form-wrapper">
+                                                    <p class="open-lead-form__title">provide your details to get help</p>
+                                                    <div class="open-lead-form">
+                                                        <div class="input-container">
+                                                            <label class="input__title" for="userName">Name</label>
+                                                            <input type="text" name="userName" placeholder="Enter your name" id="userName" class="input-field form-control" />
+                                                            <span class="input__error-message">Enter valid name</span>
+                                                        </div>
+                                                        <div class="input-container">
+                                                            <label class="input__title" for="mobileNumber">Mobile</label>
+                                                            <span class="country-code">+91</span>
+                                                            <input type="tel" name="mobileNumber" placeholder="Enter your mobile number" id="mobileNumber" maxlength="10" class="input-field contact-number-field form-control" />
+                                                            <span class="input__error-message">Enter valid number</span>
+                                                        </div>
+                                                        <button class="btn btn-secondary open-lead-form-submit">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="thankyouScreen" class="open-lead-form-thankyou-screen">
+                                        <p class="open-lead-form-thankyou-text thankyou-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+                                    </div>
+                                </div>*@
+                        }
+                    </div>
+                </div>
+
+                <div class="grid-4 flex-container omega">
+                    <div class="flex-container__content">
+                        @if (!Model.IsCampaignPresent && Model.IsOfferPresent)
+                        {
+                            <div class="model-offers-container margin-bottom20">
+                                @{ Html.RenderPartial("~/Views/Shared/m/OfferAndDealerAd/_OfferAndDealerAd.cshtml", Model.OfferAndDealerAd); }
+                            </div>
+                        }
+                        @if (Model.ShowSellCarOneThirdSlug)
+                        {
+                            <div class="content-card content-card--small">
+                                <span class="content-card-details__image content-card__sell-car-icon"></span>
+                                <div class="content-card-details">
+                                    <h3 class="content-card-details__title">
+                                        Sell Car
+                                    </h3>
+                                    <ol class="content-card-details__list">
+                                        <li>
+                                            Fill Car Details.
+                                        </li>
+
+                                        <li>
+                                            Fill Personal Details.
+                                        </li>
+                                        <li>
+                                            Know Exact Valuation for your car and list
+                                        </li>
+                                    </ol>
+                                </div>
+                                <span class="content-card-details__link" onclick="priceQuote.redirectToSellCar();">
+                                    List Your Car for Free
+                                </span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+    <section>
+        <div class="content-block">
+            <div class="container alternate-car">
+                <div class="ad-slot__wrapper">
+                    <div class="ad-slot__container container" id="div-gpt-ad-pq_page_ad-1">
+                        <script type="text/javascript">
+                            googletag.cmd.push(function () { googletag.display('div-gpt-ad-pq_page_ad-1'); });
+                        </script>
+                    </div>
+                </div>
+                @if (Model.SimilarModelList.IsNotNullOrEmpty())
+                {
+                    Html.RenderPartial("~/Views/Shared/NewCars/_AlternateCarWidget.cshtml", Model.AlternateCars);
+                }
+                <p class="disclaimer-container">
+                    <span class="disclaimer__title">
+                        Disclaimer:
+                    </span>
+                    <span class="disclaimer__content">
+                        CarWale takes utmost care in gathering precise and accurate information about car prices, financial quotes and promotional offers. However, this information is only indicative and may not reflect the final price you may pay. For more information please read
+                        <a href="/offerTermsAndConditions.aspx" target="_blank" class="disclaimer__link" title="Terms and Conditions">terms and conditions</a>
+                        ,
+                        <a href="/visitoragreement.aspx" target="_blank" class="disclaimer__link" title="Visitor Agreement">visitor agreement</a>
+                        and
+                        <a href="/privacypolicy.aspx" target="_blank" class="disclaimer__link" title="Privacy Policy"> privacy policy</a>.
+                    </span>
+                </p>
+            </div>
+        </div>
+    </section>
+    @{
+        EmiCalculatorModelData solidEmiCalculatorModelData = null;    
+       
+        if(Model.EmiCalculatorModelLink!= null)
+        {
+            var emiLinks = Model.EmiCalculatorModelLink;
+            foreach(var emiLink in emiLinks)
+            {
+                if(emiLink == null || emiLink.EmiCalculatorModelData ==null)
+                {
+                    continue;
+                }
+                var emiData = emiLink.EmiCalculatorModelData;
+               
+                if(!emiData.IsMetallic)
+                {
+                    solidEmiCalculatorModelData = emiData;
+                }
+            }
+        }
+    }
+    @if(solidEmiCalculatorModelData != null )
+    {
+        Html.RenderPartial("~/Views/Shared/m/PriceQuote/_EmiCalculatorMaster.cshtml", solidEmiCalculatorModelData);
+    }
+    
+    @if(Model.LeadFormModelData != null)
+    {
+        <div id="divEmiPopup">
+            @{Html.RenderPartial("~/Views/StaticPartials/LeadformApp.cshtml", Model.LeadFormModelData);}
+        </div>
+    }
+    
+
+</div>
+

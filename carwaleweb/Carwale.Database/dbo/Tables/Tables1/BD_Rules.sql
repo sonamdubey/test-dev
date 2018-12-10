@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[BD_Rules] (
+    [MakeId] NUMERIC (18) NOT NULL,
+    [CityId] NUMERIC (18) NOT NULL,
+    [Type]   SMALLINT     CONSTRAINT [DF_CS_Rules_Type] DEFAULT ((1)) NOT NULL,
+    CONSTRAINT [PK_BD_Rules] PRIMARY KEY CLUSTERED ([MakeId] ASC, [CityId] ASC, [Type] ASC) WITH (FILLFACTOR = 90)
+);
+

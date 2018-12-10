@@ -1,0 +1,1260 @@
+﻿@model Carwale.DTOs.Classified.CarDetails.CarDetailsModel
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using Carwale.BL.Stock;
+@using Carwale.Entity.Classified.CarDetails;
+@using Carwale.Entity.Stock.Certification;
+@using Carwale.DTOs.Classified.CarDetails;
+
+@{
+    CarDetailsWeb carDetailEntity = Model.carDetailEntity;
+    StockCertification certification = Model.certification;
+
+    ViewBag.Title = "Used " + carDetailEntity.BasicCarInfo.MakeYear.ToString("yyyy") + " " + Model.carDetailEntity.BasicCarInfo.MakeName + " " + Model.carDetailEntity.BasicCarInfo.ModelName + " " + Model.carDetailEntity.BasicCarInfo.VersionName + " (" + Model.carDetailEntity.BasicCarInfo.ProfileId.ToUpper() + ") for sale in " + Model.carDetailEntity.BasicCarInfo.CityName;
+    ViewBag.Description = "CarWale - Used " + Model.carDetailEntity.BasicCarInfo.MakeName + " " + Model.carDetailEntity.BasicCarInfo.ModelName + " " + Model.carDetailEntity.BasicCarInfo.VersionName + " for sale in " + Model.carDetailEntity.BasicCarInfo.CityName + ". The car is of " + Model.carDetailEntity.BasicCarInfo.MakeYear.ToString("yyyy") + " model year and its profile id is #" + Model.carDetailEntity.BasicCarInfo.ProfileId.ToUpper() + ". Get phone number of the seller and call directly to inspect and test drive the car.";
+    ViewBag.Revisit = "5";
+    ViewBag.DocumentState = "Dynamic";
+    ViewBag.canonical = "https://www.carwale.com/used/cars-in-" + UrlRewrite.FormatSpecial(Model.carDetailEntity.BasicCarInfo.CityName) + "/" + UrlRewrite.FormatSpecial(Model.carDetailEntity.BasicCarInfo.MakeName) + "-" + UrlRewrite.FormatSpecial(Model.carDetailEntity.BasicCarInfo.RootName) + "-" + Model.carDetailEntity.BasicCarInfo.ProfileId + "/";
+    ViewBag.AdId = "1471586946456";
+    ViewBag.Alternate = "https://www.carwale.com/m/used/cars-in-" + UrlRewrite.FormatSpecial(Model.carDetailEntity.BasicCarInfo.CityName) + "/" + UrlRewrite.FormatSpecial(Model.carDetailEntity.BasicCarInfo.MakeName) + "-" + UrlRewrite.FormatSpecial(Model.carDetailEntity.BasicCarInfo.RootName) + "-" + Model.carDetailEntity.BasicCarInfo.ProfileId + "/";
+    ViewBag.AdPath = "/1017752/UsedCarDetails_";
+    ViewBag.Keywords = "used " + Model.carDetailEntity.BasicCarInfo.MakeName + " " + Model.carDetailEntity.BasicCarInfo.ModelName + " " + Model.carDetailEntity.BasicCarInfo.VersionName + " for sale in " + Model.carDetailEntity.BasicCarInfo.CityName;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.CustomJS = "~/Views/StaticPartials/UsedCarDetailsPageScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/UsedCarDetailsPageCss.cshtml";
+    ViewBag.BodyClass = "header-fixed-inner bg-white";
+    ViewBag.IsMyChatsAvailable = true;
+    ViewBag.DefineAdSlots =
+        @"<script type='text/javascript'>
+            googletag.cmd.push(function() {
+            googletag.defineSlot('" + ViewBag.AdPath + @"970x90', [[960, 60], [950, 90], [728, 90], [970, 90], [960, 90], [970, 66]], 'div-gpt-ad-" + ViewBag.AdId + @"-2').addService(googletag.pubads());
+            googletag.defineSlot('" + ViewBag.AdPath + @"Desktop_320x100', [320, 100], 'div-gpt-ad-1500547398702-0').addService(googletag.pubads());
+            googletag.pubads().setTargeting('BudgetRange', '" + ViewBag.UsedCarBudgetRange + @"');
+            googletag.pubads().enableSingleRequest();
+            googletag.pubads().collapseEmptyDivs();
+            googletag.enableServices();
+            });
+        </script>"; 
+
+    //Variables used for Google re-marketing used-sprite modification
+    var google_dynx_itemid = carDetailEntity.BasicCarInfo.ProfileId.ToUpper();
+    var google_dynx_itemid2 = "Used " + carDetailEntity.BasicCarInfo.MakeYear.ToString("yyyy") + " " + carDetailEntity.BasicCarInfo.MakeName + " " + carDetailEntity.BasicCarInfo.ModelName + " " + carDetailEntity.BasicCarInfo.VersionName;
+    var google_dynx_pagetype = "Used_Car_Profile";
+    var google_dynx_totalvalue = carDetailEntity.BasicCarInfo.Price.Replace(",", "");
+}
+@section Styles{
+    <script type="text/javascript">
+        (function (i, s, o, g, r, a, m) {
+            i['TrovitAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://analytics.trovit.com/trovit-analytics.js', 'ta');
+
+        ta('init', 'in', 2, '883b0730c9aff671d3164a84785f6825');
+        var financeIframeUrl = '@System.Configuration.ConfigurationManager.AppSettings["CTFinanceDesktop"]';
+    </script>
+}
+<div class="clear"></div>
+<div id="blackOut-window" class="hide"></div>
+<div class="blackout-window-pg hide"></div>
+<div id="blackOut-recommendation" class="hide"></div>
+<section class="container">
+    <div class="grid-12 margin-bottom5">
+        @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_728x90.cshtml"); }
+    </div>
+    <div class="clear"></div>
+</section>
+<section class="bg-light-grey padding-top10 no-bg-color">
+    <div id="chatPopup"></div>
+    <!--  Used search page code starts here -->
+    <div class="container">
+        <div class="grid-12">
+            <div class="breadcrumb margin-bottom15">
+                <!-- breadcrumb code starts here -->
+                <ul class="special-skin-text">
+                    <li><a href="/">Home</a></li>
+                    <li><span class="fa fa-angle-right margin-right10"></span><a href="/used/">Used Cars</a></li>
+                    <li><span class="fa fa-angle-right margin-right10"></span><a href="/used/cars-in-@UrlRewrite.FormatSpecial(carDetailEntity.BasicCarInfo.CityName)/" data-user-action="1"> @carDetailEntity.BasicCarInfo.CityName</a></li>
+                    <li><span class="fa fa-angle-right margin-right10"></span><a href="@(string.Format("/used/{0}-{1}-cars-in-{2}/", UrlRewrite.FormatSpecial(carDetailEntity.BasicCarInfo.MakeName), carDetailEntity.BasicCarInfo.MaskingName, UrlRewrite.FormatSpecial(carDetailEntity.BasicCarInfo.CityName)))">@carDetailEntity.BasicCarInfo.RootName</a></li>
+                    <li><span class="fa fa-angle-right margin-right10"></span>Used @carDetailEntity.BasicCarInfo.MakeYear.ToString("yyyy") @carDetailEntity.BasicCarInfo.MakeName  @carDetailEntity.BasicCarInfo.RootName  @carDetailEntity.BasicCarInfo.VersionName in @carDetailEntity.BasicCarInfo.CityName </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <!-- breadcrumb code ends here -->
+            <div class="leftfloat">
+                <h1 class="font30 text-black uc-model-name special-skin-text" title='@carDetailEntity.BasicCarInfo.MakeName @carDetailEntity.BasicCarInfo.ModelName @carDetailEntity.BasicCarInfo.VersionName'>Used @carDetailEntity.BasicCarInfo.MakeName @carDetailEntity.BasicCarInfo.ModelName<span class="font16 text-light-grey text-unbold margin-left10 special-skin-text">@carDetailEntity.BasicCarInfo.VersionName</span></h1>
+            </div>
+            <div class="rightfloat margin-top10">
+                <ul class="round-icons">
+                    <li id="flagIcon" title="report problem">
+                        <span class="flagcircle"><span class="cw-used-sprite flag"></span></span>
+                        <span class="reportProblem">Report Problem</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+            <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="container">
+        <div class="grid-8">
+            <!-- main-thumbnail box starts here -->
+            @if (carDetailEntity.BasicCarInfo.PhotoCount > 0 || (Model.VideoCdtn))
+            {
+                <div class="uc-thumbnail-box border-solid">
+                    <!-- play btn starts -->
+                    @if (Model.VideoCdtn)
+                    {
+                        <div class="play-btn-box ">
+                            <div class="v-align text-center">
+                                <div class="cw-used-sprite play-btn"></div>
+                            </div>
+                        </div>
+                    }
+                    <!-- play btn ends -->
+                    <div class="control-box">
+                        @if (carDetailEntity.BasicCarInfo.PhotoCount > 0)
+                        {
+                            <div class="leftfloat">
+                                <a id="photoIcon">
+                                    <span class=" leftfloat cw-used-sprite camera"></span>
+                                    <span class=" leftfloat margin-left5 font14"> @carDetailEntity.BasicCarInfo.PhotoCount</span>
+                                    <div class="clear"></div>
+                                </a>
+                            </div>
+                        }
+                        @if (Model.VideoCdtn)
+                        {
+                            <div class="leftfloat margin-left10 ">
+                                <a id="videoIcon">
+                                    <span class=" leftfloat cw-used-sprite video"></span>
+                                    <span class=" leftfloat margin-left5 font14"> @carDetailEntity.BasicCarInfo.VideoCount </span>
+                                    <div class="clear"></div>
+                                </a>
+                            </div>
+                        }
+                        @if (Model.DeliveryCity != string.Empty)
+                        { <div class="leftfloat margin-left5 margin-right5 divbbt">
+                            <p class="font14">| Delivery available in <span class="bbt">@Model.DeliveryCity</span></p>
+                        </div>
+                        }
+                        <div class="clear"></div>
+                        @if (certification != null)
+                        {
+                            <div class="rightfloat">
+                                <span class="certification-score rounded-corner2 block">
+                                    <span class="block font12 semibold">@certification.OverallScore<span>/5</span></span>
+                                    <span class="block semibold">Certified</span>
+                                </span>
+                            </div>
+                            <div class="clear"></div>
+                        }
+
+                    </div>
+                    @if (carDetailEntity.BasicCarInfo.PhotoCount > 0 || carDetailEntity.BasicCarInfo.VideoCount > 0)
+                    {
+                        <div class="uc-thumbnail">
+                            @if ((carDetailEntity.BasicCarInfo.PhotoCount == 0 && carDetailEntity.BasicCarInfo.VideoCount > 0 && carDetailEntity.BasicCarInfo.IsPremium == true) || (string.IsNullOrEmpty(carDetailEntity.ImageList.MainImageUrl)))
+                            {
+                                <img src="https://img.aeplcdn.com/used/no-thumb.jpg" style="width: 100%; height: 320px;" />
+                            }
+                            else
+                            {
+                                <img src="@carDetailEntity.ImageList.MainImageUrl " />
+                            }
+                        </div>
+                    }
+                </div>
+                <!-- main-thumbnail box ends here -->
+            }           
+            else if (carDetailEntity.BasicCarInfo.PhotoCount == 0 && (!Model.VideoCdtn))
+            {
+                <!-- no thumbnail box starts here -->
+                <div class="no-thumbnail-box border-solid ">
+                    <div class="no-thumb-details">
+                        <div class="margin-bottom10">
+                            <img src="https://img.aeplcdn.com/pq/no-car-img.png" />
+                        </div>
+                        @if(carDetailEntity.ImageList.TotalPhotosUploaded==0)
+                        {
+                           <p class="font18 margin-bottom10">No Photos Available</p>
+                        <div class="text-center">
+                            <input type="button" value="Request for Photos" class="btn btn-used-white text-uppercase btn-xs @(ViewBag.reqPhotos ? "" :"hide")" id="reqPhotos" />
+                        </div>
+                        <p class="hide">Your request has been sent Successfully.</p>  
+                        }
+                        else if(carDetailEntity.BasicCarInfo.SellerId==2)
+                        {
+                             <p class="font18 margin-bottom10">Image(s) pending for approval</p>
+                        }
+                       
+                    </div>
+                    @if (Model.DeliveryCity != string.Empty)
+                    {  <div class="control-box" style="z-index:0">
+                        <div class=" leftfloat margin-left10 divbbt">
+                            <p class="font14">Delivery available in <span class="bbt">@Model.DeliveryCity</span></p>
+                        </div>
+                    </div>
+                    }
+                    @if (certification != null)
+                    {
+                        <div class="rightfloat">
+                            <span class="certification-score rounded-corner2 block">
+                                <span class="block font12 semibold">@certification.OverallScore<span>/5</span></span>
+                                <span class="block semibold">Certified</span>
+                            </span>
+                        </div>
+                        <div class="clear"></div>
+                    }
+                </div>
+            }
+            <!-- no thumbnail bix ends here -->
+            <div class="content-inner-block-10 border-solid-left border-solid-right border-solid-bottom bg-white">
+                <!-- basic details starts here -->
+                <ul class="basic-details">
+                    <li>
+                        <span class="cw-used-sprite calender-icon"></span>
+                        <br />
+                        <span title="@carDetailEntity.BasicCarInfo.MakeYear.ToString(" mmm yyyy")"> @carDetailEntity.BasicCarInfo.MakeYear.ToString("MMM yyyy") </span>
+                    </li>
+                    <li>
+                        <span class="cw-used-sprite kilo-meters"></span>
+                        <br />
+                        <span title="@carDetailEntity.BasicCarInfo.Kilometers "> @carDetailEntity.BasicCarInfo.Kilometers </span>
+                    </li>
+                    <li>
+                        <span class="cw-used-sprite petrol"></span>
+                        <br />
+                        <span title='@(String.IsNullOrEmpty(carDetailEntity.BasicCarInfo.AdditionalFuel) ? carDetailEntity.BasicCarInfo.FuelName : carDetailEntity.BasicCarInfo.FuelName + " + " + carDetailEntity.BasicCarInfo.AdditionalFuel )'> @(String.IsNullOrEmpty(carDetailEntity.BasicCarInfo.AdditionalFuel) ? @carDetailEntity.BasicCarInfo.FuelName : @carDetailEntity.BasicCarInfo.FuelName + " + " + @carDetailEntity.BasicCarInfo.AdditionalFuel)</span>
+                    </li>
+                    <li>
+                        <span class="cw-used-sprite manual"></span>
+                        <br />
+                        <span title="@carDetailEntity.BasicCarInfo.TransmissionType">@carDetailEntity.BasicCarInfo.TransmissionType </span>
+                    </li>
+                    <li>
+                        <span class="cw-used-sprite location"></span>
+                        <br />
+                        <span title="@carDetailEntity.BasicCarInfo.CityName"> @carDetailEntity.BasicCarInfo.CityName </span>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+                <!-- basic details ends here -->
+            </div>
+        </div>
+        <div class="grid-4">
+            <div class="seller-form"><div class="bg-white border-solid margin-bottom20">
+	<div class="content-inner-block-10 bg-light-grey grey-botom">
+		<div class="font24 text-bold used-actual-market" title="@carDetailEntity.BasicCarInfo.Price">
+			<p class="used-actual">₹&nbsp;@carDetailEntity.BasicCarInfo.Price</p>
+			<a href="javascript:void(0);" profileid="@carDetailEntity.BasicCarInfo.ProfileId" class="view-market-price text-light-grey" data-href="@Html.Raw(carDetailEntity.ValuationUrl)">Check Right Price</a>
+		</div>
+		@*<div class="clear"></div>*@
+		@if (carDetailEntity.Finance != null && carDetailEntity.Finance.IsEligibleForFinance)
+                    {
+			<div class="used-emi-loan">
+				@if (carDetailEntity.Finance.EmiFormatted != null)
+                            {
+					<span class="used-emi text-bold text-black margin-right5">EMI <span data-bind="text: Emi">@carDetailEntity.Finance.EmiFormatted/-</span> </span>
+                            }
+				<a class="used-loan text-orange" href="javascript:void(0);" data-href="@carDetailEntity.Finance.FinanceUrl" id="getFinance" data-role="click-tracking" data-event="CWNonInteractive" data-action="Finance_Click" data-cat="UsedCarDetails">@carDetailEntity.Finance.FinanceUrlText</a>
+			</div>
+                    }
+	</div>
+	<div class="content-inner-block-10 bg-light-grey divbbt">
+		@if (string.IsNullOrEmpty(Model.DeliveryCity))
+                    {
+			<div class="inline-block">
+				<span class="cwsprite car-location-ic-sm"></span>
+			</div>
+                    }
+		<div class="inline-block carlocationTxt break-word">
+			<p class=" margin-bottom5">Car location: <span class="text-bold">@carDetailEntity.BasicCarInfo.CityName</span></p>
+			@if (Model.DeliveryCity != string.Empty)
+                        {
+				<p>Delivery available in <span class="bbt">@Model.DeliveryCity</span></p>
+                        }
+		</div>
+	</div>
+	<div id="expandForm" class="hide">
+		<!-- first box starts here -->
+		<div class="seller-details-on-sms">
+			<div class="content-inner-block-10">
+				@if (carDetailEntity.BasicCarInfo.SellerId == 1)
+                            {
+					<div class='@(!Model.DealerProfileImgCdtn ? "floatleft":"dealer-details-small")'>
+						<p class="font18 light-grey-text">@(!string.IsNullOrEmpty(carDetailEntity.DealerInfo.MaskingNumber) ? @carDetailEntity.DealerInfo.DealerName : "")</p>
+						@*<p class="font12"><%= carDetailEntity.DealerInfo.OrganizationName %></p>*@
+						<div class="clear"></div>
+					</div>
+                                if (Model.DealerProfileImgCdtn)
+                                {
+									<div class="about-dealer-pic about-dealer-pic-small">
+										<img src='@ImageSizes.CreateImageUrl(carDetailEntity.DealerInfo.DealerProfileHostUrl.ToString(),ImageSizes._0X0,carDetailEntity.DealerInfo.DealerProfileImagePath.ToString())' />
+									</div>
+                                }
+								<div class="clear"></div>
+                            }
+				<!-- form starts here -->
+				<div id="buyerform-title" class="margin-bottom20 font18 text-bold">Get Seller Details</div>
+				<div id="buyer_form" class="seller-details-form">
+					<div class="form-control-box">
+						<input class="form-control" type="text" placeholder="Name" id="txtName" value="@Model.CustomerDetails.BuyerName" maxlength="50" />
+						<span class="cw-used-sprite uc-uname"></span>
+						<span class="cw-blackbg-tooltip hide" id="txtNameError">please </span>
+						<span class="cwsprite error-icon hide" id="errorNameCircle"></span>
+					</div>
+					<div class="mobile-box">
+						<span class="mobile-text">+91</span>
+						<input class="form-control" type="text" placeholder="Mobile Number" id="txtMobile" maxlength="10" value="@Model.CustomerDetails.BuyerMobile" />
+						<span class="cw-used-sprite uc-mobile"></span>
+						<span class="cw-blackbg-tooltip hide" id="txtMobileError"></span>
+						<span class="cwsprite error-icon hide" id="errorMobileCircle"></span>
+					</div>
+					<div class="optional-email" id="optionalEmail" style='@(String.IsNullOrEmpty(Model.CustomerDetails.BuyerEmail) ? "" :"display:block")'>
+						<input class="form-control" type="text" placeholder="Email (Optional)" id="txtEmail" value="@Model.CustomerDetails.BuyerEmail" />
+						<span class="cw-used-sprite uc-email"></span>
+						<span class="cw-blackbg-tooltip hide" id="txtEmailError"></span>
+						<span class="cwsprite error-icon hide" id="errorEmailCircle"></span>
+					</div>
+					<div class="margin-bottom20 email-update">
+						<div class='cw-used-sprite uc-unchecked leftfloat @(String.IsNullOrEmpty(Model.CustomerDetails.BuyerEmail) ? "" : "cw-used-sprite uc-checked leftfloat")' id="emailTick"></div>
+						<div class="margin-left10 leftfloat margin-top5"><i>Get updates on email</i></div>
+						<div class="clear"></div>
+					</div>
+					<div class="position-rel btn-container">
+						@if (!string.IsNullOrEmpty(carDetailEntity.DealerInfo?.RatingText))
+                        {
+							<div style="margin: 20px 0px;" class="dealer-rating-container position-rel">
+								<span class="top-rated-seller-tag">@carDetailEntity.DealerInfo.RatingText</span>
+								<span class="dealer-rating-tooltip dealer-rating-tooltip--left">This seller has consistently been rated well by his customers</span>
+							</div>
+                        }
+						<div class="coachmark details-coachmark hide">
+							<span class="coachmark-arrow-bottom"></span>
+							<p class="font16 text-bold">Get Seller Details</p>
+							<p class="inline-block font16">Get address and mobile no of the seller.</p>
+							<p class="inline-block margin-left10"><a id="detCoachmark" class="btn btn-green btn-green-sm">Got it</a></p>
+						</div>
+						<a id="getsellerDetails" class="btn btn-orange text-bold btn-xs text-uppercase seller-btn-container grid-12" profileid="@carDetailEntity.BasicCarInfo.ProfileId" makeyear="@carDetailEntity.BasicCarInfo.MakeYear" modelname="@carDetailEntity.BasicCarInfo.ModelName" makeid="@carDetailEntity.BasicCarInfo.MakeId" rootid="@carDetailEntity.BasicCarInfo.RootId" makename="@carDetailEntity.BasicCarInfo.MakeName" cityid="@carDetailEntity.BasicCarInfo.CityId" cityname="@carDetailEntity.BasicCarInfo.CityName" @if (Model.DeliveryCityId > 0) { <text> dc=@Model.DeliveryCityId </text>  } price="@carDetailEntity.BasicCarInfo.Price" km="@carDetailEntity.BasicCarInfo.Kilometers" bodystyleid="@carDetailEntity.BasicCarInfo.BodyStyleId" versionsubsegmentid="@carDetailEntity.BasicCarInfo.VersionSubSegmentID" pricenumeric="@carDetailEntity.BasicCarInfo.PriceNumeric" kmnumeric="@carDetailEntity.BasicCarInfo.KmNumeric" data-rank="@Model.RankFromQueryString" data-platform="@Model.ListingsTrackingPlatform" data-ispremium="@Model.IsPremiumFromQueryString" makemonth="@carDetailEntity.BasicCarInfo.MakeMonth" owner="@carDetailEntity.BasicCarInfo.OwnerNumber" modelid="@carDetailEntity.BasicCarInfo.ModelId" makeyearformatted="@carDetailEntity.BasicCarInfo.MakeYear.ToString("yyyy")" versionid="@carDetailEntity.BasicCarInfo.VersionId" stockrecommendationurl="@carDetailEntity.BasicCarInfo.StockRecommendationUrl" data-cte-package-id="@carDetailEntity.BasicCarInfo.CtePackageId">
+                            				<span class="gsdTxt font18">GET SELLER DETAILS</span>
+                            				<span class="oneClickDetails hide font18 text-bold">1-Click <span class="font11">VIEW DETAILS</span></span>
+                        			</a>
+						<a id="gettingDetails" class="btn btn-xs btn-orange grid-12 text-uppercase hide">Getting Details <span>.</span><span>.</span><span>.</span></a>
+					</div>
+					<div class="clear"></div>
+					<p style="text-align:left; font-size:11px; margin-top:20px; margin-bottom:20px; margin-right:40px">By submitting this form you agree to our <a href="/visitoragreement.aspx" target="_blank">terms and conditions</a></p>
+				</div>
+				<!-- form ends here -->
+				<!-- or text ends here -->
+			</div>
+		</div>
+		<!-- Buyer Process captcha starts here -->
+		<div id="captcha" class="captcha hide content-inner-block-10 margin-top10">
+			<h3 class="margin-bottom20 text-black">Security Check</h3>
+			<iframe id="captchaCode" src="" frameborder="0" scrolling="no" width="200" height="55"></iframe>
+			<div>
+				<p class="margin-bottom10">Enter the code shown above</p>
+				<div class="position-rel captcha-inputbox">
+					<input type="text" id="txtCaptchaCode" class="form-control" />
+					<span id="lblCaptcha" class="hide cw-blackbg-tooltip"></span>
+					<span class="hide cwsprite error-icon"></span>
+				</div>
+				<p>(If you can't read it: <a class="text-link" onclick="javascript:regenerateCode(1)">Regenerate Code</a>)</p>
+				<input id="btnVerifyCaptcha" type="button" class="btn btn-orange margin-top10" value="Verify" />
+			</div>
+		</div>
+		<!-- Buyer Process captcha ends here -->
+		<div class="content-inner-block-10 alert hide" id="not_auth">
+			<div class="back-to-gsd-form">
+				<span>Error message</span>
+				<p style="color: #0288d1;cursor:pointer">Change your number</p>
+			</div>
+		</div>
+		<!-- first box ends here -->
+		<!-- get seller details call starts here -->
+		<div class="seller-details-call hide">
+			<div class="content-inner-block-10">
+				<div class="text-link rightfloat back-to-main">Back</div>
+				<div class="clear"></div>
+				<!-- form starts here -->
+				<div class=" font18 text-bold">Mobile Verification<span class="font12 margin-left5 text-light-grey">(One Time)</span></div>
+				<div class="font20 margin-top20">
+					<span class="fa fa-phone margin-right5 margin-top5 leftfloat"></span>
+					<span class="leftfloat" id="missedCallVerification"></span>
+					<div class="clear"></div>
+				</div>
+				<div class="mob-verification">
+					<ol>
+						<li class="tollFree">Give missed call on this <strong>TOLL FREE</strong> no.</li>
+						<li>Click "View Seller Details" after the call disconnected</li>
+					</ol>
+				</div>
+				<div class="margin-top25">
+					<a id="viewsellerDetails" data-rank="@Model.RankFromQueryString" data-platform="@Model.ListingsTrackingPlatform" data-ispremium="@Model.IsPremiumFromQueryString" class="btn btn-orange">View Seller Details</a>
+					<a id="viewingDetails" class="btn btn-orange hide">Getting Details <span>.</span><span>.</span><span>.</span></a>
+				</div>
+				<div class="or-text">
+					<div>
+						<span>or</span>
+					</div>
+				</div>
+				<div class="margin-top25 cur-pointer">
+					<input type="button" id="verifybySMS" class="btn btn-grey text-uppercase" value="Verify by SMS"></input>
+				</div>
+				@if (carDetailEntity.BasicCarInfo.SellerId == 1)
+                             {
+					<p class="margin-top20 text-link font14 askDealer dealerQuestion hide">Ask dealer a question</p>
+					<p class="margin-top20 text-link font14  getDetails getDetailSMS hide">Get Seller Details</p>
+                             }
+				<!-- form ends here -->
+			</div>
+		</div>
+		<!-- get seller details call ends here -->
+		<!-- get seller details sms starts here -->
+		<div class="mobile-verification hide">
+			<div id="verifyMobile" class="content-inner-block-10">
+				<div class="text-link rightfloat back-to-main">Back</div>
+				<div class="clear"></div>
+				<!-- form starts here -->
+				<div class="font18 text-bold">Mobile Verification<span class="font12 margin-left5 text-light-grey">(One Time)</span></div>
+				<p class="margin-top20 font14">Please enter the 5 digit verification code sent to you via SMS.</p>
+				<div class="margin-top20 seller-details-form verification-code">
+					<div>
+						<input class="form-control" type="text" placeholder="Enter 5 digit code number" id="txtCwiCode" maxlength="5">
+						<span class="cw-blackbg-tooltip hide" id="errorVerifyCode">Please enter 5 digit code</span>
+						<span class="cw-used-sprite uc-error-circle" id="errorVerifyCodeCircle"></span>
+					</div>
+				</div>
+				@*<p class="error font14 margin-bottom5 hide" id="errorVerifyCode"></p>*@
+				<div class="inline-block">
+					<a id="verifyNumber" data-rank="@Model.RankFromQueryString" data-platform="@Model.ListingsTrackingPlatform" data-ispremium="@Model.IsPremiumFromQueryString" class="btn btn-orange btn-xs text-uppercase">Verify Number</a>
+					<a id="verifying" class="btn btn-orange text-uppercase hide">Verifying <span>.</span><span>.</span><span>.</span></a>
+				</div>
+				<div class="inline-block">
+					<a class="font16 cur-pointer" id="resend">Resend SMS</a>
+					<div id="msgsent" class="leftfloat margin-top10" style="display: none;">Message sent</div>
+				</div>
+				<div class="or-text">
+					<div>
+						<span>or</span>
+					</div>
+				</div>
+				<div class="margin-top25">
+					<input type="button" id="verifybyCall" class="btn btn-grey text-uppercase" value="Verify by missed call"></input>
+				</div>
+				@if (carDetailEntity.BasicCarInfo.SellerId == 1)
+                            {
+					<p class="margin-top20 text-link font14  getDetails getDetailSMS hide">Get Seller Details</p>
+                            }
+				<!-- form ends here -->
+			</div>
+		</div>
+		<!-- get seller details sms ends here -->
+		<!-- seller details start are here -->
+		<div class="seller-details hide">
+			<div id="sellerDetails" class="content-inner-block-10">
+				<div class="cw-used-sprite uc-close-btn rightfloat close-btn"></div>
+				<div class="clear"></div>
+				<!-- form starts here -->
+				<div class="margin-minus10 font18 text-bold">Seller Details</div>
+				<div class="seller-details-list margin-top10">
+					<ul>
+						<li>
+							<span class="buyerprocess-sprite seller-name-ic"></span>
+							<p class="leftfloat innerDiv">
+								@if (!string.IsNullOrEmpty(carDetailEntity.DealerInfo?.RatingText))
+                                            {
+												<span class="font14 top-rated-seller-name-field" id="contact_person"></span>
+
+												<span style="margin: 20px 0;" class="dealer-rating-container position-rel">
+													<span class="top-rated-seller-tag top4">@carDetailEntity.DealerInfo.RatingText</span>
+													<span class="dealer-rating-tooltip dealer-rating-tooltip--left">This seller has consistently been rated well by his customers</span>
+												</span>
+                                            }
+                                            else
+                                            {
+												<span class="font14" id="contact_person"></span>
+                                            }
+								<span class="font14 block margin-top5" id="seller_name"></span>
+
+                                            <a href="#" class="font14 seller-virtual-link margin-top5" target="_blank">Check other cars from this seller</a>
+
+							</p>
+							<div class="clear"></div>
+						</li>
+						<li>
+							<span class="buyerprocess-sprite seller-call-ic opacity40"></span>
+							<p class="font14 leftfloat innerDiv" id="seller_mobile"></p>
+							<div class="clear"></div>
+						</li>
+						<li>
+							<span class="buyerprocess-sprite seller-email-ic opacity40"></span>
+							<p class="font14 leftfloat innerDiv" id="seller_email"></p>
+							<div class="clear"></div>
+						</li>
+						<li>
+							<span class="buyerprocess-sprite seller-location-ic opacity40"></span>
+							<p class="font14 leftfloat innerDiv" id="seller_address"></p>
+							<div class="clear"></div>
+						</li>
+						<li>
+							<p class="font11">Your contact details have been shared with the seller.</p>
+						</li>
+					</ul>
+				</div>
+				<p class="font14 text-link margin-bottom10 special-skin-text" id="similarCars"><a href='/used/cars-for-sale/?city=@(carDetailEntity.BasicCarInfo.CityId.ToString() == "1" ? "3000" : carDetailEntity.BasicCarInfo.CityId.ToString())&car=@(carDetailEntity.BasicCarInfo.MakeId).@(carDetailEntity.BasicCarInfo.RootId)' target="_blank" onclick="dataLayer.push({ event: ' viewsimilarcarsclick', cat: 'UsedCarDetails' , act: 'ViewSimilarCarsClick_DetailsPage' });">View similar cars >></a></p>
+				<p class="font14 text-link margin-bottom10 hide">View similar cars <span class="light-grey-text margin-left5">(20,987)</span></p>
+				<!-- form ends here -->
+			</div>
+		</div>
+		<!-- seller details ends here -->
+
+	</div>
+</div>
+				<!-- /1017752/UsedCarDetails_Desktop_320x100 -->
+				<div id='div-gpt-ad-1500547398702-0' style='height:100px; width:320px;'>
+					<script>
+						googletag.cmd.push(function () { googletag.display('div-gpt-ad-1500547398702-0'); });
+					</script>
+				</div>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+<!-- Used details search page code Ends here -->
+<section class="padding-top20 bg-light-grey no-bg-color">
+    <div class="container">
+        <div class="grid-8">
+
+            <!-- condition tabs starts here -->
+            <div class='content-box-shadow margin-bottom20  @(Model.AbsureMainTabs != null && Model.AbsureMainTabs.Count > 0 ? " " : "hide")'>
+                <div class="cw-tabs-panel">
+
+                    <!--Dynamic Binding of Tabs Start -->
+                    <div class="cw-tabs topTabs cw-tabs-flex cw-tabs-inner-margin20 car-condition-tabs">
+                        <ul>
+                            @foreach (KeyValuePair<string, string> tab in Model.AbsureMainTabs)
+                            {
+                                if (tab.Key.Equals("carcondition"))
+                                {
+                                    <li class='active' data-role="click-tracking" data-event="CWNonInteractive" data-action="CarCondition_Click" data-cat="UsedCarDetails" data-tabs='@tab.Key'>@tab.Value</li>
+                                }
+                                else
+                                {
+                                    <li data-role="click-tracking" data-event="CWNonInteractive" data-action='@(tab.Value + "_Click")' data-cat="UsedCarDetails" data-tabs='@tab.Key'>@tab.Value</li>
+                                }
+                            }
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <!--Dynamic Binding of Tabs End -->
+                    <div id="carcondition" class="cw-tabs-data topTabContainers">
+                        @if (certification != null)
+                        {
+                            <div id="certification" class="margin-bottom0 content-inner-block-10" style="padding-top:0;">
+                                <div class="margin-bottom20 table">
+                                    <div class="padding-right25 table-cell">
+                                        <div class="big-green-number" style="color:#@certification.OverallScoreColor">@certification.OverallScore<sup class="big-number-sup">/5</sup></div>
+                                        <div class="gray-light margin-top5">Overall Rating</div>
+                                    </div>
+                                    <div class="table-cell">
+                                        <div class="gray-light">Overall Condition</div>
+                                        <div class="excellent-txt">
+                                            @certification.OverallCondition
+                                            <span class="padding-left20 font13">
+                                                <a href="javascript: void(0)" id="download" class="cur-pointer" data-role="click-tracking" data-cat="UsedCarDetails" data-event="CWNonInteractive" data-action="CT_Certification_DownloadReport_LinkClick">Download Report</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="shadow-container rounded-corner2 bg-white certification-cont">
+                                    @if (certification.Description != null && certification.Description.Count > 0)
+                                    {
+                                        <ul class="certification-list">
+                                            @foreach (var certificationItem in certification.Description)
+                                            {
+                                                <li class="accordion-toggle">
+                                                    <div class="image-cell">
+                                                        <span class="cw-used-sprite item@(certificationItem.CarItemId)"></span>
+                                                        <span class="certi-name">
+                                                            @certificationItem.Name
+                                                            <span class="percent-text">@certificationItem.Condition</span>
+                                                        </span>
+                                                    </div>
+                                                    <span class="up-down-arrow-container rightfloat">
+                                                        <span class="fa fa-angle-down up-down-arrow"></span>
+                                                    </span>
+                                                    @if (certificationItem.Score > 0)
+                                                    {
+                                                        <div class="percentage-cell">
+                                                            <span class="percentage" style="color:#@certificationItem.ScoreColor">@certificationItem.Score<sup class="small-number-sup">/5</sup></span>
+                                                        </div>
+                                                    }
+                                                </li>
+                                                if (certificationItem.SubItems != null && certificationItem.SubItems.Count > 0)
+                                                {
+                                                    <li class="accordion-content">
+                                                        @foreach (var subItem in certificationItem.SubItems)
+                                                        {
+                                                            <div class="property-container">
+                                                                <div class="property-name">
+                                                                    @subItem.Name
+                                                                </div>
+                                                                @if (certificationItem.CarItemId != 9 && certificationItem.CarItemId != 10)
+                                                                {
+                                                                    <div class="prop-status-container">
+                                                                        @if (subItem.Details != null && subItem.Details.Count > 0)
+                                                                        {
+                                                                            foreach (var subItemDetail in subItem.Details)
+                                                                            {
+                                                                                <div class="prop-status-elem">
+                                                                                    <span class="property-status cw-used-sprite legend@(subItemDetail.LegendId)"></span>
+                                                                                    <span class="prop-status-text">@subItemDetail.Text</span>
+                                                                                </div>
+                                                                            }
+                                                                        }
+                                                                    </div>
+                                                                }
+                                                                <div class="bar-status-container">
+                                                                    <div class="prop-status-elem">
+                                                                        @if (subItem.LegendId <= 5)
+                                                                        {
+                                                                            <span class="default-background@(certificationItem.CarItemId == 9 ? " width50" : "")">
+                                                                                <span class="common-percent-prop legend@(subItem.LegendId)"></span>
+                                                                            </span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="status-sign-prop">
+                                                                                <span class="property-status cw-used-sprite legend@(subItem.LegendId)"></span>
+                                                                            </span>
+                                                                        }
+                                                                        <span class="bar-text">@subItem.Condition</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        @if (certificationItem.CarItemId == 7 && !String.IsNullOrEmpty(certification.ExteriorOriginalImgPath))
+                                                        {
+                                                            <div class="car-img">
+                                                                <img src=@ImageSizes.CreateImageUrl(System.Configuration.ConfigurationManager.AppSettings["CDNHostURL"].ToString(), ImageSizes._468X263, certification.ExteriorOriginalImgPath) />
+                                                            </div>
+                                                            <div class="car_abbr">
+                                                                <div class="abbr"><strong>D - Dent</strong></div>
+                                                                <div class="abbr"><strong>S - Scratch</strong></div>
+                                                                <div class="abbr"><strong>C - Corrosion</strong></div>
+                                                                <div class="abbr"><strong>S.O - Seal Open</strong></div>
+                                                                <div class="abbr"><strong>P - Paint Defects</strong></div>
+                                                                <div class="abbr"><strong>K - Crack</strong></div>
+                                                                <div class="abbr"><strong>C.D. - Cold Dent</strong></div>
+                                                                <div class="abbr"><strong>Re - Repainted</strong></div>
+                                                                <div class="abbr"><strong>RRD - Repaired</strong></div>
+                                                                <div class="abbr"><strong>R - Replaced</strong></div>
+                                                                <div class="clr"> </div>
+                                                            </div>
+                                                        }
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    }
+                                    <div id="disclaimerText" class="term-cond-text">
+                                        <p class="disclaimer-text">Disclaimer</p>
+                                        <div class="read-more-collapse-container disclaimer-read-more">
+                                            <div class="read-more-collapse-initial-text">
+                                                This report is based on the condition of the vehicle on the date of certification and provides an approximate estimate of the condition on that date.
+                                            </div>
+                                            <div class="read-more-collapse-final-text">
+                                                This report is based on the condition of the vehicle on the date of certification and provides an approximate estimate of the condition on that date.
+                                                <ul class="list-style--disc">
+                                                    <li> MXC Solutions India Private Limited (“CarTrade.com”) has relied on the odometer reading for KMs driven as seen at the time of inspection and is not responsible for verifying its genuineness</li>
+                                                    <li>Except where indicated the parts were in working condition - this report does not take into account the condition of the parts which are not visible or not inspected</li>
+                                                    <li>The report is in no way a commitment to the condition of the vehicle</li>
+                                                    <li>All reports are subjective and CarTrade.com and its associates cannot be held liable in any way due to the use of this report</li>
+                                                    <li>We recommend prospective buyers to get the vehicle inspected through their own means before purchase</li>
+                                                </ul>
+                                            </div>
+                                            <span class="read-more-collapse-link"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (carDetailEntity.NonAbsureCarCondition != null)
+                        {
+                            <div class="without-abs-condition padding-bottom10 padding-right10 padding-left10">
+                                <ul>
+                                    <li>
+                                        <div class="leftfloat" title="AC">AC</div>
+                                        <div class="leftfloat"><strong>@carDetailEntity.NonAbsureCarCondition.AC</strong></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <li>
+                                        <div class="leftfloat" title="Engine">Engine</div>
+                                        <div class="leftfloat"><strong>@carDetailEntity.NonAbsureCarCondition.Engine</strong></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <li>
+                                        <div class="leftfloat" title="Brakes">Brakes</div>
+                                        <div class="leftfloat"><strong>@carDetailEntity.NonAbsureCarCondition.Brakes</strong></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <li>
+                                        <div class="leftfloat" title="Electricals">Electricals</div>
+                                        <div class="leftfloat"><strong>@carDetailEntity.NonAbsureCarCondition.Electricals</strong></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <li>
+                                        <div class="leftfloat" title="Seats">Seats</div>
+                                        <div class="leftfloat"><strong>@carDetailEntity.NonAbsureCarCondition.Seats</strong></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <li>
+                                        <div class="leftfloat" title="Battery">Battery</div>
+                                        <div class="leftfloat"><strong>@carDetailEntity.NonAbsureCarCondition.Battery</strong></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <li>
+                                        <div class="leftfloat" title="Exterior">Exterior</div>
+                                        <div class="leftfloat"><strong>@carDetailEntity.NonAbsureCarCondition.Exterior</strong></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <li>
+                                        <div class="leftfloat" title="Interior">Interior</div>
+                                        <div class="leftfloat"><strong>@carDetailEntity.NonAbsureCarCondition.Interior</strong></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <li>
+                                        <div class="leftfloat" title="Suspensions">Suspensions</div>
+                                        <div class="leftfloat"><strong>@carDetailEntity.NonAbsureCarCondition.Suspensions</strong></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <li>
+                                        <div class="leftfloat" title="Tyres">Tyres</div>
+                                        <div class="leftfloat"><strong>@carDetailEntity.NonAbsureCarCondition.Tyres</strong></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                    <li>
+                                        <div class="leftfloat" title="Overall">Overall</div>
+                                        <div class="leftfloat"><strong>@carDetailEntity.NonAbsureCarCondition.OverAll</strong></div>
+                                        <div class="clear"></div>
+                                    </li>
+                                </ul>
+                                <div class="clear"></div>
+                                @if (ViewBag.sellerId == 1 && carDetailEntity.DealerInfo != null && (Model.IsCertified))
+                                {
+                                    <div>
+                                        <p class="font14 margin-top10"><strong>@carDetailEntity.DealerInfo.OrganizationName Certified - </strong>@ViewBag.noWarrantyDetails.</p>
+                                    </div>
+                                }
+                                <div class="clear"></div>
+                            </div>
+                        }
+                        <!-- car condition ends here -->
+                    </div>
+                    <div id="cwguarantee" class="cw-tabs-data hide topTabContainers">
+                        @if (carDetailEntity.IndividualWarranty != null)
+                        {
+                            // dealer warranty missing starts here
+                            <div class="dealer-warranty-missing padding-bottom10 padding-right10 padding-left10">
+                                <div>
+                                    <p class=" font14 margin-top10"><strong>Warranty : </strong>@carDetailEntity.IndividualWarranty.WarrantyDescription</p>
+                                </div>
+                            </div>
+                            // dealer warranty missing ends here
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- condition tabs ends here -->
+
+            <!-- Certification summary report code starts here -->
+            <!-- owner comments box starts here -->
+            @if (carDetailEntity.OwnerComments != null && !(string.IsNullOrEmpty(carDetailEntity.OwnerComments.SellerNote) && string.IsNullOrEmpty(carDetailEntity.OwnerComments.ReasonForSell)))
+            {
+                <div class="margin-bottom20">
+                    <div class="font20 margin-bottom10 special-skin-text"><strong>Owner's Comment</strong></div>
+                    <div class="content-box-shadow content-inner-block-10 font14">
+                        @if (!String.IsNullOrEmpty(carDetailEntity.OwnerComments.SellerNote))
+                        {
+                            <p class="margin-top10 more">@carDetailEntity.OwnerComments.SellerNote</p>
+                        }
+                        @if (!String.IsNullOrEmpty(carDetailEntity.OwnerComments.ReasonForSell))
+                        {
+                            <p class=" margin-top10"><span><strong>Reason for Selling:</strong></span> @carDetailEntity.OwnerComments.ReasonForSell</p>
+                        }
+                    </div>
+                </div>
+            }
+            <!-- owner comments box ends here -->
+            <!-- overview tabs starts here -->
+            <div class="content-box-shadow margin-bottom20">
+                <div class="cw-tabs-panel">
+                    <div class="cw-tabs cw-tabs-flex cw-tabs-inner-margin0">
+                        <ul>
+                            <li data-tabs="overview" class="active">Overview</li>
+                            <li data-tabs="features" class="@((carDetailEntity.Features == null) || (carDetailEntity.Features.Count == 0) ? " hideImportant" : "" )">Features</li>
+                            <li data-tabs="specifications" class="@((carDetailEntity.Specification == null) || (carDetailEntity.Specification.Count == 0) ? " hideImportant":"" )">Specifications</li>
+                        </ul>
+                    </div>
+                    @{Html.RenderPartial("~/Views/Used/CarDetailsPartials/_overView.cshtml", Model);}
+
+                    @if (carDetailEntity.Features != null)
+                    {
+                        Html.RenderPartial("~/Views/Used/CarDetailsPartials/_features.cshtml", carDetailEntity);
+                    }
+                    @if (carDetailEntity.Specification != null)
+                    {
+                        Html.RenderPartial("~/Views/Used/CarDetailsPartials/_specifications.cshtml", carDetailEntity);
+                    }
+                </div>
+            </div>
+            <!-- overview tabs ends here -->
+            <!-- modification starts here -->
+            @if (!String.IsNullOrEmpty(carDetailEntity.Modifications.Comments))
+            {
+                <div class="margin-bottom20">
+                    <div class="font20 margin-bottom10"><strong>Modifications</strong></div>
+                    <div class="content-box-shadow content-inner-block-10 font14">
+                        <p>@carDetailEntity.Modifications.Comments</p>
+                    </div>
+                </div>
+            }
+            <!-- modification ends here -->
+            <!-- about dealer starts here -->
+            <div class="margin-bottom20">
+                @if (ViewBag.sellerId == 1 && !string.IsNullOrEmpty(carDetailEntity.DealerInfo.CertifiedUrl))
+                {
+                    <div class="font20 margin-bottom10"><strong>About dealer</strong></div>
+                    <div class="content-box-shadow content-inner-block-10">
+                        <div class="about-dealer-box">
+                            <div class="about-dealer-thumb text-center">
+                                <div class="about-dealer-pic">
+                                    <img src="@(String.IsNullOrEmpty(carDetailEntity.DealerInfo.DealerProfileHostUrl) || String.IsNullOrEmpty(carDetailEntity.DealerInfo.DealerProfileImagePath) ? " https://img.aeplcdn.com/used/no-dealer-pic.png" : ImageSizes.CreateImageUrl(carDetailEntity.DealerInfo.DealerProfileHostUrl.ToString(),ImageSizes._0X0,carDetailEntity.DealerInfo.DealerProfileImagePath.ToString()))" />
+                                </div>
+                                <p class="margin-top20 font16">@(String.IsNullOrEmpty(carDetailEntity.DealerInfo.DealerName) ? "" : carDetailEntity.DealerInfo.DealerName.ToString())</p>
+                            </div>
+                            <div class="about-dealer-details">
+                                <div class="table">
+                                    <div class="dealer-logo padding-right10 v-align">
+                                        <img class="margin-right10" src="@(String.IsNullOrEmpty(carDetailEntity.DealerInfo.CertifiedUrl) ? " " : carDetailEntity.DealerInfo.CertifiedUrl.ToString() )" />
+                                    </div>
+                                    <div class="dealer-name v-align">
+                                        @if (ViewBag.hasShowroom)
+                                        {
+                                            <a target="_blasellerIdnk" href="/used/dealers-in-@UrlRewrite.FormatSpecial(carDetailEntity.BasicCarInfo.CityName).ToString()/@UrlRewrite.FormatSpecial(carDetailEntity.DealerInfo.OrganizationName).ToString()-@carDetailEntity.DealerInfo.DealerId/">
+                                                @carDetailEntity.DealerInfo.OrganizationName.ToString()
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span><strong>@carDetailEntity.DealerInfo.OrganizationName</strong></span>
+                                        }
+                                    </div>
+                                </div>
+                                <p class="margin-top10">
+                                    @(String.IsNullOrEmpty(carDetailEntity.DealerInfo.DealerAddress.ToString()) ? "" : carDetailEntity.DealerInfo.DealerAddress.ToString())
+                                </p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- about dealer ends here -->
+            <!-- recommend cars starts here -->
+            @{Html.RenderPartial("~/Views/Used/CarDetailsPartials/_recommendedCars.cshtml");}
+            <!-- recommend cars ends here -->
+            <div class="clear"></div>
+            <div class="margin-bottom10 margin-top20" id="tyresCarousal"></div>
+            <!-- more cars starts here -->
+            <div class="margin-bottom20">
+                <div class="font20 margin-bottom10 special-skin-text"><strong>More Cars</strong></div>
+                <div class="content-box-shadow content-inner-block-10">
+                    <div class="more-cars-list">
+                        <ul>
+                            <li><span></span><a href="/used/@UrlRewrite.FormatSpecial(carDetailEntity.BasicCarInfo.MakeName)-@carDetailEntity.BasicCarInfo.MaskingName-cars-in-@UrlRewrite.FormatSpecial(carDetailEntity.BasicCarInfo.CityName)/" target="_blank" data-user-action="1">View Used @carDetailEntity.BasicCarInfo.MakeName @carDetailEntity.BasicCarInfo.RootName in @carDetailEntity.BasicCarInfo.CityName </a></li>
+                            <li><span></span><a href="/used/cars-in-@UrlRewrite.FormatSpecial(carDetailEntity.BasicCarInfo.CityName)/" target="_blank" data-user-action="1">View Used Cars in @carDetailEntity.BasicCarInfo.CityName</a></li>
+                            @if (Model.carDetailEntity.BasicCarInfo.IsNewCarDealerAvailable)
+                            {
+                                <li><span></span><a href="@ManageCarUrl.CreatePriceInCityUrl(carDetailEntity.BasicCarInfo.MakeName, carDetailEntity.BasicCarInfo.MaskingName, carDetailEntity.BasicCarInfo.CityMaskingName)" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-action="PICLinkClick" data-cat="VDPPIC" data-label="@string.Format("{0} {1}",carDetailEntity.BasicCarInfo.MakeName,carDetailEntity.BasicCarInfo.CityName)" title="@string.Format("{0} {1} Price in {2}",carDetailEntity.BasicCarInfo.MakeName,carDetailEntity.BasicCarInfo.ModelName,carDetailEntity.BasicCarInfo.CityName)">New @carDetailEntity.BasicCarInfo.MakeName @carDetailEntity.BasicCarInfo.ModelName Price in @carDetailEntity.BasicCarInfo.CityName</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- more cars ends here -->
+            <!--PhotoGallery Code Starts-->
+            @{Html.RenderPartial("~/Views/Used/CarDetailsPartials/_photoGallery.cshtml", Model);}
+            <!--PhotoGallery Code Ends-->
+        </div>
+    </div>
+    <div class="clear"></div>
+    <!-- recommendation popup code starts here -->
+    <div id="recommendCars" class="hide detailPopup">
+        <!-- left side seller details starts here -->
+        <div class="grid-4 alpha omega recommedCars-left position-rel noRecommendation">
+            <div class="loading-icon-recommendation hide" id="loadingIconSellerDetails"><img src="https://img.aeplcdn.com/adgallery/loader.gif"></div>
+            <div class="sellernameBox text-black">
+                @if (!string.IsNullOrEmpty(carDetailEntity.DealerInfo?.RatingText))
+                {
+                    <h4 id="contactPersonId" class="seller-details-right-name-field"></h4>
+        <div class="dealer-rating-container position-rel inline-block">
+            <span class="top-rated-seller-tag top4 ">@carDetailEntity.DealerInfo.RatingText</span>
+            <span class="dealer-rating-tooltip dealer-rating-tooltip--bottom">This seller has consistently been rated well by his customers</span>
+        </div>
+                }
+                else
+                {
+                    <h4 id="contactPersonId"></h4>
+                }
+                <p id="sellerNameId"></p>
+
+                <a href="#" class="font14 seller-virtual-link margin-top5" target="_blank">Check other cars from this seller</a>
+
+            </div>
+            <div class="detailList font14">
+                <ul>
+                    <li>
+                        <span class="buyerprocess-sprite seller-call-ic"></span>
+                        <div class="inner-details" id="sellerMobileId">
+                            <p class="text-black"></p>
+
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <li>
+                        <span class="buyerprocess-sprite seller-email-ic"></span>
+                        <div class="inner-details" id="sellerEmailId">
+                            <p class="text-black"></p>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <li>
+                        <span class="buyerprocess-sprite seller-location-ic"></span>
+                        <div class="inner-details" id="sellerAddressId">
+                            <p class="text-black"></p>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                </ul>
+                <div class="font11 text-light-grey margin-left35 margin-top20">Your contact details have been shared with the seller.</div>
+            </div>
+            <div class="position-rel text-bold font18 suggestCarsTxt hide">
+                <p class="animateArrowIcon">Recommended Cars <span class="fa fa-angle-double-right"></span></p>
+            </div>
+        </div>
+        <!-- right side recommendation list code starts here -->
+        <div class="grid-8 alpha omega bg-white animateRecommendation hide">
+            <span class="popup-close position-abt pos-top10 pos-right10">
+                <span class="cwsprite cross-lg-white"></span>
+            </span>
+            <div class="text-white content-inner-block-10 bg-brandColor">
+                <h3 class="">People also liked...</h3>
+                <p class="font11">View seller details in <strong>one click</strong></p>
+            </div>
+            <div class="content-inner-block-10-20">
+                <ul class="recommendationList margin-top10" id="recommendations" data-bind="foreach:D_carDetailsPage.RECOMMENDLISTING">
+                    <li class="recommendedList" data-bind="attr: { id: 'RecommendedListing-' + $index(), rankabs: Rank }">
+                        <a class="recommendcarThumb" target="_blank" data-bind="attr: { href:  Url,profileId: ProfileId, cityName: CityName, cityId:CityId, makeName: MakeName, modelName: ModelName,price: Price,seller:Seller}">
+                            <img data-bind="attr: { profileId: ProfileId, alt: CarName, title: CarName, 'src': OriginalImgPath == '' || OriginalImgPath == null ? 'https://img.carwale.com/used/no-cars.jpg' : HostUrl + '370x208' + OriginalImgPath }">
+                        </a>
+                        <div class="recommendcarDetails font14">
+                            <a class="carDetails text-default block" target="_blank" data-bind="attr: { href: Url, title: CarName, profileid: ProfileId }">
+                                <p class="font14 margin-bottom5 text-link" data-bind="text: CarName">Maruti Suzuki Alto 800</p>
+                                <p><span class="margin-right5 margin-bottom5">₹</span><span class="text-grey text-bold" data-bind="text: Price">1.40 lakhs</span></p>
+                                <p class="margin-bottom5"><span data-bind="text: Km + ' km'">9,000 km</span><span class="margin-left5 margin-right5">|</span><span data-bind="text: Fuel">Diesel</span><span class="margin-left5 margin-right5">|</span><span data-bind="text: MakeYear">2014</span></p>
+                                <div class="position-rel margin-bottom10">
+                                    <p class="recommendationList__cityName inline-block margin-bottom5" data-bind="text: AreaName + ', ' + CityName">Ashok Vihar, New Dehli</p>
+                                    <span class="dealer-rating-container rightfloat inline-block margin-right10">
+                                        <span data-bind="attr: { 'class': DealerRatingText == null || DealerRatingText == '' ? 'hide' : 'top-rated-seller-tag' }, text: DealerRatingText">Top Rated Seller</span>
+                                        <span class="dealer-rating-tooltip dealer-tooltip-position">This seller has consistently been rated well by his customers</span>
+                                    </span>
+                                </div>
+                            </a>
+                            <div class="btnHolder">
+                                <span class="inline-block position-rel leftfloat"><a data-bind="attr: { id: 'viewSellerDetailsBtn-' + $index(),profileId: ProfileId, modelName: ModelName, makeYear: MakeYear, makeName: MakeName, makeId: MakeId, rootId: RootId, cityId: CityId, cityName: CityName, price: Price, bodyStyleId: BodyStyleId, versionsubsegmentID: VersionSubSegmentID, priceNumeric: PriceNumeric, kmNumeric: KmNumeric, 'data-cte-package-id': CtePackageId }" class="btn btn-orange btn-xs text-uppercase view-details seller-btn-container popup-seller-btn"><span class="oneClickDetails font18 text-bold toggleText">1-Click <span class="font11">VIEW DETAILS</span></span><span class="hideSellerDetails hideImportant">HIDE SELLER DETAILS</span><span class="fa fa-angle-down margin-left5"></span></a></span>  
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                        <!-- recommendation list seller details form code starts here -->
+                        <div class="othersellerDetails hide position-rel" data-bind="attr: { id: 'suggestDetailsData-' + $index()}">
+                            <div class="content-inner-block-10">
+                                <div class="recommendpreLoading text-white hide" data-bind="attr: { id: 'loadingIconRecommendations-' + $index()}">
+                                    <div class="loading-icon-recommendation"><img src="https://img.aeplcdn.com/adgallery/loader.gif"></div>
+                                    <div class="grid-6 alpha omega">
+                                        <ul>
+                                            <li>
+                                                <span class="buyerprocess-sprite seller-name-ic"></span>
+                                                <div class="inner-box">
+                                                    <h4 class="font14 seller-Name"></h4>
+                                                    <p>a</p>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <span class="buyerprocess-sprite seller-call-ic opacity50"></span>
+                                                <div class="inner-box seller-Contact">
+                                                    <p>a</p>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <span class="buyerprocess-sprite seller-email-ic opacity50"></span>
+                                                <div class="inner-box seller-Email">
+                                                    <p>a</p>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="grid-6 alpha omega">
+                                        <ul>
+                                            <li>
+                                                <span class="buyerprocess-sprite seller-location-ic opacity50"></span>
+                                                <div class="inner-box seller-Address">
+                                                    <p>a</p>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div data-bind="attr: { id: 'sellerdetailsData-' + $index()}">
+                                    <div class="grid-6 alpha omega">
+                                        <ul>
+                                            <li>
+                                                <span class="buyerprocess-sprite seller-name-ic"></span>
+                                                <div class="inner-box">
+                                                    <h4 class="text-black font14 seller-Name" data-bind="attr: { id: 'seller-Person' + $index()}"></h4>
+                                                    <p data-bind="attr: { id: 'seller-Name' + $index()}"></p>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <span class="buyerprocess-sprite seller-call-ic opacity50"></span>
+                                                <div class="inner-box seller-Contact" data-bind="attr: { id: 'seller-Contact' + $index()}">
+                                                    <p></p>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <span class="buyerprocess-sprite seller-email-ic opacity50"></span>
+                                                <div class="inner-box seller-Email" data-bind="attr: { id: 'seller-Email' + $index()}">
+                                                    <p></p>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="grid-6 alpha omega">
+                                        <ul>
+                                            <li>
+                                                <span class="buyerprocess-sprite seller-location-ic opacity50"></span>
+                                                <div class="inner-box seller-Address" data-bind="attr: { id: 'seller-Address' + $index()}">
+                                                    <p></p>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="font11 text-light-grey rightfloat" data-bind="attr: { id : 'details-msg' + $index()}">Your contact details have been shared with the seller.</div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="financeIframe" class="iframe-popup-content hide">
+        <span class="similarcar-close position-abt pos-top10 pos-right10 cur-pointer" id="iframe-close">
+            <span class="cwsprite cross-lg-white"></span>
+        </span>
+        <div class="text-white" style="background: #333;padding: 18px">
+        </div>
+        <div class="clear"></div>
+        <div class="search-loading-pic popup-loading-pic hideImportant" style="overflow: hidden; display: block;">
+            <img src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" width="16" height="16" alt="" title="">
+        </div>
+        <div id="iframecontent" class="iframe-content"></div>
+        <div id="iframeTimeOut" data-overlay-theme="a" data-theme="c" data-dismissible="false" class="text-center timeout-popup rounded-corner2 content-box-shadow hide">
+            <span class="error padding-left10 padding-right10 block">We could not fetch loan details right now. Please try again later.</span>
+            <a href="javascript:void(0)" data-role="button" class="btn btn-xs btn-white btn-full-width margin-top15" id="iframeTimeOutClick">OK</a>
+        </div>
+    </div>
+    @*<div class="valuation-popup content-shadow hide"></div>*@
+    <div id="valuation" class="valuation-popup hide">
+        <div class="box-shadow popup-placeholder">
+            <span class="similarcar-close position-abt pos-top10 pos-right10 cur-pointer" id="valuation-popup-close">
+                <span class="cwsprite cross-lg-white"></span>
+            </span>
+            <h3 class="valuation-popup__head">Right Price</h3>
+            <span class="valuation-popup-loading-pic"></span>
+            <div class="valuation-popup-content">
+                <div class="valuation-popup__right-price"></div>
+                <div class="valuation-other-details hide">
+                    <div class="valuation-popup__form">
+                        <div class="form__user-details">
+                            <p class="form__heading">Fill in your details</p>
+                            <div class="form-control-box form-field__name">
+                                <input type="text" id="rptxtName" class="form-control padding-left40" placeholder="Name" maxlength="50">
+                                <span class="cw-used-sprite uc-uname"></span>
+                                <span class="cw-blackbg-tooltip hide" id="rptxtNameError"></span>
+                                <span class="cwsprite error-icon hide" id="rperrorNameCircle"></span>
+                            </div>
+                            <div class="form-control-box form-field__mobile mobile-box">
+                                <span class="form-sprite-16 mobile-icon-16"></span>
+                                <span class="form-field__mobile-prefix">+91</span>
+                                <input type="tel" id="rptxtMobile" class="form-control" placeholder="Mobile number" maxlength="10">
+                                <span id="rptxtMobileError" class="cw-blackbg-tooltip"></span>
+                                <span class="cwsprite error-icon" id="rperrorMobileCircle"></span>
+                            </div>
+                            <div class="form-control-box form-field__email optional-email hide">
+                                <span class="cw-used-sprite uc-email"></span>
+                                <input type="text" id="rptxtEmail" class="form-control" placeholder="Email (optional)">
+                                <span id="rptxtEmailError" class="cw-blackbg-tooltip"></span>
+                                <span class="cwsprite error-icon" id="rperrorEmailCircle"></span>
+                            </div>
+                            <div class="form-control-box email-update-field clearfloat">
+                                <span id="rpemailTick" class="cw-used-sprite uc-unchecked leftfloat"></span>
+                                <p class="email-update__text">Get updates on email</p>
+                            </div>
+                            @if (!string.IsNullOrEmpty(carDetailEntity.DealerInfo?.RatingText))
+                            {
+                                <div style="margin: 20px 0px;" class="position-rel dealer-rating-container">
+                                    <span class="top-rated-seller-tag">@carDetailEntity.DealerInfo.RatingText</span>
+                                    <span class="dealer-rating-tooltip dealer-rating-tooltip--left">This seller has consistently been rated well by his customers</span>
+                                </div>
+                            }
+                            <div class="btn-container">
+                                <a href="javascript:void(0)" id="rpgetsellerDetails" class="btn btn-orange btn-xs text-uppercase margin-bottom10 seller-btn-container grid-12" data-cte-package-id="@carDetailEntity.BasicCarInfo.CtePackageId"><span class="gsdTxt text-bold">GET SELLER DETAILS</span><span class="oneClickDetails hide font18 text-bold">1-Click <span class="font11">VIEW DETAILS</span></span></a>
+                                <a id="rpgettingDetails" class="btn btn-xs btn-orange text-uppercase margin-bottom10 grid-12 hide" style="">Getting Details <span>.</span><span>.</span><span>.</span></a>
+                            </div>
+                            <div class="clear"></div>
+                            <p style="text-align:left; font-size:11px; margin-top:10px">By submitting this form you agree to our <a href="/visitoragreement.aspx" target="_blank">terms and conditions</a></p>
+                        </div>
+                        <div class="content-inner-block-10 alert hide" id="rpnot_auth">
+                            <div class="back-to-gsd-form">
+                                <span>Information you provided was invalid. Please provide valid information.</span>
+                                <p style="color: #0288d1;cursor:pointer">Change your number</p>
+                            </div>
+                        </div>
+                        <div class="form__seller-details hide">
+                            <p class="form__heading">Seller details</p>
+                            <ul class="form__details-list">
+                                <li>
+                                    <span class="form-sprite-16 dealer-icon-16 list-item__icon-col"></span>
+                                    <div class="list-item__details-col">
+                                        @if (!string.IsNullOrEmpty(carDetailEntity.DealerInfo?.RatingText))
+                                        {
+                                            <p class="font16 text-bold seller-details-left-name-field" id="sellerName"></p>
+                                            <div class="dealer-rating-container position-rel inline-block seller-detail__top-rated">
+                                                <span class="top-rated-seller-tag top4">@carDetailEntity.DealerInfo.RatingText</span>
+                                                <span class="dealer-rating-tooltip dealer-rating-tooltip--left">This seller has consistently been rated well by his customers</span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <p class="font16 text-bold" id="sellerName"></p>
+                                        }
+                                        <p class="font12" id="sellerContactPerson"></p>
+
+                                        <a href="#" class="font14 seller-virtual-link margin-top5" target="_blank">Check other cars from this seller</a>
+
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="form-sprite-16 mobile-icon-16 list-item__icon-col"></span>
+                                    <p class="list-item__details-col" id="sellerContact"></p>
+                                </li>
+                                <li>
+                                    <span class="form-sprite-16 email-icon-16 list-item__icon-col"></span>
+                                    <p class="list-item__details-col" id="sellerEmail"></p>
+                                </li>
+                                <li>
+                                    <span class="form-sprite-16 loc-icon-16 list-item__icon-col"></span>
+                                    <p class="list-item__details-col" id="sellerAddress"></p>
+                                </li>
+                            </ul>
+                            <p class="font12 margin-bottom15">Your contact details have been shared with the seller.</p>
+                            <a href="#" target="_blank" class="font14 text-link bp-SimilarCars hide">View similar cars >></a>
+                        </div>
+                    </div>
+
+                    <div class="valuation-popup__similar-cars hide">
+                        <ul id="rprecommendedcars" class="recommendationList margin-top10"></ul>
+                    </div>
+                    <span id="valuationPopupSlideBtn" class="similar-cars__slide-btn">
+                        <span class="arrow-sprite-9 left-icon-9"></span>
+                    </span>
+
+                    <span class="similar-cars__slide-tooltip coachmark">
+                        <span class="coachmark-arrow-top"></span>
+                        <span id="slideBtnTooltipLabel">Recommended cars</span>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- recommendation popup code ends here -->
+    @{Html.RenderPartial("~/Views/Used/CarDetailsPartials/_downloadCertificationPdf.cshtml", Model);}
+
+    <div id="otpForm">
+        <span id="otpClose" class="cur-pointer cwmsprite cross-lg-dark-grey"></span>
+        <p class="popup-box__title">Enter OTP Here</p>
+        <div class="form-control-box margin-bottom40">
+            <input type="tel" id="getOTP" class="form-control" placeholder="Enter 5 digit OTP" maxlength="5">
+            <span class="otp__error"></span>
+            <p id="otpTimer" class="resend-otp-label">Resend OTP in <span class="time-counter">30</span>s</p>
+        </div>
+        <a href="javascript:void(0)" class="btn btn-orange btn-full-width text-uppercase margin-bottom10" id="verifyOTP" rel="nofollow">Verify</a>
+        <p class="or-divider"><span>OR</span></p>
+      
+        @*midded-call*@
+        <div class="missed-call-wrapper width80 " id="missed-call-wrapper">
+
+            <a id="missed-call-number" class="btn btn-teal-ghost btn-full-width margin-top20 margin-bottom20 cur-default">
+                <span class="tel-icon"></span>
+            </a>
+            <p class="missed-call__info-text">Simply give a MISSED CALL and</p>
+            <p class="missed-call__error-msg hide">Error occured. Give a MISSED CALL and</p>
+            <button class="missed-call__verify-link position-rel pointer" id="missed-call-link" type="button">
+                <img id="missed-call__loading" class="hide position-abt" src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" width="16" height="16">
+                Click here to verify
+            </button>
+        </div>
+        @*<%-- Ends --%>*@
+    </div>
+    <div class="modal-bg-window"></div>
+
+    <!-- error pop up html that opens once user shows interest on used car bfl loan offer & gets some error-->
+    @{Html.RenderPartial("~/Views/Used/ErrorPopup.cshtml");}
+    <span id="chat-btn-vdp" class="applozic-launcher" data-mck-id data-mck-name></span>
+    <span class="hide chat-btn global-chat-btn global-chat-icon chat-launcher-icon applozic-launcher mck-button-launcher">
+        <span class="chat-text">My Chats</span>
+        <span class="chat-icon"><span id="chat-count" class="chat-count"></span></span>
+    </span>
+    <link rel="stylesheet" href="/static/sass/m/css/loader.css" type="text/css">
+</section>
+<script>
+
+            function fetchUrl()
+            {
+                var logoUrl = '@System.Configuration.ConfigurationManager.AppSettings["BridgestoneUrl"]';
+                $('#logolink').attr('href', logoUrl);
+            }
+            var videoSlider = 1;
+</script>

@@ -1,0 +1,763 @@
+﻿/* CSS Document */
+
+.hideDiv {
+  display: none;
+}
+
+.showDiv {
+  display: block;
+}
+
+div.graphImg {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/design15/barbg.png?v1=04032016);
+  background-repeat: repeat-y;
+}
+
+* html div.graphImg {
+  position: relative;
+  background: none;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='https://imgd.aeplcdn.com/0x0/cw/design15/barbg.png', sizingMethod='scale');
+}
+
+.allcars {
+  font-weight: bold;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.fResult {
+  border: 1px solid #DFDFDF;
+  border-collapse: collapse;
+}
+
+.fResult th {
+  background-color: #F1F1EA;
+  font-weight: bold;
+}
+
+.addr {
+  line-height: 17px;
+  font-size: 12px;
+}
+/***************** style for dealers showroom sub menu  *************************/
+	
+div#nav2 {
+  clear: left;
+  padding: 2px 2px 2px 15px;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/design15/dhdbg.gif?v1=04032016);
+  background-repeat: repeat-x;
+  border-bottom: 3px solid #C3D9FF;
+}
+
+div#nav2 ul, div#nav2  li {
+  margin: 0;
+  padding: 0;
+}
+
+div#nav2 h2 {
+  margin: 6px 6px 6px 0;
+  padding: 2px 3px 2px 3px;
+  color: #000000;
+}
+
+div#nav2 ul {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+div#nav2 li {
+  display: inline;
+  border-bottom: 0px;
+}
+
+div#nav2 a {
+  display: inline;
+  font-size: 13px;
+  text-decoration: none;
+  padding: 10px;
+}
+
+div#nav2 .selected {
+  background: #FFFFFF;
+  border: 3px solid #C3D9FF;
+  border-bottom-color: #FFFFFF;
+  font-weight: bold;
+}
+
+div#nav2 .selected a, 
+div#nav2 .selected a:link, 
+div#nav2 .selected a:visited, 
+div#nav2 .selected a:hover, 
+div#nav2 .selected a:active {
+  font-weight: bold;
+  text-decoration: none;
+  color: #000000;
+}
+
+#nav2 h2 {
+  font-size: 14px;
+}
+
+/************* Dealer showroom menu style end here *********************** /
+
+/************ members menu starts here ********************************** */
+	
+div#nav3 {
+  clear: left;
+  padding: 2px 2px 2px 15px;
+  background: #FFFFFF;
+  border-left: 1px solid #C3D9FF;
+  border-right: 1px solid #C3D9FF;
+  border-bottom: 1px solid #C3D9FF;
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/design15/dhdbg.gif?v1=04032016);
+  background-repeat: repeat-x;
+  margin: 0px;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+div#nav3 ul, div#nav3  li {
+  margin: 0;
+  padding: 0;
+}
+
+div#nav3 ul {
+  padding-top: 4px;
+  padding-left: 10px;
+  list-style: none;
+}
+
+div#nav3 li {
+  display: inline;
+  padding: 0 15px 0px 15px;
+}
+
+div#nav3 a {
+  display: inline;
+  padding: 5px 5px 2px 5px;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+div#nav3 .selected {
+  background: #FFFFFF;
+  padding: .2em 15px 0px 15px;
+  border: 1px solid #C3D9FF;
+  border-bottom-color: #FFFFFF;
+  font-weight: bold;
+}
+
+div#nav3 .selected a, 
+div#nav3 .selected a:link, 
+div#nav3 .selected a:visited, 
+div#nav3 .selected a:hover, 
+div#nav3 .selected a:active {
+  font-weight: bold;
+  text-decoration: none;
+  color: #000000;
+}
+
+div#nav3 .notSelected {
+  padding: 5px 15px 0px 15px;
+  border-bottom-color: #c6dff9;
+}
+/************ members menu end here ***********************************/
+h2.head {
+  color: #698800!important;
+  font-size: 16px;
+  padding: 10px 0;
+}
+
+h3.sub-head {
+  color: #ec7600!important;
+  font-size: 14px;
+  padding: 10px 0;
+}
+
+/********************** Sprites **************************/
+.sprite-fixed {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/images_sprite.png?v1=04032016) no-repeat;
+}
+
+.sms-fixed {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/sms_strip.jpg?v1=04032016) no-repeat;
+}
+
+.inc-profit {
+  background-position: 0 -75px;
+  width: 90px;
+  height: 80px;
+}
+
+.quote {
+  background-position: 0 -245px;
+  width: 300px;
+  height: 20px;
+}
+
+.Tickmark {
+  background-position: 0 -298px;
+  width: 60px;
+  height: 30px;
+}
+
+.TickmarkAlign {
+  padding: 0px 0px 0px 40px;
+  float: right;
+}
+
+.profit {
+  float: left;
+  width: 190px;
+  margin-top: 35px;
+  background-color: #000;
+  color: #fff;
+  font-weight: bold;
+  padding: 3px;
+}
+
+.phone {
+  background-position: 0 -162px;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  z-index: 10001;
+  left: -20px;
+  float: left;
+  top: -5px;
+}
+
+.tabs-dealer .selected {
+  background-position: 0 -0px;
+  width: 160px;
+  height: 30px;
+  position: relative;
+  left: -12px;
+  top: -6px;
+  padding-top: 3px;
+}
+
+.tabs-dealer .selected a {
+  color: #fff!important;
+}
+
+.benefit {
+  float: left;
+  color: #999999;
+  font-weight: bold;
+  padding: 3px;
+  font-size: 11px;
+}
+
+.increaceprofit {
+  margin: 30px 0 0 28px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.phonenumber {
+  font-size: 22px;
+  color: #999999;
+  font-weight: bold;
+  width: 200px;
+  float: left;
+  height: 30px;
+  padding: 0 0 0 70px;
+}
+
+.borderlines {
+  border-bottom: 1px solid #bebebe;
+  border-top: 1px solid #bebebe;
+  margin-left: 15px;
+  height: 30px;
+}
+
+.contact {
+  font-size: 14px;
+  color: #999999;
+  border-bottom: 1px solid #bebebe;
+  padding: 5px 0 10px 0;
+}
+
+.sub-headGreen {
+  color: #768f00;
+  font-size: 14px;
+  padding: 10px 0;
+  font-weight: bold;
+}
+
+.tabs-dealer {
+  list-style: none;
+}
+
+.tabs-dealer li {
+  float: left;
+  padding: 3px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.tabs-dealer a {
+  text-decoration: none;
+}
+
+.benefits li {
+  border-bottom: 1px dashed #d6d6d6;
+  padding: 15px 0;
+}
+
+.tabs-lt {
+  background-position: 2px -271px;
+  height: 24px;
+}
+
+.tabs-rt {
+  background-position: -16px -271px;
+  height: 24px;
+}
+
+.tabs-sep {
+  color: #CCCCCC;
+  font-weight: normal;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/menu_mid.png?v1=04032016) repeat-x;
+}
+
+.tabs-mid {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/menu_mid.png?v1=04032016) repeat-x;
+  width: 135px;
+}
+
+.plans td {
+  border-bottom: 1px solid #ededed;
+  padding: 7px 0;
+}
+
+.padd-pkg {
+  padding-right: 30px;
+}
+
+.SMSborder {
+  width: 600px;
+  height: 40px;
+  position: relative;
+  z-index: 10001;
+  left: 00px;
+  float: left;
+  top: -5px;
+}
+
+.SMS {
+  font-size: 20px;
+  color: #999999;
+  font-weight: lighter;
+  width: 300px;
+  float: left;
+  height: 30px;
+  padding: 3px 0 0 50px;
+}
+
+.DealerTitle {
+  font-size: 30px;
+}
+
+.DealerLogin {
+  font-size: 18px;
+  color: #FF9900;
+  font-weight: bold;
+}
+
+.DealerCreditials {
+  font-size: 14px;
+  color: #999999;
+  font-weight: bold;
+}
+
+.DealerSignproblem {
+  font-size: 15px;
+  color: #5b5b5b;
+}
+
+.dealerLogo {
+  float: left;
+}
+
+.dealerLogoText {
+  position: relative;
+  top: 10px;
+  left: 10px;
+}
+
+.financerLogo {
+  float: right;
+  text-align: center;
+}
+
+#map_canvas {
+  border: none;
+  border-right: 1px solid #e2e2e2;
+  padding-left: 2px;
+}
+
+#divTestDrive {
+  border: none;
+  border-right: 1px solid #e2e2e2;
+  padding-left: 2px;
+}
+
+.width33 {
+  width: 33%;
+}
+
+#ucHome li {
+  width: 300px;
+  height: 100px;
+  float: left;
+  padding: 5px;
+}
+
+.text-box {
+  width: 160px;
+  height: 17px;
+  border: 1px solid #cccccc;
+}
+
+.font12 {
+  font-size: 12px;
+}
+
+.textbox {
+  width: 213px;
+  height: 14px;
+  margin-bottom: 12px;
+}
+
+.floatLeft {
+  float: left;
+}
+
+.info {
+  padding-left: 3px;
+}
+
+#map_canvas {
+  height: 185px;
+  border: 1px solid #ccc;
+}
+
+#contactNo {
+  margin-top: -10px;
+  border-bottom: 1px solid #cccccc;
+}
+
+#contactNo span {
+  font-size: 15px;
+  color: #333333;
+  line-height: 1.8;
+}
+
+.smsMsg {
+  background-color: #FFCCCC;
+  padding: 5px;
+  line-height: 23px;
+  font-weight: bold;
+  border: 1px solid #EBEBEB;
+}
+
+.imgModels {
+  width: 140px;
+}
+
+.margin {
+  margin-top: -12px;
+  margin-bottom: 12px;
+}
+
+.marginabout {
+  margin-top: -10px;
+}
+
+#aboutus {
+  float: left;
+  width: 70%;
+  border: none;
+  border-right: 1px solid #e2e2e2;
+  padding-left: 2px;
+  margin-bottom: 5px;
+}
+
+#facilities {
+  float: left;
+  width: 29%;
+  border: none;
+  padding-left: 2px;
+}
+
+.widthheight {
+  width: 100px;
+  height: 100px;
+}
+
+.width140 {
+  width: 140px;
+}
+
+.offerimg {
+  position: absolute;
+  z-index: 2;
+  margin-left: -5px;
+  margin-top: -4px;
+  border: none;
+}
+
+.modelimg {
+  width: 120px;
+  position: absolute;
+  border: 1px solid #cecfce;
+}
+
+.divgraybox {
+  width: 400px;
+  float: right;
+}
+
+.divContent {
+  float: left;
+  width: 390px;
+}
+
+.margin-top4 {
+  margin-top: 4px;
+}
+
+.defaultText {
+  width: 100px;
+}
+
+.defaultTextActive {
+  color: #a1a1a1;
+  font-style: normal;
+}
+
+.stockScroll {
+  border: 1px solid #EBEBEB;
+  background-color: #FAFAFA;
+}
+
+.onHoverCls {
+  background-color: #FFFFCC;
+}
+
+#imgarrow {
+  position: relative;
+  left: 193px;
+  height: 19px;
+  top: -1px;
+}
+
+.askDealer {
+  padding-right: 110px;
+  padding-top: 10px;
+  margin-left: 12px;
+}
+    /*Cars sets  */
+#ul-stock {
+  list-style: none;
+}
+
+.item-image {
+  text-align: center;
+}
+
+#ul-stock li.stock-item {
+  float: left;
+  width: 320px;
+  margin-bottom: 21px;
+  margin-top: 5px;
+  height: 85px;
+}
+
+#ul-stock li .stock-item .item-image .img {
+  width: 105px;
+}
+
+.img img {
+  height: 65px;
+  width: 105px;
+}
+/*#ul-stock li.stock-item .item-details { float:left; width:150px;margin-right:5px; }*/
+#ul-stock li.stock-item .item-image {
+  width: 105px;
+  margin-right: 11px;
+  float: left;
+  position: relative;
+  border: 3px solid #cecece;
+  height: 80px;
+}
+
+.certified-label {
+  background: url(https://img.carwale.com/dealer/certified.png) no-repeat;
+  width: 66px;
+  height: 50px;
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: -6px;
+}
+
+.photo-count {
+  background-color: #505050;
+  color: white;
+  height: 15px;
+  width: 105px;
+  position: relative;
+  bottom: 0px;
+  text-align: center;
+}
+
+.photo-count span {
+  font-size: 12px;
+}
+ /*.cars-sets li { width: 320px;float: left; margin-bottom: 24px;}*/
+.drpMake {
+  width: 195px;
+  margin-left: 10px;
+  height: 19px;
+  border: 1px solid #ccc;
+  margin-top: -21px;
+}
+
+#make {
+  position: absolute;
+  background: white;
+  z-index: 1000;
+  width: 150px;
+  border: 1px solid #ccc;
+  border-top: none;
+  height: 130px;
+  overflow: auto;
+  width: 195px;
+  margin-left: 15px;
+}
+
+#make li {
+  margin: 5px 5px 10px;
+}
+ /*.cars-sets li .img-area {}
+ .cars-sets li .img-area img {width: 105px;}
+ .cars-sets li .content-area {width: 150px;margin-right: 10px;float: left;} */
+#loadingmsg {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(https://img.carwale.com/dealer/loadingBg.png) no-repeat;
+}
+
+.loading-popup {
+  background-color: #FFF;
+  width: 412px;
+  padding: 20px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  margin: 0 auto;
+  margin-top: 6%;
+}
+
+.loading-icon {
+  background: url(https://img.carwale.com/dealer/preloader.gif) no-repeat;
+  width: 35px;
+  height: 35px;
+  display: block;
+  float: left;
+}
+
+
+/* Main Slider Start Here */
+#banner {
+  width: 940px;
+  overflow: hidden;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-direction-rtl {
+  direction: rtl;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-container-horizontal {
+  width: 940px;
+  overflow: hidden;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-clip {
+  overflow: hidden;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-item {
+  width: 940px;
+  overflow: hidden;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-item-horizontal {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-direction-rtl .jcarousel-item-horizontal {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-container a {
+  color: #FFF;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-container a img {
+  border: 5px solid #e0e3ec;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-clip-horizontal,#banner-full .jcarousel-skin-tango .jcarousel-clip-vertical {
+  width: 940px;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-next-horizontal {
+  position: absolute;
+  top: 120px;
+  right: 10px;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  background: transparent url(https://img.carwale.com/dealer/right-arrow.png) no-repeat 0 0;
+  opacity: 0.5;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-next-horizontal:hover {
+  background: transparent url(https://img.carwale.com/dealer/right-arrow-red.png) no-repeat 0 0;
+  opacity: 0.5;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-prev-horizontal {
+  position: absolute;
+  top: 120px;
+  left: 10px;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  background: transparent url(https://img.carwale.com/dealer/left-arrow.png) no-repeat 0 0;
+  opacity: 0.5;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-prev-horizontal:hover {
+  background: transparent url(https://img.carwale.com/dealer/left-arrow-red.png) no-repeat 0 0;
+  opacity: 0.5;
+}
+/*Main Slider Ends Here*/

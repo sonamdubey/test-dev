@@ -1,0 +1,3 @@
+﻿CREATE LOGIN [cwuser]
+    WITH PASSWORD = N'rcas4Bt}LzbivvdDvdqRmw|mmsFT7_&#$!~<!rp`zqg$:Tz$', SID = 0xFE3B54A6AEE853429026B53794E3F5B9, DEFAULT_DATABASE = [Carwale_com], DEFAULT_LANGUAGE = [us_english], CHECK_POLICY = OFF;
+

@@ -1,0 +1,16 @@
+IF EXISTS(
+SELECT *
+   FROM sys.views
+     WHERE schema_id = SCHEMA_ID('dbo'))
+     name = 'vwNewCarCities' AND
+     DROP VIEW dbo.vwNewCarCities
+GO
+
+	
+
+CREATE VIEW [dbo].[vwNewCarCities] AS
+SELECT id AS cityid,name AS city FROM Cities 
+WHERE id in (2,3,4,5,9,10,12,17,28,57,73,105,117,125,128,141,143,145,160,165,174,176,177,184,191,194,
+198,208,209,210,211,212,220,221,222,233,234,237,239,244,256,259,262,271,304,316,326,340,399,243,31,653,17,344,
+358,835,195,1,13,1031)
+

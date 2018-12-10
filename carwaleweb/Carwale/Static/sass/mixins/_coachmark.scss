@@ -1,0 +1,35 @@
+@import '../mixins/_variables.scss';
+@import '../mixins/_vendor-prefix.scss';
+
+@mixin coachmark-container ($background-color: 'white', $border-color: 'dark-grey') {
+    .coachmark {
+        @include vendor-prefix(box-shadow, 0 2px 2px map-get($color-map, 'grey'));
+        background-color: map-get($color-map, $background-color);
+        border: 1px solid map-get($color-map, $border-color);
+        border-radius: 5px;
+        padding: 10px;
+        position: absolute;
+        z-index: 2;
+    }
+}
+
+@mixin coachmark-heading {
+    .coachmark__heading {
+        font-size: 16px;
+        font-weight: $font-bold;
+    }
+}
+
+@mixin coachmark-subheading {
+    .coachmark__subheading {
+        font-size: 16px;
+    }
+}
+
+@mixin coachmark-link ($color: 'pacific-blue') {
+    .coachmark__link {
+        color: map-get($color-map, $color);
+        text-decoration: none;
+        cursor: pointer;
+    }
+}

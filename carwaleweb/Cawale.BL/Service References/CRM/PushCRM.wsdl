@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://www.carwale.com/webservices/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://www.carwale.com/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="https://www.carwale.com/webservices/">
+      <s:element name="CheckService">
+        <s:complexType />
+      </s:element>
+      <s:element name="CheckServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckServiceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PushToCRM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlData" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PushToCRMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PushToCRMResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDMSData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlData" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="saveId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateDMSDataResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CheckServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckService" />
+  </wsdl:message>
+  <wsdl:message name="CheckServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="PushToCRMSoapIn">
+    <wsdl:part name="parameters" element="tns:PushToCRM" />
+  </wsdl:message>
+  <wsdl:message name="PushToCRMSoapOut">
+    <wsdl:part name="parameters" element="tns:PushToCRMResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDMSDataSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateDMSData" />
+  </wsdl:message>
+  <wsdl:message name="UpdateDMSDataSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateDMSDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="PushCRMSoap">
+    <wsdl:operation name="CheckService">
+      <wsdl:input message="tns:CheckServiceSoapIn" />
+      <wsdl:output message="tns:CheckServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PushToCRM">
+      <wsdl:input message="tns:PushToCRMSoapIn" />
+      <wsdl:output message="tns:PushToCRMSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDMSData">
+      <wsdl:input message="tns:UpdateDMSDataSoapIn" />
+      <wsdl:output message="tns:UpdateDMSDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PushCRMSoap" type="tns:PushCRMSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckService">
+      <soap:operation soapAction="https://www.carwale.com/webservices/CheckService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PushToCRM">
+      <soap:operation soapAction="https://www.carwale.com/webservices/PushToCRM" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDMSData">
+      <soap:operation soapAction="https://www.carwale.com/webservices/UpdateDMSData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PushCRMSoap12" type="tns:PushCRMSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckService">
+      <soap12:operation soapAction="https://www.carwale.com/webservices/CheckService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PushToCRM">
+      <soap12:operation soapAction="https://www.carwale.com/webservices/PushToCRM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateDMSData">
+      <soap12:operation soapAction="https://www.carwale.com/webservices/UpdateDMSData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PushCRM">
+    <wsdl:port name="PushCRMSoap" binding="tns:PushCRMSoap">
+      <soap:address location="http://opr.carwale.com/webservices/PushCRM.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PushCRMSoap12" binding="tns:PushCRMSoap12">
+      <soap12:address location="http://opr.carwale.com/webservices/PushCRM.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

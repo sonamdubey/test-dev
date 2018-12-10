@@ -1,0 +1,330 @@
+@import '../../mixins/_utils.scss';
+@import '../../mixins/_text.scss';
+@import '../../mixins/_variables.scss';
+@import '../../mixins/_sprites.scss';
+@import '../../mixins/flexbox';
+@import '../../mixins/_vendor-prefix.scss';
+@import '../../mixins/_switcher.scss';
+@import '../../mixins/_overview-table.scss';
+@import '../../mixins/_price-not-available.scss';
+@import '../../mixins/_vendor-utils.scss';
+@import '../../mixins/_tooltip.scss';
+@import '../d/campaign-templates.scss';
+
+@font-face {
+	font-family: 'LatoWeb';
+	src: url('https://stc.aeplcdn.com/fonts/lato-bold-webfont.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'LatoWeb';
+	src: url('https://stc.aeplcdn.com/fonts/lato-regular-webfont.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+
+html {
+	body {
+		font-family: 'LatoWeb', sans-serif, Arial;
+	}
+}
+
+.breadcrumb {
+	 li {
+		display: inline-block;
+		margin-right: 5px;
+	}
+}
+
+.global-location {
+	.global-search {
+		line-height: 24px	
+	}
+}
+
+.page-title {
+	font-size: 26px;
+	font-weight: $font-bold;
+	color: map-get($color-map, 'charcoal');
+	text-transform: capitalize;
+}
+
+.overview-section {
+	background-color: map-get($color-map, 'white');
+	margin-bottom: 50px;
+	padding-top: 15px;
+
+	.page-title {
+		padding-top: 20px;
+		margin-bottom: 15px;
+	}
+}
+
+.model-content__image {
+	width: 226px;
+	text-align: center;
+	height: 127px;
+	padding: 5px;
+
+	> img {
+		width: 100%;
+		height: auto;
+		max-width: 100%;
+	}
+}
+
+.car-model-details__changeModelIcon {
+	@include edit-icon;
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	background-size: 15px;
+	cursor: pointer;
+	vertical-align: bottom;
+	float: right;
+}
+
+.model-overview {
+	padding-bottom: 40px;
+}
+
+.model-overview__content {
+	@include flexbox;
+	width: 100%;
+	border: 1px solid map-get($color-map, 'gainsboro');
+	border-radius: 4px;
+}
+
+.model-content {
+	@include flexbox;
+	@include flex-direction(column);
+	width: 240px;
+}
+
+.model-content__details {
+	@include flexbox;
+	@include flex-direction(column);
+	@include flex-grow(1);
+}
+
+.model-details__content {
+	@include flexbox;
+	@include flex-grow(1);
+	@include align-items(center);
+	@include justify-content(space-between);
+	padding: 15px 20px;
+	border-top: 1px solid map-get($color-map, 'smoke-white');
+	border-right: 1px solid map-get($color-map, 'smoke-white');
+}
+
+.model-overview__content-details {
+	@include flexbox;
+	@include flex-direction(column);
+	@include flex-grow(1);
+	margin-left: 15px;
+}
+
+.model-details__version-selection {
+	border-radius: 2px;
+}
+
+.model-details__name {
+	@include flex-direction(column);
+	@include justify-content(center);
+	line-height: 22px;
+	border: none;
+}
+
+.model-details__name-container {
+	display: block;
+	width: 100%;
+}
+
+.model-details__make-name {
+	font-size: 14px;
+	color: map-get($color-map, 'charcoal');
+	font-weight: $font-normal;
+	display: block;
+	width: 100%;
+}
+
+.model-details__model-name {
+	font-size: 16px;
+	font-weight: $font-bold;
+	color: map-get($color-map, 'charcoal');
+}
+
+.model-overview__switch {
+	padding-right: 20px;
+	text-align: right;
+}
+
+.js-metallic {
+    display: none;
+}
+
+.loan-offers__link {
+	margin-right: 25px;
+	font-weight: $font-semibold;
+
+	a {
+		color: map-get($color-map, 'summer-sky');
+	}
+}
+
+.flex-container {
+	@include flexbox;
+	@include flex-grow;
+
+	&.grid-4 {
+		min-width: 33.33%;
+	}
+
+	&.grid-5 {
+		min-width: 41.66%;
+	}
+
+	&.grid-7 {
+		min-width: 58.33%;
+	}
+
+	&.grid-8 {
+		min-width: 66.66%;
+		padding-right: 15px;
+	}
+
+	&[class*='grid-'] {
+		float: none;
+	}
+}
+
+.flex-container__content {
+	width: 100%;
+}
+
+@include switch--horizontal(54, 24);
+// price table
+
+@include price-table( $border : 1px solid map-get($color-map, 'smoke-white'));
+@include price-table__total;
+
+.price-breakup-section {
+	.price-table {
+		border-collapse: collapse;
+	}
+}
+
+.get-offer-link {
+	background-color: map-get($color-map, 'white');
+
+	> .btn {
+		border-radius: 3px;
+		margin-top: 5px;
+		padding: 10px 30px;
+		font-weight: $font-bold;
+	}
+}
+
+.price-table__total {
+	.pq-tooltip {
+		font-weight: $font-normal;
+	}
+}
+
+.model-details__city-selection {
+	cursor: pointer;
+}
+
+.city-selection__label {
+	display: block;
+	font-size: 12px;
+	letter-spacing: 1px;
+	color: map-get($color-map, 'text-grey');
+	margin-bottom: 10px;
+	text-transform: uppercase;
+}
+
+.city-selection__container {
+	display: inline-block;
+}
+
+.city-selection__name {
+	display: block;
+	font-weight: $font-bold;
+	font-size: 14px;
+	letter-spacing: 0;
+	color: map-get($color-map, 'charcoal');
+}
+
+.city-selection__icon {
+	@include location-icon;
+	background-size: contain;
+	height: 22px;
+	width: 15px;
+	display: inline-block;
+}
+
+.quotation-template-wrapper {
+	width: 100%;
+}
+
+.emi-calculator-root,
+.selectcustom-content,
+.popup-container {
+	display: none;
+}
+
+.overall-container {
+	background-color: map-get($color-map, 'snow-white');
+}
+
+.campaign-section {
+	.offers-list__content {
+		&.truncate-offer {
+			max-width: 170px
+		}
+	}
+}
+
+.ad-slot__wrapper {
+	background-color: map-get($color-map, 'white');
+}
+
+.ad-slot__container {
+	margin: 0 auto;
+}
+
+.alternate-car {
+	.ad-slot__wrapper {
+		padding-top: 30px;
+	}
+	.ad-slot__container {
+		padding-top: 9px;
+	}
+}
+
+.offer-container {
+	border-radius: 4px;
+}
+
+//carousel atf
+
+.container {
+    width: 996px;
+    margin: 0 auto;
+}
+
+.jcarousel ul {
+    width: 20000em;
+    position: relative;
+}
+
+.alternate-car-container {
+	.carousel-list-item {
+		width: 318px;
+		height: 346px;
+		display: inline-block;
+	}
+} 

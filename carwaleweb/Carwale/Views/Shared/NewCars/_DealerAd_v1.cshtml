@@ -1,0 +1,36 @@
+﻿@model Carwale.DTOs.LeadForm.LeadFormModelData
+@using Carwale.Entity.Enum;
+
+@if (Model != null)
+{
+    foreach (var leadModelData in Model.DealerAd)
+    {
+        if (leadModelData.Campaign != null && leadModelData.CampaignType == (int)Carwale.Entity.Enum.CampaignAdType.Pq
+            && leadModelData.Campaign.Id > 0 && leadModelData.PageProperty != null)
+        {
+            foreach (Carwale.DTOs.PageProperty.PagePropertyDTO pageProperty in leadModelData.PageProperty)
+            {
+                <div class="content-box-shadow content-inner-block-5 margin-bottom20 sponsored-dealer-ad" style="display:none">
+                    @(new HtmlString(pageProperty.Template.HTML))
+                </div>
+            }
+
+            <script>
+    (function(){
+        var ctaSource = document.getElementById("btnDealerOffer");
+        function setCTALeadFormReactAttribute() {
+            if (ctaSource != null && typeof ctaSource != "undefined") {
+                ctaSource.removeAttribute('onclick');
+                ctaSource.setAttribute('campaigncta', '');
+                ctaSource.setAttribute('campaignid_dealerid', '@leadModelData.Campaign.Id' + '_' + '@leadModelData.Campaign.DealerId');
+                ctaSource.setAttribute('userlocation', '{ "cityId" : "@Model.CustLocation.CityId", "cityName" : "@Model.CustLocation.CityName"}');
+                ctaSource.setAttribute('propertyid', '13');
+                ctaSource.setAttribute('pageid', '55');
+                        }
+                    }
+                    setCTALeadFormReactAttribute();
+                }());
+            </script>
+        }
+    }
+}

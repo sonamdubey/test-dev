@@ -1,0 +1,52 @@
+﻿@model Carwale.DTOs.CarData.AlternateCarsDTO
+
+@using Carwale.Utility;
+
+<div class="alternate-car-container">
+    <h2 class="carousel-container__heading">@(Model.MakeName + " " + Model.ModelName) Alternatives</h2>
+    <div class="jcarousel-wrapper carousel-wrapper">
+        <div class="jcarousel carousel-body">
+            <ul class="carousel-list">
+                @{int similarModelListCount = @Model.SimilarModelList.Count;}
+                @for (int i = 0; i < similarModelListCount; i++)
+                {
+
+                    var similarModel = @Model.SimilarModelList[i];
+                    var makeName = @similarModel.MakeName;
+                    var modelName = @similarModel.ModelName;
+                    var makeModelName = string.Format("{0} {1}", @similarModel.MakeName, @similarModel.ModelName);
+
+                    string imgUrl = ImageSizes.CreateImageUrl(@similarModel.HostUrl, Carwale.Utility.ImageSizes._310X174, @similarModel.ModelImageOriginal);
+                    string modelPageUrl = ManageCarUrl.CreateModelUrl(@makeName, @similarModel.MaskingName);
+                    string pqPageUrl = string.Format("/quotation/?m={0}&v={1}&c={2}&a={3}&p={4}", @similarModel.ModelId, @similarModel.PopularVersionId, @Model.Location.CityId, @Model.Location.AreaId, "138");
+                    <li class="carousel-list-item">
+                        <div class="carousel__content-wrapper">
+                            <div class="carousel-image-wrapper">
+                                <a href="@modelPageUrl" title="" target="_blank"><img class="lazy" data-original="@imgUrl" title="@makeModelName" alt="@makeModelName" src="@imgUrl"></a>
+                            </div>
+                            <div class="carousel-info-wrapper">
+                                <div class="car-info-container">
+                                    <a href="@modelPageUrl" title="@makeModelName" class="info-wrapper__model-name" target="_blank">@makeModelName</a>
+                                    @{ var price = similarModel?.PriceOverview?.FormattedFullPrice ?? "N/A"; }
+                                    <p class="info-wrapper__model-price"> @price onwards</p>
+                                    <p class="info-wrapper__subtitle"> @similarModel.PriceOverview.PriceLabel, @Model.Location.CityName</p>
+                                </div>
+                                <div class="price-breakup-link-wrapper">
+                                    <span class="info-wrapper__link redirect-pqpage__js" data-modelid="@similarModel.ModelId" data-versionid="@similarModel.PopularVersionId"
+                                                                                         data-cityid="@Model.Location.CityId" data-areaid="@Model.Location.AreaId" data-pageid="138">
+                                          View Price Breakup
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        @if (similarModelListCount > Model.WidgetCardCount)
+        {
+            <span class="carousel-button carousel-prev-button jcarousel-control-prev"></span>
+            <span class="carousel-button carousel-next-button jcarousel-control-next"></span>
+        }
+    </div>
+</div>

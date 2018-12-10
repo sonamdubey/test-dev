@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[AxisBank_ASC] (
+    [ID]   INT           IDENTITY (1, 1) NOT NULL,
+    [Name] VARCHAR (100) NOT NULL,
+    CONSTRAINT [PK_AxisBank_ASC] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+

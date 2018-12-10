@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[DealerDetails] (
+    [DealerID]             NUMERIC (18)  NOT NULL,
+    [StockCarsCount]       INT           NULL,
+    [SellingInMonth]       INT           NULL,
+    [UsingPc]              BIT           CONSTRAINT [DF_DealerDetails_UsingPc] DEFAULT ((0)) NULL,
+    [UsingSoftware]        BIT           CONSTRAINT [DF_DealerDetails_UsingSoftware] DEFAULT ((0)) NOT NULL,
+    [UsingTradingCars]     BIT           CONSTRAINT [DF_DealerDetails_UsingTradingCasSoftware] DEFAULT ((0)) NOT NULL,
+    [StockSegment]         VARCHAR (50)  NULL,
+    [OrganizationSize]     VARCHAR (50)  NULL,
+    [BusinessType]         VARCHAR (50)  NULL,
+    [FirmType]             VARCHAR (50)  NULL,
+    [NumberOfOutlets]      INT           NULL,
+    [ServicesOffered]      VARCHAR (50)  NULL,
+    [AdvertiseOn]          VARCHAR (50)  NULL,
+    [AnnualMarketingSpend] NUMERIC (18)  NULL,
+    [AnnualTurnover]       NUMERIC (18)  NULL,
+    [Challenges]           VARCHAR (50)  NULL,
+    [LeadSource]           VARCHAR (50)  NULL,
+    [Softwares]            VARCHAR (50)  NULL,
+    [OtherPartners]        VARCHAR (100) NULL,
+    [AnniversaryOn]        DATETIME      NULL,
+    [IsNewDealership]      BIT           NULL,
+    [RetailChain]          VARCHAR (100) NULL,
+    [NumberOfPC]           VARCHAR (50)  NULL,
+    CONSTRAINT [PK_DealerDetails] PRIMARY KEY CLUSTERED ([DealerID] ASC) WITH (FILLFACTOR = 90)
+);
+

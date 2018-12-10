@@ -1,0 +1,7 @@
+﻿@model Carwale.DTOs.NewCars.UpcomingCarsDTO
+<script type="text/javascript">
+    var url = '@Request.ServerVariables["HTTP_X_REWRITE_URL"]';
+    var upcomingPage = { sort:@Model.Sort, makeId:@Model.MakeId, makemask:"@Carwale.Utility.Format.FormatURL(Model.MakeName)", page:@Model.PageNo };
+</script>
+<script type="text/javascript" src="/static/src/graybox.js" defer></script>
+<script type="text/javascript" src="/static/js/upcomingcars.js" defer></script>

@@ -1,0 +1,699 @@
+﻿@using Carwale.Utility;
+@using System.Configuration;
+@using Carwale.UI.Common;
+@using Carwale.UI.Users;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Cache.ChatManagement;
+@using Carwale.BL.UserProfiling;
+@using Carwale.Entity.Enum;
+@using Carwale.BL.Experiments;
+
+@{
+    ViewBag.CurrentUserId = CurrentUser.Id;
+    ViewBag.IsLoggedIn = CurrentUser.Id != "-1" ? true : false;
+    ViewBag.AdPath = "/1017752/" + System.Configuration.ConfigurationManager.AppSettings["adSlotDomain"] ?? string.Empty;
+    string jsPath = "", cssPath = "", staticPath = System.Configuration.ConfigurationManager.AppSettings["staticPath"];
+    var showAdvantageDiscountLink = Advanatge.ShowAdvantageDiscountLink;
+    var chatFlags = ChatManagementCache.GetChatFlags(@ViewBag.PageId == null ? -1 : @ViewBag.PageId);
+    bool showChatForHexa = ViewBag.ShowChatForHexa != null ? ViewBag.ShowChatForHexa : false;
+    bool IsLessThanIe9 = (Request.Browser.Type == "IE8" || Request.Browser.Type == "IE7") ? true : false;
+    bool IsEligibleForNewMenu = true;
+    bool isMobile = Carwale.UI.ClientBL.DeviceDetectionManager.IsMobile(new HttpContextWrapper(HttpContext.Current));
+    bool showCustomNotificationPopup = ProductExperiments.showCustomNotificationPopup(isMobile);
+}
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage">
+<head>
+    <meta charset="utf-8">
+    <link rel="preload" href="https://stc.aeplcdn.com/fonts/rupee.woff" as="font" type="font/woff" crossorigin>
+    <link rel="preload" href="/static/sass/partials/rupee-icon.css" as="style" type="text/css">
+    <title itemprop="name">@Html.Raw(ViewBag.Title) - CarWale</title>
+    @if (ViewBag.Description != null || !String.IsNullOrEmpty(ViewBag.Description))
+    {
+        <meta itemprop="description" name="description" content="@Html.Raw(ViewBag.Description)" />
+    }
+    @if (ViewBag.Keywords != null || !String.IsNullOrEmpty(ViewBag.Keywords))
+    {
+        <meta name="keywords" content="@ViewBag.Keywords" />
+    }
+    @RenderSection("MetaTags", false)
+    <link rel="canonical" href="@ViewBag.Canonical" />
+ @if (!string.IsNullOrWhiteSpace(ViewBag.Alternate))
+ {
+        <link rel="alternate" type="text/html" media="handheld" href="@ViewBag.Alternate" title="Mobile/PDA" />
+ }
+    @if (!String.IsNullOrWhiteSpace(ViewBag.Prev))
+    {
+        <link rel="prev" href="@ViewBag.Prev" />
+    }
+    @if (!String.IsNullOrWhiteSpace(ViewBag.Next))
+    {
+        <link rel="next" href="@ViewBag.Next" />
+    }
+    @if (!string.IsNullOrWhiteSpace(ViewBag.DeeplinkAlternativesAndroid) && !(ViewBag.IsCityPage != null && ViewBag.IsCityPage))
+    {
+        <link rel="alternate" href="android-app://com.carwale/carwaleandroid1/www.carwale.com@(ViewBag.DeeplinkAlternativesAndroid)" />
+    }    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="y33JBqCALrAtfZBeI-VVHz7jyLJrZqpOsggckAZlBj8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="SHORTCUT ICON" href="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/carwale.png?staticimgsfix" />
+    <link rel="stylesheet" href="/static/css/cw-common-style.css" type="text/css" >
+    <link rel="stylesheet" href="/static/css/location-plugin.css" type="text/css">
+	<link rel="stylesheet" href="/static/cwfontawesome/cw-font-awesome.css" type="text/css">
+  <link rel="stylesheet" href="/static/sass/partials/rupee-icon.css" type="text/css" />
+        @{
+            Html.RenderPartial("~/Views/StaticPartials/FontCss/CwFonts.cshtml");
+            Html.RenderPartial("~/Views/Shared/_GoogleTagManagerView.cshtml");
+            Html.RenderPartial("~/Views/Shared/_GoogleTagServicesView.cshtml");
+        }
+        <script type="text/javascript" src="/static/js/frameworks.js"></script>
+
+    <!-- Global Site Tag (gtag.js) - Google AdWords: 999894061 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-999894061"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'AW-999894061');
+    </script>
+
+        @if (ViewBag.DefineAdSlots != null)
+        {
+            @Html.Raw(ViewBag.DefineAdSlots);
+            Html.RenderAction("GetAdTagetingData", "UserProfile", new { cwcCookieId = CurrentUser.CWC, platform = Platform.CarwaleDesktop });
+        }
+        @if (ViewBag.CustomCss != null)
+        {
+            if (ViewBag.CustomCss.IndexOf(".css") > 0)
+            {
+                <link href="@cssPath@ViewBag.CustomCss" rel="stylesheet" type="text/css">
+            }
+            else
+            {
+                Html.RenderPartial((string)ViewBag.CustomCss);
+            }
+        }
+        @RenderSection("Styles", false)
+</head>
+<body class="@ViewBag.BodyClass rsz-lyt special-page special-skin-body no-bg-color">
+    @{
+        Html.RenderPartial("~/Views/Shared/_GoogleTagManagerNoScript.cshtml");
+    }
+    @if (IsLessThanIe9)
+    {
+        Html.RenderPartial("_browserDownload");
+    }
+    <div id="globalPopupBlackOut" class="blackOut-window"></div>
+    <nav id="nav">
+        <!-- nav code starts here -->
+        <ul class="navUL">
+            <li>
+                <a href="/" class="open">
+                    <span class="cwsprite home-icon"></span>
+                    <span class="navbarTitle">Home</span>
+                </a>
+            </li>
+            <li id="navNewCars">
+                <a href="javascript:;" rel="nofollow" class="newCarDropDown">
+                    <span class="cwsprite newCars-icon"></span>
+                    <span class="navbarTitle">New Cars</span>
+                    <span class="nav-drop fa fa-angle-down"></span>
+                </a>
+                <ul class="nestedUL">
+                    <li><a href="/new/">Find New Cars</a></li>
+                    @if (showAdvantageDiscountLink)
+                    {
+                        <li class="adv-menu-link">
+                            <a href="/advantage" id="menuAdvantage">
+                                New Car Discounts
+                                <span class="ae-sprite ae-new-label-icon"></span>
+                            </a>
+                        </li>
+                    }
+                    <!-- ko template: { name: 'navigationSliderAd' , foreach: SponsoredNavigation.koNewCarsModel.newCarsAds } --><!-- /ko -->
+                    <li><a href="/comparecars/">Compare Cars</a></li>
+                    <li><a href="/new/prices.aspx">Check On-Road Price</a></li>
+                    <li><a href="/new/locatenewcardealers.aspx">Find Dealer</a></li>
+                    <li><a href="/upcoming-cars/">Upcoming Cars</a></li>
+                    <li><a href="/new-car-launches/">New Launches</a></li>
+                    <li><a href="/offers/">Offers</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;" rel="nofollow">
+                    <span class="cwsprite usedCars-icon"></span>
+                    <span class="navbarTitle">Used Cars</span>
+                    <span class="nav-drop fa fa-angle-down"></span>
+                </a>
+                <ul class="nestedUL">
+                    <li><a href="/used/cars-for-sale/">All Used Cars</a></li>
+                    <li><a href="/used/">Find Used Cars</a></li>
+                    <li><a href="/used/carvaluation/">Check Car Valuation</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/used/sell/">
+                    <span class="cwsprite sellCars-icon"></span>
+                    <span class="navbarTitle">Sell Your Car</span>
+                </a>
+            </li>
+            <li>
+
+
+                <a href="javascript:;" rel="nofollow">
+                    <span class="cwsprite reviews-icon"></span>
+                    <span class="navbarTitle">Reviews and News</span>
+                    <span class="nav-drop fa fa-angle-down"></span>
+                </a>
+                <ul class="nestedUL">
+                    <li><a href="/news/">News</a></li>
+                    <li><a href="/expert-reviews/">Expert Reviews</a></li>
+                    <li><a data-cwtccat="ReviewLandingLinkage" data-cwtcact="NavBarLinkClick" data-cwtclbl="source=1"  href="/userreviews/">User Reviews</a></li>
+                    <li><a href="/videos/">Videos</a></li>
+                    <li><a href="/tipsadvice/">Tips and Advice</a></li>
+                    <li><a href="/features/">Special Reports</a></li>
+                    <li><a href="/images/">Images<span class='margin-left5 cwsprite new-red-tag-icon'></span></a></li>
+                </ul>
+            </li>
+            <li id="navSpecials">
+                <a href="javascript:;" rel="nofollow" class="specialCarDropDown">
+                    <span class="cwsprite special-icon"></span>
+                    <span class="navbarTitle">Specials</span>
+                    <span class="nav-drop fa fa-angle-down"></span>
+                </a>
+                <ul class="nestedUL">
+                    <li><a href="/m/tyres/">Car Tyres</a></li>
+                    <li><a href="/electriccars/" data-role="click-tracking" data-event="CWInteractive" data-action="Main-Menu-item-click" data-cat="TopMenuabtest" data-label="Electric_Click">All About Electric</a></li>
+                    <li><a href="/the-great-indian-hatchback-of-2016/" data-role="click-tracking" data-event="CWInteractive" data-action="Main-Menu-item-click" data-cat="TopMenuabtest" data-label="KwidResultLinkClick">Great Indian Hatchback</a></li>
+                    <!-- ko template: { name: 'navigationSliderAd' , foreach: SponsoredNavigation.koSpecialsModel.specialsAds } --><!-- /ko -->
+                </ul>
+            </li>
+            <li class="navInsuranceLink" style="display:none">
+                <a href="/insurance/?utm=dnavigation/">
+                    <span class="cwsprite insurance-icon"></span>
+                    <span class="navbarTitle">Insurance</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|form_page_oops&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide&variantOptions=mobileRequired" class="text-black block" data-role="click-tracking" data-event="CWInteractive" data-action="Link_clicked" data-cat="BBLink_navigation_desktop" rel="nofollow" target="_blank">
+                    <span class="cwsprite nav-loan-icon opacity60"></span>
+                    <span class="navbarTitle">Loans</span>
+                    <span class="font9 ad-text-icon">Ad</span>
+                </a>
+            </li>
+            <li>
+                <a href="/forums/">
+                    <span class="cwsprite forum-icon"></span>
+                    <span class="navbarTitle">Forums</span>
+                </a>
+            </li>
+            <li>
+                <a href="/mycarwale/">
+                    <span class="cwsprite myCarWale-icon"></span>
+                    <span class="navbarTitle">My CarWale</span>
+                </a>
+            </li>
+        </ul>
+        <div class="margin-top40 margin-bottom40 margin-left20">
+            <a href="https://play.google.com/store/apps/details?id=com.carwale&referrer=utm_source%3DCarWaleDesktopWebsite%26utm_medium%3DFooter%26utm_campaign%3DCarWale%2520Website%2520Footer" target="_blank" class="cwsprite gplay-icon margin-right10"></a>
+            <a href="https://itunes.apple.com/in/app/carwale/id910137745?mt=8" target="_blank" class="cwsprite app-store-icon"></a>
+        </div>
+    </nav> <!-- ends here -->
+
+    <div id="loc-widget" class="loc-widget position-rel">
+        <span id="closeLocIcon" class="cwsprite cross-md-dark-grey position-abt pos-top20 pos-right20 z-index1 font20 cur-pointer"></span>
+        <div id="locationProceed" class="position-abt pos-left0 pos-right0 pos-top0 tran-ease-out-all opacity0 z-index-minus1">
+            <div class="loc-figure text-center padding-top20 margin-bottom20">
+                <p id="loc-title" class="font24 text-black text-bold">Please Tell Us Your City</p>
+                <p id="loc-sub-content" class="font14 text-grey margin-top5">Knowing your city will help us provide relevant content to you.</p>
+            </div>
+            <div class="cityNameWrap table margin-auto position-rel padding-bottom10 validWidget">
+                <input type="text" placeholder="Type your city, e.g. Mumbai; New Delhi" class="cityName inputBlur" tabindex="-1" searchtype="citySearch" id="placesQuery" autocomplete="off" />
+                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top0 text-black" style="display:none;"></span>
+                <div class="error noMatchError position-rel font20 hide">
+                    <span class="fa fa-exclamation-circle position-rel pos-top3"></span>
+                    <span id="errorId" class="font14 inline-block hide">Sorry! No matching results found. Try again.</span>
+                    <span id="errorIpNoCity" class="font14 inline-block hide">Error Identifying Your Location.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    @{Html.RenderPartial("_LoginPartial"); }
+    <div id="header" class="@((ViewBag.landingPage != null & ViewBag.landingPage == true) ? "header-landing " : "header-fixed ") @((IsEligibleForNewMenu) ? "main-nav-header" : "")">
+        <!-- Fixed Header code starts here -->
+        <!-- CW Doodle start-->
+        @{Html.RenderAction("GetDoodle", "SponsoredCampaign", new { platform = Platform.CarwaleDesktop });}
+        <!-- CW Doodle end-->
+        <div class="leftfloat margin-top10 min-width230">
+            <span id="left-navbar-btn" class="navbarBtn cwsprite nav-icon margin-right25 @((IsEligibleForNewMenu) ? " hide":" inline-block-noalign")"></span>
+            <a href="/" class="cwsprite cw-logo" onclick="trackTopMenu('CarwaleLogo-Click', window.location.href)"></a>
+            @if (showAdvantageDiscountLink && !IsEligibleForNewMenu)
+    {
+        <span class="advantage-logo-text font14 text-white margin-left10 text-bold padding-left10 position-rel"><a href="/advantage/" data-role="click-tracking" data-event="Advantage" data-action="landingPageAccess_Desktop" data-cat="deals_desktop" data-label="headerAdvantageLink"><span class="fa fa-tags"></span> Discounts On New Cars » </a></span>
+}
+        </div>
+        @if (IsEligibleForNewMenu)
+        {
+            <nav id="cw-top-navigation-wrapper">
+                <div id="top-navbar-list-content" class="leftfloat">
+                    <ul id="cw-top-navbar">
+                        <li class="navbar-primary-link">
+                            <div class="top-nav-label">
+                                <span class="margin-right5">New Cars</span>
+                                <span class="fa fa-caret-down"></span>
+                            </div>
+                            <div class="top-nav-nested-panel box-shadow">
+                                <div class="container padding-top20 padding-bottom20 new-cars-nested-panel">
+                                    <div class="grid-8 font15 text-black">
+                                        <div class="nested-lt-column1 leftfloat">
+                                            <ul class="nested-panel-list">
+                                                <li><a href="/new/">Find New Cars</a></li>
+                                                @if (showAdvantageDiscountLink)
+                                                {
+                                                    <li>
+                                                        <a href="/advantage" data-role="click-tracking" data-event="CWNonInteractive" data-action="landingPageAccess_Desktop" data-cat="deals_desktop" data-label="CarWale_TopMenu">
+                                                            <span id="advMenuLink">New Car Offers</span>
+                                                        </a>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li><a href="/new-car-launches/">New Launches</a></li>
+                                                }
+												<li><a href="/new/locatenewcardealers.aspx">Find Dealer</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="nested-lt-column2 leftfloat">
+                                            <ul class="nested-panel-list">
+                                                <li><a href="/new/prices.aspx">Check On-Road Price</a></li>
+												@if (showAdvantageDiscountLink)
+												{
+													<li><a href="/new-car-launches/">New Launches</a></li>
+												}
+												<li>
+													<a href="https://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|form_page_oops&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide&variantOptions=mobileRequired" class="text-black block" data-role="click-tracking" data-event="CWInteractive" data-action="Link_clicked" data-cat="BBLink_navigation_desktop" rel="nofollow" target="_blank">Loans<span class="font10 position-abt text-grey">&nbsp;Ad</span></a>
+												</li>
+                                            </ul>
+                                        </div>
+                                        <div class="nested-lt-column3 leftfloat">
+                                            <ul class="nested-panel-list">
+                                                <li><a href="/upcoming-cars/">Upcoming Cars</a></li>
+												<li><a href="/comparecars/">Compare Cars</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="grid-4 omega padding-left50 border-light-left">
+                                        <div class="nc-nested-right-panel single-card">
+                                            <div class="nested-rt-column dynamic-label" id="quickResearch" data-bind="template: { name: 'navigationAd' , foreach: newCarsAds }"></div>
+                                            <!-- conditional single-card class -->
+                                            <script type="text/html" id="navigationAd">
+                                                <div class="grid-6 sponsored-dummy-class">
+                                                    <p class="text-bold margin-bottom5 font14 sponsored-nav"><span class="sponsored-text-title" data-bind="text: title + ' '"></span><span class="font9" data-bind="text: isSponsored ? 'Ad' : '', css: isSponsored ? 'ad-text-icon' : 'hide'"></span></p>
+                                                    <a class="nested-panel-image-preview margin-bottom10 pos-relative" data-bind="attr:{href:linkUrl, title: title, 'data-label': title, 'data-action': sectionId == 1 ? 'NewCars' : 'Specials'}" data-role="click-tracking" data-event="CWInteractive" data-cat="SponsoredNavigation_d">
+                                                        <img data-bind="attr:{alt: title, title: title, 'data-original': hostUrl + '144x81' + originalImgPath + '?wm=1&q=85'}" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" class="nested-panel-image-preview lazy">
+                                                    </a>
+                                                    <div class="clear"></div>
+                                                    <div class="nested-panel-image-details margin-top5">
+                                                        <a class="nested-rt-target-link margin-top5 font13" data-bind="attr:{href:linkUrl, title: title, 'data-label': title, 'data-action': sectionId == 1 ? 'NewCars' : 'Specials'}" data-role="click-tracking" data-event="CWInteractive" data-cat="SponsoredNavigation_d"><span data-bind="text:cta"></span></a>
+                                                    </div>
+                                                </div>
+                                            </script>
+                                            <div class="clear"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="navbar-primary-link">
+                            <div class="top-nav-label">
+                                <span class="margin-right5">Used Cars</span>
+                                <span class="fa fa-caret-down"></span>
+                            </div>
+                            <div class="top-nav-nested-panel">
+                                <div class="container padding-top20 padding-bottom20 uc-rv-nested-panel">
+                                    <div class="grid-4 omega font15 text-black">
+                                        <div class="nested-lt-column1 leftfloat">
+                                            <ul class="nested-panel-list">
+                                                <li><a href="/used/cars-for-sale/">All Used Cars</a></li>
+                                                <li><a href="/used/">Find Used Cars</a></li>
+                                                <li><a href="/used/sell/">Sell Your Car</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="nested-lt-column4 leftfloat">
+                                            <ul class="nested-panel-list">
+                                                <li><a href="/used/carvaluation/">Check Car Valuation</a></li>
+                                                <li class="navInsuranceLink hide"><a href="/insurance/?utm=dnavigation/">Insurance</a></li>
+                                                @if (ViewBag.IsMyChatsAvailable != null && ViewBag.IsMyChatsAvailable)
+                                                {
+                                                    <li class="hide global-chat-icon chat-launcher-icon applozic-launcher mck-button-launcher"><a href="javascript:void(0);" title="My Chats">My Chats<span class='margin-left5 cwsprite new-red-tag-icon'></span></a></li>
+                                                }
+                                            </ul>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="grid-8 used-and-reviews-right-panel omega">
+                                        <!-- conditional two-cards class -->
+                                        <div class="uc-rv-nested-right-wrapper">
+                                            <div class="uc-rv-nested-right-panel text-center">
+                                                <div class="nested-rt-column bg-white">
+                                                    <a class="nested-panel-image-preview margin-bottom10" href="/used/cars-for-sale/#kms=0-&year=0-&budget=0-4">
+                                                        <img src="https://imgd.aeplcdn.com/0x0/design15/d/swift.jpg?v=2" />
+                                                    </a>
+                                                    <div class="nested-panel-image-details">
+                                                        <div class="font13 ">
+                                                            Upto
+                                                        </div>
+                                                        <span class="font20">
+                                                            ₹
+                                                            <span> 4</span>
+                                                        </span>
+                                                        <span> Lakhs</span>
+                                                        <a href="/used/cars-for-sale/#kms=0-&year=0-&budget=0-4" class="nested-rt-target-link margin-top5 font13">All cars in this Budget</a>
+                                                    </div>
+                                                </div>
+                                                <div class="nested-rt-column bg-white">
+                                                    <a class="nested-panel-image-preview margin-bottom10" href="/used/cars-for-sale/#kms=0-&year=0-&budget=4-8">
+                                                        <img src="https://imgd.aeplcdn.com/0x0/design15/d/verna.jpg" />
+                                                    </a>
+                                                    <div class="nested-panel-image-details">
+                                                        <div class="font13 ">
+                                                            Between
+                                                        </div>
+                                                        <span class="font20">
+                                                            ₹
+                                                            <span> 4-8</span>
+                                                        </span>
+                                                        <span> Lakhs</span>
+                                                        <a href="/used/cars-for-sale/#kms=0-&year=0-&budget=4-8" class="nested-rt-target-link margin-top5 font13">All cars in this Budget</a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="navbar-primary-link">
+                            <div class="top-nav-label">
+                                <span class="margin-right5">Reviews &amp; News</span>
+                                <span class="fa fa-caret-down"></span>
+                            </div>
+                            <div class="top-nav-nested-panel">
+                                <div class="container padding-top20 padding-bottom20 uc-rv-nested-panel">
+                                    <div class="grid-4 omega font15 text-black">
+                                        <div class="nested-lt-column1 leftfloat">
+                                            <ul class="nested-panel-list">
+                                                <li><a href="/news/">News</a></li>
+                                                <li><a href="/expert-reviews/">Expert Reviews</a></li>
+                                                <li><a data-cwtccat="ReviewLandingLinkage" data-cwtcact="NavBarLinkClick" data-cwtclbl="source=1" href="/userreviews/">User Reviews</a></li>
+                                                <li><a href="/features/">Special Reports</a></li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="nested-lt-column4 leftfloat">
+                                            <ul class="nested-panel-list">
+                                                <li><a href="/images/">Images<span class='margin-left5 cwsprite new-red-tag-icon'></span></a></li>
+                                                <li><a href="/videos/">Videos</a></li>
+                                                <li><a href="/tipsadvice/">Tips and Advice</a></li>
+                                                <li><a href="/forums/">Forums</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="grid-8 used-and-reviews-right-panel omega">
+                                        <!-- conditional two-cards class -->
+                                        <div class="uc-rv-nested-right-wrapper padding-top10">
+                                            <h3 class="font17 text-black line-height08">Latest Articles</h3>
+                                            <div class="rv-nested-right-panel">
+                                                <div id="latest-articles" data-bind="template: { name: 'article-gist', foreach: articles }"></div>
+                                                <div class="clear"></div>
+                                                <script type="text/html" id="article-gist">
+                                                    <div class="nested-rt-column">
+                                                        <a class="nested-panel-image-preview margin-bottom10 position-rel" data-bind="attr:{href:articleUrl}">
+                                                            <span class="image-category-tag" data-bind="text:categoryMaskingName"></span>
+                                                            <img data-bind="attr:{src: hostUrl + smallPicUrl}" />
+                                                        </a>
+                                                        <div class="nested-panel-image-details">
+                                                            <a class="font13 text-default" data-bind="attr:{href:articleUrl},text:title"></a>
+                                                        </div>
+                                                    </div>
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="navbar-primary-link">
+                            <div class="top-nav-label">
+                                <span class="cwsprite"></span>
+                                <span class="margin-right5">Specials</span>
+                                <span class="fa fa-caret-down"></span>
+                            </div>
+                            <div class="top-nav-nested-panel">
+                                <div class="container padding-top20 padding-bottom20 specials-nav-tabs">
+                                    <div class="grid-8 omega alpha">
+                                        <div class="nc-nested-right-panel single-card">
+                                            <!-- conditional single-card class -->
+
+                                            <div class="grid-4 alpha">
+                                                <p class="text-bold margin-bottom5 font14 sponsored-nav">Car Tyres</p>
+                                                <a title="Car Tyres" class="nested-panel-image-preview margin-bottom10" href="/tyres/" data-role="click-tracking" data-event="CWInteractive" data-action="Tyres" data-cat="CarwaleSpecials" data-label="Tyres">
+                                                    <img data-original="https://imgd.aeplcdn.com/0x0/cw/es/tyres/tyres-nav.jpg" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" height="82" class="lazy" alt="Car Tyres" />
+                                                </a>
+                                                <div class="nested-panel-image-details img-lg-text margin-top5 clear">
+                                                    <a class="nested-rt-target-link margin-top5 font13" data-role="click-tracking" data-event="CWInteractive" data-action="Tyres" data-cat="CarwaleSpecials" data-label="Tyres" href="/tyres/">Know More</a>
+                                                </div>
+                                            </div>
+                                            <div class="grid-4 alpha">
+                                                <p class="text-bold margin-bottom5 font14 sponsored-nav">All About Electric</p>
+                                                <a title="e2oPlus" class="nested-panel-image-preview margin-bottom10" href="/electriccars/" data-role="click-tracking" data-event="CWInteractive" data-action="All About Electric" data-cat="CarwaleSpecials" data-label="All About Electric">
+                                                    <img data-original="https://imgd1.aeplcdn.com/0x0/cw/es/e2o/e2oplus/e2oplus-car-nav-v2.jpg?q=85" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" height="82" class="lazy" alt="e2oPlus" />
+                                                </a>
+                                                <div class="nested-panel-image-details margin-top5">
+                                                    <a class="nested-rt-target-link margin-top5 font13" data-role="click-tracking" data-event="CWInteractive" data-action="Mahindra e2o" data-cat="CarwaleSpecials" data-label="Mahindra e2o" href="/electriccars/">Explore More</a>
+                                                </div>
+                                            </div>
+                                            <div class="grid-4 alpha">
+                                                <p class="text-bold margin-bottom5 font14 sponsored-nav">Great Indian Hatchback</p>
+                                                <a title="Renault Kwid" class="nested-panel-image-preview margin-bottom10" href="/the-great-indian-hatchback-of-2016/" data-role="click-tracking" data-event="CWInteractive" data-action="Great Indian Hatchback" data-cat="CarwaleSpecials" data-label="Great Indian Hatchback">
+                                                    <img data-original="https://imgd2.aeplcdn.com/0x0/cw/es/renault-kwid/result-imgs/compressed/kwid-car-nav-new.jpg?q=85" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" height="82" class="lazy" alt="Renault Kwid" />
+                                                </a>
+                                                <div class="nested-panel-image-details margin-top5">
+                                                    <a class="nested-rt-target-link margin-top5 font13" data-role="click-tracking" data-event="CWInteractive" data-action="Great Indian Hatchback" data-cat="CarwaleSpecials" data-label="Great Indian Hatchback" href="/the-great-indian-hatchback-of-2016/">Explore More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid-4 omega padding-left20 border-light-left">
+                                        <div class="nc-nested-right-panel single-card" id="specialsAds" data-bind="template: { name: 'navigationAd' , foreach: specialsAds }">
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="global-search global-search-new global-search-wrapper position-rel">
+
+                    <span class="fa fa-search" id="do_search"></span>
+                    <input type="text" name="globalSearch" placeholder="Search" id="globalSearch">
+                    <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top10 text-black" style="display:none;right:35px;"></span>
+                    @Html.Partial("_GlobalSearch")
+                </div>
+                <div class="clear"></div>
+            </nav>
+
+            <div id="cw-topnav-right-section" class="rightfloat">
+
+                <div id="global-location" class="global-location global-location-new position-rel">
+
+                    <div class="global-search">
+                        <input type="hidden" id="hdnGlobalCity" value="@Carwale.UI.Common.CookiesCustomers.MasterCityId" />
+                        <span id="global-place" class="font13">Enter your location </span>
+                        <span class="fa fa-map-marker position-abt text-white"></span>
+                    </div>
+                </div>
+
+                <div class="login-box login-box-new @Html.Raw(ViewBag.IsLoggedIn ? "hide" : "")" id="firstLogin"><span class="cwsprite user-login-icon"></span></div>
+                <div id="userLoggedin" class="loggedin-box rounded-corner50 @Html.Raw(ViewBag.IsLoggedIn ? "" : "hide")">
+                    <span class="cwsprite login-no-photo-icon" id="profilepic1"></span>
+                    <span class="login-with-photo hide" id="profilepic2">
+                        <img src="https://imgd.aeplcdn.com/0x0/statics/grey.gif">
+                    </span>
+                </div>
+                <div class="clear"></div>
+                <div class="globalLocBlackOut"></div>
+            </div>
+        }
+        else
+        {
+            <div class="rightfloat margin-top10">
+                <div class="global-search global-search-old global-search-wrapper position-rel focused">
+
+                    <span class="fa fa-search" id="do_search"></span>
+                    <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off">
+                    <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top10 text-black" style="display:none;right:35px;"></span>
+                </div>
+
+                <div id="global-location" class="global-location position-rel">
+
+                    <div class="global-search">
+                        <input type="hidden" id="hdnGlobalCity" value="@Carwale.UI.Common.CookiesCustomers.MasterCityId" />
+                        <span id="global-place" class="font13">Enter your location</span>
+                        <span class="fa fa-map-marker position-abt text-white"></span>
+                    </div>
+
+                </div>
+
+
+                <div class="login-box @Html.Raw(ViewBag.IsLoggedIn ? "hide" : "") " id="firstLogin">Log In</div>
+                <div id="userLoggedin" class="loggedin-box rounded-corner50 @Html.Raw(ViewBag.IsLoggedIn ? "" : "hide")">
+                    <span class="cwsprite login-no-photo-icon" id="profilepic1"></span>
+                    <span class="login-with-photo hide" id="profilepic2">
+                        <img src="https://imgd.aeplcdn.com/0x0/statics/grey.gif">
+                    </span>
+                </div>
+                <div class="clear"></div>
+                <div class="globalLocBlackOut"></div>
+            </div>
+        }
+    </div>
+    <div class="clear"></div>
+    <div class="clear"></div>
+    <div>
+        @RenderBody()
+        @{
+        Html.RenderAction("Footer", "CarWidgets");
+        }
+        @{
+        Html.RenderPartial("~/Views/Shared/_AskTheExpert.cshtml");
+        }
+       
+    </div>
+    <div id="detailsNode"></div>
+    <!-- Advantage City PopUp starts here -->
+    <div class="deals-city-popup advantage-city-popup rounded-corner2 hide">
+        <!-- global city pop up code starts here -->
+        <div class="globalcity-popup-data text-center">
+            <div class="city-close-button position-abt pos-top10 pos-right10 cwsprite cross-lg-lgt-grey cur-pointer"></div>
+            <div class="cityPopup-box rounded-corner50 margin-bottom25">
+                <span class="cwsprite cityPopup-icon margin-top10"></span>
+            </div>
+            <p class="font20 margin-bottom10 text-capitalize text-black">Select your city to avail offers</p>
+            <p class="text-light-grey margin-bottom15">Currently available only in</p>
+            <div class="city-select-btn margin-top20">
+                <select id="advantage-city-select" class="form-control input-xs selected-text selectCity margin-top5">
+                    <option value="-1" selected="selected">Select City</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- Advantage City PopUp ends here -->
+    <!-- all other js plugins -->
+    @if (ViewBag.City != null)
+    {
+        <script type="text/javascript"> geoCityId = '@ViewBag.City.CityId', geoCityName = '@ViewBag.City.CityName';</script>
+    }
+    <script type="text/html" id="navigationSliderAd">
+        <li class="sponsoredLi">
+            <a data-bind="attr:{href: linkUrl, 'data-label': title, 'data-action': sectionId == 1 ? 'NewCars' : 'Specials'}" data-role="click-tracking" data-event="CWInteractive" data-cat="SponsoredNavigation_d">
+                <span data-bind="text: title + ' '"></span><span class="font9" data-bind="text: isSponsored ? 'Ad' : '', css: isSponsored ? 'ad-text-icon' : 'hide'"></span>
+            </a>
+        </li>
+    </script>
+    <script type="text/javascript">
+        var cwTrackingPath = '@ConfigurationManager.AppSettings["HostUrl"]';
+        var insuranceKeys = {
+            cholaStates: [@System.Configuration.ConfigurationManager.AppSettings["InsuranceStates"]],
+        };
+        var defaultCookieDomain = '@Carwale.UI.Common.CookiesCustomers.CookieDomain';
+        var abTestKey = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestVersion"])";
+        var abTestKeyMaxValue = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMaxValue"])";
+        var abTestKeyMinValue = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMinValue"])";
+        var askingAreaCityId = [@System.Configuration.ConfigurationManager.AppSettings["AskingAreaCityIds"]];
+        var testDriveCampaignIds = [@System.Configuration.ConfigurationManager.AppSettings["TestDriveCampaignIds"]];
+        var abTestValue = '@Carwale.Utility.CustomerCookie.AbTest';
+        var abTestMinValForNewPqDesktop = @(CustomParser.parseIntObject(System.Configuration.ConfigurationManager.AppSettings["AbTestMinValForNewPqDesktop"]));
+        var abTestMaxValForNewPqDesktop = @(CustomParser.parseIntObject(System.Configuration.ConfigurationManager.AppSettings["AbTestMaxValForNewPqDesktop"]));
+    </script>
+    <script type="text/javascript" src="/static/js/plugins.js"></script>
+
+    <script type="text/javascript" src="/static/src/graybox.js"></script>
+    <script type="text/javascript" src="/static/js/adsense.js"></script>
+    <script type="text/javascript" src="/static/js/v2/app/clientCache.js"></script>
+    <script type="text/javascript" src="/static/js/globalSearch.js"></script>
+    <script type="text/javascript" src="/static/js/sponsoredNavigation.js"></script>
+    <script type="text/javascript" src="/static/js/error-logger.js"></script>
+    <script type="text/javascript" src="/static/js/common.js"></script>
+    <script type="text/javascript" src="/static/js/lead-conversion-tracking.js"></script>
+    <script type="text/javascript" src="/static/js/newcar-common.js"></script>
+    <script type="text/javascript" src="/static/js/cookie-migration.js"></script>
+    <script type="text/javascript" src="/static/js/v2/app/cwTracking.js"></script>
+    <script type="text/javascript" src="/static/js/location-plugin.js"></script>
+    <script type="text/javascript" src="/static/js/pricebreakup.js"></script>
+    <script type="text/javascript">
+        Common.googleApiKey = '@(System.Configuration.ConfigurationManager.AppSettings["APIKey"] ?? "")';
+    </script>
+
+    @if (ViewBag.CustomJs != null)
+    {
+        if (ViewBag.CustomJs.IndexOf(".js") > 0)
+        {
+            <script type="text/javascript" src="@jsPath@ViewBag.CustomJS"></script>}
+        else
+        {
+            Html.RenderPartial((string)ViewBag.CustomJs);
+        }
+    }
+    @RenderSection("Scripts", false)
+
+    @if (chatFlags != null && chatFlags.IsActive)
+    {
+            <script type="text/javascript">
+             var isChatOn = '@Json.Encode(chatFlags.IsChatOn)';
+            </script>
+           <script type="text/javascript" src="/static/js/zopimChat.js"></script>
+    }
+
+    @{
+        Html.RenderPartial("~/Views/Shared/_FacebookScriptView.cshtml");
+        Html.RenderPartial("~/Views/Shared/_OutbrainScriptView.cshtml");
+    }
+    @if (!(Request.RawUrl.StartsWith("/used") || Request.RawUrl.Contains("/advantage")))
+    {
+        Html.RenderPartial(showCustomNotificationPopup ? "~/Views/Shared/Notification/_CustomNotificationPopup.cshtml" : "~/Views/Shared/Notification/_NotificationPopupScript.cshtml");
+    }
+    <!-- Google Code for Remarketing Tag -->
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 999894061;
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+        /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+    </script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/999894061/?guid=ON&amp;script=0" />
+        </div>
+    </noscript>
+    <!-- Google Code for Remarketing Tag Ends -->
+</body>
+</html>

@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[MyGarageSMSSent] (
+    [MSS_Id]       NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [CustomerId]   NUMERIC (18) NOT NULL,
+    [MobileNo]     VARCHAR (50) NOT NULL,
+    [SentDateTime] DATETIME     NOT NULL,
+    CONSTRAINT [PK_MyGarageSMSSent] PRIMARY KEY CLUSTERED ([MSS_Id] ASC) WITH (FILLFACTOR = 90)
+);
+

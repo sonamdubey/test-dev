@@ -1,0 +1,23 @@
+﻿<script type="text/javascript" src="https://www.youtube.com/iframe_api" defer></script>
+<script type="text/javascript" src="/static/src/jquery.dfp.min.js" defer></script>
+<script type="text/javascript" src="/static/m/js/social.js" defer></script>
+<script type="text/javascript" src="/static/js/utils/date-format.js" defer></script>
+<script type="text/javascript" src="/static/js/editorial-common.js" defer></script>
+<script type="text/javascript" src="/static/js/contenttracking.js" defer></script>
+<script type="text/javascript" src="/static/js/videostracking.js" defer></script>
+<script type="text/javascript" src="/static/m/js/content-scroll.js" defer></script>
+<script type="text/javascript" src="/static/m/js/news-details.js" defer></script>
+
+<script type="text/javascript">
+    var relatedArticlesParams = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.RelatedArticles));
+    var defaultCatId = @Model.Article.CategoryId;
+    var defaultBasicId = @Model.Article.BasicId;
+    var defaultCatMaskingName = '@Model.Article.CategoryMaskingName';
+    var articleUrl = '@(Model.Article.ArticleUrl)';
+    var articleBasicid = '@Model.Article.BasicId';
+	if (navigator.userAgent.indexOf("UCBrowser/") > 0) {
+		var bodyElement = document.getElementsByTagName("body")[0];
+		
+		bodyElement.classList.add("browser-type-uc");
+	}
+</script>

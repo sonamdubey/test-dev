@@ -1,0 +1,39 @@
+@import '../scss/partials/input.scss';
+
+.city-selection__container {
+	padding: 15px 20px 15px;
+}
+.city-selection__title {
+    font-size: 11px;
+    color: color('dim-gray');
+    text-transform: uppercase;
+}
+.city-selection__input {
+	color: color('dark-gray');
+	margin-top: 10px;
+    position: relative;
+		
+		.form-control {
+			text-transform: capitalize;
+            color: color('dark-gray');
+            cursor: pointer;
+            border-color: color('light-gray');
+
+            &.done {
+                color: color('charcoal');
+                font-weight: $font-semibold;
+            }
+		}
+    &.invalid {
+        border-color: color('orange');
+
+        .error-text {
+            position: absolute;
+            left: 0;
+						top: 100%;
+						margin-top: 2px;
+            display: block;
+        }
+    }
+}
+@import 'scss/location';

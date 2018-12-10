@@ -1,0 +1,14 @@
+﻿@model Int32
+@{ string cardNo = Model > 0 ? "card" + Model : ""; }
+@{ string cardNumberAttribute = Model > 0 ? "card-no=" + cardNo : ""; }
+
+<div class="color-switcher__body solid-color">
+    <div class="switch switch--horizontal">
+        <input class="radio-solid" id="rdbSolid@(cardNo)" type="radio" name="color-switch@(cardNo)" checked="checked" @cardNumberAttribute>
+        <label for="rdbSolid@(cardNo)" class="switch-label--left">Solid</label>
+        <input class="radio-metallic" id="rdbMetallic@(cardNo)" type="radio" name="color-switch@(cardNo)" @cardNumberAttribute>
+        <label for="rdbMetallic@(cardNo)" class="switch-label--right">Metallic</label>
+        <span class="toggle-outside"><span class="toggle-inside"></span></span>
+    </div>
+</div>
+<div class="pq-clear"></div>

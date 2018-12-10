@@ -1,0 +1,115 @@
+﻿@model Carwale.DTOs.CMS.ContentDetailPagesDTO_V1
+@using Carwale.Utility;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Entity.Enum;
+@using System;
+@using Carwale.Entity.CMS;
+<div class="expert-review-details">
+    @if (!ViewBag.isRelatedArticle)
+    {
+        <div id="divAdBar">
+            <div id='div-gpt-ad-1419227721763-0' style='width:320px; height:50px; margin:10px auto 0 auto;'>
+                <script type='text/javascript'>
+                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1419227721763-0'); });
+                </script>
+            </div>
+        </div>
+    }
+    <script>
+        var articleTitle = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ArticlePages.Title));
+    </script>
+    <div class="scroll-container ">
+        <div class="inner-container margin-bottom15 padding-left15 padding-right15 m-special-skin-text">
+            <div>
+                <h1 class="margin-top10">@Model.ArticlePages.Title</h1>
+
+                <div class="floatleft margin-right20">
+                    <span class="margin-bottom10 m-special-skin-text">@Model.ArticlePages.DisplayDate.ToString("MMMM dd, yyyy, hh:mm tt") IST by </span>
+                    <span class="blue">
+                        @if (!string.IsNullOrEmpty(Model.ArticlePages.AuthorMaskingName))
+                        {
+                            <a href='/m/authors/@Model.ArticlePages.AuthorMaskingName' class="blue">@Model.ArticlePages.AuthorName</a>
+                        }
+                        else
+                        {
+                            @Model.ArticlePages.AuthorName
+                        }
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        @if ((Model.ModelImages != null && Model.ModelImages.Count > 0) || (Model.Videos != null && Model.Videos.Count > 0))
+        {
+            <div class="swiper-container image-swiper bg-white">
+                <ul class="swiper-wrapper ">
+                    @if (Model.Videos != null && Model.Videos.Count > 0)
+                    {
+                        var vehicleList = Model.ArticlePages.VehiclTagsList;
+                        string carName = (vehicleList!= null && vehicleList.Count > 0) ? string.Format("{0} {1}", vehicleList[0].MakeBase.MakeName, vehicleList[0].ModelBase.ModelName) : string.Empty;
+                        <li data-role="inview-imp" data-event="CWNonInteractive" data-action="video_impression" data-cat="msite_expert_review_detail" data-label="@carName" class="swiper-slide image-swiper__slide">
+                            <div  class="imageWrapper swiper-imgLoader image-swiper__imageWrapper news-video-view">
+                                <iframe data-car-name="@carName" data-id="@Model.Videos[0].VideoId" data-video-url="@("/m" + Model.Videos[0].VideoTitleUrl)" data-sub-category-name="@Model.Videos[0].SubCatName" id="videoIframe-@Model.Videos[0].VideoId" webkitallowfullscreen mozallowfullscreen allowfullscreen src="https://www.youtube.com/embed/@Model.Videos[0].VideoId?rel=0&enablejsapi=1&version=3&playerapiid=ytplayer&controls=2"></iframe>
+                            </div>
+                        </li>
+                        Model.Videos.RemoveAt(0);
+                    }
+                    @for (int i = 0; i < Model.ModelImages.Count; i++)
+                            {
+                                var image = Model.ModelImages[i];
+                                string url = ImageSizes.CreateImageUrl(image.HostUrl, ImageSizes._600X337, image.OriginalImgPath, 80);
+                                <li class="swiper-slide image-swiper__slide">
+                            <div style="@(i == 0 ? string.Format("background-image:url('{0}')", url) : string.Empty)" class="imageWrapper swiper-imgLoader image-swiper__imageWrapper">
+                                <img class="swiper-lazy" @(string.Format("{0}={1}", i == 0 ? "src" : "data-src", url)) title="@image.ImageName" />
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <div class="clear"></div>
+                <div class="arrow-fff-10 swiper-button-next "></div>
+                <div class="arrow-fff-10 swiper-button-prev "></div>
+            </div>
+        }
+        <div class="article-reading-content inner-container content-details inner-container bg-white content-inner-block-15 rounded-corner2 lp" id="@Model.ArticlePages.BasicId" categoryid="@Model.ArticlePages.CategoryId" categoryname="@Model.ArticlePages.CategoryMaskingName">
+
+            <div>
+                @foreach (var page in Model.ArticlePages.PageList)
+            {
+                    <h2 class="darkgray" id="@Format.RemoveSpecialCharacters(page.PageName)">
+                        @page.PageName
+                    </h2>
+                    <div class="line-border margin-top5"></div>
+                    <div class="darkgray content-font">@Html.Raw(page.Content)</div>
+                }
+            </div>
+            <div class="social light-shadow margin-top10">
+                <a href='http://m.facebook.com/sharer.php?u=https://carwale.com@(Model.ArticlePages.ArticleUrl)?utm_source=share&t=@Model.ArticlePages.Title' target="_blank"
+                   data-role="click-tracking" data-event="CWInteractive" data-action="Facebook" data-cat="share" data-label="@("https://www.carwale.com/m" + Model.ArticlePages.ArticleUrl)">
+                    <div id="FbCount" class="contentSocial facebook margin-left0"></div>
+                </a>
+                <a href='https://twitter.com/share?url=https://www.carwale.com@(Model.ArticlePages.ArticleUrl)?utm_source=share&t=@Model.ArticlePages.Title' target="_blank" style="text-decoration:none;"
+                   data-role="click-tracking" data-event="CWInteractive" data-action="Twitter" data-cat="share" data-label="@("https://www.carwale.com/m" + Model.ArticlePages.ArticleUrl)">
+                    <div id="TweetCount" class="contentSocial twitter"></div>
+                </a>
+                <a href='mailto:contact@carwale.com?subject=@Model.ArticlePages.Title&body=I was reading https://www.carwale.com@(Model.ArticlePages.ArticleUrl)?utm_source=share on CarWale site and thought to share with you.'
+                   data-role="click-tracking" data-event="CWInteractive" data-action="Email" data-cat="share" data-label="@("https://www.carwale.com/m" + Model.ArticlePages.ArticleUrl)">
+                    <div class="contentSocial email"></div>
+                </a>
+                <a href="whatsapp://send?text=https://www.carwale.com@(Model.ArticlePages.ArticleUrl)?utm_source=share"
+                   data-role="click-tracking" data-event="CWInteractive" data-action="Whatsapp" data-cat="share" data-label="@("https://www.carwale.com/m" + Model.ArticlePages.ArticleUrl)">
+                    <div class="contentSocial whatsapp"></div>
+                </a>
+                <div class="clear"></div>
+            </div>
+        </div>
+         @if(Model.Videos != null && Model.Videos.Count > 0){
+                <div class="expert-review-videos" data-role="inview-imp" data-event="CWNonInteractive" data-action="expert_review_carousel_imp" data-cat="msite-video-linkages" data-label="@Model.Videos[0].MakeName @Model.Videos[0].MaskingName">
+                    @{Tuple<List<Video>,ContentPages> model = new Tuple<List<Video>,ContentPages>(Model.Videos,ContentPages.ExpertReviewPage);}
+                    @Html.Partial("~/views/shared/m/cardata/_Videos.cshtml",model);
+                </div>
+            }
+    </div>
+</div>
+    
+<div data-page-url="@Model.ArticlePages.ArticleUrl"></div>
+<a data-next href='@EditorialContent.GetCompletePageUrl(Request, "/m/emptyResult/")' rel="nofollow"></a>

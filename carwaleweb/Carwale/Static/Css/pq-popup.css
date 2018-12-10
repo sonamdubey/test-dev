@@ -1,0 +1,51 @@
+﻿@charset "utf-8";
+
+.gb-close {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-sprite_v1.3.png?static1fix) -190px -1042px no-repeat;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+.gb-close:hover {
+  background-position: -190px -1072px;
+}
+
+#gb-head {
+  border-bottom: none !important;
+  margin: 10px 10px 0px 10px !important;
+}
+
+.pq-popup-content {
+  background: #fff;
+  padding: 20px 40px;
+  position: relative;
+}
+
+.pq-popup-content select {
+  width: 270px;
+  box-shadow: 0 0 0px #ccc inset;
+  border-radius: 3px;
+  padding: 10px 10px;
+  margin-bottom: 27px;
+  outline: none;
+}
+
+.pq-popup-content label {
+  width: 80px;
+  display: inline-block;
+  *vertical-align: top;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.pq-popup-content-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.margin-right46 {
+  margin-right: 46px;
+}
+

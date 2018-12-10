@@ -1,0 +1,89 @@
+@import "_sprites";
+
+.input-box {
+    height: 60px;
+	text-align: left;
+	position: relative;
+	
+	input {
+		width: 100%;
+		display: block;
+		padding: 7px 0;		
+        font-family: LatoWeb,sans-serif,Arial;
+		font-size: 15px;
+		font-weight: 700;
+		border-bottom: 1px solid #ccc;
+		-webkit-border-radius:0;
+		-moz-border-radius:0;
+		border-radius:0;
+		color: map-get($color-map, "default");
+
+		&:focus {
+			outline: none;
+			box-shadow: none;
+		}
+	}
+
+	label {
+		position: absolute;
+		top: 4px;
+		left: 0;
+		font-size: 15px;
+		color: map-get($color-map, "light-grey");
+		pointer-events: none;
+		@include get-vendor-prefixed("transition", "0.2s ease all");
+	}
+
+	.easy-autocomplete-container ul {
+		border-top: 0;
+		top: 0;
+	}
+}
+
+/* focus, done */
+.input-box {
+	input:focus ~ label,
+	&.done label {
+		top: -12px;
+		font-size: 11px;
+	}
+
+	input:focus {
+		~ .boundary:before,
+		~ .boundary:after {
+			width: 50%;
+		}
+	}
+}
+
+@import "_field-validation.scss";
+
+// input prefix
+%inr-8x12-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/82888b/rupee-8x12.png) no-repeat 7px center;
+}
+
+@mixin input-prefix--rupee {
+	.input-prefix--rupee {
+		input {
+			padding-left: 20px;
+		}
+	}
+}
+
+@mixin prefix-focus-inr {
+	.prefix-focus--inr {
+		&.done input,
+		input:focus {
+			@extend %inr-8x12-icon;
+		}
+	}
+}
+
+@mixin prefix-default--inr {
+	.prefix-default--inr {
+		input {
+			@extend %inr-8x12-icon;
+		}
+	}
+}

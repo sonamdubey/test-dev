@@ -1,0 +1,6 @@
+﻿<div class="share-page" align="center">
+    <span class="f-small">Share this page</span>
+    <a onclick="window.open('http://www.facebook.com/sharer.php?u=https://www.carwale.com<%= Server.UrlEncode(Request.ServerVariables[" http_x_rewrite_url"])%>', 'newWindow', 'width=626, height=436'); return false;" href="http://www.facebook.com/sharer.php?u=https://www.carwale.com<%= Server.UrlEncode(Request.ServerVariables["HTTP_X_REWRITE_URL"]) %>" target="_blank" title="Share on Facebook" class="share-frnds facebook"></a>
+    <a onclick="window.open('http://twitter.com/home?status=https://www.carwale.com<%= Server.UrlEncode(Request.ServerVariables[" http_x_rewrite_url"]) %>', 'newWindow', 'width=815, height=436'); return false;" href="http://twitter.com/home?status=https://www.carwale.com<%= Server.UrlEncode(Request.ServerVariables["HTTP_X_REWRITE_URL"]) %>" target="_blank" title="Share on Twitter" class="share-frnds twitter"></a>
+    
+</div>

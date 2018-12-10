@@ -1,0 +1,94 @@
+﻿@import '../mixins/flex.scss';
+@import '../mixins/_custom-icon.scss';
+
+.accordion-list-item {
+	background-color: map-get($color-map, 'white');
+
+	&.accordion-item-active {
+		.accordion-arrow-icon {
+			@include vendor-prefix(transform, rotate(180deg));
+		}
+	}
+}
+
+.accordion-head {
+	@include flexbox;
+	@include align-items(center);
+	border-bottom: 1px solid map-get($color-map, 'smoke-white');
+	padding: 20px;
+	min-height: 58px;
+}
+
+.accordion-body {
+    overflow: hidden;
+    height: 0;
+}
+
+.accordion-head-content {
+	@include flex-grow(1);
+	font-size: 0;
+}
+
+.accordion-head-title {
+	font-size: 15px;
+	font-weight: $font-bold;
+	color: map-get($color-map, 'eclipse-2');
+}
+
+.accordion-arrow-icon {
+	@include vendor-prefix(transition, transform .5s);
+	@include arrow($height: 30, $width: 30, $direction: 'bottom', $color: 'aqua-squeeze');
+	min-width: 30px;
+	background-color: map-get($color-map, 'white');
+	margin-top: -5px;
+	margin-bottom: -5px;
+	position: relative;
+}
+
+.accordion-list-item {
+	& .accordion-list-item {
+		> .accordion-head {
+			padding-top: 12px;
+			padding-bottom: 12px;
+			background-color: map-get($color-map, 'snow-2');
+		}
+	}
+}
+
+.specs-key,
+.specs-value {
+	color: map-get($color-map, 'charcoal');
+	font-size: 13px;
+	display: inline-block;
+	vertical-align: middle;
+	width: 50%;
+}
+
+.specs-value {
+	font-weight: $font-bold;
+    padding-left: 10px;
+}
+
+.specs-key{
+	overflow-wrap:break-word;
+}
+.specs-desc {
+	font-size: 12px;
+	color: map-get($color-map, 'shamrockGreen');
+}
+
+.accordion-plus-icon {
+	@include cross-icon($height: 25, $width: 25, $color: 'gainsboro-2');
+	@include vendor-prefix(transform, rotate(45deg));
+	left: -10px;
+	position: relative;
+}
+@mixin minus-icon {
+	.accordion-item-active {
+		.accordion-plus-icon {
+			&:after {
+				@include vendor-prefix(transform, 'rotate(45deg)');
+			}
+		}
+	}
+}

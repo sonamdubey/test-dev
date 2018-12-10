@@ -1,0 +1,184 @@
+@import "_sprites";
+@import "_variables";
+
+@mixin btn-pill($color) {
+	@if map-has-key($color-map , $color ){
+		.btn-pill-group {
+			font-size: 0;
+		}
+
+		.btn-pill {
+			color: map-get($color-map, $color);
+			display: inline-block;
+			vertical-align: middle;
+			border: 1px solid map-get($color-map, $color);
+			cursor: pointer;
+		}
+	}
+	@else {
+		@warn "Please add the color to $color-map";
+	}
+}
+
+@mixin btn-pill-hover($color) {
+	@if map-has-key($color-map , $color ){
+		.btn-pill {
+			&:hover {
+				color: map-get($color-map, "white");
+				background: map-get($color-map, $color);
+			}
+		}
+	}
+	@else {
+		@warn "Please add the color to $color-map";
+	}
+}
+
+// pill buttons
+// pill--{width}-{font-size}
+@mixin pill--150-14 {
+	.pill--150-14 {
+		width: 150px;
+		font-size: 14px;
+		margin: 0 4px 10px;
+		padding: 6px 10px;
+		@include get-vendor-prefixed("border-radius", "17px");
+		text-align: center;
+	}
+}
+
+@mixin pill--auto-12 {
+	.pill--auto-12 {
+		font-size: 12px;
+		margin-right: 8px;
+		margin-bottom: 8px;
+		padding: 4px 16px 5px;
+		@include get-vendor-prefixed("border-radius", "14px");
+	}
+}
+
+@mixin pill--active {
+	.pill--active {
+		color: #fff;
+		background: #5b6b75;
+	}
+}
+
+@mixin pill-list__label($font-size) {
+	@if unitless($font-size){
+		.pill-list__label {
+			font-size: $font-size + px;
+			color: map-get($color-map, "light-grey");
+			margin-bottom: 5px;
+			text-transform: uppercase;
+		}
+	}
+	@else{
+        @warn "Please provide unitless length";
+    }
+}
+
+@mixin pill__cross {
+	.pill__cross {
+		@include cross-white-10x10();
+		vertical-align: middle;
+		margin-left: 8px;
+		position: relative;
+		top: -1px;
+	}
+}
+
+@mixin hide-input-field($type) {
+	input[type="#{$type}"] {
+		display: none;
+	}
+}
+
+// pill-group--type-input
+@mixin pill-group--type-input($color) {
+	.pill-group--type-input {
+		li {
+			display: inline-block;
+			vertical-align: middle;
+		}
+
+		@include hide-input-field("radio");
+
+		input[type="radio"] {
+			&:checked {
+				+ label {
+					@if $color == "default" {
+						color: map-get($color-map, "white");
+						background: map-get($color-map, "default");
+					}
+					@else {
+						@warn "Please add the color to $color-map";
+					}
+				}
+			}
+		}
+	}
+}
+
+// pill-group--checkbox
+@mixin pill-group--checkbox($pill--width-fontsize, $color) {
+	@if map-has-key($color-map , $color ){
+		.pill-group--checkbox {
+			@include hide-input-field("checkbox");
+
+			input[type="checkbox"] {						
+				&:checked {
+					+ .#{$pill--width-fontsize} {
+						@include pill-type--checkbox($pill--width-fontsize, $color)
+					}
+				}
+			}
+		}
+	}
+	@else {
+		@warn "Please add the color to $color-map";
+	}
+}
+
+@mixin pill-type--checkbox($pill--width-fontsize, $color) {
+	@if($pill--width-fontsize == "pill--auto-12") {
+		@if($color == "midGray") {
+			color: map-get($color-map, "white");
+		}
+		position: relative;
+		padding-right: 24px;
+		padding-left: 8px;
+		background: map-get($color-map, $color);
+
+		&:after {
+			content: '';
+			width: 9px;
+			height: 6px;
+			position: absolute;
+			top: 40%;
+			right: 10px;
+			background: map-get($color-map, $color) url(#{$img-cdn-path}/0x0/cw/static/icons/fff/tick-9x6.png) no-repeat center;
+		}
+	}
+	@else {
+		@warn "Required pill type button not found!";
+	}
+}
+
+@mixin btn-group--checkbox($btn-class, $color) {
+	@if map-has-key($color-map, $color) {
+		.btn-group--checkbox {
+			@include hide-input-field("checkbox");
+			
+			input[type="checkbox"] {
+				&:checked {
+					+.#{$btn-class} {
+						color: map-get($color-map, "white");
+						background: map-get($color-map, $color);
+						border-color: map-get($color-map, $color);
+					}
+				}
+			}
+		}
+	}
+}

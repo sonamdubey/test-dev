@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[NewCarQuotations] (
+    [Id]                 NUMERIC (18)   IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [InquiryId]          NUMERIC (18)   CONSTRAINT [DF_NewCarQuotations_InquiryId] DEFAULT ((-1)) NOT NULL,
+    [CustomerId]         NUMERIC (18)   NOT NULL,
+    [CarVersionId]       NUMERIC (18)   NOT NULL,
+    [CarName]            VARCHAR (50)   NULL,
+    [SubCityId]          NUMERIC (18)   NOT NULL,
+    [SubCityName]        VARCHAR (50)   NULL,
+    [Price]              NUMERIC (18)   NULL,
+    [IsCorporate]        BIT            CONSTRAINT [DF_NewCarQuotations_IsCorporate] DEFAULT (0) NOT NULL,
+    [Tenure]             NUMERIC (18)   NULL,
+    [FinanceAmount]      NUMERIC (18)   NULL,
+    [Margin]             NUMERIC (18)   NULL,
+    [EMI]                NUMERIC (18)   NULL,
+    [AdvanceEMI]         NUMERIC (18)   NULL,
+    [Insurance]          NUMERIC (18)   NULL,
+    [RTO]                NUMERIC (18)   NULL,
+    [TotalDownpayment]   NUMERIC (18)   NULL,
+    [Discount]           NUMERIC (18)   NULL,
+    [FinalDownpayment]   NUMERIC (18)   NULL,
+    [OtherDiscounts]     VARCHAR (2000) NULL,
+    [DocumentsNeeded]    VARCHAR (1000) NULL,
+    [GeneratedDate]      DATETIME       NOT NULL,
+    [SpclOfferVersionId] NUMERIC (18)   CONSTRAINT [DF_NewCarQuotations_SpclOfferVersionId] DEFAULT ((-1)) NOT NULL,
+    [SpclOfferCityId]    NUMERIC (18)   CONSTRAINT [DF_NewCarQuotations_SpclOfferCityId] DEFAULT ((-1)) NOT NULL,
+    CONSTRAINT [PK_NewCarQuotations] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

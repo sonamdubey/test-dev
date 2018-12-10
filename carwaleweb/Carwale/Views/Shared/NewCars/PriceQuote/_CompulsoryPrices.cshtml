@@ -1,0 +1,100 @@
+﻿@using Carwale.Entity.Enum;
+@using System.Configuration;
+@using System;
+@using Carwale.Utility;
+@using Carwale.DTOs.PriceQuote;
+
+@model PriceDetailsDto
+
+@{
+    var colorType = Model.PriceQuote.IsMetallic ? "js-metallic" : "js-solid";
+    var cardNo = 1; //since only one car is shown on desktop
+ }
+
+<tbody class="@colorType">
+    @{
+        for (int i = 0; i < @Model.PriceQuote.ChargeGroup.Count; i++)
+        {
+            var chargeGroup = Model.PriceQuote.ChargeGroup[i];
+            if (chargeGroup == null)
+            {
+                continue;
+            }
+            for (int j = 0; j < chargeGroup.ChargePrice.Count; j++)
+            {
+                var chargePrice = chargeGroup.ChargePrice[j];
+                if (chargePrice == null)
+                {
+                    continue;
+                }
+                <tr class="compulsory-charges" chargegroup-id="@chargeGroup.Id"
+                  chargegroup-name="@chargeGroup.Name"
+                  charge-id="@chargePrice.Charge.Id"
+                  charge-name="@chargePrice.Charge.Name"
+                  chargegroup-sortorder="@chargeGroup.SortOrder"
+                  charge-sortorder="@chargePrice.Charge.SortOrder"
+                  selection-option="@chargeGroup.SelectionOption"
+                  price="@chargePrice.Price"
+                  card-no="card@(cardNo)">
+                    <td class="price-table__description">
+                        @chargePrice.Charge.Name
+
+                        @if (chargePrice.Charge.Id == (int)PricesCategoryItem.Exshowroom)
+                        {
+                            <span>&#40;</span><span class="price-table-desc__instruction">Incl. GST</span><span>&#41;</span>
+                            <div class="instruction-icon">
+                                <div class="instruction-tooltip">
+                                    The price is in accordance with the GST rates as declared by the Government of India.
+                                </div>
+                            </div>
+                        }
+
+                        @if (chargeGroup.Id == (int)ChargeGroup.CompulsoryInsurance)
+                        {
+                            <div class="instruction-icon">
+                                <div class="instruction-tooltip">
+                                    Insurance amount is inclusive of 3-year third party cover.
+                                    This is in accordance with the law effective 1-Sep-2018
+                                    where in all the new cars sold in India should have a 3-year Third party cover.
+                                    Contact nearest dealer to know more.
+                                </div>
+                            </div>
+
+                            <br />
+
+                            if (Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.Insurance))
+                            {
+                                <span class="font11">&#40;</span>
+                                <span class="inline-block" data-event="CWNonInteractive" data-role="impression" data-action="PQ_Insurance_m" data-cat="SponsoredLink_Shown"
+                                      data-label='@("campaign_" + Model.CampaignTemplates[(short)PageProperties.Insurance].Id)'>
+                                    <span data-role="click-tracking" data-event="CWInteractive" data-action="PQ_Insurance_m" data-cat="SponsoredLink_Click"
+                                          data-label='@("campaign_" + Model.CampaignTemplates[(short)PageProperties.Insurance].Id)'>
+                                        @Html.Raw(Model.CampaignTemplates[(short)PageProperties.Insurance].Name)
+                                    </span>
+                                </span>
+                                <span class="font11">&#41;</span>
+                            }
+                        }
+                    </td>
+                    <td class="price-table__amount">@Format.FormatNumericCommaSep(chargePrice.Price.ToString())  </td>
+                </tr>
+            }
+        }
+    }
+
+    <tr class="price-table__total">
+        <td class="price-table__description">
+            On-Road Price (Basic)
+            <div class="instruction-icon">
+                <div class="instruction-tooltip">
+                    We try our best to show you the most accurate prices and other content, 
+                    however, these details are subject to change without prior notice.
+                    If you find any discrepancy, please bring it to our notice by writing at 
+                    <a class="" href="mailto:contact@carwale.com?subject=Content/Pricing%20related%20discrepancy">contact@carwale.com</a>.
+                </div>
+            </div>
+        </td>
+        <td class="price-table__amount">&#x20b9; @Format.FormatNumericCommaSep(@Model.PriceQuote.OnRoadPrice.ToString()) </td>
+    </tr>
+
+</tbody>

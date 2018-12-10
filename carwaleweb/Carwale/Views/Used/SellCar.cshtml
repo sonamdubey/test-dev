@@ -1,0 +1,156 @@
+﻿@model Carwale.UI.ViewModels.Used.SellCar.SellCarViewModel
+
+@{
+    ViewBag.landingPage = true;
+    ViewBag.HeaderClass = "header-landing";
+    ViewBag.CustomJS = "~/Views/StaticPartials/SellCarPageScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/SellCarPageCss.cshtml";
+    ViewBag.Title = "Sell Car | Sell Used Car in India";
+    ViewBag.Description = "Sell Your Used / pre-owned car at CarWale.com. Selling at carwale.com is easy, quick, effective and guaranteed. India's no 1 car site.";
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+}
+@section MetaTags{
+    @Helpers.GetOgTags("https://www.carwale.com/used/sell/", Model.MetaData.Title, Model.MetaData.Description, "")
+}
+
+<header id="sellCarBanner">
+    <div class="banner-box">
+        <h1 class="banner__title">Sell your car for free</h1>
+        <ul>
+            <li class="benefit-list__item">
+                <span class="benefit-home-icon"></span>
+                <p class="benefit-list__label">Sell from your doorstep</p>
+            </li>
+            <li class="benefit-list__item">
+                <span class="verified-buyer-icon"></span>
+                <p class="benefit-list__label">Verified <br> buyers</p>
+            </li>
+            <li class="benefit-list__item">
+                <span class="best-price-icon"></span>
+                <p class="benefit-list__label">Best price for your car</p>
+            </li>
+        </ul>
+    </div>
+</header>
+
+<section class="container margin-bottom30">
+    <div class="grid-12">
+        <div id="formContainer" class="content-wrapper" data-sourceid="1">
+            @{ Html.RenderPartial("~/views/used/sellcarpartial/_contactdetails.cshtml", Model); }
+
+            <div class="partialCongrats" data-url="carcondition/"></div>
+
+            <div id="voucherScreen"></div>
+
+            <div id="loadingScreen" class="loader-bg">
+                <span class="loader__spin"></span>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+
+<div id="modalPopUp" data-current="" class="modal-box"></div>
+<div id="modalBg"></div>
+
+<section class="container margin-bottom30">
+    <div class="grid-12">
+        <h2 class="container-heading special-skin-text">The best way to sell your car</h2>
+        <div class="sell-car-body content-wrapper">
+            <p class="sell-car__tip-desc">Sell your car with CarWale for absolutely free in New Delhi, Mumbai, Chennai, Hyderabad, Bangalore, Pune, Kolkata, Ahmedabad and all other cities in India. We will help you sell your car at the convenience of your doorsteps.</p>
+
+            <div class="margin-bottom10">
+                <p class="list-heading">Tips &amp; Advice</p>
+                <ul id="tipsAdviceList">
+                    <li>Know car's worth and set the right asking price</li>
+                    <li>Shoot clear pictures of your car and upload as many as possible</li>
+                    <li>Put your location and contact details accurately</li>
+                    <li>Provide as much information about your car as possible. This will help buyers decide quickly</li>
+                </ul>
+            </div>
+
+            <div class="collapsible-content margin-bottom10">
+                <p class="list-heading">FAQs</p>
+                <ul class="faq-list main-content">
+                    <li>
+                        <p class="faq__title">How do I sell my car on CarWale?</p>
+                        <p>You just need to fill the basic information about your vehicle, upload a few pictures and your Ad is good to go live.</p>
+                    </li>
+                    <li>
+                        <p class="faq__title">Do I have to register to sell my car at CarWale?</p>
+                        <p>You don't need to register on the website. Just list your car and it will automatically create an account for you.</p>
+                    </li>
+                    <li>
+                        <p class="faq__title">I have listed my car Ad but I don't have pictures ready, how can I add them later?</p>
+                        <p>Yes, if you haven't added any images initially, you have the option to add images at a later stage too.</p>
+                    </li>
+                </ul>
+                <ul id="faqMoreList" class="faq-list more-content">
+                    <li>
+                        <p class="faq__title">Will I be charged to list my used car Ad at CarWale?</p>
+                        <p>You do not need to pay anything to list your Ad on CarWale.com</p>
+                    </li>
+                    <li>
+                        <p class="faq__title">How can I make a change/addition to my used car Ad?</p>
+                        <p>As your account is created automatically, you can login with your credentials on CarWale website and then edit/add/remove data and images as per the changes you want to make.</p>
+                    </li>
+                    <li>
+                        <p class="faq__title">I have sold my car, how do I delete the used car Ad?</p>
+                        <p>There is an option in the account to remove your listing at any point of time. So, you can remove your Ad whenever car is sold or you do not wish to keep the Ad anymore.</p>
+                    </li>
+                </ul>
+                <div class="collapsible-target gradient--top-bottom">Read more</div>
+            </div>
+
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+
+
+<section class="popup-box-container">
+    <div class="otp-popup-container hide">
+        <div class="cwsprite cross-lg-dark-grey rightfloat close-icon cur-pointer"></div>
+        <div class="clear"></div>
+        <h2 class="otp-title">Mobile Verification (One Time)</h2>
+        <div id="formOtp" class="form-screen">
+            <div class="form__field-box">
+                <div id="mobileInputBox" class="otp-mobile-field">
+                    <div class="form__field-box">
+                        <div id="otpInputBox" class="input-box field-box labeled-mob-no">
+                            <input type='tel' class='otp-mob-no' maxlength='10' autocomplete='off' tabindex="1">
+                            <label class="active" for="getMobile">Mobile</label>
+                            <span class="editable-icon" id="edit"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/edit-icon-14x14.png" alt="" title=""></span>
+                            <span class="boundary"></span>
+                            <span class="error-text"></span>
+                            <span class="text-message error-text-green"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form__field-box otp-no-field">
+                <div id="otpInputBox" class="input-box field-box">
+                    <input type="tel" class="get-otp" maxlength="5" autocomplete="off" tabindex="2">
+                    <label for="getMobile">Please enter OTP</label>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+
+            </div>
+            <div class="resend-text text-right"><a href="javascript:void(0)" tabindex="3">Resend OTP<span class="counter-text"> in <span class="timeBox">30</span>s</span></a></div>
+            <span class="resend-prevent-text hide">OTP sent to mobile</span>
+
+
+
+            <div class="clear"></div>
+            <div class="text-center btn-section">
+                <div class="sell-car-loader hide"><img src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" alt="" title=""></div>
+                <input type="button" id="verify-otp" value="Verify" class="btn btn-orange btn-full-width" tabindex="4">
+                <input type="button" id="req-otp" value="Request OTP" class="btn btn-orange btn-full-width hide" tabindex="5">
+                <input type="button" id="proceed" value="proceed" class="btn btn-orange btn-full-width hide" tabindex="6">
+            </div>
+        </div>
+    </div>
+</section>
+

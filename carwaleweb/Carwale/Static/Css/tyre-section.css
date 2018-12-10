@@ -1,0 +1,767 @@
+﻿.tyre-home-banner {
+  background: #161209 url('https://imgd.aeplcdn.com/0x0/cw/es/tyres/banner.jpg') no-repeat left top;
+  background-size: cover;
+  height: 285px;
+  padding-top: 1px;
+}
+.warranty-icon {
+  background-position: -107px -624px !important;
+  width: 15px;
+  height: 18px;
+}
+
+.warranty-text {
+  color: #0288d1;
+}
+
+#features ul li {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.manufacture-year {
+  color: #ccc;
+}
+
+.info-icon {
+  vertical-align: top;
+}
+
+.tyre-car-selection {
+  width: 350px;
+}
+
+.tyre-car-selection input {
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.tyre-year-selection {
+  width: 350px;
+}
+
+.tyre-year-selection select {
+  border-radius: 0 4px 4px 0;
+}
+
+.tyre-tabs .cw-tabs-panel ul {
+  margin-bottom: 10px;
+}
+
+.strip {
+  padding: 10px 30px 10px 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.pill-box,.pill-box:hover {
+  text-decoration: none;
+}
+
+.pill-box {
+  margin: 0 10px 20px 10px;
+  display: inline-block;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -o-border-radius: 25px;
+  -ms-border-radius: 25px;
+  border-radius: 25px;
+  padding: 8px 0;
+  border: 1px solid #ccc;
+  width: 100%;
+  color: #565a5c;
+  -webkit-tap-highlight-color: transparent;
+  max-width: 60px;
+}
+
+.pill-box:hover {
+  background-color: #0e405b;
+  color: #fff;
+}
+
+.year-group {
+  padding: 10px 0 0 0;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.tyre-brand .pill-box {
+  max-width: none;
+  width: auto;
+  padding: 8px 10px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.tyre-home-carousel li {
+  margin-bottom: 20px;
+  height: auto;
+  min-height: 240px;
+}
+
+.tyre-home-carousel .left-unit {
+  width: 40%;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.tyre-home-carousel .imageWrapper {
+  text-align: left;
+  height: auto;
+  width: 100%;
+}
+
+.tyre-home-carousel .carDescWrapper {
+  display: inline-block;
+  width: 59%;
+  vertical-align: top;
+  padding: 0 15px;
+}
+
+.tyre-home-carousel ul li:nth-child(2n+2) .carDescWrapper {
+  padding: 0 15px 0 0;
+}
+
+.tyre-tag-type {
+  background: #26536a;
+  display: inline-block;
+  color: #fff;
+  padding: 6px 12px 7px 10px;
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  border-radius: 0 15px 15px 0;
+}
+
+.tyre-home-carousel .tyre-tag-type {
+  bottom: 0;
+}
+
+.tyre-model-view {
+  margin-bottom: 10px;
+}
+
+.tyre-model-view .car-image {
+  max-width: 15%;
+  display: inline-block;
+}
+
+.tyre-model-view .car-image img {
+  max-width: 100%;
+}
+
+.tyre-model-view .car-desc {
+  max-width: 70%;
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+}
+
+.tyre-model-view .car-name {
+  color: #000;
+  font-weight: bold;
+  font-size: 18px;
+  display: inline-block;
+}
+
+.tyre-model-view .car-year {
+  font-weight: normal;
+  margin-left: 10px;
+}
+
+.tyre-model-view .version-dropdown {
+  width: 25%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.tyre-model-view .version-dropdown .form-control {
+  padding: 5px 10px 5px 10px;
+}
+
+.tyre-model-view .car-tyre-size {
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 7px;
+}
+
+.tyre-list {
+  text-align: center;
+}
+
+.tyre-list .carDescWrapper {
+  padding: 0 0 10px 0;
+}
+
+.tyre-list li {
+  margin: 10px;
+  float: left;
+  width: 22.9%;
+  height: 340px;
+  vertical-align: top;
+  background: #fff;
+  position: relative;
+  border: 1px solid #ccc;
+  min-height: 245px;
+}
+
+.tyre-list .tyre-tag-type {
+  position: relative;
+  top: auto;
+  margin: 5px 0 0 0;
+  padding: 4px 19px 5px 15px;
+}
+
+.tyre-list li .imageWrapper {
+  height: 170px;
+  width: 100%;
+}
+
+.tyre-list .warranty-icon,.tyre-warranty .warranty-icon {
+  margin: 0 5px 0 0;
+  vertical-align: top;
+}
+
+.tyre-overview-table {
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
+.tyre-overview-table th, .tyre-overview-table td {
+  padding: 15px 12px;
+  width: 20%;
+  display: table-cell;
+  text-align: left;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.tyre-overview-table thead tr td {
+  background-color: #f4f3f3;
+}
+
+.tyre-overview-img {
+  width: 40%;
+  border: 1px solid #ccc;
+  margin: 20px;
+}
+
+.tyre-overview-img img {
+  max-width: 100%;
+}
+
+.tyre-price {
+  font-size: 18px;
+  position: absolute;
+  right: 0;
+  bottom: 38px;
+  background: #26536a;
+  display: inline-block;
+  color: #fff;
+  padding: 4px 12px 5px 10px;
+  border-radius: 20px 0 0 20px;
+}
+
+.tyre-overview-info {
+  vertical-align: top;
+  padding: 30px 0 0 0;
+}
+
+.tyre-overview-info h1 {
+  font-size: 25px;
+}
+
+.tyre-overview-info .warranty-icon {
+  vertical-align: top;
+  margin-right: 5px;
+}
+
+.tyre-news-carousel li {
+  height: 325px;
+  width: 218px;
+  border: 1px solid #ccc;
+}
+
+.tyre-carousel-container.jcarousel-wrapper {
+  width: 932px;
+}
+
+.tyre-carousel-container .contentWrapper {
+  height: 100%;
+}
+
+.tyre-news-carousel .imageWrapper {
+  width: 100%;
+}
+
+.tyre-news-carousel .imageWrapper img {
+  max-width: 100%;
+}
+
+.tyre-news-carousel .carDescWrapper {
+  vertical-align: top;
+  padding: 10px 20px;
+  display: inline-block;
+}
+
+.tyre-news-carousel .tyre-price {
+  position: absolute;
+  left: 0;
+  border-radius: 0 20px 20px 0;
+  width: 48%;
+}
+
+.tyre-news-carousel .tyre-warranty {
+  color: #0e405b;
+  margin-top: 5px;
+}
+
+#tyre-info-popup {
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  z-index: 10;
+  background: #fff;
+  width: 50%;
+}
+
+#tyre-info-popup .globalcity-popup-data {
+  padding: 20px 20px 10px;
+}
+
+.tyre-info-img {
+  max-width: 100%;
+}
+
+.tyre-features-content {
+  width: 30%;
+  text-align: center;
+  margin: 0 15px;
+}
+
+.tyre-feature-detail h3 {
+  font-size: 18px;
+}
+
+.tyre-feature-detail p {
+  font-size: 13px;
+}
+
+.tyre-price__info {
+    font-size: 13px;
+    color: #aaa;
+    padding: 0 10px 10px 0;
+    display: block;
+    text-align: right;
+}
+/* popup-selected-value */
+.popup-selected-value {
+  min-width: 100px;
+  max-width: 150px;
+  padding: 4px 25px 4px 10px;
+  border: 1px solid #babfc3;
+  background: #fff url(https://imgd.aeplcdn.com/0x0/cw/design15/m/dropArrowBg.png) no-repeat 92% 50%;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border-radius: 2px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/* modal popup */
+.modal-popup-container {
+  width: 300px !important;
+  display: none;
+  width: 80%;
+  min-height: 100px;
+  font-size: 14px;
+  position: fixed;
+  top: 25%;
+  left: 0;
+  right: 0;
+  background: #f5f5f5;
+  z-index: 3;
+  margin: 0 auto;
+}
+
+.modal-background {
+  display: none;
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  -moz-opacity: 0.6;
+  -khtml-opacity: 0.6;
+  opacity: 0.6;
+}
+
+.popup-header {
+  position: relative;
+  background: #565a5c;
+  padding: 15px 20px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.popup-cross {
+  padding: 5px;
+  position: absolute;
+  top: 13px;
+  right: 15px;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.popup-body {
+  padding: 15px 20px;
+  max-height: 315px;
+  overflow-y: scroll;
+}
+
+.popup-list li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.popup-list li:first-child {
+  margin-top: 0;
+}
+
+.popup-list .active {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.popup-list .list-group-label {
+  color: #babfc3;
+  font-weight: 600;
+  cursor: default;
+  pointer-events: none;
+}
+
+.search-popup {
+  background: #fff;
+  width: 40%;
+  display: none;
+  z-index: 999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  -os-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  -wbkit-transform: translate(-50%,-50%);
+}
+
+.displayModel:first-child {
+  border-top: 1px solid #ccc;
+}
+
+.displayModel {
+  font-size: 14px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.reset-inline-margin {
+  margin-left: -4px;
+}
+
+.tyre-year-selection .chosen-container-single .chosen-single {
+  border-radius: 0 4px 4px 0;
+}
+
+.tyre-year-selection .chosen-container .chosen-results li:first-child {
+  display: none;
+}
+
+/* Chosen v1.4.2 | (c) 2011-2015 by Harvest | MIT License, https://github.com/harvesthq/chosen/blob/master/LICENSE.md */
+.chosen-container {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 13px;
+  zoom: 1;
+  *display: inline;
+  text-align: left;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.chosen-container * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.chosen-container .chosen-drop {
+  position: absolute;
+  top: 100%;
+  left: -9999px;
+  z-index: 3;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-top: 0;
+  background: #fff;
+}
+
+.chosen-container-active .chosen-drop,
+.chosen-container.chosen-with-drop .chosen-drop {
+  left: 0;
+}
+
+.chosen-container a {
+  cursor: pointer;
+}
+
+.chosen-container-single .chosen-single {
+  font-size: 13px;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 5px 0 0 10px;
+  height: 37px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  background-clip: padding-box;
+  color: #666666;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 24px;
+  position: relative \9;
+  background: #fff url(https://imgd.aeplcdn.com/0x0/cw/design15/dropArrowBg.png?static1fix) no-repeat 96% 50%;
+}
+
+.chosen-container-single .chosen-default {
+  color: #666666;
+  text-align: left;
+}
+
+.chosen-container-single .chosen-single span {
+  display: block;
+  overflow: hidden;
+  margin-right: 26px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chosen-container-single .chosen-single-with-deselect span {
+  margin-right: 38px;
+}
+
+.chosen-container-single .chosen-single abbr {
+  position: absolute;
+  top: 6px;
+  right: 26px;
+  display: block;
+  width: 12px;
+  height: 12px;
+  font-size: 1px;
+}
+
+.chosen-container-single .chosen-single div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: 33px;
+  height: 100%;
+}
+
+.chosen-container-single .chosen-single div b {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.chosen-container-single .chosen-search {
+  position: relative;
+  z-index: 1010;
+  margin: 0;
+  padding: 3px 4px;
+  white-space: nowrap;
+}
+
+.chosen-container-single .chosen-search input[type='text'] {
+  margin: 1px 0;
+  padding: 4px 20px 4px 5px;
+  width: 100%;
+  height: auto;
+  outline: 0;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  font-family: sans-serif;
+  line-height: normal;
+  border-radius: 0;
+  position: relative \9;
+}
+
+.chosen-container-single .chosen-drop {
+  margin-top: -1px;
+  border-radius: 0 0 4px 4px;
+  background-clip: padding-box;
+  position: relative \9;
+}
+
+.chosen-container-single.chosen-container-single-nosearch .chosen-search {
+  position: absolute;
+  left: -9999px;
+}
+
+.chosen-container .chosen-results {
+  color: #444;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0 4px 4px 0;
+  padding: 0 0 0 4px;
+  max-height: 240px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chosen-container .chosen-results li {
+  display: none;
+  margin: 0;
+  padding: 13px 6px;
+  list-style: none;
+  font-size: 14px;
+  color: #333333;
+  line-height: 15px;
+  word-wrap: break-word;
+  -webkit-touch-callout: none;
+}
+
+.chosen-container .chosen-results li.active-result {
+  display: list-item;
+  cursor: pointer;
+}
+
+.chosen-container .chosen-results li.disabled-result {
+  display: list-item;
+  color: #000;
+  cursor: default;
+}
+
+.chosen-container .chosen-results li.highlighted {
+  background-color: #eeeeee;
+  color: #424242;
+}
+
+.chosen-container .chosen-results li.no-results {
+  color: #777;
+  display: list-item;
+  background: #f4f4f4;
+}
+
+.chosen-container .chosen-results li em {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.chosen-container-active .chosen-single {
+  border: 1px solid #66afe9;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+
+.chosen-container-active .chosen-single,
+.chosen-container-active.chosen-with-drop .chosen-single {
+  border: 1px solid #ccc;
+  -moz-border-radius-bottomright: 0;
+  border-bottom-right-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  border-bottom-left-radius: 0;
+  box-shadow: 0 1px 0 #fff inset;
+  position: relative \9;
+  color: #ccc;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single div {
+  border-left: 0;
+  background: transparent;
+}
+
+.chosen-container-active .chosen-choices {
+  border: 1px solid #66afe9;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+
+.chosen-container-active .chosen-choices li.search-field input[type='text'] {
+  color: #222!important;
+}
+
+.chosen-disabled {
+  opacity: .5!important;
+  cursor: default;
+}
+
+.chosen-disabled .chosen-single {
+  cursor: default;
+}
+
+.chosen-disabled .chosen-choices .search-choice .search-choice-close {
+  cursor: default;
+}
+/*Micheline tyre slug css*/
+.dealer-slug {
+    max-width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+}
+.dealer-slug__icon {
+    float: left;
+    height: 64px;
+    width: 92px;
+    margin-left: 20px;
+    color: #fff;
+    position: relative;
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/michellin-tyres/michellin-tyre-location-bg.svg) no-repeat;
+}
+.dealer-slug__icon::after {
+    content: '';
+    height:53px;
+    width:53px;
+    display: inline-block;
+    position: absolute;
+    margin-left: 20px;
+    margin-top: 10px;
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/michellin-tyres/michellin-tyre-location-foreground.svg) no-repeat;
+}
+.dealer-slug__title  {
+  color: #565a5c;
+  font-weight: 600;
+  font-size: 18px;
+  display: inline-block;
+  margin: 20px 100px 20px 20px;
+  float: left;
+}
+.dealer-slug__btn {
+    border-radius: 4px;
+    padding: 12px 30px 11px;
+    background: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    float: left;
+}
+.btn--red {
+    border: 1px solid #ef3f30;
+    color: #ef3f30;
+}
+.dealer-slug__btn:hover {
+    text-decoration: none;
+}

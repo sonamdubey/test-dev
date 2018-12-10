@@ -1,0 +1,17 @@
+﻿@model Carwale.Entity.CarData.SpecsInfo
+@using Carwale.Utility;
+@using Carwale.UI.Common;
+@using System.Configuration;
+
+<div class="specs-image-wrapper" data-ratio="@(Model.ItemId == 8 ? "1:1" : "16:9")">
+    <div class="image__wrapper">
+        <img class="image-wrapper__container js-specs-image-container" src="@ImageSizes.CreateImageUrl(CWConfiguration._imgHostUrl,ImageSizes._0X0,Model.ImageUrl)" alt="@Model.ItemName" />
+    </div>
+</div>
+<div class="specs-features-wrapper">
+    <ul class="specs-features-list">
+        <li class="specs-features__list-item">
+            <p class="specs-features-data"><span>@Model.ItemName</span>:&nbsp;<span>@Model.ItemValue</span></p>
+        </li>
+    </ul>
+</div>

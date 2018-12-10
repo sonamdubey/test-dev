@@ -1,0 +1,172 @@
+﻿@import "../mixins/_sprites.scss";
+@import "../mixins/_utils.scss";
+@import "../mixins/_fonts.scss";
+@import "../mixins/_fontawesome.scss";
+@import "../mixins/_form.scss";
+@import "../mixins/_rounded-corner.scss";
+
+@include mumbai-icon;
+@include delhi-icon;
+@include bangalore-icon;
+@include chennai-icon;
+@include pune-icon;
+@include hyderabad-icon;
+@include kolkata-icon;
+@include ahmedabad-icon;
+@include chandigarh-icon;
+@include back-long-arrow-left-white-icon;
+@include cross-md-dark-grey;
+
+@include rightfloat;
+@include clear;
+@include show;
+@include hide;
+@include m-defaultAlert-window;
+@include m-loading-popup;
+@include m-loading-icon;
+@include font-size-class(20);
+@include get-font-icon("angle-right");
+@include form-control;
+@include rounded-corner(0);
+
+
+.popup_layer {
+    background: #f5f5f5;
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 10000;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ui-corner-top {
+    background: #565a5c;
+    color: #fff;
+    font-size: 16px;
+    height: 42px;
+    overflow: hidden;
+}
+
+.main-cities {
+    display: inline-block;
+    text-align: center;
+    padding-top: 10px;
+
+    li .city-icons, ul{
+        margin: auto;
+    }
+
+    li {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #e2e2e2;
+    margin: 0 -1px -1px 0;
+}
+}
+
+
+.city-content {
+    margin: auto;
+    width: 85px;
+    height: 91px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.citiesByState {
+    font-weight: 700;
+    padding: 10px;
+}
+
+.citiesByState, .selectArea li {
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.selectArea li {
+    color: #666;
+    padding: 15px 20px;
+}
+
+.States-list li, .citiesByState-list li {
+    padding: 15px 10px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.filterBackArrow {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 10px;
+    float: left;
+}
+.filterTitle {
+    float: left;
+    font-size: 18px;
+    margin-top: 9px;
+}
+
+.fixedSearchPopup {
+    overflow-y: visible;
+    div[data-role=header].ui-corner-top {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+    .search-box {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 42px;
+}
+     .cross-box-wrap+.popup_content {
+    top: 105px;
+}
+   .popup_content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: scroll;
+}
+}
+
+.search-box {
+    background: #e6e6e6;
+    padding: 10px;
+}
+
+.cross-box-wrap {
+    .cross-box {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: 40px;
+    z-index: 1;
+    cursor: pointer;
+    }
+
+    input[type=text] {
+    padding-right: 40px;
+}
+}
+
+.ui-content {
+    border-width: 0;
+    overflow: visible;
+    overflow-x: hidden;
+}
+.popup_content div.ui-content {
+    li {
+        border-top: 1px solid #ccc;
+        &:first-child {
+        border-top: 0;
+    }
+  }  
+}

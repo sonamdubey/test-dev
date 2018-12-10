@@ -1,0 +1,39 @@
+﻿@model Carwale.DTOs.CMS.ThreeSixtyView.ThreeSixtyDTO
+
+@using System.Configuration;
+@using Carwale.Utility;
+@using Carwale.Entity.Enum
+
+<script>
+    var cwTrackingPath = '@ConfigurationManager.AppSettings["HostUrl"]';
+    var cdnHostUrl = '@ConfigurationManager.AppSettings["CDNHostURL"].ToString()';
+
+    var modelDetails = {
+        makeId: '@Model.ModelDetails.MakeId',
+        makeName: '@Model.ModelDetails.MakeName',
+        urlMakeName: '@(Format.FormatSpecial(Model.ModelDetails.MakeName))',
+        name: '@Model.ModelDetails.ModelName',
+        maskingName: '@Model.ModelDetails.MaskingName',
+        modelId: '@Model.ModelDetails.ModelId'
+    };
+
+    var xmlVersion = {
+        closed: '@Model.XmlVersion[ThreeSixtyViewCategory.Closed]',
+        open: '@Model.XmlVersion[ThreeSixtyViewCategory.Open]',
+        interior: '@Model.XmlVersion[ThreeSixtyViewCategory.Interior]'
+    };
+
+    var carName = modelDetails.makeName + ' ' + modelDetails.name;
+    var modelPageUrl = '@ManageCarUrl.CreateModelUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName)';
+    var category = '@Model.ActiveState';
+    var exteriorPageUrl = '@string.Format("{0}/{1}-cars/{2}/360-view/", string.Empty, Format.FormatSpecial(Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName)';
+    var openPageUrl = '@string.Format("{0}/{1}-cars/{2}/360-view/{3}", string.Empty, Format.FormatSpecial(Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName, "open/")';
+    var interiorPageUrl = '@string.Format("{0}/{1}-cars/{2}/360-view/{3}",  string.Empty, Format.FormatSpecial(Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName, "interior/")';
+    doNotShowAskTheExpert = false;
+</script>
+
+<script type="text/javascript" src="/static/m/js/imagerotator.js" defer></script>
+<script type="text/javascript" src="/static/m/js/pano2vr_player.js" defer></script>
+<script type="text/javascript" src="/static/m/js/skin.js" defer></script>
+<script type="text/javascript" src="/static/js/v2/app/cwTracking.js" defer></script>
+<script type="text/javascript" src="/static/js/360view.js" defer></script>

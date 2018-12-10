@@ -1,0 +1,281 @@
+﻿* {
+  zoom: 1;
+}
+
+/*** DEFAULT COLORS/STYLES ***/
+.sub-nav {
+  margin-top: 0px;
+  z-index: 999;
+  -webkit-box-sizing: border-box;
+ /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+    /* Firefox, other Gecko */
+  box-sizing: border-box;
+}
+
+
+/* Root menu */
+/* Root links */
+.dropdown-menu a,
+.dropdown-menu a:link,
+.dropdown-menu a:visited {
+  text-decoration: none;
+  color: #393939;
+  padding: 5px 9px;
+}
+/* Root link hover */
+.dropdown-menu a:hover,
+.dropdown-menu li.dropdown-menu-hover > a {
+  color: #000;
+}
+/* Root menu item hover */
+.dropdown-menu li:hover,
+.dropdown-menu li.dropdown-menu-hover {
+  background: #e0e2e2;
+}
+/* Submenus */
+/* Submenu item hover */
+.dropdown-menu ul li:hover,
+.dropdown-menu ul li.dropdown-menu-hover {
+  background: #f1f1f1;
+}
+
+/* Optional submenu drop shadow */
+.dropdown-menu-shadow {
+  -webkit-box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.3);
+  -ms-box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.3);
+  -o-box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+/*** ESSENTIAL STYLES ***/
+.dropdown-menu {
+  white-space: nowrap;
+  display: inline-block;
+    /* IE7 inline-block fix */
+  *display: inline;
+  *zoom: 1;
+}
+
+.dropdown-menu,
+.dropdown-menu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dropdown-menu ul {
+  display: none;
+  position: absolute;
+  z-index: 1000000;
+}
+
+.dropdown-menu ul ul {
+  top: 0;
+  left: 100%;
+}
+
+.dropdown-menu li {
+  padding: 0;
+  float: left;
+  display: inline-block;
+  border: 1px solid #ccc;
+  margin-right: -2px;
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/tab-bg.jpg?v1=04032016") repeat-x scroll 0 0 #F5F1F2;
+    /* IE7 inline-block and padding fix */
+  *display: inline;
+  *zoom: 1;
+  *vertical-align: bottom;
+  font-size: 13px !important;
+}
+
+.dropdown-menu li a {
+  display: block;
+}
+
+.dropdown-menu ul li {
+  position: relative;
+  display: block;
+  float: none;
+}
+
+/* Submenu arrow indicator */
+.dropdown-menu-skin span.dropdown-menu-sub-indicator {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-sprite_v1.3.png?static1fix);
+}
+
+
+/* Optional submenu arrows */
+span.dropdown-menu-sub-indicator {
+  margin-left: 0;
+  display: inline-block;
+  vertical-align: baseline;
+    /* Image Replacement */
+  background-position: -166px -753px;
+  width: 13px;
+  height: 9px;
+  border: 0;
+  overflow: hidden;
+  position: relative;
+  left: 5px;
+    /* IE7 image replacement fix */
+  *text-indent: -9999px;
+    /* IE7 inline-block fix */
+  *display: inline;
+  *zoom: 1;
+  *vertical-align: middle;
+}
+
+span.dropdown-menu-sub-indicator:before {
+    /* Image replacement */
+  content: "";
+  display: block;
+  width: 0;
+  height: 100%;
+}
+/* Arrow hovers */
+.dropdown-menu li:hover > a > span.dropdown-menu-sub-indicator,
+.dropdown-menu li.dropdown-menu-hover > a > span.dropdown-menu-sub-indicator {
+  background-position: -166px -753px;
+}
+/* Point arrows to the right for anchors in subs */
+.dropdown-menu ul span.dropdown-menu-sub-indicator {
+  background-position: 0 0;
+}
+
+.dropdown-menu ul li:hover > a > span.dropdown-menu-sub-indicator,
+.dropdown-menu ul li.dropdown-menu-hover > a > span.dropdown-menu-sub-indicator {
+  background-position: -166px -753px;
+}
+
+/* Vertical-style menu with default width */
+.dropdown-menu-vertical {
+  width: 250px;
+}
+
+.dropdown-menu-vertical li {
+  display: block;
+  position: relative;
+    /* IE7 fix */
+  *float: left;
+  *width: 100%;
+}
+
+.dropdown-menu-vertical span.dropdown-menu-sub-indicator {
+  background-position: 0 0;
+}
+
+.dropdown-menu-vertical li:hover > a > span.dropdown-menu-sub-indicator,
+.dropdown-menu-vertical li.dropdown-menu-hover > a > span.dropdown-menu-sub-indicator {
+  background-position: -10px 0;
+}
+
+/* skin classes,  Root menu and Submenus */
+.dropdown-menu-skin ul {
+  background: #fefefe;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc\9;
+  border-bottom: 1px solid #ccc\9;
+  margin-left: -1px;
+  margin-top: 0px;
+  min-width: 150px;
+}
+
+/* 3rd+ level menus */
+.dropdown-menu-skin ul ul {
+  margin-left: 0;
+  margin-top: -1px;
+}
+
+/* Root links */
+.dropdown-menu-skin a,
+.dropdown-menu-skin a:link,
+.dropdown-menu-skin a:visited {
+  color: #333;
+  text-decoration: none;
+  padding: 10px 17px;
+}
+
+/* Root link hover */
+.dropdown-menu-skin a:hover, .dropdown-menu-skin a.active,
+.dropdown-menu-skin li.dropdown-menu-hover > a {
+  color: #000;
+  text-decoration: none;
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/tab-bg-active.jpg?v1=04032016") repeat-x scroll 0 0 #FFFFFF;
+}
+
+/* Submenu links */
+.dropdown-menu-skin ul a,
+.dropdown-menu-skin ul a:link,
+.dropdown-menu-skin ul a:visited {
+  font-weight: normal;
+  color: #000;
+  padding: 8px 10px;
+}
+
+/* Submenu link hover */
+.dropdown-menu-skin ul a:hover,
+.dropdown-menu-skin ul li.dropdown-menu-hover > a {
+  color: #fff;
+  background: #033a50;
+}
+
+/* Root menu items */
+.dropdown-menu-skin li {
+}
+
+/* Root menu item hover */
+.dropdown-menu-skin li:hover, .dropdown-menu-skin li.dropdown-menu-hover {
+  background: #fff;
+}
+
+/* Submenu items */
+.dropdown-menu-skin ul li {
+  min-width: 150px;
+  margin: 0;
+  border: 0px;
+  background: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  -o-box-shadow: none;
+  box-shadow: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  filter: none;
+}
+
+.dropdown-menu-skin ul li span {
+  font-weight: bold;
+  color: #333;
+  cursor: default;
+  padding: 8px 10px;
+  background: #f1f1f1;
+  display: block;
+  border-bottom: 1px solid #ccc;
+}
+
+.dropdown-menu-skin ul li:hover span {
+  background: none;
+}
+/* Submenu item hover */
+.dropdown-menu-skin ul li:hover, .dropdown-menu-skin ul li.dropdown-menu-hover {
+   filter: none;
+}
+
+li#liOverview {
+  width: 94px;
+  text-align: center;
+}
+
+.truncate-modelname {
+  max-width: 93px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Con_SpareParts] (
+    [Id]       NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [PartName] VARCHAR (50) NULL,
+    CONSTRAINT [PK_Con_SparePart] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

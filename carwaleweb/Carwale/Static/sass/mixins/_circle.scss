@@ -1,0 +1,19 @@
+﻿@import '_variables.scss';
+
+@mixin circle($height: 7, $width: 7, $color: 'shamrockGreen', $position: 'absolute', $left: 0, $right: 0 , $top: 0, $bottom: 0 ) {
+	width: $width * 1px;
+	height: $height * 1px;
+	background-color: map-get($color-map, $color);
+	border-radius: 50%;
+	@if($position == 'absolute') {
+		position: absolute;
+		left: $left * 1px;
+		right: $right * 1px;
+		top: $top * 1px;
+		bottom: $bottom * 1px;
+	}
+	@else {
+		position: relative;
+	}
+}
+

@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[MyCarwaleCars] (
+    [ID]                   NUMERIC (18)  IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [CustomerId]           NUMERIC (18)  NOT NULL,
+    [VersionId]            NUMERIC (18)  NOT NULL,
+    [MakeYear]             DATETIME      NULL,
+    [StartingKm]           NUMERIC (18)  CONSTRAINT [DF_MyCarwaleCars_StartingKm] DEFAULT ((0)) NULL,
+    [CurrentKm]            NUMERIC (18)  CONSTRAINT [DF_MyCarwaleCars_CurrentKm] DEFAULT ((0)) NULL,
+    [AverageKm]            NUMERIC (18)  CONSTRAINT [DF_MyCarwaleCars_AverageKm] DEFAULT ((0)) NULL,
+    [PurchaseDate]         DATETIME      NULL,
+    [RegistrationNo]       VARCHAR (50)  NULL,
+    [ChasisNo]             VARCHAR (50)  NULL,
+    [EngineNo]             VARCHAR (50)  NULL,
+    [EntryDate]            DATETIME      NOT NULL,
+    [LastUpdatedDate]      DATETIME      NULL,
+    [IsActive]             BIT           CONSTRAINT [DF_MyCarwaleCars_IsActive] DEFAULT ((1)) NOT NULL,
+    [InsuranceExpiryDate]  DATETIME      NULL,
+    [WarrantyExpiryDate]   DATETIME      NULL,
+    [PUCExpiryDate]        DATETIME      NULL,
+    [ServiceReminderDate]  DATETIME      NULL,
+    [TyreRotationReminder] DATETIME      NULL,
+    [CustomReminderDate]   DATETIME      NULL,
+    [CustomReminderText]   VARCHAR (200) NULL,
+    CONSTRAINT [PK_MyCarwaleCars] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

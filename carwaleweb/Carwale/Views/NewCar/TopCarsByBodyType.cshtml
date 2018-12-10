@@ -1,0 +1,254 @@
+﻿
+@model TopCarsByBodyTypeDto
+@using Carwale.UI.Common;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Utility;
+@using Carwale.Entity;
+@using Carwale.Entity.Enum;
+@using Carwale.DTOs.CarData;
+@using Carwale.BL.Experiments;
+@{
+	
+    
+	ViewBag.BodyClass = (ViewBag.IsMobile != null && ViewBag.IsMobile ? "" : "header-fixed-inner bg-white");
+	ViewBag.Keywords = "";
+    if(!ViewBag.IsMobile){
+        ViewBag.Description = string.Format("CarWale brings the list of best {0} in India for {2}. Explore the top{1} {0} to buy the best car of your choice.", Model.BodyType, (Model.ModelList?.Count ?? 0) < 10 ? string.Empty : " 10", DateTime.Now.ToString("Y"));
+        ViewBag.Title = HtmlAttributes.GetTopBodyTypeLinkTitle(Model.ModelList?.Count ?? 0, Model.BodyStyleId);
+    }
+    else{
+        ViewBag.Description = string.Format("CarWale brings the list of best {0} in India for {1}. Explore the top {0} to buy the best car of your choice.", Model.BodyType, DateTime.Now.ToString("Y"));
+        ViewBag.Title = HtmlAttributes.GetTopBodyTypeLinkTitle(0, Model.BodyStyleId);
+    }
+	ViewBag.landingPage = false;
+	ViewBag.HeaderClass = "header-fixed";
+	ViewBag.Responsive = true;
+    ViewBag.PageId = 201;
+    ViewBag.Canonical = string.Format("https://www.carwale.com/best-{0}-in-india/", ((CarBodyStyle)Model.BodyStyleId).ToUrlString());
+
+	ViewBag.CustomJS = "~/Views/StaticPartials/TopCarsByBodyTypeScripts.cshtml";
+	ViewBag.CustomCss = "~/Views/StaticPartials/TopCarsByBodyTypeCss.cshtml";
+	ViewBag.IsMobile = ViewBag.IsMobile ?? false;
+	Layout = (ViewBag.IsMobile ? "~/views/shared/m/_MLayoutV2.cshtml" : "~/views/shared/_LayoutV2.cshtml");
+	if (!ViewBag.IsMobile)
+	{
+		ViewBag.AdPath = "/1017752/" + Model.DomainName;
+		ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+var AdSlots = {};
+googletag.cmd.push(function () {
+googletag.pubads().disableInitialLoad();
+googletag.pubads().setCentering(true);
+NewCarHome_FuelType_224x230 = googletag.defineSlot('" + ViewBag.AdPath + @"NewCarHome_FuelType_224x230', [224, 230], 'NewCarHome_FuelType_224x230').addService(googletag.pubads());
+NewCarHome_EMI_224x230 = googletag.defineSlot('" + ViewBag.AdPath + @"NewCarHome_EMI_224x230', [224, 230], 'NewCarHome_EMI_224x230').addService(googletag.pubads());
+AdSlots['div-gpt-ad-1491317900891-0'] = googletag.defineSlot('" + ViewBag.AdPath + @"NewCarHome_BodyType_224x230', [224, 230], 'div-gpt-ad-1491317900891-0').addService(googletag.pubads());
+googletag.pubads().setTargeting('City', '" + (CookiesCustomers.MasterCity) + @"');
+googletag.pubads().setTargeting('UserModelHistory', '" + CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+googletag.pubads().collapseEmptyDivs(true);
+googletag.pubads().enableSingleRequest();
+googletag.enableServices();
+});
+</script>";
+	}
+}
+@if (ViewBag.IsMobile)
+{
+    @section Plugins{
+
+        <script type="text/javascript" src="/static/m/js/plugins/swiper.js" defer></script>
+        <script type="text/javascript" src="/static/m/js/plugins/beauty-tooltips.js" defer></script>
+    }
+
+}
+<div class="container hatchback-outer-container bg-white">
+    @if(Model.ModelList.IsNotNullOrEmpty())
+    {
+        if (Model.BreadcrumbEntitylist.IsNotNullOrEmpty() && !ViewBag.IsMobile)
+		{
+			Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist);
+		}
+        <div class="grid-12 grid-content-box special-padding @(ViewBag.IsMobile ? "border-solid-top" : "")">    
+            <div id="headingContent">
+            @if(!ViewBag.IsMobile)
+            {
+                <h1 class="text-black hatchback-title">TOP@(Model.ModelList.Count < 10 ? string.Empty : " " + Model.ModelList.Count) <span class="text-uppercase">@Model.BodyType</span> IN INDIA</h1>
+            }
+            else if(!Model.IsFilterApplied)
+            {
+                <h1 class="text-black hatchback-title">@ProductExperiments.GetH1ForTopCarsPage(Model.BodyStyleId) <span class="text-uppercase">@Model.BodyType</span> IN INDIA</h1>
+            }
+            @if(!string.IsNullOrEmpty(Model.SEOText) && !Model.IsFilterApplied)
+			{
+                <p class="text-grey margin-bottom20 special-skin-text best-model__desc">@Model.SEOText</p>
+		    }
+            </div>
+            <ul id="topCarList" class="js-replace-li">
+                @{ int i = 1;}
+                @foreach (var result in Model.ModelList)
+		        {
+                    <li class="hatchback-content-box">
+                        <div class="hatchback-container">
+                            <div class="pos-relative hatchback-left-unit">
+                                <div class="car-count-image text-center">
+                                        @if(!Model.IsFilterApplied)
+                                        {
+                                            <div class="position-abt pos-right10">
+                                                <span class="list-count text-lighter-grey"><span>@(i++)</span></span>
+                                                <div class="triangle triangle-left"></div>
+                                                <div class="triangle triangle-right"></div>
+                                            </div>
+                                        }
+                                    <img class="hatchback-image lazy" src="@(CWConfiguration._imgHostUrl)0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(result.HostUrl, ImageSizes._227X128,result.OriginalImgPath)" width="227" height="128" alt="@result.MakeName @result.ModelName" title="@result.MakeName @result.ModelName">
+                                </div>
+                                <div class="car-basic-details" data-role="inview-imp" data-cat="Top10Cars" data-event="CWNonInteractive" data-action="model_impression" data-label="Top@(Model.BodyType)Page_@(result.ModelName)_@(i-1)">
+                                    <a title="@result.MakeName @result.ModelName" href="@ManageCarUrl.CreateModelUrl(result.MakeName,result.MaskingName)" data-role="click" data-event="CWInteractive" data-cat="Top10Cars" data-action="model_clicked" data-label="Top@(Model.BodyType)Page_@(result.ModelName)_@(i-1)">
+                                        <h2 class="text-black text-bold"><span class="hatchback-make hatchback-model">@result.MakeName @result.ModelName</span></h2>
+                                    </a>
+                                    <div class="leftfloat">
+                                        <div class="text-bold price-unit text-black"><small class="font18">@result.CarPriceOverview.PricePrefix</small><span class="font18">  @result.CarPriceOverview.Price </span><small class="font11 text-light-grey">@result.CarPriceOverview.PriceSuffix</small></div>
+                                        <div class="text-bold margin-bottom10 font11 text-light-grey text-unbold @result.CarPriceOverview.LabelColor">@(!string.IsNullOrEmpty(result.CarPriceOverview.PriceLabel) ? result.CarPriceOverview.PriceLabel + (result.CarPriceOverview.City.Id > 0 ? "," : string.Empty) : string.Empty) <span>@result.CarPriceOverview.City.Name</span> @(result.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<span class='average-info-tooltip class-ad-tooltip tooltip-icon inline-block'>i</span><span class='average-info-content hide'>" + @result.CarPriceOverview.ReasonText + "</span>") : Html.Raw(""))</div>
+
+                                    </div>
+                                    <div class="rightfloat margin-top10">
+                                        @if (ViewBag.IsMobile)
+                                    {
+                                        if (string.IsNullOrWhiteSpace(Model.CityName))
+									    {
+                                            <span class="text-bold select-city-link text-link" data-role="click" data-event="CWInteractive" data-cat="ShowORPTest" data-action="Top@(Model.BodyType)Page_ChangeCity" data-label="@(result.MakeName+" "+result.ModelName)">@System.Configuration.ConfigurationManager.AppSettings["ShowPriceInCityText"]</span>
+									    }
+									    else if (result.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity)
+									    {
+                                            <span class="text-bold price-breakup-link text-link" modelid="@result.ModelId" cityid="@result.CarPriceOverview.City.Id" cityname="@result.CarPriceOverview.City.Name" data-role="click" data-event="CWInteractive" data-cat="ShowORPTest" data-action="Top@(Model.BodyType)Page_ViewBreakup" data-label="@(result.CarPriceOverview.City.Name+"_"+result.MakeName+"_"+result.ModelName)" onclick="redirectOrOpenPopup(this, 131)">@System.Configuration.ConfigurationManager.AppSettings["ViewPriceBreakupText"]</span>
+									    }
+								    }
+								    else
+								    {
+									    if (string.IsNullOrWhiteSpace(Model.CityName))
+									    {
+                                            <span class="btn btn-orange btn-xs font14 btnCityPopUp" data-cwtccat="Top@(Model.BodyType)Page" data-cwtcact="OnRoadPriceButton" data-cwtclbl="make:@result.MakeName |model:@result.ModelName|city:@Model.CityZone" data-pageid="130" data-modelid="@result.ModelId" data-role="click-inview-imp" data-action="showpriceinmycity" data-cat="Desktop_Top@(Model.BodyType)Page_ModelCard" data-label="@result.ModelName">@CWConfiguration.orpText</span>
+									    }
+									    else if (result.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity)
+									    {
+                                            <span class="btn btn-orange btn-xs font14 btnChkOnRoadPrice" data-cwtccat="Top@(Model.BodyType)Page" data-cwtcact="OnRoadPriceButton" data-cwtclbl="make:@result.MakeName |model:@result.ModelName|city:@Model.CityZone" data-pageid="130" data-modelid="@result.ModelId" data-role="click-inview-imp" data-action="viewpricebreakup" data-cat="Desktop_Top@(Model.BodyType)Page_ModelCard" data-label="@(result.ModelName + "_" + Model.CityZone)">@CWConfiguration.ViewPriceBreakupText</span>
+									    }
+								    }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="basic-details-section">
+                                @if (!string.IsNullOrEmpty(result.Mileage))
+						    {
+                                    <div class="mileage-unit basic-details-unit">
+                                        <span>Mileage</span>
+                                        <p>@result.Mileage</p>
+                                    </div>
+						    }
+                                @if (result?.Colours?.Count > 0)
+						    {
+                                <div class="color-unit basic-details-unit">
+                                    <span>@(result.Colours.Count > 1 ? "Colours" : "Colour")</span>
+                                    <ul>
+                                        @foreach (var color in result.Colours)
+									    {
+										    var hexList = color.HexCode.Split(',');
+                                            <li class="color-list__item" title="@color.Color">
+                                                @foreach (var hex in hexList)
+											    {
+                                                    <div style="background-color:#@hex.Trim();width:@(100 / hexList.Length)%"></div>
+											    }
+                                            </li>
+									    }
+                                    </ul>
+                                </div>
+						    }
+                            </div>
+                        @if(!ViewBag.IsMobile)
+                        {
+                            <div class="hatchback-more-info">                           
+                                <div class="other-tags clear">
+                                    @if (result.NewsCount > 0)
+							{
+                                        <a class="tag-unit text-grey" href="@string.Format(ViewBag.IsMobile ? "/m/{0}-cars/{1}news/" : "/{0}-cars/{1}news/", UrlRewrite.FormatSpecial(result.MakeName ?? string.Empty), (result.ModelId > 0 ? result.MaskingName + "/" : string.Empty))" data-role="click" data-event="CWInteractive" data-cat="Top10Cars" data-action="capsule" data-label="Top@(Model.BodyType)Page_@(result.ModelName)_News_@(i-1)"><span class="icons car-news-icon" data-role="inview-imp" data-cat="Top10Cars" data-event="CWNonInteractive" data-action="capsule_impression" data-label="Top@(Model.BodyType)Page_@(result.ModelName)_News_@(i-1)"></span> News</a>
+							}
+                                    @if (result.PhotoCount > 0)
+							{
+                                        <a class="tag-unit text-grey" href="@string.Format(ViewBag.IsMobile ? "/m/{0}-cars/{1}images/" : "/{0}-cars/{1}images/", UrlRewrite.FormatSpecial(result.MakeName ?? string.Empty), (result.ModelId > 0 ? result.MaskingName + "/" : string.Empty))" data-role="click" data-event="CWInteractive" data-cat="Top10Cars" data-action="capsule" data-label="Top@(Model.BodyType)Page_@(result.ModelName)_Images_@(i-1)"><span class="icons car-images-icon" data-role="inview-imp" data-cat="Top10Cars" data-event="CWNonInteractive" data-action="capsule_impression" data-label="Top@(Model.BodyType)Page_@(result.ModelName)_Images_@(i-1)"></span> Images</a>
+							}
+                                    @if (result.VideoCount > 0)
+							{
+                                        <a class="tag-unit text-grey" href="@string.Format(ViewBag.IsMobile ? "/m/{0}-cars/{1}videos/" : "/{0}-cars/{1}videos/", UrlRewrite.FormatSpecial(result.MakeName ?? string.Empty), (result.ModelId > 0 ? result.MaskingName + "/" : string.Empty))" data-role="click" data-event="CWInteractive" data-cat="Top10Cars" data-action="capsule" data-label="Top@(Model.BodyType)Page_@(result.ModelName)_Videos_@(i-1)"><span class="icons car-videos-icon" data-role="inview-imp" data-cat="Top10Cars" data-event="CWNonInteractive" data-action="capsule_impression" data-label="Top@(Model.BodyType)Page_@(result.ModelName)_Videos_@(i-1)"></span> Videos</a>
+							}
+                                    @if (result.ExpertReviewCount > 0)
+							{
+                                        <a class="tag-unit text-grey" href="@string.Format(ViewBag.IsMobile ? "/m/{0}-cars/{1}expert-reviews/" : "/{0}-cars/{1}expert-reviews/", UrlRewrite.FormatSpecial(result.MakeName ?? string.Empty), (result.ModelId > 0 ? result.MaskingName + "/" : string.Empty))" data-role="click" data-event="CWInteractive" data-cat="Top10Cars" data-action="capsule" data-label="Top@(Model.BodyType)Page_@(result.ModelName)_Reviews_@(i-1)"><span class="icons car-reviews-icon" data-role="inview-imp" data-cat="Top10Cars" data-event="CWNonInteractive" data-action="capsule_impression" data-label="Top@(Model.BodyType)Page_@(result.ModelName)_Reviews_@(i-1)"></span> Reviews</a>
+							}
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        }
+                        </div><div class="clear"></div>
+                    </li>
+                    
+			        if (i == 4 && ViewBag.IsMobile)
+			        {
+                        <li id="nfcWidget" data-pagename="topCarByBodyTypePage">
+                            @Html.Partial("~/Views/Shared/m/_NCFSecondarySlug.cshtml")<br />
+                        </li>
+			        }
+                }
+            </ul>
+        </div>
+    }
+    <div class="clear"></div>
+</div><div class="clear"></div>
+@if(!Model.IsFilterApplied)
+{
+    Html.RenderAction("TopCarsByBodyTypeCarousel", "CarWidgets", new { currentBodyStyle = Model.BodyStyleId, isMobile = ViewBag.IsMobile });
+}
+
+@if (ViewBag.IsMobile)
+{
+    <section>
+        <div id="filterPluginBtn" data-filterpreselected="@(!Model.IsFilterApplied ? ("bodyStyleIds="+(int)Model.BodyStyleId) : "")" data-cwtccat="Top10cars" data-cwtcact="FilterButtonClicked" data-cwtclbl="page=@Model.BodyType" data-callbackfunc="GetFilteredModels" data-trackingcategory="Top10cars" class="js-fix-tab-nav sort-filter-div text-center sort-filter--animate filterPluginBtn @(Model.ModelList.Count <= 0 ? "hide" : "" )">
+            <span data-cwticat="Top10cars" data-cwtiact="FilterButtonImpression" data-cwtilbl="page=@Model.BodyType" cwt="" class="sort-filter-wrapper">
+                <a id="btnFilter" class="filter-btn">
+                    Filter
+                    <span class="filter-count">@Model.FilterAppliedCount</span>
+                </a>
+            </span>
+            <div class="toast-box hide"></div>
+        </div>
+    <div class="no-result__content listing__no-result @(Model.ModelList.Count > 0 ? "hide" : "" )">
+        <div class="listing-no-result__image"></div>
+
+        <p class="no-result__title">No Cars found</p>
+        <p class="no-result__subtitle">Kindly change your preferences to view results.</p>
+        <div data-callbackfunc="GetFilteredModels" data-filterpreselected="bodyStyleIds=3" class="btn-secondary filterPluginBtn">Edit Filters</div>
+    </div>
+    @Html.Partial("~/Views/Shared/NewCars/_FilterPlugin.cshtml")
+    @*<!-- Go to top code starts here -->*@
+    <div id="gotoTop" class="position-fixed pos-right10 cur-pointer hide">
+        <span class="go-top-icon"></span>
+    </div>
+    @if(!Model.IsFilterApplied)
+    {
+        <div id="ncfSlugBottom">
+            <h2 class="text-uppercase text-center margin-bottom20 m-special-skin-text">Not Sure? Check Out Other Cars</h2>
+            @Html.Partial("~/Views/Shared/m/_NCFPrimarySlug.cshtml")
+            @{Html.RenderAction("BrandWidget", "Make");}
+            @if (Model.BreadcrumbEntitylist.IsNotNullOrEmpty())
+		    {
+                <div class="padding-right10 padding-left10">
+                    @{Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist);}
+                </div>
+            }
+        </div>
+    }
+    </section>
+}
+else
+{
+    <div class="container home-newcar-widget">
+        <h2 class="text-uppercase text-center margin-top50 margin-bottom30">Not Sure? Check Out Other Cars</h2>
+        @{Html.RenderAction("NewCarSearchWidget", "CarWidgets", new { pageId = ViewBag.PageId });}
+    </div>
+}

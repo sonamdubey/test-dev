@@ -1,0 +1,156 @@
+﻿@using Carwale.Entity.Enum;
+@{
+    var inquiryId = Request.Cookies["SellInquiry"] != null ? Carwale.Utility.CarwaleSecurity.Decrypt(Request.Cookies["SellInquiry"].Value.ToString(), true) : ""; // inquiryid for which congrats slider is shown
+    string referrer = HttpContext.Current.Request.UrlReferrer != null ? HttpContext.Current.Request.UrlReferrer.AbsolutePath : string.Empty;
+}
+@if (Model != null)
+{
+    int platform = (int)Model.Source;
+    <div class="mylistingContainer" data-iswebview="@if (Model.Source == Platform.CarwaleMobile) { @:false
+                  } else { @: true
+                  } " data-platform=" @platform ">
+<section class=" container">
+        <div class="grid-12 alpha omega">
+            <div class="success-msg__block hide">
+                <div class="success-msg__content">
+                    <p class="success-msg__content__heading">Congratulations!</p>
+                    <p class="success-msg__content__para">Your changes have been saved successfully</p>
+                </div>
+                <span class="success-msg__btn-close cross-default-15x16 cross-lg-dark-grey"></span>
+                <div class="clear"></div>
+            </div>
+            <h1 class="font16 screen-head__title edit-flow__title margin-bottom15 m-special-skin-text">My Car(s) Listed For Sale</h1>
+            <ul class="sellcar-edit-list-container">
+
+                @foreach (var listing in Model.Listings)
+                {
+                    bool isLive = listing.Status != null && listing.Status.ToLower().Equals("active");
+                    string profileId = string.Concat("S", listing.Id);
+                    <li class="sellcar-edit-list" id="@profileId">
+                        @if (!string.IsNullOrEmpty(listing.ImageURL))
+                        {
+                            <div class="img-wrapper position-rel">
+                                <img src=@listing.ImageURL alt="" title="">
+                                @if (listing.IsImagePendingToApprove)
+                                {
+                                    <p class="image-pending text-center">Image(s) pending for approval</p>
+                                }
+                            </div>
+                        }
+
+                        <div class="tags-wrapper">
+                            @if (listing.PackageType == ClassifiedPackageType.AssistedSales)
+                            {
+                                <span class="assisted-sales-tag guarantee">
+                                    Guaranteed Sale
+                                </span>
+                            }
+                        </div>
+                        <div class="content-detail-wrapper">
+                            <h2>@listing.CarName</h2>
+                            <div>
+                                <div class="edit-sell-detail-unit">
+                                    <div class="edit-detail-label">Profile #</div>
+                                    <div class="edit-detail-value">@profileId</div>
+                                </div>
+                                <div class="edit-sell-detail-unit">
+                                    <div class="edit-detail-label">Price</div>
+                                    <div class="edit-detail-value">₹ @listing.Price</div>
+                                </div>
+                                <div class="edit-sell-detail-unit">
+                                    <div class="edit-detail-label">Model Year</div>
+                                    <div class="edit-detail-value">@listing.MakeMonthYearFormatted</div>
+                                </div>
+                            </div>
+                            <div class="sellcar-ad-unit">
+                                @if (isLive)
+                                {
+                                    <div class="live-ad-status">
+                                        <span class="ad-status">Your Ad is live</span>
+                                        @if (listing.PackageType != ClassifiedPackageType.AssistedSales)
+                                        {
+                                            <span class="ad-expiry-date">Expiring on : @listing.ClassifiedExpiryDate</span>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="delete-ad-status">
+                                        <span class="ad-status">Your Ad is Expired</span>
+                                    </div>
+                                }
+
+                            </div>
+                            @if (isLive)
+                            {
+                                <div class="buyer-detail-unit">
+                                    <span class="buyers-count">Total Buyers : @listing.TotalInq</span>
+                                    @if (listing.TotalInq > 0)
+                                    {
+                                        <a href="javascript:void(0)" id="view-ad-detail" data-listingid="@listing.Id">View Details</a>
+                                    }
+                                </div>
+                            }
+
+                        </div>
+                        <div class="sellcar-edit-card-links">
+                            @if (isLive)
+                            {
+                                <div class="sellcar-show-ad-link">
+                                    <a href="javascript:void(0)" data-listingid="@listing.Id" class="edit-listing-link">Edit car details</a>
+                                    @if (listing.PackageType != ClassifiedPackageType.AssistedSales)
+                                    {
+                                        <a href="javascript:void(0)" class="stop-ad-link" data-listingid="@listing.Id">Stop showing my Ad</a>
+
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="sellcar-delete-ad-link js-delete-my-ad" data-listingid="@listing.Id">
+                                    <a href="javascript:void(0)">Delete My Ad</a>
+                                </div>
+                            }
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="clear"></div>
+        </section>
+        @{ Html.RenderPartial("~/Views/MyListings/DeleteListing.cshtml");}
+        <section class="ad-bottom-slide-popup"></section>
+        @if (ViewBag.Redirect != null && ViewBag.Redirect)
+        {
+            <div id="loadingScreen" class="loader-bg"><span class="loader__spin loader--fixed"></span></div>
+            <div id="modalPopUp" class="modal-box" data-current=""></div>
+            <div id="modalBg" class="modal-bg-layout"></div>
+        }
+    </div>
+}
+else
+{
+    <div class="mylistingContainer">
+        <ul class="sellcar-edit-list-container margin-top20">
+            <li class="sellcar-edit-list">
+                <div class="img-wrapper">
+                    <img src="https://imgd.aeplcdn.com/0x0/cw/cars/no-cars.jpg" alt="" title="">
+                </div>
+                <div class="content-detail-wrapper text-center">
+                    <h2>No listings found</h2>
+                </div>
+                <div class="clear"></div>
+            </li>
+        </ul>
+    </div>
+}
+<div class="clear"></div>
+
+<div class="acknowledgement-msg-card closed" data-payst="n">
+    <span class="cross-btn"></span>
+    <div class="acknowledgement-msg-wrapper">
+        <span class="congratulation-msg-card__icon"></span>
+        <p class="congratulation-title">Congratulations!</p>
+        <p class="congratulation-subtitle">Your Ad is live.</p>
+    </div>
+</div>

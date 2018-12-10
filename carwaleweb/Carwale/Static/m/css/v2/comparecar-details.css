@@ -1,0 +1,28 @@
+﻿.emi-calculator-root {
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9;
+    height: 100vh;
+    overflow: auto;
+    padding-bottom: 50px;
+    background: #ffffff;
+}
+
+.info-icon {
+    width: 15px;
+    height: 15px;
+    vertical-align: text-bottom;
+}
+
+.deals-car-sprite {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/pq-new/info-icon.svg?v1) no-repeat;
+    display: inline-block;
+}
+
+#compareCars {
+    font-family: LatoWeb, sans-serif, Arial;
+    font-size: 13px;
+    color: #666;
+}

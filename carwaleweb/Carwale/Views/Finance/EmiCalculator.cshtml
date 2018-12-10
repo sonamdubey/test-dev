@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Emi Calculator";
+    ViewBag.BodyClass = (ViewBag.isMobile != null && ViewBag.isMobile ? "" : "header-fixed-inner bg-white");
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+    ViewBag.landingPage = false;
+    ViewBag.Responsive = true;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.Canonical = "";
+    ViewBag.Alternate = "";
+    ViewBag.AdId = "1396955522447";
+    ViewBag.AdPath = "/1017752/Carwale_Finance_"; 
+    ViewBag.CustomJS = "~/Views/StaticPartials/Finance/EmiCalculatorScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/Finance/EmiCalculatorCss.cshtml";
+    Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayout.cshtml" : "~/views/shared/_Layout.cshtml");
+    ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+        googletag.cmd.push(function () {
+            googletag.defineSlot('" + ViewBag.AdPath + @"970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90], [960, 60], [970, 60]],'div-gpt-ad-" + ViewBag.AdId + @"-2').addService(googletag.pubads());
+            googletag.defineSlot('" + ViewBag.AdPath + @"300x600', [[120, 240], [120, 600], [160, 600], [300, 250], [300, 600]], 'div-gpt-ad-" + ViewBag.AdId + @"-9').addService(googletag.pubads());
+            googletag.pubads().collapseEmptyDivs();
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>";
+}
+@if(ViewBag.isMobile == null) { 
+<div class="grid-12 bg-white">
+    <div class="padding-bottom15 text-center">
+        @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_728x90.cshtml"); }
+    </div>
+</div>
+}
+<div class="bg-light-grey">
+    <div class="container">
+        <div class="grid-12">
+            <div class="breadcrumb margin-bottom15 margin-top10">
+                <!-- breadcrumb code starts here -->
+                <ul class="special-skin-text" itemscope itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/" itemprop="item" title="Carwale"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li>
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span class="fa fa-angle-right margin-right10"></span><span itemprop="name">Finance</span><meta itemprop="position" content="2" /></li>
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span class="fa fa-angle-right margin-right10"></span><span itemprop="name">EMI Calculator</span><meta itemprop="position" content="3" /></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="emi-calculator-container">
+            <h1 class="text-black margin-top10">EMI Calculator - Calculate Your Car Loan EMI</h1>
+            <div class="border-solid-bottom margin-bottom10"></div>
+            <form class="emi-calci-left-section grid-8">
+                <div class="bg-white loan-amount-container">
+                    <div class="loan-amount-fields">
+                        <label class="inline-block">Loan Amount Applied</label>
+                        <div class="form-control-box inline-block pos-relative">
+                            <input class="form-control ui-autocomplete-input blur" type="text" maxlength="9" id="loanAmount" value="100000">
+                            <span class="position-abt">₹</span>
+                            <span class="cwsprite error-icon PriceCarErrIcn hide"></span>
+                            <div class="cw-blackbg-tooltip PriceCarErrMsg hide"><span class="cwsprite error-icon PriceCarErrIcn"></span></div>
+                        </div>
+                    </div>
+                    <div class="loan-amount-fields">
+                        <label class="inline-block">Rate Of Interest</label>
+                        <div class="form-control-box inline-block pos-relative">
+                            <input class="form-control ui-autocomplete-input blur" type="text" id="interestRate" maxlength="5" value="12">
+                            <span class="fa position-abt">%</span>
+                            <span class="cwsprite error-icon PriceCarErrIcn hide"></span>
+                            <div class="cw-blackbg-tooltip PriceCarErrMsg hide"></div>
+                        </div>
+                    </div>
+                    <div class="loan-amount-options">
+                        <label for="daws"><input type="radio" checked id="emi1" name="emi"> <span>EMI in Advance</span></label>
+                        <label for="gwef"><input type="radio" id="emi2" name="emi"> <span>EMI in Arrears</span></label>
+                    </div>
+                    <div class="text-center margin-top10">
+                        <a href="javascript:void(0)" class="btn btn-orange btn-xlg" id="submit" onclick="javascript: emiCalculator.calculateAllEmi()">Calculate EMI</a>
+                        <div class="clear"></div>
+                        <a href="javascript:void(0)" class="margin-top10 inline-block text-bold position-rel" onclick="dataLayer.push({ event: 'BBLink_finance', cat: 'BBLinkClicks_emiCalculator', act: 'finance_EMICalculatorLink_Clicks', lab: 'calculate emi' }); window.open('https://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|EMIcalculatorpagelink_desktop&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide&variantOptions=mobileRequired')" rel="nofollow noopener">Get Car Loan Offers<span class="position-abt text-grey addText font9">Ad</span></a>
+                    </div>
+                </div>
+                <div class="emi-tabular-calculation">
+                    <table class="border-solid bg-white" cellpadding="0" cellspacing="0" id="displayEmi">
+                        <thead>
+                            <tr>
+                                <th class="bg-light-grey">Months</th>
+                                <th class="bg-light-grey">EMI</th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="template:{name:'emiTemplate', foreach:emiList}"></tbody>
+                    </table>
+                </div>
+                <p class="interest-link-para">If you are not sure what interest rate you are being charged for your car loan, try our <a href="/finance/emicompare/">Interest Rate Calculator/Loan Comparison tool</a>.</p>
+                <p class="font12 margin-top10">
+                    Disclaimer: The calculation performed by EMI Calculator is based on the information you entered and is for illustrative purposes only. This calculation reflects amounts in Indian Rupee rounded to the nearest whole figure. Estimated monthly payments DO NOT include any processing or other possible fees which may depend on the financial institution / banks.
+                </p>
+                <p class="font12 margin-bottom30">
+                    All loan figures are based upon non-commercial usage and are subject to credit approval from an independent lending source. Actual down payment and resulting monthly payments may vary depending upon type and use of vehicle, regional lender requirements, and the strength of your credit. Check with your dealer for exact monthly payment.
+                </p>
+            </form>
+            <div class="grid-4 emi-calci-right-section margin-bottom20 text-center">
+                @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_Bottom_300x600.cshtml"); }
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+
+<script type="text/html" id="emiTemplate">
+    <tr>
+        <td><span data-bind="text:month"></span></td>
+        <td><span data-bind="text:'₹ '+ emi"></span><a data-bind="attr: {href: '/finance/emiviewchart/?roi=' + $root.roi() +'&loanamt=' + $root.loanAmt() + '&months=' + month + '&emitype=' + $root.emiType() }" target="_blank">View Chart</a></td>
+    </tr>
+</script>

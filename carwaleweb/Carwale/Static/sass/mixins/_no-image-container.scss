@@ -1,0 +1,26 @@
+@import '../mixins/_variables.scss';
+@import "../mixins/_vendor-prefix.scss";
+
+@mixin no-image-container ($opacity: .6, $width: 55%) {
+    .no-image-container {
+	    @include vendor-prefix('transform', translate(-50%, -50%));
+	    position: relative;
+        top: 50%;
+        left: 50%;
+        text-align: center;
+    }
+
+    .no-image-container__image {
+	    opacity: $opacity;
+	    width: $width;
+    }
+}
+
+@mixin no-image-text ($font-size: 18, $color: 'text-grey', $font-weight: $font-bold) {
+    .no-image-container__text {
+	    font-size: $font-size * 1px;
+        margin-top: 10px;
+        color: map-get($color-map, $color);
+        font-weight: $font-weight;
+    }
+}

@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[CarwaleRoles] (
+    [Id]   INT          IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [Role] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_ForumRoles] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

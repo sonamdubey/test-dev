@@ -1,0 +1,128 @@
+﻿@using Carwale.UI.PresentationLogic;
+@using MobileWeb.Common;
+@model Carwale.Entity.ViewModels.HomeModel
+@{
+    ViewBag.Title = "New Cars, Used Cars, Car Prices, Reviews & Photos in India";
+    ViewBag.Description = "CarWale is India's most authoritative source of new car pricing. Focused around car buyers, CarWale promises to help you buy the right car at the right price.";
+    ViewBag.Keywords = "";
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.DeeplinkAlternativesAndroid = ViewBag.DeeplinkAlternatives;
+    ViewBag.Canonical = "https://www.carwale.com/";
+    Layout = "~/views/shared/m/_MLayoutV2.cshtml";
+    ViewBag.BodyClass = "m-home-special-page";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MHomePageCss.cshtml";
+    ViewBag.DefineAdSlots =
+        @"<script type='text/javascript'>
+            var AdSlots = {};
+			googletag.cmd.push(function () {
+                googletag.pubads().disableInitialLoad();
+			    googletag.pubads().setCentering(true);
+				AdSlots['div-gpt-ad-1439182210283-0']=googletag.defineSlot('/1017752/Carwale_Mobile_Homepage_FirstSlot_320x150', [[320, 50], [320, 100], [320, 150], [320, 425],[320,500]], 'div-gpt-ad-1439182210283-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+				AdSlots['div-gpt-ad-1439182210283-2']=googletag.defineSlot('/1017752/Carwale_Mobile_Homepage_SecondSlot_320x150', [[320, 50], [320, 100], [320, 150], [320, 425]], 'div-gpt-ad-1439182210283-2').addService(googletag.pubads());
+				googletag.pubads().setTargeting('City','" + @MobileWeb.Common.CookiesCustomers.MasterCity.ToString() + @"');
+				googletag.pubads().enableSingleRequest();
+				googletag.pubads().collapseEmptyDivs(true);
+				googletag.enableServices();
+			});
+		</script>";
+    bool showAdvantageDiscountLink = Advanatge.ShowAdvantageDiscountLink;
+}
+@section Plugins{
+    <script type="text/javascript" src="/static/m/js/plugins/swiper.js" defer></script>
+	<script type="text/javascript" src="/static/m/js/plugins/beauty-tooltips.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/plugins/flip.js" defer></script>
+}
+@section Styles{
+<noscript class="deferred-styles"><link rel="stylesheet" href="/static/m/css/v2/home.css" type="text/css" ><link rel="stylesheet" href="/static/m/css/v2/swiper.css" type="text/css"><link rel="stylesheet" href="/static/m/css/v2/ncf-slugs.css" type="text/css"><link rel="stylesheet" href="/static/m/css/zone-property-style.css" type="text/css"></noscript>
+}
+<section><div class="container"><!-- Top banner code starts here --><div class="banner-home text-center" style='@(Model.SponsoredHomeBanner != null && !String.IsNullOrWhiteSpace(Model.SponsoredHomeBanner.ImageUrl) ? "background:" + Model.SponsoredHomeBanner.BackgroundColor + " url(" + Url.Content(Model.SponsoredHomeBanner.ImageUrl) + ") no-repeat " + Model.SponsoredHomeBanner.HorizontalPosition + " " + Model.SponsoredHomeBanner.VerticalPosition + "; background-size: cover;height: 340px;" : "")'>
+
+			@if (Model.SponsoredHomeBanner != null && !String.IsNullOrWhiteSpace(Model.SponsoredHomeBanner.ImageUrl))
+			{
+				<div class="car-search-unit"><section class="container"><!-- New cars - Used cars tab panel code starts here --><div class="grid-12"><div class="welcome-box pos-relative home-page-search-panel" style='margin-top: @(Model.SponsoredHomeBanner.JumbotronPosition + "px;")'><h1 class="text-uppercase text-white text-underline ncf__link">Find the right car</h1><div class="cw-tabs-panel"><div class="cw-tabs home-tabs"><div class="selected-car-tab"><ul><li class='@(ViewBag.IsNewCarSearchType ? "new-tab-text" : "used-tab-text") active list-item' data-tabs="@(ViewBag.IsNewCarSearchType ? "newCars" : "usedCars")">@(ViewBag.IsNewCarSearchType ? "New" : "Used")<span class="fa fa-angle-down"></span></li></ul></div><ul class="tab-car-menu"><li class='@(ViewBag.IsNewCarSearchType ? "used-tab-text" : "new-tab-text") list-item' data-tabs="@(ViewBag.IsNewCarSearchType ? "usedCars" : "newCars")">@(ViewBag.IsNewCarSearchType ? "Used" : "New")<span class="fa fa-angle-down"></span></li></ul></div><div class="cw-tabs-container"><div class='@(ViewBag.IsNewCarSearchType ? "" : "hide") cw-tabs-data' id="newCars"><div class="new-used-search-container"><div class="new-used-search new-cars-search position-rel"><input type="text" placeholder='@(ViewData["HomePageBanner"] ?? "Loading...")' id="newCarsList" class="rounded-corner2" disabled><span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span></div><div class="clear"></div></div></div><div class='@(ViewBag.IsNewCarSearchType ? "hide" : "") cw-tabs-data' id="usedCars"><div class="new-used-search-container"><div class="new-used-search text-left"><div class="used-search rounded-corner2 position-rel bg-white used-tab-form"><input class="rounded-corner2" type="text" placeholder="City, eg: Mumbai" id="usedCarsList"><span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span></div><div id="btnFindCarHome" class="inline-block"><button class="btn text-uppercase btn-orange btn-sm font14"><span class="fa fa-arrow-right"></span></button></div><div class="clear"></div></div><div class="clear"></div></div></div></div><div class="clear"></div></div><div class='offer-link-unit @(ViewBag.IsNewCarSearchType ? "" : "hide")'>
+									@if (showAdvantageDiscountLink)
+									{
+										@*<hr class="advantage-link-divider" />*@
+										<div class="margin-bottom20 font13 advantage-link-unit inline-block"><a id="advantageLinkHome" href="/m/advantage/">New Car Discounts</a></div><span class="text-white"> |</span>
+									}
+									<p class="margin-bottom10 all-car-link inline-block">
+                    <span class='ncf__link'>Help me find the car</span>
+                    </p></div></div></div><div class="clear"></div></section></div>
+				@Html.Raw(Model.SponsoredHomeBanner.Ad_Html)
+
+			}
+			else
+			{
+				<div class="car-search-unit"><section class="container"><!-- New cars - Used cars tab panel code starts here --><div class="grid-12"><div class="welcome-box pos-relative home-page-search-panel"><h1 class="text-uppercase text-white text-underline ncf__link">Find the right car</h1><div class="cw-tabs-panel"><div class="cw-tabs home-tabs"><div class="selected-car-tab"><ul><li class='@(ViewBag.IsNewCarSearchType ? "new-tab-text" : "used-tab-text") active list-item' data-tabs="@(ViewBag.IsNewCarSearchType ? "newCars" : "usedCars")">@(ViewBag.IsNewCarSearchType ? "New" : "Used")<span class="fa fa-angle-down"></span></li></ul></div><ul class="tab-car-menu"><li class='@(ViewBag.IsNewCarSearchType ? "used-tab-text" : "new-tab-text") list-item' data-tabs="@(ViewBag.IsNewCarSearchType ? "usedCars" : "newCars")">@(ViewBag.IsNewCarSearchType ? "Used" : "New")<span class="fa fa-angle-down"></span></li></ul></div><div class="cw-tabs-container"><div class='@(ViewBag.IsNewCarSearchType ? "" : "hide") cw-tabs-data' id="newCars"><div class="new-used-search-container"><div class="new-used-search new-cars-search position-rel"><input type="text" placeholder='@(ViewData["HomePageBanner"] ?? "Loading...")' id="newCarsList" class="rounded-corner2" disabled><span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span></div><div class="clear"></div></div></div><div class='@(ViewBag.IsNewCarSearchType ? "hide" : "") cw-tabs-data' id="usedCars"><div class="new-used-search-container"><div class="new-used-search text-left"><div class="used-search rounded-corner2 position-rel bg-white used-tab-form"><input class="rounded-corner2" type="text" placeholder="City, eg: Mumbai" id="usedCarsList"><span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span></div><div id="btnFindCarHome" class="inline-block"><button class="btn text-uppercase btn-orange btn-sm font14"><span class="fa fa-arrow-right"></span></button></div><div class="clear"></div></div><div class="clear"></div></div></div></div><div class="clear"></div></div><div class='offer-link-unit @(ViewBag.IsNewCarSearchType ? "" : "hide")'>
+									@if (showAdvantageDiscountLink)
+									{										
+										<div class="margin-bottom20 font13 advantage-link-unit inline-block"><a id="advantageLinkHome" href="/m/advantage/">New Car Discounts</a></div><span class="text-white"> |</span>
+									}
+									<p class="margin-bottom10 all-car-link inline-block">
+                    <span class='ncf__link'>Help me find the car</span>
+                   </p></div></div></div><div class="clear"></div></section></div>
+			}
+
+		</div><!-- Top banner code ends here --></div></section>
+        <div class="clear"></div>
+        <div class="container">
+    <!-- /1017752/Carwale_Mobile_Homepage_FirstSlot_320x150 --><div id='div-gpt-ad-1439182210283-0' class="margin-top20 text-center section-hide" data-load-immediate="true">
+    <script type='text/javascript'>
+        googletag.cmd.push(function () { googletag.display('div-gpt-ad-1439182210283-0'); });
+    </script>
+</div>
+</div><div class="clear"></div>
+
+<div id="nfcWidget" data-pagename="homePage">
+	@Html.Partial("~/Views/Shared/m/_NCFSecondarySlug.cshtml")
+</div>
+ <section><!--  Upcoming, New Launches and Top Selling code starts here --><div class="container" id="UNTCarouselContainer"><div class="grid-12"><h2 class="text-uppercase text-center margin-top25 margin-bottom20 m-special-skin-text">Featured cars</h2><div class="cw-tabs-panel"><div class="cw-tabs margin-bottom15"><div class="form-control-box"><span class="select-box fa fa-angle-down"></span><select class="form-control" id="UNTDrp" onchange="UNTDrpChange(this,'UNTCarouselContainer')"><option value="upComingCars">Upcoming Cars</option><option value="topSelling">Popular</option><option value="newLaunches">Just Launched</option></select></div></div>
+	@Html.Partial("m/_UpcomingCarousel", Model.Upcoming)
+	@Html.Partial("m/_TopSellingCarousel", Model.TopSellingModel, new ViewDataDictionary { { "pageId", "61" } })
+	@Html.Partial("m/_NewLaunchesCarousel", Model.NewLaunches, new ViewDataDictionary { { "pageId", "63" } })
+</div></div><div class="clear"></div></div><!-- Upcoming, New Launches and Top Selling code Ends here --></section>
+ <section>
+ @{Html.RenderAction("BrandWidget", "Make");}
+ </section>
+@{Html.RenderAction("TopCarsByBodyTypeCarousel", "CarWidgets", new { isMobile = true });}
+<div class="container">
+    <!-- /1017752/Carwale_Mobile_Homepage_SecondSlot_320x150 --><div id='div-gpt-ad-1439182210283-2' class="margin-bottom20 text-center section-hide">
+    <script type='text/javascript'>
+        googletag.cmd.push(function () { googletag.display('div-gpt-ad-1439182210283-2'); });
+    </script>
+</div>
+</div><div class="clear"></div><section class="home-getFinalPrice-banner" style="@(Model.SponsoredPQBanner != null && !String.IsNullOrWhiteSpace(Model.SponsoredPQBanner.ImageUrl) ? "background:" + Model.SponsoredPQBanner.BackgroundColor + " url(" + Url.Content(Model.SponsoredPQBanner.ImageUrl) + ") no-repeat " + Model.SponsoredPQBanner.HorizontalPosition + " " + Model.SponsoredPQBanner.VerticalPosition + ";" : "")"><!--  Get Final Price code starts here --><div class="container"><div class="grid-12"><div class="content-inner-block-15 margin-top10"><h2 class="text-white text-center text-uppercase margin-bottom20">Check on-road price</h2><div class="form-control-box margin-bottom15 position-rel"><input class="form-control" type="text" placeholder='@(ViewData["PQWidget"] ?? "Type to select car name")' id="getFinalPrice"><span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span><span class="cwmsprite error-icon hide"></span><div class="cw-blackbg-tooltip hide">Please select model</div></div><div class="form-control-box margin-bottom20"><div id="drpCityFinalPrice" class="select-city-link form-control disable-div fixed-height @(CookiesCustomers.IsEligibleForORP && CookiesCustomers.MasterCityId>0?"hide":"") " data-bind="attr: { 'cityid': 'CityId', 'cityname': 'CityName', 'zoneid': 'ZoneId', 'zonename': 'ZoneName'}" onclick=@(CookiesCustomers.IsEligibleForORP ? "" : "openCityPopUp(this,assignHomeModelId)")><span class="select-box fa fa-angle-down" style="display:block;"></span><span>Select City</span></div><span class="cwmsprite error-icon hide"></span><div class="cw-blackbg-tooltip hide">Please select your city</div></div><button id="getPQ" class="btn btn-orange btn-full-width text-uppercase margin-bottom10">check now</button><p class="font13 text-white">Its private, no need to share your number and email</p></div></div><div class="clear"></div>
+
+		@if (Model.SponsoredPQBanner != null && !String.IsNullOrWhiteSpace(Model.SponsoredPQBanner.ImageUrl) && !String.IsNullOrEmpty(Model.SponsoredPQBanner.Ad_Html))
+		{
+			@Html.Raw(Model.SponsoredPQBanner.Ad_Html)
+		}
+	</div></section><!-- Get Final Price code Ends here --><section class="bg-white padding-top5 m-no-bg-color"><!--  Compare section code starts here -->
+	@Html.Partial("m/_TopComparisons", Model.HotComparisons)
+</section><!-- Compare code Ends here --><section class="bg-light-grey m-no-bg-color"><!-- Used Cars code starts here -->
+	@Html.Partial("m/_TopUsedCarousel", Model.PopularUsedCars)
+	<!-- Used Cars code Ends here --></section><section><!--  News, reviews and videos code starts here --><div class="container" id="news-reviews-videos-container"><div class="grid-12"><h2 class="text-uppercase text-center margin-bottom20 m-special-skin-text">LATEST CAR UPDATES</h2><div class="cw-tabs-panel"><div class="cw-tabs margin-bottom15"><div class="form-control-box"><span class="select-box fa fa-angle-down"></span><select class="form-control" onchange="UNTDrpChange(this,'news-reviews-videos-container')" id="NRVDrp"><option class="active" value="News" data-tabs="News">Car News</option><option value="Reviews" data-tabs="Reviews">Expert Reviews</option>
+							@if (Model.TopVideos != null)
+							{
+								<option value="Videos" data-tabs="Videos">Videos</option> }
+						</select></div></div><div class="cw-tabs-data" id="News">
+					@Html.Partial("m/_TopLatestNews", Model.TopNews)
+					<div class="text-center margin-bottom20"><a class="font14" href="/m/news/">View more news</a></div></div><div class="cw-tabs-data hide" id="Reviews">
+					@Html.Partial("m/_TopExpertReviews", Model.TopReviews)
+					<div class="text-center margin-bottom20"><a class="font14" href="/m/expert-reviews/">View more reviews</a></div></div>
+				@if (Model.TopVideos != null)
+				{
+					<div class="cw-tabs-data margin-bottom20 hide" id="Videos">
+						@Html.Partial("m/_TopVideos", Model.TopVideos)
+					</div>
+				}
+			</div></div><div class="clear"></div></div></section><!--  News, reviews and videos code ends here --><div id="blackOut-window-pq" class="blackOut-window hide"></div><div id="loadingCarImg" class="hide"><div class="m-loading-popup"><span class="m-loading-icon"></span><div class="clear"></div></div></div>
+@section Scripts{
+	<script>
+		var HomePage = {
+			banner:'@ViewBag.HomePageBanner',
+			topVideoContent:@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopVideos)),
+			isHomePage:true
+		};
+	</script><script type="text/javascript" src="/static/m/js/v2/app/home.js" defer></script><script type="text/javascript" src="/static/m/js/upcoming-form.js" defer></script>
+}

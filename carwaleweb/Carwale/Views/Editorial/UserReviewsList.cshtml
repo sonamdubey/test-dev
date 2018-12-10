@@ -1,0 +1,337 @@
+﻿@model Carwale.DTOs.CMS.Models.UserReviewsListDTO
+@using Carwale.Utility
+@using Carwale.UI.Common
+@using Carwale.UI.PresentationLogic
+@using Carwale.Entity.Enum
+@{
+    ViewBag.BodyClass = (ViewBag.IsMobile ? string.Empty : "bg-white header-fixed-inner");
+    ViewBag.PageId = 43;
+    ViewBag.VersionUrl = (ViewBag.VersionId > 0 ? "-" + ViewBag.VersionId + "/" : "/");
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.landingPage = false;
+    ViewBag.Responsive = true;
+    ViewBag.Title = string.Format("User Reviews: {0} {1}", Model.ModelDetails.MakeName, Model.ModelDetails.ModelName);
+    ViewBag.Description = string.Format("{0} {1} User Reviews - Read first-hand reviews of actual {0} {1} owners. Find out what buyers of {0} {1} have to say about the car.", Model.ModelDetails.MakeName, Model.ModelDetails.ModelName);
+    ViewBag.Keywords = string.Format("{0} {1} reviews, {0} {1} Users Reviews, {0} {1} customer reviews, {0} {1} customer feedback, {0} {1} owner feedback, user car reviews, owner feedback, consumer feedback, buyer reviews", Model.ModelDetails.MakeName, Model.ModelDetails.ModelName);
+    ViewBag.CustomJS = "~/Views/StaticPartials/editorial/UserReviewListScripts.cshtml";
+    ViewBag.CustomCSS = "~/Views/StaticPartials/editorial/UserReviewListCss.cshtml";
+    ViewBag.Canonical = "https://www.carwale.com" + ViewBag.Url != null ? ViewBag.Url.Replace("/m/", "/") : string.Empty;
+    ViewBag.Alternate = "https://www.carwale.com/m" + ViewBag.Url;
+    ViewBag.Next = ((ViewBag.Page + 1)>Model.PageNumber)?null:"https://www.carwale.com/" + (ViewBag.isMobile ? "m/" : string.Empty) + (Model.ModelDetails != null ? Model.ModelDetails.MakeName.ToLower() + "-cars" + (Model.ModelDetails != null ? "/" + Model.ModelDetails.MaskingName : string.Empty) : string.Empty) + "/userreviews-p" + (ViewBag.Page + 1) + "/";
+    ViewBag.Prev = ViewBag.Page == 1 ? null : "https://www.carwale.com/" + (ViewBag.isMobile ? "m/" : string.Empty) + (Model.ModelDetails != null ? Model.ModelDetails.MakeName.ToLower() + "-cars" + (Model.ModelDetails != null ? "/" + Model.ModelDetails.MaskingName : string.Empty) + "/" : string.Empty) + "userreviews" + ((ViewBag.Page - 1) > 1 ? "-p" + (ViewBag.Page - 1) + "/" : "/");
+    ViewBag.AdId = "1396440332273";
+    ViewBag.AdPath = "/1017752/ReviewsNews_";
+    ViewBag.AdMobilePath = (System.Configuration.ConfigurationManager.AppSettings["adPathMobile"] ?? string.Empty);
+    ViewBag.IsCityPage = false;
+    string noCarsImage = string.Format("{0}{1}/cw/cars/no-cars.jpg", Carwale.Utility.CWConfiguration._imgHostUrl, ImageSizes._310X174);
+    bool isMobile = ViewBag.IsMobile != null && true == ViewBag.IsMobile;
+    if (ViewBag.IsMobile)
+    {
+        ViewBag.DefineAdSlots =
+                @"<script type='text/javascript'>
+                googletag.cmd.push(function () {
+                googletag.defineSlot('/1017752/" + ViewBag.AdMobilePath + @"CarWale_Mobile_ROS_320x50', [320, 50], 'div-gpt-ad-1419227721763-0').addService(googletag.pubads())
+                googletag.defineSlot('/1017752/" + ViewBag.AdMobilePath + @"CarWale_Mobile_ROS_300x250', [300, 250], 'div-gpt-ad-1435297201507-0').addService(googletag.pubads());
+                googletag.pubads().setTargeting('Section', ['']);
+                googletag.pubads().setTargeting('City', '" + MobileWeb.Common.CookiesCustomers.MasterCity.ToString() + @"');
+                googletag.pubads().setTargeting('Section', '');
+                googletag.pubads().collapseEmptyDivs();
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+            });
+            </script>";
+    }
+    else
+    {
+        ViewBag.DefineAdSlots =
+               @"<script type='text/javascript'>
+                googletag.cmd.push(function () {
+                googletag.defineSlot('" + ViewBag.AdPath + @"300x250', [300, 250], 'div-gpt-ad-" + ViewBag.AdId + @"-0').addService(googletag.pubads());
+                googletag.defineSlot('" + ViewBag.AdPath + @"300x250_BTF', [300, 250], 'div-gpt-ad-" + ViewBag.AdId + @"-1').addService(googletag.pubads());
+                googletag.defineSlot('" + ViewBag.AdPath + @"970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90]], 'div-gpt-ad-" + ViewBag.AdId + @"-2').addService(googletag.pubads());
+                googletag.defineSlot('/7590/CarWale_NewCar/NewCar_Make_Page/NewCar_Model_Page/NewCar_Model_643x65', [643, 65], 'div-gpt-ad-1383197943786-0').addService(googletag.pubads());
+                googletag.pubads().setTargeting('Models', '" + Model.ModelDetails.ModelName.Trim() + @"');
+                googletag.pubads().setTargeting('City', '" + CookiesCustomers.MasterCity.ToString() + @"');
+                googletag.pubads().setTargeting('UserModelHistory', '" + CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+                googletag.pubads().collapseEmptyDivs();
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+                });
+            </script>";
+    }
+    Layout = (ViewBag.IsMobile != null && ViewBag.IsMobile ? "~/views/shared/m/_MLayoutV2.cshtml" : "~/views/shared/_LayoutV2.cshtml");
+}
+
+<section class="container">
+    @if (ViewBag.IsMobile)
+    {
+        <div id="divAdBar">
+            <div id='div-gpt-ad-1419227721763-0' style='width:320px; height:50px; margin:10px auto 0 auto;'>
+                <script type='text/javascript'>
+                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1419227721763-0'); });
+                </script>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="grid-12">
+            <div class="padding-bottom10 padding-top10 text-center">
+                @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_728x90.cshtml");}
+            </div>
+        </div>
+    }
+</section>
+<div class="clear"></div>
+<section class="padding-top10 padding-bottom20">
+    <div class="container">
+        <div class="grid-12"><!-- breadcrumb code starts here -->
+            @{ Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist); }
+            <h1 class="text-black leftfloat special-skin-text m-special-skin-text">@ViewBag.CarName User Reviews</h1>
+            <div class="clear"></div>
+            <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="user-review-grid grid-8">
+            @if (ViewBag.IsMobile != null && !ViewBag.IsMobile)
+            {
+                Html.RenderPartial("~/Views/Shared/NewCars/_QuickMenu.cshtml", Model.QuickMenuDetails);
+            }
+            <div class="content-box-shadow content-inner-block-10" style="margin-top:-5px;">
+                <div class="mid-box">
+                    <div class="clear"></div>
+                    <div class="leftfloat reviews-car-summary">
+                        
+                            @if (Model.ModelDetails != null)
+                            {
+                                if (Model.ModelDetails.PhotoCount > 0)
+                                {
+                                <img class="img-border @(ViewBag.IsMobile ? string.Empty : "car-image")" border="0" src="@ImageSizes.CreateImageUrl(Model.ModelDetails.HostUrl, Carwale.Utility.ImageSizes._310X174, Model.ModelDetails.OriginalImage)" alt="@ViewBag.CarName Pictures" title="@ViewBag.CarName Photos" onerror="this.onerror=null;this.src='@noCarsImage';" />
+                                <ul class="list-type-pills text-center">
+                                    @if (!string.IsNullOrEmpty(Model.ModelDetails.OriginalImage))
+                                    {
+                                        <li class="list-type-pills__item">
+                                            <a href="@(!string.IsNullOrEmpty(Model.ModelDetails.OriginalImage) ? ((ViewBag.IsMobile ? "/m/" : "/") + @Format.FormatSpecial(Model.ModelDetails.MakeName) + "-cars/" + Model.ModelDetails.MaskingName + "/images/"): "javascript:void(0);")" data-role="click-tracking" data-event="CWInteractive" data-action="@(ViewBag.IsMobile ? "msite_user_review_model_image" : "desktop_user_review_model_image")" data-cat="contentcons" data-label="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName" target="@(ViewBag.IsMobile ? "" : "_blank")">
+                                                <div class="item--padding">
+                                                    <span class="media-image-icon item--icon-right-margin"></span>
+                                                    <span class="list-item__label">Images (@Model.ModelDetails.PhotoCount)</span>
+                                                </div>                                            
+                                            </a>
+                                        </li>
+                                    }
+                                    @if (Model.ModelDetails.VideoCount > 0)
+                                    { 
+                                    <li class="list-type-pills__item">
+                                        <div class="list-type-pills__item" data-role="click" data-event="CWInteractive" data-cat="@(ViewBag.IsMobile?"msite":"desktop")_video_linkages" data-action="user_reviews" data-label="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName">
+                                            <a href="@Carwale.BL.CMS.CMSCommon.GetVideoUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, null, 0, ViewBag.IsMobile)" class="item--padding" data-role="inview-imp" data-cat="@(ViewBag.IsMobile?"msite":"desktop")_video_linkages" data-action="user_reviews_impression" data-label="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName">
+                                                <span class="media-video-icon"></span>
+                                                <span class="list-item__label margin-left5">Videos (@Model.ModelDetails.VideoCount)</span>
+                                            </a>
+                                        </div>
+                                    </li>}
+                                </ul>
+                                }
+                                else
+                                {
+                                    <img class="img-border @(ViewBag.IsMobile ? string.Empty : "car-image")" border="0" src="@ImageSizes.CreateImageUrl(Model.ModelDetails.HostUrl, Carwale.Utility.ImageSizes._310X174, Model.ModelDetails.OriginalImage)" alt="@ViewBag.CarName Pictures" title="@ViewBag.CarName Photos" onerror="this.onerror=null;this.src='@noCarsImage';" />
+                                }
+                            }
+                            <div style="margin-top: 10px; line-height: 17px;">
+                                @if (Model.CarPriceOverview != null && Model.CarPriceOverview.Price > 0)
+                                {
+                                    <span class="price2">Price: ₹ @FormatPrice.GetFormattedPriceV2(Model.CarPriceOverview.Price.ToString())</span> <span class="font12">@(Model.CarPriceOverview.PriceVersionCount > (int)Carwale.Entity.PriceBucket.HaveUserCity ? "onwards" : "")</span><br />
+                                    <div class='font13 @(Model.CarPriceOverview.PriceStatus == (int)Carwale.Entity.PriceBucket.PriceNotAvailable ? "oliveText" : Model.CarPriceOverview.PriceStatus == (int)Carwale.Entity.PriceBucket.CarNotSold ? "redText" : "")'>
+                                        @Model.CarPriceOverview.PriceLabel@(Model.CarPriceOverview.PriceStatus == (int)Carwale.Entity.PriceBucket.HaveUserCity ? ", " + Model.CarPriceOverview.City.CityName : "")
+                                    </div>
+                                }
+                                <span class="f-small">
+                                    <a title="@ViewBag.CarName details" href='/@UrlRewrite.FormatSpecial(Model.ModelDetails.MakeName)-cars/@Model.ModelDetails.MaskingName/' data-cwtccat="ReviewsListingsPage" data-cwtcact="CarDetailsClick" data-cwtclbl="modelid=@Model.ModelDetails.ModelId|source=@(isMobile ? 43 : 1)">@Model.ModelDetails.ModelName Details</a>
+                                    @if (Model.ModelDetails.New)
+                                    {
+                                        <span class="text-grey">
+                                            |
+                                        </span><a href="javascript:void(0);" modelid="@Model.ModelDetails.ModelId" id="reviewOnRoad" data-cwticat="ReviewsListingsPage" data-cwtiact="OnRoadPriceImpression" data-cwtilbl="modelid=@Model.ModelDetails.ModelId|source=@(isMobile ? 43 : 1)" data-cwtccat="ReviewsListingsPage" data-cwtcact="OnRoadPriceClick" data-cwtclbl="modelid=@Model.ModelDetails.ModelId|source=@(isMobile ? 43 : 1)" cwt>On Road Price</a>
+                                    }
+                                </span>
+                            </div>
+                    </div>
+                    <div class="rightfloat reviews-details-summary">
+                        @if (ViewBag.IsMobile != null && !ViewBag.IsMobile)
+                        {
+                            <div class="rightfloat" style="width: 140px; margin-top: 25px;">
+                                <p class="font12">Own a <span class="price2">@ViewBag.CarName?</span><br /> Help others make an informed buying decision.</p>
+                                <p style="padding-top: 5px;" data-cwtccat="RatingLinkage" data-cwtcact="@($"{CwPages.UserReviewListDesktop}ButtonClick")" data-cwtclbl="model=@Model.ModelDetails.ModelId"><a class="btn btn-orange btn-xs" href=@ManageCarUrl.CreateRatingPageUrl(Model.ModelDetails.ModelId)>Write a Review</a></p>
+                            </div>
+                        }
+                        <span class="price2 text-bold">@ViewBag.CarName Ratings</span>
+                        <ul class="model-ratings vr-dotted" style="padding-top: 8px;">
+                            <li><span class="rating-sprite @Html.Raw(MobileWeb.Common.CommonOpn.GetRateImage(Model.ModelDetails.ModelRating))"></span>Overall</li>
+                            <li><span class="rating-sprite @Html.Raw(MobileWeb.Common.CommonOpn.GetRateImage(Model.ModelDetails.Looks))"></span>Looks</li>
+                            <li><span class="rating-sprite @Html.Raw(MobileWeb.Common.CommonOpn.GetRateImage(Model.ModelDetails.Performance))"></span>Performance</li>
+                            <li><span class="rating-sprite @Html.Raw(MobileWeb.Common.CommonOpn.GetRateImage(Model.ModelDetails.Comfort))"></span>Space/Comfort</li>
+                            <li><span class="rating-sprite @Html.Raw(MobileWeb.Common.CommonOpn.GetRateImage(Model.ModelDetails.FuelEconomy))"></span>Fuel Economy</li>
+                            <li><span class="rating-sprite @Html.Raw(MobileWeb.Common.CommonOpn.GetRateImage(Model.ModelDetails.ValueForMoney))"></span>Value For Money</li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                    @if (ViewBag.IsMobile)
+                    {
+                        <a class="block text-center margin-top10" href=@ManageCarUrl.CreateRatingPageUrl(Model.ModelDetails.ModelId) data-cwtccat="RatingLinkage" data-cwtcact="@($"{CwPages.UserReviewListMsite}ButtonClick")" data-cwtclbl="model=@Model.ModelDetails.ModelId"
+                        data-role="click-tracking" data-event="CWInteractive" data-cat="msite_user_review" data-action="user_review_model_write_review_link" data-label="@Model.QuickMenuDetails.MakeName @Model.QuickMenuDetails.ModelName">
+                        <span class="btn-xs btn-white btn-full-width btn-transparent text-bold">Write Review</span></a>
+                    }
+                               </div>
+                <div class="clear"></div>
+                <h2 class="font20 margin-top10"><span id="reviewCountId">@Model.ModelDetails.ReviewCount</span> @ViewBag.CarName User Reviews Available</h2>
+                <div class="gray-block-top">
+                    @if (!ViewBag.IsMobile && Model.UserReviewsList.Count > 0)
+                    {
+                        <div class="ul-horz padding-top10">
+                            <div class="grid-6 alpha">
+                                <p class="leftfloat margin-top5 margin-right5">Show reviews for</p>
+                                <div class="form-control-box leftfloat grid-7">
+                                    <span class="select-box fa fa-angle-down"></span>
+                                    <select class="form-control input-xs" id="drpReviewedVersions">
+                                        <option value="-1">--All Versions--</option>
+                                        @foreach (var version in Model.CarVersions)
+                                        {
+                                            <option value="@version.Id">@version.Version</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="grid-6 omega">
+                                <div>
+                                    <p class="grid-4 alpha omega margin-top5 text-right">Sort by</p>
+                                    <div class=" form-control-box grid-8">
+                                        <span class="select-box fa fa-angle-down"></span>
+                                        <select class="form-control input-xs" id="drpReleventSort">
+                                            <option value="1">Most Helpful</option>
+                                            <option value="2">Most Read</option>
+                                            <option value="3">Most Recent</option>
+                                            <option value="4">Most Rated</option>
+                                        </select>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    }
+                    <div class="clear"></div>
+                    <div id="userReviewListing">
+                        @foreach (var userreview in Model.UserReviewsList)
+                        {
+                            if (Model.UserReviewsList[Model.UserReviewsList.Count - 1].ReviewId == userreview.ReviewId)
+                            {<span class='next-page-trigger' pagetag="@(ViewBag.Page == Model.PageNumber ? -1 : (ViewBag.Page + 1))"></span>}
+                            <div style="margin-top: 20px;">
+                                <a style="font-size: 14px; font-weight: bold;" href='@(isMobile ? "/m" : "")/@UrlRewrite.FormatSpecial(Model.ModelDetails.MakeName)-cars/@Model.ModelDetails.MaskingName/userreviews/@(userreview.ReviewId)/' data-cwtccat="ReviewsListingsPage" data-cwtcact="TitleClick" data-cwtclbl="modelid=@Model.ModelDetails.ModelId|source=@(isMobile ? 43 : 1)">@userreview.Title</a><br />
+                                <p class="text-grey" style="margin-top: 3px;">
+                                    <span class="rating-sprite @Html.Raw(MobileWeb.Common.CommonOpn.GetRateImage(Convert.ToDouble(userreview.ReviewRate)))"> </span> by @Html.Raw(string.IsNullOrEmpty(userreview.HandleName) ? userreview.CustomerName : "<a href='/community/members/" + userreview.HandleName + ".html'>" + userreview.HandleName + "</a>"), @(ExtensionMethods.ConvertDateToDays(userreview.ReviewDate)),
+                                    @Html.Raw(userreview.Comments > 0 ? "<a class='f-small' href='/forums/viewthread-" + userreview.ThreadId + ".html'>" + userreview.Comments + " Comments</a>" : userreview.Comments + " Comments")
+                                </p>
+                                @Html.Raw(Validations.IsValidProsCons(userreview.Goods) ?   "<br><strong>Good: </strong>" + userreview.Goods : string.Empty)
+                                @Html.Raw(Validations.IsValidProsCons(userreview.Bads) ?   "<br><strong>Bad: </strong>" + userreview.Bads : string.Empty)
+                                <p style="margin-top: 10px;">
+                                    <span>@Html.Raw(Format.LimitText(userreview.Description, 150))</span>...
+                                    <a href='@(isMobile?"/m":string.Empty)/@UrlRewrite.FormatSpecial(Model.ModelDetails.MakeName)-cars/@Model.ModelDetails.MaskingName/userreviews/@(userreview.ReviewId)/' data-cwtccat="ReviewsListingsPage" data-cwtcact="ReadMoreClick" data-cwtclbl="modelid=@Model.ModelDetails.ModelId|source=@(isMobile ? 43 : 1)">read complete review</a>
+                                </p>
+                            </div>
+                            <div class="hr-dotted"></div>
+                        }
+                    </div>
+                    <div id="userreview-next-list" data-bind="template: { name: 'user-review-list', foreach: userReviewList }"></div>
+                    <div class='swiper-imgLoader content-loader hide'></div>
+                </div>
+            </div>
+
+            <div class="footerStrip" id="divStrip">
+                <div class="text-center padding-top15 margin-auto block news-pagination">
+                    <ul id="paginationReviews" class="pagination bg-white" data-bind="template:{name:'paginationTemplate',foreach:pagination}">
+                        @for (int pageNo = 0; pageNo < Model.PageList.Count; pageNo++)
+                        {
+                            if (pageNo == 0)
+                            {
+                                <li><a @Html.Raw(Model.PageList[pageNo] > 1 ? "href='" + (ViewBag.ShortUrl + "-p" + (Model.PageList[pageNo]) + ViewBag.VersionUrl) + "'" : string.Empty)>Previous</a></li>
+                            }
+                            else if (pageNo == (Model.PageList.Count - 1))
+                            {
+                                <li><a @Html.Raw(Model.PageList[pageNo] >= Model.PageNumber ? string.Empty : "href='" + (ViewBag.ShortUrl + "-p" + (Model.PageList[pageNo]) + ViewBag.VersionUrl) + "'")>Next</a></li>
+                            }
+                            else
+                            {
+                                <li><a href='@(ViewBag.ShortUrl + "-p" + (Model.PageList[pageNo]) + ViewBag.VersionUrl)' @Html.Raw(Model.PageList[pageNo] == ViewBag.Page ? "class=\"active\"" : string.Empty)>@Model.PageList[pageNo]</a></li>
+                            }
+                        }
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        @if (ViewBag.IsMobile != null && !ViewBag.IsMobile)
+        {
+            <div class="grid-4">
+                <div>
+                    <div class="mid-box">
+                        @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_ATF_300x250.cshtml");}
+                    </div>
+                    <div class="content-box-shadow content-inner-block-10 margin-bottom10">
+                        <h2 class="font18">
+                            Consumer Car Reviews
+                            <br />
+                            <span class="font11">Read thousands of reviews on new cars.</span>
+                        </h2>
+                        <ul id="ulUserReview" class="ur-ver">
+                            <li>
+                                <div class="form-control-box margin-bottom5">
+                                    <span class="select-box fa fa-angle-down"></span>
+                                    @Html.DropDownList("drpRevMake", new SelectList(Model.MakeList, "MakeId", "MakeName"), "--Select Make--", new { @class = "form-control" })
+                                </div>
+
+                            </li>
+                            <li>
+                                <div class="form-control-box margin-bottom15">
+                                    <span class="select-box fa fa-angle-down"></span>
+                                    <select name="drpRevModel" id="drpRevModel" class="form-control input-sm drpModel" data-bind="foreach: viewModel.Models" disabled="disabled">
+                                        <option data-bind="value:ModelId,text:ModelName,attr:{'mask':MaskingName}"></option>
+                                    </select>
+                                </div>
+                            </li>
+                        </ul>
+                        <span id="reviewErr" class="hide error"></span>
+                        <div class="clear"></div>
+                        <a class="btn btn-orange btn-xs" onclick="viewReviews();">Read Reviews</a> or browse <a href="/userreviews/" data-cwtccat="ReviewLandingLinkage" data-cwtcact="UserReviewListDesktopLinkClick" data-cwtclbl="source=1">Car Reviews</a>
+                        <input type="hidden" id="hdn_drpModel" />
+                    </div>
+                    <div class="content-box-shadow content-inner-block-10 margin-bottom10">
+                        <h2 class="font18 margin-left5">More on @ViewBag.CarName</h2>
+                        <ul class="ul-arrow">
+                            @if (Model.ModelDetails.New)
+                            {
+                                <li><a href="/new/@(UrlRewrite.FormatSpecial(Model.ModelDetails.MakeName))-dealers/">Locate @Model.ModelDetails.ModelName dealers/showrooms</a></li>
+                            }
+                            <li><a href="/@(UrlRewrite.FormatSpecial(Model.ModelDetails.MakeName))-cars/@Model.ModelDetails.MaskingName/">Check @ViewBag.CarName Price</a></li>
+                            <li><a href="/used/@(UrlRewrite.FormatSpecial(Model.ModelDetails.MakeName))-@Model.ModelDetails.MaskingName-cars/">Find Used @ViewBag.CarName</a></li>
+                            <li><a href="/finance/">New Car Finance</a></li>
+                            <li><a href="/insurance/insurancepremium.aspx">New Car Insurance</a></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="mid-box">
+                        @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_BTF_300x250.cshtml");}
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+        <div class="clear"></div>
+        @if (ViewBag.IsMobile)
+        {
+            Html.RenderPartial("m/editorial/_ContentFooter");
+        }
+    </div>
+</section>

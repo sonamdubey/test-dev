@@ -1,0 +1,6 @@
+﻿<script>
+    // Get cars  preselected in Query strings, get there value Json object
+    
+    var preSelectJson =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.VersionsDetails))
+</script>
+<script  type="text/javascript"  src="/static/js/comparecar.js" ></script>

@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[ICB_FAGroups] (
+    [Id]        NUMERIC (18)  IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [FAId]      NUMERIC (18)  NULL,
+    [GroupName] VARCHAR (100) NULL,
+    [IsActive]  BIT           NOT NULL,
+    CONSTRAINT [PK_ICB_FAGroups] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

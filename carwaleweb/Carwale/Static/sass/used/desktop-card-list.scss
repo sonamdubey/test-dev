@@ -1,0 +1,69 @@
+@import "../mixins/_variables.scss";
+@import "../mixins/_text.scss";
+@import "../mixins/_sprites.scss";
+
+.search-list-container {
+    background-color: map-get($color-map, 'white');
+    position: relative;
+    font-size: 0;
+    padding-left: 7px;
+    padding-right: 6px;
+}
+
+.card-list-container {
+    width: 347px;
+    display: inline-block;
+    border-radius: 3px;
+    margin: 10px 7px;
+    padding: 0;
+    vertical-align: top;
+    font-size: 13px;
+    background-color: map-get($color-map, 'snow');
+
+    &:first-child {
+        position: relative;
+        margin-top: 10px;
+    }
+}
+
+.image__wrapper {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.dealers-logo__container {
+    background-color: map-get($color-map, 'snow');
+
+    &:before {
+        @include left-border-curve-f9f9f9-icon;
+    }
+} 
+
+.card-list-container--franchisee {
+    border-width: 2px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
+    .image__wrapper {
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+    }
+}
+
+.card-detail-block__data {
+    padding-bottom: 10px;
+}
+
+.card-detail__vehicle-data {
+    td {
+        padding: 7px 8px;
+    } 
+}
+
+.delivery-text {
+    @include text-truncate ($width: 54%);
+    display: inline-block;
+    text-align: right;
+    font-size: 12px;
+    vertical-align: middle;
+}

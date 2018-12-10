@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Carwale.Entity.CMS.Video>
+@using Carwale.Utility
+@using Carwale.BL.CMS
+
+<div class="swiper-container">
+    <ul class="swiper-wrapper">
+@foreach (var video in Model)
+{
+    <li class="swiper-slide">
+        <a data-role="click-tracking" data-event="CWInteractive" data-cat="msite_video_linkages" data-label="@video.MakeName @video.ModelName" data-action="home_page_video_slug" href="@CMSCommon.GetVideoUrl(video.MakeName, video.MaskingName, video.SubCatName, video.BasicId, true)">
+        <div data-role="inview-imp" data-event="CWNonInteractive" data-cat="msite_video_linkages" data-label="@video.MakeName @video.ModelName" data-action="home_page_video_slug_impression" class="contentWrapper front">
+        <div class="yt-iframe-preview">
+            <img class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@("https://img.youtube.com/vi/"+video.VideoId+"/mqdefault.jpg")" border="0"
+                 title="@video.VideoTitle" alt="@video.VideoTitle" /> 
+            <span class="overlay"></span>
+            <span class="youtube-video-icon carousel-yt-icon"></span>
+        </div>
+        <div class="carDescWrapper">
+            <div class="carTitle margin-bottom15">
+            <h3 class="text-black">
+                @video.VideoTitle
+                </h3>
+            </div>
+            <div class="margin-bottom10 text-light-grey">
+            <span class="cwmsprite review-sm-lgt-grey">
+                </span> Views <span>@video.Views
+                </span></div><div class="text-light-grey">
+            <span class="fa fa-thumbs-o-up text-light-grey margin-right5">
+            </span> Likes <span>@video.Likes
+            </span>
+            </div>
+            </div>
+        </div>
+        </a>
+            </li>
+}
+    </ul>
+    <div class="clear">
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination swiper-pagination-white">
+    </div><!-- Navigation -->
+    <div class="swiper-button-next swiper-button-white">
+    </div><div class="swiper-button-prev swiper-button-white">
+    </div>
+</div>

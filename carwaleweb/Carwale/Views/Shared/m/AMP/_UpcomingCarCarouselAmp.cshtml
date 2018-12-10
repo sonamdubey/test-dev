@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Carwale.Entity.CarData.UpcomingCarModel>
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@if (Model != null && Model.Any())
+{
+    if (ViewBag.UpcomingSimilarCars == true)
+    {
+        <h2 class="section-heading">Similar Upcoming Cars</h2>
+    }
+    else if (ViewBag.Pagename == "makepage")
+    {
+        <h2 class="section-heading">Upcoming @ViewBag.MakeName Cars</h2>
+    }
+<amp-carousel height="382" layout="fixed-height" type="carousel">
+@foreach (var item in Model)
+{
+    string cardModelUrl = ManageCarUrl.CreateModelUrl(item.MakeName, item.MaskingName);
+    <div class="upcoming-cars__contentWrapper">
+        <div class="imageWrapper">
+            @if (!string.IsNullOrWhiteSpace(item.Image.ImagePath))
+            {
+                <a href="@cardModelUrl">
+                    <amp-img class="max-width-100-percent" src="@ImageSizes.CreateImageUrl(item.Image.HostUrl,ImageSizes._272X153, item.Image.ImagePath)"
+                             title="@item.MakeName @item.ModelName" alt="@item.MakeName @item.ModelName" width="278" height="160" layout="responsive"></amp-img>
+                </a>
+            }
+            else
+            {
+                <a href="@cardModelUrl">
+                    <amp-img class="max-width-100-percent" src="https://imgd.aeplcdn.com/272X153/cw/cars/no-cars.jpg"
+                             title="@item.MakeName @item.ModelName" alt="@item.MakeName @item.ModelName" width="278" height="160" layout="responsive"></amp-img>
+                </a>
+            }
+        </div>
+        <div class="carDescWrapper">
+            <div class="margin-bottom10">
+                <a title="@item.MakeName @item.ModelName" href="@cardModelUrl">
+                    <h3 class="font18 text-black model-news-heading">@item.MakeName  @item.ModelName</h3>
+                </a>
+            </div>
+            <div class="margin-bottom5 font24">
+                <span>₹ </span>
+                <span class="font25">@Html.Raw(item.Price.MaxPrice == item.Price.MinPrice ? FormatPrice.GetFormattedPriceV2(item.Price.MinPrice.ToString()) : FormatPrice.GetFormattedPriceV2(item.Price.MinPrice.ToString(), item.Price.MaxPrice.ToString()))</span>
+            </div>
+            <div class="margin-bottom15 font14 text-light-grey">Estimated price</div>
+            <div class="margin-bottom5 font18">@item.ExpectedLaunch</div>
+            <div class="font14 text-light-grey">Expected launch</div>
+        </div>
+    </div>
+}
+</amp-carousel>
+}

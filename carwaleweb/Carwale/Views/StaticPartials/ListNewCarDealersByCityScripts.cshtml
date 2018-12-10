@@ -1,0 +1,12 @@
+﻿@model Carwale.Entity.Dealers.DealerListMakeEntity
+<script  type="text/javascript"  src="/static/js/dealer-locator.js" ></script>
+<script  type="text/javascript"  src="/static/src/dealerlocatormaps.js" ></script>
+<script  type="text/javascript"  src="/static/js/chosen.jquery.min.js" ></script>
+<script>
+    var landingPage = false;
+    var PageId = @ViewBag.PageId;
+    var MakeId = '@Model.MakeId';
+    $(document).ready(function () {
+        callToMapApi(MakeId);
+    });
+</script>

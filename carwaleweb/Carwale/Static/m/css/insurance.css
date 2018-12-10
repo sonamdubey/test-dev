@@ -1,0 +1,210 @@
+﻿.ins-tabs {
+  border: 0px;
+  margin-top: 0px;
+}
+
+.ui-content {
+  padding: 0;
+}
+
+.divInsuranceForm .box.accordion, .faqs .box.accordion {
+  margin: 0;
+  padding: 0;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-top-width: 0 !important;
+}
+
+.divInsuranceForm .box.accordion:first-child, .faqs .box.accordion:first-child {
+  border-top-left-radius: 3px !important;
+  border-top-right-radius: 3px !important;
+  border-top-width: 1px !important;
+}
+
+.custSelect {
+  background: none;
+  -webkit-appearance: none;
+  padding: 8px;
+  width: 100%;
+}
+
+.newcars-banner-div {
+  background: #161209 url(https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/m/insurance-banner.jpg) no-repeat left top;
+  background-size: cover;
+  height: 130px;
+}
+
+.accordion h3 .icon {
+  position: absolute;
+  right: 8px;
+  top: 15px;
+  width: 18px;
+  height: 18px;
+  text-align: center;
+  color: #565a5c;
+}
+
+.accordion h3 .icon.edit-icon {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/m/edit-icon.png) no-repeat right top;
+}
+
+.accordion h3 .icon.plus-minus {
+  border: 1px solid #ccc;
+  border-radius: 18px;
+  display: block;
+  -webkit-border-radius: 18px;
+  -moz-border-radius: 18px;
+}
+
+.accordion h3 .icon.plus-minus .fa-plus, .accordion h3 .icon.plus-minus .fa-minus {
+  font-size: 10px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin-top: -4px;
+}
+
+.stepStrip {
+  color: #82888b;
+  font-size: 16px;
+  padding: 13px 30px 13px 10px;
+  min-height: 47px;
+  cursor: pointer;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  position: relative;
+}
+
+.accordion.open .stepStrip {
+  color: #565a5c;
+  background-color: #fafafa;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.stepStrip.disabled {
+  cursor: not-allowed;
+  background-color: #fff;
+}
+
+.policy-type {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/policy-type.png) no-repeat;
+  top: auto;
+  right: auto;
+  width: 56px;
+  height: 77px;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.policy-type.renew-type {
+  background-position: right top;
+  width: 67px;
+}
+
+.divInsuranceForm .type-tab-wrap {
+  display: table;
+  margin: 20px auto 10px;
+  text-align: center;
+}
+
+.divInsuranceForm .ins-tabs li {
+  border: 1px solid #e2e2e2;
+  width: 134px;
+  float: left;
+  text-align: center;
+  margin-left: 0;
+  top: 0;
+  right: 0;
+  padding: 20px 10px !important;
+}
+
+.divInsuranceForm .ins-tabs li:first-child {
+  margin-right: 5px;
+}
+
+.divInsuranceForm .ins-tabs li:last-child {
+  margin-left: 5px;
+}
+
+.car-month-year input[type="text"] {
+  height: 38px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.car-month-year input::-webkit-input-placeholder {
+  color: #a8afb3;
+  font-size: 14px;
+}
+
+.car-month-year input:-moz-placeholder {
+  color: #a8afb3;
+  font-size: 14px;
+  opacity: 1;
+}
+
+.car-month-year input::-moz-placeholder {
+  color: #a8afb3;
+  font-size: 14px;
+  opacity: 1;
+}
+
+.car-month-year input:-ms-input-placeholder {
+  color: #a8afb3;
+  font-size: 14px;
+}
+
+/*footer {
+    margin-top: 64px;
+}*/
+
+#contact-fixed {
+  padding: 10px;
+}
+
+#contact-fixed .btn {
+  padding: 0 5px 3px;
+}
+
+#contact-fixed .fa.fa-phone {
+  top: 3px;
+}
+
+.ad-div {
+  min-height: 50px;
+}
+
+#contact-fixed.contact-fixed {
+  background-color: rgba(48,48,48,0.7);
+  position: fixed;
+  bottom: 0;
+  top: auto;
+}
+
+ol.note-type-num, ol.note-type-num li {
+  list-style: inside decimal;
+}
+
+ol.note-type-num li {
+  padding: 10px 0;
+}
+
+.img-thank {
+  background-position: -913px 0;
+  width: 92px;
+  height: 92px;
+}
+
+.input-txt {
+  width: 100%;
+  min-height: 30px;
+  background: transparent;
+  padding-bottom: 4px;
+  color: #555;
+  border-bottom: 1px solid #ccc;
+}
+

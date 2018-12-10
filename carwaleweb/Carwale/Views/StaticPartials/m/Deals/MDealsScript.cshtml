@@ -1,0 +1,39 @@
+﻿<script  type="text/javascript"  src="/static/js/deals.js" ></script>
+
+
+<script>
+    advantageNumber = "@(System.Configuration.ConfigurationManager.AppSettings["CarwaleAdvantageMaskingNumber"])";
+    Common.showCityPopup = false;
+    Deals.modelId = '@ViewBag.ModelId';
+    Deals.cityId = '@ViewBag.CityId';
+    Deals.pageId = '@ViewBag.PageTag';
+    Deals.versionId = '@ViewBag.VersionId';
+    Deals.stockId = '@ViewBag.StockId';
+    Deals.environmentId = "@(System.Configuration.ConfigurationManager.AppSettings["ListingsTrackingPlatform"])";
+    Deals.apiHostUrl = "@(System.Configuration.ConfigurationManager.AppSettings["DealsApiHostUrl"])";
+    Deals.autobizHostUrl = "@(System.Configuration.ConfigurationManager.AppSettings["DealsAutobizHostUrl"])";
+    Deals.advantageDealerId = "@(System.Configuration.ConfigurationManager.AppSettings["AdvantageDealerId"])";
+    Deals.offerOfWeek.offers = '@System.Configuration.ConfigurationManager.AppSettings["OfferOfWeek"]';
+    $(document).ready(function () {
+        if (Deals.pageId == "mA-1") {
+            Deals.pageLoad.productLoad();
+            Deals.utils.callBtnIphoneDetection();
+        }
+        else if (Deals.pageId == "mA-3") {
+            Deals.utils.registerEvents();
+            Deals.pageLoad.confirmationLoad();
+        }
+        else if (Deals.pageId == "mA-2") {
+            Deals.pageLoad.enquiryLoad();
+            Deals.booking.registerEvents();
+        }
+        else if (Deals.pageId == "mA-4") {
+            Deals.isAdvantageCity = "@ViewBag.IsAdvantageCity" === "@true";
+            Deals.pageLoad.landingLoad();
+            Deals.utils.registerEvents();
+        }
+        else if (Deals.pageId == "mA-5") {
+            Deals.utils.registerEvents();
+        }
+    });
+</script>

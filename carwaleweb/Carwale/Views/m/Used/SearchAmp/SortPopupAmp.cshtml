@@ -1,0 +1,47 @@
+﻿@model Carwale.UI.ViewModels.Used.Search.SearchViewModel
+
+@{
+    var sosc = Model.SearchParams.So + "" + Model.SearchParams.Sc;
+}
+
+<amp-state id="sosc">
+    <script type="application/json">
+        "@sosc"
+    </script>
+</amp-state>
+
+<amp-lightbox id="sort-popup" layout="nodisplay" scrollable>
+    <div id="sort-div">
+        <div class="top-corner">
+            <span id="btnSortBack" on="tap: sort-popup.close" role="tab" tabindex="0" class="content-inner-block-10 padding-right30">
+                <span class="cwmsprite back-long-arrow-left-white"></span>
+            </span>
+            <span class="margin-left10">Sort by</span>
+        </div>
+        <div class="sort-list">
+            <ul id="sortFilter">
+                <a href="@(Model.SortBaseUrlAmp + "&so=-1&sc=-1")">
+                    <li on="tap:AMP.setState({sosc : '-1-1'})" role="tab" tabindex="0" [class]="sosc=='-1-1' ? 'active' : ''" class="@(sosc == "-1-1" ? "active" : "")">Best Match</li>
+                </a>
+                <a href="@(Model.SortBaseUrlAmp + "&so=0&sc=2")">
+                    <li on="tap:AMP.setState({sosc : '02'})" role="tab" tabindex="0" [class]="sosc=='02' ? 'active' : ''" class="@(sosc == "02" ? "active" : "")">Price - Low to High</li>
+                </a>
+                <a href="@(Model.SortBaseUrlAmp + "&so=1&sc=2")">
+                    <li on="tap:AMP.setState({sosc : '12'})" role="tab" tabindex="0" [class]="sosc=='12' ? 'active' : ''" class="@(sosc == "12" ? "active" : "")">Price - High to Low</li>
+                </a>
+                <a href="@(Model.SortBaseUrlAmp + "&so=1&sc=0")">
+                    <li on="tap:AMP.setState({sosc : '10'})" role="tab" tabindex="0" [class]="sosc=='10' ? 'active' : ''" class="@(sosc == "10" ? "active" : "")">Year - Newest to Oldest</li>
+                </a>
+                <a href="@(Model.SortBaseUrlAmp + "&so=0&sc=3")">
+                    <li on="tap:AMP.setState({sosc : '03'})" role="tab" tabindex="0" [class]="sosc=='03' ? 'active' : ''" class="@(sosc == "03" ? "active" : "")">Kms - Low to High</li>
+                </a>
+                <a href="@(Model.SortBaseUrlAmp + "&so=1&sc=3")">
+                    <li on="tap:AMP.setState({sosc : '13'})" role="tab" tabindex="0" [class]="sosc=='13' ? 'active' : ''" class="@(sosc == "13" ? "active" : "")">Kms - High to Low</li>
+                </a>
+                <a href="@(Model.SortBaseUrlAmp + "&so=1&sc=6")">
+                    <li on="tap:AMP.setState({sosc : '16'})" role="tab" tabindex="0" [class]="sosc=='16' ? 'active' : ''" class="@(sosc == "16" ? "active" : "")">Last Updated - Latest to Oldest</li>
+                </a>
+            </ul>
+        </div>
+    </div>
+</amp-lightbox>

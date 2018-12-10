@@ -1,0 +1,402 @@
+﻿@model Carwale.UI.ViewModels.Used.Search.SearchViewModel
+@{
+    var minBudget = Model.SearchParams.Budget?.Split('-')[0] ?? string.Empty;
+    var maxBudget = Model.SearchParams.Budget?.Split('-')[1] ?? string.Empty;
+    var minAge = Model.SearchParams.Year?.Split('-')[0] ?? string.Empty;
+    var maxAge = Model.SearchParams.Year?.Split('-')[1] ?? string.Empty;
+    var minKm = Model.SearchParams.Kms?.Split('-')[0] ?? string.Empty;
+    var maxKm = Model.SearchParams.Kms?.Split('-')[1] ?? string.Empty;
+    minKm = string.IsNullOrEmpty(minKm) ? string.Empty : (Convert.ToInt32(minKm) * 1000).ToString();
+    maxKm = string.IsNullOrEmpty(maxKm) ? string.Empty : (Convert.ToInt32(maxKm) * 1000).ToString();
+    string currentHostUrl = Request.Url.GetLeftPart(UriPartial.Authority).Replace("http:", string.Empty).Replace("https:", string.Empty);
+}
+<amp-state id="filters">
+    <script type="application/json">
+    {
+        "minBudget": "@minBudget",
+        "maxBudget": "@maxBudget",
+        "minAge": "@minAge",
+        "maxAge": "@maxAge",
+        "minKm": "@minKm",
+        "maxKm": "@maxKm"
+    }
+    </script>
+</amp-state>
+<amp-state id="roots">
+    <script type="application/json">
+        @Html.Raw(Model.RootsInfoInJson)
+    </script>
+</amp-state>
+<amp-state id="makes">
+    <script type="application/json">
+        @Html.Raw(Model.MakesInfoInJson)
+    </script>
+</amp-state>
+<amp-state id="rootsSelected">
+    <script type="application/json">
+        []
+    </script>
+</amp-state>
+<amp-state id="cRootIds" [src]="'@currentHostUrl/webapi/carrootsdata/getrootsbymakeid/?make=' + (make.makeId || 1)">
+    <script type="application/json">
+        []
+    </script>
+</amp-state>
+
+<amp-lightbox layout="nodisplay" class="filter-popup" id="filter-popup" scrollable on="lightboxOpen: AMP.setState({ roots: roots, makes: makes });
+                                                                                       lightboxClose: AMP.setState({
+                                                                                           minOpen: false, maxOpen: false,
+                                                                                           carMinAgeOpen: false, carMaxAgeOpen: false,
+                                                                                           minKmOpen: false, maxKmOpen: false,
+                                                                                           blackOverLayOpen: false
+                                                                                       })">
+    <div id="filter-div">
+        <div class="top-corner">
+            <span id="filterBack" on="tap: filter-popup.close" role="tab" tabindex="0" class="content-inner-block-10 padding-right30">
+                <span class="cwmsprite back-long-arrow-left-white margin-top5"></span>
+            </span>
+            <span class="margin-left10">Filters</span>
+        </div>
+        <form id="filter-form" method="GET" action="@currentHostUrl/m/used/cars-for-sale/" target="_top" class="filter-form">
+            <div class="content-inner-block-10 filter-alert-points">
+                <ul>
+                    <li>
+                        <h3 class="margin-bottom10 text-black">City</h3>
+                        <div id="citySelection" on="tap: city-popup" role="tab" tabindex="0" class="form-control input-sm padding-right40 position-rel">
+                            <div class="selected-text" id="selectCity" [text]="(cityName || '@(Model.SearchParams.CityName ?? "Search for all Cities")')">@(Model.SearchParams.CityName ?? "Search for all Cities")</div>
+                            <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
+                            <input name="city" value="@(Model.SearchParams.City > 0 ? Model.SearchParams.City : 0)" [value]="(cityId || '@(Model.SearchParams.City > 0 ? Model.SearchParams.City : 0)')" hidden>
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="margin-bottom10 text-black">Budget</h3>
+                        <div class="value-select" [class]="'value-select ' + ((minOpen || maxOpen) ? 'z-index10' : ' ')">
+                            <div class="clear"></div>
+                            <div class="filter-form-field filter-form-field-left">
+                                <input type="number" class="option-selection" placeholder="Min" min="0" max="9999" value="@minBudget" [value]="filters.minBudget" on="tap: AMP.setState({ minOpen: true, maxOpen: false, blackOverLayOpen: true }); input-throttled: AMP.setState({ filters: { minBudget: event.value }, minOpen: event.value ? false : true, maxOpen: false, blackOverLayOpen: event.value ? false : true })" role="tab" tabindex="0">
+                                <span class="selector-placeholder">Lakh</span>
+                            </div>
+                            <div class="filter-field-seperator">&#x2212;</div>
+                            <div class="filter-form-field filter-form-field-right">
+                                <input type="number" class="option-selection" min="0" max="9999" [min]="filters.minBudget" [class]="'option-selection ' + ((filters.maxBudget && filters.minBudget > filters.maxBudget && filterValidation == 1) ? 'error-field' : '')" placeholder="Max" value="@maxBudget" [value]="filters.maxBudget == '' ? null : filters.maxBudget" on="tap: AMP.setState({ maxOpen: true, minOpen: false, blackOverLayOpen: true }); input-throttled:AMP.setState({ filters: { maxBudget: event.value }, minOpen: false, maxOpen: event.value ? false : true, blackOverLayOpen: event.value ? false : true })" role="tab" tabindex="0">
+                                <span class="selector-placeholder">Lakh</span>
+                            </div>
+                            <div class="form-filter-field" id="filterFormListContainer">
+                                <ul id="minPriceList" class="option-list-left hide" [class]="'option-list-left ' + (minOpen ? 'show' : 'hide')">
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minBudget: 0 }, minOpen: false, maxOpen: true, blackOverLayOpen : true})" role="tab" tabindex="0">Any</li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minBudget: 1 }, minOpen: false, maxOpen: true, blackOverLayOpen : true})" role="tab" tabindex="0">1 Lakh</li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minBudget: 3 }, minOpen: false, maxOpen: true, blackOverLayOpen : true})" role="tab" tabindex="0">3 Lakh</li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minBudget: 4 }, minOpen: false, maxOpen: true, blackOverLayOpen : true})" role="tab" tabindex="0">4 Lakh</li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minBudget: 6 }, minOpen: false, maxOpen: true, blackOverLayOpen : true})" role="tab" tabindex="0">6 Lakh</li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minBudget: 8 }, minOpen: false, maxOpen: true, blackOverLayOpen : true})" role="tab" tabindex="0">8 Lakh</li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minBudget: 12 }, minOpen: false, maxOpen: true, blackOverLayOpen : true})" role="tab" tabindex="0">12 Lakh</li>
+                                    <li class="option-select border-bottom-none" on="tap: AMP.setState({ filters: { minBudget: 20 }, minOpen: false, maxOpen: true, blackOverLayOpen : true})" role="tab" tabindex="0">20 Lakh</li>
+                                </ul>
+                                <ul id="maxPriceList" class="option-list-right hide" [class]="'option-list-right ' + (maxOpen ? 'show' : 'hide')">
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxBudget: floor(filters.minBudget) + 1 }, minOpen: false, maxOpen: false, blackOverLayOpen : false})" role="tab" tabindex="0" [text]="floor(filters.minBudget) + 1 + ' Lakh'"></li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxBudget: floor(filters.minBudget) + 3 }, minOpen: false, maxOpen: false, blackOverLayOpen : false})" role="tab" tabindex="0" [text]="floor(filters.minBudget) + 3 + ' Lakh'"></li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxBudget: floor(filters.minBudget) + 4 }, minOpen: false, maxOpen: false, blackOverLayOpen : false})" role="tab" tabindex="0" [text]="floor(filters.minBudget) + 4 + ' Lakh'"></li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxBudget: floor(filters.minBudget) + 6 }, minOpen: false, maxOpen: false, blackOverLayOpen : false})" role="tab" tabindex="0" [text]="floor(filters.minBudget) + 6 + ' Lakh'"></li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxBudget: floor(filters.minBudget) + 8 }, minOpen: false, maxOpen: false, blackOverLayOpen : false})" role="tab" tabindex="0" [text]="floor(filters.minBudget) + 8 + ' Lakh'"></li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxBudget: floor(filters.minBudget) + 12 }, minOpen: false, maxOpen: false, blackOverLayOpen : false})" role="tab" tabindex="0" [text]="floor(filters.minBudget) + 12 + ' Lakh'"></li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxBudget: floor(filters.minBudget) + 20 }, minOpen: false, maxOpen: false, blackOverLayOpen : false})" role="tab" tabindex="0" [text]="floor(filters.minBudget) + 20 + ' Lakh'"></li>
+                                    <li class="option-select border-bottom-none" on="tap: AMP.setState({ filters: { maxBudget: '' }, minOpen: false, maxOpen: false, blackOverLayOpen : false})" role="tab" tabindex="0">Any</li>
+                                </ul>
+                            </div>
+                            <input hidden name="budget" value="0-" [value]="(filters.minBudget || 0) + '-' + (filters.maxBudget || '')">
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="margin-bottom10 text-black">Manufacturer</h3>
+                        <div id="manufacturerSelection" on="tap: make-popup" role="tab" tabindex="0" class="form-control input-sm padding-right40 position-rel">
+                            <div>Select another car</div>
+                            <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
+                        </div>
+                        <input name="car" [value]="(makes.map(m => m.makeId).join(' ') + ((makes[0] && roots[0]) ? ' ' : '') + roots.map(x => x.MakeId + '.' + x.RootId).join(' ')) || ' '" value="" hidden>
+                        <div class="selected-car">
+                            <ul id="carLabel">
+                                <amp-list id="selected-make-list" layout="fixed-height" src="makes" [src]="makes" height="0" [height]="floor((makes.length + 1) / 2) * 41" items=".">
+                                    <template type="amp-mustache">
+                                        <li>
+                                            <div class="specific-selected-car">
+                                                <div class="selected-car__text">
+                                                    <span class="font12 carname nextmake">{{makeName}}</span>
+                                                    <span class="close-box" on="tap:AMP.setState({makes : makes.filter(m => m.makeId != {{makeId}})})" role="tab" tabindex="0"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </template>
+                                </amp-list>
+                                <amp-list id="selected-root-list" layout="fixed-height" src="roots" [src]="roots" height="0" [height]="floor((roots.length + 1) / 2) * 41" items=".">
+                                    <template type="amp-mustache">
+                                        <li>
+                                            <div class="specific-selected-car">
+                                                <div class="selected-car__text">
+                                                    <span class="font12 carname nextmake">{{MakeName}} {{Name}}</span>
+                                                    <span class="close-box" on="tap:AMP.setState({roots : roots.filter(r => r.RootId != {{RootId}})})" role="tab" tabindex="0"></span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </template>
+                                </amp-list>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="margin-bottom10 text-black">Car Age</h3>
+                        <div class="value-select" [class]="'value-select ' + ((carMinAgeOpen || carMaxAgeOpen) ? 'z-index10' : ' ')">
+                            <div class="filter-form-field filter-form-field-left">
+                                <div id="minMaxContainers" class="min-car-age " [class]="'min-car-age ' + (carMinAgeOpen ? 'open' : '')" on="tap: AMP.setState({carMinAgeOpen : true, carMaxAgeOpen : false, blackOverLayOpen : true})" role="tab" tabindex="0">
+                                    <span class="car-age-input" [text]="(filters.minAge == '') ? 'Min' : (filters.minAge <= 1) ? filters.minAge + ' Year' :  filters.minAge + ' Years'">@(string.IsNullOrEmpty(minAge) ? "Min" : $"{ minAge } { (Convert.ToInt32(minAge) <= 1 ? "Year" : "Years")} ")</span>
+                                    <span id="upDownArrow" class="rightfloat angle-down"></span>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="form-filter-field dropdown-field" id="filterFormListContainer">
+                                    <ul id="carAgeList" class="option-list-left hide" [class]="'option-list-left ' + (carMinAgeOpen ? 'show' : 'hide')">
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { minAge: 0 }, carMinAgeOpen: false, carMaxAgeOpen: true, blackOverLayOpen: true })" role="tab" tabindex="0">Any</li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { minAge: 1 }, carMinAgeOpen: false, carMaxAgeOpen: true, blackOverLayOpen: true })" role="tab" tabindex="0">1 Year</li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { minAge: 2 }, carMinAgeOpen: false, carMaxAgeOpen: true, blackOverLayOpen: true })" role="tab" tabindex="0">2 Years</li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { minAge: 3 }, carMinAgeOpen: false, carMaxAgeOpen: true, blackOverLayOpen: true })" role="tab" tabindex="0">3 Years</li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { minAge: 4 }, carMinAgeOpen: false, carMaxAgeOpen: true, blackOverLayOpen: true })" role="tab" tabindex="0">4 Years</li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { minAge: 5 }, carMinAgeOpen: false, carMaxAgeOpen: true, blackOverLayOpen: true })" role="tab" tabindex="0">5 Years</li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { minAge: 6 }, carMinAgeOpen: false, carMaxAgeOpen: true, blackOverLayOpen: true })" role="tab" tabindex="0">6 Years</li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { minAge: 7 }, carMinAgeOpen: false, carMaxAgeOpen: true, blackOverLayOpen: true })" role="tab" tabindex="0">7 Years</li>
+                                        <li class="option-select border-bottom-none" on="tap: AMP.setState({ filters: { minAge: 8 }, carMinAgeOpen: false, carMaxAgeOpen: true, blackOverLayOpen : true })" role="tab" tabindex="0">8 Years</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="filter-field-seperator">&#x2212;</div>
+                            <div class="filter-form-field filter-form-field-right">
+                                <input type="number" value="0" [value]="filters.maxAge == '' ? null : filters.maxAge" class="age-error-input" min="0" [min]="filters.minAge" [class]="'age-error-input ' + ((filters.maxAge && filters.minAge > filters.maxAge && filterValidation == 1) ? 'error-field' : '')">
+                                <div id="minMaxContainers" class="max-car-age " [class]="'max-car-age ' + (carMaxAgeOpen ? 'open' : '')" on="tap: AMP.setState({carMinAgeOpen : false, carMaxAgeOpen : true, blackOverLayOpen : true})" role="tab" tabindex="0">
+                                    <span class="car-age-input" [text]="(!filters.maxAge) ? 'Max' : (filters.maxAge <= 1) ? filters.maxAge + ' Year' : filters.maxAge + ' Years'">@(string.IsNullOrEmpty(maxAge) ? "Min" : $"{ maxAge } { (Convert.ToInt32(maxAge) <= 1 ? "Year" : "Years")} ")</span>
+                                    <span id="upDownArrow" class="rightfloat angle-down"></span>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="form-filter-field dropdown-field" id="filterFormListContainer">
+                                    <ul id="carAgeList" class="option-list-right hide" [class]="'option-list-right ' + (carMaxAgeOpen ? 'show' : 'hide')">
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { maxAge: floor(filters.minAge) + 1 }, carMinAgeOpen: false, carMaxAgeOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minAge) + 1 + ' Years'"></li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { maxAge: floor(filters.minAge) + 2 }, carMinAgeOpen: false, carMaxAgeOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minAge) + 2 + ' Years'"></li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { maxAge: floor(filters.minAge) + 3 }, carMinAgeOpen: false, carMaxAgeOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minAge) + 3 + ' Years'"></li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { maxAge: floor(filters.minAge) + 4 }, carMinAgeOpen: false, carMaxAgeOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minAge) + 4 + ' Years'"></li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { maxAge: floor(filters.minAge) + 5 }, carMinAgeOpen: false, carMaxAgeOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minAge) + 5 + ' Years'"></li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { maxAge: floor(filters.minAge) + 6 }, carMinAgeOpen: false, carMaxAgeOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minAge) + 6 + ' Years'"></li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { maxAge: floor(filters.minAge) + 7 }, carMinAgeOpen: false, carMaxAgeOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minAge) + 7 + ' Years'"></li>
+                                        <li class="option-select" on="tap: AMP.setState({ filters: { maxAge: floor(filters.minAge) + 8 }, carMinAgeOpen: false, carMaxAgeOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minAge) + 8 + ' Years'"></li>
+                                        <li class="option-select border-bottom-none" on="tap: AMP.setState({ filters: { maxAge: '' }, carMinAgeOpen: false, carMaxAgeOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0">Any</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <input hidden name="year" value="0-" [value]="(filters.minAge || 0) + '-' + (filters.maxAge || '')">
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="margin-bottom10 text-black">Kilometer</h3>
+                        <div class="value-select" [class]="'value-select ' + ((minKmOpen || maxKmOpen) ? 'z-index10' : ' ')">
+                            <div class="filter-form-field filter-form-field-left">
+                                <input type="number" class="option-selection" placeholder="Min" min="0" max="500000" value="@minKm" [value]="filters.minKm" on="tap: AMP.setState({ minKmOpen: true, maxKmOpen: false, blackOverLayOpen: true }); input-throttled: AMP.setState({ filters: { minKm: event.value }, minKmOpen: event.value ? false : true, maxKmOpen: false, blackOverLayOpen: event.value ? false : true })" role="tab" tabindex="0">
+                                <span class="selector-placeholder">Kms</span>
+                            </div>
+                            <div class="filter-field-seperator">&#x2212;</div>
+                            <div class="filter-form-field filter-form-field-right">
+                                <input type="number" class="option-selection" min="0" max="500000" [min]="filters.minKm" value="@maxKm" [class]="'option-selection ' + ((filters.maxKm && filters.minKm > filters.maxKm && filterValidation == 1)? 'error-field' : '')" placeholder="Max" [value]="filters.maxKm == '' ? null : filters.maxKm" on="tap: AMP.setState({ maxKmOpen: true, minKmOpen: false, blackOverLayOpen: true }); input-throttled:AMP.setState({ filters: { maxKm: event.value }, minKmOpen: false, maxKmOpen: event.value ? false : true, blackOverLayOpen: event.value ? false : true })" role="tab" tabindex="0">
+                                <span class="selector-placeholder">Kms</span>
+                            </div>
+                            <div class="form-filter-field" id="filterFormListContainer">
+                                <ul id="minKmList" class="option-list-left hide" [class]="'option-list-left ' + (minKmOpen ? 'show' : 'hide')">
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minKm: 0 }, minKmOpen: false,maxKmOpen: true, blackOverLayOpen : true })" role="tab" tabindex="0">Any</li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minKm: 10000 }, minKmOpen: false, maxKmOpen: true, blackOverLayOpen : true })" role="tab" tabindex="0">10000 Kms</li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minKm: 20000 }, minKmOpen: false, maxKmOpen: true, blackOverLayOpen : true })" role="tab" tabindex="0">20000 Kms</li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minKm: 30000 }, minKmOpen: false, maxKmOpen: true, blackOverLayOpen : true })" role="tab" tabindex="0">30000 Kms</li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minKm: 40000 }, minKmOpen: false, maxKmOpen: true, blackOverLayOpen : true })" role="tab" tabindex="0">40000 Kms</li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minKm: 50000 }, minKmOpen: false, maxKmOpen: true, blackOverLayOpen : true })" role="tab" tabindex="0">50000 Kms</li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { minKm: 60000 }, minKmOpen: false, maxKmOpen: true, blackOverLayOpen : true })" role="tab" tabindex="0">60000 Kms</li>
+                                    <li class="option-select border-bottom-none" on="tap: AMP.setState({ filters: { minKm: 70000 }, minKmOpen: true, maxKmOpen: false, blackOverLayOpen : true })" role="tab" tabindex="0">70,000 Kms</li>
+                                </ul>
+                                <ul id="maxKmList" class="option-list-right hide" [class]="'option-list-right ' + (maxKmOpen ? 'show' : 'hide')">
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxKm: floor(filters.minKm) + 10000 }, minKmOpen: false, maxKmOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minKm) + 10000 + ' Kms'"></li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxKm: floor(filters.minKm) + 20000 }, minKmOpen: false, maxKmOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minKm) + 20000 + ' Kms'"></li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxKm: floor(filters.minKm) + 30000 }, minKmOpen: false, maxKmOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minKm) + 30000 + ' Kms'"></li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxKm: floor(filters.minKm) + 40000 }, minKmOpen: false, maxKmOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minKm) + 40000 + ' Kms'"></li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxKm: floor(filters.minKm) + 50000 }, minKmOpen: false, maxKmOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minKm) + 50000 + ' Kms'"></li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxKm: floor(filters.minKm) + 60000 }, minKmOpen: false, maxKmOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minKm) + 60000 + ' Kms'"></li>
+                                    <li class="option-select" on="tap: AMP.setState({ filters: { maxKm: floor(filters.minKm) + 70000 }, minKmOpen: false, maxKmOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0" [text]="floor(filters.minKm) + 70000 + ' Kms'"></li>
+                                    <li class="option-select border-bottom-none" on="tap: AMP.setState({ filters: { maxKm: '' }, minKmOpen: false, maxKmOpen: false, blackOverLayOpen : false })" role="tab" tabindex="0">Any</li>
+                                </ul>
+                            </div>
+                            <input hidden name="kms" value="0-" [value]="(filters.minKm / 1000 || 0) + '-' + (filters.maxKm / 1000 || '')">
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="margin-bottom10 text-black">Only Show Cars With</h3>
+                        <div class="content-inner-block-10 content-box-shadow chkbox-list">
+                            <ul id="additional">
+                                <amp-selector class="radio-selector" layout="container" name="filterbyadditional" multiple>
+                                    <li option="2" [class]="selected ? 'active' : ''" class="" @(Model.SearchParams.FilterByAdditional != null && Model.SearchParams.FilterByAdditional.Contains("2") ? " selected" : "")>Photos</li>
+                                    <li option="1" [class]="selected ? 'active' : ''" class="" @(Model.SearchParams.FilterByAdditional != null && Model.SearchParams.FilterByAdditional.Contains("1") ? " selected" : "")>Certified Cars</li>
+                                </amp-selector>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="margin-bottom10 text-black">Fuel</h3>
+                        <div class="more-filters-list content-inner-block-10 content-box-shadow">
+                            <ul id="fuel">
+                                <amp-selector layout="container" name="fuel" multiple>
+                                    <li option="1" @(Model.SearchParams.Fuel != null && Model.SearchParams.Fuel.Contains("1") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons petrol-gray"></span>
+                                            <span>Petrol</span>
+                                        </a>
+                                    </li>
+                                    <li option="2" @(Model.SearchParams.Fuel != null && Model.SearchParams.Fuel.Contains("2") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons diesel-gray"></span>
+                                            <span>Diesel</span>
+                                        </a>
+                                    </li>
+                                    <li option="3" @(Model.SearchParams.Fuel != null && Model.SearchParams.Fuel.Contains("3") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons cng-gray"></span>
+                                            <span>CNG</span>
+                                        </a>
+                                    </li>
+                                    <li option="4" @(Model.SearchParams.Fuel != null && Model.SearchParams.Fuel.Contains("4") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons lpg-gray"></span>
+                                            <span>LPG</span>
+                                        </a>
+                                    </li>
+                                    <div class="clear"></div>
+                                </amp-selector>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="margin-bottom10 text-black">Ownership</h3>
+                        <div class="more-filters-list content-inner-block-10 content-box-shadow">
+                            <ul id="ownership">
+                                <amp-selector layout="container" name="owners" multiple>
+                                    <li option="1" @(Model.SearchParams.Owners != null && Model.SearchParams.Owners.Contains("1") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons first-gray"></span>
+                                            <span>First</span>
+                                        </a>
+                                    </li>
+                                    <li option="2" @(Model.SearchParams.Owners != null && Model.SearchParams.Owners.Contains("2") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons second-gray"></span>
+                                            <span>Second</span>
+                                        </a>
+                                    </li>
+                                    <li option="3" @(Model.SearchParams.Owners != null && Model.SearchParams.Owners.Contains("3") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons third-gray"></span>
+                                            <span>Third</span>
+                                        </a>
+                                    </li>
+                                    <li option="6" @(Model.SearchParams.Owners != null && Model.SearchParams.Owners.Contains("6") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons unregistered-gray"></span>
+                                            <span>Unregistered</span>
+                                        </a>
+                                    </li>
+                                </amp-selector>
+                                <div class="clear"></div>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="margin-bottom10 text-black">Body Type</h3>
+                        <div class="more-filters-list content-inner-block-10 content-box-shadow">
+                            <ul id="bodyType">
+                                <amp-selector layout="container" name="bodytype" multiple>
+                                    <li class="margin-top-minus-3" option="3" @(Model.SearchParams.BodyType != null && Model.SearchParams.BodyType.Contains("3") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons hatchback-gray"></span>
+                                            <span>Hatchback</span>
+                                        </a>
+                                    </li>
+                                    <li option="1" @(Model.SearchParams.BodyType != null && Model.SearchParams.BodyType.Contains("1") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons sedan-gray"></span>
+                                            <span>Sedan</span>
+                                        </a>
+                                    </li>
+                                    <li option="6" @(Model.SearchParams.BodyType != null && Model.SearchParams.BodyType.Contains("6") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons muv-gray"></span>
+                                            <span>Muv/Suv</span>
+                                        </a>
+                                    </li>
+                                    <li option="7" @(Model.SearchParams.BodyType != null && Model.SearchParams.BodyType.Contains("7") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons truck-gray"></span>
+                                            <span>Truck</span>
+                                        </a>
+                                    </li>
+                                    <li option="5" @(Model.SearchParams.BodyType != null && Model.SearchParams.BodyType.Contains("5") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons convertible-gray"></span>
+                                            <span>Convertible</span>
+                                        </a>
+                                    </li>
+                                    <li option="8" @(Model.SearchParams.BodyType != null && Model.SearchParams.BodyType.Contains("8") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons wagon-gray"></span>
+                                            <span>Station Wagon</span>
+                                        </a>
+                                    </li>
+                                    <li option="2" @(Model.SearchParams.BodyType != null && Model.SearchParams.BodyType.Contains("2") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons coupe-gray"></span>
+                                            <span>Coupe</span>
+                                        </a>
+                                    </li>
+                                    <li option="4" @(Model.SearchParams.BodyType != null && Model.SearchParams.BodyType.Contains("4") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons mini-van-gray"></span>
+                                            <span>Mini Van</span>
+                                        </a>
+                                    </li>
+                                    <div class="clear"></div>
+                                </amp-selector>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <h3 class="margin-bottom10 text-black">Transmission</h3>
+                        <div class="more-filters-list content-inner-block-10 content-box-shadow">
+                            <ul id="transmission">
+                                <amp-selector layout="container" name="trans" multiple>
+                                    <li option="2" @(Model.SearchParams.Trans != null && Model.SearchParams.Trans.Contains("2") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons manual-gray"></span>
+                                            <span>Manual</span>
+                                        </a>
+                                    </li>
+                                    <li option="1" @(Model.SearchParams.Trans != null && Model.SearchParams.Trans.Contains("1") ? " selected" : "")>
+                                        <a class="moreFilterIcons">
+                                            <span class="more-filter-icons automatic-gray"></span>
+                                            <span>Automatic</span>
+                                        </a>
+                                    </li>
+                                    <div class="clear"></div>
+                                </amp-selector>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <p id="btnMoreFilter" class="font14 text-link text-center margin-bottom90 more-filter-btn"></p>
+            </div>
+            <input name="so" value="@Model.SearchParams.So" hidden>
+            <input name="sc" value="@Model.SearchParams.Sc" hidden>
+            <input type="submit" class="apply-filters btn btn-orange btn-full-width" value="Apply Filters" on="tap:AMP.setState({filterValidation: '1'})" role="tab" tabindex="0">
+            <div class="globalLocBlackOut" [class]="'globalLocBlackOut ' + (blackOverLayOpen ? 'show' : 'hide' )" on="tap: AMP.setState({ minOpen: false, maxOpen: false, blackOverLayOpen : false, carMinAgeOpen: false, carMaxAgeOpen: false, minKmOpen: false, maxKmOpen: false})" role="tab" tabindex="0"></div>
+        </form>
+    </div>
+</amp-lightbox>
+
+@{Html.RenderPartial("~/Views/m/Used/SearchAmp/CityFilterAmp.cshtml");}
+@{Html.RenderPartial("~/Views/m/Used/SearchAmp/CarFilterAmp.cshtml");}

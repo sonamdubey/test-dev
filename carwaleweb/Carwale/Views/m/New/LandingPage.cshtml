@@ -1,0 +1,114 @@
+﻿@model Carwale.DTOs.LandingPage.LandingPageDTO
+@*Mobile*@
+@using Carwale.UI.PresentationLogic;
+
+@{
+    ViewBag.Title = Model.CampaignDetails.Name;
+    ViewBag.Description = Model.CampaignDetails.Name;
+    ViewBag.Keywords = "";
+    Layout = "~/views/shared/m/_MLayout.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MLandingPageCss.cshtml";
+    ViewBag.CustomJS = "~/Views/StaticPartials/m/MLandingPageScript.cshtml";
+    ViewBag.Canonical = "";
+    ViewBag.DefineAdSlots = "";
+}
+
+@if(Model.IncludeVersaTag)
+{
+    Html.RenderPartial("~/Views/Shared/_VersaTagScriptView.cshtml");
+}
+
+<section class="bg-light-grey padding-bottom20">
+    <div class="container">
+        <div class="grid-12">
+            <h1 id="primaryHead" class="font18 text-black margin-top20 margin-bottom5">@Model.CampaignDetails.PrimaryHeading</h1>
+            <div class="clear"></div>
+            <div class="bg-white padding-bottom10 border-solid">
+
+                <div id="tdDetail">
+
+                    @if (Carwale.Utility.CustomParser.parseBoolObject(@Model.CampaignDetails.IsMobile))
+                    {
+                        @Html.Raw(@Model.CampaignDetails.MobileHtml)
+                    }
+                    else { 
+                    <div class="td-gallery-container text-center border-solid-bottom">
+                        <img id="divTestDrivePhotos" src="@(Model.DefaultModelsDetails.HostUrl + "272x153" + Model.DefaultModelsDetails.OriginalImage)" alt="" title="">
+                    </div>
+                    }
+                    <div class="td-cust-detail">
+                        @if (@Model.Models.Count > 1)
+                        {
+                        <div class="multiple-car-option padding-top10 padding-left10 padding-right10">
+                            <h3 class="text-black font14 margin-bottom10">Select Car</h3>
+                            <div class="custModel form-control-box margin-bottom20">
+                                <span class="select-box fa fa-angle-down"></span>
+                                @Html.DropDownList("drpLpModels", new SelectList(Model.Models, "ModelId", "ModelName"), "--Select Model--", new { onchange = "ModelChange()", @class = "form-control" })
+                                <span class="cwmsprite error-icon hide"></span>
+                                <div class="cw-blackbg-tooltip hide">Please select a car</div>
+                            </div>
+                        </div>
+                        }
+                        else{
+                        <div class="single-car-option bg-grey content-inner-block-10 margin-bottom10">
+                                <h3 class="text-black font16">@(Model.DefaultModelsDetails.MakeName+" "+Model.DefaultModelsDetails.ModelName) </h3>
+                            </div>
+                        }
+
+                        <div class="test-drive-form padding-left10 padding-right10">
+                            <h3 class="text-black font14 margin-bottom10">Provide your contact details</h3>
+                            <div class="custName form-control-box margin-bottom20">
+                                <input class="form-control ui-autocomplete-input blur" type="text" placeholder="Name" id="tdname">
+                                <span class="cwmsprite error-icon hide"></span>
+                                <div class="cw-blackbg-tooltip hide">Please enter your name</div>
+                            </div>
+                            @if (Carwale.Utility.CustomParser.parseBoolObject(@Model.CampaignDetails.IsEmailRequired)) 
+                            { 
+                            <div class="custEmail form-control-box margin-bottom20">
+                                <input class="form-control ui-autocomplete-input blur" type="text" placeholder="Email" id="tdemail">
+                                <span class=" cwmsprite error-icon hide"></span>
+                                <div class="cw-blackbg-tooltip hide">Please enter your email</div>
+                            </div>
+                            }
+                            <div class="custMobile form-control-box margin-bottom20">
+                                <input class="form-control ui-autocomplete-input blur" type="text" placeholder="Mobile no." id="tdmobile">
+                                <span class="custMobile cwmsprite error-icon hide"></span>
+                                <div class="cw-blackbg-tooltip hide">Please enter your mobile number</div>
+                            </div>
+                            @if (@Model.Cities.Count > 1)
+                            { 
+                            <div class="custCity form-control-box margin-bottom20">
+                                @Html.DropDownList("drpLpCities", new SelectList(Model.Cities, "CityId", "CityName"), "--Select City--", new { @class = "form-control" })
+                                <span class="cwmsprite error-icon hide"></span>
+                                <div class="cw-blackbg-tooltip hide">Please select your city</div>
+                            </div>
+                            }
+                            <btn class="text-uppercase btn btn-orange btn-md btn-full-width" id="btnLpSumbit" data-landingPageId="@Model.CampaignDetails.Id" data-versa-tracking="@Model.IncludeVersaTag">@(String.IsNullOrEmpty(@Model.CampaignDetails.ButtonText) ? "Done" : @Model.CampaignDetails.ButtonText)</btn>
+                            
+                                @if(!String.IsNullOrEmpty(@Model.CampaignDetails.TrailingText)){
+                                  <p class="font12 margin-top10">@Model.CampaignDetails.TrailingText</p>
+                                }
+                                else{
+                                  <p class="font12 margin-top10">  
+                                  <label for="userAgreement">By proceeding ahead, you agree to CarWale </label>
+                                  <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and
+                                  <a target="_blank" href="/privacypolicy.aspx">privacy policy</a>.</p>
+                                }
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="thankYou" class="td-thank-section text-center padding-top40 hide">
+                    <span class="cwm-circle-icon green-thanks-icon"></span>
+                    <h3 class="font18 padding-bottom15 text-black padding-top15">Thank You</h3>
+                    <p class="font14">We would contact you shortly to help you <br>with your request.</p>
+                    <p class="font14 margin-top10"><a href="/m/new/">Explore Other Cars</a></p>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>

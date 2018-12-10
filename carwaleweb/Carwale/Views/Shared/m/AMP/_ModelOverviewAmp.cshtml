@@ -1,0 +1,326 @@
+﻿@using Carwale.Utility;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.BL.CMS;
+@using Carwale.Entity.Enum;
+@using System.Configuration;
+@using Carwale.Entity;
+@using Carwale.DTOs.CMS.ThreeSixtyView;
+
+@{
+    bool is360Available = CMSCommon.IsThreeSixtyViewAvailable(Model.ModelDetails);
+    ThreeSixtyViewCategory default360Category = CMSCommon.Get360DefaultCategory(AutoMapper.Mapper.Map<ThreeSixtyAvailabilityDTO>(Model.ModelDetails));
+    string threeSixtyPageUrl = EditorialContent.Get360PageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, default360Category, true);
+	string carPrice = (Model.MobileOverviewDetails.CarPriceOverview != null && Model.MobileOverviewDetails.CarPriceOverview.PriceForSorting > 0
+        ? Model.MobileOverviewDetails.CarPriceOverview.Price : "N/A");
+    string linkageImageUrl = default360Category == ThreeSixtyViewCategory.Interior ? CMSCommon.Get360ModelCarouselLinkageImageUrl(Model.ModelDetails, true) : CMSCommon.Get360ModelCarouselLinkageImageUrl(Model.ModelDetails);
+    string contentTrackingAction = (Model.MobileOverviewDetails.IsVersionPage ? "version" : (ViewBag.IsCityPage ? "price_in_city" : "model")) + "_page";
+}
+<section id="model-ATF-section">
+	<h1 class="model-ATF-section__car-name">@(Model.ModelDetails.MakeName+" "+ Model.ModelDetails.ModelName)@(ViewBag.IsCityPage ?" Price in "+ ViewBag.CityName : "")</h1>
+	@if (Model.ModelDetails.ModelRating > 0)
+	{
+		<div class="model-review-container">
+			<span class="rating-sprite @MobileWeb.Common.CommonOpn.GetRateImage(Model.ModelDetails.ModelRating)"></span>
+			<span class="review-class">
+				<span>
+					<a title="User Review of @Model.ModelDetails.ModelName" href="/m@(ViewBag.ModelUrl)userreviews/">
+						<span>@(Model.ModelDetails.ReviewCount)</span> reviews
+					</a>
+					<span>|</span>
+                    <a title="User Review of @Model.ModelDetails.ModelName" href="@ManageCarUrl.CreateRatingPageUrl(Model.ModelDetails.ModelId, Model.MobileOverviewDetails.IsVersionPage ? Model.MobileOverviewDetails.VersionId : -1)" data-vars-ea="model_write_review_link_click" data-vars-ec="msite_user_review" data-vars-el="@Model.ModelDetails.MakeName.ToLower()_@Model.ModelDetails.ModelName.ToLower()_amp"> Write Review</a>
+				</span>
+			</span>
+		</div>
+	}
+	<div id="model-overview" class="model-main-section content-box-shadow">
+		@if (Model.ModelPhotosListCarousel != null && Model.ModelPhotosListCarousel.Count > 0)
+		{
+			var carouselImageCount = 0;
+			Int32.TryParse(ConfigurationManager.AppSettings["ModelImageCarouselCount"], out carouselImageCount);
+			var imageCount = Model.ModelPhotosListCarousel.Count;
+			int linkageIndex = is360Available ? ((imageCount < 3) ? imageCount - 1 : 2) : -1;
+            bool showVideoCard = Model.ModelVideos != null && Model.ModelVideos.Count > 0 && imageCount > 4;
+			<amp-carousel width="365" height="205" layout="responsive" type="slides" class="model-main-section__img-carousel">
+				@for (int i = 0; i < imageCount; i++)
+				{
+					if (i == linkageIndex)
+					{
+						<div>
+							<a data-vars-event-category="360-carousel" href="@threeSixtyPageUrl">
+								<div class="amp-img-container">
+									<amp-img src="@(ImageSizes.CreateImageUrl(Model.ModelPhotosListCarousel[i].HostUrl, ImageSizes._370X208, linkageImageUrl))" alt="@Model.ModelPhotosListCarousel[i].ImageName" title="@(Model.ModelPhotosListCarousel[i].ImageName?.Replace("-", " "))"
+											 width="370"
+											 height="210"
+											 layout="responsive">
+									</amp-img>
+								</div>
+								<div class="swiper-overlay-bg">
+									<div class="center-container">
+										<span class="carousel-5th-slide-360-icon"></span>
+										<span class="carousel-5th-slide-experience-now-button">View The Car</span>
+									</div>
+								</div>
+							</a>
+						</div>
+                    }
+                    else if (i == 4 && showVideoCard)
+                    {
+                        <div>
+                            <a data-vars-event-category="video-image-carousel" title="@Model.ModelDetails.ModelName videos" href="@Carwale.BL.CMS.CMSCommon.GetVideoUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, Model.ModelVideos[0].SubCatName, Model.ModelVideos[0].BasicId, true)">
+                                <div class="amp-img-container">
+                                    <amp-img src="@("https://img.youtube.com/vi/" + Model.ModelVideos[0].VideoId + "/mqdefault.jpg")" alt="@Model.ModelVideos[0].VideoTitle" title="@Model.ModelVideos[0].VideoTitle"
+                                             width="370"
+                                             height="210"
+                                             layout="responsive">
+                                    </amp-img>
+                                    <span class="carousel-youtube-video-icon carousel-yt-icon"></span>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                    else if (i == carouselImageCount)
+                    {
+
+                        <div class="amp-img-container">
+							<amp-img src="@(ImageSizes.CreateImageUrl(Model.ModelPhotosListCarousel[i].HostUrl, ImageSizes._370X208, Model.ModelPhotosListCarousel[i].OriginalImgPath))" alt="@Model.ModelPhotosListCarousel[i].ImageName" title="@(Model.ModelPhotosListCarousel[i].ImageName?.Replace("-", " "))"
+									 width="370"
+									 height="210"
+									 layout="responsive">
+							</amp-img>
+							<div class="swiper-overlay-bg">
+								<div class="center-container carousel__link-container clearfix">
+									<a title="@Model.ModelDetails.ModelName images" data-vars-event-category="image-last-carousel" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.MobileOverviewDetails.MakeName, Model.MobileOverviewDetails.MaskingName, Model.ModelPhotosListCarousel[i].ImageName, Model.ModelPhotosListCarousel[i].ImageId, true)" class="@(is360Available ? "float-left" : "")">
+										<div class="carousel__icons-container">
+											<div class="center-container carousel__icons-container-link">
+												<span class="media-image-icon-24"></span>
+												<span class="carousel__image-count">+@(Model.ModelDetails.PhotoCount - carouselImageCount) Images</span>
+											</div>
+										</div>
+									</a>
+
+                                    @if (is360Available)
+                        {
+
+
+                                        <a title="@Model.ModelDetails.ModelName 360 view" data-vars-event-category="360-last-carousel" class="carousel-360-link-container float-right" href="@threeSixtyPageUrl">
+											<div class="carousel__icons-container float-right">
+												<div class="center-container carousel__icons-container-link">
+													<span class="carousel__icons-container__new-icon"></span>
+													<span class="carousel__icons-container__360-icon"></span>
+												</div>
+											</div>
+										</a>
+									}
+								</div>
+							</div>
+						</div>
+					}
+					else
+					{
+						<div>
+                            <a data-vars-event-category="contentcons" title="@Model.ModelDetails.ModelName @Model.ModelPhotosListCarousel[i].ImageCategory" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.MobileOverviewDetails.MakeName, Model.MobileOverviewDetails.MaskingName, Model.ModelPhotosListCarousel[i].ImageName, Model.ModelPhotosListCarousel[i].ImageId, true)">
+                                <div class="amp-img-container">
+                                    <amp-img src="@(ImageSizes.CreateImageUrl(Model.ModelPhotosListCarousel[i].HostUrl, ImageSizes._370X208, Model.ModelPhotosListCarousel[i].OriginalImgPath))" alt="@Model.ModelPhotosListCarousel[i].ImageName" title="@(Model.ModelPhotosListCarousel[i].ImageName?.Replace("-", " "))"
+                                             width="370"
+                                             height="210"
+                                             layout="responsive">
+                                    </amp-img>
+                                </div>
+                            </a>
+						</div>
+					}
+				}
+			</amp-carousel>
+		}
+		else if (!string.IsNullOrWhiteSpace(Model.MobileOverviewDetails.OriginalImage))
+		{
+			<amp-img src="@ImageSizes.CreateImageUrl(Model.MobileOverviewDetails.HostUrl, ImageSizes._272X153, Model.MobileOverviewDetails.OriginalImage)" title="@Model.MobileOverviewDetails.CarName" alt="@Model.MobileOverviewDetails.CarName"
+					 width="370"
+					 height="210"
+					 layout="responsive">
+			</amp-img>
+		}
+		else
+		{
+			<amp-img src="https://imgd.aeplcdn.com/310x174/cw/cars/no-cars.jpg" title="@Model.MobileOverviewDetails.CarName" alt="@Model.MobileOverviewDetails.CarName"
+					 width="370"
+					 height="210"
+					 layout="responsive">
+			</amp-img>
+		}
+
+		@if (Model.ModelDetails.PhotoCount > 0 || is360Available || Model.ModelDetails.VideoCount > 0)
+		{
+			<ul class="list-type-pills">
+				@if (!string.IsNullOrEmpty(Model.MobileOverviewDetails.OriginalImage) && Model.ModelDetails != null && Model.ModelDetails.PhotoCount > 0)
+				{
+					<li class="list-type-pills__list-item">
+                        <a data-vars-ea="@(contentTrackingAction+"_photo_count")" data-vars-ec="contentcons" data-vars-el="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName" href="/m@(ViewBag.ModelUrl)images/">
+                            <span class="list-type-pills__media-image-icon"></span>
+                            <span class="list-type-pills__media-count">Images (@Model.ModelDetails.PhotoCount)</span>
+                        </a>
+					</li>
+				}
+				@if (Model.ModelDetails.IsModelColorPhotosAvailable && Model.ModelDetails.ModelColors != null)
+				{
+					<li class="list-type-pills__list-item">
+                        <a data-vars-ea="@contentTrackingAction" data-vars-ec="msite_colour_linkages" data-vars-el="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName" href="@EditorialContent.GetColorUrl(Model.MobileOverviewDetails.MakeName, Model.MobileOverviewDetails.MaskingName, null, 0, true)">
+                            <span class="media-color-icon item--icon-right-margin"></span>
+                            <span class="list-type-pills__media-count">@Model.ModelDetails.ModelColors.Count</span>
+                        </a>
+					</li>
+				}
+				@if (is360Available)
+				{
+					<li class="list-type-pills__list-item">
+                        <a data-vars-ea="@contentTrackingAction" data-vars-ec="msite_360_linkages" data-vars-el="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName" href="@threeSixtyPageUrl">
+                            <span class="list-type-pills__360-icon-24-17"></span>
+                        </a>
+					</li>
+				}
+			</ul>
+		}
+		@if (Model.ModelDetails.New)
+		{			
+			<div class="model-city-version">
+                <div class="city-version-unit" on="tap:version-popup-layer.show" role="tab" tabindex="1" data-vars-ea="@(ViewBag.TrackingPageName)_ChangeVersion_click" data-vars-ec="ShowORPTest" data-vars-el="@(ViewBag.PricingEventLabel)@(Model.MobileOverviewDetails.IsVersionPage ? "" : "_NA")">
+                    <p class="text-light-grey">
+                        Version&nbsp;
+                        <span class="caret-right-icon"></span>
+                    </p>
+                    <p class="text-bold">@Model.MobileOverviewDetails.VersionName</p>
+                </div>
+				<div class="city-version-divider"></div>
+                <a href="@ViewBag.NonAmpUrl?q=globalcity" data-vars-ea="@(ViewBag.TrackingPageName)_ChangeCity_click" data-vars-ec="ShowORPTest" data-vars-el="@(ViewBag.PricingEventLabel)@(Model.MobileOverviewDetails.IsVersionPage ? "" : "_NA")">
+                    <div class="city-version-unit">
+                        @if (CustomerCookie.MasterCityId > 0)
+                        {
+                            <p class="text-light-grey">
+                                City&nbsp;
+                                <span class="caret-right-icon"></span>
+                            </p>
+                            <p class="text-black text-bold">@(ViewBag.IsCityPage ? ViewBag.CityName : CustomerCookie.MasterCity)</p>
+                        }
+                        else
+                        {
+                            <p class="price-in-city-link text-link text-bold">Show Price in my city</p>}
+                    </div>
+                </a>
+			</div>
+			<div class="text-center">
+                @if (ViewBag.IsCityPage)
+                {
+                    Html.RenderAction("PriceOverview", "ModelComponent", new { overview = Model.MobileOverviewDetails, isPicPage = ViewBag.IsCityPage, cityName = ViewBag.CityName, cityZone = ViewBag.CityZone, pricingEventAction = ViewBag.PricingEventAction, pricingEventLabel = ViewBag.PricingEventLabel, isAmp = true});
+                }
+                else
+                {
+				<div id="priceBreakUp-div">
+					<span class="font20">@carPrice</span>
+					@if (Model.MobileOverviewDetails.CarPriceOverview != null && Model.MobileOverviewDetails.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity)
+                    {
+						<div class="font13">@((Model.MobileOverviewDetails.CarPriceOverview.PriceLabel ?? string.Empty) + ", " + Model.MobileOverviewDetails.CarPriceOverview.City.Name)</div>
+                    }
+                    else
+                    {
+						<span class="font13"> @(Model.MobileOverviewDetails.CarPriceOverview.PriceLabel ?? string.Empty)</span>
+                    }
+					
+					<p class="emi-starts-text">
+						EMI starts at&nbsp;
+						<span class="text-black text-bold">&#8377; @Model.MobileOverviewDetails.EMI/-&nbsp;</span>
+						<span class="info-icon deals-car-sprite margin-left5" on="tap:emi-tooltip.show" role="tab" tabindex="3">
+							<span id="emi-tooltip" class="cw-tooltip emi-tooltip tooltip-bottom-right" hidden>
+								<span class="cwmsprite close-sm-icon" data-vars-event-category="emitooltip" on="tap:emi-tooltip.hide" role="tab" tabindex="3"></span>
+								@if (Model.MobileOverviewDetails.AdAvailable)
+                                {
+									<span class="cw-tooltip-text"> Assuming @(CWConfiguration.INTEREST_RATE)% rate of interest and a tenure of @(CWConfiguration.TENURE) months. For exact EMI quotes please get in touch with your <a data-vars-ea='Dealer_Link_click' data-vars-ec='@(Model.MobileOverviewDetails.IsVersionPage ? "Version": "Model")_Page_Tooltip_Experiment_4Cities_MSite' data-vars-el='@(MobileWeb.Common.CookiesCustomers.MasterCity + "," + (Model.MobileOverviewDetails.IsVersionPage ? Model.ModelDetails.ModelName + "," + Model.MobileOverviewDetails.VersionName : Model.ModelDetails.ModelName))' href="@ViewBag.NonAmpUrl?q=lead&propertyid=6">Authorized Dealer</a> or check out our <a target="_blank" data-vars-ea='@(Model.MobileOverviewDetails.IsVersionPage ? "Tooltip_variantpage" : "Tooltip_modelpage")' data-vars-ec='BBLinkClicks_mobile' data-vars-el='@(MobileWeb.Common.CookiesCustomers.MasterCity + "," + (Model.MobileOverviewDetails.IsVersionPage ? Model.ModelDetails.ModelName + "," + Model.MobileOverviewDetails.VersionName : Model.ModelDetails.ModelName))' href="https://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|modelpagetip_msite&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide&variantOptions=mobileRequired">Finance Partner</a><span class="fa fa-external-link new-window-icon"></span>.</span>
+                                }
+                                else
+                                {
+									<span class="cw-tooltip-text">Assuming @(CWConfiguration.INTEREST_RATE)% rate of interest and a tenure of @(CWConfiguration.TENURE) months. For exact EMI quotes please check our <a target="_blank" data-vars-ea='@(Model.MobileOverviewDetails.IsVersionPage ? "Tooltip_variantpage" : "Tooltip_modelpage")' data-vars-ec='BBLinkClicks_mobile' data-vars-el='@(MobileWeb.Common.CookiesCustomers.MasterCity + "," + (Model.MobileOverviewDetails.IsVersionPage ? Model.ModelDetails.ModelName + "," + Model.MobileOverviewDetails.VersionName : Model.ModelDetails.ModelName))' href="http://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|modelpage_desktop&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide&variantOptions=mobileRequired">Finance Partner</a><span class="fa fa-external-link new-window-icon"></span>.</span>
+                                }
+
+							</span>
+						</span>
+					</p>
+				</div>
+				<div class="credit-card-offer-text">
+                    <a data-vars-ea="Link_without_city" data-vars-ec="@(ViewBag.IsCityPage ? "ModelCityPage_Lead_CTA_MSite" : (Model.MobileOverviewDetails.IsVersionPage ? "VersionPage_Lead_CTA_MSite" : "ModelPage_Lead_CTA_MSite"))" data-vars-el='@(ViewBag.IsCityPage ? (ViewBag.CityName + "," + Model.ModelDetails.ModelName) : (ViewBag.CityZone + "," + Model.ModelDetails.ModelName))' href="@ViewBag.NonAmpUrl?q=lead&propertyid=1" class="text-bold font16"><u>Get EMI Assistance</u></a>
+				</div>
+                }
+			</div>
+		}
+		else if (Model.ModelDetails.Futuristic)
+		{
+			<div class="upcoming-detail-container">
+				<div class="upcoming-discontinued-label">
+					<span>Upcoming</span>
+				</div>
+                <div>
+                    Estimated price:
+                    <span class="text-bold">₹ @(!string.IsNullOrEmpty(Model.MobileOverviewDetails.EstimatedPrice) ? Model.MobileOverviewDetails.EstimatedPrice : "N/A")</span>
+                </div>
+                @if (!String.IsNullOrEmpty(Model.MobileOverviewDetails.ExpectedLaunch))
+                {
+                <div>
+					When to expect:
+					<span class="text-bold">@Model.MobileOverviewDetails.ExpectedLaunch</span>
+				</div>
+                }
+			</div>
+		}
+		else
+		{
+			<div class="upcoming-detail-container">
+				<div class="upcoming-discontinued-label">
+					<span>Discontinued</span>
+				</div>
+				<div>
+					Last recorded price: <span class="text-bold">₹</span>
+					<span class="text-bold">
+						@(Carwale.UI.Common.FormatPrice.FormatFullPrice((Model.MobileOverviewDetails.MinPrice > 0 ? Model.MobileOverviewDetails.MinPrice.ToString() : string.Empty), (Model.MobileOverviewDetails.MaxPrice >0 ? Model.MobileOverviewDetails.MaxPrice.ToString() : string.Empty)))
+					</span>
+				</div>
+			</div>
+		}
+	</div>
+	</section>
+	@if (Model.ModelDetails.New)
+	{
+		<section class="version-popup-layer" id="version-popup-layer" hidden>
+			<div class="version-popup-layer__top">
+				<span class="cwmsprite version-popup-layer__back-arrow" on="tap:version-popup-layer.hide" role="tab" tabindex="3"></span>
+				<h3 class="select-version-heading">Select Version</h3>
+			</div>
+			<div class="popup-layer__popup-content">
+				<ul>
+                    @{
+                        string cityName = "NA";
+                        if(Model.CarPriceOverview != null && Model.CarPriceOverview.City!=null){
+                            cityName = Model.CarPriceOverview.City.CityId < 1 ? "NA" : Model.CarPriceOverview.City.CityName;
+                        }
+                    }
+					@foreach (var version in Model.NewCarVersions)
+					{
+
+						<li>
+                            <a class="text-black text-no-decoration" href="@(ViewBag.NonAmpUrl)?vid=@version.Id" data-vars-ea="@(ViewBag.TrackingPageName)_ChangeVersion_Select_click" data-vars-ec="ShowORPTest" data-vars-el="@(cityName)_@version.Version">
+                                <span class="pop-version-name">@version.Version</span>
+                                <div class="version-popup-layer__version-detail">
+                                    <span class="pop-version-manual">@version.CarFuelType</span>
+                                    <span class="pop-version-manual">@version.TransmissionType</span>
+                                    <span>
+
+                                        <span>
+                                            @(version.CarPriceOverview != null && version.CarPriceOverview.PriceForSorting > 0 && version.CarPriceOverview.PriceStatus <= (int)PriceBucket.HaveUserCity ?
+                            "₹ " + Format.FormatNumericCommaSep(version.CarPriceOverview.PriceForSorting.ToString()) : "Price not available")
+                                        </span>
+                                    </span>
+                                </div>
+                            </a>
+						</li>
+					}
+				</ul>
+			</div>
+		</section>
+	}

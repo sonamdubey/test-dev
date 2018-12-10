@@ -1,0 +1,80 @@
+@include button-tab;
+
+.filters__toolbar-placeholder {
+	height: 52px;
+	background-color: color('white');
+}
+
+.filters-toolbar__content {
+	width: 100%;
+	background-color: color('white');
+}
+
+.filters-toolbar-list__content {
+	@include scrollbar-hide;
+	position: relative;
+	overflow-x: auto;
+	padding-top: 14px;
+	padding-bottom: 10px;
+}
+
+.filter-toolbar__list {
+	@include flexbox;
+	@include flex-wrap;
+}
+
+.filter-toolbar-list__item {
+	max-width: 130px;
+	margin-right: 10px;
+
+	&:first-child {
+		margin-left: 10px;
+	}
+
+	.btn-tab {
+		@include ripple-parent;
+	}
+
+	&:last-child {
+		.btn-tab {
+			margin-right: 80px;
+		}
+	}
+}
+
+.filter__edit {
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 13px;
+	font-weight: $font-bold;
+	line-height: 48px;
+	color: color('summer-sky');
+	padding: 4px 20px 0 30px;
+	background: color('white');
+	background: linear-gradient(to right, rgba(255, 255, 255, 0.4) 0, #fff 20%);
+	cursor: pointer;
+}
+
+.toolbar--relative {
+	position: relative;
+}
+
+// fixed state
+.toolbar--fixed {
+	&.filters-toolbar__content {
+		@include vendor-prefix('box-shadow', 0 2px 3px #ccc);
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 4;
+	}
+
+	.filters-toolbar-list__content {
+		padding-top: 10px;
+	}
+
+	.filter__edit {
+		padding-top: 0;
+	}
+}

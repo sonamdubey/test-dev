@@ -1,0 +1,211 @@
+﻿@model Carwale.DTOs.CMS.ContentDetailAmpDTO
+@using Carwale.Utility
+
+@{
+    ViewBag.Title = Html.Raw(Model.Article.Title + " - CarWale");
+    ViewBag.Description = "CarWale coverage on " + Model.Article.Title + ". Get the latest reviews and photos for " + Model.Article.Title + " on CarWale coverage.";
+    ViewBag.Canonical = "https://www.carwale.com" + Model.Article.ArticleUrl;
+    Layout = "~/views/shared/m/_MLayoutAmp.cshtml";
+}
+<!-- only one style tag is allowed, and it must have an "amp-custom" attribute -->
+
+@section Scripts{
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+<script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+}
+@section Schema{
+    <script type="application/ld+json">
+    {"@@context":"http://schema.org","@@type":"NewsArticle",
+    "mainEntityOfPage":{"@@type":"WebPage","@@id":"@string.Format("https://www.carwale.com/m{0}", ViewBag.NewsUrl)"},
+    "headline":"@ViewBag.Title",
+    "image":{"@@type":"ImageObject","url":"@ViewBag.MainImageUrl","width":696,"height":318},
+    "datePublished":"@ViewBag.Displaydate","author":{"@@type":"Person","name":"@ViewBag.Author"},
+    "dateModified":"@Model.Article.ModifiedDate.ToString("yyyy-MM-ddTHH:mm:sszzz")",
+    "publisher":{"@@type":"Organization","name":"CarWale",
+    "logo":{"@@type":"ImageObject","url":"https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/logo-white.png?20170407400","width":107,"height":17}},
+    "description":"@ViewBag.Description"}
+    </script>
+}
+@section Tracking{
+    <!-- Google Analytics Tracking -->
+<amp-analytics type="googleanalytics" id="google-analytics">
+    <script type="application/json">
+    {
+        "vars": {
+            "account": "UA-337359-1"
+        },
+        "triggers": {
+            "defaultPageview": {
+                "on": "visible",
+                "request": "pageview",
+                "vars": {
+                    "title": "@ViewBag.Title"
+                }
+            },
+            "trackEventFacebook": {
+                "selector": "#shareFacebook",
+                "on": "click",
+                "request": "event",
+                "vars": {
+                    "eventCategory": "amp_news",
+                    "eventAction": "share_facebook",
+                    "eventLabel": "share_facebook"
+                }
+            },
+            "trackEventTwitter": {
+                "selector": "#shareTwitter",
+                "on": "click",
+                "request": "event",
+                "vars": {
+                    "eventCategory": "amp_news",
+                    "eventAction": "share_twitter",
+                    "eventLabel": "share_twitter"
+                }
+            },
+            "trackEventMail": {
+                "selector": "#shareEmail",
+                "on": "click",
+                "request": "event",
+                "vars": {
+                    "eventCategory": "amp_news",
+                    "eventAction": "share_email",
+                    "eventLabel": "share_email"
+                }
+            },
+            "trackEventWhatsApp": {
+                "selector": "#shareWhatsApp",
+                "on": "click",
+                "request": "event",
+                "vars": {
+                    "eventCategory": "amp_news",
+                    "eventAction": "share_whatsapp",
+                    "eventLabel": "share_whatsapp"
+                }
+            },
+            "trackRelatedNews": {
+                "selector": ".relatedNewsArticle",
+                "on": "click",
+                "request": "event",
+                "vars": {
+                    "eventCategory": "amp_news_related_news",
+                    "eventAction": "news_clicked",
+                    "eventLabel": "news_clicked"
+                }
+            }
+        }
+    }
+    </script>
+</amp-analytics>
+}
+<main role="main">
+
+    <div class="adblock">
+        <div id="top_banner_ad" class="adblock-content">
+            <amp-ad width=320 height=50 type="doubleclick" data-slot="/1017752/CarWale_Mobile_ROS_320x50">
+                <div placeholder></div>
+            </amp-ad>
+        </div>
+    </div>
+
+
+    <article>
+        <div class="article-head">
+            <h1>@Model.Article.Title</h1>
+            <div class="article__subheading">
+                <time class="margin-bottom10" datetime="@Model.Article.DisplayDate">@Model.Article.DisplayDate.ToString("MMMM dd, yyyy, hh:mm tt") IST by </time>
+                @if (!string.IsNullOrEmpty(Model.Article.AuthorMaskingName))
+                {
+                    <a href="/m/authors/@Model.Article.AuthorMaskingName" class="blue">@Model.Article.AuthorName</a>
+                }
+                else
+                {
+                    @Model.Article.AuthorName
+                }
+            </div>
+        </div>
+        <div class="article-body">
+               @if (Model.Article.OriginalImgUrl != "")
+                {
+            <figure class="articleImgWrap margin-top10 margin-bottom10">             
+                    <amp-img src="@Carwale.Utility.ImageSizes.CreateImageUrl(@Model.Article.HostUrl,Carwale.Utility.ImageSizes._566X318,@Model.Article.OriginalImgUrl)"
+                                layout="responsive" width="278" alt="@Model.Article.Title" height="161">
+                    </amp-img>
+                    @if (!string.IsNullOrEmpty(Model.Article.MainImgCaption))
+                    {
+                        <div class="imgCaption">
+                            @Model.Article.MainImgCaption
+                        </div>
+                    }
+            </figure>
+                }
+            @Html.Raw(Model.Article.Content)
+            <div class="clear"></div>
+            @if (string.Join(",", Model.Article.TagsList.ToArray()).Length > 0)
+            {
+                <div class="inner-container margin-top10">
+                    <span class="fa fa-tag floatleft"></span>
+                    <span class="">@string.Join(",", Model.Article.TagsList.ToArray())</span>
+                </div>
+            }
+        </div>
+
+    </article>
+    
+    <div class="social light-shadow margin-top10">
+        <a id="shareWhatsApp" href="@string.Format("whatsapp://send?text=https://www.carwale.com{0}", Model.Article.ArticleUrl)">
+            <div class="imgSocial imgWhatsApp"></div>
+        </a>
+        <a id="shareFacebook" href='http://m.facebook.com/sharer.php?u=https://www.carwale.com@(Model.Article.ArticleUrl)&t=@Model.Article.Title' target="_blank">
+            <div id="FbCount" class="imgSocial imgFacebook"></div>
+        </a>
+        <a id="shareTwitter" href='https://twitter.com/share?url=https://www.carwale.com@(Model.Article.ArticleUrl)&t=@Model.Article.Title' target="_blank">
+            <div id="TweetCount" class="imgSocial imgTwitter"></div>
+        </a>
+        <a id="shareEmail" href='mailto:contact@carwale.com?subject=@Model.Article.Title&body=I was reading https://www.carwale.com@(Model.Article.ArticleUrl) on CarWale site and thought to share with you.'>
+            <div class="imgSocial imgEmail"></div>
+        </a>
+        <div class="clear"></div>
+    </div>
+
+    @if (Model.RelatedArticles != null)
+    {
+        <section class="related-article padding10">
+            <h2>Related News</h2>
+            <ul class="related-list">
+                @foreach (var articleSum in Model.RelatedArticles)
+                {
+                    <li class="relatedNewsArticle article-body margin-bottom15">
+                        <a class="" data-event-category='Article' data-event-action='Related News' data-event-label='@articleSum.Title' href="@("/m"+@articleSum.ArticleUrl)">
+                            <figure>
+                                @if (!String.IsNullOrEmpty(Carwale.Utility.ImageSizes.CreateImageUrl(@articleSum.HostUrl, Carwale.Utility.ImageSizes._272X153, @articleSum.OriginalImgUrl)))
+                                { 
+                                    <amp-img src="@Carwale.Utility.ImageSizes.CreateImageUrl(@articleSum.HostUrl,Carwale.Utility.ImageSizes._272X153,@articleSum.OriginalImgUrl)"
+                                                layout="responsive" width="120" alt="@articleSum.Title" height="68">
+                                    </amp-img>
+                                }
+                                else
+                                {
+                                    <amp-img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/nocars-placeholder.jpg"
+                                             layout="responsive" width="120" alt="@articleSum.Title" height="68">
+                                    </amp-img>
+                                }
+                            </figure>
+                            <span class="title-wrap">
+                                <span class="title-link">@articleSum.Title</span>
+                                <span class="pub-time">@articleSum.DisplayDate.ConvertDateToDays()|@articleSum.AuthorName</span>
+                            </span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </section>
+    }
+
+    <div class="adblock">
+        <div id="bottom_banner_ad" class="adblock-content">
+            <amp-ad width="300" height="250" type="doubleclick" data-slot="/1017752/CarWale_Mobile_ROS_300x250">
+                <div placeholder></div>
+            </amp-ad>
+        </div>
+    </div>
+</main>

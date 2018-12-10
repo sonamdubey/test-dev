@@ -1,0 +1,749 @@
+﻿@model Carwale.DTOs.Deals.ProductDetailsDTO_Msite
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Utility;
+
+@{
+    ViewBag.Title = "CarWale Advantage";
+    ViewBag.Description = "";
+    ViewBag.PageTag = "mA-1";
+    ViewBag.Canonical = "https://www.carwale.com" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString().Replace("/m/", "/");
+    ViewBag.adPath = System.Configuration.ConfigurationManager.AppSettings["adPathMobile"];
+    ViewBag.CallSlugDisplay = true;
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/Deals/MDealsCss.cshtml";
+    ViewBag.CustomJs = "~/Views/StaticPartials/m/Deals/MDealsScript.cshtml";    //"~/Views/StaticPartials/m/Deals/MDealsScriptProduct.cshtml";
+    Layout = "~/views/shared/m/_MLayout.cshtml";
+}
+
+@section MetaTags {
+    <meta name="robots" content="noindex" />
+    }
+
+<div id="m-blackOut-window" class="hide" style="display:block;"></div>
+
+<div id="cwmLoadingIcon" class="m-loading-popup hide" style="display:block;">
+    <span class="m-loading-icon"></span>
+    <div class="clear"></div>
+</div>
+<div id="page-container" class="visibility-hidden">
+    <div class="container grid-12 content-inner-block-15">
+		<img id="stockTrackingImg" src="" class="hide" />
+        <h2 class="font18 text-grey text-bold m-special-skin-text">Big Savings on <span id="heading"></span></h2>
+    </div>
+    <div class="container margin-bottom10 bg-white position-rel grid-12 content-inner-block-15">
+        <!-- Aged Car Model Section Code Starts Here -->
+        <div class="agedcar-model-section">
+            <div class="grid-5 alpha omega text-center text-white aged-city-dropdown">
+                <select class="text-light-grey font12 form-control withBorder rightfloat" id="advDrpCity">
+                    @foreach (var city in Model.CitiesList)
+                    {
+                        <option value="@city.CityId">@city.CityName</option>
+                    }
+                </select>
+            </div>
+            <div id="divNoStock" class="hide">
+                <div class="agedcar-model-title grid-7 alpha">
+                    <h3 class="modelaged-car-name font14 text-grey"><span class="font16 text-black" id="spnCarName"></span><span class="fa fa-pencil changeCarPopup cur-pointer padding-left15 padding-right10 padding-top5 padding-bottom5 make-model" data-role="click-tracking" data-event="CWInteractive" data-action="carchangelinkaccess_msite" data-cat="deals_mobile" data-label="car-change-link"></span></h3>
+                </div>
+                <div class="clear"></div>
+                <div class="model-car-image text-center clear">
+                    <img id="imgNostock" />
+                </div>
+                <div class="margin-top20 margin-bottom20 table errorTxt">
+                    <span class="text-grey font42 table-cell padding-right10"><span class="fa fa-exclamation-triangle"></span></span><span class="text-black line-height table-cell">Sorry this offer is not available anymore in the selected city, try changing the city or model</span>
+                </div>
+            </div>
+            <div id="product" data-bind="with: stock">
+                <div class="agedcar-model-title grid-7 alpha">
+                    <h3 class="modelaged-car-name font14 text-grey"><span class="make-model-name font16 text-black" data-bind="text:make.makeName + ' ' + model.modelName"></span><span class="fa fa-pencil changeCarPopup cur-pointer  padding-left15 padding-right10 padding-top5 padding-bottom5 make-model" data-role="click-tracking" data-event="CWInteractive" data-action="carchangelinkaccess_msite" data-cat="deals_mobile" data-label="car-change-link"></span></h3>
+                    <div class="coachmark-box change-car-coachmark hide">
+                        <span class="coachmark-arrow coachmark-arrow-globalcity"></span>
+                        <p class="font16 text-bold margin-bottom5">Change Car</p>
+                        <p class="font14 margin-bottom5">You can change the car by clicking the pencil icon.</p>
+                        <p class="leftfloat margin-top5"><a class="nomoreTips dontShowCoach" href="javascript:void(0)">Don't show anymore tips</a></p>
+                        <p class="rightfloat"><a id="btnCarCoach" class="btn btn-green btn-sm font14" href="javascript:void(0)">OK</a></p>
+                    </div>
+                    <div class="leftfloat">
+                        <select id="drpVersions" data-bind="options: version, optionsValue:'id',value:currentVersionId, optionsText: 'name'" class="text-light-grey font15 form-control"></select>
+                    </div>
+                    <div class="coachmark-box change-version-coachmark hide">
+                        <span class="coachmark-arrow coachmark-arrow-globalcity"></span>
+                        <p class="font16 text-bold margin-bottom5">Change Version</p>
+                        <p class="font14 margin-bottom5">You can change the car version by clicking the version dropdown.</p>
+                        <p class="leftfloat margin-top5"><a class="nomoreTips dontShowCoach" href="javascript:void(0)">Don't show anymore tips</a></p>
+                        <p class="rightfloat"><a id="btnVersionCoach" class="btn btn-green btn-sm font14" href="javascript:void(0)">OK</a></p>
+                    </div>
+                </div>
+                <div class="model-car-image text-center clear position-rel" data-bind="foreach:carColorDetails">
+                    <div id="divPhotoGallery">
+                        <a href="" class="normal car-pic hide" data-role="click-tracking" data-event="CWInteractive" data-action="PhotoGalleryOpen_mobile" data-cat="deals_mobile" data-bind="attr:{'data-label':$parent.make.makeName+'-'+$parent.model.modelName}">
+                            <img id="stock-image" data-bind="attr:{src: carImage.hostUrl + '272x153'+ carImage.originalImgPath , onerror: Deals.product.setModelImageSrc($parent.carImage.hostUrl,$parent.carImage.originalImgPath)}" />
+                            <span data-gallery="" data-role="click-tracking" data-event="CWInteractive" data-action="PhotoGalleryOpen_Desk" data-cat="deals_desktop" data-label="PhotoGalleryOpen_Desk" class="text-link">
+                                <span aria-hidden="true" class="fa fa-search-plus"></span><span class="view-photo-text margin-right10 margin-left10 margin-bottom5 margin-top5 inline-block ">View photos</span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="keySpecsDiv hide">
+                        <div>
+                            <div class="keySpecsText margin-right inline-block"></div>
+                            <div class="inline-block">&nbsp;<a href="javascript:void(0)" class="view-details-link">View details</a></div>
+                            <div class="clear"></div>
+                        </div>
+                        <a href="javascript:void(0)" class="changeCarPopup margin-top5 inline-block" data-role="click-tracking" data-event="CWInteractive" data-action="carchangelinkaccess_msite" data-cat="deals_mobile" data-label="looking-for-different-car-link">Looking for a different car?</a>
+                    </div>
+                </div>
+                <div class="color-year-section position-rel">
+                    <div class="color-details-outer margin-top10 margin-bottom10">
+                        <div class="margin-top10">
+                            <span data-bind="foreach: carColorDetails">
+                                <div class="active-color-shade color-detail-section margin-right5 position-rel">
+                                    <div data-bind="attr:{title:carColor.name}">
+                                        <div class="color-shade" data-bind="style:{'background-color':'#'+carColor.hexCode}"></div>
+                                        <span class="deals-car-sprite tick-color hideImportant"></span>
+                                    </div>
+                                    <div data-bind="foreach:deals">
+                                        <div class="dealer-location" data-bind="attr:{area:dealerArea.areaName, city:dealerCity.cityName}"></div>
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                        <span class="color-title font13">Color: </span>
+                        <span id="color-text" class="color-title margin-left55 font13"></span>
+                    </div>
+                </div>
+                <div class="coachmark-box change-color-coachmark hide">
+                    <span class="coachmark-arrow coachmark-arrow-globalcity"></span>
+                    <p class="font16 text-bold margin-bottom5">Change Color</p>
+                    <p class="font14 margin-bottom5">You can change the color by clicking the color boxes.</p>
+                    <p class="leftfloat margin-top5"><a class="nomoreTips dontShowCoach" href="javascript:void(0)">Don't show anymore tips</a></p>
+                    <p class="rightfloat"><a id="btnColorCoach" class="btn btn-green btn-sm font14" href="javascript:void(0)">GOT IT</a></p>
+                </div>
+                <div data-bind="foreach:carColorDetails">
+                    <div class="year-type table margin-auto hideImportant">
+                        <span class="year-title font13">Manufacturing Year: </span>
+                        <select data-bind="options: $data.deals,optionsText: 'manufacturingYear',optionsValue:'stockId',attr:{currentyear: $data.currentYear}" class="form-control input-xs"></select>
+                        <!-- Color Section ToolTip Code Starts Here -->
+                        <div class="year-tooltip tool-tip-info position-rel">
+                            <span class="deals-car-sprite year-info-icon"></span>
+                            <div class="tooltip text-gray">
+                                All cars in the CarWale Advantage are brand new. You will be the first owner of this car.
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <!-- Color Section ToolTip Code Ends Here -->
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div data-bind="foreach:carColorDetails" id="priceDetails">
+                    <div data-bind="foreach:$data.deals">
+                        <div class="product-amt-details padding-bottom10 modelcar-price-section text-center margin-top5 margin-bottom5 hideImportant" data-bind="attr:{stock:stockId, dealerId:dealerId,campaignId:campaignId}">
+                            <div data-bind="if: savings > 0">
+                                <div class="striked-amount text-red font14">
+                                    <span class="striked-line"></span><span class="text-grey">₹</span><span class="text-grey" data-bind="text: Common.utils.formatNumeric(onRoadPrice), attr:{'data-onroad-price': Common.utils.formatNumeric(onRoadPrice)}"></span>
+                                </div>
+                                <span class="text-green margin-left5">
+                                    (₹
+                                    <!-- ko if: !showExtraSavings-->
+                                    <span data-offer-savings="true" data-bind="text: Common.utils.formatNumeric(savings), attr: { 'data-savings': Common.utils.formatNumeric(savings) }"></span>
+                                    <!-- /ko -->
+                                    <!-- ko if: showExtraSavings-->
+                                    <span data-offer-savings="true">
+                                        <span data-bind="text: Common.utils.formatNumeric(savings - extraSavings), attr: { 'data-savings': Common.utils.formatNumeric(savings) }"></span>&nbsp;+&nbsp;
+                                        ₹<span data-bind="text: Common.utils.formatNumeric(extraSavings)"></span>
+                                    </span>
+                                    <!-- /ko -->
+                                    <span data-offer-savings="false" data-bind="text: Common.utils.formatNumeric(savings), attr: { 'data-savings': Common.utils.formatNumeric(savings) }"></span>
+                                    <span>&nbsp;off)</span>
+                                </span>
+                                <span class="font13 padding-left5 text-red">
+                                    <!-- ko if: stockCount == 1 -->
+                                    <span data-bind="text:stockCount"></span> car left
+                                    <!-- /ko -->
+                                    <!-- ko if: stockCount > 1 && stockCount <= 3 -->
+                                    <span data-bind="text:stockCount"></span> cars left
+                                    <!-- /ko -->
+                                </span>
+                            </div>
+                            <div class="main-price text-black font20 margin-top5">
+                                ₹
+                                <span class="animated-amount font22 text-bold" data-bind="attr:{'data-adv-price': offerPrice}">0</span>&nbsp;
+                                <div data-bind="if: priceBreakupId > 0">
+                                    <a data-role="click-tracking" data-event="CWInteractive" data-action="PriceBreakupOpened" data-cat="Advantage_general" data-label="Mobile" href="javascript:void(0)" class="font13 view-price-break-up">View Break up</a>
+                                </div>
+                                <span class="font13 text-light-grey onroad-Price block margin-bottom5">Final On-Road Price <span data-bind="text: Deals.cityName"></span></span>
+                            </div>
+
+                            <!-- Emi Tooltip Section Starts Here -->
+                            <div class="margin-bottom10 margin-top10 text-light-grey">
+                                <span>
+                                    Indicative EMI
+                                    <span id="m-emi-info-tooltip" class="cur-pointer">
+                                        <span class="text-link">₹ <span data-bind="text : dealsEmiDetails.emiValue"></span></span>
+                                        <span class="info-icon deals-car-sprite inline-block margin-left0"></span>
+                                    </span>
+                                    <span class="emi-car-content hide">
+                                        Assuming 10.5% rate of interest and a tenure of 60 months. For exact EMI quotes please <a class="linkNotSure emi-link cur-pointer" data-role="click-tracking" data-event="CWInteractive" data-action="emitooltip-getintouch-clicked" data-cat="Advantage_general" data-label="mobile">get in touch with CarWale</a>
+                                    </span>
+                                </span>
+                            </div>
+                            <!-- Emi Tooltip Section Ends Here -->
+                            <!-- ko if: showExtraSavings-->
+                            <p class="margin-bottom5"><span data-offer-savings="true">₹<span data-bind="text: Common.utils.formatNumeric(extraSavings)"></span>&nbsp;Extra savings only till&nbsp;<span data-extra-offer-date></span>.</span></p>
+                            <!-- /ko -->
+                            <a class="linkNotSure emi-link btn btn-white btn-xs font14 cur-pointer text-uppercase margin-top5">GET EMI ASSISTANCE</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="dealerLocation">
+                    <div class="text-light-grey margin-top10 margin-bottom10 text-center">
+                        This car is available from Dealer located in<span id="dealerArea"></span><span id="dealerCity"></span>
+                    </div>
+                </div>
+                <div data-bind="foreach:carColorDetails" class="border-solid-top padding-top20">
+                    <div data-bind="foreach:$data.deals">
+                        <div class="offerSection" data-bind="attr:{stock:stockId}">
+                            @*<div class="offerValue margin-bottom5 text-black hideImportant">
+                                <span>Additional offers worth ₹</span>
+                                <span class="offerPrice text-bold" data-bind="text:Common.utils.formatNumeric(offerValue)"></span>
+                            </div>*@
+                            <div class="offer-details-slab position-rel hideImportant" data-bind="attr:{stock:stockId}">
+                                <div class="offer-categories content-inner-block-10 hideImportant">
+                                    <ul class="offerUlCont" data-bind="foreach:$data.dealsOfferList">
+                                        <li>
+                                            <span class="deals-car-sprite imgspan" data-bind="css: $data.Key"></span>
+                                            <span class="offerUl-text" >
+                                                <span class="offerUl-text-head" data-bind="text: $data.Value"></span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="offers-title text-white font11 text-uppercase">
+                                    <span class="offers-top-shadow"></span>
+                                    <span class="offers-text text-white">Offer</span>
+                                    <span class="offers-right-ribbon">
+                                        <span class="ribbon top"></span>
+                                        <span class="ribbon bottom"></span>
+                                    </span>
+                                </div>
+                                <div data-bind="text:offers" class="content-inner-block-10"></div>
+                            </div>
+                            <div class="clear"></div>
+                            <p class="margin-top5 hideImportant tnc" data-bind="text:termsConditions"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="reason-detail-section margin-top20 border-solid-top padding-top10">
+                    <h2 class="font14 text-bold margin-bottom15">3 reasons to get this <span data-bind="text: model.modelName"></span> right now!</h2>
+                    <div id="m-3-reasons-slug" data-bind="foreach:carColorDetails">
+                        <ul data-bind="foreach:$data.deals" class="font13">
+                            <div data-bind="attr:{stock:stockId}" class="3-reasons-div hideImportant">
+                                <!-- ko if: savings > 0 -->
+                                <li class="margin-bottom15 text-black">
+                                    <span class="fa fa-circle margin-right5 text-light-gray"></span>
+                                    <span class="reasonHeading">
+                                        ₹ <span class="savings-span text-bold" data-bind="text: Common.utils.formatNumeric(savings)"></span> cash discount
+                                    </span>
+                                    <div class="font12 margin-left15 text-light-grey reasonDescription">Exclusively for CarWale users</div>
+                                </li>
+                                <!-- /ko -->
+                                <!-- ko if: savings == 0 && offers != null && offerValue == 0-->
+                                <li class="margin-bottom15 text-black">
+                                    <span class="fa fa-circle margin-right5 text-light-gray"></span>
+                                    <span class="reasonHeading"><span class="text-bold">Attractive </span>Offer</span>
+                                    <div class="font12 margin-left15 text-light-grey reasonDescription">Exclusively for CarWale users</div>
+                                </li>
+                                <!-- /ko -->
+                                <!-- ko if: savings == 0 && offers != null && offerValue > 0-->
+                                <li class="margin-bottom15 text-black">
+                                    <span class="fa fa-circle margin-right5 text-light-gray"></span>
+                                    <span class="reasonHeading">
+                                        <span class="text-bold">Attractive </span>offers worth ₹ <span data-bind="text:Common.utils.formatNumeric(offerValue)"></span>
+                                    </span>
+                                    <div class="font11 margin-left15 text-light-grey reasonDescription">Exclusively for CarWale users</div>
+                                </li>
+                                <!-- /ko -->
+                                <li class="margin-bottom15 text-black">
+                                    <span class="fa fa-circle margin-right5 text-light-gray"></span>
+                                    <span class="reasonHeading"><span class="text-bold">Authorized</span>&nbsp;dealers</span>
+                                    <div class="font12 margin-left15 text-light-grey reasonDescription">Offers only from brand authorized dealerships</div>
+                                </li>
+                                <li class="margin-bottom15 text-black">
+                                    <span class="fa fa-circle margin-right5 text-light-gray"></span>
+                                    <span class="reasonHeading"><span data-bind="text: deliveryTimeline == 0 ? 'Immediate' : 'Priority'" class="text-bold"></span>&nbsp;delivery</span>
+                                    <div class="font12 margin-left15 text-light-grey reasonDescription">This car is available with <span data-bind="text: deliveryTimeline == 0 ? 'immediate' : 'priority'"></span> delivery<span data-bind="text: deliveryTimeline > 0 ? Deals.product.getTimeMessageFromDays(deliveryTimeline) : ''"></span></div>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+                @*<div class="margin-top20 margin-bottom10 text-center aged-call-details">
+                        <p class="font15 text-grey margin-bottom5">For any assistance, Reach out to us at</p>
+                        <p class="font18 aged-phone-no"><span class="fa fa-phone"></span><a class="callBtn" href="tel:@System.Configuration.ConfigurationManager.AppSettings["CarwaleAdvantageMaskingNumber"]">@System.Configuration.ConfigurationManager.AppSettings["CarwaleAdvantageMaskingNumber"]</a></p>
+                    </div>
+
+                    <div class="clear margin-bottom20 text-center">
+                        <span class="font12 text-light-grey position-rel pos-top3">Available for immediate delivery. <br /> Loan assistance available from partner dealer.</span>
+                    </div>*@
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- Aged Car Model Section Code Ends Here -->
+    <div class="clear"></div>
+    @if (Model.AllVersionList.Count > 0)
+    {
+
+    <!-- Variant With Offers Section Starts Here -->
+        <div class="container variant-section">
+            <div class="grid-12">
+                <h3 class="text-capitalize margin-top20 margin-bottom10 font18 text-black m-special-skin-text">All offers on @Model.AllVersionList[0].Make.MakeName @Format.FilterModelName(Model.AllVersionList[0].Model.ModelName)</h3>
+                <h4 class="margin-bottom10 m-special-skin-text">Select variants to get assistance</h4>
+                <div class="content-box-shadow margin-bottom20">
+                    <div class="variant-info-header bg-faf-grey padding-left10 border-solid-bottom grid-12 alpha omega">
+                        <div class="variant-fuel-info leftfloat">
+                            <p class="font14 text-light-grey padding-top10 padding-bottom10">Fuel : </p>
+                            <p class="">
+                                <select id="fuelType" class="text-black font14 form-control">
+                                    <option value="-1">All</option>
+                                    <option value="1">Petrol</option>
+                                    <option value="2">Diesel</option>
+                                    <option value="0">Others</option>
+                                </select>
+                            </p>
+                        </div>
+                        <div class="variant-fuel-info leftfloat padding-left10">
+                            <p class="font14 text-light-grey padding-top10 padding-bottom10">Transmission : </p>
+                            <p class="">
+                                <select id="transType" class="text-black font14 form-control">
+                                    <option value="-1">All</option>
+                                    <option value="1">Automatic</option>
+                                    <option value="2">Manual</option>
+                                </select>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div id="no-variant-found" class="text-black font14 padding-top10 padding-bottom10 padding-left10 text-bold hide">No variants found.</div>
+                    <div class="variant-content">
+                        @foreach (var versionDeals in Model.AllVersionList)
+                        {
+                            <div data-fuel="@(versionDeals.FuelType > 2 ? 0 : versionDeals.FuelType)" data-transmission="@versionDeals.TransmissionType" class="variant-info-car padding-top15 padding-bottom20 padding-left10 border-solid-bottom" data-bind="attr:{'data-stock': versionDeal.stockId}">
+                                <div class=" variant-list">
+                                    <div class="checkbox-selction inline-block" data-stockid='@versionDeals.StockId' data-dealerid="@versionDeals.DealerId" data-campaignId="@versionDeals.CampaignId"><input type="checkbox" /></div>
+                                    <a class="variant-detail inline-block" href="/m/@Advanatge.GetAdvantageURL(versionDeals.Make.MakeName, ViewBag.MaskingName, ViewBag.CityId, versionDeals.Version.ID, "m10")"
+                                       data-role="click-tracking" data-event="CWInteractive" data-action="dealsaccess_mobile" data-cat="deals_mobile" data-label="AdvProductpageVariantTableMob">
+                                        <div class="variant-fuel-info">
+                                            <span class="font16 text-capitalize text-bold block ">@versionDeals.Make.MakeName @Format.FilterModelName(versionDeals.Model.ModelName) @versionDeals.Version.Name</span>
+                                            <p class="font13 text-grey margin-top5">@versionDeals.SpecificationsOverview.Replace("|", string.Empty)</p>
+                                        </div>
+                                        @if (versionDeals.Savings > 0)
+                                        {
+                                            <div class="variant-price-info margin-top5">
+                                                <p class="striked-amount text-grey">
+                                                    <span class="striked-line"></span>₹ @Format.FormatNumericCommaSep(versionDeals.OnRoadPrice.ToString())
+                                                </p>
+                                                <p class="text-green font14 margin-left10">₹ @Format.FormatNumericCommaSep(versionDeals.Savings.ToString()) off</p>
+                                            </div>
+                                        }
+                                        @if (versionDeals.Savings == 0)
+                                        {
+                                            <span class="attractive-offer text-green text-bold margin-top5 inline-block">Offer Available</span>
+                                        }
+                                        <div class="variant-final-info margin-top5">
+                                            <p class="font16"><span class="text-bold text-black ">₹ @Format.FormatNumericCommaSep(versionDeals.OfferPrice.ToString())</span><span class="text-light-grey font14 margin-left5">Final On-Road Price</span></p>
+                                        </div>
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        }
+                    </div>
+                    <div class="clear"></div>
+                    <div class="text-center text-bold padding-top5 padding-bottom5 font14 view-more-versions hide">View all variants</div>
+
+                    <div class="callback-arrow">
+                        <span class="cwmsprite cross-sm-white position-abt expert-close-btn hide cur-pointer" id="close-assistance"></span>
+                        <!-- Dealer Call For Assitance Starts Here -->
+                        <div class="call-asstn text-white text-center padding-right5 rounded-corner-no-right cur-pointer">
+                            <div class="user-expert">
+                                <span class="font13 margin-top5">Request Assistance</span>
+                            </div>
+                            <div class="call-asstn-content inline-block text-black">
+                                <div class="call-assistance-form leftfloat margin-top10">
+                                    <div class="assitance-form-fillup">
+                                        <div class="form-control-box">
+                                            <span class="form-mobile-prefix">+91</span>
+                                            <input id="variantsMobField" type="tel" name="personMob" placeholder="Mobile No." class="form-control padding-left40" maxlength="10">
+                                            <span class="cwsprite error-icon hide"></span>
+                                            <div class="cw-blackbg-tooltip hide">Please enter mobile number</div>
+                                        </div><button id="req-assitance-variantList" data-role="click-tracking" data-event="CWInteractive" data-action="multiple_variant_lead_submit_mob" data-cat="deals_mobile" data-label=" " class="btn btn-orange btn-sm font13 text-uppercase" type="button">
+                                            Request Assistance
+                                        </button>
+                                    </div>
+                                    <div id="assitance-thnk-msg" class="thank-assitance-msg text-white font12 hide">
+                                        <h2 class="text-white">Thank You</h2>
+                                        <p>You would soon get a call  from our business executive to help you.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Dealer Call For Assitance Ends Here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Variant With Offers Section Ends Here -->
+    }    
+    <!-- How it Works Slug Starts-->
+    <section class="container margin-bottom20">
+        <h3 class="text-uppercase text-center margin-top30 margin-bottom10 font18 text-black m-special-skin-text">3 Easy steps to own your dream car!</h3>
+        <div class="grid-12">
+            <div class="content-box-shadow rounded-corner2 margin-top5 bg-white">
+                <div class="advantage-work-slug">
+                    <div class="work-steps">
+                        <h2 class="how-itwork-title font16 text-bold"><span>1.</span> Enquire about the offer online </h2>
+                        <p class="font13"> Just leave your contact details and receive complete details about the offer.</p>
+                    </div>
+                    <div class="work-steps">
+                        <h2 class="how-itwork-title font16 text-bold"><span>2.</span> Visit dealership</h2>
+                        <p class="font13">Take a test drive. Provide documents & make payment</p>
+                    </div>
+                    <div class="work-steps">
+                        <h2 class="how-itwork-title font16 text-bold"><span>3.</span> Get delivery of car</h2>
+                        <p class="font13">Drive home in your dream car</p>
+                    </div>
+                    <div class="padding-bottom20 text-center padding-left10 padding-right10">
+                        <p class="font13">To read our complete FAQs <a href="/m/advantage/faq/" data-role="click-tracking" data-event="CWInteractive" data-action="3_steps_faq_clicked" data-cat="deals_mobile" data-label="mobile">click here</a>.</p>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+        <div class="clear"></div>
+    </section>
+    <!-- How it Works Slug Ends-->
+    @if (Model.DealsRecommedations != null && Model.DealsRecommedations.Count() > 0)
+    {
+        <div class="grid-12">
+            <h2 class="text-uppercase text-center margin-top10 margin-bottom10 font20 text-black m-special-skin-text">Offers You May Like</h2>
+            <div id="dealsRecommendations" class="bg-light-grey margin-bottom20">
+                @{Html.RenderPartial("~/Views/Shared/m/Deals/_DealsRecommendations.cshtml", Model);}
+                <div class="clear"></div>
+            </div>
+        </div>
+    }
+
+    <div class="clear"></div>
+    <div id="offerOfWeek">
+        @if (Model.OfferOfTheWeek != null && Model.OfferOfTheWeek.Model.ModelId != ViewBag.ModelId)
+        { 
+        <div id="offerOfWeekBanner" class="listingBanner">
+            <div class="margin-top10 padding-left10 padding-right10">
+                <h3>Offer of the Week</h3>
+                <div id="offerTime">
+                    <span class="time-text inline-block">Ends in: </span>
+                    <div class="inline-block">
+                        <span data-days class="font14 text-bold text-red"></span> <span class="time-text">days : </span>
+                        <span data-hours class="font14 text-bold text-red"></span> <span class="time-text">hours : </span>
+                        <span data-mins class="font14 text-bold text-red"></span> <span class="time-text">mins : </span>
+                        <span data-secs class="font14 text-bold text-red"></span> <span class="time-text">secs</span>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="week-offer-container border-solid margin-top15 margin-left10 margin-right10 bg-white margin-bottom20">
+                <div class="week-offer-img">
+                    @if (!String.IsNullOrWhiteSpace(Model.OfferOfTheWeek.CarImageDetails.OriginalImgPath)) { 
+                        <img src='@(Model.OfferOfTheWeek.CarImageDetails.HostUrl + "310x174" + Model.OfferOfTheWeek.CarImageDetails.OriginalImgPath)' alt="CarWale Advantage" title="CarWale Advantage">
+                    }
+                    else { 
+                    <img src='https://img.carwale.com/used/no-cars.jpg' alt="CarWale Advantage " title="CarWale Advantage ">
+                    }
+                </div>
+                <div class="week-offer-content text-center">
+                    <div class="week-offer-car-info padding-top15 padding-bottom10 padding-left10 padding-right10">
+                        <a href="javascript:void(0)">
+                            <h3 class="margin-bottom10">@Model.OfferOfTheWeek.Make.MakeName @Carwale.Utility.Format.FilterModelName(Model.OfferOfTheWeek.Model.ModelName) @Model.OfferOfTheWeek.Version.Name</h3>
+                        </a>
+                        <div class="font14 margin-top5 margin-bottom5">
+                            <div class="striked-amount position-rel ">
+                                <span class="striked-line"></span><span class="text-grey">₹ </span><span>@Carwale.Utility.Format.FormatNumericCommaSep(Model.OfferOfTheWeek.OnRoadPrice.ToString())</span>
+                            </div>
+                            <span class="text-green margin-left10">(₹<span>@Carwale.Utility.Format.FormatNumericCommaSep(Model.OfferOfTheWeek.Savings.ToString())</span> off)</span>
+                        </div>
+                        <h2 class="font16 text-bold margin-bottom15">
+                            ₹ 
+                            <span>@Carwale.Utility.Format.FormatNumericCommaSep(Model.OfferOfTheWeek.OfferPrice.ToString())</span>
+                            <span class="text-light-grey text-unbold onroad-Price font12">On-Road Price @Model.OfferOfTheWeek.City.CityName</span>
+                        </h2>
+                        <div class="btn btn-orange btn-sm text-uppercase"><a data-role="click-tracking" data-event="CWInteractive" data-action="dealsaccess_mobile" data-cat="deals_mobile" class="text-white"
+                                              href='@("/m/" + Carwale.Utility.Format.FormatURL(Model.OfferOfTheWeek.Make.MakeName) + "-cars/" + (Model.OfferOfTheWeek.Model.MaskingName) + "/advantage/?src=m18&cityid=" + Model.OfferOfTheWeek.City.CityId + "&versionId=" + Model.OfferOfTheWeek.Version.ID)'
+                                              data-label='Offeroftheweekproductdetails'>View Offer Details</a></div>
+                    </div>
+                    <div class="week-offer-discount-info border-solid-top">
+                        <div class="padding-top10 padding-bottom10 padding-left10 padding-right10">
+                            <div>Limited Stock. Hurry!</div>
+                            <div class="font20 text-red text-bold inline-block">
+                                ₹
+                                <span>@Carwale.Utility.Format.FormatNumericCommaSep(Model.OfferOfTheWeek.Savings.ToString())</span>
+                            </div>
+                            <div class="text-uppercase text-black font14 text-bold inline-block margin-left5">flat cash savings</div>
+                        </div>
+                        <div class="padding-left10 padding-right10 padding-bottom5" style="line-height:19px;">
+                            <div class="margin-bottom5">Offer Includes: Regular Savings ₹ <span>@Carwale.Utility.Format.FormatNumericCommaSep((Model.OfferOfTheWeek.Savings - Model.OfferOfTheWeek.ExtraSavings).ToString())</span>/-</div>
+                            <div class="margin-bottom5"><span class="text-bold">Extra Savings ₹ <span>@Carwale.Utility.Format.FormatNumericCommaSep(Model.OfferOfTheWeek.ExtraSavings.ToString())</span></span>/- till the offer time ends</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+
+
+    <!-- Testimonial Section Starts Here -->
+    @if (Model.Testimonials != null && Model.Testimonials.Count > 0) {
+    <div class="testimonial-outer-container">
+        <div class="grid-12 margin-bottom20">
+            <h2 class="text-center text-uppercase padding-top10 font20">WHAT OUR CUSTOMERS HAVE TO SAY ABOUT US</h2>
+            <div class="swiper-container testimonial-jcarousel">
+                <ul class="swiper-wrapper">
+        @foreach(var testimonial in Model.Testimonials)
+        { 
+                    <li class="swiper-slide">
+                        <div class="testimonial-right">
+                            <div class="testimonial-user-img margin-top5">
+                                <img src="@string.Format("{0}/310x174{1}", testimonial.ImageDetails.HostUrl, testimonial.ImageDetails.OriginalImgPath)" alt="" title="">
+                            </div>
+                        </div>
+                        <div class="testimonial-left margin-top5 margin-left10 margin-right10">
+                            <div class="testimonial-review font13 margin-bottom20">
+                                @testimonial.Comments
+                            </div>
+                            <div class="testimonial-user-details">
+                                <p class="font12 text-bold margin-bottom5">@testimonial.CustomerName</p>
+                                @if(testimonial.City != null && !string.IsNullOrWhiteSpace(testimonial.City.CityName)){
+                                <p class="font12 text-bold margin-bottom5">@testimonial.City.CityName</p>
+                                }
+                                @if (testimonial.Make != null && testimonial.Model != null) {
+                                <p class="font13 text-bold margin-bottom5">Proud owner of @testimonial.Make.MakeName @testimonial.Model.ModelName</p>
+                                }
+                            </div>
+                        </div>
+
+                    </li>
+        }
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    }
+    <!-- Testimonial Section Ends Here -->
+
+
+    <h2 class="text-uppercase text-center margin-top10 margin-bottom10 font20 text-black hide m-special-skin-text" id="specsHeading"></h2>
+    <div class="container margin-bottom10 bg-light-grey position-rel content-inner-block-10 grid-12 alpha omega hide" id="specsFeaturesContainer">
+        <div class="bg-white content-box-shadow margin-bottom20" id="specsFeaturesSection">
+            <div class="agedcar-spec-details margin-top10">
+                <div class="agedcar-fuel-section agedcar-spec-type">
+                    <div>
+                        <span class="more-filter-icons" data-bind="css:{'petrol-gray':fueltype()=='Petrol','diesel-gray':fueltype()=='Diesel','cng-gray':fueltype()=='CNG'}"></span>
+                        <span data-bind="text:fueltype">Petrol</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="agedcar-trans-section agedcar-spec-type">
+                    <div class="">
+                        <span class="more-filter-icons" data-bind="css:{'manual-gray':transmission()=='Manual','automatic-gray':transmission()!='Manual'}"></span>
+                        <span data-bind="text:transmission">Manual</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="agedcar-mileage-section agedcar-spec-type">
+                    <div>
+                        <span class="deals-car-sprite mileage-icon"></span>
+                        <span data-bind="text:(mileage()=='N/A' ? 'Not Available' : mileage() + ' kmpl')"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cw-tabs-panel specsfeatures">
+                <div id="keySpecs" data-bind="text:displacement() + 'cc, ' +  fueltype() + ', ' + transmission() +(mileage()=='N/A' ? '' : ','+ mileage() + ' kmpl')" class="hide"></div>
+                <div class="cw-tabs cw-tabs-flex">
+                    <ul>
+                        <li class="active" data-tabs="overview">Overview</li>
+                        <li data-tabs="features">Features</li>
+                        <li data-tabs="specifications" class="enabled">Specification</li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="cw-tab-detail-section">
+                    <ul id="overview" class="cw-tabs-aged-overview cw-tabs-data" data-bind="template:{name:'overviewTemplate',foreach:overview}"></ul>
+                    <ul id="features" class="cw-tabs-aged-features cw-tabs-data hide" data-bind="template:{name:'featureTemplate',foreach:features}"></ul>
+                    <div id="specifications" class="cw-tabs-aged-spec cw-tabs-data hide content-inner-block-10">
+                        <ul data-bind="template:{name:'specsTemplate',foreach:specs}"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class=" container aged-car-btn-section content-inner-block-20 padding-top10 padding-bottom10 bg-grey text-center" id="divBookButton">
+        <button class="btn btn-orange btn-xs btn-width text-uppercase font14 padding-left30 padding-right30 margin-right5 display-inline finalOfferButton" id="btnMBookNow">Get This Offer</button>
+        <div id="productDeals" class="display-inline" data-bind="foreach:carColorsDetails">
+            <div data-bind="foreach:$data.deals">
+                <span class="dealerId" data-bind="attr:{dealerId:dealerId}"></span>
+                <!-- ko if : maskingNumber -->
+                <a data-bind="attr:{stock:stockId, href:'tel:+91'+maskingNumber}" class="maskingNumber hideImportant btn btn-green btn-xs btn-width text-uppercase font14 padding-left20 padding-right20" id="callUsBtn"><span class="fa fa-phone margin-right5"></span> CALL</a>
+                <!--/ko-->
+                <!--ko ifnot : maskingNumber-->
+                <a data-bind="attr:{stock:stockId}" href="tel:@System.Configuration.ConfigurationManager.AppSettings["CarwaleAdvantageMaskingNumber"]" class="maskingNumber hideImportant btn btn-green btn-xs btn-width text-uppercase font14 padding-left20 padding-right20" id="callUsBtn"><span class="fa fa-phone margin-right5"></span> CALL</a>
+                <!--/ko-->
+            </div>
+        </div>
+        <div class="clear"></div>
+        <span class="font12 text-light-grey position-rel pos-top3 hide">(100% refund, no questions asked)</span>
+    </div>
+    <div class="clear"></div>
+    <div class="extraDivHt"></div>
+    <script type="text/html" id="overviewTemplate">
+        <li>
+            <div class="content-inner-block-10 aged-tab-description">
+                <ul class="font14">
+                    <li><span data-bind="text:Deals.utils.removeTilde(name)"></span></li>
+                    <li class="text-right"><span data-bind="text:Deals.utils.removeTilde(values[0])+' '+unitType.replace('CUSTOM','').replace('BIT','')"></span></li>
+                </ul>
+            </div>
+        </li>
+    </script>
+    <script type="text/html" id="featureTemplate">
+        <li>
+            <div class="border-solid-bottom content-inner-block-10 aged-tab-description">
+                <h3 class="font18 padding-bottom5" data-bind="text:name">Locks & Security</h3>
+                <ul class="font14" data-bind="foreach:items">
+                    <li><span data-bind="text:name">Engine immobilizer</span></li>
+                    <li class="text-right"><span data-bind="text:value"></span></li>
+                </ul>
+            </div>
+        </li>
+    </script>
+    <script type="text/html" id="specsTemplate">
+        <li>
+            <h2 class="font18 margin-bottom20" data-bind="text:name">Capacity</h2>
+            <span data-bind="foreach:items">
+                <div class="equal-width leftfloat" data-bind="text:Deals.utils.removeTilde(name)">Doors</div>
+                <div title="4545 mm" class="equal-width dark-text rightfloat" data-bind="text:Deals.utils.removeTilde(values[0])+' '+unitType.replace('CUSTOM','').replace('BIT','')">4 Doors</div>
+            </span>
+            <div class="clear"></div>
+        </li>
+    </script>
+    <div class="blackOut-window"></div>
+    <!-- Make Model PopUp Code Starts Here -->
+    <div class="make-model-popup rounded-corner2 hide" id="make-model-popup">
+        <!-- global city pop up code starts here -->
+        <div class="globalcity-popup-data text-center">
+            <div class="globalcity-close-btn make-model-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer"></div>
+            <h3 class="font20 margin-bottom15 text-capitalize text-black">Change Car</h3>
+            <div class="form-control-box">
+                <select class="form-control selected-text selectCity margin-top5" id="drpSelectDealMake" data-bind="options: makes, optionsValue:$data, optionsText: 'makeName' ,optionsCaption:'Select a Make',value:selectedMake,event:{change:updateModels}"></select>
+                <span class="cwmsprite error-icon global-city-error-icon hide"></span>
+                <div class="cw-blackbg-tooltip global-city-error-msg hide">Please select a Make</div>
+            </div>
+            <div class="form-control-box">
+                <select class="form-control selected-text selectCity margin-top20 margin-bottom20" id="drpSelectDealModel" data-bind="options: models, optionsValue:$data, optionsText: 'modelName' ,optionsCaption:'Select a Model',value:selectedModel"></select>
+                <span class="cwmsprite error-icon global-city-error-icon hide"></span>
+                <div class="cw-blackbg-tooltip global-city-error-msg hide">Please select a Model</div>
+            </div>
+            <div>
+                <button id="btnConfirmCity" class="btn btn-orange font16 text-uppercase btn-xs" type="button" data-src="m12" data-bind="event:{click:doneClick}">Done</button>
+                <a href="/m/advantage/?cityId=@ViewBag.CityId" data-role="click-tracking" data-event="CWInteractive" data-action="landingPageAccess_Mobile" data-cat="deals_mobile" data-label="ChangeCarPopUp" class="btn btn-white font16 text-uppercase btn-xs" id="viewMoreCars">View All Cars (@Model.DealsCount) </a>
+                <div class="clear"></div>
+                <div class="extraDivHt"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- contact details Starts Here -->
+    @{Html.RenderPartial("~/Views/Shared/m/Deals/_DealEmiPopup.cshtml");}
+
+</div>
+
+<div class="price-break-up rounded-corner2 hide" id="price-breakup-popup">
+    <!-- global city pop up code starts here -->
+    <div class="globalcity-popup-data text-center">
+
+        <div class="clear contact-det-popup-header bg-light-grey border-solid-bottom">
+            <div data-make-model class="font18 text-bold text-left"></div>
+            <div class="font16 text-left padding-bottom5">Price Break up</div>
+            <div class="globalcity-close-btn price-breakup-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer"></div>
+        </div>
+        <div class="price-break-up-content car-tabular-data text-left"></div>
+
+    </div>
+    <div class="container aged-car-btn-section content-inner-block-20 padding-top10 padding-bottom10 bg-grey text-center float-fixed"><a id="req-assitance-viewBreakup" class="emi-link btn btn-orange btn-full-width btn-width text-uppercase font14 padding-left15 padding-right15 margin-right5 display-inline">Get Emi Assistance</a></div>
+</div>
+<!--PriceBreakup Content Starts-->
+<div id="breakUpContent" class="hide">
+    <!-- ko if: $data != undefined -->
+    <div data-bind="foreach: $data.dealsPriceBreakupList">
+        <div class="padding-top20">
+            <div class="grid-6 alpha"><span data-bind="text:Key" class="font14 text-light-grey"></span></div>
+            <div class="grid-6 alpha padding-right5">
+                <span class="font14 text-light-grey">
+                    <!-- ko if: Key != 'Additional Comments' -->
+                    ₹ 
+                    <!-- /ko -->
+                    <span data-bind="text:Value"></span>
+                </span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- /ko -->
+    <div id="discountSection" class="hide">
+        <div class="padding-top20">
+            <div class="grid-6 alpha"><span class="font14 text-bold text-grey">On Road Price</span></div>
+            <div class="grid-6 alpha padding-right5">
+                <span class="font14 text-grey text-bold">₹ <span id="onRoadPrice"></span></span>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="padding-top10">
+            <div class="grid-6 alpha"><span class="font14 text-light-grey">Discount</span></div>
+            <div class="grid-6 alpha padding-right5">
+                <span class="font14 text-green">₹ <span id="savings"></span></span>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="padding-top10 padding-bottom60">
+        <div class="grid-6 alpha"><span class="font14 text-grey text-bold final-price-text">Final On-Road Price:</span></div>
+        <div class="grid-6 alpha padding-right5">
+            <span class="font25 text-grey text-bold">₹ <span id="offerPrice"></span></span>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+</div>
+<!--PriceBreakup Content Ends-->
+<div class="breadcrumb margin-left10">
+	<!-- breadcrumb code starts here -->
+	<ul class="m-special-skin-text">
+		<li><a id="homelink" href="/">Home</a></li>
+		<li><span class="margin-right5">&rsaquo;</span><a id="makeName" data-role="click-tracking" data-event="CWInteractive" data-action="landingPageAccess_Mobile" data-cat="deals_mobile" data-label="Breadcrumb-make"></a></li>
+		<li><span class="margin-right5">&rsaquo;</span><a id="modelName" data-role="click-tracking" data-event="CWInteractive" data-action="landingPageAccess_Mobile" data-cat="deals_mobile" data-label="Breadcrumb-model"></a></li>
+		<li><span class="margin-right5">&rsaquo;</span><span id="advantageHomeLink">Advantage</span></li>
+	</ul>
+	<div class="clear"></div>
+</div>
+<script>
+    $(document).ready(function () { Deals.env = 1; });
+</script>
+

@@ -1,0 +1,31 @@
+﻿@model Carwale.Entity.CarData.CarMakeDescription
+@using Carwale.Utility;
+@if (!string.IsNullOrEmpty(Model.MakeDescription))
+{
+	<div class="pgsubhead margin-left10 margin-right10 margin-bottom10 margin-top20">
+        <h2 class="special-skin-text m-special-skin-text text-bold">About @ViewBag.MakeName</h2>
+    </div>
+    <div id="divShortDesc" class="box content-inner-block-10 rounded-corner2 make-describtion special-skin-text m-special-skin-text m-no-bg-color">
+        @if (Model.MakeDescription.Length <= 450)
+        {
+            @Html.Raw(Model.MakeDescription)
+        }
+        else
+        {
+            @Format.LimitText(Model.MakeDescription, 450)
+        }
+        @if (Model.MakeDescription.Length > 451)
+        {
+            <div id="spnShortDesc" class="text-link" onclick="FullDesc()">Read more</div>
+        }
+
+    </div>
+    if (Model.MakeDescription.Length > 451)
+    {
+
+	<div id="divFullDesc" class="box content-inner-block-10 rounded-corner2 hide make-describtion">
+        <div>@Html.Raw(Model.MakeDescription)</div>
+        <div id="spnFullDesc" class="text-link" onclick="HideDesc()">Collapse</div>
+    </div>
+    }
+}

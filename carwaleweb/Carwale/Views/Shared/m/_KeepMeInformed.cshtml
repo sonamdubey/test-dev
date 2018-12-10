@@ -1,0 +1,176 @@
+﻿@model Carwale.Entity.CarData.CarModelDetails
+<style>
+    .pgsubhead {
+        font-size: 18px;
+        color: #353535;
+        margin: 10px 5px 5px;
+    }
+
+    #divEmiWindow, #divEmiWindow input, .ui-btn, button, textarea {
+        font-family: "LatoWeb",sans-serif,Arial;
+        font-size: 14px;
+    }
+
+    .new-line5 {
+        margin-top: 5px;
+    }
+
+    .new-line10 {
+        margin-top: 10px;
+    }
+
+    .linkButtonBig {
+        height: 36px;
+        background-image: url(/m/images/nav.png);
+        background-position: 0 0;
+        border-radius: 7px;
+        -moz-border-radius: 7px;
+        -webkit-border-radius: 7px;
+        text-align: center;
+        line-height: 36px;
+        padding: 10px;
+        color: #fff !important;
+        text-decoration: none;
+        font-weight: 400 !important;
+    }
+
+    #divEmiWindow {
+        color: #333;
+    }
+</style>
+<div class="pgsubhead">Be The First One To Know</div>
+
+<div id="needAssistance" class="margin-top5">
+    <strong class="font18 text-grey"><a href="tel:18002090230"><span class="fa fa-phone margin-right5"></span>18002090230</a></strong>
+</div>
+
+<div id="divMessageEmi" class="new-line10 hide"></div>
+<div id="divFormEmi">
+    <div class="new-line10">Name &nbsp;&nbsp; <span id="spnNameEmi" class="error"></span></div>
+    <div class="new-line5"><input prefill="name" id="txtNameEmi" class="form-control" style="height:25px;" /></div>
+    <div class="new-line10">Email &nbsp;&nbsp; <span id="spnEmailEmi" class="error"></span></div>
+    <div class="new-line5"><input prefill="email" id="txtEmailEmi" class="form-control" style="height:25px;" /></div>
+    <div class="new-line10">Mobile No. &nbsp;&nbsp; <span id="spnMobileEmi" class="error"></span></div>
+    <div class="new-line5"><input prefill="mobile" id="txtMobileEmi" class="form-control" style="height:25px;" maxlength="10" /></div>
+    <div class="new-line10"><span class="linkButtonBig" onclick="SubmitEmiCalc(this)">Submit</span>&nbsp;&nbsp;<img id="imgSavingEmiReq" src="/m/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px; display:none;" /></div>
+    <div class="new-line10">By clicking on the button above, I agree with <a href="https://www.carwale.com/m/used/VisitorAgreement.aspx">CarWale Visitor Agreement</a> and <a href="https://www.carwale.com/m/used/PrivacyPolicy.aspx">Privacy Policy</a>.</div>
+</div>
+<script language="javascript" type="text/javascript">
+    function SubmitEmiCalc(e) {
+        if (ValidReq(e)) {
+            var divId = $('#' + e.parentNode.parentNode.parentNode.id);
+            var name = divId.find("#txtNameEmi").val();
+            var email = divId.find("#txtEmailEmi").val().toLowerCase();
+            var mobile = divId.find("#txtMobileEmi").val();
+            var city = $.cookie("_CustCityIdMaster");
+            var makeId = '@Model.MakeId';
+            var modelId = '@Model.ModelId';
+            var versionId = '';
+            var carName = '@Model.ModelName';
+            var leadType = (divId.attr('id') == 'divInlineLead' ? '14' : '13');
+            var cityName = $.cookie("_CustCityMaster");
+            $("#imgSavingEmiReq").show();
+            $.ajax({
+                type: "POST",
+                url: "/ajaxpro/CarwaleAjax.AjaxResearch,Carwale.ashx",
+                data: '{"carName":"' + carName + '", "custName":"' + name + '", "email":"' + email + '", "mobile":"' + mobile + '", "selectedCityId":"' + city + '", "versionId":"' + versionId + '", "modelId":"' + modelId + '", "makeId":"' + makeId + '", "leadtype":"' + leadType + '", "cityName":"' + cityName + '"}',
+                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "PushCRM"); },
+                success: function (response) {
+                    var responseObj = eval('(' + response + ')');
+                    $("#imgSavingEmiReq").hide();
+                    if (responseObj.value) {
+                        dataLayer.push({ event: 'BBLink_finance', cat: "UpcomingLeadFormMobile", act: "UpcomingLeadFormSuccess", lab: "ThankYouPage" });
+                        divId.find("#divFormEmi").hide();
+                        divId.find("#divMessageEmi").show();
+                        divId.find("#divMessageEmi").text("Thank you. Your request has been submitted successfully.");
+                    } else {
+                        divId.find("#divMessageEmi").show();
+                        divId.find("#divMessageEmi").text("Sorry! Your request could not be submitted at this time. Please try later.");
+                    }
+                }
+            });
+        }
+    }
+
+    function ValidReq(e) {
+        var divId = $('#' + e.parentNode.parentNode.parentNode.id);
+        var isValid = true;
+
+        var reMobile = /^[0-9]*$/;
+        var reName = /^([-a-zA-Z ']*)$/;
+        var reEmail = /^[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,6}$/;
+
+        var spnName = divId.find("#spnNameEmi");
+        var spnEmail = divId.find("#spnEmailEmi");
+        var spnMobile = divId.find("#spnMobileEmi");
+
+        spnName.html("");
+        spnEmail.html("");
+        spnMobile.html("");
+
+        var name = divId.find("#txtNameEmi").val();
+        var email = divId.find("#txtEmailEmi").val().toLowerCase();
+        var mobile = divId.find("#txtMobileEmi").val();
+        var city = divId.find("#ddlCityEmi").val();
+
+        if (name == "" || name == "Enter your name") {
+            spnName.html("Required");
+            isValid = false;
+        } else if (name.length == 1) {
+            spnName.html("Please enter your complete name")
+            isValid = false;
+        } else if (reName.test(name) == false) {
+            spnName.html("Please enter only alphabets");
+            isValid = false;
+        }
+
+        if (email == "") {
+            isValid = false;
+            spnEmail.html("Required");
+        }
+        else if (!reEmailUpcomming.test(email)) {
+            isValid = false;
+            spnEmail.html("Invalid Email");
+        }
+
+        if (mobile == "") {
+            isValid = false;
+            spnMobile.html("Required");
+        }
+        else if (!reMobile.test(mobile)) {
+            isValid = false;
+            spnMobile.html("Please Enter a Valid Mobile No.");
+        }
+        else if (mobile.length < 10) {
+            isValid = false;
+            spnMobile.html("Please Enter a Valid Mobile No.");
+        }
+        return isValid;
+    }
+    function ShowOverlay() {
+        var headerheight = $("header").height();
+        topPos = headerheight != null ? Number(headerheight.toString()) : 0;
+        $("#divOverlay").attr("style", "position:absolute;top:" + topPos + "px;left:0px;width:100%;height:" + $(document).height().toString() + "px;z-index:1002;background-color:black;filter:alpha(opacity=80);opacity:0.80;");
+        $("#divOverlay").show();
+    }
+    function ShowEmiWindow(e) {
+        var de = document.documentElement;
+        var w = self.innerWidth || (de && de.clientWidth) || document.body.clientWidth;
+        var gbLeft = (w - 200) / 2;
+        var headerheight = $("header").height();
+        var gbTop = (headerheight != null ? headerheight : 0) + 20;
+        $("#divEmiWindow").attr("style", "position:absolute;top:" + gbTop + "px;left:0px;width:100%;height:auto;z-index:1004;");
+    }
+    function ShowEmiCalcPage(e) {
+        ShowOverlay();
+        ShowEmiWindow(e);
+        $("#divProcessingEmi").hide();
+    }
+    function CloseEmiWindow() {
+        var divEmiWindow = $("#divEmiWindow");
+        $("#divOverlay").hide();
+        divEmiWindow.hide();
+        divEmiWindow.find("#divFormEmi").show();
+        divEmiWindow.find("#divMessageEmi").hide();
+    }
+</script>

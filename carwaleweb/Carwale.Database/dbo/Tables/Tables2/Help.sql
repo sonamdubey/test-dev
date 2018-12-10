@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Help] (
+    [Id]       NUMERIC (18)   IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [Title]    VARCHAR (100)  NOT NULL,
+    [Contents] VARCHAR (2000) NOT NULL,
+    [KnowMore] VARCHAR (1000) NULL,
+    CONSTRAINT [PK_Help] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

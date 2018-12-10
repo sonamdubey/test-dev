@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing SorryScreen Component - DOM Component SorryScreen Snapshot RenderedTree 1`] = `
+<div
+  className="sorry-screen-div"
+>
+  <div
+    className="location-popup__sorry-icon-wrapper"
+  >
+    <span
+      className="location-popup-icon location-popup__sorry-icon"
+    />
+  </div>
+  <p
+    className="sorry-screen__response"
+  >
+    We couldn't find any dealerships in your city
+  </p>
+</div>
+`;

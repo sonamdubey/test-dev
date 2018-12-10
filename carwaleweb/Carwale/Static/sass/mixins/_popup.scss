@@ -1,0 +1,180 @@
+@import '../mixins/_animation.scss';
+@import '../mixins/_sprites.scss';
+@import '../mixins/_vendor-prefix.scss';
+@import '../mixins/_variables.scss';
+@import '../utils/_string-concatenation.scss';
+
+@mixin popup($direction: 'none', $bg-color: 'white-bg') {
+	background-color: map-get($color-map, $bg-color);
+	width: 100%;
+	height: 100%;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 2;
+	position: fixed;
+	overflow-y: scroll;
+	display: none;
+	@if $direction == 'none' {
+		&.popup--active {
+			display: block;
+		}
+	}
+
+	@else if ($direction != 'none') {
+        @include vendor-prefix(transition, (transform .5s linear));
+		display: block;
+		@include vendor-prefix(transition, (transform .5s linear));
+		will-change: transform;
+
+		@if $direction == 'left' {
+			@include vendor-prefix(transform, translateX(-100%));
+		}
+		@else if $direction == 'right' {
+			@include vendor-prefix(transform, translateX(100%));
+		}
+		@else if $direction == 'up' {
+			@include vendor-prefix(transform, translateY(-100%));
+		}
+		@else if $direction == 'down' {
+			@include vendor-prefix(transform, translateY(100%));
+		}
+
+		&.popup--active {
+			@include vendor-prefix(transform, translate(0));
+		}
+	}
+}
+
+@mixin header($headercolor,$textcolor) {
+    width: 100%;
+	background-color: map-get($color-map, #{$headercolor});
+    padding: 30px 20px;
+	color: map-get($color-map, #{$textcolor});
+}
+
+@mixin popup-head($class-prefix: '',$backgroundColor: 'shamrockGreen',$position: relative,$height: 155) {
+	$popupClass: concatSelectorName('popup__head', $class-prefix);
+    .#{$popupClass} {
+		position: $position;
+		width: 100%;
+		height: $height * 1px;
+		background: map-get($color-map, $backgroundColor);
+		z-index: 2;
+	}  
+}
+
+@mixin head-background-content($class-prefix: '',$backgroundColor: 'shamrockGreen') {
+	$popupClass: concatSelectorName('popup-head__content', $class-prefix);
+    .#{$popupClass} {
+		position: relative;
+		height: 100%;
+		z-index: -1;
+		
+		&:before {
+			@include skyline-bg;
+			@include vendor-prefix('animation', animateSkyline 30s linear 10);
+			@include opacity(.2);
+			content: '';
+			position: absolute;
+			bottom: 0;
+			width: 2048px;
+			height: 60px;
+			display: block;
+			background-position: center bottom;
+			will-change: transform;
+		}
+	}
+	@include animateSkyline;
+}
+
+@mixin popup-close-button($class-prefix: '',$width: 30,$height: 30,$top: 10,$right: 10,$backgound-size: 14) {
+	$popupClass: concatSelectorName('popup__close', $class-prefix);
+    .#{$popupClass} {
+		@include white-cross;
+		background-size: $backgound-size * 1px;
+		background-repeat: no-repeat;
+		background-position: center;
+		width: $width * 1px;
+		height: $height * 1px;
+		display: block;
+		position: fixed;
+		top: $top * 1px;
+		right: $right * 1px;
+		cursor: pointer;
+		z-index: 2;
+	}
+}
+
+@mixin popup-header($class-prefix: '',$font-size: 16,$border-color: 'grey-btn-border',$background-color: 'white',$position: relative ) {
+	$popupClass: concatSelectorName('popup__header', $class-prefix);
+    .#{$popupClass} {
+		@include vendor-prefix(box-shadow, 0 2px 3px 0 map-get($color-map, $border-color));
+		padding: 16px 40px;
+		width: 100%;
+		background-color: map-get($color-map, $background-color);
+		font-size: $font-size * 1px;
+		font-weight: $font-bold;
+		z-index: 2;
+		
+		@if ($position == 'fixed') {
+			position: fixed;
+			top: 0;
+			right:0;
+			left: 0;
+		}
+		@else if ($position == 'absolute') {
+			position: absolute;
+			top: 0;
+			right:0;
+			left: 0;
+		}
+		@else {
+			position: relative
+		}
+	}
+}
+
+@mixin popup-back-button($class-prefix: '',$width: 30,$height: 30,$top: 12,$left: 6,$background-size: 18) {
+	$popupClass: concatSelectorName('popup__back', $class-prefix);
+    .#{$popupClass} {
+		@include back-arrow;
+		@include vendor-prefix(transform, rotate(90deg));
+		background-size: $background-size * 1px;
+		background-repeat: no-repeat;
+		background-position: center;
+		width: $width * 1px;
+		height: $height * 1px;
+		display: block;
+		position: absolute;
+		top: $top * 1px;
+		left: $left * 1px;
+		cursor: pointer;
+		z-index: 2;
+	}
+}
+
+@mixin popup-title($class-prefix: '',$font-size: 16,$color: 'charcoal',$vertical-align: middle,$font-weight: $font-normal) {
+    $popupClass: concatSelectorName('popup-head__title', $class-prefix);
+    .#{$popupClass} {
+        color: map-get($color-map, $color);
+        font-size: $font-size * 1px;
+        vertical-align: $vertical-align;
+        font-weight: $font-weight;
+        padding-left: 44px;
+    }
+}
+
+@mixin popup-submit-btn($class-prefix: '',$font-size: 14,$color: 'summersky',$background-color: 'white-bg',$font-weight: $font-normal) {
+    $popupClass: concatSelectorName('popup__clear-btn', $class-prefix);
+    .#{$popupClass}{
+        padding: 0 20px;
+        font-size: $font-size * 1px;
+        color: map-get($color-map, $color);
+        font-weight: $font-weight;
+        cursor: pointer;
+        height: 100%;
+        background-color: map-get($color-map, $background-color);
+    }
+}

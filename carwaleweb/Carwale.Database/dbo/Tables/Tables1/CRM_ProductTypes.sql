@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[CRM_ProductTypes] (
+    [ID]   SMALLINT     NOT NULL,
+    [Name] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_CNS_Products] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

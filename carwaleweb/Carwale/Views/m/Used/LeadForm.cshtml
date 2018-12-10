@@ -1,0 +1,98 @@
+﻿@model  Carwale.UI.ViewModels.Used.Lead.LeadViewModel
+
+<span class="cur-pointer cwmsprite cross-lg-dark-grey seller-close"></span>
+<div class="certificationPdfScreen hide" style="overflow: hidden;">
+    <div class="upeer-box">
+        <h2 class="text-black text-bold padding-bottom5">Download Report</h2>
+        <p class="font14 padding-bottom10">Your mobile no. will be shared with the seller.</p>
+        <div class="position-rel width80">
+            <input type="text" class="form-control padding-right20 padding-left20 margin-bottom20" placeholder="Name" id="pdftxtUserName" maxlength="50">
+        </div>
+        <div class="position-rel width80">
+            <input type="tel" class="form-control padding-right60 padding-left40 margin-bottom20" placeholder="Mobile number" id="pdftxtMobileNo" maxlength="10">
+            <span class="position-abt pos-top10 pos-left10">+91</span>
+            <img id="pdfimgLoadingBtnSend" class="position-abt pos-right-25 pos-top10 hide" src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" width="16" height="16" style="display: none;">
+        </div>
+        <div class="width80">
+            <a class="btn btn-orange btn-full-width text-uppercase buyer-pro-btn" id="pdfbtnSend">DOWNLOAD</a>
+        </div>
+        <p style="margin-left:40px; margin-right:40px; margin-top:20px;">By submitting this form you agree to our <a target="_blank" href="/visitoragreement.aspx">terms and conditions</a></p>
+    </div>
+</div>
+<div class="screen1 hide" style="overflow: hidden; display: none;">
+    <div id="getSellerDetailsForm" class="upeer-box">
+        <div id="cityWarningGSD" class="border-solid-bottom padding-bottom10 text-left" style=";">
+            <div id="locationWarning" class="inline-block valign-middle padding-right10" style="display: inline-block;">
+                <span class="cwmsprite car-location-ic-sm"></span>
+            </div>
+            <div class="inline-block valign-middle locationDetails">
+                <p class="margin-bottom5">Car location: <span id="carLocationText" class="carLocation text-bold">@Model.StockCity</span></p>
+                @if (string.IsNullOrEmpty(Model.DeliveryCity))
+                    {
+                        <p id="changeCity" style="display: block;">Not your city? <span class="text-link changeCityLocation">Search cars in your city</span></p>
+                        <p id="deliveryText" class="margin-bottom5 carDelivery"></p>
+                    }
+                    else
+                    {
+                        <p id="deliveryText" class="margin-bottom5 carDelivery">@string.Concat("Delivery available in ", Model.DeliveryCity)</p>
+                    }
+            </div>
+        </div>
+
+        <h2 id="leadformTitle" class="text-black text-bold padding-bottom10 padding-top10">Fill in your details</h2>
+        <div class="position-rel width80">
+            <input type="text" class="form-control padding-right20 padding-left20 margin-bottom20" placeholder="Name" id="txtUserName" maxlength="50">
+        </div>
+        <div class="position-rel width80">
+            <input type="tel" class="form-control padding-right60 padding-left40 margin-bottom20" placeholder="Mobile number" id="txtMobileNo" maxlength="10">
+            <span class="position-abt pos-top12 pos-left10">+91</span>
+        </div>
+        <div class="width80">
+            <a class="btn btn-orange btn-full-width text-uppercase buyer-pro-btn" id="btnSend">Submit</a>
+            <img id="imgLoadingBtnSend" class="position-abt pos-right-25 pos-top10 hide" src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" width="16" height="16">
+        </div>
+        <div style="margin-left:40px; margin-right:40px; margin-top:20px; margin-bottom:0px; ">
+            <p>By submitting this form you agree to our <a href="/visitoragreement.aspx" target="_blank">terms and conditions</a></p>
+        </div>
+    </div>
+</div>
+<div id="otpForm" class="upeer-box hide">
+    <p class="upper-box__title">Enter OTP Here</p>
+    <div class="position-rel width80">
+        <input type="tel" id="getOTP" class="form-control" placeholder="Enter 5 digit OTP" maxlength="5">
+        <a href="javascript:void(0)" class="btn btn-orange btn-xs text-uppercase buyer-pro-btn" id="verifyOTP" rel="nofollow">Verify</a>
+        <span class="otp__error"></span>
+    </div>
+    <div class="position-rel width80">
+        <p id="otpTimer" class="resend-otp-label">Resend OTP in <span class="time-counter">30</span>s</p>
+        <div class="clear"></div>
+    </div>
+    <div class="missed-call-wrapper width80">
+        <p class="or-divider"><span>OR</span></p>
+        <a id="missed-call-number" class="btn btn-teal-ghost btn-full-width margin-top20 margin-bottom20">
+            <span class="tel-icon"></span>
+        </a>
+        <p class="missed-call__info-text">Simply give a MISSED CALL and</p>
+        <p class="missed-call__error-msg hide">Error occured. Give a MISSED CALL and</p>
+        <button class="missed-call__verify-link position-rel" type="button">
+            Click here to verify
+            <img id="missed-call__loading" class="hide" src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" width="16" height="16">
+        </button>
+    </div>
+</div>
+
+<div class="screen3 hide" style="overflow: hidden;">
+    <h2 class="text-black text-bold">Seller details</h2>
+    <div class="position-rel">
+        @{ Html.RenderPartial("~/Views/m/Used/SellerDetail.cshtml");}
+        <div class="moveRecommendation hide" style="display: block;">
+            <span class="fa fa-angle-double-up"></span>
+        </div>
+    </div>
+
+    @*<!-- recommended cars code starts here -->*@
+    <div class="suggestion-box hide" style="overflow: hidden; display: block;">
+        <h2 class="text-black text-bold padding-top5 padding-bottom5 recommendationTitle">Recommendations for you</h2>
+        <ul id="suggetions" class="suggestion-list"></ul>
+    </div>
+</div>

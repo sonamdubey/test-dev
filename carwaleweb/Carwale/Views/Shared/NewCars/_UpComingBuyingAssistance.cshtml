@@ -1,0 +1,77 @@
+﻿<!-- model version popup starts here -->
+<div class="model-version-box content-box-shadow margin-bottom10">
+    <!-- brand details box starts here -->
+    <div class="content-inner-block-10 position-rel cur-pointer model-version-header">
+        <span class="font24 position-abt pos-top20 pos-right20"><span class="fa fa-angle-up text-grey cur-pointer"></span></span>
+        <div class="brand-main">
+            <div class="brand-details">                
+                <div id="needAssistance" class="margin-top5">
+                    <div id="makeName" class="font18"><strong id="popupTitle">BE THE FIRST ONE TO KNOW</strong></div>
+                    <div id="needAssistance" class="margin-top5">
+                        <strong class="font18"><span class="fa fa-phone margin-right10"></span>18002090230 (Toll Free)</strong>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="content-inner-block-10 slider-box border-solid-top bg-white">
+        <div id="upcomingDivform" class="leadForm">
+            <div class="margin-bottom15 leadformInput">
+                <div class="nc-pg-fields-input-text position-rel">
+                    <input type="text" prefill="name" name="Name" placeholder="Name" id="custName" class="custName form-control" />
+                    <span class="cw-nc-pg-sprite cw-nc-error-red-icon err-name-icon hide" style="display: none;"></span>
+                    <div class="cw-blackbg-tooltip err-name-msg hide" id="custerrName">Please enter your name</div>
+                </div>
+            </div>
+            <div class="margin-bottom15 leadformInput customerEmail" id="custEmailVisible">
+                <div class="nc-pg-fields-input-text position-rel">
+                    <input prefill="email" name="Email" type="text" placeholder="Email" id="custEmail" class="custEmail form-control">
+                    <span class="cw-nc-pg-sprite cw-nc-error-red-icon err-email-icon hide" style="display: none;"></span>
+                    <div class="cw-blackbg-tooltip hide err-email-msg" id="custerrEmail">Please enter your email</div>
+                </div>
+            </div>
+            <div class="margin-bottom15 leadformInput">
+                <div class="nc-pg-fields-input-text position-rel">
+                    <input type="text" prefill="mobile" name="mobile" placeholder="Mobile" id="custMobile" class="custMobile form-control" />
+                    <span class="cw-nc-pg-sprite cw-nc-error-red-icon err-mobile-icon hide" style="display: none;"></span>
+                    <div class="cw-blackbg-tooltip hide err-mobile-msg" id="custerrMobile">Please enter your mobile number</div>
+                </div>
+            </div>
+            <div class="margin-bottom15 divCity leadformInput" id="clearBindAfterstate">
+                <div class="position-rel">
+                    <select prefill="state" class="drpCityDealerPopup form-control" id="custDrpStates" data-role="none">
+                        <option selected="selected" value="-1">--Select State--</option>
+                    </select>
+                    <input type="hidden" id="hdn_custDrpStates" />
+                    <span class="cw-nc-pg-sprite cw-nc-error-red-icon err-state-icon hide" style="display: none;"></span>
+                    <div class="cw-blackbg-tooltip hide err-state-msg" id="custerrState">Please select your state</div>
+                </div>
+            </div>
+            <div class="margin-bottom15 divCity leadformInput" id="clearBindAfterCity">
+                <div class="position-rel">
+                    <select prefill="city" class="drpCityDealerPopup form-control" id="custDrpCities" data-role="none" disabled="disabled">
+                        <option selected="selected" value="-1">--Select City--</option>
+                    </select>
+                    <input type="hidden" id="hdn_custDrpCities" />
+                    <span class="cw-nc-pg-sprite cw-nc-error-red-icon err-city-icon hide" style="display: none;"></span>
+                    <div class="cw-blackbg-tooltip hide err-city-msg" id="custerrCity">Please select your city</div>
+                </div>
+            </div>
+            <div class="margin-left10">
+                <input type="button" id="custBtnSubmit" class="btnSubmit btn btn-orange" value="Submit" data-role="none" />
+            </div>
+
+            <div class="content-inner-block-10 user-agreement" id="caption_tnc">
+                By proceeding ahead, you agree to CarWale
+                <a class="ba-anchor" target="_blank" href="https://www.carwale.com/visitoragreement.aspx">visitor agreement</a>  and
+                <a class="ba-anchor" target="_blank" href="https://www.carwale.com/privacypolicy.aspx">privacy policy</a>
+            </div>
+        </div>        
+
+        <div id="custDivMessage" class="thank-you-msg thank-you hide">
+            <h2 class="text-black">Thank you <span id="tycaption-cust-name"></span></h2>
+        </div>
+    </div>
+
+</div>

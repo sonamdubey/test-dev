@@ -1,0 +1,8 @@
+RewriteEngine on
+
+RewriteRule ^App.svc/(.*)/$	/Win8ServiceApp/App.svc/$1 [NC, L]
+
+
+
+
+

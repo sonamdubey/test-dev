@@ -1,0 +1,677 @@
+﻿@{
+    ViewBag.Title = "Volvo XC40";
+    ViewBag.BodyClass = "bg-light-grey";
+    ViewBag.landingPage = true;
+    ViewBag.Responsive = true;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+   ViewBag.CustomCss = "~/Views/StaticPartials/ES/VolvoXC40Css.cshtml";
+    Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? (ViewBag.isApp ? "~/views/shared/m/_MLayoutAppV2.cshtml" : "~/views/shared/m/_MLayoutV2.cshtml") : "~/views/shared/_LayoutV2.cshtml");
+    <script>var isMobile = false, isApp = false;</script>
+    if (ViewBag.isMobile)
+    {
+        <script>isMobile = true;</script>
+    }
+    if (ViewBag.isApp)
+    {
+        <script>isApp = true;</script>
+    }
+}
+@section Styles{
+    <noscript class="deferred-styles"><link rel="stylesheet" href="/static/css/es/volvo-xc40.css" type="text/css"></noscript>    
+}
+<div class="ameo-main" id="impressiontracking">
+	<section class="banner position-rel">
+		<div class="top-banner"><span class="volvo-logo"><img src="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/survey-landing/volvo-logo.png" alt="volvo logo" title="volvo logo" /></span></div>
+		<div class="ad-container">
+			<div class="ad-container__text">India chooses it's First Luxury Car*</div>
+			<div class="ad-container__heading">The new volvo xc40</div>
+			<div class="ad-container__sub-heading">designed with every thing in mind</div>
+		</div>
+
+	</section>
+    <section>
+        <div class="container hotspot">
+            <h3 class="container__heading">Volvo XC40<span class="hide-sm"> – INDIA CHOOSES WHAT THEY WANT IN THEIR FIRST LUXURY CAR</span></h3>
+            <div class="feature-main-container">
+                <div class="feature-main-headline">
+                    <p>CarWale recently did a survey where we asked people what all things they would want in their first luxury car. </p>
+                    <p class="padding-top10">Here are the Results</p>
+                </div>
+
+				<div class="feature-pointer pointer1" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Hot Spot-clicked" data-label="parking safety features hotspot" onclick="bhriguClickEvent($(this).attr('data-cat') +'|clickedon='+ $(this).attr('data-label'))" data-title=" parking safety features hotspot">+</div>
+                <div class="feature-div hide">
+                    <div class="feature-close">&times;</div>
+                    <h2 class="feature-data-title">60% chose the Parking Safety Features.</h2>
+                    <p class="feature-data-description">Parking is easy in the XC40 thanks to Park Assist Pilot technology which is a self-parking function that can steer the XC40 into a parallel space just 1.2 times the car’s length, or into a standard parking bay</p>
+                    <div class="feature-data-image">
+                        <img src="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/hotspots/1.jpg" alt="Parking Safety Features" title="Parking Safety Features">
+                    </div>
+                </div>
+				<div class="feature-pointer-tooltip pointer1-tooltip" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Hot Spot-clicked" data-label="parking safety features hotspot" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+					<div class="feature-pointer-tooltip-data pointer1-tooltip-data">
+						<span class="tooltip-data-amount">60% </span>
+						<span class="tooltip-data-subtitle">of India chose the </span>
+						<span class="tooltip-data-title">Parking Safety Features</span>
+					</div>
+				</div>
+				<div class="feature-pointer pointer2" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Hot Spot-clicked" data-label="Great Music Experience hotspot" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))" data-title="Great Music Experience hotspot">+</div>
+                <div class="feature-div hide">
+                    <div class="feature-close">&times;</div>
+                    <h2 class="feature-data-title">79% of India believes in Great Music Experience in their luxury car.</h2>
+                    <p class="feature-data-description">Volvo XC40 is DESIGNED FOR SOUND (Harman Kardon Premium Sound): Enjoy your favorite music to the full with the Harman Kardon® Premium Sound in the XC40.</p>
+                    <div class="feature-data-image">
+                        <img src="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/hotspots/2.jpg" alt="Great Music Experience" title="Great Music Experience">
+                    </div>
+                </div>
+
+				<div class="feature-pointer-tooltip pointer2-tooltip" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Hot Spot-clicked" data-label="Great Music Experience hotspot" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+					<div class="feature-pointer-tooltip-data pointer2-tooltip-data">
+						<span class="tooltip-data-amount">79% </span>
+						<span class="tooltip-data-subtitle">of India believes in </span>
+						<span class="tooltip-data-title">Great Music Experience</span>
+					</div>
+				</div>
+
+				<div class="feature-pointer pointer3" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Hot Spot-clicked" data-label="Infotainment System hotspot" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))" data-title="Infotainment System hotspot">+</div>
+                <div class="feature-div hide">
+                    <div class="feature-close">&times;</div>
+                    <h2 class="feature-data-title">54% of India wants Infotainment Technology System.</h2>
+                    <p class="feature-data-description">Smart technology (Center Display): Technology has a human feel in the Volvo XC40. From the easy-to-use center touch screen to the high-resolution driver display and voice control that understands normal speech.</p>
+                    <div class="feature-data-image">
+                        <img src="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/hotspots/3.jpg" alt="Safety" title="Safety">
+                    </div>
+                </div>
+
+				<div class="feature-pointer-tooltip pointer3-tooltip" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Hot Spot-clicked" data-label="Infotainment System hotspot" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+					<div class="feature-pointer-tooltip-data pointer3-tooltip-data">
+						<span class="tooltip-data-amount">54% </span>
+						<span class="tooltip-data-subtitle">of India wants </span>
+						<span class="tooltip-data-title">Infotainment System</span>
+					</div>
+				</div>
+
+				<div class="feature-pointer pointer4" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Hot Spot-clicked" data-label="Comfort and Convenience hotspot" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))" data-title="Comfort and Convenience hotspot">+</div>
+                <div class="feature-div left-direction hide">
+                    <div class="feature-close">&times;</div>
+                    <h2 class="feature-data-title">30% chose Comfort and Convenience as most important in a Luxury Car.</h2>
+                    <p class="feature-data-description">Feature like Panoramic Sunroof, Handfree Tailgate, Induction mobile Charging, Digital Instrument Cluster, and many more, makes Volvo XC40 a very comfortable drive.</p>
+                    <div class="feature-data-image">
+                        <img src="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/hotspots/4.jpg" alt="Comfort and Convenience" title="Comfort and Convenience">
+                    </div>
+                </div>
+
+				<div class="feature-pointer-tooltip pointer4-tooltip" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Hot Spot-clicked" data-label="Comfort and Convenience hotspot" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+					<div class="feature-pointer-tooltip-data pointer4-tooltip-data">
+						<span class="tooltip-data-amount">30% </span>
+						<span class="tooltip-data-subtitle">of India chose </span>
+						<span class="tooltip-data-title">Comfort and Convenience</span>
+					</div>
+				</div>
+
+				<div class="feature-pointer pointer5" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Hot Spot-clicked" data-label="Sporty and Young hotspot" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))" data-title="Sporty and Young hotspot">+</div>
+                <div class="feature-div left-direction hide">
+                    <div class="feature-close">&times;</div>
+                    <h2 class="feature-data-title">60% want their luxury car to look Sporty and Young</h2>
+                    <p class="feature-data-description">The XC40 expresses toughness, through features such as its proud grille, T-shaped light signatures, and sculpted front bumper with skid plate. High ground clearance gives the XC40 a powerful stance and excellent visibility.</p>
+                    <div class="feature-data-image">
+                        <img src="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/hotspots/5.jpg" alt="Sporty and Young" title="Sporty and Young">
+                    </div>
+                </div>
+
+				<div class="feature-pointer-tooltip pointer5-tooltip" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Hot Spot-clicked" data-label="Sporty and Young hotspot" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+					<div class="feature-pointer-tooltip-data pointer5-tooltip-data">
+						<span class="tooltip-data-amount">60% </span>
+						<span class="tooltip-data-subtitle">wants their <br />luxury car to look </span>
+						<span class="tooltip-data-title">Sporty and Young</span>
+					</div>
+				</div>
+
+
+				<div class="feature-pointer pointer6" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Hot Spot-clicked" data-label="Safety hotspot" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))" data-title="Safety hotspot">+</div>
+                <div class="feature-div left-direction hide">
+                    <div class="feature-close">&times;</div>
+                    <h2 class="feature-data-title">42% of India believes in Safety.</h2>
+                    <p class="feature-data-description">City Safety – standard for every Volvo XC40 – is like having a co-pilot to look out for you. It identifies other vehicles, pedestrians and cyclists, warning you if a collision is imminent.</p>
+                    <div class="feature-data-image">
+                        <img src="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/hotspots/6.jpg" alt="Safety" title="Safety">
+                    </div>
+                </div>
+
+				<div class="feature-pointer-tooltip pointer6-tooltip" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Hot Spot-clicked" data-label="Safety hotspot" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+					<div class="feature-pointer-tooltip-data pointer6-tooltip-data">
+						<span class="tooltip-data-amount">42% </span>
+						<span class="tooltip-data-subtitle">of India believes in </span>
+						<span class="tooltip-data-title">Safety</span>
+					</div>
+				</div>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+    </section>
+    <div class="container">
+        <h3 class="container__heading">More Reasons to Buy the XC40</h3>
+        <div class="outer-container desktop-outer-container">
+			<div class="horz-line"></div>
+			<div>
+				<div class="reason-container cw-tabs">
+					<ul>
+						<li data-tabs="platform-CMA" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Reasons-Clicked" data-label="Go Hands-Free" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+							<div class="blue-dot">Go Hands-Free</div>
+							<div class="reason-card pos-relative">
+								<div class="vertical-img"><img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/new-platform-cma.jpg?=070418" alt="Go Hands-Free" title="Go Hands-Free"></div>
+								<div class="reason-details">
+									<p><strong>Go hands-free</strong><br>When your hands are full,the power operated tailgate on the XC40 makes life easy.</p>
+									<div class="survey-result-sprite es-style-icon margin-top10"></div>
+									<div class="text-link text-underline">View More</div>
+								</div>
+							</div>
+						</li>
+						<li data-tabs="SUV" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Reasons-Clicked" data-label="A True SUV" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+							<div class="blue-dot">A True SUV</div>
+							<div class="reason-card pos-relative">
+								<div class="vertical-img"><img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/true-suv.jpg" alt="A True SUV" title="A True SUV"></div>
+								<div class="reason-details">
+									<p><strong>A True SUV</strong><br>The XC40 is the authentic SUV for the city.</p>
+									<div class="survey-result-sprite es-power-icon margin-top10"></div>
+									<div class="text-link text-underline">View More</div>
+								</div>
+							</div>
+						</li>
+						<li data-tabs="Design" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Reasons-Clicked" data-label="Bold, Progressive Design" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+							<div class="blue-dot">Bold, Progressive Design</div>
+							<div class="reason-card pos-relative">
+								<div class="vertical-img"><img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/scandinavian-design.jpg" alt="Bold, Progressive Design" title="Bold, Progressive Design"></div>
+								<div class="reason-details">
+									<p><strong>Bold,progressive design</strong> <br>It is the hallmark of the Volvo XC40.</p>
+									<div class="survey-result-sprite es-features-icon margin-top10"></div>
+									<div class="text-link text-underline">View More</div>
+								</div>
+							</div>
+						</li>
+						<li data-tabs="Storage" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Reasons-Clicked" data-label="Intelligent storage" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+							<div class="blue-dot">Intelligent storage</div>
+							<div class="reason-card pos-relative">
+								<div class="vertical-img"><img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/intelligents-storage.jpg" alt="Intelligent storage" title="Intelligent storage"></div>
+								<div class="reason-details">
+									<p><strong>Intelligent Storage</strong><br>The Volvo XC40 has smart storage feature that makes life less complicated.</p>
+									<div class="survey-result-sprite es-space-icon margin-top10"></div>
+									<div class="text-link text-underline">View More</div>
+								</div>
+							</div>
+						</li>
+						<li data-tabs="Safety" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Reasons-Clicked" data-label="City Safety" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+							<div class="blue-dot">City Safety</div>
+							<div class="reason-card pos-relative">
+								<div class="vertical-img"><img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/safety.jpg" alt="City Safety" title="City Safety"></div>
+								<div class="reason-details">
+									<p><strong>City Safety</strong><br>If you don't react in time,it will apply the breaks automatically. </p>
+									<div class="survey-result-sprite es-connectivity-icon margin-top10"></div>
+									<div class="text-link text-underline">View More</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+				<!--platform-CMA data code start here -->
+				<div class="buying-reasons-contentbox hide cw-tabs-data" id="platform-CMA">
+					<div class="position-abt pos-top10 pos-right10 cwsprite cross-sm-dark-grey cur-pointer d-survey-popup-close"></div>
+					<div class="reasons-content-wrapper">
+						<div class="reason-content">
+							<ul>
+								<li>
+									<div class="data-box-img">
+										<img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/popup/go-hands-free.jpg" alt="go-hands-free" title="go-hands-free">
+									</div>
+									<div class="data-box">
+										<h3>Go hands-free</h3>
+										<p>When your hands are full, the power-operated tailgate on the XC40 makes life easy. And when combined with    the keyless entry option it means you only need to move your foot under the rear bumper to open or close it     automatically.</p>
+									</div>
+									<div class="clear"></div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div><!-- platform-CMA  data code end here -->
+				<!-- SUV data code start here -->
+				<div class="buying-reasons-contentbox hide cw-tabs-data" id="SUV">
+					<div class="position-abt pos-top10 pos-right10 cwsprite cross-sm-dark-grey cur-pointer d-survey-popup-close"></div>
+					<div class="reasons-content-wrapper">
+						<div class="reason-content">
+							<ul>
+								<li>
+									<div class="data-box-img">
+										<img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/popup/true-suv.jpg" alt="true-suv" title="true-suv">
+									</div>
+									<div class="data-box">
+										<h3>A True SUV</h3>
+										<p>The XC40 is the authentic SUV for the city. High ground clearance, large wheels and true SUV proportions give it a powerful stance. And from the bold front grille to the beautifully detailed taillights it’s every inch a Volvo. Uniquely Scandinavian and unmistakably urban, it’s built for city life.</p>
+									</div>
+									<div class="clear"></div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div><!-- SUV data code end here -->
+				<!-- Design data code start here -->
+				<div class="buying-reasons-contentbox hide cw-tabs-data" id="Design">
+					<div class="position-abt pos-top10 pos-right10 cwsprite cross-sm-dark-grey cur-pointer d-survey-popup-close"></div>
+					<div class="reasons-content-wrapper">
+						<div class="reason-content">
+							<ul>
+								<li>
+									<div class="data-box-img">
+										<img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/popup/progressive-design.jpg" alt="Bold, Progressive Design" title="Bold, Progressive Design">
+									</div>
+									<div class="data-box">
+										<h3>Bold, progressive design</h3>
+										<p>It is the hallmark of the Volvo XC40, and the cabin embodies forward-thinking Scandinavian style. An uncluttered layout lets you focus on the beautiful details, while the high seating position means you always    feel in control. Carefully crafted and selected materials indulge the senses, and intuitive technology puts     you in command. The cabin of the XC40 is a place that will inspire you on every journey.</p>
+									</div>
+									<div class="clear"></div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div><!-- Design data code end here -->
+				<!-- Storage data code start here -->
+				<div class="buying-reasons-contentbox hide cw-tabs-data" id="Storage">
+					<div class="position-abt pos-top10 pos-right10 cwsprite cross-sm-dark-grey cur-pointer d-survey-popup-close"></div>
+					<div class="reasons-content-wrapper">
+						<div class="reason-content">
+							<ul>
+								<li>
+									<div class="data-box-img">
+										<img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/popup/intelligent-storage.jpg" alt="Intelligent Storage" title="Intelligent Storage">
+									</div>
+									<div class="data-box">
+										<h3>Intelligent Storage</h3>
+										<p>The Volvo XC40 has smart storage features that make life less complicated, including door bins large           enough for laptops and handbags, and an ingenious foldout takeaway hook. There’s even a bin under the           center armrest that will hold a full-size tissue box.</p>
+									</div>
+									<div class="clear"></div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div><!-- Storage data code end here -->
+				<!-- Safety data code start here -->
+				<div class="buying-reasons-contentbox hide cw-tabs-data" id="Safety">
+					<div class="position-abt pos-top10 pos-right10 cwsprite cross-sm-dark-grey cur-pointer d-survey-popup-close"></div>
+					<div class="reasons-content-wrapper">
+						<div class="reason-content">
+							<ul>
+								<li>
+									<div class="data-box-img">
+										<img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/popup/safety.jpg?=070418" alt="City Safety" title="City Safety">
+									</div>
+									<div class="data-box">
+										<h3>City Safety</h3>
+										<p>This innovation identifies other vehicles, pedestrians, cyclists and large animals ahead, even at night,     and warns you if a collision is imminent. If you don’t react in time, it will apply the brakes automatically    to help avoid or mitigate a collision. City Safety also includes a Run-off road Mitigation helps to keep you    safe by keeping you on the road. If this innovation detects you are about to leave the road unintentionally,    it uses steering input and, if necessary, brake support to guide you back on track.</p>
+									</div>
+									<div class="clear"></div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div><!-- Safety data code end here -->
+			</div>
+
+            <div class="reason-footer-info">
+                <div class="grid-7">
+                    <p class="text-bold">More on <a href="https://www.carwale.com/volvo-cars/xc40/" target="_blank" class="text-black" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="BottomTab" data-label="carwale.com" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">carwale.com</a></p>
+                    <div class="reason-footer-left-info">
+                        <ul class="text-bold font12">
+                            <li>
+								<a href="https://www.volvocars.com/in/cars/new-models/xc40" target="_blank" class="text-black" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="BottomTab" data-label="Volvo XC40" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">Volvo XC40</a>
+                                <span class="survey-footer-vertical-line-s">|</span>
+                            </li>
+                            <li>
+								<a href="https://www.carwale.com/volvo-cars/xc40/expert-reviews/2018-volvo-xc40-first-drive-review/" target="_blank" class="text-black" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="BottomTab" data-label="Expert_review" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">Expert Reviews</a>
+                                <span class="survey-footer-vertical-line-s">|</span>
+                            </li>
+                            <li>Call <a href="tel:18002093456" class="toll-free-number" title="Toll Free">1-800-209-3456</a> Toll Free</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <div class="mob-survey-result-outer-container margin-left5 margin-right5">
+            <ul class="mob-result-container cw-tabs">
+
+				<li data-tabs="style-mobile" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Reasons-Clicked" data-label="Go hands-free" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+					<div class="mob-base-image">
+						<img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/m/new-platform-cma.jpg?=07041801" alt="Go hands-free" title="Go hands-free">
+					</div>
+					<div class="strip-detail">
+						<span>Go hands-free</span>
+					</div>
+
+				</li>
+				<li data-tabs="power-mobile" data-role="click-tracking" data-event="CWInteractive" data-cat="volvo-xc40-micro-site_m" data-action="Reasons-Clicked" data-label="A True SUV " onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+					<div class="mob-base-image">
+						<img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/m/true-suv.jpg" alt="A True SUV" title="A True SUV">
+					</div>
+					<div class="mob-survey-result-details">
+						<div class="strip-detail">
+							<p>A True SUV</p>
+						</div>
+					</div>
+				</li>
+				<li data-tabs="features-mobile" data-role="click-tracking" data-event="CWInteractive" data-cat="volvo-xc40-micro-site_m" data-action="Reasons-Clicked" data-label="Bold, progressive design" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+					<div class="mob-base-image">
+						<img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/m/scandinavian-design.jpg" alt="Bold, progressive design" title="Bold, progressive design">
+					</div>
+					<div class="mob-survey-result-details">
+						<div class="strip-detail">
+							<p>Bold, progressive design</p>
+						</div>
+					</div>
+				</li>
+				<li data-tabs="space-mobile" data-role="click-tracking" data-event="CWInteractive" data-cat="volvo-xc40-micro-site_m" data-action="Reasons-Clicked" data-label="Intelligent Storage" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+					<div class="mob-base-image">
+						<img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/m/intelligent-storage.jpg" alt="Intelligent Storage" title="Intelligent Storage">
+					</div>
+					<div class="mob-survey-result-details">
+						<div class="strip-detail">
+							<p>Intelligent Storage</p>
+						</div>
+					</div>
+				</li>
+				<li data-tabs="connectivity-mobile" data-role="click-tracking" data-event="CWInteractive" data-cat="volvo-xc40-micro-site_m" data-action="Reasons-Clicked" data-label="City Safety" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+					<div class="mob-base-image">
+						<img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/m/safety.jpg?=070418" alt="City Safety" title="City Safety">
+					</div>
+					<div class="mob-survey-result-details">
+						<div class="strip-detail">
+							<p>City Safety</p>
+						</div>
+					</div>
+				</li>
+            </ul>
+            <!-- style-mobile code start here -->
+            <div class="survey-result-popup hide" id="style-mobile">
+                <div class="mob-survey-data-header">
+                    <h2>Go hands-free</h2>
+                    <div class="globalcity-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer survey-popup-close"></div>
+                </div>
+                <div class="mob-survey-data-body">
+                    <div class="mob-survey-data-body-card">
+                        <div class="survey-car-image margin-bottom10">
+							<img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/popup/go-hands-free.jpg" alt="Go hands-free" title="Go hands-free">
+                        </div>
+                        <p>When your hands are full, the power-operated tailgate on the XC40 makes life easy. And when combined with the keyless entry option it means you only need to move your foot under the rear bumper to open or close it automatically.</p>
+                    </div>
+                </div>
+            </div><!-- style-mobile code end here -->
+            <!-- power-mobile code start here -->
+            <div class="survey-result-popup hide" id="power-mobile">
+                <div class="mob-survey-data-header">
+                    <h2>A True SUV</h2>
+                    <div class="globalcity-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer survey-popup-close"></div>
+                </div>
+                <div class="mob-survey-data-body">
+                    <div class="mob-survey-data-body-card">
+                        <div class="survey-car-image margin-bottom10">
+							<img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/popup/true-suv.jpg" alt="A True SUV" title="A True SUV">
+                        </div>
+                        <p>The XC40 is the authentic SUV for the city. High ground clearance, large wheels and true SUV proportions give it a powerful stance. And from the bold front grille to the beautifully detailed taillights it’s every inch a Volvo. Uniquely Scandinavian and unmistakably urban, it’s built for city life.</p>
+                    </div>
+                   
+                </div>
+            </div><!-- power-mobile code end here -->
+            <!-- features-mobile code start here -->
+            <div class="survey-result-popup hide " id="features-mobile">
+                <div class="mob-survey-data-header">
+                    <h2>Bold, progressive design</h2>
+                    <div class="globalcity-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer survey-popup-close"></div>
+                </div>
+                <div class="mob-survey-data-body">
+                    <div class="mob-survey-data-body-card">
+                        <div class="survey-car-image margin-bottom10">
+							<img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/popup/progressive-design.jpg" alt="Bold, progressive design" title="Bold, progressive design">
+                        </div>
+                        <p>It is the hallmark of the Volvo XC40, and the cabin embodies forward-thinking Scandinavian style. An uncluttered layout lets you focus on the beautiful details, while the high seating position means you always feel in control. Carefully crafted and selected materials indulge the senses, and intuitive technology puts you in command. The cabin of the XC40 is a place that will inspire you on every journey.</p>
+                    </div>
+                   
+                   
+                    
+                </div>
+            </div><!-- features-mobile code end here -->
+            <!-- space-mobile code start here -->
+            <div class="survey-result-popup hide " id="space-mobile">
+                <div class="mob-survey-data-header">
+                    <h2>Intelligent Storage</h2>
+                    <div class="globalcity-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer survey-popup-close"></div>
+                </div>
+                <div class="mob-survey-data-body">
+                    <div class="mob-survey-data-body-card">
+                        <div class="survey-car-image margin-bottom10">
+							<img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/popup/intelligent-storage.jpg" alt="Intelligent Storage" title="Intelligent Storage ">
+                        </div>
+                        <p>The Volvo XC40 has smart storage features that make life less complicated, including door bins large enough for laptops and handbags, and an ingenious foldout takeaway hook. There’s even a bin under the center armrest that will hold a full-size tissue box.</p>
+                    </div>
+                    
+                </div>
+            </div><!-- space-mobile code end here -->
+            <!-- connectivity-mobile code start here -->
+            <div class="survey-result-popup hide " id="connectivity-mobile">
+                <div class="mob-survey-data-header">
+                    <h2>City Safety</h2>
+                    <div class="globalcity-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer survey-popup-close"></div>
+                </div>
+                <div class="mob-survey-data-body">
+                    <div class="mob-survey-data-body-card">
+                        <div class="survey-car-image margin-bottom10">
+							<img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/specials/volvo/xc40/survey-landing/reasons/popup/safety.jpg?=070418" alt="City Safety" title="City Safety">
+                        </div>
+                        <p>This innovation identifies other vehicles, pedestrians, cyclists and large animals ahead, even at night, and warns you if a collision is imminent. If you don’t react in time, it will apply the brakes automatically to help avoid or mitigate a collision. </p>
+                    </div>
+                </div>
+            </div><!-- connectivity-mobile code end here -->
+            <!-- es mobile footer code start here -->
+
+            <div class="font14 survey-result-mob-links">
+				<a href="https://www.volvocars.com/in/cars/new-models/xc40" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-cat="volvo-xc40-micro-site_m" data-action="BottomTab" data-label="Explore" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">
+					More on Volvo
+				</a>
+
+                <span class="link-pipe margin-left10 margin-right10 text-black">|</span>
+				<a href="https://www.carwale.com/volvo-cars/xc40/" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-cat="volvo-xc40-micro-site_m" data-action="BottomTab" data-label="Volvo XC40" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">More on CarWale</a>
+
+                <p class="font13">Or call <a href="tel:18002093456" class="text-green font16 text-bold" title="Toll Free">1-800-209-3456</a> Toll free no.</p>
+            </div><!-- es mobile footer code end here -->
+        </div>
+
+        <div class="outer-conatiner">
+            <h3 class="container__heading">Expert's take</h3>
+            <div class="expert-take-container">
+                <div class="heading-container">
+                    <h3 class="expert-take__heading">Why the new Volvo XC40 is the perfect first luxury car?</h3>
+                    <p class="expert-take__heading">The XC40 is the perfect blend of brand, luxury and technology</p>
+                </div>
+                <div class="description-container">
+                    <p class="expert-take__description">Volvo is known across the world for safety – cars that are safe and truly reliable. The Swedish brand has been bullish on its India-prospect and has brought in all of their latest products to India right after their global launches. From the full-size XC90 SUV, the premium S90 sedan and its country cousin the V90 Cross Country to the all-new XC60, we have got the best from Volvo in India.</p>
+                    <p class="expert-take__description">Now that the XC40 is slated to arrive next month, 4 July, we can’t help but ponder over why the new Volvo makes the best luxury car in the entry-level segment.</p>
+                </div>
+                <div class="flex">
+                    <div class="car-image-container"></div>
+                    <div class="car-feature-container">
+                        <div class="car-feature">
+                            <span class="quotation-mark">"</span>Volvo XC40 - Perfect as your first luxury car!<span class="quotation-mark">"</span>
+                        </div>
+                        <div class="feature-description-container expert-take__description">
+
+                            It is a proper SUV. While most of the luxury car brands in India prefer sedans or hatchbacks to lure buyers, Volvo gives us an SUV. Knowing how much we love our SUVs, the XC40 surely isn’t a difficult choice... <a href="https://www.carwale.com/news/why-the-new-volvo-xc40-is-the-perfect-first-luxury-car/" rel="noopener nofollow" target="_blank" class="text-link text-bold" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="Expert's Take-clicked" data-label="Expert's Take_Read More" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-label'))">Read More</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <h3 class="container__heading">GALLERY AND VIDEOS</h3>
+        <section>
+            <div class="container gallery">
+                <div class="grid-12">
+                    <div class="content-box-shadow position-rel">
+                        <ul>
+                            <li class="gallery__li li__type-video" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="gallery" data-label="video" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-action') + '-' + $(this).attr('data-label'))"><img class="lazy responsive-img" data-original="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/gallery-n-video/video-sm.jpg" /></li>
+                            <li class="gallery__li" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="gallery" data-label="image" onclick="bhriguClickEvent($(this).attr('data-cat') +  '|clickedon=' +$(this).attr('data-action') + '-' + $(this).attr('data-label'))"><img class="lazy responsive-img" data-original="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/gallery-n-video/gallery1-sm.jpg" /></li>
+                            <li class="gallery__li" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="gallery" data-label="image" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-action') + '-' + $(this).attr('data-label'))"><img class="lazy responsive-img" data-original="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/gallery-n-video/gallery2-sm.jpg" /></li>
+                            <li class="gallery__li" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="gallery" data-label="image" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-action') + '-' + $(this).attr('data-label'))"><img class="lazy responsive-img" data-original="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/gallery-n-video/gallery3-sm.jpg" /></li>
+                            <li class="gallery__li" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="gallery" data-label="image" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-action') + '-' + $(this).attr('data-label'))"><img class="lazy responsive-img" data-original="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/gallery-n-video/gallery4-sm.jpg" /></li>
+                            <li class="gallery__li" data-role="click-tracking" data-event="CWInteractive" data-cat='@(ViewBag.isMobile != null && ViewBag.isMobile ? "volvo-xc40-micro-site_m" : "volvo-xc40-micro-site_d")' data-action="gallery" data-label="image" onclick="bhriguClickEvent($(this).attr('data-cat') + '|clickedon=' + $(this).attr('data-action') + '-' + $(this).attr('data-label'))"><img class="lazy responsive-img" data-original="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/gallery-n-video/gallery5-sm.jpg" /></li>
+                        </ul>
+                        <div id="galleryPopup" class="gallery__popup hide">
+                            <div class="gallery__cross"></div>
+                            <img class="responsive-img" src="" />
+                            <div class="video-iframe-wrapper">
+                                <div id="YouTubeVideoPlayer"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <section>
+            <div class="container mb-view margin-bottom30 media-review">
+                <div class="grid-12">
+                    <h3 class="container__heading">Indian Media Reviews</h3>
+                    <div class="content-box-shadow margin-top20 media-review__box">
+                        <div class="grid-7 alpha omega main-review">
+                            <p class="review-text"><i>"If you are looking for an SUV that not only looks and drives sweet but is also incredibly safe and feature packed, then the new XC40 makes a lot of sense. The long list of equipment and the introduction of the sporty R-Design trim from day one suggests Volvo knows the Indian market well."</i></p>
+                            <p class="review-title-text">- CarWale</p>
+                        </div>
+                        <div class="grid-5 content-box-shadow alpha omega scroll-reviews">
+                            <div class="media-review__img lazy review1" data-original="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/survey-landing/media-review-2.jpg?q=85">
+                                - AutoCar
+                            </div>
+                            <div class="media-review__content">
+                                <p>"Volvo XC40 is the most youthful and freshest model in its segment. It’s a car that’ll tug at your heart strings."</p>
+                                <span class="right-arrow arrow"></span>
+                            </div>
+                            <div class="media-review__content">
+                                <p>"Volvo has pulled off a class act with the XC40. It comes loaded with a host of features and feels very premium in terms of feel."</p>
+                                <span class="left-arrow arrow reverse"></span>
+                            </div>
+                            <div class="media-review__img lazy" data-original="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/survey-landing/media-review-3.jpg?q=85">
+                                - Overdrive
+                            </div>
+                            <div class="media-review__img lazy" data-original="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/survey-landing/media-review-4.jpg?q=85">
+                                - India Today
+                            </div>
+                            <div class="media-review__content">
+                                <p>"It seems that Volvo engineers have learnt from the shortcomings of the competition and given the XC40 a proper SUV shape."</p>
+                                <span class="right-arrow arrow"></span>
+                            </div>
+                            <div class="media-review__content">
+                                <p>"The design is fantastic with unique interiors that will work very well for its target audience, and of course, there’s the powerful engine and a truckload of safety gear."</p>
+                                <span class="left-arrow arrow reverse"></span>
+                            </div>
+                            <div class="media-review__img lazy" data-original="https://imgd.aeplcdn.com/0x0/cw/es/specials/volvo/xc40/survey-landing/media-review-5.jpg?q=85">
+                                - Autox.com
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+		</section>
+		<section>
+			<div class="container mb-view margin-bottom30">
+				<div class="grid-12">
+					<h3 class="container__heading">Locate Dealer</h3>
+					<div class="content-box-shadow margin-top20 content-inner-block-15lr">
+						<div class="grid-8 alpha text-center margin-top20 margin-bottom20">
+							<div id="divMap"></div>
+						</div>
+						<div class="grid-4 alpha omega margin-top20">
+							<div class="content-box-shadow content-inner-block-10 margin-bottom10">
+								<h4 class="margin-bottom10 text-black">Find dealers in your city</h4>
+								<select class="form-control" id="drpDealerCity" data-bind='options:cities, optionsText: "cityName", optionsValue: "cityId"'></select>
+							</div>
+							<div class="content-box-shadow content-inner-block-10 map-dealer-list" data-bind="template:{name:'dealerTemplate',foreach:LocateDealerList}" id="dealerDiv"></div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</section>
+
+
+		<section>
+			<div class="container mb-view pq-box">
+				<div class="grid-12">
+                    <h3 class="container__heading">Experience the volvo XC40</h3>
+					<div class="font14 content-box-shadow content-inner-block-15nr buy-automatic-car lazy">
+						<div class="request-callback-box">
+							 <div class="grid-4 rightfloat">
+							@{ Html.RenderPartial("~/Views/Shared/ES/_LeadForm.cshtml"); }
+							 </div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</section>
+        <section class="term-parent">
+            <p>Special initiative in association with Volvo India</p>
+        </section>
+    </div>
+</div>
+<script type="text/html" id="dealerTemplate">
+    <div class="map-dealer-list-card" data-bind="attr:{id:dealerId}">
+        <h4 class="margin-bottom5 text-unbold text-black">
+            <i class="icon-view fa uncheck"></i> <span data-bind="text:name"></span>
+        </h4>
+        <p class="text-light-grey font14">
+            <span data-bind="text:address"></span><br>
+            <span data-bind="text:cityName + ', ' + state + ' - ' + pincode"></span>
+        </p>
+        <h4 class="margin-bottom10 text-unbold">
+            <i class="fa fa-phone"></i>
+            <span data-bind="text:' ' + landlineNo + (mobileNo && landlineNo ? ', ' : '') + mobileNo"></span>
+        </h4>
+        <input type="hidden" data-bind="value:latitude" />
+        <input type="hidden" data-bind="value:longitude" />
+    </div>
+</script>
+<script type="text/html" id="dealerAddrTemplate">
+    <li class="custom-radio-list">
+        <input type="radio" data-bind="attr:{id:dealerId}, click: VolvoXc40.dealerClick.bind()" name="DealerId" value="-1">
+        <label data-bind="attr:{for:dealerId}">
+            <span class="address-title" data-bind="text:name"></span>
+            <span class="address-text" data-bind="text:address"></span>
+            <span data-bind="text:' ' + landlineNo + (mobileNo && landlineNo ? ', ' : '') + mobileNo"></span>
+        </label>
+        <div class="check"></div>
+    </li>
+</script>
+
+<script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+<script type="text/javascript" src="/static/js/leadform-v1.js" defer></script>
+<script type="text/javascript" src="/static/m/js/easy-autocomplete.js" defer></script>
+<script type="text/javascript" src="/static/src/dealerlocatormaps.js" defer></script>
+<script type="text/javascript" src="/static/js/volvo-xc40-script.js" defer></script> 
+<script type="text/javascript" src="/static/js/v2/es-volvo-xc40.js" defer></script>
+<script>
+    landingPage = true;
+    PushleadType = 27; 
+    modelid = 1156;
+    carName = "Volvo XC40";
+</script>

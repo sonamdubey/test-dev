@@ -1,0 +1,16 @@
+﻿@model Carwale.UI.ViewModels.Used.SellCar.CongratsViewModel
+
+<div class="voucher-screen">
+    <span class="congratulation-icon"></span>
+    <div class="voucher-body">
+        <p id="congratulations" class="voucher__title">Congratulations</p>
+        <p class="voucher__subtitle">Your Ad is live.</p>
+        <a href="@string.Format("/used/cardetails.aspx?car=s{0}", @Model.InquiryId)" id="voucherViewAd" class="btn btn-orange voucher-btn">View your ad</a>      
+    </div>
+</div>
+<script>
+    $('#voucherViewAd').on('click', function () {
+        sellCarTracking.forDesktop("viewAd");
+    });
+    window.removeEventListener("beforeunload", parentContainer.onPageUnload);
+</script>

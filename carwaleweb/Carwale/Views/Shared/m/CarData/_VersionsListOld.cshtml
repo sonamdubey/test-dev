@@ -1,0 +1,161 @@
+﻿@model List<Carwale.DTOs.NewCars.NewCarVersionsDTO>
+@using Carwale.Utility;
+@using Carwale.UI.Common;
+@using Carwale.Entity;
+@{var sponsoredDealer = (Carwale.Entity.Dealers.SponsoredDealer)ViewBag.SponsoredDealer;}
+<div class="content-box-shadow rounded-corner2 margin-bottom20"><div class="cw-tabs-panel"><div class="cw-tabs cw-tabs-flex cw-tabs-inner-margin10"><ul id="version-tabs"><li class="active" data-tabs="all-version-tab">@Html.Raw(Model != null & Model.Count > 1 ? "All Variants" : "Variant")</li>
+				@if (ViewBag.PetrolTab == "enabled" && ViewBag.DieselTab == "enabled")
+				{
+					<li data-tabs="petrol-tab" class="@ViewBag.PetrolTab">Petrol</li><li data-tabs="diesel-tab" class="@ViewBag.DieselTab">Diesel</li>
+				}
+			</ul><div class="clear"></div></div><div class="cw-tabs-data content-inner-block-10" id="divVersions1"><table class="version-table-list"><tbody>
+					@{  int index = 0, getOffersIndex = 0;
+                        foreach (var price in Model)
+                        {
+                            string currentUrl = ManageCarUrl.CreateVersionUrl(ViewBag.MakeName, price.MaskingName, price.VersionMaskingName, true);
+                            <tr fuel-type1="@price.CarFuelType.ToLower()-tab" class="lnkVersions content-box-shadow content-inner-block-10 rounded-corner2 margin-bottom10 position-rel leftfloat" style="width:100%;"><td class="leftfloat" style="width:82%"><a class="normal text-black @(CookiesCustomers.IsEligibleForORP && ViewBag.IsCityPage ? "model-city-link" : "")" href="@currentUrl" style="text-decoration: none;"
+									   @Html.Raw((CookiesCustomers.IsEligibleForORP && ViewBag.IsCityPage) ? ("data-cityid=\"" + ViewBag.CityId + "\" data-cityname=\"" + ViewBag.CityName + "\" data-redirect-url=\"" + @currentUrl + "\"") : "")><div><div class="sub-heading"><b>@price.Version</b></div><div class="darkgray margin-top5">
+												@price.SpecsSummary
+											</div></div></a><div class="darkgray margin-top5"><span class="text-bold">₹ @FormatPrice.GetFormattedPriceV2(price.CarPriceOverview.Price.ToString())
+										</span><span class='@(price.CarPriceOverview.PriceStatus == (int)PriceBucket.PriceNotAvailable ? "oliveText" : price.CarPriceOverview.PriceStatus == (int)PriceBucket.CarNotSold ? "redText" : "")'>
+											@price.CarPriceOverview.PriceLabel@(price.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity ? ", " + price.CarPriceOverview.City.CityName : "")
+											@(price.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + price.CarPriceOverview.ReasonText + "</p></div>") : Html.Raw(""))
+										</span></div>
+
+									@if (price.CarPriceOverview.Price > 0)
+									{
+										bool showSeparator = true;
+										<div class="margin-top5 font12">
+											@if (CookiesCustomers.IsEligibleForORP)
+											{
+												if (price.CarPriceOverview.PriceStatus == (int)PriceBucket.NoUserCity && (ViewBag.SponsoredDealer == null || ViewBag.SponsoredDealer.DealerId < 1))
+												{
+													if (index == 0)
+													{
+														<span data-role="impression" data-event="CWNonInteractive" data-cat="ShowORPTest"
+															  data-action="@(ViewBag.TrackingPageName)_VariantsSection_ShowPriceInMyCity" data-label="@(ViewBag.PricingEventLabel)_NA"></span>
+														index++;
+													}
+													<p class="text-link leftfloat text-bold select-city-link" data-redirect-url="@currentUrl" data-role="click" data-event="CWInteractive"
+													   data-cat="ShowORPTest" data-action="@(ViewBag.TrackingPageName)_VariantsSection_ShowPriceInMyCity"
+													   data-label="@(ViewBag.PricingEventLabel)_@(price.Version)">
+														@System.Configuration.ConfigurationManager.AppSettings["ShowPriceInCityText"]
+													</p>
+												}
+												else if (price.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity)
+												{
+													if (index == 0)
+													{
+														<span data-role="impression" data-event="CWNonInteractive" data-cat="ShowORPTest"
+															  data-action="@(ViewBag.TrackingPageName)_VariantsSection_ViewBreakup" data-label="@(ViewBag.PricingEventLabel)_NA"></span>
+														index++;
+													}
+													<p class="text-link leftfloat text-bold" data-role="click" data-event="CWInteractive" data-cat="ShowORPTest"
+													   data-action="@(ViewBag.TrackingPageName)_VariantsSection_ViewBreakup" data-label="@(ViewBag.PricingEventLabel)_@(price.Version)" modelid="@price.ModelId" versionid="@price.Id" cityid="@price.CarPriceOverview.City.CityId" cityname="@price.CarPriceOverview.City.CityName"
+													   onclick="redirectOrOpenPopup(this, 125)">
+														@System.Configuration.ConfigurationManager.AppSettings["ViewPriceBreakupText"]
+													</p>
+												}
+												else
+												{
+													showSeparator = false;
+												}
+											}
+											else
+											{
+												<p class="text-link leftfloat text-bold" modelid="@price.ModelId" versionid="@price.Id" iscitypage="@(ViewBag.IsCityPage.ToString().ToLower())" cityname="@ViewBag.CityName" cityid="@ViewBag.CityId" pageid="@(ViewBag.IsCityPage ? 77 : 75)" onclick="setCityIdCookieModelPage(this);redirectOrOpenPopup(this, @(ViewBag.IsCityPage ? 77 : 75))">Check On-Road Price</p>
+											}
+
+											@if (price.DiscountSummary != null)
+											{
+												if (showSeparator)
+												{
+													<span class=" text-gray margin-left5 margin-right5">|</span>
+												}
+												if (CookiesCustomers.MasterCityId > 0 || @ViewBag.IsCityPage)
+												{
+													<a class="text-link text-bold trackAction" href="/m/@Carwale.UI.Common.UrlRewrite.FormatSpecial(ViewBag.MakeName)-cars/@price.DiscountSummary.MaskingName/advantage/?src=m05&cityid=@price.DiscountSummary.CityId&versionid=@price.DiscountSummary.VersionId" data-versionid="@price.DiscountSummary.VersionId"
+													   data-cityname="@(ViewBag.IsCityPage ? ViewBag.CityName : MobileWeb.Common.CookiesCustomers.MasterCity)" data-savings="@price.DiscountSummary.MaxDiscount.ToString()"
+													   onclick="Common.utils.trackAction('CWInteractive','deals_mobile', 'dealsaccess_mobile', '@(ViewBag.IsCityPage ? "priceincitypage_variantlistmob" : "modelpage_variantlistmob")');">
+														@if (price.DiscountSummary.MaxDiscount > 0)
+														{  <span>Save ₹ <span data-max-discount="@price.DiscountSummary.MaxDiscount.ToString()" class="discount_m">@Format.FormatNumericCommaSep(price.DiscountSummary.MaxDiscount.ToString()) </span></span>}
+														else if ((price.DiscountSummary.MaxDiscount == 0) && (!String.IsNullOrWhiteSpace(price.DiscountSummary.Offers)))
+														{
+															<span>Show Offers</span>
+														}
+													</a>
+												}
+												else
+												{
+													<a class="text-link  text-bold advantageSlug trackAction" href="javascript:void(0)" data-adv-popup="showAdvantageCityPopup" data-versionid="@price.DiscountSummary.VersionId"
+													   data-cityname="@(ViewBag.IsCityPage ? ViewBag.CityName : MobileWeb.Common.CookiesCustomers.MasterCity)" data-savings="@price.DiscountSummary.MaxDiscount.ToString()"
+													   data-advantage-link="/m/@Format.RemoveSpecialCharacters(ViewBag.MakeName)-cars/@price.DiscountSummary.MaskingName.ToString()/advantage/?src=m05&versionId=@price.DiscountSummary.VersionId&cityId="
+													   onclick="Common.utils.trackAction('CWInteractive','deals_mobile', 'dealsaccess_mobile', '@(ViewBag.IsCityPage ? "priceincitypage_variantlistmob" : "modelpage_variantlistmob")');">
+														@if (price.DiscountSummary.MaxDiscount > 0)
+														{  <span> Save <span data-max-discount="@price.DiscountSummary.MaxDiscount.ToString()" class="text-bold discount_m">BIG</span></span>}
+														else if ((price.DiscountSummary.MaxDiscount == 0) && (!String.IsNullOrWhiteSpace(price.DiscountSummary.Offers)))
+														{
+															<span>Show Offers</span>
+														}
+													</a>
+												}
+											}
+
+											else if (ViewBag.SponsoredDealer != null && ViewBag.SponsoredDealer.DealerId > 0)
+											{
+												if (showSeparator)
+												{
+													<span class=" text-gray margin-left5 margin-right5">|</span>
+												}
+
+												if (CookiesCustomers.IsEligibleForORP)
+												{
+													if (getOffersIndex == 0)
+													{
+														<span data-role="impression" data-event="CWNonInteractive" data-cat="ShowORPTest" data-action="@(ViewBag.TrackingPageName)_VariantsSection_GetOffers" data-label="@(ViewBag.PricingEventLabel)_NA"></span>
+                                                        getOffersIndex++;
+                                                    }
+                                                }
+                                                <span dealercampaignexist="true" sourceclick="@(ViewBag.IsCityPage ? 162 : 161)" isgetoffers-versionlink="true" inquirysourceid="149"
+                                                      data-versionname="@price.Version" data-versionid="@price.Id" class="getOffersVersionLink text-link text-bold" data-role="click"
+                                                      data-event="CWNonInteractive" data-action="Link" data-cwtccat="@(ViewBag.IsCityPage ? "CityPage" : "ModelPage")" data-cwtcact="GetOffersClick"
+                                                      data-cwtclbl="make:@ViewBag.MakeName|model:@ViewBag.ModelName|version:@price.Version|city:@ViewBag.CityZone"
+                                                      data-cat="@(ViewBag.IsCityPage ? "MSite-PriceInCityPage-VersionList_CampaignLink" : "MSite-ModelPage-VersionList_CampaignLink")"
+                                                      data-predictionlabel='@(sponsoredDealer.PredictionData != null ? sponsoredDealer.PredictionData.Label : "")' data-predictionScore='@(sponsoredDealer.PredictionData != null ? sponsoredDealer.PredictionData.Score : 0)'
+                                                      data-label='@(ViewBag.GetOffersLinkLabel)'>
+                                                    <span data-role='@(CookiesCustomers.IsEligibleForORP ? "click" : "")' data-event="CWInteractive" data-cat="ShowORPTest" data-action="@(ViewBag.TrackingPageName)_VariantsSection_GetOffers"
+                                                          data-label="@(ViewBag.PricingEventLabel)_@(price.Version)">
+                                                        Get Offers
+                                                    </span>
+                                                </span>
+                                            }
+
+                                            else if (price.Id == 4771 || price.Id == 4772 || price.Id == 4773)
+                                            {
+                                                if (showSeparator)
+                                                {
+													<span class=" text-gray margin-left5 margin-right5">|</span>
+												}
+
+												<span data-role="impression" data-event="CWNonInteractive" data-action="ElectricSectionLinks"
+													  data-cat="CWSpecials" data-label='Impression_ModelPage_VersionListSection_@ViewBag.ModelName_@price.Version'></span><a class="text-link text-bold" href="/electriccars/" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-action="ElectricSectionLinks" data-cat="CWSpecials"
+												   data-label='Click_ModelPage_VersionListSection_@ViewBag.ModelName_@price.Version'>
+													All About Electric
+												</a>
+											}
+											<div class="clear"></div></div>
+									}
+								</td><td style="width:18%;" name="tdVersion" class=" containerTd rightfloat"><div name="chkVersion"
+										 imgurl="@ViewBag.ModelSmallImage"
+										 makename="@ViewBag.MakeName"
+										 modelname="@ViewBag.MakeName"
+										 versionid="@price.Id.ToString()"
+										 versionname="@price.Version.ToString()"
+										 price='@Carwale.UI.Common.FormatPrice.GetFormattedPriceV2(price.CarPriceOverview.Price.ToString())'
+										 onclick="VersionSelectByChkBox(this)"
+										 class="divUnCheck" style="position:absolute;right:25px; top:50%; margin-top:-17px;"></div></td><td class="clear"></td></tr>
+						}
+					}
+				</tbody></table></div><div class="clear"></div></div></div>
+
+@{ Html.RenderPartial("m/cardata/_VersionsListNew", Model); }

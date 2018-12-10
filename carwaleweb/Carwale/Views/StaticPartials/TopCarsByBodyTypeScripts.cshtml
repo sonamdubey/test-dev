@@ -1,0 +1,16 @@
+﻿@using Carwale.BL.Experiments;
+<script type="text/javascript" src="/static/Src/commonUtilities.js" defer></script>
+<script type="text/javascript" src="/static/js/topcarsbybodytype.js" defer></script>
+<script type="text/javascript" src="/static/m/js/v2/app/loader.js" defer></script>
+<script type="text/javascript">
+    var nextPageUrl = "@Html.Raw(string.IsNullOrEmpty(Model.NextPageUrl) ? "" : Model.NextPageUrl)"
+    var filterAppliedCount = '@Model.FilterAppliedCount';
+    var useFilterPlugin = '@true' === '@(ViewBag.IsMobile)';
+    var bodyStyleId = '@((int)Model.BodyStyleId)';
+    var isFilterApplied = '@true' === '@Model.IsFilterApplied';
+    var totalModels = '@Model.ModelList.Count';
+    var toReloadOnLocationChange = false;
+    var toTriggermanualChangeEvent = true;
+</script>
+
+

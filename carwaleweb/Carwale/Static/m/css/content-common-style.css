@@ -1,0 +1,112 @@
+﻿.news-box {
+  opacity: 1;
+  filter: alpha(opacity=1);
+  margin-bottom: 20px;
+}
+
+#relatedGallery .news-box .news-inner-wrap {
+  background: #fff;
+  -webkit-box-shadow: 0 2px 3px rgba(102,102,102,0.4);
+  -moz-box-shadow: 0 2px 3px rgba(102,102,102,0.4);
+  -ms-box-shadow: 0 2px 3px rgba(102,102,102,0.4);
+  box-shadow: 0 2px 3px rgba(102,102,102,0.4);
+}
+
+.news-box .news-inner-box .img-wrap img, #relatedGallery .left-container, #relatedGallery .news-box .news-inner-box {
+  width: 100%;
+}
+
+#relatedGallery .news-box .news-inner-wrap {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  min-height: 255px;
+  max-height: 255px;
+}
+
+#relatedGallery .news-box .min-height0{
+    min-height:0;
+}
+
+
+#relatedGallery .news-box .news-inner-box .img-wrap {
+  height: 176px;
+  overflow: hidden;
+}
+
+#relatedGallery .news-box .news-inner-wrap .img-wrap img {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+@media only screen and (max-width:780px) {
+  .news-box {
+    width: 100%;
+  }
+}
+
+@media \0screen {
+  .news-box .news-inner-wrap {
+    border: 1px solid #ccc;
+  }
+}
+
+.image-tag .fa-camera {
+  margin-right: 5px;
+}
+
+.news-view-box .view-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.news-title {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.news-title-widget {
+  width: 255px;
+  display: table-cell;
+  *display: block;
+  *float: left;
+  vertical-align: middle;
+}
+
+.news-title-count {
+  width: 40px;
+  display: table-cell;
+  *display: block;
+  *float: left;
+  text-align: right;
+  vertical-align: middle;
+  font-size: 25px;
+  color: #d9d9d9;
+  font-weight: bold;
+}
+
+.image-tag {
+  background: #04b3c4;
+  float: right;
+  padding: 5px 10px;
+  min-width: 60px;
+  border-radius: 15px;
+  position: absolute;
+  top: -18px;
+  right: 15px;
+}
+
+.news-title a {
+  display: block;
+  width: 290px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.news-ad-slot .adunit div iframe {
+  width: 300px !important;
+  height: 250px;
+  margin-left: auto !important;
+}

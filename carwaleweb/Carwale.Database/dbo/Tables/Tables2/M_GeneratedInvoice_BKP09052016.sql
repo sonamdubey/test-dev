@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[M_GeneratedInvoice_BKP09052016] (
+    [Id]                   INT             IDENTITY (1, 1) NOT NULL,
+    [TransactionId]        INT             NOT NULL,
+    [PackageId]            INT             NULL,
+    [InvoiceAmount]        NUMERIC (18, 2) NULL,
+    [InvoiceNumber]        VARCHAR (100)   NULL,
+    [EntryDate]            DATETIME        NULL,
+    [GeneratedBy]          INT             NULL,
+    [InvoiceName]          VARCHAR (250)   NULL,
+    [InvoiceSeries]        VARCHAR (50)    NULL,
+    [InvoiceSeriesNo]      INT             NULL,
+    [PostTaxInvoiceAmount] NUMERIC (18, 2) NULL,
+    [Status]               SMALLINT        NULL,
+    [InvoiceSeriesId]      SMALLINT        NULL,
+    [InvoiceDate]          DATETIME        NULL,
+    [UpdatedBy]            INT             NULL,
+    [Comments]             VARCHAR (250)   NULL,
+    [UsedInvoiceId]        INT             NULL,
+    [UpdatedOn]            DATETIME        NULL,
+    [RejectedDate]         DATETIME        NULL,
+    [TextToBePrinted]      VARCHAR (250)   NULL,
+    [ShowContractSummary]  BIT             NOT NULL,
+    [IsCleanMissionManual] BIT             NULL,
+    [SourceId]             INT             NULL
+);
+

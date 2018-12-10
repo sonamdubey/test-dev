@@ -1,0 +1,8 @@
+@mixin opacity-class($percent) {
+  .opacity#{$percent} {
+    opacity: $percent/100;
+    filter: alpha(opacity=$percent);
+    -moz-opacity: $percent/100;
+    -khtml-opacity: $percent/100;
+  }
+}

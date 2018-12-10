@@ -1,0 +1,267 @@
+﻿@model Carwale.DTOs.NewCars.PriceInCityPageDTO
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using Carwale.Entity.Enum;
+@{
+	ViewBag.BodyClass = "bg-white header-fixed-inner";
+	ViewBag.Title = Model.PageMetaTags.Title??string.Empty;
+	ViewBag.Description = Model.PageMetaTags.Description??string.Empty;
+	ViewBag.landingPage = false;
+	ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+	ViewBag.DeeplinkAlternativesAndroid = ViewBag.DeeplinkAlternatives;
+	ViewBag.Canonical = ManageCarUrl.CreatePriceInCityUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, ViewBag.CityMaskingName, true);
+	ViewBag.AdId = "1396440106184";
+	ViewBag.AdPath = "/1017752/" + ViewBag.DomainName + "NewCar_";
+	ViewBag.CustomJS = "~/Views/StaticPartials/PICPageScripts.cshtml";
+	ViewBag.CustomCss = "~/Views/StaticPartials/PICPageCss.cshtml";
+	ViewBag.PageId = 55;
+	ViewBag.ShowChatForHexa = Model.ModelDetails.ModelId == 875 ? true : false;
+	ViewBag.GalleryObject = Newtonsoft.Json.JsonConvert.SerializeObject(new { modelId = Model.ModelDetails.ModelId, makeId = Model.ModelDetails.MakeId, makeName = Model.ModelDetails.MakeName, modelName = Model.ModelDetails.ModelName, isNew = Model.ModelDetails.New, isFuturistic = Model.ModelDetails.Futuristic, modelMaskingName = Model.ModelDetails.MaskingName });
+	ViewBag.DefineAdSlots =
+		@"<script type='text/javascript'>
+    var AdSlots = {};
+		googletag.cmd.push(function () {
+			googletag.pubads().disableInitialLoad();
+			googletag.pubads().setCentering(true);
+			AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-0'] = googletag.defineSlot('" + ViewBag.AdPath + @"300x250',[300,250], 'div-gpt-ad-" + ViewBag.AdId + @"-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+    AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-1'] = googletag.defineSlot('" + ViewBag.AdPath + @"300x250_BTF', [300, 250], 'div-gpt-ad-" + ViewBag.AdId + @"-1').addService(googletag.pubads());
+			AdSlots['div-gpt-ad-1519204126217-0'] = googletag.defineSlot('/1017752/Carwale_PriceAndCity_970x90', [[950, 90], [970, 66], [960, 60], [970, 90], [960, 90], [970, 60], [728, 90]], 'div-gpt-ad-1519204126217-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+      AdSlots['div-gpt-ad-1462454370135-0'] = googletag.defineSlot('" + ViewBag.AdPath + @"Comparo_646x460', [[624,460],[644,460], [646, 460], [644, 100]],'div-gpt-ad-1462454370135-0').addService(googletag.pubads());
+			AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-9'] = googletag.defineSlot('" + ViewBag.AdPath + @"300x600', [[120, 240], [120, 600], [160, 600], [300, 250], [300, 600]], 'div-gpt-ad-" + ViewBag.AdId + @"-9').addService(googletag.pubads());
+			AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-11'] = googletag.defineSlot('" + ViewBag.AdPath + @"643x65', [643, 65], 'div-gpt-ad-" + ViewBag.AdId + @"-11').addService(googletag.pubads());
+			AdSlots['div-gpt-ad-1464082628921-0'] = googletag.defineSlot('" + ViewBag.AdPath + @"Models_644x260', [[644, 245], [644, 300], [644, 260], [644, 100]], 'div-gpt-ad-1464082628921-0').addService(googletag.pubads());
+			googletag.pubads().setTargeting('Models', '" + (Model.ModelDetails.ModelId == 493 ? "Amaze" : Model.ModelDetails.ModelName) + @"');
+			googletag.pubads().setTargeting('City', '" + ViewBag.CityName + @"');
+			googletag.pubads().setTargeting('UserModelHistory','" + CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+			googletag.pubads().setTargeting('IsCampaignAvailable', '" + (Model.DesktopOverviewDetails.AdAvailable).ToString().ToLower() + @"');
+      googletag.pubads().collapseEmptyDivs(true);
+			googletag.pubads().enableSingleRequest();
+			googletag.enableServices();
+		});
+		</script>";
+	Layout = "~/views/shared/_LayoutV2.cshtml";
+}
+@section MetaTags{
+    @Helpers.GetOgTags("https://www.carwale.com" + Request.ServerVariables["http_x_rewrite_url"], ViewBag.Title.ToString(), ViewBag.Description.ToString(), ImageSizes.CreateImageUrl(Model.DesktopOverviewDetails.HostUrl??string.Empty, ImageSizes._1280x720, Model.DesktopOverviewDetails.OriginalImage??string.Empty, 100))
+    @if (!string.IsNullOrEmpty(Model.PageMetaTags?.Canonical))
+    {
+        <link rel="amphtml" href="@(Model.PageMetaTags?.Canonical + "amp/")" />
+    }
+}
+<aside class="container">
+    <div class="grid-12">
+        <div class="padding-bottom15 text-center ad-slot">
+            <div class="text-right font11 text-medium-grey">Ad</div>
+            @Helpers.GetAdBar("1519204126217", 970, 0, 0, 0, true, 0)
+        </div>
+    </div>
+</aside>
+<div class="clear"></div>
+<div class="bg-light-grey padding-top10 padding-bottom20 no-bg-color">
+    <main itemscope itemtype="http://schema.org/Car">
+        <div class="container">
+            <div class="grid-12">
+                @{ Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist); }
+                <h1 class="font30 text-black special-skin-text"><span itemprop="name">@Html.Raw(Model.PageMetaTags.Heading??string.Empty)</span> Price in @ViewBag.CityName</h1>
+                @if (!string.IsNullOrWhiteSpace(Model.Summary))
+                {
+            <p class="font11 margin-bottom10 special-skin-text">@Model.Summary</p>
+                }
+                <div class="margin-top5">
+                    @if (!Model.ModelDetails.Futuristic)
+                    {
+                        if (Model.ModelDetails.ModelRating > 0)
+                        {
+					<div id="divModelRating" class="inline-block">
+						@Html.Raw(CommonOpn.GetRateImage(Model.ModelDetails.ModelRating))
+						<span class="margin-left5 review-class">
+							<meta itemprop="description" content="@ViewBag.Description" />
+							<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+								<meta itemprop="ratingValue" content="@Math.Round((decimal)Model.ModelDetails.ModelRating, 2)" />
+								<meta itemprop="worstRating" content="1" />
+								<meta itemprop="bestRating" content="5" />
+								<a title="User Review of @Model.ModelDetails.ModelName" href="/@UrlRewrite.FormatSpecial(Model.ModelDetails.MakeName)-cars/@Model.ModelDetails.MaskingName/userreviews/">
+									<span itemprop="reviewCount">
+										@Html.Raw(Model.ModelDetails.ReviewCount)
+									</span>reviews
+								</a>|
+								<span class="text-link" onclick="window.location.href = '@ManageCarUrl.CreateRatingPageUrl(Model.ModelDetails.ModelId)'" data-cwtccat="RatingLinkage" data-cwtcact="@($"{CwPages.PicDesktop}LinkClick")" data-cwtclbl="model=@Model.ModelDetails.ModelId">Write a review</span>
+							</span>
+						</span>
+					</div>}
+                        else
+                        {
+                            <div id="divModelNotRated" class="mid-box inline-block special-skin-text">
+                                Not rated yet, <span class="text-link" onclick="window.location.href = '@ManageCarUrl.CreateRatingPageUrl(Model.ModelDetails.ModelId)'" data-cwtccat="RatingLinkage" data-cwtcact="@($"{CwPages.PicDesktop}LinkClick")" data-cwtclbl="model=@Model.ModelDetails.ModelId">Be the first one to write a review</span>
+                            </div>}
+                    }
+                    <meta itemprop="url" content="@ViewBag.Canonical" />
+                    <meta itemprop="model" content="@Model.ModelDetails.ModelName" />
+                    <span itemprop="bodyType" itemscope itemtype="http://schema.org/QualitativeValue">
+                        <meta itemprop="name" content="@(((Carwale.Entity.Enum.CarBodyStyle)Model.ModelDetails.BodyStyleId).ToString())" />
+                    </span>
+                    <span itemprop="brand" itemscope itemtype="http://schema.org/Brand">
+                        <meta itemprop="name" content="@ViewBag.MakeName" />
+                    </span>
+                    <span itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
+                        <meta itemprop="priceCurrency" content="INR" />
+                        <meta itemprop="lowPrice" content="@Model.ModelDetails.MinPrice" />
+                        <meta itemprop="highPrice" content="@Model.ModelDetails.MaxPrice" />
+                    </span>
+                </div>
+                <div class="border-solid-bottom margin-top5 margin-bottom15"></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        @if (Model.ModelDetails.New)
+        {
+            <section class="grid-12 bg-white">
+                @{Html.RenderPartial("~/Views/Shared/NewCars/_QuickMenuExperiment.cshtml", Model.SubNavigation); }
+                <div class="details-box position-rel omega  margin-top-15">
+                    <div class="container">
+                        @{Html.RenderPartial("~/Views/Shared/NewCars/_PICOverview.cshtml", Model.DesktopOverviewDetails); }
+                        <aside class="grid-4 price-in-container-ad-container omega padding-left15">
+                            @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_ATF_300x250.cshtml"); }
+
+                            @if (Model.ModelDetails.New && Model.DesktopOverviewDetails.NewCarVersions != null && Model.DesktopOverviewDetails.NewCarVersions.Count > 0 && Model.LeadFormModelData != null)
+                            {
+                                 {Html.RenderPartial("~/Views/Shared/NewCars/_DealerAd_v1.cshtml", Model.LeadFormModelData);}
+                            }
+                        </aside>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </section>
+        }
+        <div class="container">
+            <div class="grid-8">
+                @if (!Model.ModelDetails.New)
+                {
+                    <section style="margin-bottom: -5px;">
+                        @{Html.RenderPartial("~/Views/Shared/NewCars/_ModelOverview.cshtml", Model.DesktopOverviewDetails); }
+                    </section>
+                }
+                @if (Model.ModelDetails.Futuristic && !Model.ModelDetails.New && !Carwale.UI.Common.TestDrive.isFeaturedUpcoming(Model.ModelDetails.ModelId.ToString()))
+                {
+                    <div class="content-box-shadow content-inner-block-10 margin-top20">
+                        <div id="divSubscription">
+                            <h3 class="font16">@Html.Raw("Catch all the upcoming action, right in your inbox!")</h3>
+                            <ul class="ul-alerts margin-top10">
+                                <li class="heading grid-4"><span style="line-height: 1.9;">@Html.Raw("Sign up for upcoming car alerts")</span></li>
+                                <li class="grid-5"><input type="text" class="form-control" id="txtUpcomingAlertEmail" value="Enter your email address" placeholder="Enter your email address" /></li>
+                                <li class="grid-3"><input type="button" class="btn btn-orange btn-xs" id="btnSubscribe" value="Subscribe" /></li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                }
+                <aside>
+                    <div id='div-gpt-ad-@ViewBag.AdId-11' class="margin-bottom5">
+                        <script type='text/javascript'>googletag.cmd.push(function () { googletag.display('div-gpt-ad-@ViewBag.AdId-11'); });</script>
+                    </div>
+                    <span id="sliderOnScroll"></span>
+                    <div class="clear"></div>
+                    @if (Model.ModelDetails.Futuristic && Carwale.UI.Common.TestDrive.isFeaturedUpcoming(Model.ModelDetails.ModelId.ToString()))
+                    {
+                        <div id="upcomingLeadform">
+                            @{Html.RenderPartial("~/Views/Shared/NewCars/_UpComingBuyingAssistance.cshtml");}
+                        </div>
+                    }
+                </aside><!--Versions list code starts here -->
+                @if (Model.ModelDetails.New)
+                {
+                    <aside>
+                        @if (Model.DesktopOverviewDetails.AdAvailable)
+                        {
+                                <div id="testDriveSlug">
+                                    @{Html.RenderPartial("~/Views/Shared/NewCars/_TestDriveV1.cshtml", Model.LeadFormModelData);}
+                                </div>
+                        }
+                        else
+                        {
+                            <!-- /1017752/NewCar_Models_644x260 -->
+                            <div id='div-gpt-ad-1464082628921-0'>
+                                <script type='text/javascript'>googletag.cmd.push(function() { googletag.display('div-gpt-ad-1464082628921-0'); });</script>
+                            </div>
+                        }
+                    </aside>
+                }
+                <aside>
+                    <!-- /1017752/NewCar_Comparo_646x460 -->
+                    <div id='div-gpt-ad-1462454370135-0'>
+                        <script type='text/javascript'>googletag.cmd.push(function() {googletag.display('div-gpt-ad-1462454370135-0'); });</script>
+                    </div>
+                    <div id='div-gpt-ad-@ViewBag.AdId-4'>
+                        <script type='text/javascript'>googletag.cmd.push(function () { googletag.display('div-gpt-ad-@ViewBag.AdId-4'); });</script>
+                    </div>
+                </aside>
+
+                @if (Model.SimilarCars != null && Model.SimilarCars.SimilarUpcomingCar != null && (Model.SimilarCars.SimilarCarModels.IsNotNullOrEmpty() || Model.SimilarCars.SimilarUpcomingCar.ExpectedLaunchId > 0))
+                {
+                    Html.RenderPartial("~/Views/Shared/NewCars/_AlternateCars.cshtml", Model.SimilarCars);
+                }
+
+                @if (Model.DealersList != null && Model.DealersList.NewCarDealers.IsNotNullOrEmpty())
+                {
+					Html.RenderPartial("~/Views/Shared/NewCars/_DealerDetails.cshtml", Model.DealersList);
+				}
+            </div>
+        </div>
+    </main>
+    <div class="container">
+        <div class="grid-4">
+            <aside>
+                @if (!Model.ModelDetails.New)
+                {
+                    Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_ATF_300x250.cshtml");
+                }
+                else
+                {
+                    <div class="margin-top20"></div>
+                }
+            </aside>
+            @if (Model.DesktopOverviewDetails.AdvantageAdData != null && !Model.DesktopOverviewDetails.Futuristic)
+            {
+                Html.RenderPartial("~/Views/Shared/NewCars/_AdvantageCarSlug.cshtml", Model.DesktopOverviewDetails);
+            }
+            <!--Used luxury car Recommendation code starts here -->
+            <div>
+                @{Html.RenderAction("UsedLuxuryCars", "CarWidgets", new { makeId = Model.ModelDetails.MakeId, modelId = Model.ModelDetails.ModelId });}
+            </div>
+            <div class="clear"></div>
+            <!--Used luxury car Recommendation code ends here -->
+            <!--Price in other cities code starts here -->
+            @if (Model.ModelDetails != null && Model.ModelDetails.New)
+            {
+                Html.RenderAction("PriceInOtherCities", "CarWidgets", new { cityId = ViewBag.CityId, cityName = ViewBag.CityName??string.Empty, modelDetails = Model.ModelDetails, modelId = Model.ModelDetails.ModelId, isMobile = false});
+                Html.RenderAction("PriceInOtherCities", "CarWidgets", new { cityId = -1,cityName = string.Empty, modelDetails = Model.ModelDetails, excludedCities = new List<int> { ViewBag.CityId }, modelId = Model.ModelDetails.ModelId, isMobile = false });
+            }
+            <!--Price in other cities code ends here -->
+            <aside>
+                @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_BTF_300x250.cshtml"); }
+            </aside>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="btCompare" style="display: none;">
+        <a id="closeBox" class="cur-pointer rightfloat">close</a>
+        <div style="width: 240px;" class="text-black">Select up to 4 cars to compare</div>
+        <ul class="ul-normal margin-top5 selectedCars"></ul>
+        <br />
+        <input type="button" id="btnCompare" value="Compare" class="btn btn-orange" onclick="CompareCars(@Model.VersionWidgetSource);" />
+        <div style="clear: both; margin-bottom: 10px;">&nbsp;</div>
+    </div>
+    <div id="divEmiPopup">
+    @if (Model.ModelDetails != null && Model.ModelDetails.New)
+    {
+        Html.RenderPartial("~/Views/StaticPartials/LeadformApp.cshtml", Model.LeadFormModelData);
+    }
+    @if(Model.DesktopOverviewDetails.EmiCalculatorModelData != null)
+    {
+        @Html.Partial("~/Views/Shared/m/PriceQuote/_EmiCalculatorMaster.cshtml", Model.DesktopOverviewDetails.EmiCalculatorModelData);
+    }
+    </div>
+</div>
+<script type="text/javascript">
+    var vwGroupMakeIds = [@System.Configuration.ConfigurationManager.AppSettings["VWFSMakeIds"]];
+</script>

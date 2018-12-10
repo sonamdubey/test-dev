@@ -1,0 +1,73 @@
+﻿.header-fixed-white {
+            background: white;
+            box-shadow: #ccc 0 2px 3px;
+            padding: 14px 12px;
+        }
+
+        .logo-menu-wrapper {
+            width: 60%;
+            display: inline-block;
+        }
+
+        .search-wrapper {
+            width: 38%;
+            display: inline-block;
+        }
+
+        .cw-logo-colored {
+            width: 120px;
+            height: 20px;
+            background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/new-header/logo.svg) no-repeat;
+            display: inline-block;
+        }
+
+        .hamburger-icon {
+            width: 15px;
+            height: 16px;
+            display: inline-block;
+            background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/new-header/hamburger.svg?=v1) no-repeat;
+            background-size: cover;
+            margin-right: 12px;
+            position: relative;
+            top: 0px;
+        }
+
+        .new-header-white .global-search {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/new-header/search.svg) no-repeat;
+            background-size: contain;
+            position: relative;
+            top: 1px;
+            float: right;
+            margin-right: 15px;
+        }
+
+        .location-icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/new-header/location.svg) no-repeat right;
+            background-size: contain;
+            position: relative;
+            top: 0px;
+            float: right;
+        }
+            .city-selected:before {
+                content: '';
+                width: 7px;
+                height: 7px;
+                background-color: #e53012;
+                border-radius: 50%;
+                position: absolute;
+                top: 1px;
+                right: -1px;
+            }
+
+.search-wrapper .global-location {
+	float: none;
+}
+.new-header-white .location-icon {
+	margin-left: 0;
+}

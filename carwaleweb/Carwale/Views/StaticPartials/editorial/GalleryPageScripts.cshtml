@@ -1,0 +1,33 @@
+﻿@model Carwale.DTOs.CarData.PhotoGalleryDTO_V2
+@using Carwale.Utility
+@using System.Configuration;
+@using Carwale.Entity.Enum;
+@using Carwale.UI.Common;
+
+<script type="text/javascript" src="/static/src/dropdown-menu.min.js" defer></script>
+<script type="text/javascript" src="/static/js/jcarousel.swipe.min.js" defer></script>
+<script type="text/javascript" src="/static/src/jquery.ad-gallery.js" defer></script>
+<script type="text/javascript" src="/static/src/jquery.dfp.min.js" defer></script>
+<script type="text/javascript" src="/static/js/gallery-ads.js" defer></script>
+<script type="text/javascript" src="/static/js/desktop-gallery.js" defer></script>
+<script type="text/javascript" src="/static/js/comscore.js" defer></script>
+<script>
+    var galleryImageSize = "@ImageSizes._1056X594";
+    var galleryIconSize = "@ImageSizes._160X89";
+    var noImagePath = "@(ConfigurationManager.AppSettings["CDNHostURL"].ToString() + ImageSizes._0X0 + "/cw/static/icons/svg/gallery/desktop_gallery_no_images.svg")";
+    var CityId = '@CookiesCustomers.MasterCityId';
+    var CityName = '@CookiesCustomers.MasterCity';
+    function setMetaData() {
+        Gallery.modelId = @Model.ModelDetails.ModelId;
+        Gallery.modelName = "@Model.ModelDetails.ModelName";
+        Gallery.makeName = "@Model.ModelDetails.MakeName";
+    }
+    function docReady(fn){
+        if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+            fn();
+        } else {
+            document.addEventListener('DOMContentLoaded', fn);
+        }}
+    docReady(setMetaData);    
+</script>
+@Html.Partial("~/Views/Shared/_Comscore.cshtml")

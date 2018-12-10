@@ -1,0 +1,39 @@
+﻿@model Carwale.Entity.Common.PopularVideoWidget
+@using Carwale.BL.CMS
+
+@if (Model != null) { 
+  
+    <div class="content-inner-block-10">
+        <h2 class="font18 text-bold">Popular Videos</h2>
+       @foreach (var video in Model.Videos) { 
+                <div data-role="inview-imp" data-event="CWNonInteractive" data-cat="desktop_video_linkages" data-label="@video.MakeName @video.ModelName" data-action="news_detail_popular_video_impression" class="video-placer">
+                    <a class="hover-no-underline" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_linkages" data-label="@video.MakeName @video.ModelName" data-action="news_detail_popular_video" href="@CMSCommon.GetVideoUrl(video.MakeName, video.MaskingName, video.SubCatName, int.Parse(video.BasicId), false)" target="_blank">
+                        <p style="font-size:14px;"><strong><span>@video.Title</span></strong></p>
+                        <div class="text-black">
+                        <div class="position-rel cur-pointer">
+                            <div style="overflow: hidden;">
+                                <img class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@("https://img.youtube.com/vi/" + video.VideoId + "/mqdefault.jpg")"
+                                     border="0" title="@video.Title" alt="@video.Title" />
+                            </div>
+                            <div class="youtube-video-icon review-yt-video-icon"></div>
+                            </div>
+                            <p>@Html.Raw(video.Description) ...</p>
+                            <div class="video-social-icons">
+                                <div>
+                                    <span class="news-sprite v-fb-like-icon"></span> @video.Likes Likes
+                                </div>
+                                <div class="v-comment">
+
+                                </div>
+                                <div class="v-views">
+                                    <span class="news-sprite v-views-icon"></span> @video.Views Views
+
+                                </div>
+                            </div>
+                        </div>
+</a>
+                </div>
+       }
+    </div>
+
+}

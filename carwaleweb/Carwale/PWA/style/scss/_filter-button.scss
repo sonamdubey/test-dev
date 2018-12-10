@@ -1,0 +1,55 @@
+.filter-container {
+    @include vendor-prefix('transform', translateX(-50%));
+    display: inline-block;
+    position: fixed;
+    bottom: 100px;
+    z-index: 2;
+    font-size: 14px;
+    width: auto;
+    left: 50%;
+    border-radius: 38px;
+    box-shadow: 0 4px 25px 1px rgba(0,0,0,.32);
+    -webkit-box-shadow: 0 4px 25px 1px rgba(0,0,0,.32);
+    -moz-box-shadow: 0 4px 25px 1px rgba(0,0,0,.32); 
+    border: 2px solid color('shamrock-green');
+    background:color('white');
+}
+
+.filter-container__link {
+    text-align: center;
+    font-size: 16px;
+    color: color('trout-grey');
+    display: inline-block;
+    padding: 10px 35px 10px 50px;
+    position: relative;
+    &::before{
+        @include filter-icon;
+        content: '';
+        width: 15px;
+        height: 15px;
+        display: inline-block;
+        position: absolute;
+        top: 13px;
+        left: 30px
+    }
+}
+
+.filter-container__count {
+    font-size: 10px;
+    color: color('white');
+    background-color: color('cinnabar');
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    box-shadow: 0 0 4px 0 color('black');
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    right: 16px;
+    padding: 2px;
+    font-weight: 400
+}
+
+.filterBtn__withCompare {
+    bottom: 235px;
+}

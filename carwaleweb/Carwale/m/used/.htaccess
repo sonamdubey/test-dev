@@ -1,0 +1,41 @@
+RewriteEngine on 
+RewriteMap map_makes txt:../../urlmappings/map_makes.txt
+RewriteMap lowercase int:tolower
+
+RewriteRule ^guarantee-offer/		- [G]
+RewriteRule ^guarantee/				- [G]
+RewriteRule ^carwaleguarantee.aspx$  - [G]
+RewriteRule ^carsold.aspx			- [G,NC]
+RewriteRule ^carvaluation/			https://%{HTTP_HOST}/used/carvaluation/ [R=301,NC,L]
+RewriteRule ^valuation.aspx$		https://%{HTTP_HOST}/used/carvaluation/ [R=301,NC,L]
+
+RewriteRule ^sellcarabout.aspx$		sell/ [R=301,NC,L]
+RewriteRule ^sell/$					https://%{HTTP_HOST}/used/sell/ [R=301,NC,L]
+RewriteRule	^cardetails-(.*)-(.*)\.html			cardetails.aspx?car=$2 [R=301,NC,L]
+RewriteRule ^cars-in-(.*)/(.*)-(.*)-(.*)/		/classifieddetails/mcardetails/?car=$4 [QSA,NC,L]
+RewriteRule ^cardetails.aspx					/classifieddetails/mcardetails/ [QSA,NC,L]
+
+RewriteRule  ^search.aspx$						cars-for-sale/ [R=301,QSA,NC,L]
+
+RewriteRule ^cars-in-(.*)/page-(.*)/			/search/getsearchresults/?cityname=$1&pn=$2 [QSA,NC,L]
+RewriteRule ^cars-in-(.*)/						/search/getsearchresults/?cityname=$1 [QSA,NC,L]
+
+RewriteRule ^cars-for-sale/page-(.*)/			/search/getsearchresults/?pn=$1 [QSA,NC,L]
+RewriteRule ^cars-for-sale/						/search/getsearchresults/ [QSA,NC,L]
+
+RewriteRule ^([a-zA-Z]+)-(.*)-cars-in-(.*)/page-(.*)/			/search/getsearchresults/?cityname=$3&make=${map_makes:${lowercase:$1}}&makename=$1&root=${lowercase:$2}&pn=$4 [QSA,NC,L]
+RewriteRule ^([a-zA-Z]+)-(.*)-cars-in-(.*)/						/search/getsearchresults/?cityname=$3&make=${map_makes:${lowercase:$1}}&makename=$1&root=${lowercase:$2} [QSA,NC,L]
+
+RewriteRule ^(.*)-cars-in-(.*)/page-(.*)/			/search/getsearchresults/?cityname=$2&make=${map_makes:${lowercase:$1}}&makename=$1&pn=$3 [QSA,NC,L]
+RewriteRule ^(.*)-cars-in-(.*)/						/search/getsearchresults/?cityname=$2&make=${map_makes:${lowercase:$1}}&makename=$1 [QSA,NC,L]
+
+RewriteRule ^([a-zA-Z]+)-(.*)-cars/page-(.*)/		/search/getsearchresults/?make=${map_makes:${lowercase:$1}}&makename=$1&root=${lowercase:$2}&pn=$3 [QSA,NC,L]
+RewriteRule ^([a-zA-Z]+)-(.*)-cars/					/search/getsearchresults/?make=${map_makes:${lowercase:$1}}&makename=$1&root=${lowercase:$2} [QSA,NC,L]
+
+RewriteRule ^(.*)-cars/page-(.*)/					/search/getsearchresults/?make=${map_makes:${lowercase:$1}}&makename=$1&pn=$2 [QSA,NC,L]
+RewriteRule ^(.*)-cars/								/search/getsearchresults/?make=${map_makes:${lowercase:$1}}&makename=$1 [QSA,NC,L]
+RewriteRule ^$						/used/mdefault/	[NC,L]
+RewriteRule ^default.aspx$			/used/mdefault/	[NC,L]
+
+#some gone urls
+RewriteRule ^GetSellerDetails.aspx		- [G,NC]

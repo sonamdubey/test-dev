@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[Skoda_LauraRSBooking] (
+    [ID]                  NUMERIC (18)   IDENTITY (1, 1) NOT NULL,
+    [CustomerName]        VARCHAR (50)   NOT NULL,
+    [Mobile]              VARCHAR (10)   NOT NULL,
+    [CityID]              INT            NOT NULL,
+    [Email]               VARCHAR (100)  NOT NULL,
+    [Colour]              VARCHAR (50)   NOT NULL,
+    [DealerId]            INT            NULL,
+    [EstimatedDelivery]   DATE           NULL,
+    [BookingAmount]       VARCHAR (10)   NULL,
+    [ExShowroomPrice]     VARCHAR (10)   NULL,
+    [RTO]                 INT            NULL,
+    [Insurance]           INT            NULL,
+    [IsPaymentSuccessful] BIT            CONSTRAINT [DF_Skoda_LauraRSBooking_IsPaymentSuccessful] DEFAULT ((0)) NULL,
+    [PaymentMode]         SMALLINT       CONSTRAINT [DF_Skoda_LauraRSBooking_PaymentMode] DEFAULT ((4)) NULL,
+    [EntryDate]           DATETIME       NULL,
+    [PaymentDateTime]     DATETIME       NULL,
+    [BookingID]           VARCHAR (50)   NULL,
+    [OutletName]          VARCHAR (50)   NULL,
+    [OutletCode]          VARCHAR (50)   NULL,
+    [OrderNo]             VARCHAR (50)   NULL,
+    [LeadTokenNo]         VARCHAR (50)   NULL,
+    [TokenDateTime]       DATETIME       NULL,
+    [PushSuccess]         BIT            CONSTRAINT [DF_Skoda_LauraRSBooking_PushSuccess] DEFAULT ((1)) NOT NULL,
+    [PushErrorMsg]        VARCHAR (2000) NULL,
+    CONSTRAINT [PK_Skoda_LauraRSBooking] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+

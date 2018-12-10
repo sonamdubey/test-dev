@@ -1,0 +1,303 @@
+﻿/* CSS Document */
+.nc-gallery-container {
+  background: none;
+  width: 980px;
+  min-height: 544px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+  margin: -272px 0 0 -490px;
+}
+
+.ask-gallery, .ask-form-container {
+  background: #fff;
+  float: left;
+}
+
+.ask-gallery {
+  width: 630px;
+  min-height: 100%;
+}
+
+.ask-form-container {
+  color: #333;
+  width: 350px;
+}
+
+.divCustForm .custName {
+  padding-left: 30px;
+}
+
+.head-text {
+  min-height: 423px;
+  height: 100%;
+}
+/* CU PG revised classes */
+#galleryHolder {
+  width: 100%;
+  background: #fff;
+  border: 0;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+  border-style: solid;
+  border-color: #e2e2e2;
+  overflow: hidden;
+  position: relative;
+}
+
+.pg-gallery, .pg-gallery .pg-nav .pg-thumbs {
+  width: 100%;
+}
+
+.pg-gallery .pg-nav {
+  top: 0;
+  padding: 4px 0 4px 4px;
+}
+
+.pg-gallery .pg-image-wrapper .pg-image {
+  position: inherit;
+}
+
+.pg-gallery .pg-image-wrapper {
+  height: 331px;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.pg-image img {
+  height: 100%;
+}
+
+.pg-thumb-list {
+  width: 80px;
+  overflow: hidden;
+}
+
+.pg-gallery .pg-thumbs li {
+  padding-right: 10px;
+  position: relative;
+}
+
+.pg-gallery .pg-thumbs li a {
+  display: table;
+}
+
+.pg-gallery .pg-thumbs li a img {
+  display: table-cell;
+  text-align: center;
+  border: 1px solid #e2e2e2;
+  height: 84px;
+  border-radius: 0;
+}
+
+.pg-gallery .pg-thumbs li a.pg-active img {
+  border: 1px solid #e2e2e2;
+}
+
+#descriptions {
+  color: #fff;
+  position: absolute;
+  bottom: -8px;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  font-weight: normal;
+  z-index: 99;
+  padding: 10px;
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+  filter: alpha(opacity=50);
+}
+
+.pg-controls {
+  display: inline-block;
+}
+
+.pg-gallery .pg-info {
+  float: none;
+}
+
+.pg-gallery .pg-controls {
+  height: inherit;
+}
+
+.pg-image-description {
+  display: none;
+}
+
+.pg-slideshow-controls {
+  display: none !important;
+}
+
+.nc-gallery-nav {
+  background: none;
+  font-size: 16px;
+  border-radius: 0;
+  bottom: -1px;
+}
+
+.nc-gallery-nav li {
+  color: #fff;
+  float: left;
+  padding: 5px;
+  margin: 0 10px;
+  text-align: center;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+
+.nc-gallery-nav li:last-child {
+  margin-right: 0;
+}
+
+li.nc-gallery-active {
+  border-bottom: 2px solid #fff;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+
+.nc-pg-contact-box {
+  background: #f7f7f7;
+  padding: 20px;
+  position: relative;
+}
+
+.nc-on-road-price-btn {
+  background: #1288da;
+  text-align: center;
+}
+
+.nc-thank-you-text {
+  font-size: 34px;
+  color: #1288da;
+ /*margin:37px 0 0;*/;
+}
+
+.cw-nc-close-btn:hover {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+}
+
+.dealer-locator-count {
+  width: 260px;
+}
+
+/* New cars gallery sprite classes */
+.pg-gallery .pg-image-wrapper .pg-prev, .pg-gallery .pg-image-wrapper .pg-next {
+  width: 10%;
+  height: 100% !important;
+}
+
+.pg-gallery .pg-image-wrapper .pg-next .pg-next-image, 
+.pg-gallery .pg-image-wrapper .pg-prev .pg-prev-image {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/desk-aged-car-sprite.png?v1") no-repeat;
+  display: inline-block;
+  height: 50px;
+  width: 30px;
+  top: 40%;
+  opacity: 0.56 !important;
+  filter: alpha(opacity=56) !important;
+}
+
+.pg-gallery .pg-image-wrapper .pg-next .pg-next-image {
+  background-position: -218px 13px;
+}
+
+.pg-gallery .pg-image-wrapper .pg-prev .pg-prev-image {
+  background-position: -195px 13px;
+}
+
+.pg-gallery .pg-nav .pg-back, .pg-gallery .pg-nav .pg-forward {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-nc-pg-sprite.png?static1fix") no-repeat;
+  display: inline-block;
+  width: 35px;
+  height: 84px;
+  position: absolute;
+  top: 4px;
+}
+
+.pg-gallery .pg-nav .pg-back {
+  background-position: -70px -55px;
+  left: 4px;
+}
+
+.pg-gallery .pg-nav .pg-forward {
+  background-position: -70px -154px;
+  right: 0;
+}
+
+.cw-nc-pg-sprite {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-nc-pg-sprite.png?static1fix") no-repeat;
+}
+
+.cw-nc-user-name-icon {
+  background-position: 0 0;
+  width: 17px;
+  height: 15px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.cw-nc-dealer-name-icon {
+  *background: none;
+  background-position: 0 -25px;
+  width: 18px;
+  height: 16px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.cw-nc-error-red-icon {
+  background-position: -50px -25px;
+  width: 19px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.cw-nc-close-btn {
+  background-position: -80px -195px;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: -15px;
+  right: -12px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.video-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/video-sprite.png?static1fix) no-repeat;
+  display: inline-block;
+}
+
+.play-btn {
+  background-position: 0px -163px;
+  width: 38px;
+  height: 38px;
+  position: absolute;
+  left: 50%;
+  bottom: 25%;
+  margin-left: -20px;
+}
+
+.opacity85 {
+  opacity: 0.85 !important;
+  filter: alpha(opacity=85) !important;
+}
+
+.pos-top13 {
+  top: 13px;
+}
+
+.pg-image img {
+  max-width: 100%;
+}

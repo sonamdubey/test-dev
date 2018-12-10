@@ -1,0 +1,46 @@
+﻿@model Carwale.DTOs.Classified.CarDetails.CarDetailsModel
+<!-- Download tooltip box starts here -->
+<div id="downloadpdf" class="cSeller-box" style="display: none;">
+    <a id="pdfcloseBox" class="cwsprite cross-md-lgt-grey rightfloat cur-pointer" title="Close"></a>
+    <h2 class="font16">Download Report</h2>
+    <p class="margin-bottom10">Your mobile no. will be shared with the seller.</p>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="us-popup">
+        <tbody>
+            <tr>
+                <td width="50" valign="top" class="padding-top5">Name</td>
+                <td>
+                    <div class="form-control-box pos-relative" style="margin-right:50px;">
+                        <input name="txtName" type="text" id="pdftxtName" tabindex="1" maxlength="50" size="27" class="text padding-left20 padding-right20 margin-bottom25 form-control">
+                        <span id="pdftxtNameError" class="cw-blackbg-tooltip hide"></span>
+                        <span id="pdferrorNameCircle" class="cwsprite error-icon hide"></span>
+                        
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="50" valign="top" class="padding-top5">Mobile</td>
+                <td>
+                    <div class="form-control-box pos-relative" style="margin-right:50px;">
+                        <span class="form-mobile-prefix">+91</span>
+                        <input name="txtMobile" type="text" id="pdftxtMobile" tabindex="2" maxlength="10" size="27" class="text padding-left40 form-control margin-bottom25">
+                        <span id="pdftxtMobileError" class="cw-blackbg-tooltip hide"></span>
+                        <span id="pdferrorMobileCircle" class="cwsprite error-icon hide"></span>
+                        
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="button" id="download_details" tabindex="4" class="btn btn-orange text-uppercase" value="Download" style="margin-top:10px" profileid="@Model.carDetailEntity.BasicCarInfo.ProfileId" makeyear="@Model.carDetailEntity.BasicCarInfo.MakeYear" modelname="@Model.carDetailEntity.BasicCarInfo.ModelName" makeid="@Model.carDetailEntity.BasicCarInfo.MakeId" rootid="@Model.carDetailEntity.BasicCarInfo.RootId" makename="@Model.carDetailEntity.BasicCarInfo.MakeName" cityid="@Model.carDetailEntity.BasicCarInfo.CityId " cityname="@Model.carDetailEntity.BasicCarInfo.CityName" @if (Model.DeliveryCityId > 0) {<text> dc="@Model.DeliveryCityId" </text> }price="@Model.carDetailEntity.BasicCarInfo.Price" km="@Model.carDetailEntity.BasicCarInfo.Kilometers" bodystyleid="@Model.carDetailEntity.BasicCarInfo.BodyStyleId" versionsubsegmentid="@Model.carDetailEntity.BasicCarInfo.VersionSubSegmentID" pricenumeric="@Model.carDetailEntity.BasicCarInfo.PriceNumeric" kmnumeric="@Model.carDetailEntity.BasicCarInfo.KmNumeric" data-rank="@Model.RankFromQueryString" data-platform="@Model.ListingsTrackingPlatform" data-ispremium="@Model.IsPremiumFromQueryString">
+                    <div id="pdfprocess_img" class="process-inline"></div>
+                    <p style="text-align:left; font-size:11px; margin-top:10px">By submitting this form you agree to our <a href="/visitoragreement.aspx" target="_blank">terms and conditions</a></p>
+                    <div id="pdfnot_auth" class="text-bold text-red" style="width:230px;height:57px"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+<div class="blackOut-window-bt hide"></div>
+<!-- Download tooltip box ends here -->

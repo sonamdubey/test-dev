@@ -1,0 +1,14 @@
+/**
+ * A function to get button color state
+ *
+ * @parameters:
+ * $state: Button state [Primary, Secondary]
+ */
+@function btn-color($state) {
+	@if map-has-key($button-color-map, $state) {
+		@return map-get($button-color-map, $state);
+	}
+	@else {
+		@warn "Unfortunately, `#{$state}` named state was not found. Please make sure it is defined in `$button-color-map` map.";
+	}
+}

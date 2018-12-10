@@ -1,0 +1,13 @@
+﻿
+<script  type="text/javascript"  src="/static/js/deals.js" ></script>
+
+<script>
+    advantageNumber = "@(System.Configuration.ConfigurationManager.AppSettings["CarwaleAdvantageMaskingNumber"])";
+    Common.showCityPopup = false;
+    $(document).ready(function () {
+        Deals.hostUrl = "@(System.Configuration.ConfigurationManager.AppSettings["HostUrl"])";
+        ko.applyBindings(Deals.filters.cars.carLabelViewModel, document.getElementById("carList"));
+        ko.applyBindings(Deals.filters.cars.carsViewModel, document.getElementById("cars"));
+        Deals.pageLoad.listingsLoad();
+    });
+</script>

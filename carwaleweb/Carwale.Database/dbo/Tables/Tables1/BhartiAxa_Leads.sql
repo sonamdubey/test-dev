@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[BhartiAxa_Leads] (
+    [ID]               INT           IDENTITY (1, 1) NOT NULL,
+    [MakeName]         VARCHAR (300) NULL,
+    [ModelName]        VARCHAR (300) NULL,
+    [VersionName]      VARCHAR (300) NULL,
+    [VersionId]        INT           NULL,
+    [CityName]         VARCHAR (300) NULL,
+    [CustName]         VARCHAR (300) NOT NULL,
+    [CustEmail]        VARCHAR (300) NOT NULL,
+    [CustMobile]       VARCHAR (300) NOT NULL,
+    [RegistrationDate] DATE          NOT NULL,
+    [RequestDateTime]  DATETIME      NOT NULL,
+    [ExpiryDate]       DATE          NULL,
+    [InsType]          BIT           NOT NULL,
+    [NCB]              INT           NULL,
+    [Zone]             VARCHAR (50)  NULL,
+    [Insurer]          VARCHAR (200) NULL,
+    [BhartiAxaQuoteID] VARCHAR (500) NULL,
+    [SercoResponse]    VARCHAR (500) NULL,
+    [State]            VARCHAR (300) NULL,
+    [RemoteAddr]       VARCHAR (60)  NULL,
+    [ClientIp]         VARCHAR (60)  NULL,
+    [CityId]           INT           NULL,
+    CONSTRAINT [PK_BhartiAxa_Leads] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+

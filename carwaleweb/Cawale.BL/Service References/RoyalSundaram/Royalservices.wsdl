@@ -1,0 +1,1875 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetLeadValues">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProductName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Contact" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Products" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SRCCookie" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MediumCookie" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchEngine" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClientName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Campaign" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdGroup" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="KeyWord" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SearchContent" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IpAddress" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReferralUrl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PolicyType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PolicyExp" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CarMake" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CarModel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="YearOfManufacture" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLeadValuesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLeadValuesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServicesValues">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ServiceType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pincode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AddInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Product" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Others1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InterType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Others2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PolicyNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFile" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetServicesValuesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetServicesValuesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGrievanceValues">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DOB" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Statename" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Distname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pincode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AddInfo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Product" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Others1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InterType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Others2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PolicyNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ApproachEarlier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ReferenceNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UploadFile" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetGrievanceValuesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetGrievanceValuesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHealthClaimValues">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsuredName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AdmissionDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="DischargeDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HospitalName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HospitalPlace" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AilmentName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ClaimAmount" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="PolicyNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ResidentNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OfficeNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHealthClaimValuesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHealthClaimValuesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHomeValues">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LossDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClaimNature" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ClaimAmount" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="PolicyNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ResidentNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OfficeNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHomeValuesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHomeValuesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMotorValues">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsuredName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PolicyNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="VehicleNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Model" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ResidentNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OfficeNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccidentDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RepairName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccidentCause" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMotorValuesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMotorValuesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPersonalValues">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsuredName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PolicyNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClaimName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ResidentNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="OfficeNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Address" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccidentDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccidentPlace" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ClaimNature" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Others" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPersonalValuesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPersonalValuesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDNC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FirstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StdCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDNCResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDNCResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPolicyTerm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Prodname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPolicyTermResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPolicyTermResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetClaimForm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Prodname" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetClaimFormResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetClaimFormResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerEmail">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContactNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Mobile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ExistingCustomer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="policyno" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="comments" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="product" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="datafrom" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerEmailResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerEmailResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadBranches">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BranchName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadBranchesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadBranchesResult" type="tns:Branches" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Branches">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="BranchName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BranchAddress" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="LoadCashlessHospitalLists">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Category" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="HospitalName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Pincode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadCashlessHospitalListsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadCashlessHospitalListsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadStates">
+        <s:complexType />
+      </s:element>
+      <s:element name="LoadStatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadStatesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadCities">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StateName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadCitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadCitiesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadHospitals">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StateName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CityName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Category" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadHospitalsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LoadHospitalsResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Load_GStates">
+        <s:complexType />
+      </s:element>
+      <s:element name="Load_GStatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Load_GStatesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Load_GDistrict">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StateId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Load_GDistrictResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Load_GDistrictResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="Branches" nillable="true" type="tns:Branches" />
+      <s:element name="DataSet" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:element ref="s:schema" />
+            <s:any />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetLeadValuesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLeadValues" />
+  </wsdl:message>
+  <wsdl:message name="GetLeadValuesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLeadValuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetServicesValuesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetServicesValues" />
+  </wsdl:message>
+  <wsdl:message name="GetServicesValuesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetServicesValuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetGrievanceValuesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetGrievanceValues" />
+  </wsdl:message>
+  <wsdl:message name="GetGrievanceValuesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetGrievanceValuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHealthClaimValuesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHealthClaimValues" />
+  </wsdl:message>
+  <wsdl:message name="GetHealthClaimValuesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHealthClaimValuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHomeValuesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHomeValues" />
+  </wsdl:message>
+  <wsdl:message name="GetHomeValuesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHomeValuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMotorValuesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMotorValues" />
+  </wsdl:message>
+  <wsdl:message name="GetMotorValuesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMotorValuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonalValuesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPersonalValues" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonalValuesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPersonalValuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDNCSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDNC" />
+  </wsdl:message>
+  <wsdl:message name="GetDNCSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDNCResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPolicyTermSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPolicyTerm" />
+  </wsdl:message>
+  <wsdl:message name="GetPolicyTermSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPolicyTermResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetClaimFormSoapIn">
+    <wsdl:part name="parameters" element="tns:GetClaimForm" />
+  </wsdl:message>
+  <wsdl:message name="GetClaimFormSoapOut">
+    <wsdl:part name="parameters" element="tns:GetClaimFormResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerEmailSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerEmail" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerEmailSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoadBranchesSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadBranches" />
+  </wsdl:message>
+  <wsdl:message name="LoadBranchesSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadBranchesResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoadCashlessHospitalListsSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadCashlessHospitalLists" />
+  </wsdl:message>
+  <wsdl:message name="LoadCashlessHospitalListsSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadCashlessHospitalListsResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoadStatesSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadStates" />
+  </wsdl:message>
+  <wsdl:message name="LoadStatesSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadStatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoadCitiesSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadCities" />
+  </wsdl:message>
+  <wsdl:message name="LoadCitiesSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadCitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="LoadHospitalsSoapIn">
+    <wsdl:part name="parameters" element="tns:LoadHospitals" />
+  </wsdl:message>
+  <wsdl:message name="LoadHospitalsSoapOut">
+    <wsdl:part name="parameters" element="tns:LoadHospitalsResponse" />
+  </wsdl:message>
+  <wsdl:message name="Load_GStatesSoapIn">
+    <wsdl:part name="parameters" element="tns:Load_GStates" />
+  </wsdl:message>
+  <wsdl:message name="Load_GStatesSoapOut">
+    <wsdl:part name="parameters" element="tns:Load_GStatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="Load_GDistrictSoapIn">
+    <wsdl:part name="parameters" element="tns:Load_GDistrict" />
+  </wsdl:message>
+  <wsdl:message name="Load_GDistrictSoapOut">
+    <wsdl:part name="parameters" element="tns:Load_GDistrictResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLeadValuesHttpGetIn">
+    <wsdl:part name="ProductName" type="s:string" />
+    <wsdl:part name="ContactNo" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Contact" type="s:string" />
+    <wsdl:part name="Products" type="s:string" />
+    <wsdl:part name="SRCCookie" type="s:string" />
+    <wsdl:part name="MediumCookie" type="s:string" />
+    <wsdl:part name="SearchEngine" type="s:string" />
+    <wsdl:part name="ClientName" type="s:string" />
+    <wsdl:part name="Campaign" type="s:string" />
+    <wsdl:part name="AdGroup" type="s:string" />
+    <wsdl:part name="KeyWord" type="s:string" />
+    <wsdl:part name="SearchContent" type="s:string" />
+    <wsdl:part name="IpAddress" type="s:string" />
+    <wsdl:part name="ReferralUrl" type="s:string" />
+    <wsdl:part name="PolicyType" type="s:string" />
+    <wsdl:part name="PolicyExp" type="s:string" />
+    <wsdl:part name="City" type="s:string" />
+    <wsdl:part name="CarMake" type="s:string" />
+    <wsdl:part name="CarModel" type="s:string" />
+    <wsdl:part name="YearOfManufacture" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetLeadValuesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetServicesValuesHttpGetIn">
+    <wsdl:part name="ServiceType" type="s:string" />
+    <wsdl:part name="Name" type="s:string" />
+    <wsdl:part name="PhoneNo" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Address1" type="s:string" />
+    <wsdl:part name="Address2" type="s:string" />
+    <wsdl:part name="City" type="s:string" />
+    <wsdl:part name="Pincode" type="s:string" />
+    <wsdl:part name="AddInfo" type="s:string" />
+    <wsdl:part name="Product" type="s:string" />
+    <wsdl:part name="Others1" type="s:string" />
+    <wsdl:part name="InterType" type="s:string" />
+    <wsdl:part name="Others2" type="s:string" />
+    <wsdl:part name="PolicyNo" type="s:string" />
+    <wsdl:part name="UploadFile" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetServicesValuesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGrievanceValuesHttpGetIn">
+    <wsdl:part name="Name" type="s:string" />
+    <wsdl:part name="DOB" type="s:string" />
+    <wsdl:part name="PhoneNo" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Address1" type="s:string" />
+    <wsdl:part name="Address2" type="s:string" />
+    <wsdl:part name="Statename" type="s:string" />
+    <wsdl:part name="Distname" type="s:string" />
+    <wsdl:part name="Pincode" type="s:string" />
+    <wsdl:part name="AddInfo" type="s:string" />
+    <wsdl:part name="Product" type="s:string" />
+    <wsdl:part name="Others1" type="s:string" />
+    <wsdl:part name="InterType" type="s:string" />
+    <wsdl:part name="Others2" type="s:string" />
+    <wsdl:part name="PolicyNo" type="s:string" />
+    <wsdl:part name="ApproachEarlier" type="s:string" />
+    <wsdl:part name="ReferenceNo" type="s:string" />
+    <wsdl:part name="UploadFile" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGrievanceValuesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHealthClaimValuesHttpGetIn">
+    <wsdl:part name="InsuredName" type="s:string" />
+    <wsdl:part name="AdmissionDate" type="s:string" />
+    <wsdl:part name="DischargeDate" type="s:string" />
+    <wsdl:part name="HospitalName" type="s:string" />
+    <wsdl:part name="HospitalPlace" type="s:string" />
+    <wsdl:part name="AilmentName" type="s:string" />
+    <wsdl:part name="ClaimAmount" type="s:string" />
+    <wsdl:part name="PolicyNo" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="ResidentNo" type="s:string" />
+    <wsdl:part name="OfficeNo" type="s:string" />
+    <wsdl:part name="Address" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHealthClaimValuesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHomeValuesHttpGetIn">
+    <wsdl:part name="LossDate" type="s:string" />
+    <wsdl:part name="ClaimNature" type="s:string" />
+    <wsdl:part name="ClaimAmount" type="s:string" />
+    <wsdl:part name="PolicyNo" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="ResidentNo" type="s:string" />
+    <wsdl:part name="OfficeNo" type="s:string" />
+    <wsdl:part name="Address" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHomeValuesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMotorValuesHttpGetIn">
+    <wsdl:part name="InsuredName" type="s:string" />
+    <wsdl:part name="PolicyNo" type="s:string" />
+    <wsdl:part name="VehicleNo" type="s:string" />
+    <wsdl:part name="Model" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="ResidentNo" type="s:string" />
+    <wsdl:part name="OfficeNo" type="s:string" />
+    <wsdl:part name="AccidentDate" type="s:string" />
+    <wsdl:part name="Address" type="s:string" />
+    <wsdl:part name="RepairName" type="s:string" />
+    <wsdl:part name="AccidentCause" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMotorValuesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonalValuesHttpGetIn">
+    <wsdl:part name="InsuredName" type="s:string" />
+    <wsdl:part name="PolicyNo" type="s:string" />
+    <wsdl:part name="ClaimName" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="ResidentNo" type="s:string" />
+    <wsdl:part name="OfficeNo" type="s:string" />
+    <wsdl:part name="Address" type="s:string" />
+    <wsdl:part name="AccidentDate" type="s:string" />
+    <wsdl:part name="AccidentPlace" type="s:string" />
+    <wsdl:part name="ClaimNature" type="s:string" />
+    <wsdl:part name="Others" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonalValuesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDNCHttpGetIn">
+    <wsdl:part name="FirstName" type="s:string" />
+    <wsdl:part name="LastName" type="s:string" />
+    <wsdl:part name="StdCode" type="s:string" />
+    <wsdl:part name="PhoneNumber" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDNCHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPolicyTermHttpGetIn">
+    <wsdl:part name="Prodname" type="s:string" />
+    <wsdl:part name="EmailID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPolicyTermHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetClaimFormHttpGetIn">
+    <wsdl:part name="Prodname" type="s:string" />
+    <wsdl:part name="EmailID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetClaimFormHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerEmailHttpGetIn">
+    <wsdl:part name="Title" type="s:string" />
+    <wsdl:part name="Name" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="ContactNumber" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="ExistingCustomer" type="s:string" />
+    <wsdl:part name="policyno" type="s:string" />
+    <wsdl:part name="comments" type="s:string" />
+    <wsdl:part name="city" type="s:string" />
+    <wsdl:part name="product" type="s:string" />
+    <wsdl:part name="datafrom" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerEmailHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LoadBranchesHttpGetIn">
+    <wsdl:part name="BranchName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoadBranchesHttpGetOut">
+    <wsdl:part name="Body" element="tns:Branches" />
+  </wsdl:message>
+  <wsdl:message name="LoadCashlessHospitalListsHttpGetIn">
+    <wsdl:part name="State" type="s:string" />
+    <wsdl:part name="City" type="s:string" />
+    <wsdl:part name="Category" type="s:string" />
+    <wsdl:part name="HospitalName" type="s:string" />
+    <wsdl:part name="Pincode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoadCashlessHospitalListsHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="LoadStatesHttpGetIn" />
+  <wsdl:message name="LoadStatesHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="LoadCitiesHttpGetIn">
+    <wsdl:part name="StateName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoadCitiesHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="LoadHospitalsHttpGetIn">
+    <wsdl:part name="StateName" type="s:string" />
+    <wsdl:part name="CityName" type="s:string" />
+    <wsdl:part name="Category" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoadHospitalsHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="Load_GStatesHttpGetIn" />
+  <wsdl:message name="Load_GStatesHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="Load_GDistrictHttpGetIn">
+    <wsdl:part name="StateId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Load_GDistrictHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="GetLeadValuesHttpPostIn">
+    <wsdl:part name="ProductName" type="s:string" />
+    <wsdl:part name="ContactNo" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Contact" type="s:string" />
+    <wsdl:part name="Products" type="s:string" />
+    <wsdl:part name="SRCCookie" type="s:string" />
+    <wsdl:part name="MediumCookie" type="s:string" />
+    <wsdl:part name="SearchEngine" type="s:string" />
+    <wsdl:part name="ClientName" type="s:string" />
+    <wsdl:part name="Campaign" type="s:string" />
+    <wsdl:part name="AdGroup" type="s:string" />
+    <wsdl:part name="KeyWord" type="s:string" />
+    <wsdl:part name="SearchContent" type="s:string" />
+    <wsdl:part name="IpAddress" type="s:string" />
+    <wsdl:part name="ReferralUrl" type="s:string" />
+    <wsdl:part name="PolicyType" type="s:string" />
+    <wsdl:part name="PolicyExp" type="s:string" />
+    <wsdl:part name="City" type="s:string" />
+    <wsdl:part name="CarMake" type="s:string" />
+    <wsdl:part name="CarModel" type="s:string" />
+    <wsdl:part name="YearOfManufacture" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetLeadValuesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetServicesValuesHttpPostIn">
+    <wsdl:part name="ServiceType" type="s:string" />
+    <wsdl:part name="Name" type="s:string" />
+    <wsdl:part name="PhoneNo" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Address1" type="s:string" />
+    <wsdl:part name="Address2" type="s:string" />
+    <wsdl:part name="City" type="s:string" />
+    <wsdl:part name="Pincode" type="s:string" />
+    <wsdl:part name="AddInfo" type="s:string" />
+    <wsdl:part name="Product" type="s:string" />
+    <wsdl:part name="Others1" type="s:string" />
+    <wsdl:part name="InterType" type="s:string" />
+    <wsdl:part name="Others2" type="s:string" />
+    <wsdl:part name="PolicyNo" type="s:string" />
+    <wsdl:part name="UploadFile" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetServicesValuesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGrievanceValuesHttpPostIn">
+    <wsdl:part name="Name" type="s:string" />
+    <wsdl:part name="DOB" type="s:string" />
+    <wsdl:part name="PhoneNo" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Address1" type="s:string" />
+    <wsdl:part name="Address2" type="s:string" />
+    <wsdl:part name="Statename" type="s:string" />
+    <wsdl:part name="Distname" type="s:string" />
+    <wsdl:part name="Pincode" type="s:string" />
+    <wsdl:part name="AddInfo" type="s:string" />
+    <wsdl:part name="Product" type="s:string" />
+    <wsdl:part name="Others1" type="s:string" />
+    <wsdl:part name="InterType" type="s:string" />
+    <wsdl:part name="Others2" type="s:string" />
+    <wsdl:part name="PolicyNo" type="s:string" />
+    <wsdl:part name="ApproachEarlier" type="s:string" />
+    <wsdl:part name="ReferenceNo" type="s:string" />
+    <wsdl:part name="UploadFile" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetGrievanceValuesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHealthClaimValuesHttpPostIn">
+    <wsdl:part name="InsuredName" type="s:string" />
+    <wsdl:part name="AdmissionDate" type="s:string" />
+    <wsdl:part name="DischargeDate" type="s:string" />
+    <wsdl:part name="HospitalName" type="s:string" />
+    <wsdl:part name="HospitalPlace" type="s:string" />
+    <wsdl:part name="AilmentName" type="s:string" />
+    <wsdl:part name="ClaimAmount" type="s:string" />
+    <wsdl:part name="PolicyNo" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="ResidentNo" type="s:string" />
+    <wsdl:part name="OfficeNo" type="s:string" />
+    <wsdl:part name="Address" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHealthClaimValuesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHomeValuesHttpPostIn">
+    <wsdl:part name="LossDate" type="s:string" />
+    <wsdl:part name="ClaimNature" type="s:string" />
+    <wsdl:part name="ClaimAmount" type="s:string" />
+    <wsdl:part name="PolicyNo" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="ResidentNo" type="s:string" />
+    <wsdl:part name="OfficeNo" type="s:string" />
+    <wsdl:part name="Address" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHomeValuesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMotorValuesHttpPostIn">
+    <wsdl:part name="InsuredName" type="s:string" />
+    <wsdl:part name="PolicyNo" type="s:string" />
+    <wsdl:part name="VehicleNo" type="s:string" />
+    <wsdl:part name="Model" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="ResidentNo" type="s:string" />
+    <wsdl:part name="OfficeNo" type="s:string" />
+    <wsdl:part name="AccidentDate" type="s:string" />
+    <wsdl:part name="Address" type="s:string" />
+    <wsdl:part name="RepairName" type="s:string" />
+    <wsdl:part name="AccidentCause" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetMotorValuesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonalValuesHttpPostIn">
+    <wsdl:part name="InsuredName" type="s:string" />
+    <wsdl:part name="PolicyNo" type="s:string" />
+    <wsdl:part name="ClaimName" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="ResidentNo" type="s:string" />
+    <wsdl:part name="OfficeNo" type="s:string" />
+    <wsdl:part name="Address" type="s:string" />
+    <wsdl:part name="AccidentDate" type="s:string" />
+    <wsdl:part name="AccidentPlace" type="s:string" />
+    <wsdl:part name="ClaimNature" type="s:string" />
+    <wsdl:part name="Others" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPersonalValuesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDNCHttpPostIn">
+    <wsdl:part name="FirstName" type="s:string" />
+    <wsdl:part name="LastName" type="s:string" />
+    <wsdl:part name="StdCode" type="s:string" />
+    <wsdl:part name="PhoneNumber" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDNCHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPolicyTermHttpPostIn">
+    <wsdl:part name="Prodname" type="s:string" />
+    <wsdl:part name="EmailID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPolicyTermHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetClaimFormHttpPostIn">
+    <wsdl:part name="Prodname" type="s:string" />
+    <wsdl:part name="EmailID" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetClaimFormHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerEmailHttpPostIn">
+    <wsdl:part name="Title" type="s:string" />
+    <wsdl:part name="Name" type="s:string" />
+    <wsdl:part name="Email" type="s:string" />
+    <wsdl:part name="ContactNumber" type="s:string" />
+    <wsdl:part name="Mobile" type="s:string" />
+    <wsdl:part name="ExistingCustomer" type="s:string" />
+    <wsdl:part name="policyno" type="s:string" />
+    <wsdl:part name="comments" type="s:string" />
+    <wsdl:part name="city" type="s:string" />
+    <wsdl:part name="product" type="s:string" />
+    <wsdl:part name="datafrom" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerEmailHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="LoadBranchesHttpPostIn">
+    <wsdl:part name="BranchName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoadBranchesHttpPostOut">
+    <wsdl:part name="Body" element="tns:Branches" />
+  </wsdl:message>
+  <wsdl:message name="LoadCashlessHospitalListsHttpPostIn">
+    <wsdl:part name="State" type="s:string" />
+    <wsdl:part name="City" type="s:string" />
+    <wsdl:part name="Category" type="s:string" />
+    <wsdl:part name="HospitalName" type="s:string" />
+    <wsdl:part name="Pincode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoadCashlessHospitalListsHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="LoadStatesHttpPostIn" />
+  <wsdl:message name="LoadStatesHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="LoadCitiesHttpPostIn">
+    <wsdl:part name="StateName" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoadCitiesHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="LoadHospitalsHttpPostIn">
+    <wsdl:part name="StateName" type="s:string" />
+    <wsdl:part name="CityName" type="s:string" />
+    <wsdl:part name="Category" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="LoadHospitalsHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="Load_GStatesHttpPostIn" />
+  <wsdl:message name="Load_GStatesHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="Load_GDistrictHttpPostIn">
+    <wsdl:part name="StateId" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Load_GDistrictHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:portType name="RoyalServicesSoap">
+    <wsdl:operation name="GetLeadValues">
+      <wsdl:input message="tns:GetLeadValuesSoapIn" />
+      <wsdl:output message="tns:GetLeadValuesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetServicesValues">
+      <wsdl:input message="tns:GetServicesValuesSoapIn" />
+      <wsdl:output message="tns:GetServicesValuesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGrievanceValues">
+      <wsdl:input message="tns:GetGrievanceValuesSoapIn" />
+      <wsdl:output message="tns:GetGrievanceValuesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHealthClaimValues">
+      <wsdl:input message="tns:GetHealthClaimValuesSoapIn" />
+      <wsdl:output message="tns:GetHealthClaimValuesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHomeValues">
+      <wsdl:input message="tns:GetHomeValuesSoapIn" />
+      <wsdl:output message="tns:GetHomeValuesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMotorValues">
+      <wsdl:input message="tns:GetMotorValuesSoapIn" />
+      <wsdl:output message="tns:GetMotorValuesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonalValues">
+      <wsdl:input message="tns:GetPersonalValuesSoapIn" />
+      <wsdl:output message="tns:GetPersonalValuesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDNC">
+      <wsdl:input message="tns:GetDNCSoapIn" />
+      <wsdl:output message="tns:GetDNCSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicyTerm">
+      <wsdl:input message="tns:GetPolicyTermSoapIn" />
+      <wsdl:output message="tns:GetPolicyTermSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClaimForm">
+      <wsdl:input message="tns:GetClaimFormSoapIn" />
+      <wsdl:output message="tns:GetClaimFormSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerEmail">
+      <wsdl:input message="tns:GetCustomerEmailSoapIn" />
+      <wsdl:output message="tns:GetCustomerEmailSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadBranches">
+      <wsdl:input message="tns:LoadBranchesSoapIn" />
+      <wsdl:output message="tns:LoadBranchesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadCashlessHospitalLists">
+      <wsdl:input message="tns:LoadCashlessHospitalListsSoapIn" />
+      <wsdl:output message="tns:LoadCashlessHospitalListsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadStates">
+      <wsdl:input message="tns:LoadStatesSoapIn" />
+      <wsdl:output message="tns:LoadStatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadCities">
+      <wsdl:input message="tns:LoadCitiesSoapIn" />
+      <wsdl:output message="tns:LoadCitiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadHospitals">
+      <wsdl:input message="tns:LoadHospitalsSoapIn" />
+      <wsdl:output message="tns:LoadHospitalsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Load_GStates">
+      <wsdl:input message="tns:Load_GStatesSoapIn" />
+      <wsdl:output message="tns:Load_GStatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Load_GDistrict">
+      <wsdl:input message="tns:Load_GDistrictSoapIn" />
+      <wsdl:output message="tns:Load_GDistrictSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="RoyalServicesHttpGet">
+    <wsdl:operation name="GetLeadValues">
+      <wsdl:input message="tns:GetLeadValuesHttpGetIn" />
+      <wsdl:output message="tns:GetLeadValuesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetServicesValues">
+      <wsdl:input message="tns:GetServicesValuesHttpGetIn" />
+      <wsdl:output message="tns:GetServicesValuesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGrievanceValues">
+      <wsdl:input message="tns:GetGrievanceValuesHttpGetIn" />
+      <wsdl:output message="tns:GetGrievanceValuesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHealthClaimValues">
+      <wsdl:input message="tns:GetHealthClaimValuesHttpGetIn" />
+      <wsdl:output message="tns:GetHealthClaimValuesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHomeValues">
+      <wsdl:input message="tns:GetHomeValuesHttpGetIn" />
+      <wsdl:output message="tns:GetHomeValuesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMotorValues">
+      <wsdl:input message="tns:GetMotorValuesHttpGetIn" />
+      <wsdl:output message="tns:GetMotorValuesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonalValues">
+      <wsdl:input message="tns:GetPersonalValuesHttpGetIn" />
+      <wsdl:output message="tns:GetPersonalValuesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDNC">
+      <wsdl:input message="tns:GetDNCHttpGetIn" />
+      <wsdl:output message="tns:GetDNCHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicyTerm">
+      <wsdl:input message="tns:GetPolicyTermHttpGetIn" />
+      <wsdl:output message="tns:GetPolicyTermHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClaimForm">
+      <wsdl:input message="tns:GetClaimFormHttpGetIn" />
+      <wsdl:output message="tns:GetClaimFormHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerEmail">
+      <wsdl:input message="tns:GetCustomerEmailHttpGetIn" />
+      <wsdl:output message="tns:GetCustomerEmailHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadBranches">
+      <wsdl:input message="tns:LoadBranchesHttpGetIn" />
+      <wsdl:output message="tns:LoadBranchesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadCashlessHospitalLists">
+      <wsdl:input message="tns:LoadCashlessHospitalListsHttpGetIn" />
+      <wsdl:output message="tns:LoadCashlessHospitalListsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadStates">
+      <wsdl:input message="tns:LoadStatesHttpGetIn" />
+      <wsdl:output message="tns:LoadStatesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadCities">
+      <wsdl:input message="tns:LoadCitiesHttpGetIn" />
+      <wsdl:output message="tns:LoadCitiesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadHospitals">
+      <wsdl:input message="tns:LoadHospitalsHttpGetIn" />
+      <wsdl:output message="tns:LoadHospitalsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Load_GStates">
+      <wsdl:input message="tns:Load_GStatesHttpGetIn" />
+      <wsdl:output message="tns:Load_GStatesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Load_GDistrict">
+      <wsdl:input message="tns:Load_GDistrictHttpGetIn" />
+      <wsdl:output message="tns:Load_GDistrictHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="RoyalServicesHttpPost">
+    <wsdl:operation name="GetLeadValues">
+      <wsdl:input message="tns:GetLeadValuesHttpPostIn" />
+      <wsdl:output message="tns:GetLeadValuesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetServicesValues">
+      <wsdl:input message="tns:GetServicesValuesHttpPostIn" />
+      <wsdl:output message="tns:GetServicesValuesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGrievanceValues">
+      <wsdl:input message="tns:GetGrievanceValuesHttpPostIn" />
+      <wsdl:output message="tns:GetGrievanceValuesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHealthClaimValues">
+      <wsdl:input message="tns:GetHealthClaimValuesHttpPostIn" />
+      <wsdl:output message="tns:GetHealthClaimValuesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHomeValues">
+      <wsdl:input message="tns:GetHomeValuesHttpPostIn" />
+      <wsdl:output message="tns:GetHomeValuesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMotorValues">
+      <wsdl:input message="tns:GetMotorValuesHttpPostIn" />
+      <wsdl:output message="tns:GetMotorValuesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonalValues">
+      <wsdl:input message="tns:GetPersonalValuesHttpPostIn" />
+      <wsdl:output message="tns:GetPersonalValuesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDNC">
+      <wsdl:input message="tns:GetDNCHttpPostIn" />
+      <wsdl:output message="tns:GetDNCHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicyTerm">
+      <wsdl:input message="tns:GetPolicyTermHttpPostIn" />
+      <wsdl:output message="tns:GetPolicyTermHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClaimForm">
+      <wsdl:input message="tns:GetClaimFormHttpPostIn" />
+      <wsdl:output message="tns:GetClaimFormHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerEmail">
+      <wsdl:input message="tns:GetCustomerEmailHttpPostIn" />
+      <wsdl:output message="tns:GetCustomerEmailHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadBranches">
+      <wsdl:input message="tns:LoadBranchesHttpPostIn" />
+      <wsdl:output message="tns:LoadBranchesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadCashlessHospitalLists">
+      <wsdl:input message="tns:LoadCashlessHospitalListsHttpPostIn" />
+      <wsdl:output message="tns:LoadCashlessHospitalListsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadStates">
+      <wsdl:input message="tns:LoadStatesHttpPostIn" />
+      <wsdl:output message="tns:LoadStatesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadCities">
+      <wsdl:input message="tns:LoadCitiesHttpPostIn" />
+      <wsdl:output message="tns:LoadCitiesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LoadHospitals">
+      <wsdl:input message="tns:LoadHospitalsHttpPostIn" />
+      <wsdl:output message="tns:LoadHospitalsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Load_GStates">
+      <wsdl:input message="tns:Load_GStatesHttpPostIn" />
+      <wsdl:output message="tns:Load_GStatesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Load_GDistrict">
+      <wsdl:input message="tns:Load_GDistrictHttpPostIn" />
+      <wsdl:output message="tns:Load_GDistrictHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RoyalServicesSoap" type="tns:RoyalServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetLeadValues">
+      <soap:operation soapAction="http://tempuri.org/GetLeadValues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServicesValues">
+      <soap:operation soapAction="http://tempuri.org/GetServicesValues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGrievanceValues">
+      <soap:operation soapAction="http://tempuri.org/GetGrievanceValues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHealthClaimValues">
+      <soap:operation soapAction="http://tempuri.org/GetHealthClaimValues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHomeValues">
+      <soap:operation soapAction="http://tempuri.org/GetHomeValues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMotorValues">
+      <soap:operation soapAction="http://tempuri.org/GetMotorValues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonalValues">
+      <soap:operation soapAction="http://tempuri.org/GetPersonalValues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDNC">
+      <soap:operation soapAction="http://tempuri.org/GetDNC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicyTerm">
+      <soap:operation soapAction="http://tempuri.org/GetPolicyTerm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClaimForm">
+      <soap:operation soapAction="http://tempuri.org/GetClaimForm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerEmail">
+      <soap:operation soapAction="http://tempuri.org/GetCustomerEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadBranches">
+      <soap:operation soapAction="http://tempuri.org/LoadBranches" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadCashlessHospitalLists">
+      <soap:operation soapAction="http://tempuri.org/LoadCashlessHospitalLists" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadStates">
+      <soap:operation soapAction="http://tempuri.org/LoadStates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadCities">
+      <soap:operation soapAction="http://tempuri.org/LoadCities" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadHospitals">
+      <soap:operation soapAction="http://tempuri.org/LoadHospitals" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Load_GStates">
+      <soap:operation soapAction="http://tempuri.org/Load_GStates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Load_GDistrict">
+      <soap:operation soapAction="http://tempuri.org/Load_GDistrict" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RoyalServicesSoap12" type="tns:RoyalServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetLeadValues">
+      <soap12:operation soapAction="http://tempuri.org/GetLeadValues" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServicesValues">
+      <soap12:operation soapAction="http://tempuri.org/GetServicesValues" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGrievanceValues">
+      <soap12:operation soapAction="http://tempuri.org/GetGrievanceValues" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHealthClaimValues">
+      <soap12:operation soapAction="http://tempuri.org/GetHealthClaimValues" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHomeValues">
+      <soap12:operation soapAction="http://tempuri.org/GetHomeValues" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMotorValues">
+      <soap12:operation soapAction="http://tempuri.org/GetMotorValues" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonalValues">
+      <soap12:operation soapAction="http://tempuri.org/GetPersonalValues" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDNC">
+      <soap12:operation soapAction="http://tempuri.org/GetDNC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicyTerm">
+      <soap12:operation soapAction="http://tempuri.org/GetPolicyTerm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClaimForm">
+      <soap12:operation soapAction="http://tempuri.org/GetClaimForm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerEmail">
+      <soap12:operation soapAction="http://tempuri.org/GetCustomerEmail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadBranches">
+      <soap12:operation soapAction="http://tempuri.org/LoadBranches" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadCashlessHospitalLists">
+      <soap12:operation soapAction="http://tempuri.org/LoadCashlessHospitalLists" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadStates">
+      <soap12:operation soapAction="http://tempuri.org/LoadStates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadCities">
+      <soap12:operation soapAction="http://tempuri.org/LoadCities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadHospitals">
+      <soap12:operation soapAction="http://tempuri.org/LoadHospitals" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Load_GStates">
+      <soap12:operation soapAction="http://tempuri.org/Load_GStates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Load_GDistrict">
+      <soap12:operation soapAction="http://tempuri.org/Load_GDistrict" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RoyalServicesHttpGet" type="tns:RoyalServicesHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetLeadValues">
+      <http:operation location="/GetLeadValues" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServicesValues">
+      <http:operation location="/GetServicesValues" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGrievanceValues">
+      <http:operation location="/GetGrievanceValues" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHealthClaimValues">
+      <http:operation location="/GetHealthClaimValues" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHomeValues">
+      <http:operation location="/GetHomeValues" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMotorValues">
+      <http:operation location="/GetMotorValues" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonalValues">
+      <http:operation location="/GetPersonalValues" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDNC">
+      <http:operation location="/GetDNC" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicyTerm">
+      <http:operation location="/GetPolicyTerm" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClaimForm">
+      <http:operation location="/GetClaimForm" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerEmail">
+      <http:operation location="/GetCustomerEmail" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadBranches">
+      <http:operation location="/LoadBranches" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadCashlessHospitalLists">
+      <http:operation location="/LoadCashlessHospitalLists" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadStates">
+      <http:operation location="/LoadStates" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadCities">
+      <http:operation location="/LoadCities" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadHospitals">
+      <http:operation location="/LoadHospitals" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Load_GStates">
+      <http:operation location="/Load_GStates" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Load_GDistrict">
+      <http:operation location="/Load_GDistrict" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RoyalServicesHttpPost" type="tns:RoyalServicesHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetLeadValues">
+      <http:operation location="/GetLeadValues" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetServicesValues">
+      <http:operation location="/GetServicesValues" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetGrievanceValues">
+      <http:operation location="/GetGrievanceValues" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHealthClaimValues">
+      <http:operation location="/GetHealthClaimValues" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHomeValues">
+      <http:operation location="/GetHomeValues" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMotorValues">
+      <http:operation location="/GetMotorValues" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPersonalValues">
+      <http:operation location="/GetPersonalValues" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDNC">
+      <http:operation location="/GetDNC" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPolicyTerm">
+      <http:operation location="/GetPolicyTerm" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetClaimForm">
+      <http:operation location="/GetClaimForm" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerEmail">
+      <http:operation location="/GetCustomerEmail" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadBranches">
+      <http:operation location="/LoadBranches" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadCashlessHospitalLists">
+      <http:operation location="/LoadCashlessHospitalLists" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadStates">
+      <http:operation location="/LoadStates" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadCities">
+      <http:operation location="/LoadCities" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoadHospitals">
+      <http:operation location="/LoadHospitals" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Load_GStates">
+      <http:operation location="/Load_GStates" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Load_GDistrict">
+      <http:operation location="/Load_GDistrict" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RoyalServices">
+    <wsdl:port name="RoyalServicesSoap" binding="tns:RoyalServicesSoap">
+      <soap:address location="http://www.royalsundaram.in/Royalservices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RoyalServicesSoap12" binding="tns:RoyalServicesSoap12">
+      <soap12:address location="http://www.royalsundaram.in/Royalservices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RoyalServicesHttpGet" binding="tns:RoyalServicesHttpGet">
+      <http:address location="http://www.royalsundaram.in/Royalservices.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RoyalServicesHttpPost" binding="tns:RoyalServicesHttpPost">
+      <http:address location="http://www.royalsundaram.in/Royalservices.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

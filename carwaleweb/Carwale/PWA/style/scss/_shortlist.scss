@@ -1,0 +1,91 @@
+@import '/mixins/shortlist-count';
+
+.shortlisted {
+	.model-card {
+		position: relative;
+
+		&:after {
+			content: '';
+			display: block;
+			height: 100%;
+			width: 5px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: color('shamrock-green');
+			z-index: 1;
+		}
+	}
+
+	.model-box__arrow {
+		@include vendor-prefix('transform', rotate(0));
+		left: 14px;
+		padding: 15px;
+		background-size: 12px;
+		&.left {
+			@include vendor-prefix('transform', rotate(-90deg));
+		}
+	}
+}
+//shortlist header icon
+
+@include shortlist-icon;
+
+.shortlist-popup {
+	@include vendor-prefix('transform', translateX(100%));
+	@include vendor-prefix('transition', transform .5s linear);
+	will-change: transform;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: color('white');
+	z-index: 5;
+}
+
+.shortlist-popup--active {
+	@include vendor-prefix('transform', translateX(0));
+}
+
+.shortlist-popup__header {
+	background-color: color('white');
+	box-shadow: 0 2px 3px color('very-light-grey');
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+}
+
+.shortlist-popup__title {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 18px;
+	font-weight: $font-bold;
+	width: calc(100% - 45px);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-transform: capitalize;
+	padding: 15px 20px 15px 10px;
+}
+
+.shortlist-popup__back-arrow {
+	@include arrow-down-icon;
+	@include vendor-prefix('transform', rotate(90deg));
+	background-size: 18px 9px;
+	display: inline-block;
+	vertical-align: middle;
+	background-color: color('white');
+	height: 53px;
+	width: 45px;
+	cursor: pointer;
+}
+
+.shortlist-popup__content {
+	height: 100%;
+	padding-top: 53px;
+	background-color: color('gainsboro');
+	overflow: auto;
+}

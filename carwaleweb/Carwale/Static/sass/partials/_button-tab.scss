@@ -1,0 +1,15 @@
+.cw-tabs { display: block; }
+.cw-tabs-flex { display: table; width: 100%; }
+.cw-tabs-flex ul { margin-bottom: 45px;text-align:center;border-radius:0 5px 5px 0;border-right:1px solid #00afa0;font-size:0;display:table;margin:0 auto;}
+.cw-tabs-flex li { border:1px solid #00afa0; border-right:none;display: table-cell; min-width: 105px; padding:7px 10px; text-align: center; color: #00afa0; font-size: 14px; cursor: pointer; }
+.cw-tabs-flex li:first-child{border-radius:5px 0 0 5px;}
+.cw-tabs-flex li:last-child{border-radius:0 5px 5px 0;}
+.cw-tabs-flex li:hover:not(.disabled) { color: #ffffff; }
+.cw-tabs-flex li.active {  color: #ffffff; cursor: default;background:#00afa0;}
+.cw-tabs-inner-margin10 ul { margin-bottom: 10px; }
+.cw-tabs-inner-margin15 ul { margin-bottom: 15px; }
+.cw-tabs-inner-margin20 ul { margin-bottom: 20px; }
+.cw-tabs-inner-margin25 ul { margin-bottom: 25px; }
+.cw-tabs-inner-margin30 ul { margin-bottom: 30px; }
+.cw-tabs-inner-margin35 ul { margin-bottom: 35px; }
+.cw-tabs-inner-margin40 ul { margin-bottom: 40px; }

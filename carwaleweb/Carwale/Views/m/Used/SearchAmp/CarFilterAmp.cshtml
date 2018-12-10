@@ -1,0 +1,56 @@
+﻿@{
+    string currentHostUrl = Request.Url.GetLeftPart(UriPartial.Authority).Replace("http:", string.Empty).Replace("https:", string.Empty);
+}
+
+<amp-lightbox id="make-popup" layout="nodisplay" scrollable>
+    <div id="makeList" class="city-car-filter popup_layer">
+        <div class="top-corner">
+            <span id="btnMakeBack" on="tap: make-popup.close" role="tab" tabindex="0" class="content-inner-block-10 padding-right10">
+                <span class="cwmsprite back-long-arrow-left-white margin-top5"></span>
+            </span>
+            <span class="margin-left10">Select Car</span>
+        </div>
+        <ul class="popup_content makeSelection">
+            <amp-list id="make-list" layout="fill" src="@currentHostUrl/api/v2/makes/" items=".">
+                <template type="amp-mustache">
+                    <li value="{{makeId}}" on="tap: AMP.setState({rootsSelected : roots.filter(r => r.MakeId == {{makeId}}), makeSelected : makes.filter(m => m.makeId == {{makeId}}), make : {makeId : {{makeId}}, makeName : '{{makeName}}'}}), root-popup"
+                        role="tab" tabindex="0">{{makeName}}</li>
+                </template>
+            </amp-list>
+        </ul>
+    </div>
+</amp-lightbox>
+
+<amp-lightbox id="root-popup" layout="nodisplay" scrollable>
+    <div id="ucModelListDiv" class="version-selection popup_layer">
+        <div class="top-corner">
+            <span id="btnModelBack" on="tap: root-popup.close" role="tab" tabindex="0" class="content-inner-block-10 padding-right10">
+                <span class="cwmsprite back-long-arrow-left-white margin-top5"></span>
+            </span>
+            <span class="margin-left10">Select Model</span>
+        </div>
+        <ul class="popup_content">
+            <li>
+                <a id="chkAllModels" [class]="makeSelected[0] ? 'active' : ''" class="" on="tap:AMP.setState({makeSelected : makeSelected[0] ? [] : [make], rootsSelected: []})" role="tab" tabindex="0">All Models</a>
+            </li>
+        </ul>
+        <ul id="modelListing" class="popup_content">
+            <amp-list id="root-list" layout="fixed-height" src="@currentHostUrl/webapi/carrootsdata/getrootsbymakeid/?make=1" [src]="'@currentHostUrl/webapi/carrootsdata/getrootsbymakeid/?make=' + (make.makeId || 1)"
+                      height="0" [height]="48 * cRootIds.length" items="." reset-on-refresh>
+                <template type="amp-mustache">
+                    <li class="model-name-list">
+                        <label [class]="makeSelected[0] || rootsSelected.some(x => x.RootId == {{RootId}}) ? 'active' : ''" class="">
+                            <input type="checkbox" on="tap:AMP.setState({rootsSelected : rootsSelected.some(x => x.RootId == {{RootId}}) ? rootsSelected.filter(x => x.RootId != {{RootId}}) :
+                            makeSelected[0] ? cRootIds.filter(x => x.RootId != {{RootId}}) : rootsSelected.concat(cRootIds.filter(x => x.RootId == {{RootId}}))})
+                            change: AMP.setState({makeSelected : []})" role="tab" tabindex="0">
+                            {{Name}}
+                        </label>
+                    </li>
+                </template>
+            </amp-list>
+        </ul>
+        <input type="checkbox" role="tab" tabindex="0" class="hide" id="btnSubmit" on="tap: root-popup.close,make-popup.close, AMP.setState({makes : makes.filter(x=> x.makeId != make.makeId).concat(makeSelected)});
+            change: AMP.setState({roots : roots.filter(x => x.MakeId != make.makeId).concat(rootsSelected.map(x => { MakeName: make.makeName, Name: x.Name, RootId: x.RootId, MakeId: make.makeId}))})" />
+        <label for="btnSubmit" class="apply-filters btn btn-orange btn-full-width text-uppercase">Done</label>
+    </div>
+</amp-lightbox>

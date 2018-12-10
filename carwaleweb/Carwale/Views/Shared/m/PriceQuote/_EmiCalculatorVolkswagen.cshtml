@@ -1,0 +1,52 @@
+﻿@model Carwale.DTOs.PriceQuote.EmiCalculatorModelData
+@using Carwale.Entity.Enum;
+
+@{
+    var thirdPartyEmiDetails = Model?.ThirdPartyEmiDetails;
+}
+
+<div class="popup-container loan-summary-popup" id="loanSummary">
+    <div class="popup-overlay"></div>
+    <div class="popup">
+        <div class="loan-summary-popup_head">
+            <div class="popup-close-unit">Choose your EMI option <span class="popup-close-button"></span></div>
+            <div class="bg-white">
+                <div class="cw-tabs-panel">
+                    <div class="cw-tabs cw-tabs-flex">
+                        <ul>
+                            <li class="active emi-type__js" data-tabs="brand-emi">
+                                @(Model.MakeName + " Financial")
+                                <br><span>Services</span>
+                            </li>
+                            <li class="" data-tabs="standard-emi" data-role="click-tracking"
+                                data-event="CWInteractive"
+                                data-cat="@(Model.Platform + "_VWFS")"
+                                data-action="@(Model.Platform + "_StandardEMITab_click")"
+                                data-label="@(Model.MakeName + "_" + Model.ModelName)">
+                                Standard
+                                <br><span>Financing</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cw-tabs-data" id="brand-emi">
+                        @if (thirdPartyEmiDetails != null)
+                        {
+                            { Html.RenderPartial("~/Views/Shared/m/PriceQuote/_EmiSummary.cshtml", Model); }
+                        }
+                    </div>
+                    <div class="cw-tabs-data hide" id="standard-emi">
+                        <div class="featured-popup__body">
+                            <p class="featured-header__info-bar">
+                                <span class="featured-header__icon"></span>
+                                <span class="featured-header__text">
+                                    Standard EMI plans to suit your financing requirements
+                                </span>
+                            </p>
+                            @Html.Partial("~/Views/Shared/m/PriceQuote/_EmiCalculatorRoot.cshtml")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

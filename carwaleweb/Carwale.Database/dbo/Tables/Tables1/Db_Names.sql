@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Db_Names] (
+    [Name] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_Db_Names] PRIMARY KEY CLUSTERED ([Name] ASC) WITH (FILLFACTOR = 90)
+);
+

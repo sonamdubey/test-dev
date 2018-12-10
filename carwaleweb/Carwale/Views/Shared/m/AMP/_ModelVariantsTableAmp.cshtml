@@ -1,0 +1,55 @@
+﻿@model Carwale.DTOs.CarData.VariantListDTO
+@using Carwale.Utility;
+@using System.Text.RegularExpressions;
+@using Carwale.Entity.Enum;
+<header class="margin-top15 margin-bottom10 margin-left10">
+    <h2 class="font18 text-normal text-black">@(string.Format("{0} Price List",Model.ModelDetails.ModelName))</h2>
+@if (!string.IsNullOrWhiteSpace(Model.Summary))
+{
+    <p class="font10">@Model.Summary</p>
+}
+</header>
+@{
+    string pageName = Model.PageId == (int)CwPages.PicMsite ? "PICPage" : "ModelPage";
+<div id="variants" class="variant-list-container margin-top10">
+    <div class="show-all-variant-list">
+        <div >
+            <div class="position-rel clearfix ">
+                <table class="variant-table">
+                    <thead class="text-left">
+                        <tr>
+                            <th class="variant-table__head">Variant</th>
+                            <th class="variant-table__head">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var version in Model.NewCarVersions)
+                        {
+                            <tr class="variant">
+                                <td class="variant__name-cell">
+                                    <a href="@ManageCarUrl.CreateVersionUrl(Model.ModelDetails.MakeName, version.MaskingName, version.VersionMaskingName, true)" class="variant__link text--truncate">@version.Version</a>
+                                    <p class="font12 text-light-grey text--truncate">@(version.SpecsSummary ?? string.Empty)</p>
+
+                                    @if (version.CarPriceOverview != null && version.CarPriceOverview.PriceForSorting > 0 && (Model.PageId != (int)CwPages.PicMsite || (Model.DealerAd != null && Model.DealerAd.Campaign != null && Model.DealerAd.Campaign.Id > 0)))
+                                    {
+                                    <span class="font12 text-blue">                                        
+                                        <a class="inline-block padding-top10" data-vars-ea="@string.Format("{0}_VariantsSection_GetOffers_click",pageName)" data-vars-ec="ShowORPTest" data-vars-el="NA_@(Model.ModelDetails.MakeName+ "_" + Model.ModelDetails.ModelName + "_" + version.Version)"
+                                           href=@(string.Format("{0}?q=lead&propertyid=4&vid={1}", Model.PageId == (int)CwPages.PicMsite ? ManageCarUrl.CreatePriceInCityUrl(Model.ModelDetails.MakeName, version.MaskingName, version.CarPriceOverview.City.CityMaskingName) : ViewBag.ModelUrl, version.Id))>Get Offers from Dealers</a>
+                                    </span>
+                                    }
+                                </td>
+                                <td class="variant__price-cell ">
+                                    <p class="font14  text-bold text-black">
+                                        <span>@(version.CarPriceOverview != null ? version.CarPriceOverview.Price.ToString() : string.Empty)</span>
+                                    </p>                                    
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <p class="font14 text-center paddint-top15 padding-bottom15 display-none">Sorry, no matching variants found.</p>
+            </div>
+        </div>
+    </div>
+</div>
+}

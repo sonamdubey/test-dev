@@ -1,0 +1,16 @@
+
+
+@mixin list-style{
+	width: 80%;
+	text-align: left;
+	display: inline-block;
+	padding-left: 10px;
+}
+
+@mixin btn-style{
+	width: 85%;
+    height: 48px;
+    font-size: 18px;
+    font-weight: 700;
+    -webkit-appearance: none;
+}

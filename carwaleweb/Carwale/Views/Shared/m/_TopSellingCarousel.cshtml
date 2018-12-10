@@ -1,0 +1,29 @@
+﻿@model Carwale.Entity.ViewModels.TopSellingModel
+@using Carwale.UI.Common;
+@using Carwale.Entity;
+@using Carwale.Utility;
+<div class="cw-tabs-data hide" id="topSelling"><div class="swiper-container"><ul class="swiper-wrapper"><!-- Lazy image -->
+			@foreach (var item in Model.SponsoredPopularCars)
+			{
+				@Html.Raw(item.Ad_Html)
+			}
+
+			@if (Model.TopSelling != null && Model.TopSelling.Any())
+			{
+				foreach (var item in Model.TopSelling)
+				{
+					<li class="swiper-slide card" redirect="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)"><div class="front"><div class="contentWrapper">
+								@if (!CookiesCustomers.IsEligibleForORP)
+								{<div class="position-abt pos-right10 pos-top10 infoBtn cwmsprite rupee-circle-icon"></div>}
+								<div class="imageWrapper @(CookiesCustomers.IsEligibleForORP?"model-city-link":"")" @if (CookiesCustomers.IsEligibleForORP) { <text> data-ga-label="PopularCardClick_@(CookiesCustomers.MasterCityId > 0?@CookiesCustomers.MasterCity:"nocity")" data-ga-action="@item.Make.MakeName @item.Model.ModelName" data-redirect-url="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)" </text> }><a href="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)"><img class="lazy" data-original="@ImageSizes.CreateImageUrl(item.Image.HostUrl,ImageSizes._272X153, item.Image.ImagePath)" title="@item.Make.MakeName @item.Model.ModelName" alt="@item.Make.MakeName @item.Model.ModelName" width="272" height="153" src=""></a></div><div class="carDescWrapper"><div class="carTitle margin-bottom10 @(CookiesCustomers.IsEligibleForORP?"model-city-link":"")" @if (CookiesCustomers.IsEligibleForORP) { <text> data-ga-label="PopularCardClick_@(CookiesCustomers.MasterCityId > 0?@CookiesCustomers.MasterCity:"nocity")" data-ga-action="@item.Make.MakeName @item.Model.ModelName" data-redirect-url="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)" </text> }><a href="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)"><h3 class="font18 @(CookiesCustomers.IsEligibleForORP?"text-link":"")">@item.Make.MakeName @item.Model.ModelName</h3></a></div><div class="margin-bottom5 font24">₹ <span class="font25">@FormatPrice.GetFormattedPriceV2(item.PriceOverview.Price.ToString())</span>
+										@if (item.PriceOverview.PriceVersionCount > 1)
+										{
+											<span class="font24">onwards</span>
+										}
+									</div><div class='font14 text-light-grey @(item.PriceOverview.PriceStatus == (int)PriceBucket.PriceNotAvailable ? "oliveText" : item.PriceOverview.PriceStatus==(int)PriceBucket.CarNotSold ? "redText":"")'>@(item.PriceOverview.PriceStatus == 1 ? item.PriceOverview.PriceLabel + ", " + item.PriceOverview.City.CityName : item.PriceOverview.PriceLabel) <span>@(item.PriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + item.PriceOverview.ReasonText + "</p></div>") : Html.Raw(""))</span></div>
+									@if (CookiesCustomers.IsEligibleForORP && CookiesCustomers.MasterCityId < 0)
+									{<span class="select-city-link text-link" data-ga-action="Popular_ShowPriceInMyCityClick" data-ga-label="" data-redirect-url="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)"><span>@System.Configuration.ConfigurationManager.AppSettings["ShowPriceInCityText"]</span></span>}
+								</div></div></div><div class="back"><div class="formWrapper"><div class="position-abt pos-right10 pos-top10 closeBtn cwmsprite back-circle-icon"></div><div class="formContent"><h2 class="margin-bottom15">₹ Check On-Road Price</h2><div class="margin-bottom25 text-light-grey font14">Email id, mobile number not required</div><div class="form-control-box margin-bottom20"><div id="drpCity_@item.Model.ModelId" class="form-control fixed-height" data-bind="attr: { 'cityid': CityId, 'cityname': CityName, 'zoneid': ZoneId, 'zonename': ZoneName }" modelid="@item.Model.ModelId" onclick="openCityPopUp(this,assignModelIdtoBtn)"><span>Select City</span></div><span class="cwmsprite error-icon hide"></span><div class="cw-blackbg-tooltip hide">Please select your city</div></div><button id="btn_@item.Model.ModelId" class="btn btn-orange btn-md btn-full-width text-uppercase topselling" modelid="@item.Model.ModelId" onclick="getPQ(this, @Convert.ToInt32(ViewData["pageId"]));">check now</button></div></div></div></li>
+				}
+			}
+		</ul><div class="clear"></div><!-- Add Pagination --><div class="swiper-pagination swiper-pagination-white"></div><!-- Navigation --><div class="swiper-button-next swiper-button-white"></div><div class="swiper-button-prev swiper-button-white"></div></div></div>

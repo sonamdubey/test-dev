@@ -1,0 +1,220 @@
+﻿@{
+    ViewBag.Title = "Emi Calculator";
+    ViewBag.BodyClass = (ViewBag.isMobile != null && ViewBag.isMobile ? "" : "header-fixed-inner bg-white");
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+    ViewBag.landingPage = false;
+    ViewBag.Responsive = true;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.Canonical = "";
+    ViewBag.Alternate = "";
+    ViewBag.AdId = "1396955522447";
+    ViewBag.AdPath = "/1017752/Carwale_Finance_"; 
+    ViewBag.CustomJS = "~/Views/StaticPartials/Finance/EmiCompareScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/Finance/EmiCalculatorCss.cshtml";
+    Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayout.cshtml" : "~/views/shared/_Layout.cshtml");
+    ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+        googletag.cmd.push(function () {             
+            googletag.defineSlot('" + ViewBag.AdPath + @"970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90], [960, 60], [970, 60]],'div-gpt-ad-" + ViewBag.AdId + @"-2').addService(googletag.pubads());
+            googletag.defineSlot('" + ViewBag.AdPath + @"300x600', [[120, 240], [120, 600], [160, 600], [300, 250], [300, 600]], 'div-gpt-ad-" + ViewBag.AdId + @"-9').addService(googletag.pubads());
+            googletag.pubads().collapseEmptyDivs();
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>";
+}
+@if (ViewBag.isMobile == null)
+{
+    <div class="grid-12 bg-white">
+        <div class="padding-bottom15 text-center">
+            @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_728x90.cshtml"); }
+        </div>
+    </div>
+}
+<div class="bg-light-grey">
+    <div class="container">
+        <div class="grid-12">
+            <div class="breadcrumb margin-bottom15 margin-top10">
+                <ul class="special-skin-text">
+                    <li><a href="/">Home</a></li>
+                    <li><span class="fa fa-angle-right margin-right10"></span>Finance</li>
+                    <li><span class="fa fa-angle-right margin-right10"></span>EMI Comparison</li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="emi-calculator-container interest-calci-container">
+            <h1 class="text-black margin-top10">EMI Comparison - Know actual interest rate on your car loan</h1>
+            <div class="border-solid-bottom margin-bottom10"></div>
+            <form class="emi-calci-left-section grid-8">
+                <div class="bg-white loan-amount-container">
+                    <p>Are you paying extra for your car loan?</p>
+                    <p>Use CarWale loan calculator to know the actual interest rate on your car loan.</p>
+                    <div class="interest-calci border-solid">
+                        <table cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <th class="bg-light-grey">Option 1</th>
+                                    <th class="bg-light-grey option-two-th">Option 2</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            Loan Amount
+                                        </label>
+                                        <div>
+                                            <div class="form-control-box inline-block pos-relative">
+                                                <input class="form-control ui-autocomplete-input blur" id="txtLoanAmount1" maxlength="10" type="number">
+                                                <span class="position-abt form-prefix">₹</span>
+                                                <span class="cwsprite error-icon PriceCarErrIcn hide"></span>
+                                                <div class="cw-blackbg-tooltip PriceCarErrMsg hide">Please type loan amount</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            Loan Amount
+                                        </label>
+                                        <div>
+                                            <div class="form-control-box inline-block pos-relative">
+                                                <input class="form-control ui-autocomplete-input blur" id="txtLoanAmount2" maxlength="10" type="number">
+                                                <span class="position-abt form-prefix">₹</span>
+                                                <span class="cwsprite error-icon PriceCarErrIcn hide"></span>
+                                                <div class="cw-blackbg-tooltip PriceCarErrMsg hide">Please type loan amount</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            EMI Amount
+                                        </label>
+                                        <div>
+                                            <div class="form-control-box inline-block pos-relative">
+                                                <input class="form-control ui-autocomplete-input blur" id="txtEMI1" maxlength="10" type="number">
+                                                <span class="position-abt form-prefix">₹</span>
+                                                <span class="cwsprite error-icon PriceCarErrIcn hide"></span>
+                                                <div class="cw-blackbg-tooltip PriceCarErrMsg hide">Please type EMI amount</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            EMI Amount
+                                        </label>
+                                        <div>
+                                            <div class="form-control-box inline-block pos-relative">
+                                                <input class="form-control ui-autocomplete-input blur" id="txtEMI2" maxlength="10" type="number">
+                                                <span class="position-abt form-prefix">₹</span>
+                                                <span class="cwsprite error-icon PriceCarErrIcn hide"></span>
+                                                <div class="cw-blackbg-tooltip PriceCarErrMsg hide">Please type EMI amount</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Tenure</label>
+                                        <div class="form-control-box">
+                                            <select class="form-control" id="drpTenure1">
+                                                <option value="7">7 Years </option>
+                                                <option value="6">6 Years </option>
+                                                <option value="5">5 Years </option>
+                                                <option value="4">4 Years </option>
+                                                <option selected="selected" value="3">3 Years </option>
+                                                <option value="2">2 Years </option>
+                                                <option value="1">1 Year</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <label>Tenure</label>
+                                        <div class="form-control-box">
+                                            <select class="form-control" id="drpTenure2">
+                                                <option value="7">7 Years </option>
+                                                <option value="6">6 Years </option>
+                                                <option value="5">5 Years </option>
+                                                <option value="4">4 Years </option>
+                                                <option selected="selected" value="3">3 Years </option>
+                                                <option value="2">2 Years </option>
+                                                <option value="1">1 Year</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="margin-top10">
+                            <tbody>
+                                <tr>
+                                    <td class="text-center"><div class="btn btn-orange btn-xlg text-center" id="compare">Compare EMI</div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table cellpadding="0" cellspacing="0" class="interest-pa">
+                            <tbody id="interestRate">
+                                <tr>
+                                    <th class="bg-light-grey text-left" colspan="2">Interest rate p.a</th>
+                                </tr>
+                                <tr class="bg-light-grey hide" id="interestResult">
+                                    <td id="roi">
+                                        <div class="form-control-box inline-block pos-relative" data-bind="if: roi1">
+                                            <label id="lblInterest1"><span data-bind="text: roi1"></span><span>%</span></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-control-box inline-block pos-relative" data-bind="if: roi2">
+                                            <label id="lblInterest2"><span data-bind="text: roi2"></span><span>%</span></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="margin-top10"><span class="text-black text-bold">Note:</span> The result will only be shown if the interest rates are between zero and hundred.</p>
+                <h2 class="font18 margin-top10 margin-bottom10">For Example</h2>
+                <p class="interest-link-para interest-pa-para">You want to buy a Maruti Suzuki Baleno and you have car finance options from two banks. Which of these options is better?</p>
+                <div class="bank-calculation">
+                    <table cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <th></th>
+                                <th class="bg-light-grey bank-breakup-center">Bank 1</th>
+                                <th class="bg-light-grey">Bank 2</th>
+                            </tr>
+                            <tr>
+                                <td class="bg-white bank-breakup-first">Loan Amount</td>
+                                <td class="bg-white bank-breakup-center">5,00,000</td>
+                                <td class="bg-white">4,00,000</td>
+                            </tr>
+                            <tr>
+                                <td class="bg-white bank-breakup-first">EMI</td>
+                                <td class="bg-white bank-breakup-center">11,377</td>
+                                <td class="bg-white">10,831</td>
+                            </tr>
+                            <tr>
+                                <td class="bg-white bank-breakup-first">Tenure</td>
+                                <td class="bg-white bank-breakup-center">5 years</td>
+                                <td class="bg-white">4 Years</td>
+                            </tr>
+                            <tr>
+                                <td class="bg-white bank-breakup-first">Interest rate p.a</td>
+                                <td class="bg-white bank-breakup-center"><span class="text-black font14 text-bold">13%</span></td>
+                                <td class="bg-white">13.5%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+            <div class="grid-4 emi-calci-right-section margin-bottom20 text-center">
+                @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_Bottom_300x600.cshtml"); }
+            </div>
+            <div class="clear"></div>
+        </div>            
+    </div>
+</div>
+<div class="clear"></div>
+

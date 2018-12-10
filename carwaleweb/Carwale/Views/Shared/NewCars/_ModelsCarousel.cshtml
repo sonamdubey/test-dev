@@ -1,0 +1,75 @@
+﻿@model Carwale.DTOs.CarData.ModelCarousel
+@using Carwale.UI.Common;
+@using Carwale.UI.Common;
+@using Carwale.Entity;
+@if (Model.Cars != null && Model.Cars.Count > 0)
+{
+    <section class="margin-top15 margin-bottom20  alternate-carousel">
+    <h2 class="special-skin-text">@Model.MakeName Cars</h2>
+        <div class="margin-top10 jcarousel-wrapper">
+            <div class="jcarousel">
+                <ul>
+                    @foreach (var item in Model.Cars)
+                    {
+                        if (item != null) 
+                        {  
+                        <li class="content-box-shadow content-inner-block-5 margin-bottom5">
+                            <div class="contentWrapper">
+                                <div class="carsuggested-imageWrapper ">
+                                    <a href="/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/@item.MaskingName/" itemprop="url">
+                                        <img itemprop="image" class="lazy" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(item.HostUrl, Carwale.Utility.ImageSizes._272X153, item.OriginalImage)" alt="@Model.MakeName @item.ModelName" width="272" height="153" src="">
+                                    </a>
+                                </div>
+                                <div class="carDescWrapper">
+                                    <h3 class="margin-bottom10 margin-top5 font18 text-link truncate-modelname text-bold" itemprop="name">
+                                        <a href="/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/@item.MaskingName/" title="@Model.MakeName @item.ModelName">
+                                            @Model.MakeName @item.ModelName
+                                        </a>
+                                    </h3>
+                                    @if (item.CarPriceOverview != null) 
+                                    {  
+                                    <div class="margin-bottom5">
+                                        @Html.Raw(item.CarPriceOverview.PricePrefix + " ")
+                                        <span class="font22"> @item.CarPriceOverview.Price.ToString()</span>
+                                        <span class="font20">@Html.Raw(" " + item.CarPriceOverview.PriceSuffix)</span>
+                                    </div>
+                                    <div class='font14 text-light-grey margin-bottom5 @(item.CarPriceOverview.LabelColor)'>@Html.Raw(item.CarPriceOverview.PriceLabel)@Html.Raw(!string.IsNullOrEmpty(item.CarPriceOverview.City.Name) ? ", " + item.CarPriceOverview.City.Name : string.Empty)<span>@(item.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + item.CarPriceOverview.ReasonText + "</p></div>") : Html.Raw(""))</span></div>
+                                    if (!String.IsNullOrEmpty(item.CarPriceOverview.Price))
+                                    {
+                                        <div class="font14">
+                                            @if (CookiesCustomers.MasterCityId <= 0)
+                                            {
+                                                <span class="text-link font14 text-bold btnShowOnRoadPrice" data-isorpbtn="true" data-modelmaskingname="@item.MaskingName"
+                                                      data-makemaskingname="@UrlRewrite.FormatSpecial(Model.MakeName)"
+                                                      data-role="click-inview-imp" data-cat="Desktop_UpcomingCars_ModelCarousal" data-action="showpriceinmycity" data-label="@item.ModelName">
+                                                    @Carwale.Utility.CWConfiguration.orpText
+                                                </span>
+                                            }
+                                            else if (item.CarPriceOverview.PriceStatus == (int)Carwale.Entity.PriceBucket.HaveUserCity)
+                                            {
+                                                <span class="text-link font14 text-bold btnViewPriceBreakup" data-model="@item.ModelId" data-pageid="27"
+                                                      data-role="click-inview-imp" data-cat="Desktop_UpcomingCars_ModelCarousal" data-action="showpriceinmycity" data-label="@(string.Format("{0}_{1}", item.ModelName, item.CarPriceOverview.City.Name))">
+                                                    @Carwale.Utility.CWConfiguration.ViewPriceBreakupText
+                                                </span>
+                                            }
+                                        </div>
+                                    }
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                        }
+                    }
+                    <li class="content-box-shadow content-inner-block-5 margin-bottom5">
+                        <a href="/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/"><p class="text-bold font18 text-center margin-top120" title="@Model.MakeName Cars">All @Model.MakeName Cars</p></a>
+                    </li>
+                </ul>
+            </div>
+            @if (Model.Cars.Count > 1)
+            {
+                <span class="jcarousel-control-left"><span class="cwsprite jcarousel-control-prev"></span></span>
+                <span class="jcarousel-control-right"><span class="cwsprite jcarousel-control-next"></span></span>
+            }
+        </div>
+    </section>
+}

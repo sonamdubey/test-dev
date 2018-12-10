@@ -1,0 +1,25 @@
+RewriteEngine	On
+
+# Forums sub-categories mappings
+RewriteMap	mapfile	txt:../../urlmappings/mapcats.txt
+
+RewriteRule	^([\d]+)-(.*)-p([\d]+)\.html			ViewPosts.aspx?thread=$1&pg=$3 [NC,L]
+RewriteRule	^([\d]+)-(.*)\.html				        ViewPosts.aspx?thread=$1 [NC,L]
+
+RewriteRule	^([a-zA-Z1-9-]+)-p([\d]+)/$	     		ViewThreads.aspx?forum=${mapfile:$1}&pn=$2 [NC,L]
+RewriteRule	^([a-zA-Z1-9-]+)/$		     			ViewThreads.aspx?forum=${mapfile:$1} [NC,L]
+
+
+# Forums sub-categories mappings
+RewriteRule	^ViewForum-(.*)-p(.*)\.html				ViewThreads.aspx?forum=$1&pn=$2 [NC,L]
+RewriteRule	^ViewForum-(.*)\.html					ViewThreads.aspx?forum=$1 [NC,L]
+RewriteRule	^Viewthread-(.*)-p(.*)\.html			ViewPosts.aspx?thread=$1&pg=$2 [NC,L]
+RewriteRule	^Viewthread-(.*)\.html					ViewPosts.aspx?thread=$1 [NC,L]
+#RewriteRule	^ReplyToThread.aspx(.*)					reply.aspx$1	[R=301,NC,L]
+
+RewriteRule  ^reply.aspx(.*)						ReplyThread.aspx$1 [R=301,NC,L]
+
+#Added by supriya on 21/7/2014 to solve error for viewthread.aspx page.This is now redirected to correct page.
+RewriteRule	^viewthread.aspx						ViewPosts.aspx [R=301,NC,L,QSA]
+
+RewriteRule ^undefined-(.*)-p(.*)\.html            https://%{HTTP_HOST}/m/forums/   [R=301,NC,L]

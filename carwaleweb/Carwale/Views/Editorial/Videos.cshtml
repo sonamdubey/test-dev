@@ -1,0 +1,37 @@
+﻿@model Carwale.DTOs.CarData.PhotoGalleryDTO_V2
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title itemprop="name">@Model.ModelVideos[0].VideoTitle - CarWale</title>
+    <meta itemprop="description" name="description" content="@System.Text.RegularExpressions.Regex.Replace(Model.ModelVideos[0].Description.ToString(), @"<[^>]*>", string.Empty)" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta property="og:url" content="@("https://www.carwale.com/" + Model.ModelVideos[0].VideoTitleUrl)" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@Model.ModelVideos[0].VideoTitle" />
+    <meta property="og:description" content="@System.Text.RegularExpressions.Regex.Replace(Model.ModelVideos[0].Description.ToString(), @"<[^>]*>", string.Empty)" />
+    <meta property="og:image" content="@("https://img.youtube.com/vi/" + Model.ModelVideos[0].VideoId + "/sddefault.jpg")" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@("@CarWale")">
+    <meta name="twitter:title" content="@Model.ModelVideos[0].VideoTitle">
+    <meta name="twitter:description" content="@System.Text.RegularExpressions.Regex.Replace(Model.ModelVideos[0].Description.ToString(), @"<[^>]*>", string.Empty)">
+    <meta name="twitter:creator" content="@("@CarWale")">
+    <meta name="twitter:image" content="@("https://img.youtube.com/vi/" + Model.ModelVideos[0].VideoId+"/sddefault.jpg")">
+    <link rel="canonical" href="@("https://www.carwale.com" + Request.ServerVariables["http_x_rewrite_url"].Split('?')[0])" />
+    <link rel="alternate" type="text/html" media="handheld" href="@("https://www.carwale.com/m" + Request.ServerVariables["http_x_rewrite_url"].Split('?')[0])" title="Mobile/PDA" />
+    <meta property="fb:admins" content="154881297559" />
+    <meta property="fb:pages" content="154881297559" />
+@{ Html.RenderPartial("~/Views/StaticPartials/editorial/VideoPageCss.cshtml"); }
+</head>
+<body>
+@{ Html.RenderPartial("~/Views/Shared/NewCars/_MediaGallery.cshtml", Model); }
+@{ Html.RenderPartial("~/Views/StaticPartials/editorial/VideoPageScript.cshtml"); }
+</body>
+
+@{ Html.RenderPartial("~/Views/Shared/_GoogleTagManagerView.cshtml"); }
+@{ Html.RenderPartial("~/Views/Shared/_CrazyEggView.cshtml"); }
+</html>

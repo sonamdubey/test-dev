@@ -1,0 +1,169 @@
+﻿@model string
+@{
+    string currentHostUrl = Request.Url.GetLeftPart(UriPartial.Authority).Replace("http:", string.Empty).Replace("https:", string.Empty);
+}
+
+<amp-state id="sellers">
+    <script type="application/json">
+        []
+    </script>
+</amp-state>
+<amp-state id="buyer" src="@currentHostUrl/api/stockbuyers/" credentials="include">
+</amp-state>
+
+<amp-lightbox layout="nodisplay" id="lead-popup" class="black-window-background" on="lightboxClose: AMP.setState({isMobileUnverified: false, openRecommendations: []})" [hidden]="isLeadDataAvailable && leadOriginId == 19" scrollable>
+    <div id="buyerForm" class="buyerProcess stickbottom padding-top10 text-center" [class]="'buyerProcess padding-top10 text-center' + ((isLeadDataAvailable && recommendations.length > 3) ? '' : ' stickbottom')">
+        <span class="cur-pointer cwmsprite cross-lg-dark-grey seller-close" on="tap: AMP.setState({ recoUrl: isLeadDataAvailable ? '' : recoUrl }), lead-popup.close" role="tab" tabindex="0">
+        </span>
+        <div class="screen1">
+            <div id="cityWarningGSD" class="border-solid-bottom padding-bottom10 padding-left10 text-left" [hidden]="isLeadDataAvailable">
+                <div id="locationWarning" class="inline-block valign-middle padding-right10">
+                    <span class="cwmsprite car-location-ic-sm"></span>
+                </div>
+                <div class="inline-block valign-middle locationDetails">
+                    <p class="margin-bottom5">Car location: <span id="carLocationText" class="carLocation text-bold" [text]="(leadCity || '')"></span></p>
+                    <p id="changeCity">Not your city? <span class="text-link changeCityLocation" role="tab" tabindex="0" on="tap: globalCityPopup">Search cars in your city</span></p>
+                    <p id="deliveryText" class="margin-bottom5 carDelivery"></p>
+                </div>
+            </div>
+            <div id="getSellerDetailsForm">
+                <form method="post" id="lead-form" action-xhr="@currentHostUrl/api/v1/stockleads/" target="_top" custom-validation-reporting="show-all-on-submit"
+                      on="submit-success: AMP.setState({
+                                sellers: sellers.concat([{profileId: leadProfileId, seller: event.response.seller}]),
+                                isLeadDataAvailable : true });
+						    submit-error: AMP.setState({
+                                isMobileUnverified: event.response.ModelState.MobileUnverified ? true : false,
+                                isLeadDataAvailable : false, isOtpSent : false})">
+                    <div id="leadForm" [hidden]="isLeadDataAvailable || isMobileUnverified">
+                        <h2 class="text-black text-bold padding-bottom10">Fill in your details</h2>
+                        <div class="position-rel width80">
+                            <input type="text" name="name" class="form-control padding-right20 padding-left20 margin-bottom30 line-height2" placeholder="Name" id="txtUserName" [value]="buyer.name"
+                                   maxlength="50" minlength="3" pattern="([a-zA-Z])[a-zA-Z'\-\._ ]{2,}" required>
+                            <span class="leadError" visible-when-invalid="valueMissing" validation-for="txtUserName">Please enter name.</span>
+                            <span class="leadError" visible-when-invalid="patternMismatch" validation-for="txtUserName">Enter valid name of atleast 3 characters.</span>
+                        </div>
+                        <div class="position-rel width80">
+                            <input type="tel" name="mobile" class="form-control padding-right60 padding-left40 margin-bottom30 line-height2" placeholder="Mobile number" id="txtMobileNo" [value]="buyer.mobile"
+                                   minlength="10" maxlength="10" on="input-debounced : AMP.setState({mobileNo : event.value})" pattern="[6789]\d{9}" required>
+                            <span class="leadError" visible-when-invalid="valueMissing" validation-for="txtMobileNo">Please enter mobile number.</span>
+                            <span class="leadError" visible-when-invalid="patternMismatch" validation-for="txtMobileNo">Enter valid 10 digit mobile number.</span>
+                            <span class="position-abt pos-top10 pos-left10 line-height20">+91</span>
+                        </div>
+                        <input hidden name="originID" [value]="leadOriginId">
+                        <input hidden name="profileID" [value]="leadProfileId">
+                        <input hidden name="rank" [value]="leadRank">
+                        <input hidden name="deliveryCity" [value]="leadDeliveryCity">
+                        <input hidden name="queryString" value="@(Model)">
+                        <div class="width80">
+                            <input type="submit" class="btn btn-orange btn-full-width text-uppercase buyer-pro-btn" id="btnSend" value="Submit">
+                        </div>
+                        <div class="leadtc">
+                            <p>By submitting this form you agree to our <a href="/visitoragreement.aspx" target="_blank">terms and conditions</a></p>
+                        </div>
+                    </div>
+                    <div submit-error>
+                        <template type="amp-mustache">
+                            {{^ModelState.MobileUnverified}}
+                            <span class="lead_error">{{Message}}</span>
+                            {{/ModelState.MobileUnverified}}
+                        </template>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="sellerDetailClass" id="seller-details-popup" hidden [hidden]="!isLeadDataAvailable">
+            <h2 class="text-black text-bold">Seller details</h2>
+            <div class="position-rel">
+                <ul class="sellerDetails margin-bottom10 content-inner-block-10">
+                    <li>
+                        <span class="buyerprocess-sprite seller-name"></span>
+                        <div id="seller-Name-div" class="leftfloat">
+                            <p class="seller-Person top-rated-seller-name-field" [text]="sellers.filter(r => r.profileId == recoProfileId)[0].seller.contactPerson || ''"></p>
+                            <span id="seller-details-rating-text" class="top-rated-seller-tag inline-block" hidden [hidden]="!sellers.filter(r => r.profileId == recoProfileId)[0].seller.ratingText" [text]="sellers.filter(r => r.profileId == recoProfileId)[0].seller.ratingText"></span>
+                            <p class="seller-Name font13 text-light-grey" [text]="sellers.filter(r => r.profileId == recoProfileId)[0].seller.name || ''"></p>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <li>
+                        <span class="buyerprocess-sprite seller-masking-no"></span>
+                        <p class="leftfloat"><a [href]="'tel:'+sellers.filter(r => r.profileId == recoProfileId)[0].seller.mobile" class="seller-Contact" [text]="sellers.filter(r => r.profileId == recoProfileId)[0].seller.mobile || ''"></a></p>
+                        <div class="clear"></div>
+                    </li>
+                    <li>
+                        <span class="buyerprocess-sprite seller-email"></span>
+                        <p class="leftfloat"><a [href]="'mailto:'+sellers.filter(r => r.profileId == recoProfileId)[0].seller.email" class="seller-Email" [text]="sellers.filter(r => r.profileId == recoProfileId)[0].seller.email || ''"></a></p>
+                        <div class="clear"></div>
+                    </li>
+                    <li>
+                        <span class="buyerprocess-sprite seller-address"></span>
+                        <p class="leftfloat"><span class="seller-Address" [text]="sellers.filter(r => r.profileId == recoProfileId)[0].seller.address || ''"></span></p>
+                        <div class="clear"></div>
+                        <p><span class="font10 text-light-grey margin-left10">Your contact details have been shared with the seller</span></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="leadRecommendations" class="suggestion-box" [hidden]="!isLeadDataAvailable || leadOriginId == 19 || !recommendations.length">
+            <h2 class="text-black text-bold padding-top5 padding-bottom5 recommendationTitle">Recommendations for you</h2>
+            @{Html.RenderPartial("~/Views/m/Used/SearchAmp/SimilarCarsListAmp.cshtml", 12);}
+        </div>
+        <div id="otpForm" [class]="isMobileUnverified ? 'upeer-box' : 'hide'" class="hide">
+            <p class="upper-box__title">Enter OTP Here</p>
+            <div class="position-rel width80">
+                <form method="get" action="api/v1/mobile/1/verification/verifyotp/" action-xhr="@currentHostUrl/api/v1/mobile/1/verification/verifyotp/" target="_top" custom-validation-reporting="show-all-on-submit"    @*api/v1/mobile/1/verification/verifyotp/ --> here 1 is dummy number*@
+                      on="invalid: AMP.setState({ otpFormInvalid : true }); valid: AMP.setState({ otpFormInvalid : false }); submit-success: AMP.setState({ isMobileUnverified : false }), lead-form.submit">
+                    <div class="position-rel">
+                        <input id="getOTP" name="otpCode" class="form-control" placeholder="Enter 5 digit OTP" maxlength="5" minlength="5" pattern="\d{5}" required>
+                        <span class="otp__error" visible-when-invalid="valueMissing" validation-for="getOTP">Please enter OTP!</span>
+                        <span class="otp__error" visible-when-invalid="patternMismatch" validation-for="getOTP">Invalid OTP!</span>
+                        <input hidden name="mobileNumber" [value]="mobileNo">
+                        <input hidden name="sourceModule" value="1">                    @*For UsedcarLead module*@
+                        <input type="submit" class="btn btn-orange btn-xs text-uppercase buyer-pro-btn" id="verifyOTP" rel="nofollow" value="Verify">
+                    </div>
+                    <div submit-error>
+                        <template type="amp-mustache">
+                            {{#Message}}
+                            <span id="invalidOtpError" class="otp__error" [hidden]="otpFormInvalid">{{Message}}!</span>
+                            {{/Message}}
+                        </template>
+                    </div>
+                    <div class="position-rel rightfloat">
+                        <p id="otpTimer" class="resend-otp-label" [class]="isOtpSent ? 'resend-otp-label otp-status--done' : 'resend-otp-label'" on="tap: resendOtpForm.submit" [text]="isOtpSent ? 'OPT sent to Mobile' : 'Resend OTP'" role="tab" tabindex="0">Resend OTP</p>
+                        <div class="clear"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="hide">
+            <form method="post" action-xhr="@currentHostUrl/api/v1/resendotp/" id="resendOtpForm" target="_top"
+                  on="submit-success: AMP.setState({ isOtpSent : true })">
+                <input hidden name="mobile" [value]="mobileNo">
+                <input hidden name="sourceModule" value="1">                    @*For UsedcarLead module*@
+                <input hidden name="mobileVerificationByType" value="3">        @*For both Misscall and Otp*@
+                <input hidden name="validityInMins" value="30">
+            </form>
+        </div>
+    </div>
+</amp-lightbox>
+
+<amp-analytics type="facebookpixel">
+    <script type="application/json">
+        {
+            "vars":{
+                "pixelId": "679897508764882"
+            },
+            "triggers":{
+                "trackConversion":{
+                    "on": "amp-form-submit-success",
+                    "selector":"#lead-form",
+                    "request": "eventLead",
+                    "vars":{
+                        "content_name": "msite search page",
+                        "content_category": "6"
+                    }
+                }
+            }
+        }
+    </script>
+</amp-analytics>

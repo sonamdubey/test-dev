@@ -1,0 +1,190 @@
+﻿@model Carwale.UI.ViewModels.UserReview.RateCarViewModel
+@using Carwale.UI.Common
+@using Carwale.Utility
+@{
+	ViewBag.Title = "Write a Review: " + Model.MakeName + " " + Model.ModelName;
+	ViewBag.Description = "Write a Review for:  " + Model.MakeName + " " + Model.ModelName + "- CarWale";
+	ViewBag.isMobile = ViewBag.isMobile ?? false;
+	ViewBag.BodyClass = "bg-light-grey " + (ViewBag.isMobile != null && ViewBag.isMobile ? string.Empty : "header-fixed-inner");
+	ViewBag.landingPage = false;
+	ViewBag.Responsive = true;
+	ViewBag.CustomCss = "~/Views/StaticPartials/UserReviews/WriteReviewPageCss.cshtml";
+	Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayoutV2.cshtml" : "~/views/shared/_LayoutV2.cshtml");
+	bool isLoggedIn = (!CurrentUser.Email.IsEmpty() && !CurrentUser.Name.IsEmpty());
+    int platformId = ViewBag.isMobile ? 43 : 1;
+    int modelId = Model.Versions.Count > 0 ? Model.Versions[0].ModelId : -1;
+}
+
+
+@section Scripts{
+	<script type="text/javascript" src="/static/m/js/v2/app/loader.js" defer></script>
+	<script type="text/javascript" src="/static/js/rate-car.js" defer></script>
+}
+@if (!ViewBag.isMobile)
+{
+    <h1 class="container model-review__heading special-skin-text">Write a Review for @Model.MakeName @Model.ModelName</h1>
+}
+<section class="write-review padding-top5 container">
+	
+    <div id="rate-car-form" class="padding-top5 content-box-shadow card-bottom-margin font14 user-review">
+		@if (ViewBag.isMobile)
+		{
+			<div class="padding-15-20 content-box-shadow review-header">
+				<div class="model-image-grid inline-block">
+					<img src="@Model.ModelImageSmall" alt="@Model.MakeName @Model.ModelName" />
+				</div>
+				<h1 id="ratingVersionPopup" class="font18 model-details-grid inline-block">@Model.MakeName @Model.ModelName <span class="js-selected-version__name">@Model.VersionName</span><span class="version-edit-icon"></span> </h1>
+			</div>
+		}
+		
+		@if (!ViewBag.isMobile)
+		{
+		<div class="custom-dropdown-container padding-15-20 review-wrapper review-section">
+			<span class="custom-dropdown__title">Select Your car version:</span>
+			<div class="custom-select-dropdown cust-version-dropdown js-scroll-version-error">
+				<div class="form-control-box selectcustom-container">
+					<div class="selectcustom-input-box-holder js-selectcustom-input-box-holder">
+						<div class="selectcustom-input selected-version__name js-selected-version__name @(Model.VersionId > 0 ? string.Empty : "text-center")">@(Model.VersionId > 0 ? Model.VersionName : "- - - - - - Version - - - - - -")</div>
+						<span class="drop-arrow"><img src="https://imgd.aeplcdn.com/0x0/cw/design15/dropArrowBg.png?static1fix" /></span>
+					</div>
+
+					<div class="selectcustom-content">
+						<ul class="selectcustom versiondrp__list">
+							@foreach (var version in Model.Versions)
+							{
+							<li class="js-select-version" data-versionid="@version.Id" data-versionname="@version.Version">
+								<div>
+									<span class="js-version-name">@version.Version</span><span class="block padding-top5" style="color: #333">
+                                        <span class="pop-version-manual @(!string.IsNullOrEmpty(version.TransmissionType) && !string.IsNullOrEmpty(version.CarFuelType) ? "pipeseperator" : string.Empty)">@version.CarFuelType</span>
+										<span class="pop-version-manual">@version.TransmissionType</span>
+									</span>
+								</div>
+							</li>
+							}
+						</ul>
+					</div>
+					<span class="error-text hide" id="verisonSelectionError">Please select the version.</span>
+				</div>
+			</div>
+		</div>
+		}
+		else
+		{
+			<div class="versionDiv popup_layer @(Model.VersionId > 0 ? "hide" : string.Empty)">
+				<div id="closeVersionPopup" class="ui-corner-top"><div class="filterTitle padding-left10">Select Version</div><div class="clear"></div></div><div class="popup_content">
+					<span class="error-text hide" id="verisonSelectionError">Please select version</span>
+					<div class="ui-content">
+						<ul>
+							@foreach (var version in Model.Versions)
+							{
+								<li class="js-select-version" data-versionId="@version.Id" data-versionName="@version.Version">
+									<div class="ui-btn ui-btn-icon-right ui-icon-carat-r">
+										<span class="js-version-name">@version.Version</span><span class="block padding-top5">
+											<span class="pop-version-manual @(!string.IsNullOrEmpty(version.TransmissionType) && !string.IsNullOrEmpty(version.CarFuelType) ? "pipeseperator" : string.Empty)">@version.CarFuelType</span>
+											<span class="pop-version-manual">@version.TransmissionType</span>
+										</span>
+									</div>
+								</li>
+							}
+						</ul>
+					</div>
+				</div>
+			</div>
+		}
+		<div id="js-review-section" class="padding-15-20 review-wrapper review-section @(Model.VersionId > 0 ? string.Empty : "rate-car-container--disabled")">
+			<div class="margin-bottom20">
+				<h2 class="margin-bottom10">How much do you like this car?</h2>
+				<p class="text-slate-grey">Consider looks &amp; styling, performance, servicing experience, mileage etc. before you rate.</p>
+
+				<div id="carRatingBox">
+					<div class="circle-placeholder">
+						<span class='rating-logo feedback-0'></span>
+					</div>
+					<div class="rating-placeholder">
+						<h3 id="feedbackTitle" class="font20 font-bold">Rate your car</h3>
+						<p id="feedbackSubtitle" class="margin-top5 feedback-subtitle-height"></p>
+
+						<p class="error-text star-rating__error-msg hide">Please rate the car before submitting.</p>
+
+						<div class="answer-star-list hover-effect" data-errorMsgShow="">
+							@{
+								int lenght = Model.RateCarDetails.UserReviewRatingOptions.Count;
+								for (int i = lenght - 1; i >= 0; i--)
+								{
+									var option = Model.RateCarDetails.UserReviewRatingOptions[i];
+								<input type="radio" name="rate-box" id="rate-@option.Id" value="@option.Id" />
+								<label class="star-zero" for="rate-@option.Id" data-value="@option.Id" data-feedbackTitle="@option.Heading" data-feedbackSubtitle="@option.Description" data-cwtccat="RateYourCar" data-cwtcact="StarRatingClicked" data-cwtclbl="make=@Model.MakeName|model=@Model.ModelName|modelId=@modelId|source=@platformId"></label>
+								}
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="rateCarQuestion">
+				@foreach (var ratingQuestion in Model.RateCarDetails.UserRatingQuestions)
+				{
+				<div class="question-field question-type-text @( (ratingQuestion.Id == 2) ? (isLoggedIn ? "border-bottom0" : "") : "" )">
+					<h3 class="question-item">@ratingQuestion.Heading</h3>
+					<p class="error-text hide" id="error-question-@ratingQuestion.Id">This is a compulsory field.</p>
+
+					<div class="answer-radio-list">
+						@foreach (var rating in ratingQuestion.UserReviewOption)
+						{
+						<input type="radio" name="rating-q-@ratingQuestion.Id" id="q-@ratingQuestion.Id-@rating.Id" value="@rating.Id" />
+						<label for="q-@ratingQuestion.Id-@rating.Id" data-questionId="@ratingQuestion.Id" data-answerId="@rating.Id">@rating.Value</label>
+						}
+					</div>
+					<div class="clear"></div>
+				</div>
+				}
+			</div>
+
+			@if (!isLoggedIn)
+			{<div class="personal-details-conatiner">
+				<div class="margin-bottom20">
+					<h2 class="margin-bottom10">Personal details</h2>
+					<p class="text-slate-grey">We wish to credit this rating to you. We will never spam your inbox.</p>
+				</div>
+
+				<div class="input-box form-control-box margin-bottom15 grid-6 review-input alpha not-empty" data-cwticat="RateYourCar" data-cwtiact="NameImpression" data-cwtilbl="make=@Model.MakeName|model=@Model.ModelName|source=@platformId|modelId=@modelId" cwt="">
+                    <input type="text" id="txtUserName" name="userName" value="" prefill="name" data-errormsgshow="" autocomplete="off" />
+					<label for="getUserName">Name<sup>*</sup></label>
+					<span class="boundary"></span>
+					<span class="error-text" id="nameError"></span>
+				</div>
+
+				<div class="input-box form-control-box margin-bottom15 grid-6 review-input alpha not-empty" data-cwticat="RateYourCar" data-cwtiact="EmailIdImpression" data-cwtilbl="make=@Model.MakeName|model=@Model.ModelName|source=@platformId|modelId=@modelId" cwt="">
+                    <input type="email" id="txtEmailID" name="emailId" prefill="email" value="" data-errormsgshow="" autocomplete="off" />
+					<label for="getEmailID">Email ID<sup>*</sup></label>
+					<span class="boundary"></span>
+					<span class="error-text" id="emailError"></span>
+				</div>
+			</div>
+			}
+			<div class="clear"></div>
+			<p id="responsemessage" class="error-text margin-bottom20"></p>
+			<input type="submit" id="submitrating" class="btn btn-orange btn-full-width review-submit-btn @(isLoggedIn ? "margin-top15" : "")" value="Submit rating" />
+		</div>
+	</div>
+</section>
+
+@{Html.RenderPartial("~/Views/Shared/_SpeedometerLoader.cshtml");}
+<div class="clear"></div>
+<script>
+  currentUserEmail = "@CurrentUser.Email";
+    currentUserName = "@CurrentUser.Name";
+    modelId = "@(Model.Versions.Count > 0 ? Model.Versions[0].ModelId : -1)";
+  makeName = "@Model.MakeName";
+	modelName = "@Model.ModelName";
+	var versionId = "@Model.VersionId";
+	var versionName = "@Model.VersionName";
+    var isMobileDevice;
+    var expiryTime = "@CWConfiguration.ReviewExpiryTime";
+</script>
+@if (ViewBag.isMobile != null && ViewBag.isMobile)
+{
+<script>
+    isMobileDevice = true
+</script>
+}

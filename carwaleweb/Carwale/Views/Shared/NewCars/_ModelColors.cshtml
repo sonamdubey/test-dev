@@ -1,0 +1,40 @@
+﻿@model Tuple<Carwale.Entity.CarData.CarModelDetails,List<Carwale.Entity.CarData.ModelColors>>
+@using Carwale.UI.PresentationLogic;
+@using Carwale.BL.CMS;
+@{ 
+    List < Carwale.Entity.CarData.ModelColors > colours = Model.Item2;
+    Carwale.Entity.CarData.CarModelDetails modelDetails = Model.Item1;
+    bool showColorsLink = CMSCommon.IsModelColorPhotosPresent(colours);
+}
+<section id="colours">
+    <h2 class="margin-top15 special-skin-text">@ViewBag.ModelName Colour@(colours.Count > 1 ? "s" : "")</h2>
+    <p class="text-grey special-skin-text">
+        @modelDetails.ModelName is available/sold in the following colour@(colours.Count > 1 ? "s" : "") in India.
+    </p>
+    <div class="content-box-shadow content-inner-block-10 margin-top10">
+        <ul class="ul-horz" @if(showColorsLink) {<text>data-role="inview-imp" data-event="CWNonInteractive" data-cat="desktop_colour_linkages" data-action="model_page_colour_pallet_impression" data-label="@modelDetails.MakeName @modelDetails.ModelName"</text>}>
+            @foreach (var color in colours)
+            {
+                if (color != null)
+                {
+                    var hexList = color.HexCode?.Split(',')?.ToList() ?? new List<string>();
+                    <li>
+                        @if (showColorsLink) {
+                        string colorLink = EditorialContent.GetColorUrl(modelDetails.MakeName, modelDetails.MaskingName, color.Color, color.ColorId,false);
+                        <a data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_colour_linkages" data-action="model_page_colour_pallet" data-label="@modelDetails.MakeName @modelDetails.ModelName" href="@colorLink" title="@modelDetails.MakeName @modelDetails.ModelName in @color.Color">
+                            <div class="colorinfo">
+                                <div class="colours"> @foreach (var hex in hexList) { <div style="background-color:#@hex.Trim();height:@(100 / hexList.Count)%"></div> }</div>
+                            </div>
+                        <div class="colorName text-black" title="@color.Color">@color.Color</div>
+                        </a> } else {
+                        <div class="colorinfo">
+                            <div class="colours">@foreach (var hex in hexList) { <div style="background-color:#@hex.Trim();height:@(100 / hexList.Count)%"></div> }</div>
+                        </div>
+                        <div class="colorName" title="@color.Color">@color.Color</div>}
+                    </li>
+                }
+            }
+        </ul>@if(showColorsLink) {<div data-role="inview-imp" data-event="CWNonInteractive" data-cat="desktop_colour_linkages" data-action="model_page_color_slug_impression" data-label="@modelDetails.MakeName @modelDetails.ModelName" class="text-center"><a data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_colour_linkages" data-action="model_page_color_slug" data-label="@modelDetails.MakeName @modelDetails.ModelName" href="@EditorialContent.GetColorUrl(modelDetails.MakeName, modelDetails.MaskingName, null, 0, false)" title="All @modelDetails.MakeName @modelDetails.ModelName Colours">View All Colour Images</a></div>}
+    </div>
+    <small class="special-skin-text">* Colours shown are indicative and may vary slightly from actual car colours.</small>
+</section>

@@ -1,0 +1,153 @@
+﻿
+@mixin switch--horizontal($width: 44, $height: 21) {
+	.switch--horizontal {
+		position: relative;
+		width: 178px;
+		height: $height * 1px;
+		float: right;
+
+		input {
+			margin: 0;
+			left: 36px;
+
+			&:checked {
+				z-index: 1;
+
+				& + label {
+					color: map-get($color-map, 'shamrockGreen');
+					cursor: default;
+				}
+			}
+
+			&[type=radio] {
+				position: absolute;
+				top: 0;
+				left: 53px;
+				z-index: 2;
+				opacity: 0;
+				cursor: pointer;
+				width: $width / 2  * 1px;
+				height: $height * 1px;
+
+				&:nth-of-type(2) {
+					left: 82px;
+				}
+
+				& + label {
+					@include vendor-prefix('transition', opacity .25s ease);
+					@include vendor-prefix('transform', translate3d(0,0,0));
+					display: inline-block;
+					margin: 0;
+					text-align: center;
+					cursor: pointer;
+				}
+			}
+		}
+
+		.toggle-inside {
+			@include tick-icon-white;
+			@include vendor-prefix('transition', .25s ease all);
+			@include vendor-prefix('transform', translate3d(0,0,0));
+			height: 15px;
+			width: 15px;
+			border-radius: 50%;
+			background-color: map-get($color-map, 'shamrockGreen');
+			position: absolute;
+			background-size: 9px;
+			background-position: 50%;
+			cursor: pointer;
+		}
+
+		.toggle-outside {
+			@include vendor-prefix('transition', .25s ease all);
+			@include vendor-prefix('transform', translateX(-66%));
+			height: $height * 1px;
+			border-radius: 34px;
+			padding: 2px;
+			overflow: hidden;
+			background: map-get($color-map, 'white');
+			position: absolute;
+			width: $width * 1px;
+			top: -2px;
+			border: 1px solid map-get($color-map, 'shamrockGreen');
+			cursor: pointer;
+			left: 50%;
+		}
+	}
+}
+
+.color-switcher__body {
+	@include vendor-prefix('user-select', none);
+	-webkit-tap-highlight-color: transparent;
+	text-align: right;
+}
+
+.switch-label--left {
+	position: absolute;
+	left: 0;
+	font-weight: $font-bold;
+}
+
+.switch-label--right {
+	position: absolute;
+	right: 0;
+	font-weight: $font-bold;
+}
+
+.switch--horizontal {
+	input {
+		&:checked {
+			& ~ .toggle-outside {
+				.toggle-inside {
+					left: 3px;
+					top: 4px;
+				}
+			}
+		}
+
+		& ~ input:checked {
+			& ~ .toggle-outside {
+				.toggle-inside {
+					left: 34px;
+					top: 4px;
+				}
+			}
+		}
+	}
+}
+
+.color-switcher {
+	border-bottom: solid 1px map-get($color-map, 'smoke-white');
+}
+
+.color-switcher__title,
+.color-switcher__body {
+	width: 49%;
+	padding: 17px 0 10px;
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 15px;
+}
+
+.color-switcher__body__span {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.right-switch-text {
+	margin-left: 10px;
+}
+
+.left-switch-text {
+	margin-right: 10px;
+}
+
+.solid-color {
+	.left-switch-text {
+		color: map-get($color-map, 'shamrockGreen');
+	}
+
+	.right-switch-text {
+		color: map-get($color-map, 'shamrockGreen');
+	}
+}

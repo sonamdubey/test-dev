@@ -1,0 +1,225 @@
+﻿@model Carwale.DTOs.CarData.CCarDataDto
+@using Carwale.Entity.Enum;
+@using Carwale.Utility;
+@using Carwale.UI.Common;
+<section class="section specs-features-container">
+    <header class="section-head">
+        <h2 class="section-primary-title">Specifications & Features</h2>
+    </header>
+    <div class="section-body cw-tabs-panel specs-features-tabs-container">
+        <div class="cw-tabs cw-tab-wrapper">
+            <ul class="cw-tab-list">
+                @if (Model.Specs.Count > 0)
+                {
+                    <li class="cw-tab__list-item active js-cw-tab__list-item" data-tabs="tabSpecs">
+                        <span class="cw-tab-list__title">Specifications</span>
+                    </li>
+                }
+                @if (Model.Features.Count > 0)
+                {
+                    <li class="cw-tab__list-item js-cw-tab__list-item" data-tabs="tabFeatures">
+                        <span class="cw-tab-list__title">Features</span>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div id="tabSpecs" class="cw-tabs-data">
+            <ul class="js-accordion-list">
+                @foreach (var speclist in Model.Specs)
+                {  
+                    if (speclist.Items != null && speclist.Items.Count > 0)
+                    {
+                        if (speclist.Name == "Suspensions, Brakes, Steering & Tyres")
+                        {
+                            speclist.Name = "Suspensions, Brakes & Steering ";
+                        }
+                        <li class="js-accordion-list-item accordion-list-item" data-mother="mothernode-spec" data-category="@(speclist.Name)">
+                            <div class="accordion-head accordion-outer-head js-accordion-heading">
+                                <div class="accordion-head-content">
+                                    <h3 class="accordion-head-title">
+                                        @speclist.Name
+                                    </h3>
+                                </div>
+                                <span class="accordion-arrow-icon">
+                                </span>
+                            </div>
+                            <div class="accordion-body js-accordion-content-wrapper js-parent-accordion">
+                                <div class="js-accordion-content-list">
+                                    <div class="js-accordion-child specs-accordion">
+                                        <ul class="js-accordion-list">
+                                            @foreach (var specInfo in speclist.Items)
+                                            {
+                                                var formatedItemValue = CommonOpn.GetFormatedValueForCarData(specInfo.Value, specInfo.DataTypeId) + ' ' 
+                                                        + specInfo.UnitType.ToString().Replace("BIT", "").Replace("CUSTOM", "");
+                                                var formatedName = (specInfo.Name.Replace("~", ""));
+                                                var qs = string.Format("bodyStyleId={0}&itemId={1}&customDataTypeId={2}&itemName={3}&itemValue={4}",
+                                                    ViewData["BodyTypeId"], specInfo.ItemMasterId, specInfo.CustomTypeId, formatedName, formatedItemValue);
+                                                if (!string.IsNullOrWhiteSpace(specInfo.Value) && formatedItemValue.Trim() != "No")
+                                                {
+                                                    <li class="accordion-list-item js-itemList" data-child="childnode-spec" data-itemname="@formatedName" data-qs="@qs">
+                                                            <div class="accordion-head @(!String.IsNullOrEmpty(specInfo.Description) ? "js-accordion-heading" : "")">
+                                                                
+                                                                    <span class="accordion-plus-icon @(String.IsNullOrEmpty(specInfo.Description) ? "plus-icon--hidden" : "") "></span>
+
+                                                                <div class="accordion-head-content">
+                                                                    <p class="specs-key">
+                                                                        @specInfo.Name.Replace("~", "")
+                                                                    </p>
+                                                                    <p class="specs-value">
+                                                                        @formatedItemValue
+                                                                        @if (specInfo.ItemMasterId == VersionSummaryFields.FrontTyres.ToString("D") && Convert.ToBoolean(ViewData["ShowTyresLink"]))
+                                                                        {
+                                                                            <div><a data-role="click-tracking" data-event="CWInteractive" data-cat="Tyres_Section_m" data-action="Version link click_m" data-label="@string.Format("{0}_{1}", ViewData["ModelName"], ViewData["VersionName"])" href="@string.Format("/m/tyres/{0}-{1}-tyres/?cmids={2}&year={3}&versionid={4}", Format.FormatURL(ViewData["MakeName"].ToString()), ViewData["MaskingName"], ViewData["ModelId"], DateTime.Now.Year.ToString(), ViewData["VersionId"])" target="_blank">View all tyres</a></div>
+                                                                        }
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            @if(!String.IsNullOrEmpty(specInfo.Description))
+                                                            { 
+                                                                <div class="accordion-body js-accordion-content-wrapper js-specInfoContent" data-seen="false">
+                                                                    <div class="js-accordion-content-list">
+                                                                        <div class="specification-wrapper">
+                                                                            <div class="specs-description-wrapper js-specs-description-wrapper hide">
+                                                                                <div class="read-more-collapse-container specs-description js-specs-description">
+                                                                                    <div class="read-more-collapse-initial-text"><p>@Format.LimitTextWithoutDotAtTheEnd(specInfo.Description,150)</p></div>
+                                                                                    @if(specInfo.Description.Length > 150)
+                                                                                    {
+                                                                                        <div class="read-more-collapse-final-text"><p>@specInfo.Description</p></div>
+                                                                                        <span class="read-more-collapse-button read-more-collapse-link">...View More</span>
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="js-image-wrapper">
+                                                                                <div class="oxygenLoaderContainer__js oxygen-loader">
+                                                                                    <div class="oxygen-loader">
+                                                                                        <img class="oxygen-loader-img" src="https://imgd.aeplcdn.com/0x0/cw/static/icons/oxygen-loader.gif?q=85" alt="Loading">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            @if(!String.IsNullOrEmpty(specInfo.Tip))
+                                                                            { 
+                                                                                <div class="hide specs-tip-wrapper js-specs-tip-wrapper">
+                                                                                    <img class="tip-icon" src="@(ImageSizes.CreateImageUrl(CWConfiguration._imgHostUrl,ImageSizes._0X0,"/cw/static/icons/00afa0/highlight_info.svg"))" alt="Tip" />
+                                                                                    <div class="tip-content">
+                                                                                        @specInfo.Tip
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+            <div id="specsCoachmark" class="specs-coachmark-wrapper">
+                <div class="specs-coachmark__container">
+                    <div class="specs-coachmark__content">
+                        <div class="specs-coachmark__plus-unit"><span class="accordion-plus-icon"></span></div>
+                        <div class="specs-coachmark__text">
+                            <h3>More Information</h3>
+                            <p>Tap to view more information on this feature</p>
+                            <span class="js-coachmark-gotit">Got it</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="tabFeatures" class="cw-tabs-data hide">
+            <ul class="js-accordion-list">
+                @foreach (var featurelist in Model.Features)
+                {
+                    if (featurelist.Items != null && featurelist.Items.Count > 0)
+                    {
+                        <li class="js-accordion-list-item accordion-list-item" data-mother="mothernode-feature" data-category="@(featurelist.Name)">
+                            <div class="accordion-head js-accordion-heading">
+                                <div class="accordion-head-content">
+                                    <h3 class="accordion-head-title">
+                                        @featurelist.Name   
+                                    </h3>
+                                </div>
+                                <span class="accordion-arrow-icon">
+                                </span>
+                            </div>
+                            <div class="accordion-body js-accordion-content-wrapper">
+                                <div class="js-accordion-content-list">
+                                    <div class="js-accordion-child specs-accordion">
+                                        <ul class="js-accordion-list">
+                                            @foreach (var featureInfo in featurelist.Items)
+                                            {
+                                                var formatedName = featureInfo.Name.Replace("~", "");
+                                                var formatedItemValue = CommonOpn.GetFormatedValueForCarData(featureInfo.Value, featureInfo.DataTypeId) + featureInfo.UnitType.ToString().Replace("BIT", "").Replace("CUSTOM", "");
+                                                var qs = string.Format("bodyStyleId={0}&itemId={1}&customDataTypeId={2}&itemName={3}&itemValue={4}",
+                                                    ViewData["BodyTypeId"], featureInfo.ItemMasterId, featureInfo.CustomTypeId, formatedName, formatedItemValue);
+                                                if (!string.IsNullOrWhiteSpace(featureInfo.Value) && formatedItemValue.Trim() != "No")
+                                                {
+                                                    <li class="accordion-list-item js-itemList" data-child="childnode-feature" data-itemname="@(featureInfo.Name.Replace("~", ""))" data-qs="@qs">
+                                                        <div class="accordion-head @(!String.IsNullOrEmpty(featureInfo.Description) ? "js-accordion-heading" : "")">
+                                                            <span class="accordion-plus-icon @(String.IsNullOrEmpty(featureInfo.Description) ? "plus-icon--hidden" : "") "></span>
+                                                            <div class="accordion-head-content">
+                                                                <p class="specs-key">
+                                                                    @formatedName
+                                                                </p>
+                                                                <p class="specs-value">
+                                                                    @formatedItemValue
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        @if (!String.IsNullOrEmpty(featureInfo.Description))
+                                                        {
+                                                            <div class="accordion-body js-accordion-content-wrapper js-specInfoContent" data-seen="false">
+                                                                <div class="js-accordion-content-list">
+                                                                    <div class="specification-wrapper">
+                                                                        <div class="specs-description-wrapper js-specs-description-wrapper">
+                                                                            <div class="read-more-collapse-container specs-description js-specs-description">
+                                                                                <div class="read-more-collapse-initial-text"><p>@Format.LimitTextWithoutDotAtTheEnd(featureInfo.Description, 150)</p></div>
+                                                                                @if (featureInfo.Description.Length > 150)
+                                                                                {
+                                                                                    <div class="read-more-collapse-final-text"><p>@featureInfo.Description</p></div>
+                                                                                    <span class="read-more-collapse-button read-more-collapse-link">...View More</span>
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="js-image-wrapper">
+                                                                            <div class="oxygenLoaderContainer__js oxygen-loader">
+                                                                                <div class="oxygen-loader">
+                                                                                    <img class="oxygen-loader-img" src="https://imgd.aeplcdn.com/0x0/cw/static/icons/oxygen-loader.gif?q=85" alt="Loading">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        @if (!String.IsNullOrEmpty(featureInfo.Tip))
+                                                                        { 
+                                                                            <div class="hide specs-tip-wrapper js-specs-tip-wrapper">
+                                                                                <img class="tip-icon" src="@(ImageSizes.CreateImageUrl(CWConfiguration._imgHostUrl,ImageSizes._0X0,"/cw/static/icons/00afa0/highlight_info.svg"))" alt="Tip" />
+                                                                                <div class="tip-content">
+                                                                                    @featureInfo.Tip
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </li>
+                                                }
+                                                
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</section>

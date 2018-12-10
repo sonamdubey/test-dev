@@ -1,0 +1,465 @@
+﻿@model Carwale.DTOs.Deals.AdvantageMobile_DTO
+
+@{
+    ViewData["PageTag"] = "mA-4";
+    ViewData["Title"] = "CarWale Advantage";
+    ViewData["landingPage"] = true;
+    ViewData["Description"] = "CarWale is India's most authoritative source of new car pricing. Focused around car buyers, CarWale promises to help you buy the right car at the right price.";
+    ViewData["Keywords"] = "";
+    ViewData["BodyClass"] = "bg-white header-fixed-inner";
+    ViewData["Canonical"] = "";
+    ViewData["Alternate"] = "";
+    ViewData["BodyClass"] = "bg-grey";
+    ViewData["CustomCss"] = "~/Views/StaticPartials/m/Deals/MDealsCss.cshtml";
+    ViewData["CustomJs"] = "~/Views/StaticPartials/m/Deals/MDealsScript.cshtml";
+    Layout = "~/views/shared/m/_MLayout.cshtml";
+}
+
+<header class="advantage-landing-banner">
+    <div class="container">
+        <div class="welcome-box padding-top30">
+            <h2 class="text-uppercase text-white text-center padding-top20">Carwale Advantage</h2>
+            <p class="font13">Handpicked brand new cars with exclusive savings</p>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+</header>
+<div class="clear"></div>
+
+<div class="container margin-bottom20">
+    <div class="grid-12">
+        <div class="cw-tabs-panel advt-tab-wrapper content-box-shadow">
+            <div class="cw-tabs cw-tabs-flex">
+                <ul class="advt-tab-UL font14">
+                    <li data-tabs="advantage-tab" class="">CarWale Advantage</li>
+                    <li data-tabs="advt-best-saving" class="active">Best offers</li>
+                </ul>
+            </div>
+            <div class="cw-tabs-data hide" id="advantage-tab">
+                <div class="advantage-tab-details margin-top20 margin-bottom20 text-center">
+                    <div class="text-grey margin-bottom10">Introducing CarWale Advantage. </div>
+                    <div class="text-grey margin-bottom10">Get exclusive savings on brand new cars.</div>
+                    <ul class="margin-bottom20">
+                        <li class="inline-block margin-right10 font12"><span class="fa fa-circle"></span> Authorized dealers</li>
+                        <li class="inline-block font12"><span class="fa fa-circle"></span> Immediate availability </li>
+                    </ul>
+                    <button id="findCar" class="budget-price-next-btn btn btn-xs btn-orange text-uppercase margin-bottom10 font14">FIND YOUR CAR</button>
+                </div>
+
+
+            </div>
+            <div class="cw-tabs-data" id="advt-best-saving">
+                <div class="swiper-container best-saving-car margin-top10">
+                    <ul class="swiper-wrapper">
+                        @foreach (var car in Model.CarsWithBestSavings)
+                        { 
+                            <li class="swiper-slide content-box-shadow">
+                                <a href="/m/@Carwale.UI.Common.UrlRewrite.FormatSpecial(car.Make.MakeName)-cars/@car.Model.MaskingName/advantage/?src=m01&cityid=@car.City.CityId">
+                                    <div class="contentWrapper" data-tracking="carsWithSavings" data-savings="@car.Savings" data-model="@car.Model.ModelName" data-city="@car.City.CityName">
+                                        <div class="imageWrapper">
+                                            <img class="lazy" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(@car.CarImageDetails.HostUrl, @Carwale.Utility.ImageSizes._272X153, @car.CarImageDetails.OriginalImgPath)" alt="" title="" src="">
+                                        </div>
+                                        <div class="carDescWrapper">
+                                            <div class="carTitle">
+                                                <h3 class="text-black">
+                                                    @car.Make.MakeName @Carwale.Utility.Format.FilterModelName(car.Model.ModelName)
+                                                </h3>
+                                            </div>
+                                            <div class="font13 margin-top10 margin-bottom10">
+                                                <span class="striked-amount position-rel text-black">
+                                                    <span class="striked-line text-black"></span>
+                                                    ₹ <span class=""> @Carwale.Utility.Format.FormatNumericCommaSep(car.OnRoadPrice.ToString())</span>
+                                                </span>
+                                                <span class="text-green margin-left10">(@Carwale.Utility.Format.FormatNumericCommaSep(car.Savings.ToString()) off)</span>
+
+                                                @if (car.StockCount == 1)
+                                                {
+                                                    <span class="text-red margin-left5">@car.StockCount car left</span>
+                                                }
+                                                else if (car.StockCount > 1 && car.StockCount < 6)
+                                                {
+                                                    <span class="text-red margin-left5">@car.StockCount cars left</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-red margin-left5">few cars left</span>
+                                                }
+
+                                            </div>
+                                            <div class="font18 text-black">
+                                                <span class="text-bold">₹ @Carwale.Utility.Format.FormatNumericCommaSep(car.OfferPrice.ToString())</span>
+                                                <span class="text-grey font13"> On-Road Price @car.City.CityName</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>                   
+                        }
+                       
+                    </ul>
+                    <div class="clear"></div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination swiper-pagination-white hide"></div>
+                    <!-- Navigation -->
+                    <div class="swiper-button-next swiper-button-white"></div>
+                    <div class="swiper-button-prev swiper-button-white"></div>
+                </div>
+
+
+
+                      
+                </div>
+
+            </div>
+        <div class="clear"></div>
+
+        <div class="margin-top30 text-center margin-bottom30" id="make-model-popup">
+            <h2 class="font18 margin-bottom10 text-center text-uppercase">Find cars with OFFERS</h2>
+            <div class="content-box-shadow advt-find-cars padding-top20 padding-bottom20 padding-left20 padding-right20">
+                <div class="">
+                    <div class="form-control-box margin-right5 margin-left5 margin-bottom20">
+                        <span class="select-box fa fa-angle-down"></span>
+                        <select class="form-control" id="advDrpCity">
+                            @foreach (var city in Model.CityDetails)
+                            {
+                                <option value="@city.CityId">@city.CityName</option>
+                            }
+                        </select>
+                        <span class="cwsprite error-icon hide city-error-icon"></span>
+                        <div class="cw-blackbg-tooltip city-err-msg hide">Please select your city</div>
+                    </div>
+
+                    <div class="form-control-box margin-right5 margin-left5 margin-bottom20">
+                        <span class="select-box fa fa-angle-down"></span>
+                        <select class="form-control" id="drpSelectDealMake" data-bind="options: makes, optionsValue:$data, optionsText: 'makeName' ,optionsCaption:'Select a Make',value:selectedMake,event:{change:updateModels}"></select>
+                        <span class="cwsprite error-icon hide city-error-icon"></span>
+                        <div class="cw-blackbg-tooltip city-err-msg hide">Please select your make</div>
+                    </div>
+
+                    <div class="form-control-box margin-right5 margin-left5">
+                        <span class="select-box fa fa-angle-down"></span>
+                        <select class="form-control btn-disable" id="drpSelectDealModel" data-bind="options: models, optionsValue:$data, optionsText: 'modelName' ,optionsCaption:'Select a Model',value:selectedModel"></select>
+                        <span class="cwsprite error-icon hide city-error-icon"></span>
+                        <div class="cw-blackbg-tooltip city-err-msg hide">Please select your model</div>
+                    </div>
+                    <div class="clear"></div>
+                    <button button id="btnConfirmCity" class="budget-price-next-btn btn btn-md btn-orange text-uppercase margin-top20" data-src="m11" data-bind="event:{click:doneClick}">Show offer</button>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Offers relevant for you section Starts-->
+        @*<div class="relevant-offers">
+            <h2 class="text-black font20 text-bold">Offers relevant for you</h2>
+            
+            <div class="swiper-container best-saving-car margin-top10">
+                <ul class="swiper-wrapper">
+                    <li class="swiper-slide content-box-shadow">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="">
+                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)272x153/cw/cars/datsun/datsun-redi-go.jpg" alt="" title="">
+                                    <span class="swiper-lazy-preloader swiper-lazy-preloader-white"></span>
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div class="carTitle">
+                                    <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                </div>
+                                <div class="font13 margin-top10 margin-bottom10">
+                                    <span class="reducedTxt position-rel">
+                                        ₹ <span>11,06,590</span>
+                                    </span>
+                                    <span class="text-green margin-left10">₹ 11,06,590</span>
+                                    <span class="text-red margin-left5">1 car left</span>
+                                </div>
+                                <div class="font18 text-black">
+                                    <span class="text-bold">₹ 48,86,590</span>
+                                    <span class="text-grey font13">On-road price, Mumbai</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="swiper-slide content-box-shadow">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="">
+                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)272x153/cw/cars/datsun/datsun-redi-go.jpg" alt="" title="">
+                                    <span class="swiper-lazy-preloader swiper-lazy-preloader-white"></span>
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div class="carTitle">
+                                    <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                </div>
+                                <div class="font13 margin-top10 margin-bottom10">
+                                    <span class="reducedTxt position-rel">
+                                        ₹ <span>11,06,590</span>
+                                    </span>
+                                    <span class="text-green margin-left10">₹ 11,06,590</span>
+                                    <span class="text-red margin-left5">1 car left</span>
+                                </div>
+                                <div class="font18 text-black">
+                                    <span class="text-bold">₹ 48,86,590</span>
+                                    <span class="text-grey font13">On-road price, Mumbai</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="swiper-slide content-box-shadow">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="">
+                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)272x153/cw/cars/datsun/datsun-redi-go.jpg" alt="" title="">
+                                    <span class="swiper-lazy-preloader swiper-lazy-preloader-white"></span>
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div class="carTitle">
+                                    <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                </div>
+                                <div class="font13 margin-top10 margin-bottom10">
+                                    <span class="reducedTxt position-rel">
+                                        ₹ <span>11,06,590</span>
+                                    </span>
+                                    <span class="text-green margin-left10">₹ 11,06,590</span>
+                                    <span class="text-red margin-left5">1 car left</span>
+                                </div>
+                                <div class="font18 text-black">
+                                    <span class="text-bold">₹ 48,86,590</span>
+                                    <span class="text-grey font13">On-road price, Mumbai</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="swiper-slide content-box-shadow">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="">
+                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)272x153/cw/cars/datsun/datsun-redi-go.jpg" alt="" title="">
+                                    <span class="swiper-lazy-preloader swiper-lazy-preloader-white"></span>
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div class="carTitle">
+                                    <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                </div>
+                                <div class="font13 margin-top10 margin-bottom10">
+                                    <span class="reducedTxt position-rel">
+                                        ₹ <span>11,06,590</span>
+                                    </span>
+                                    <span class="text-green margin-left10">₹ 11,06,590</span>
+                                    <span class="text-red margin-left5">1 car left</span>
+                                </div>
+                                <div class="font18 text-black">
+                                    <span class="text-bold">₹ 48,86,590</span>
+                                    <span class="text-grey font13">On-road price, Mumbai</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="swiper-slide content-box-shadow">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="">
+                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)272x153/cw/cars/datsun/datsun-redi-go.jpg" alt="" title="">
+                                    <span class="swiper-lazy-preloader swiper-lazy-preloader-white"></span>
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div class="carTitle">
+                                    <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                </div>
+                                <div class="font13 margin-top10 margin-bottom10">
+                                    <span class="reducedTxt position-rel">
+                                        ₹ <span>11,06,590</span>
+                                    </span>
+                                    <span class="text-green margin-left10">₹ 11,06,590</span>
+                                    <span class="text-red margin-left5">1 car left</span>
+                                </div>
+                                <div class="font18 text-black">
+                                    <span class="text-bold">₹ 48,86,590</span>
+                                    <span class="text-grey font13">On-road price, Mumbai</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+                <div class="clear"></div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination swiper-pagination-white"></div>
+                <!-- Navigation -->
+                <div class="swiper-button-next swiper-button-white"></div>
+                <div class="swiper-button-prev swiper-button-white"></div>
+            </div>
+        </div>
+        <!-- Offers relevant for you section ends-->*@
+        <!-- Selected cars section Starts-->
+        @*<div class="relevant-offers margin-top10">
+            <h2 class="text-black font20 text-bold">1,00,000/- off on selected Hyundai cars</h2>
+
+            <div class="swiper-container best-saving-car margin-top10">
+                <ul class="swiper-wrapper">
+                    <li class="swiper-slide content-box-shadow">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="">
+                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)272x153/cw/cars/datsun/datsun-redi-go.jpg" alt="" title="">
+                                    <span class="swiper-lazy-preloader swiper-lazy-preloader-white"></span>
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div class="carTitle">
+                                    <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                </div>
+                                <div class="font13 margin-top10 margin-bottom10">
+                                    <span class="reducedTxt position-rel">
+                                        ₹ <span>11,06,590</span>
+                                    </span>
+                                    <span class="text-green margin-left10">₹ 11,06,590</span>
+                                    <span class="text-red margin-left5">1 car left</span>
+                                </div>
+                                <div class="font18 text-black">
+                                    <span class="text-bold">₹ 48,86,590</span>
+                                    <span class="text-grey font13">On-road price, Mumbai</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="swiper-slide content-box-shadow">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="">
+                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)272x153/cw/cars/datsun/datsun-redi-go.jpg" alt="" title="">
+                                    <span class="swiper-lazy-preloader swiper-lazy-preloader-white"></span>
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div class="carTitle">
+                                    <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                </div>
+                                <div class="font13 margin-top10 margin-bottom10">
+                                    <span class="reducedTxt position-rel">
+                                        ₹ <span>11,06,590</span>
+                                    </span>
+                                    <span class="text-green margin-left10">₹ 11,06,590</span>
+                                    <span class="text-red margin-left5">1 car left</span>
+                                </div>
+                                <div class="font18 text-black">
+                                    <span class="text-bold">₹ 48,86,590</span>
+                                    <span class="text-grey font13">On-road price, Mumbai</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="swiper-slide content-box-shadow">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="">
+                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)272x153/cw/cars/datsun/datsun-redi-go.jpg" alt="" title="">
+                                    <span class="swiper-lazy-preloader swiper-lazy-preloader-white"></span>
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div class="carTitle">
+                                    <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                </div>
+                                <div class="font13 margin-top10 margin-bottom10">
+                                    <span class="reducedTxt position-rel">
+                                        ₹ <span>11,06,590</span>
+                                    </span>
+                                    <span class="text-green margin-left10">₹ 11,06,590</span>
+                                    <span class="text-red margin-left5">1 car left</span>
+                                </div>
+                                <div class="font18 text-black">
+                                    <span class="text-bold">₹ 48,86,590</span>
+                                    <span class="text-grey font13">On-road price, Mumbai</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="swiper-slide content-box-shadow">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="">
+                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)272x153/cw/cars/datsun/datsun-redi-go.jpg" alt="" title="">
+                                    <span class="swiper-lazy-preloader swiper-lazy-preloader-white"></span>
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div class="carTitle">
+                                    <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                </div>
+                                <div class="font13 margin-top10 margin-bottom10">
+                                    <span class="reducedTxt position-rel">
+                                        ₹ <span>11,06,590</span>
+                                    </span>
+                                    <span class="text-green margin-left10">₹ 11,06,590</span>
+                                    <span class="text-red margin-left5">1 car left</span>
+                                </div>
+                                <div class="font18 text-black">
+                                    <span class="text-bold">₹ 48,86,590</span>
+                                    <span class="text-grey font13">On-road price, Mumbai</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="swiper-slide content-box-shadow">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="">
+                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)272x153/cw/cars/datsun/datsun-redi-go.jpg" alt="" title="">
+                                    <span class="swiper-lazy-preloader swiper-lazy-preloader-white"></span>
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div class="carTitle">
+                                    <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                </div>
+                                <div class="font13 margin-top10 margin-bottom10">
+                                    <span class="reducedTxt position-rel">
+                                        ₹ <span>11,06,590</span>
+                                    </span>
+                                    <span class="text-green margin-left10">₹ 11,06,590</span>
+                                    <span class="text-red margin-left5">1 car left</span>
+                                </div>
+                                <div class="font18 text-black">
+                                    <span class="text-bold">₹ 48,86,590</span>
+                                    <span class="text-grey font13">On-road price, Mumbai</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+                <div class="clear"></div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination swiper-pagination-white"></div>
+                <!-- Navigation -->
+                <div class="swiper-button-next swiper-button-white"></div>
+                <div class="swiper-button-prev swiper-button-white"></div>
+            </div>
+
+        </div>*@
+        <!-- Selected cars section ends-->
+        <!-- FAQ Section Starts-->
+        @{Html.RenderPartial("~/Views/Shared/m/Deals/_DealFaq.cshtml");}
+        <!-- FAQ Section Ends-->
+
+
+
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="clear"></div>

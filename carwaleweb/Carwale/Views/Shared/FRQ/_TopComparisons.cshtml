@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Carwale.Entity.CompareCars.HotCarComparison>
+@using Carwale.UI.Common;
+@using Carwale.Entity;
+@using Carwale.Entity.Enum;
+
+@if (Model != null && Model.Any())
+{
+    foreach (var item in Model)
+    {
+
+        <li class="margin-top20">
+            <div class="position-rel border-solid rounded-corner2">
+                    <aside class="font11 text-medium-grey position-abt pos-right5 pos-top5">@(item.IsSponsored ? "Sponsored" : "")</aside>
+                    <div class="grid-6">
+                        <h3 class="padding-top20 padding-bottom15">
+                            <a href="/comparecars/@item.CompareUrl/" class="text-default block" title="" data-role="click-tracking" data-event="Comparison-widget" data-cat="Comparison-widget" data-action="Primary-Comparison-Click" data-label="@item.HotCars[0].MakeName-@item.HotCars[0].ModelName-vs-@item.HotCars[1].MakeName-@item.HotCars[1].ModelName" onclick="window.location.href = this.href +'?c1=@item.HotCars[0].VersionId&c2=@item.HotCars[1].VersionId&source=@item.WidgetPage';return false;">
+                                <span class="text-unbold font13">@item.HotCars[0].MakeName</span><span class="block font16 text-black text-ellipsis">@item.HotCars[0].ModelName</span>
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="grid-6">
+                        <h3 class="padding-top20 padding-bottom15">
+                            <a href="/comparecars/@item.CompareUrl/" class="text-default block" title="" data-role="click-tracking" data-event="Comparison-widget" data-cat="Comparison-widget" data-action="Primary-Comparison-Click" data-label="@item.HotCars[0].MakeName-@item.HotCars[0].ModelName-vs-@item.HotCars[1].MakeName-@item.HotCars[1].ModelName" onclick="window.location.href = this.href +'?c1=@item.HotCars[0].VersionId&c2=@item.HotCars[1].VersionId&source=@item.WidgetPage';return false;">
+                                <span class="text-unbold font13">@item.HotCars[1].MakeName</span><span class="block font16 text-black text-ellipsis">@item.HotCars[1].ModelName</span>
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="car-preview margin-bottom10">
+                        <a href="/comparecars/@item.CompareUrl/" data-role="click-tracking" data-event="Comparison-widget" data-cat="Comparison-widget" data-action="Primary-Comparison-Click" data-label="@item.HotCars[0].MakeName-@item.HotCars[0].ModelName-vs-@item.HotCars[1].MakeName-@item.HotCars[1].ModelName" onclick="window.location.href = this.href +'?c1=@item.HotCars[0].VersionId&c2=@item.HotCars[1].VersionId&source=@item.WidgetPage';return false;">
+                            <img class="lazy" style="max-height: 96px; display: inline;" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(item.Image.HostUrl, Carwale.Utility.ImageSizes._357X114, item.Image.ImagePath)" title="" alt="">
+                        </a>
+                    </div>
+                    <div class="grid-6 ">
+                        <div class="fon14 compare-version" title="@item.HotCars[0].VersionName">@item.HotCars[0].VersionName</div>
+                        <div class="font16 margin-top10 margin-bottom10">
+                            ₹ @FormatPrice.GetFormattedPriceV2(item.HotCars[0].PriceOverview.Price.ToString())
+                        </div>
+                        <div class="font11 position-rel price-availability-container @(item.HotCars[0].PriceOverview.PriceStatus == (int)PriceBucket.PriceNotAvailable ? "oliveText" : item.HotCars[0].PriceOverview.PriceStatus == (int)PriceBucket.CarNotSold ? "redText" : "")">
+                            <span class="price-availability-align">@item.HotCars[0].PriceOverview.PriceLabel</span><span>@(item.HotCars[0].PriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity ? "," : "")</span>
+                            @(item.HotCars[0].PriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity ? Html.Raw("<p class='font11 olivetext position-rel'>" + item.HotCars[0].PriceOverview.City.CityName + "</p>") : (item.HotCars[0].PriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<span class='desk-deals-car-sprite year-info-icon'></span><p class='price-availability font9 text-default margin-top5 hide'>" + item.HotCars[0].PriceOverview.ReasonText + "</p>") : Html.Raw("")))
+                        </div>
+                    </div>
+                    <div class="grid-6">
+                        <div class="fon14 compare-version" title="@item.HotCars[1].VersionName">@item.HotCars[1].VersionName</div>
+                        <div class="font16 margin-top10 margin-bottom10">
+                            ₹ @FormatPrice.GetFormattedPriceV2(item.HotCars[1].PriceOverview.Price.ToString())
+                        </div>
+                        <div class="font11 position-rel price-availability-container @(item.HotCars[1].PriceOverview.PriceStatus == (int)PriceBucket.PriceNotAvailable ? "oliveText" : item.HotCars[1].PriceOverview.PriceStatus == (int)PriceBucket.CarNotSold ? "redText" : "")">
+                            <span class="price-availability-align">@item.HotCars[1].PriceOverview.PriceLabel</span><span>@(item.HotCars[1].PriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity ? "," : "")</span>
+                            @(item.HotCars[1].PriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity ? Html.Raw("<p class='font11 olivetext position-rel'>" + item.HotCars[1].PriceOverview.City.CityName + "</p>") : (item.HotCars[1].PriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<span class='desk-deals-car-sprite year-info-icon'></span><p class='price-availability font9 text-default margin-top5 hide'>" + item.HotCars[1].PriceOverview.ReasonText + "</p>") : Html.Raw("")))
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+            </div>
+        </li>
+    }
+}              
+ 

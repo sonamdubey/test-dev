@@ -1,0 +1,110 @@
+﻿@model Carwale.DTOs.NewCars.MakePageDTO_Desktop
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using Carwale.Entity.Enum;
+@using Carwale.Utility;
+@{
+    ViewBag.PageId = 105;
+    ViewBag.BodyClass = "bg-white header-fixed-inner make-special-page";
+    ViewBag.Title = System.Text.RegularExpressions.Regex.Replace(Model.Title, "maruti suzuki", "Maruti", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+    ViewBag.Description = Model.Description;
+    ViewBag.canonical = "https://www.carwale.com/" + UrlRewrite.FormatSpecial(Model.MakeDetails.MakeName.ToLower()) + "-cars/";
+    ViewBag.Alternate = "https://www.carwale.com/m/" + UrlRewrite.FormatSpecial(Model.MakeDetails.MakeName.ToLower()) + "-cars/";
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.AdId = "1396440106184";
+    ViewBag.AdPath = "/1017752/" + ViewBag.DomainName + "NewCar_";
+    ViewBag.MakeName = Model.MakeDetails.MakeName;
+    ViewBag.Make = Model.MakeDetails.MakeName;
+    ViewBag.targetValue = Model.MakeDetails.MakeName;
+    ViewBag.CustomJS = "~/Views/StaticPartials/MakePageScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/MakePageCss.cshtml";
+    ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+		var AdSlots = {};
+        googletag.cmd.push(function () {
+			googletag.pubads().disableInitialLoad();
+			googletag.pubads().setCentering(true);
+            AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-0'] = googletag.defineSlot('" + ViewBag.AdPath + @"300x250', [300, 250], 'div-gpt-ad-" + ViewBag.AdId + @"-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+            AdSlots['div-gpt-ad-1517217436667-0'] = googletag.defineSlot('/1017752/Carwale_Dsk_Make_970x90', [[970, 90], [960, 60], [728, 90], [960, 66], [970, 66], [970, 60]], 'div-gpt-ad-1517217436667-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+            AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-1'] = googletag.defineSlot('" + ViewBag.AdPath + @"300x250_BTF', [300, 250], 'div-gpt-ad-" + ViewBag.AdId + @"-1').addService(googletag.pubads());
+            AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-9'] = googletag.defineSlot('" + ViewBag.AdPath + @"300x600', [[120, 240], [120, 600], [160, 600], [300, 250], [300, 600]], 'div-gpt-ad-" + ViewBag.AdId + @"-9').addService(googletag.pubads());
+            googletag.pubads().setTargeting('UserModelHistory', '" + Carwale.UI.Common.CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+            googletag.pubads().setTargeting('City', '" + Carwale.UI.Common.CookiesCustomers.MasterCity.ToString() + @"');
+            googletag.pubads().setTargeting('make', '" + ViewBag.TargetValue + @"');
+            googletag.pubads().collapseEmptyDivs(true);
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>";
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+}
+@section MetaTags{
+@Helpers.GetOgTags("https://www.carwale.com" + Request.ServerVariables["http_x_rewrite_url"], ViewBag.Title.ToString(), ViewBag.Description.ToString(), string.Empty)
+<link rel="amphtml" href="@(ViewBag.Alternate + "amp/")" />
+}
+<section class="container">
+            <div class="grid-12">
+                <div class="padding-bottom15 text-center ad-slot">
+                    <div class="text-right font11 text-medium-grey">Ad</div>
+                    @Helpers.GetAdBar("1517217436667", 970, 0, 0, 0, true, 0)
+                </div>
+            </div>
+        </section>
+        <div class="clear"></div>
+
+        <section class="bg-light-grey padding-top10 padding-bottom20 no-bg-color">
+    <div class="container">
+        <div class="grid-12">
+            <div class="breadcrumb margin-bottom15">
+                <ul class="breadcrumb special-skin-text" itemscope itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="/" title="Carwale"><span itemprop="name">Home</span></a> &rsaquo; </li>
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"> <span itemprop="name">@ViewBag.MakeName Cars</span></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <h1 class="font30 text-black special-skin-text">@Model.Heading</h1>
+            <hr />
+            <p class="text-grey margin-bottom20 special-skin-text">@Model.Summary</p>
+        </div>
+        <div class="clear"></div>
+        <div class="grid-8">
+            @if (Model.NewCarModels != null && Model.NewCarModels.Count > 0)
+            {
+                Html.RenderPartial("~/Views/Shared/NewCars/MakePage/_NewCarList.cshtml", Model.NewCarModels);
+            }
+            @{Html.RenderAction("LocateDealer", "CarWidgets", new { makeId = Model.MakeDetails.MakeId, makeName = Model.MakeDetails.MakeName });}
+
+            @{Html.RenderAction("MakeDescription", "CarWidgets", new { makeId = Model.MakeDetails.MakeId, makeName = Model.MakeDetails.MakeName });}
+
+            @{Html.RenderAction("ExpertReview", "CarWidgets", new { makeId = Model.MakeDetails.MakeId, makeName = Model.MakeDetails.MakeName });}
+
+            @{Html.RenderAction("TopLatestNews", "CarWidgets", new { makeId = Model.MakeDetails.MakeId, makeName = Model.MakeDetails.MakeName });}
+
+            @if (Model.Images != null && Model.Images.ModelPhotos.IsNotNullOrEmpty())
+            {
+                Html.RenderPartial("~/Views/Shared/NewCars/_ImagesCarousel.cshtml", Model.Images); 
+            }
+            @if(Model.MakeVideos.IsNotNullOrEmpty())
+            {
+                Html.RenderPartial("~/Views/Shared/NewCars/_videosSection.cshtml", Model.MakeVideos);
+            }
+            @{Html.RenderAction("UserReview", "CarWidgets", new { makeId = Model.MakeDetails.MakeId, makeName = Model.MakeDetails.MakeName });}
+        </div>
+
+		<div class="grid-4">
+			@{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_ATF_300x250.cshtml");}
+            			
+			@{Html.RenderAction("UsedLuxuryCars", "CarWidgets", new { makeId = Model.MakeDetails.MakeId });}
+			<div class="clear"></div>
+			@{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_BTF_300x250.cshtml");}
+
+			@{Html.RenderAction("CarBuyerTool", "CarWidgets", new { makeId = Model.MakeDetails.MakeId, makeName = Model.MakeDetails.MakeName });}	
+            <div class="content-box-shadow content-inner-block-10 margin-top20">
+                <p class="text-black font20">Other popular Brands</p>
+                @{Html.RenderAction("AllMakesWidget", "CarWidgets", new { excludeMakeId = Model.MakeDetails.MakeId });}
+                </div>
+
+                @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_Bottom_300x600.cshtml");}
+            </div>
+		<div class="clear"></div>
+		</div>
+</section>

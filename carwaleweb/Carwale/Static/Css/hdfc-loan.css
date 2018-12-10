@@ -1,0 +1,375 @@
+.loan-section>.page,.float-container {
+  max-width: 480px;
+  margin: 0 auto;
+  float: none;
+}
+
+.container-title {
+  background-color: #fafafa;
+  padding: 13px 30px 13px 10px;
+}
+
+.img-city,.img-car-type,.img-residence-type,.img-shift-to-residence,.img-calendar,.img-professional,.img-salaried {
+  display: inline-block;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/cwm-finance-sprite.png') no-repeat;
+  overflow: hidden;
+  text-indent: -9999px;
+  text-align: left;
+}
+
+.img-city {
+  background-position: -5px -0px;
+  width: 283px;
+  height: 114px;
+}
+
+.img-car-type {
+  background-position: -5px -119px;
+  width: 256px;
+  height: 107px;
+}
+
+.img-residence-type {
+  background-position: -5px -231px;
+  width: 206px;
+  height: 114px;
+}
+
+.img-shift-to-residence {
+  background-position: -5px -350px;
+  width: 199px;
+  height: 113px;
+}
+
+.img-calendar {
+  background-position: -5px -468px;
+  width: 113px;
+  height: 114px;
+}
+
+.img-professional {
+  background-position: -216px -231px;
+  width: 51px;
+  height: 129px;
+}
+
+.img-salaried {
+  background-position: -209px -365px;
+  width: 50px;
+  height: 129px;
+}
+
+.pill-box {
+  display: block;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -o-border-radius: 25px;
+  -ms-border-radius: 25px;
+  border-radius: 25px;
+  padding: 10px 0;
+  border: 1px solid #ccc;
+  width: 100%;
+  text-decoration: none;
+  color: #565a5c;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.pill-box:hover {
+  text-decoration: none;
+}
+
+.float-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255,255,255,0.6);
+}
+
+.float-container.float {
+  position: relative;
+  background-color: transparent;
+}
+
+.extraDivHt {
+  height: 60px;
+}
+
+.form fieldset {
+  border: 0;
+}
+
+.input-txt,.select-box {
+  width: 100%;
+  min-height: 30px;
+  background: transparent;
+  padding-bottom: 4px;
+  color: #555;
+  border-bottom: 1px solid #ccc;
+}
+
+.loan-section .select-box {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  -ms-appearance: none;
+  background: transparent url(https://imgd.aeplcdn.com/0x0/cw/design15/m/dropArrowBg.png?v1=19082015) no-repeat 96% 50%;
+  padding-right: 30px;
+}
+
+.cw-body .loan-section .select-box {
+  background-position: 97.3% 50%;
+}
+
+.loan-section .search-icon-grey {
+  background-position: -34px -276px;
+}
+
+select[disabled] {
+  cursor: no-drop;
+}
+
+.active-box,.cw-body .pill-box:hover {
+  background-color: #0e405b;
+  color: #fff;
+}
+
+.residence-box>.grid-4 {
+  position: static;
+}
+
+.loan-section .strip {
+  font-size: 14px;
+  padding: 10px 30px 10px 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.loan-section .accordion.open {
+  background-color: #f7f7f7;
+}
+
+#imgLoadingBtnVerify {
+  top: 8px;
+  right: 50px;
+}
+
+.thank-you-popup {
+  background: #fff;
+}
+
+#returnToForm {
+  cursor: pointer;
+}
+
+.pos-top60 {
+  top: 60px;
+}
+
+.cw-body .loan-section {
+  border: 1px solid #e2e2e2;
+  -moz-box-shadow: 0 1px 2px #e5e5e5;
+  -webkit-box-shadow: 0 1px 2px #e5e5e5;
+  -o-box-shadow: 0 1px 2px #e5e5e5;
+  -ms-box-shadow: 0 1px 2px #e5e5e5;
+  box-shadow: 0 1px 2px #e5e5e5;
+  margin-bottom: 30px;
+  padding-bottom: 25px;
+  position: relative;
+  min-height: 500px;
+}
+
+.cw-body .back-btn,.cw-body .next-btn {
+  width: 35px;
+  height: 60px;
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  margin: auto;
+}
+
+.cw-body .back-btn {
+  background-position: -33px -135px;
+  left: 100px;
+}
+
+.cw-body .next-btn {
+  background-position: -65px -135px;
+  right: 100px;
+}
+
+.cw-body .back-btn.btn-disable {
+  background-position: -33px -80px;
+}
+
+.cw-body .next-btn.btn-disable {
+  background-position: -65px -80px;
+}
+
+.hdfc-loan-top-banner {
+  background: #161209 url(https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/d/insurance-banner.jpg) no-repeat right top;
+  background-size: cover;
+  height: 285px;
+  padding-top: 1px;
+}
+
+.faqs .strip {
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.faqs li ul li {
+  list-style: inside disc;
+  padding: 5px 0 5px 25px;
+}
+
+.cw-body #m-blackOut-window {
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: .5;
+  z-index: 99;
+  -ms-filter: "alpha(opacity=50)";
+  filter: alpha(opacity=50);
+  -moz-opacity: .5;
+  -khtml-opacity: .5;
+}
+
+.cw-body .buyerProcess {
+  background: #fff;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+  padding: 20px 20px 30px;
+  position: fixed;
+  left: 5%;
+  right: 5%;
+  top: 25%;
+  max-width: 340px;
+  min-height: 300px;
+  margin: auto;
+  z-index: 99;
+}
+
+.cw-body .buyer-or-text {
+  margin: 20px 0;
+}
+
+.cw-body .buyer-or-text:before,.cw-body .buyer-or-text:after {
+  content: "";
+  position: relative;
+  border-bottom: 1px solid #ccc;
+}
+
+.cw-body .cross-lg-dark-grey {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cwsprite.png?201608081724251272) no-repeat;
+  background-position: -36px -226px;
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  right: 10px;
+  z-index: 5;
+  display: inline-block;
+}
+
+.cw-body #selectCar {
+  padding-top: 40px;
+}
+
+.cw-body .Zebra_DatePicker.dp_visible {
+  margin-left: -300px;
+}
+
+.cw-body .company-chosen-box .chosen-container-single .chosen-single {
+  border-radius: 0;
+}
+
+.cw-body .company-chosen-box .chosen-container-single .chosen-drop {
+  top: 0;
+}
+
+.cw-body .company-chosen-box .chosen-container-single .chosen-search {
+  padding: 0;
+}
+
+.cw-body .company-chosen-box .chosen-container-single .chosen-search input[type=text] {
+  margin: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-color: #ccc;
+  height: 38px;
+  box-shadow: none;
+}
+
+.cw-body .company-chosen-box .chosen-container-single .chosen-single div b {
+  background: transparent url(https://imgd.aeplcdn.com/0x0/cw/design15/m/dropArrowBg.png?v1=19082015) no-repeat center center;
+}
+
+.hdfc-customer {
+  padding-left: 8px;
+  color: #333;
+  margin-right: 3px;
+}
+
+#extCust {
+  vertical-align: middle;
+}
+
+#notExtCust {
+  vertical-align: middle;
+}
+
+.extCustSpan {
+  padding-left: 8px;
+  color: #555;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.notExtCustSpan {
+  padding-left: 8px;
+  color: #555;
+  padding-left: 3px;
+  padding-right: 2px;
+}
+/* thanks you classes */
+.emi-breakup li {
+  display: inline-block;
+  margin: 10px 20px 5px 20px;
+}
+
+.hdfc-slider-container {
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+
+.tenure-box {
+  margin-bottom: 30px;
+}
+
+#bankbazaar-popup {
+  min-height: 280px;
+}
+
+.floater-finance-part {
+  z-index: 2;
+}
+#final-submit-thank-you {
+    padding: 10% 0;
+}
+
+.return-form-link {
+    color: #0288d1;
+    cursor: pointer;
+}
+
+.pan-img{
+    height: 13px;
+    width: 16px;
+}

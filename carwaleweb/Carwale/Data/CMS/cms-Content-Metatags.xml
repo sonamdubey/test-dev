@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <!-- Category List-->
+  <!-- News Metatags-->
+  <category id="1">
+    <title>Car News, Auto News India | Carwale</title>
+    <description>Check out Latest Car News, Auto Launch Updates and Expert Views on Indian Car Industry at CarWale.</description>
+    <heading>Car News</heading>
+    <keywords></keywords>
+    <alternateUrl></alternateUrl>
+    <canonical>https://www.carwale.com/news/</canonical>
+  </category>
+  <!-- TipsAndAdvice Metatags-->
+  <category id="5">
+    <title>Car Tips, Advices, How-To's and Do It Yourself</title>
+    <description>Tips, advices, how-to's and DIYs for car driving, ownership and maintenance. Know what to do and what not to around everyday car ownership and driving.</description>
+    <heading>Tips and Advice</heading>
+    <keywords></keywords>
+    <alternateUrl></alternateUrl>
+    <canonical>https://www.carwale.com/tipsadvice/</canonical>
+  </category>
+  <!-- Feature Metatags-->
+  <category id="6">
+    <title>Features - Stories, Specials &amp; Travelogues</title>
+    <description>Features section of CarWale brings specials, stories, travelogues and much more.</description>
+    <heading>Features</heading>
+    <keywords></keywords>
+    <alternateUrl></alternateUrl>
+    <canonical>https://www.carwale.com/features/</canonical>
+  </category>
+  <!-- Expert Reviews Metatags-->
+  <category id="8">
+    <title>Road tests, First drives of New Cars in India</title>
+    <description>Road testing a car is the only way to know true capabilities of a car. Read our road tests to know how cars perform on various aspects.</description>
+    <heading>Expert Reviews</heading>
+    <keywords></keywords>
+    <alternateUrl></alternateUrl>
+    <canonical>https://www.carwale.com/expert-reviews/</canonical>
+  </category>
+  <!-- Pit Stop Metatags-->
+  <category id="12">
+    <title>PitStop</title>
+    <description>Pit Stop</description>
+    <heading>Pit Stop</heading>
+    <keywords></keywords>
+    <alternateUrl></alternateUrl>
+    <canonical>https://www.carwale.com/pitstop/</canonical>
+  </category>
+</root>

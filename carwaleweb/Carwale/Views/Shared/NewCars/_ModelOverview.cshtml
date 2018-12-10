@@ -1,0 +1,491 @@
+﻿@model Carwale.DTOs.CarData.CarOverviewDTO
+@using Carwale.UI.Common;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Utility;
+@using System.Configuration;
+@using Carwale.Entity;
+@using Carwale.Entity.CarData;
+@using Carwale.BL.CMS;
+@using Carwale.DTOs.CMS.ThreeSixtyView;
+@using AutoMapper;
+@using Carwale.Entity.Enum;
+@using Carwale.BL.Experiments;
+@if (Model != null)
+{
+    bool is360Available = Model.Is360ExteriorAvailable || Model.Is360InteriorAvailable || Model.Is360OpenAvailable;
+    string modelUrl = ManageCarUrl.CreateModelUrl(Model.MakeName, Model.MaskingName);
+    string model360Url = EditorialContent.Get360PageUrl(Model.MakeName, Model.MaskingName, CMSCommon.Get360DefaultCategory(Mapper.Map<ThreeSixtyAvailabilityDTO>(Model)), false);
+    string trackingPrefix = (Model.IsVersionPage ? "version" : (ViewBag.IsCityPage ? "price_in_city" : "model"));
+    string cdnHostUrl = ConfigurationManager.AppSettings["CDNHostURL"].ToString();
+    string greyGifUrl = cdnHostUrl + ImageSizes._0X0 + "/statics/grey.gif";
+    string label = string.Format("{0}_{1}_{2}", Model.MakeName, (Model.ModelName + (Model.IsVersionPage ? "_" + Model.VersionName : string.Empty)), ViewBag.CityName);
+    <div class="content-box-shadow content-inner-block-15 margin-bottom10">
+        <div class="detailsBox">
+            @if (Model.Futuristic)
+            {
+                <div class="upcoming-label">
+                    <span id="upcoming" class="modelType">Upcoming</span>
+                </div>
+            }
+            else if (Model.Discontinue)
+            {
+                <div class="upcoming-label" id="discontinued">
+                    <span class="modelType">Discontinued</span>
+                </div>
+            }
+            <div class="clear"></div>
+            <!--   mid-box -->
+            <div class="gallery-wrapper alpha grid-6">
+                @if (Model.ModelPhotosListCarousel != null && Model.ModelPhotosListCarousel.Count > 0)
+                {
+                    var carouselImageCount = 0;
+                    bool videoExists = Model.ModelVideos != null && Model.ModelVideos.Count > 0;
+                    Int32.TryParse(ConfigurationManager.AppSettings["ModelImageCarouselCount"], out carouselImageCount);
+                    var imageCount = Model.ModelPhotosListCarousel.Count;
+                    <div class="jcarousel">
+                        <ul>
+                            @for (var i = 0; i < imageCount; i++)
+                            {
+                                bool showVideoCard = i == (imageCount < 5 ? imageCount - 1 : 4) && videoExists;
+                                bool use360Img = i == 2 && is360Available;
+                                <li data-index="@(i + 1)" @Html.Raw((i == 2 || i == carouselImageCount) && is360Available ? "data-360avail=\"true\"" : string.Empty)>
+                                    <a data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-label="@Model.ModelName" data-action="desktop_model_image_carousel_click" href="@CMSCommon.GetImageUrl(Model.MakeName, Model.MaskingName, Model.ModelPhotosListCarousel[i].ImageName, Model.ModelPhotosListCarousel[i].ImageId)">
+                                        <img width="310" height="174" class="carousel-image lazy" data-original="@ImageSizes.CreateImageUrl(Model.ModelPhotosListCarousel[i].HostUrl, ImageSizes._310X174, use360Img ? Model.ImageUrl360Slug : Model.ModelPhotosListCarousel[i].OriginalImgPath)" src="@(i < 3 ? ImageSizes.CreateImageUrl(Model.ModelPhotosListCarousel[i].HostUrl, ImageSizes._310X174, Model.ModelPhotosListCarousel[i].OriginalImgPath) : greyGifUrl)" alt="@Model.CarName Images" title="@Model.CarName Images">
+                                    </a>
+                                    @if (use360Img)
+                                    {
+                                        <a class="carousel-overlay-bg text-center" href="@model360Url" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_linkages" data-action="image_carousel_5" data-label="">
+                                            <div class="center-container">
+                                                <span class="carousel-slide__360-icon"></span>
+                                                <span class="experience-now-button text-center">VIEW THE CAR</span>
+                                            </div>
+                                        </a>
+                                    }
+                                    @if (i == carouselImageCount)
+                                    {
+                                        <div class="carousel-overlay-bg">
+                                            <div class="center-container link-container text-center ">
+                                                <a href="@CMSCommon.GetImageUrl(Model.MakeName, Model.MaskingName, Model.ModelPhotosListCarousel[i].ImageName, Model.ModelPhotosListCarousel[i].ImageId)" data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-action="msite_model_image_carousel_view_all">
+
+                                                    <div class="icons-container @(is360Available ? "leftfloat" : string.Empty) text-center">
+                                                        <div class="center-container image-link-container__item">
+                                                            <span class="media-image-icon-24"></span>
+                                                            <span class="inline-block text-white block">+ @(Model.PhotoCount - carouselImageCount) Images</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                @if (is360Available)
+                                                {
+                                                    <a class="carousel-360-link" href="@model360Url" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_linkages" data-action="image_carousel">
+                                                        <div class="icons-container text-center rightfloat">
+                                                            <div class="center-container image-link-container__item">
+                                                                <span class="icons-container__new-icon"></span>
+                                                                <span class="icons-container__three-sixty-icon"></span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+                                </li>
+                                if (showVideoCard)
+                                {
+                                    <li data-index="@(i + 1)" data-videocard="true">
+                                        <a href="@Carwale.BL.CMS.CMSCommon.GetVideoUrl(Model.MakeName, Model.MaskingName, Model.ModelVideos[0].SubCatName, Model.ModelVideos[0].BasicId, false)" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_linkages" data-action="@(trackingPrefix + "_page_image_carousel")" data-label="@Model.CarName">
+                                            <img itemprop="url" width="310" height="174" class="carousel-image lazy" data-original="@("https://img.youtube.com/vi/" + Model.ModelVideos[0].VideoId + "/mqdefault.jpg")" src="@greyGifUrl" alt="@Model.ModelVideos[0].VideoTitle" title="@Model.ModelVideos[0].VideoTitle">
+                                            <div class="center-container">
+                                                <span class="carousel-youtube-video-icon"></span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                        @if (imageCount > 1 || videoExists)
+                        {
+                            <span class="jcarousel-control-prev arrow-fff-10" data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-label="@Model.ModelName" data-action="desktop_model_image_carousel_prev_click"></span>
+                            <span class="jcarousel-control-next arrow-fff-10" data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-label="@Model.ModelName" data-action="desktop_model_image_carousel_next_click"></span>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <img width="310" height="174" border="0" src="@Carwale.Utility.ImageSizes.CreateImageUrl(Model.HostUrl, Carwale.Utility.ImageSizes._310X174, Model.OriginalImage)" alt="@Model.CarName Images" title="@Model.CarName Images" onerror="this.onerror=null;this.src='@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/cars/no-cars.jpg';" />
+                }
+                <div class="list-type-pills text-center">
+                    @if (Model.PhotoCount > 1)
+                    {
+                        <div class="list-type-pills__item">
+                            <a href="@(string.Format("/{0}-cars/{1}/images/", Format.FormatSpecial(Model.MakeName), Model.MaskingName))" class="item--padding" data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-action="@(trackingPrefix + "_page_photo_count_desktop")" data-label="@(Model.CarName)">
+                                <span class="media-image-icon item--icon-right-margin"></span><span class="list-item__label">Images (@Model.PhotoCount)</span>
+                            </a>
+                        </div>
+                    }
+                    @if (Model.ShowColours)
+                    {
+                        <div class="list-type-pills__item" data-role="click" data-event="CWInteractive" data-cat="desktop_colour_linkages" data-action="@(trackingPrefix + "_page")" data-label="@Model.MakeName @Model.ModelName">
+                            <a href="@EditorialContent.GetColorUrl(Model.MakeName, Model.MaskingName, null, 0, false)" class="item--padding" data-role="impression" data-event="CWNonInteractive" data-cat="desktop_colour_linkages" data-action="@(trackingPrefix + "_page_impression")" data-label="@Model.MakeName @Model.ModelName">
+                                <span class="media-color-icon"></span>
+                                <span class="list-item__label margin-left5">Colours (@Model.ColoursCount)</span>
+                            </a>
+                        </div>
+                    }
+                    else if (Model.VideosCount > 0)
+                    {
+                        <div class="list-type-pills__item" data-role="click" data-event="CWInteractive" data-cat="desktop_video_linkages" data-action="@(trackingPrefix + "_page")" data-label="@Model.MakeName @Model.ModelName">
+                            <a href="@CMSCommon.GetVideoUrl(Model.MakeName, Model.MaskingName, null, 0, false)" class="item--padding" data-role="impression" data-event="CWNonInteractive" data-cat="desktop_video_linkages" data-action="@(trackingPrefix + "_page_imp")" data-label="@Model.MakeName @Model.ModelName">
+                                <span class="media-video-icon"></span>
+                                <span class="list-item__label margin-left5">Videos (@Model.VideosCount)</span>
+                            </a>
+                        </div>
+                    }
+                    @if (Model.Is360ExteriorAvailable || Model.Is360OpenAvailable || Model.Is360InteriorAvailable)
+                    {
+                        <div class="list-type-pills__item" data-role="impression" data-event="CWNonInteractive" data-cat="desktop_360_linkage" data-action="@(trackingPrefix + "_page_icon_imp")" data-label="@Model.CarName">
+                            <a class="list-item__label item--360-padding" href="@model360Url" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_linkages" data-action="@(trackingPrefix + "_page_icon")" data-label="@(Model.CarName)">
+                                <span class="list-item__icon dark-grey-360-31"></span>
+                            </a>
+                        </div>
+                    }
+                </div>
+
+                <div class="clear"></div>
+            </div>
+            <div class="grid-6 detailbox-rightgrid omega">
+                <div class="imgBorder padding10 relative-pos margin-top15">
+                    @if (Model.New && !Model.Futuristic)
+                    {
+                        <div id="divModelDesc">
+                            <div class="clear"></div>
+                            <div>
+                                @if (Model.NewCarVersions.IsNotNullOrEmpty())
+                                {
+                                    <div class="custom-select-dropdown cust-version-dropdown">
+                                        <span class="custom-box-label">Version</span>
+                                        <div class="form-control-box selectcustom-container">
+                                            <div class="selectcustom-input-box-holder js-selectcustom-input-box-holder">
+                                                <div class="selectcustom-input selected-version__name">@Model.VersionName</div>
+                                                <span class="drop-arrow"></span>
+                                            </div>
+
+                                            <div class="selectcustom-content">
+                                                <ul class="selectcustom versiondrp__list">
+                                                    @{
+                                                        string priceTextToBeShown = string.Empty;
+                                                        bool isPriceShown = false;
+                                                    }
+                                                    @foreach (var version in Model.NewCarVersions)
+                                                    {
+                                                        <li onclick="versionDropDownClickHandler($(this))" data-role="click" data-event="CWInteractive" data-cat="ShowORPTest" data-action="@(ViewBag.TrackingPageName)_Desk_ChangeVersion_Select" data-label="@(ViewBag.CityName)_@(version.Version)" class="@(Model.VersionId == version.Id ? "selected" : string.Empty) versiondrp__item"
+                                                            @if (Model.IsVersionPage) { <text> data-vermaskingname="@version.VersionMaskingName" </text>     } else {if (version.CarPriceOverview != null) {  <text> data-verid="@version.Id" data-verprice="@version.CarPriceOverview.Price" data-pricelabel="@(!string.IsNullOrWhiteSpace(version.CarPriceOverview.PriceLabel) ? (version.CarPriceOverview.PriceLabel + (version.CarPriceOverview.PriceStatus != (int)PriceBucket.HaveUserCity ? "" : ", " + version.CarPriceOverview.City.Name)) : string.Empty)" data-price-status="@version.CarPriceOverview.PriceStatus" data-veremi="@version.VersionEmi" data-labelcolor="@version.CarPriceOverview.LabelColor" data-reasontext="@version.CarPriceOverview.ReasonText" </text>      }}
+                                                            data-downpaymentminvalue="@(version.EmiCalculatorModelData?.DownPaymentMinValue)"
+                                                            data-downpaymentmaxvalue="@(version.EmiCalculatorModelData?.DownPaymentMaxValue)"
+                                                            data-downpaymentdefaultvalue="@(version.EmiCalculatorModelData?.DownPaymentDefaultValue)"
+                                                            data-versionname="@(version.Version)">
+                                                            <div class="clickcustom">
+                                                                <div class="custom-dropdown-title">@version.Version</div>
+                                                                <div class="custom-dropdown-info">
+                                                                    <span class="dropdown-info-text">@version.CarFuelType</span>
+                                                                    <span class="dropdown-info-text">@version.TransmissionType</span>
+
+                                                                    @if (version.CarPriceOverview != null && version.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity || version.CarPriceOverview.PriceForSorting <= 0)
+                                                                    {
+                                                                        priceTextToBeShown = "Price not available";
+                                                                        isPriceShown = false;
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        priceTextToBeShown = Format.FormatNumericCommaSep(version.CarPriceOverview.PriceForSorting.ToString());
+                                                                        isPriceShown = true;
+                                                                    }
+                                                                    <span class="dropdown-info-text">
+                                                                        @if (isPriceShown)
+                                                                        {
+                                                                            <span class="padding-right5">₹</span><span class="pricecolor">@priceTextToBeShown</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span class="price-not-available">@priceTextToBeShown</span>
+                                                                        }
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="custom-select-dropdown">
+                                        <span class="custom-box-label">City</span>
+                                        <div class="form-control-box selectcustom-container">
+                                            <div class="selectcustom-input-box-holder js-selectcustom-input-box-holder btnCityPopUp">
+                                                <div class="selectcustom-input">
+                                                    <span>@(CookiesCustomers.MasterCityId > 0 ? CookiesCustomers.MasterCity : "Select City")</span>
+                                                </div>
+                                                <span class="prefill-input-arrow"><img src="https://imgd.aeplcdn.com/0x0/cw/design15/dropArrowBg.png?static1fix" /></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                <div class="textBlock">
+                                    <span class="font24 text-black margin-right5 selected-version__price">₹ @FormatPrice.GetFormattedPriceV2(Model.CarPriceOverview.Price.ToString())</span>
+                                    @if (Model.CarPriceOverview != null && Model.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity)
+	{
+                                        <a href="javascript:void(0)" class="btnChkOnRoadPrice" id="view-breakup__btn" data-cwtccat="@(ViewBag.IsVersionPage ? "VersionPage" : "ModelPage")" data-cwtcact="ViewPriceBreakupLink" data-cwtclbl="make:@Model.MakeName|model:@Model.ModelName|city:@(ViewBag.CityZone)" data-pageid="111" data-role="click-inview-imp"
+                                           data-action="viewpricebreakup" data-cat="@(ViewBag.IsVersionPage ? "Desktop_VersionPage_Overview" : "Desktop_ModelPageOverview")" data-label="@(Model.ModelName + "_" + ViewBag.CityZone)">View Price Breakup</a>
+}
+                                    @if(Model.CarPriceOverview != null){
+                                        <div class='font13 selected-version__price-label @(Model.CarPriceOverview.PriceStatus == (int)PriceBucket.PriceNotAvailable ? "oliveText" : Model.CarPriceOverview.PriceStatus == (int)PriceBucket.CarNotSold ? "redText" : string.Empty)'>
+                                            @Html.Raw((Model.CarPriceOverview.PriceLabel ?? "").Replace("incl. GST, Estimated", "<b>incl. GST, Estimated</b>"))@(Model.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity ? ", " + Model.CarPriceOverview.City.CityName : string.Empty)
+                                            <span>@(Model.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon desk-deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + Model.CarPriceOverview.ReasonText + "</p></div>") : Html.Raw(""))</span>
+                                        </div>
+										}
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                            <div class="border-bottom margin-top10"></div>
+                            @if (Model.CarPriceOverview != null &&  Model.EmiCalculatorModelData != null)
+                            {
+                                { Html.RenderPartial("~/Views/Shared/NewCars/_EmiCalculatorLink.cshtml", Model); }
+                            }
+                            <div class="clear"></div>
+                            @if ((Model.AdAvailable && !string.IsNullOrEmpty(Model.LeadCTA)))
+                            {
+                                <div id="modelCampaign" class="mid-box">
+                                    <span id="emiCalculator">
+                                        @if (!Model.IsVersionPage)
+                                        {
+                                            <a href="javascript:void(0)" data-cwtccat="ModelPage" data-cwtcact="EmiAssistanceLinkClick" data-cwtclbl="@("make:" + Model.MakeName + "|model:" + Model.ModelName + "|city:" + ViewBag.CityZone)" id="getEMIAssistance" class="text-bold font16 getLeadAssistance" pageid="@ViewBag.PageId" leadclicksource="@(!Model.AdAvailable && CookiesCustomers.MasterCityId < 1 ? "137" : "109")" inquirysourceid="114" emiadavailable="true"
+                                               data-role="click-impression" data-event="CWNonInteractive" data-action="@(CookiesCustomers.MasterCityId >= 1 ? "CampaignLink_with_city" : "CampaignLink_without_city")" data-cat="ModelPage_Lead_CTA_Desktop" data-label='@(ViewBag.CityZone + "," + Model.ModelName)' data-predictionscore="@(Model.PredictionData != null ? Model.PredictionData.Score : 0)" data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")">@Model.LeadCTA</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="javascript:void(0)" data-cwtccat="VersionPage" data-cwtcact="EmiAssistanceLinkClick" data-cwtclbl="@("make:" + Model.MakeName + "|model:" + Model.ModelName + "|version:" + Model.VersionName)  + " |city:" + viewbag.cityzone)" id="getEMIAssistance" class="text-bold font16 getLeadAssistance" pageid="@ViewBag.PageId" leadclicksource="@(!Model.AdAvailable && CookiesCustomers.MasterCityId < 1 ? "138":"110")" inquirysourceid="113" emiadavailable="true"
+                                               data-role="click-impression" data-event="CWNonInteractive" data-action="@(CookiesCustomers.MasterCityId >= 1 ? "CampaignLink_with_city" : "CampaignLink_without_city")" data-cat="VersionPage_Lead_CTA_Desktop" data-label='@(ViewBag.CityZone + "," + Model.ModelName)' data-predictionscore="@(Model.PredictionData != null ? Model.PredictionData.Score : 0)" data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")">@Model.LeadCTA</a>
+                                        }
+                                    </span>
+                                    <br />
+                                </div>
+
+                            }
+                            else if (CookiesCustomers.MasterCityId < 1 || Model.ShowCampaignLink)
+                            {
+                                <div id="modelCampaign" class="mid-box">
+                                    <span id="emiCalculator">
+                                        @if (!Model.IsVersionPage)
+                                        {
+                                            <a href="javascript:void(0)" data-cwtccat="ModelPage" data-cwtcact="EmiAssistanceLinkClick" data-cwtclbl="@("make:" + Model.MakeName + "|model:" + Model.ModelName + "|city:" + ViewBag.CityZone)" id="getEMIAssistance" class="text-bold font16 getLeadAssistance" pageid="@ViewBag.PageId" leadclicksource="@(!Model.AdAvailable && CookiesCustomers.MasterCityId < 1 ? "137":"109")" inquirysourceid="114" emiadavailable="false"
+                                               data-role="click-impression" data-event="CWNonInteractive" data-action="Link_without_city" data-cat="ModelPage_Lead_CTA_Desktop" data-label='@(ViewBag.CityZone + "," + Model.ModelName)' data-predictionscore="@(Model.PredictionData != null ? Model.PredictionData.Score : 0)" data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")">Get EMI Assistance</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="javascript:void(0)" data-cwtccat="VersionPage" data-cwtcact="EmiAssistanceLinkClick" data-cwtclbl="@("make:" + Model.MakeName + "|model:" + Model.ModelName + "|version:" + Model.VersionName + "|city:" + ViewBag.CityZone)" id="getEMIAssistance" class="text-bold font16 getLeadAssistance" pageid="@ViewBag.PageId" leadclicksource="@(!Model.AdAvailable && CookiesCustomers.MasterCityId < 1 ? "138" : "110")" inquirysourceid="113" emiadavailable="false"
+                                               data-role="click-impression" data-event="CWNonInteractive" data-action="Link_without_city" data-cat="VersionPage_Lead_CTA_Desktop" data-label='@(ViewBag.CityZone + "," + Model.ModelName)' data-predictionscore="@(Model.PredictionData != null ? Model.PredictionData.Score : 0)" data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")">Get EMI Assistance</a>
+                                        }
+                                    </span>
+                                    <br />
+                                </div>
+                            }
+
+                            else if (CookiesCustomers.MasterCityId >= 0 && Model.AdvantageAdData != null && !Model.AdvantageAdData.IsSimilarCar)
+                            {
+                                if (!Model.IsVersionPage)
+                                {
+                                    <div class="font13 bold"> CarWale Exclusive: </div>
+                                    <div class="advantage padding-top10" id="divAdvantageLink">
+                                        <span class="desk-deals-car-sprite book-now-thumb"></span>
+
+                                        @if (Model.AdvantageAdData != null && Model.AdvantageAdData.Savings > 0)
+                                        {
+                                            <span class="advantage-text-slug text-black">
+                                                Save <span class="amount-details text-bold">₹<span data-max-discount="@Model.AdvantageAdData.Savings.ToString()" class="discount"><span>&nbsp;</span>@Carwale.Utility.Format.FormatNumericCommaSep(Model.AdvantageAdData.Savings.ToString()) </span></span>
+                                                on <span class="font13 text-black">@Format.FilterModelName(Model.AdvantageAdData.Model.ModelName)</span>
+                                            </span>
+
+                                        }
+                                        else if ((Model.AdvantageAdData != null && Model.AdvantageAdData.Savings == 0) && (!String.IsNullOrWhiteSpace(Model.AdvantageAdData.Offers)))
+                                        {
+                                            <span class="advantage-text-slug text-black">
+                                                Great Offers on <span class="font13 text-black">@Format.FilterModelName(Model.AdvantageAdData.Model.ModelName)</span>
+                                            </span>
+                                        }
+
+                                        <a id="getOffer" class="font12 know-more-text btn-white inline-block" onclick="Common.utils.trackAction('CWNInteractive','deals_desktop', 'dealsaccess_desktop', '@(Model.IsVersionPage ? "variantpagedesk" : "modelpagedesk")');"
+                                           href="/@UrlRewrite.FormatSpecial(Model.AdvantageAdData.Make.MakeName)-cars/@Model.AdvantageAdData.Model.MaskingName/advantage/?src=d04&cityid=@Model.AdvantageAdData.City.CityId" data-role="click-impression" data-event="CWNonInteractive"
+                                           data-action="@(CookiesCustomers.MasterCityId >= 0 ? "Advantage_with_city" : "Advantage_without_city")" data-cat="@(Model.IsVersionPage ? "VersionPage_Lead_CTA_Desktop" : "ModelPage_Lead_CTA_Desktop")" data-label='@(ViewBag.CityZone + "," + Model.AdvantageAdData.Model.ModelName)'>
+                                            SHOW OFFER
+                                        </a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="font13 bold"> CarWale Exclusive: </div>
+                                    <div class="advantage padding-top10" id="divAdvantageLink">
+                                        <span class="desk-deals-car-sprite book-now-thumb"></span>
+                                        @if (Model.AdvantageAdData != null && Model.AdvantageAdData.Savings > 0)
+                                        {
+                                            <span class="advantage-text-slug text-black">
+                                                Save <span class="amount-details text-bold">₹<span data-max-discount="@Model.AdvantageAdData.Savings.ToString()" class="discount"><span>&nbsp;</span>@Carwale.Utility.Format.FormatNumericCommaSep(Model.AdvantageAdData.Savings.ToString()) </span></span>
+                                                on
+                                                @if (Model.AdvantageAdData != null && Model.AdvantageAdData.Version.ID == Model.VersionId)
+                                                {
+                                                    <span> this car</span> }
+                                                else
+                                                {
+                                                    <span class="font13 text-black">@Format.FilterModelName(Model.AdvantageAdData.Model.ModelName)</span> }
+                                            </span>
+
+                                        }
+                                        else if ((Model.AdvantageAdData.Savings == 0) && (!String.IsNullOrWhiteSpace(Model.AdvantageAdData.Offers)))
+                                        {
+                                            <span class="advantage-text-slug text-black">
+                                                @if (Model.AdvantageAdData != null && Model.AdvantageAdData.Version.ID == Model.VersionId)
+                                                {
+                                                    <span>Offer available on this variant</span> }
+                                                else
+                                                {
+                                                    <span>Great Offers on <span class="font13 text-black">@Format.FilterModelName(Model.AdvantageAdData.Model.ModelName)</span></span> }
+                                            </span>
+                                        }
+                                        <a id="getOffer" class="font12 know-more-text btn-white inline-block" onclick="Common.utils.trackAction('CWNInteractive','deals_desktop', 'dealsaccess_desktop', 'variantpagedesk');"
+                                           href="/@UrlRewrite.FormatSpecial(Model.AdvantageAdData.Make.MakeName)-cars/@Model.AdvantageAdData.Model.MaskingName/advantage/?src=d04&cityid=@Model.AdvantageAdData.City.CityId&versionid=@Model.AdvantageAdData.Version.ID" data-role="click-impression" data-event="CWNonInteractive"
+                                           data-action="@(CookiesCustomers.MasterCityId >= 0 ? "Advantage_with_city" : "Advantage_without_city")" data-cat="VersionPage_Lead_CTA_Desktop" data-label='@(ViewBag.CityZone + "," + Model.AdvantageAdData.Model.ModelName)'>
+                                            SHOW OFFER
+                                        </a>
+                                    </div>
+                                }
+                            }
+
+                            else if (Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.Overview))
+                            {
+                                <div id="divCarLoan" class="mid-box position-rel inline-block" data-role="impression" data-event="CWNonInteractive" data-action='@(Model.IsVersionPage ? "VersionPage_Overview_d" : "ModelPage_Overview_d")' data-cat='SponsoredLink_Shown' data-label="campaign_@(Model.CampaignTemplates[(short)PageProperties.Overview].Id)">
+                                    <div data-event="CWInteractive" data-role="click-tracking" data-action="@(Model.IsVersionPage ? "VersionPage_Overview_d" : "ModelPage_Overview_d")" data-cat="SponsoredLink_Click" data-label='campaign_@(Model.CampaignTemplates[(short)PageProperties.Overview].Id)'>
+                                        @Html.Raw(Model.CampaignTemplates[(short)PageProperties.Overview].Name)
+                                    </div>
+                                </div>
+                            }
+
+
+                            <div class="margin-top10">
+                                @if (!Model.IsVersionPage)
+                                {
+                                    if (Model.AdAvailable)
+                                    {
+                                        <a class="btn btn-orange font16 getLeadAssistance" href="javascript:void(0)" data-cwtccat="ModelPage" data-cwtcact="GetOffersFromDealersClick" data-cwtclbl=@("make:" + Model.MakeName + "|model:" + Model.ModelName + (CookiesCustomers.MasterCityId > 0 ? "|city:" + ViewBag.CityZone : "")) pageid="@ViewBag.PageId" leadclicksource=@(CookiesCustomers.MasterCityId > 0 ? "356" : "357") inquirysourceid="114" emiadavailable="true"
+                                           data-role="click-impression" data-event="CWNonInteractive" data-action=@("CampaignButton_" + (CookiesCustomers.MasterCityId > 0 ? "with" : "without") + "_city") data-cat="ModelPage_Lead_CTA_Desktop" data-label=@((CookiesCustomers.MasterCityId > 0 ? ViewBag.CityZone + "," : "") + Model.ModelName) data-predictionscore="@(Model.PredictionData != null ? Model.PredictionData.Score : 0)" data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")">@((!string.IsNullOrEmpty(Model.CampaignLeadCTA)) ? Model.CampaignLeadCTA : "Get Offers from Dealers")</a>
+                                    }
+                                    else if (Model.ShowCampaignLink)
+                                    {
+                                        <a class="btn btn-orange font16 getLeadAssistance" href="javascript:void(0)" data-cwtccat="ModelPage" data-cwtcact="GetOffersFromDealersClick" data-cwtclbl=@("make:" + Model.MakeName + "|model:" + Model.ModelName + (CookiesCustomers.MasterCityId > 0 ? "|city:" + ViewBag.CityZone : "")) pageid="@ViewBag.PageId" leadclicksource="357" inquirysourceid="114" emiadavailable="false"
+                                           data-role="click-impression" data-event="CWNonInteractive" data-action=@("CampaignButton_" + (CookiesCustomers.MasterCityId > 0 ? "with" : "without") + "_city") data-cat="ModelPage_Lead_CTA_Desktop" data-label=@((CookiesCustomers.MasterCityId > 0 ? ViewBag.CityZone + "," : "") + Model.ModelName) data-predictionscore="@(Model.PredictionData != null ? Model.PredictionData.Score : 0)" data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")">Get Offers from Dealers</a>
+                                    }
+                                    else if (CookiesCustomers.MasterCityId <= 0)
+                                    {
+                                        <a class="btn btn-orange font16 btnCityPopUp" data-role="click-inview-imp" data-action="showpriceinmycity" data-cat="Desktop_ModelPage_Overview" data-label="@Model.ModelName">@CWConfiguration.orpText</a>
+                                    }
+                                }
+                                else
+                                {
+                                    if (Model.AdAvailable)
+                                    {
+                                        <a class="btn btn-orange font16 getLeadAssistance" href="javascript:void(0)" data-cwtccat="VersionPage" data-cwtcact="GetOffersFromDealersClick" data-cwtclbl=@("make:" + Model.MakeName + "|model:" + Model.ModelName + "|version:" + Model.VersionName + (CookiesCustomers.MasterCityId > 0 ? "|city:" + ViewBag.CityZone : "")) pageid="@ViewBag.PageId" leadclicksource=@(CookiesCustomers.MasterCityId > 0 ? "358" : "359") inquirysourceid="113" emiadavailable="true"
+                                           data-role="click-impression" data-event="CWNonInteractive" data-action=@("CampaignButton_" + (CookiesCustomers.MasterCityId > 0 ? "with" : "without") + "_city") data-cat="VersionPage_Lead_CTA_Desktop" data-label=@((CookiesCustomers.MasterCityId > 0 ? ViewBag.CityZone + "," : "") + Model.ModelName) data-predictionscore="@(Model.PredictionData != null ? Model.PredictionData.Score : 0)" data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")">@((!string.IsNullOrEmpty(Model.CampaignLeadCTA)) ? Model.CampaignLeadCTA : "Get Offers from Dealers")</a>
+                                    }
+                                    else if (Model.ShowCampaignLink)
+                                    {
+                                        <a class="btn btn-orange font16 getLeadAssistance" href="javascript:void(0)" data-cwtccat="VersionPage" data-cwtcact="GetOffersFromDealersClick" data-cwtclbl=@("make:" + Model.MakeName + "|model:" + Model.ModelName +"|version:" + Model.VersionName + (CookiesCustomers.MasterCityId > 0 ? "|city:" + ViewBag.CityZone : "")) pageid="@ViewBag.PageId" leadclicksource="359" inquirysourceid="113" emiadavailable="false"
+                                           data-role="click-impression" data-event="CWNonInteractive" data-action=@("CampaignButton_" + (CookiesCustomers.MasterCityId > 0 ? "with" : "without") + "_city") data-cat="VersionPage_Lead_CTA_Desktop" data-label=@((CookiesCustomers.MasterCityId > 0 ? ViewBag.CityZone + "," : "") + Model.ModelName) data-predictionscore="@(Model.PredictionData != null ? Model.PredictionData.Score : 0)" data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")">
+                                            Get Offers from Dealers
+                                        </a>
+                                    }
+                                    else if (CookiesCustomers.MasterCityId <= 0)
+                                    {
+                                        <a class="btn btn-orange font16 btnCityPopUp" data-role="click-inview-imp" data-action="showpriceinmycity" data-cat="Desktop_VersionPage_Overview" data-label="@(Model.ModelName)">@CWConfiguration.orpText</a>
+                                    }
+                                }
+                            </div>
+
+                            <div class="clear"></div>
+                            <div class="border-bottom margin-top10">
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.Discontinue)
+                    {
+                        <div id="divDiscontinuedModel" class="margin-top20">
+                            <div>
+                                <div class="textBlock padding5"><span class="note">Last recorded price : </span>₹ <b>@(Model.IsVersionPage ? Carwale.UI.Common.FormatPrice.GetFormattedPriceV2(Model.MinPrice.ToString()) : Carwale.UI.Common.FormatPrice.GetFormattedPriceV2(Model.MinPrice.ToString(), Model.MaxPrice.ToString()))</b></div>
+                                @if (Model.IsVersionPage)
+                                {
+                                    <div class="ex-showroom">Ex-showroom, New Delhi</div>
+                                    <div class="textBlock padding5 margin-top20"><span class="note">@Model.MakeName @Model.ModelName has discontinued this version and the car is out of production.</span></div>
+                                }
+                                else
+                                {
+                                    <div class="textBlock padding5 margin-top20"><span class="note">@Model.MakeName has discontinued the @Model.ModelName and the car is out of production.</span></div>
+                                }
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    }
+                    @if (Model.Futuristic)
+                    {
+                        <div id="divFuturistic">
+                            <div class="font14 margin-top10">
+                                Expected Price: ₹ <span class="text-bold">@(string.IsNullOrWhiteSpace(Model.EstimatedPrice) ? "N/A" : Model.EstimatedPrice)</span>
+                            </div>
+                            @if(!String.IsNullOrEmpty(Model.ExpectedLaunch))
+                            {
+                                <div class="font14">
+                                    Expected Launch: <span class="text-bold">@Model.ExpectedLaunch</span>
+                                </div>
+                            }
+                            @if (!TestDrive.isFeaturedUpcoming(Model.ModelId.ToString()))
+                            {
+                                <div class="margin-top10">@Model.CarName is not launched in India yet. Information on this page is tentative.</div>
+                            }
+                        </div>
+                    }
+                    @if (TestDrive.isFeaturedUpcoming(Model.ModelId.ToString()) && Model.Futuristic)
+                    {
+                        <div class="margin-top30">
+                            <p><strong>Know More about @Model.ModelName from @Model.MakeName Motors</strong></p>
+                            <div class="clear"></div>
+                            <div class="text-center margin-top10">
+                                <input type="button" id="TataZest" class="btn btn-orange btn-xs" value="@TestDrive.GetFeaturedUpcomingString(Model.ModelId.ToString())" />
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    }
+                </div>
+                @if (Model.ReplacedModelDetails != null)
+                {
+                    <div class="margin-top10 font16">
+                        <a href="@Model.ReplacedModelDetails.CompareCarUrl">
+                            Compare with @Model.ReplacedModelDetails.ModelName
+                        </a>
+                    </div>
+                }
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="float-rt price-quote-all-imgs btm-white-shadow"></div>
+        <div class="clear"></div>
+
+
+    </div>
+    <div class="text-right margin-top10 margin-bottom10">
+        @if (Model.IsUsedCarAvial && !Model.Futuristic)
+        {
+            <div id="divUsedCarsCount" class="mid-box float-lt font13 text-unbold">
+                <span style="font-size: 13px;"><a href="/used/@UrlRewrite.FormatSpecial(Model.MakeName)-@UrlRewrite.FormatSpecial(Model.RootName)-cars/"> @Model.LiveListingCount.ToString() Used  @Model.CarName </a></span>
+            </div>
+        }
+    </div>
+}

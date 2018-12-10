@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Carwale.Entity.CarData.CarMakeEntityBase>
+
+@for (int count = 1; count <= 4; count++)
+{
+    string MakeId = "drpMake"+count;
+    string ModelId = "drpModel"+count;
+    string VersionId = "drpVersion"+count;
+    string hdnMake = "hdnDrpMake"+count;
+    string hdnModel = "hdnDrpModel" + count;
+    string hdnVersion = "hdnDrpVersion" + count;
+    <div class="margin-bottom20">
+        <div class="leftfloat margin-right10 margin-top10">Car-@count</div>
+        <div class="form-control-box leftfloat margin-right20 divWidth-170">
+            <span class="select-box fa fa-angle-down"></span>
+            @Html.DropDownList(MakeId, new SelectList(Model, "MakeId", "MakeName"), "--Select Make--", new { @class = "form-control input-sm" })
+        </div>
+        <div class="form-control-box leftfloat margin-right20 divWidth-170">
+            <span class="select-box fa fa-angle-down"></span>
+            <select name="@ModelId" id="@ModelId" class="form-control input-sm" data-bind="foreach:Models" disabled="disabled">
+                <option data-bind="value:ModelId,text:ModelName,attr:{'mask':MaskingName}"></option>
+            </select>
+        </div>
+        <div class="form-control-box leftfloat divWidth-170">
+            <span class="select-box fa fa-angle-down"></span>
+            <select name="@VersionId" id="@VersionId" class="form-control input-sm" data-bind="foreach:Versions" disabled="disabled">
+                <option data-bind="value:ID,text:Name"></option>
+            </select>
+        </div>
+        <input type="hidden" id="@hdnMake" />
+        <input type="hidden" id="@hdnModel" />
+        <input type="hidden" id="@hdnVersion"/>
+        <div class="clear"></div>
+    </div>
+}

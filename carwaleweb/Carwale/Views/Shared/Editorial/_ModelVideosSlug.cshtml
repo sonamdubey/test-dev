@@ -1,0 +1,34 @@
+﻿@model List<Carwale.Entity.CMS.Video> 
+
+@using Carwale.UI.PresentationLogic
+
+@if (Model != null && Model.Count > 0)
+{
+    string carName = Model[0].MakeName + " " + Model[0].ModelName;
+
+    <div class="bg-light-grey   ">
+        <h2 class="content-inner-block padding-top5 padding-bottom5">@carName Videos</h2>
+        <div class="content-inner-block content-block-white content-box-shadow padding-left10 padding-top5">
+            <ul class="padding-top5">
+                @foreach (var video in Model)
+                {
+                    <li class="margin-bottom10">
+                        <div data-role="impression" data-event="CWNonInteractive" data-cat="desktop_video_linkages" data-action="360_view_videos_links_imp" data-label="@carName">
+                            <a data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_linkages" data-action="360_view_videos_links" data-label="@carName" href=@Carwale.BL.CMS.CMSCommon.GetVideoUrl(video.MakeName,video.MaskingName,video.SubCatName,video.BasicId) target="_blank">
+                            <div class="pic-place leftfloat" style="width: 120px;">
+                                    <div class="video-sprite play-btn"></div>
+                                    <img src=@EditorialContent.GetYoutubeThumbnailUrl(video.VideoId) alt="@video.VideoTitle" title="@video.VideoTitle" border="0" />
+                            </div>
+                            <div style="width: 185px;" class="leftfloat padding-left10 padding-top15">
+                                <strong>@video.VideoTitle</strong><br />
+                                <span class="video-sprite review-icon-dark margin-right5 margin-top10"></span><span class="margin-top10">@video.Views Views</span>
+                            </div>
+                            </a>
+                            <div class="clear"></div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

@@ -1,0 +1,29 @@
+﻿<script type="text/html" id="divVideosTempalte" class="startvideo">
+    <div class="margin-top20" data-bind="attr:{divbasicId:basicId}">       
+        <div class="inner-container">
+            <div class="margin-top10 margin-bottom10">
+                <a class="hover-no-underline" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_video_linkages" data-action="news_detail_video_slug" data-bind="attr:{'data-label' : makeName+' '+modelName, 'href' : '/m/'+formatSpecial(makeName)+'-cars/'+maskingName+'/videos/'+subCatName.trim().toLowerCase().replace(' ','-')+'-'+basicId+'/', 'target' : '_blank'}"  >
+                    <div data-role="inview-imp" data-event="CWNonInteractive" data-cat="msite_video_linkages" data-action="news_detail_video_slug_impression" data-bind="attr:{'data-label' : makeName+' '+modelName}">
+                        <h1 class="margin-top10 margin-bottom10 padding-left15 m-special-skin-text" data-bind="text:videoTitle"></h1>
+                    </div>
+                    <div class="contentWrapper front videowrapper" style="height: auto;">
+                        <img class="lazy" data-bind="attr:{'src' : 'https://imgd.aeplcdn.com/0x0/statics/grey.gif', 'data-original' : 'https://img.youtube.com/vi/'+videoId+'/mqdefault.jpg',
+                             'title' : 'videoTitle', 'alt' : 'videoTitle'}" border="0" width="100%"  />
+                        <span class="youtube-video-icon carousel-yt-icon"></span>
+                        <div class="carDescWrapper">
+                            <div class="margin-bottom10 text-light-grey" style="float:left">
+                                <span class="cwmsprite review-sm-lgt-grey"></span> Views <span data-bind="text: views"></span>
+                            </div>
+                            <div class="text-light-grey floatright" style="float:right">
+                                <span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span data-bind="text: likes"></span>
+                            </div>
+                        </div>
+                        <div class="seturlandtitle"></div>
+                    </div>
+                    </a>
+</div>
+        </div>
+        <div class="socialvideo" data-bind="attr:{'basicId' : basicId}"></div>
+    </div>
+</script>
+

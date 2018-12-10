@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Carwale.Entity.CarData.CarModelSummary>
+@using Carwale.UI.Common;
+@{int counter = 0;}
+<span class="f-small-b">Discontinued @ViewBag.MakeName Models:&nbsp;</span>
+@foreach (var carModel in Model)
+{
+    counter++;
+    <a class="f-small" title="@ViewBag.MakeName @carModel.ModelName.Trim()" href='/@UrlRewrite.FormatSpecial(ViewBag.MakeName)-cars/@carModel.MaskingName/'>@ViewBag.MakeName @carModel.ModelName.Trim()</a>   
+   if(counter < Model.Count())
+   { 
+      @Html.Raw(",")
+   }
+}

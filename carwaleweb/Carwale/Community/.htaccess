@@ -1,0 +1,7 @@
+RewriteEngine	On
+
+# member page
+RewriteRule members/(.*).html				members/profile.aspx?handle=$1 [NC,L]
+
+# ViewAlbumPhotos page
+RewriteRule photos/album/(.*)/(.*)/			photos/viewalbumphotos.aspx?albumId=$1&UserId=$2 [NC,L]

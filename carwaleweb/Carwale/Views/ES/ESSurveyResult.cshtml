@@ -1,0 +1,805 @@
+﻿
+@{
+    ViewBag.Title = "Renault Kwid AMT";
+    ViewBag.BodyClass = "bg-light-grey special-landing-page long-landing-page";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+    ViewBag.landingPage = true;
+    ViewBag.Responsive = true;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.Canonical = "";
+    ViewBag.Alternate = "";
+    ViewBag.CustomJS = "~/Views/StaticPartials/ES/ESSurveyResultScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/ES/ESSurveyResultCss.cshtml";
+    Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayout.cshtml" : "~/views/shared/_Layout.cshtml");
+}
+
+<div id="fb-root"></div>
+<script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script>
+(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+
+<div class="e2o-main" data-role="impression" data-event="CWNonInteractive" data-cat="KwidSurvey" data-action="PageLoad" data-label="Kwid_Landing">
+    <section class="full-width-carousel banner">
+        <div class="jcarousel-wrapper">
+            <div class="jcarousel">
+                <ul>
+                    <li>
+                        <picture>
+                            <source srcset="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/main-banner/kwid_wallpaper-m.jpg?201612141520405116" media="(max-width: 768px)">
+                            <img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/main-banner/kwid_wallpaper-d.jpg?201612141520405116" alt="Mahindra e2o">
+                        </picture>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="grid-12">
+            <h2 class="text-uppercase text-center margin-top30 margin-bottom20 special-skin-text m-special-skin-text">Factors That Make A Great Hatchback</h2>
+            <div class="content-box-shadow">
+                <div id="result-points" class="">
+                    <div class="survey-renault-logo"></div>
+                    <h5 class="text-center text-black font18 padding-top40 margin-bottom30 margin-left10 margin-right10">Based on The Great Indian Hatchback Survey</h5>
+                    <p class="font16 margin-left40 margin-right40"><strong>72%</strong> of India considers SUV-style rugged, muscular sporty looks and latest features & technology as the most important factor while buying a hatchback.</p>
+                    <div class="result-bars">
+                        <ul>
+                            <li>
+                                <div class="bar-color">41%</div>
+                                <p class="bar-explain">The latest features and technology</p>
+                            </li>
+                            <li>
+                                <div class="bar-color">31%</div>
+                                <p class="bar-explain">SUV-style rugged and muscular sporty looks</p>
+                            </li>
+                            <li>
+                                <div class="bar-color">28%</div>
+                                <p class="bar-explain">Large boot for accommodating all your luggage</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <h5 class="text-center text-black font18 padding-top40 margin-bottom30 margin-left10 margin-right10">Key Learnings from the Survey</h5>
+                    <div class="result-boxes">
+                        <ul>
+                            <li>
+                                <div class="result-boxes-icon">
+                                    <div class="survey-result-sprite es-mileage-icon"></div>
+                                    <p>65%</p>
+                                </div>
+                                <p class="result-boxes-explain">of India prefers a large digital speedometer over the conventional one.</p>
+                            </li>
+                            <li>
+                                <div class="result-boxes-icon">
+                                    <div class="survey-result-sprite es-fuel-pump-icon"></div>
+                                    <p>49%</p>
+                                </div>
+                                <p class="result-boxes-explain">of India demand very high fuel efficiency without compromising on comforts and conveniences.</p>
+                            </li>
+                            <li>
+                                <div class="result-boxes-icon">
+                                    <div class="survey-result-sprite es-rsa-icon"></div>
+                                    <p>69%</p>
+                                </div>
+                                <p class="result-boxes-explain">of India wants free Roadside assistance + manufacture warranty for a minimum of 40,000 km/2 years.</p>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="survey-result-outer-container">
+                        <h5 class="text-center text-black font18 padding-top10 margin-bottom30 margin-left10 margin-right10">More Reasons to Buy the Renault KWID</h5>
+                        <div class="horz-line"></div>
+                        <div class="cw-tabs-panel">
+                            <div class="result-container cw-tabs">
+                                <ul>
+                                    <li data-tabs="style" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Style_View">
+                                        <div class="yellow-dot">Style</div>
+                                        <div class="result-card pos-relative">
+                                            <div class="vertical-img"><img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/closed/second-section-160x246-style.jpg" alt="Style" title="Style"></div>
+                                            <div class="survey-result-details">
+                                                <p>51% of India <br />considers <strong>sporty looks</strong>as an important factor for their hatchback.</p>
+                                                <div class="survey-result-sprite es-style-icon margin-top10"></div>
+                                                <div class="text-link text-underline">View More</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li data-tabs="power" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Power_View">
+                                        <div class="yellow-dot">Performance</div>
+                                        <div class="result-card pos-relative">
+                                            <div class="vertical-img"><img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/closed/second-section-160x246-power.jpg" alt="Power" title="Power"></div>
+                                            <div class="survey-result-details">
+                                                <p>50% of India wants a <strong>powerful hatchback</strong></p>
+                                                <div class="survey-result-sprite es-power-icon margin-top10"></div>
+                                                <div class="text-link text-underline">View More</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li data-tabs="features" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Feature_View">
+                                        <div class="yellow-dot">Features</div>
+                                        <div class="result-card pos-relative">
+                                            <div class="vertical-img"><img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/closed/second-section-160x246-features.jpg" alt="Features" title="Features"></div>
+                                            <div class="survey-result-details">
+                                                <p>63% of users want <br /> all the <strong>latest technologies</strong> in their next hatchback car.</p>
+                                                <div class="survey-result-sprite es-features-icon margin-top10"></div>
+                                                <div class="text-link text-underline">View More</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li data-tabs="space" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Space_View">
+                                        <div class="yellow-dot">Space</div>
+                                        <div class="result-card pos-relative">
+                                            <div class="vertical-img"><img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/closed/second-section-160x246-space.jpg" alt="Space" title="Space"></div>
+                                            <div class="survey-result-details">
+                                                <p>49% of India <br /> demands <strong>spacious interiors and boot</strong></p>
+                                                <div class="survey-result-sprite es-space-icon margin-top10"></div>
+                                                <div class="text-link text-underline">View More</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li data-tabs="connectivity" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Connectivity_View">
+                                        <div class="yellow-dot">Connectivity</div>
+                                        <div class="result-card pos-relative">
+                                            <div class="vertical-img"><img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/closed/second-section-160x246-connectivity.jpg" alt="Connectivity" title="Connectivity"></div>
+                                            <div class="survey-result-details">
+                                                <p>39% of India wants <strong>connectivity features</strong> to be a part of their next hatchback.</p>
+                                                <div class="survey-result-sprite es-connectivity-icon margin-top10"></div>
+                                                <div class="text-link text-underline">View More</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
+                            <!-- style data code start here -->
+                            <div class="survey-result-contentbox hide cw-tabs-data" id="style">
+                                <div class="position-abt pos-top10 pos-right10 cwsprite cross-sm-dark-grey cur-pointer d-survey-popup-close"></div>
+                                <div class="jcarousel-wrapper">
+                                    <div class="jcarousel">
+                                        <ul>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/style/bold-structured-grille-.jpg" alt="Bold structured grille" title="Bold structured grille">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>Bold structured grille</h3>
+                                                    <p>The bold, structured grille design highlights the Renault diamond logo.</p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="StyleClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/style/suv-inspired-design.jpg" alt="SUV-inspired design" title="SUV-inspired design">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>SUV-inspired design</h3>
+                                                    <p>The Renault KWID is designed to turn heads, It has SUV-inspired design with short front and rear overhangs. </p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="StyleClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/style/high-ground-clearance.jpg" alt="High ground clearance of 180 mm" title="High ground clearance of 180 mm">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>High ground clearance of 180 mm</h3>
+                                                    <p>With the ground clearance of 180 mm the Renault Kwid exudes an impression of strength and robustness. It lets you take on any challenge with ease.</p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="StyleClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/style/headlights.jpg" alt="Headlights" title="Headlights">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>Headlights</h3>
+                                                    <p>The headlights incorporate Renault’s new lighting signature with a C-shaped chrome trim.</p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="StyleClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <span class="jcarousel-control-left" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Style_View_left">
+                                        <span class="cwsprite jcarousel-control-prev"></span>
+                                    </span>
+                                    <span class="jcarousel-control-right" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Style_View_right">
+                                        <span class="cwsprite jcarousel-control-next"></span>
+                                    </span>
+                                </div>
+                            </div><!-- style data code end here -->
+                            <!-- Power data code start here -->
+                            <div class="survey-result-contentbox hide cw-tabs-data" id="power">
+                                <div class="position-abt pos-top10 pos-right10 cwsprite cross-sm-dark-grey cur-pointer d-survey-popup-close"></div>
+                                <div class="jcarousel-wrapper">
+                                    <div class="jcarousel">
+                                        <ul>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/power/engine.jpg" alt="New 1.0L Engine" title="New 1.0L Engine">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>New 1.0L Engine</h3>
+                                                    <p>The Renault KWID is powered by a brand new, state-of-the-art compact engine with advanced technology for accurate air to fuel ratio monitoring.</p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="PowerClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/power/fuel-efficiency.jpg" alt="Fuel Efficiency of 25.17 Km/L*" title="Fuel Efficiency of 25.17 Km/L*">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>Fuel Efficiency of 25.17 Km/L*</h3>
+                                                    <p>A knock sensor automatically adjusts spark advance to fuel quality, to help deliver optimised performance and fuel efficiency of 25.17 Km/L*</p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="PowerClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <span class="jcarousel-control-left" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Power_View_left">
+                                        <span class="cwsprite jcarousel-control-prev"></span>
+                                    </span>
+                                    <span class="jcarousel-control-right" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Power_View_right">
+                                        <span class="cwsprite jcarousel-control-next"></span>
+                                    </span>
+                                </div>
+                            </div><!-- Power data code end here -->
+                            <!-- features data code start here -->
+                            <div class="survey-result-contentbox hide cw-tabs-data" id="features">
+                                <div class="position-abt pos-top10 pos-right10 cwsprite cross-sm-dark-grey cur-pointer d-survey-popup-close"></div>
+                                <div class="jcarousel-wrapper">
+                                    <div class="jcarousel">
+                                        <ul>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/features/amt.jpg" alt="The new Renault KWID AMT" title="The new Renault KWID AMT">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>The new Renault KWID AMT</h3>
+                                                    <p>The new Renault KWID AMT features Easy-R Technology – a revolutionary 5-speed AMT with Reverse, Neutral and Drive modes.</p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="FeatureClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/features/windscreen.jpg" alt="Forward-positioned windscreen " title="Forward-positioned windscreen ">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>Forward-positioned windscreen </h3>
+                                                    <p>The steeply-raked, forward-positioned windscreen lends a sense of movement and fluidity to the car’s high waistline.</p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="FeatureClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/features/remote-keyless-entry.jpg" alt="Remote keyless entry" title="Remote keyless entry">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>Remote keyless entry</h3>
+                                                    <p>The Renault KWID also comes with the convenience of remote keyless entry and one-touch lane change indicator that further simplifies your drive experience.</p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="FeatureClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/space/intermittent-wipers.jpg" alt="Intermittent wipers" title="Intermittent wipers">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>Intermittent wipers</h3>
+                                                    <p>The Renault KWID also comes with added features like intermittent wipers. </p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="SpaceClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <span class="jcarousel-control-left" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Feature_View_left">
+                                        <span class="cwsprite jcarousel-control-prev"></span>
+                                    </span>
+                                    <span class="jcarousel-control-right" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Feature_View_right">
+                                        <span class="cwsprite jcarousel-control-next"></span>
+                                    </span>
+                                </div>
+                            </div><!-- features data code end here -->
+                            <!-- space data code start here -->
+                            <div class="survey-result-contentbox hide cw-tabs-data" id="space">
+                                <div class="position-abt pos-top10 pos-right10 cwsprite cross-sm-dark-grey cur-pointer d-survey-popup-close"></div>
+                                <div class="jcarousel-wrapper">
+                                    <div class="jcarousel">
+                                        <ul>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/space/boot-space.jpg" alt="Boot space of 300 litres " title="Boot space of 300 litres ">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>Boot space of 300 litres</h3>
+                                                    <p>The Renault KWID’s class-leading boot space of 300 litres can be extended up to 1115 litres, making it the perfect partner for a long road trip. </p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="SpaceClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/space/smart-storage-spaces.jpg" alt="Smart storage spaces" title="Smart storage spaces">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>Smart storage spaces </h3>
+                                                    <p>Innovative smart storage spaces like the three set glove compartments, floor and door side console and centre console with bottle holders let you carry all essentials in the cabin at close reach. </p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="SpaceClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <span class="jcarousel-control-left" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Space_View_left">
+                                        <span class="cwsprite jcarousel-control-prev"></span>
+                                    </span>
+                                    <span class="jcarousel-control-right" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Space_View_right">
+                                        <span class="cwsprite jcarousel-control-next"></span>
+                                    </span>
+                                </div>
+                            </div><!-- space data code end here -->
+                            <!-- connectivity data code start here -->
+                            <div class="survey-result-contentbox hide cw-tabs-data" id="connectivity">
+                                <div class="position-abt pos-top10 pos-right10 cwsprite cross-sm-dark-grey cur-pointer d-survey-popup-close"></div>
+                                <div class="jcarousel-wrapper">
+                                    <div class="jcarousel">
+                                        <ul>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/connectivity/touchscreen-display.jpg" alt="Touchscreen Display" title="Touchscreen Display">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>Touchscreen Display</h3>
+                                                    <p>User-friendly MediaNAV multimedia and navigation system which features a first-in-class seven-inch (18 cm) touchscreen display.</p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="ConnectivityClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/connectivity/turn-by-turn-voice.jpg" alt="Turn by turn voice guidance" title="Turn by turn voice guidance">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>Turn by turn voice guidance</h3>
+                                                    <p>Complemented by two speakers in the front. The MediaNAV system comes with a range of functions such as navigation with turn by turn voice guidance.</p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="ConnectivityClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                            <li>
+                                                <div class="data-box-img">
+                                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/second-section/open/connectivity/multimedia.jpg" alt="Multimedia" title="Multimedia">
+                                                </div>
+                                                <div class="data-box">
+                                                    <h3>Multimedia</h3>
+                                                    <p>Bluetooth audio streaming and hands-free telephony, USB and AUX–input ports and speed sensing volume control.</p>
+                                                    <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase margin-top15" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="KnowMore" data-label="ConnectivityClick">Know More</a>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <span class="jcarousel-control-left" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Connectivity_View_left">
+                                        <span class="cwsprite jcarousel-control-prev"></span>
+                                    </span>
+                                    <span class="jcarousel-control-right" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="ReasonsClick" data-label="Connectivity_View_right">
+                                        <span class="cwsprite jcarousel-control-next"></span>
+                                    </span>
+                                </div>
+                            </div><!-- connectivity data code end here -->
+                        </div>
+
+                        <div class="survey-footer-info">
+                            <div class="grid-5">
+                                <p class="text-bold">More on renault.co.in</p>
+                                <div class="survey-footer-left-info">
+                                    <ul class="text-unbold">
+                                        <li>
+                                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="text-black" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="BottomTab" data-label="Brochure">Download Brochure</a>
+                                            <span class="survey-footer-vertical-line-s">|</span>
+                                        </li>
+                                        <li>
+                                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="text-black" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="BottomTab" data-label="Dealer_nerarest">Find nearest dealer</a>
+                                            <span class="survey-footer-vertical-line-s">|</span>
+                                        </li>
+                                        <li>
+                                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="text-black" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="BottomTab" data-label="Explore">Explore More</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="grid-7">
+                                <p class="text-bold">More on carwale.com</p>
+                                <div class="survey-footer-right-info">
+                                    <ul class="text-unbold">
+                                        <li>
+                                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221767302&iu=/1017752/1x1_CompareCars" target="_blank" class="text-black" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="BottomTab" data-label="Kwid_model">Renault Kwid 1.0</a>
+                                            <span class="survey-footer-vertical-line-s">|</span>
+                                        </li>
+                                        <li>
+                                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221779062&iu=/1017752/1x1_CompareCars" target="_blank" class="text-black" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="BottomTab" data-label="Expert_review">Expert Reviews</a>
+                                            <span class="survey-footer-vertical-line-s">|</span>
+                                        </li>
+                                        <li class="text-unbold">
+                                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221793462&iu=/1017752/1x1_CompareCars" target="_blank" class="text-black" data-role="click-tracking" data-event="CWInteractive" data-cat="KwidSurvey" data-action="BottomTab" data-label="user_review">User reviews</a> or Call 1-800-209-3456 Toll Free
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="survey-footer-vertical-line"></div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- mobile tab list start here -->
+                <div class="mob-survey-result-outer-container margin-left5 margin-right5 cw-tabs-panel">
+                    <h5 class="text-center text-black font18 padding-top10 margin-bottom30 margin-left10 margin-right10">More Reasons to Buy the Renault KWID</h5>
+                    <ul class="mob-result-container cw-tabs">
+                        <li data-tabs="style-mobile" data-role="click-tracking" data-event="CWInteractive" data-cat="kwidsurvey_m" data-action="ReasonsClick" data-label="Style_View_m">
+                            <div class="mob-base-image">
+                                <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/closed/style.jpg" alt="Style" title="Style">
+                            </div>
+                            <div class="mob-survey-result-details">
+                                <span class="percent-detail">Style</span>
+                                <div class="strip-detail">
+                                    <p>51% of India considers <strong>Sporty Looks</strong></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li data-tabs="power-mobile" data-role="click-tracking" data-event="CWInteractive" data-cat="kwidsurvey_m" data-action="ReasonsClick" data-label="Power_View_m">
+                            <div class="mob-base-image">
+                                <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/closed/power.jpg" alt="Power" title="Power">
+                            </div>
+                            <div class="mob-survey-result-details">
+                                <span class="percent-detail">Performance</span>
+                                <div class="strip-detail">
+                                    <p>50% of India wants a <strong>Powerful Hatchback</strong></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li data-tabs="features-mobile" data-role="click-tracking" data-event="CWInteractive" data-cat="kwidsurvey_m" data-action="ReasonsClick" data-label="Feature_View_m">
+                            <div class="mob-base-image">
+                                <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/closed/features.jpg" alt="Features" title="Features">
+                            </div>
+                            <div class="mob-survey-result-details">
+                                <span class="percent-detail">Features</span>
+                                <div class="strip-detail">
+                                    <p>63% of India wants <strong>Features</strong></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li data-tabs="space-mobile" data-role="click-tracking" data-event="CWInteractive" data-cat="kwidsurvey_m" data-action="ReasonsClick" data-label="Space_View_m">
+                            <div class="mob-base-image">
+                                <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/closed/specs.jpg" alt="Space" title="Space">
+                            </div>
+                            <div class="mob-survey-result-details">
+                                <span class="percent-detail">Space</span>
+                                <div class="strip-detail">
+                                    <p>49% of India demands <strong>Spacious Interiors</strong></p>
+                                </div>
+                            </div>
+                        </li>
+                        <li data-tabs="connectivity-mobile" data-role="click-tracking" data-event="CWInteractive" data-cat="kwidsurvey_m" data-action="ReasonsClick" data-label="Connectivity_View_m">
+                            <div class="mob-base-image">
+                                <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/closed/connectivity.jpg" alt="Connectivity" title="Connectivity">
+                            </div>
+                            <div class="mob-survey-result-details">
+                                <span class="percent-detail">Connectivity</span>
+                                <div class="strip-detail">
+                                    <p>39% of India wants <strong>Connectivity Features</strong></p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- style-mobile code start here -->
+                    <div class="survey-result-popup hide cw-tabs-data" id="style-mobile">
+                        <div class="mob-survey-data-header">
+                            <h2>Style</h2>
+                            <div class="globalcity-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer survey-popup-close"></div>
+                        </div>
+                        <div class="mob-survey-data-body">
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">Bold structured grille</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/style/bold-structured-grille.jpg" alt="Bold structured grille" title="Bold structured grille">
+                                </div>
+                                <p>The bold, structured grille design highlights the Renault diamond logo.</p>
+                            </div>
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">SUV-inspired design</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/style/suv-inspired-design.jpg" alt="SUV-inspired design" title="SUV-inspired design">
+                                </div>
+                                <p>The Renault KWID is designed to turn heads, It has SUV-inspired design with short front and rear overhangs.</p>
+                            </div>
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">High ground clearance of 180 mm</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/style/high-ground-clearance.jpg" alt="High ground clearance of 180 mm" title="High ground clearance of 180 mm">
+                                </div>
+                                <p>With the ground clearance of 180 mm the Renault Kwid exudes an impression of strength and robustness. It lets you take on any challenge with ease.</p>
+                            </div>
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">Headlights</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/style/headlights.jpg" alt="Headlights" title="Headlights">
+                                </div>
+                                <p>The headlights incorporate Renault’s new lighting signature with a C-shaped chrome trim.</p>
+                            </div>
+                        </div>
+                        <div class="mob-survey-data-footer">
+                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="text-uppercase btn btn-orange btn-full-width" data-role="click-tracking" data-event="CWInteractive" data-cat="kwidsurvey_m" data-action="KnowMore" data-label="StyleClick_m">Know More</a>
+                        </div>
+                    </div><!-- style-mobile code end here -->
+                    <!-- power-mobile code start here -->
+                    <div class="survey-result-popup hide cw-tabs-data" id="power-mobile">
+                        <div class="mob-survey-data-header">
+                            <h2>Performance</h2>
+                            <div class="globalcity-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer survey-popup-close"></div>
+                        </div>
+                        <div class="mob-survey-data-body">
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">New 1.0L Engine</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/power/engine.jpg" alt="New 1.0L Engine" title="New 1.0L Engine">
+                                </div>
+                                <p>The Renault KWID is powered by a brand new, state-of-the-art compact engine with advanced technology for accurate air to fuel ratio monitoring.</p>
+                            </div>
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">Fuel Efficiency of 25.17 Km/L*</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/power/fuel-efficiency.jpg" alt="Fuel Efficiency of 25.17 Km/L*" title="Fuel Efficiency of 25.17 Km/L*">
+                                </div>
+                                <p>A knock sensor automatically adjusts spark advance to fuel quality, to help deliver optimised performance and fuel efficiency of 25.17 Km/L*</p>
+                            </div>
+                        </div>
+                        <div class="mob-survey-data-footer">
+                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="text-uppercase btn btn-orange btn-full-width" data-role="click-tracking" data-event="CWInteractive" data-cat="kwidsurvey_m" data-action="KnowMore" data-label="PowerClick_m">Know More</a>
+                        </div>
+                    </div><!-- power-mobile code end here -->
+                    <!-- features-mobile code start here -->
+                    <div class="survey-result-popup hide cw-tabs-data" id="features-mobile">
+                        <div class="mob-survey-data-header">
+                            <h2>Features</h2>
+                            <div class="globalcity-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer survey-popup-close"></div>
+                        </div>
+                        <div class="mob-survey-data-body">
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">The new Renault KWID AMT</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/features/amt.jpg" alt="The new Renault KWID AMT" title="The new Renault KWID AMT">
+                                </div>
+                                <p>The new Renault KWID AMT features Easy-R Technology – a revolutionary 5-speed AMT with Reverse, Neutral and Drive modes.</p>
+                            </div>
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">Forward-positioned windscreen</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/features/windscreen.jpg" alt="Forward-positioned windscreen" title="Forward-positioned windscreen">
+                                </div>
+                                <p>The steeply-raked, forward-positioned windscreen lends a sense of movement and fluidity to the car’s high waistline.</p>
+                            </div>
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">Remote keyless entry</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/features/remote-keyless-entry.jpg" alt="Remote keyless entry" title="Remote keyless entry">
+                                </div>
+                                <p>The Renault KWID also comes with the convenience of remote keyless entry and one-touch lane change indicator that further simplifies your drive experience.</p>
+                            </div>
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">Intermittent wipers</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/space/intermittent-wipers.jpg" alt="Intermittent wipers" title="Intermittent wipers">
+                                </div>
+                                <p>The Renault KWID also comes with added features like intermittent wipers.</p>
+                            </div>
+                        </div>
+                        <div class="mob-survey-data-footer">
+                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="text-uppercase btn btn-orange btn-full-width" data-role="click-tracking" data-event="CWInteractive" data-cat="kwidsurvey_m" data-action="KnowMore" data-label="FeatureClick_m">Know More</a>
+                        </div>
+                    </div><!-- features-mobile code end here -->
+                    <!-- space-mobile code start here -->
+                    <div class="survey-result-popup hide cw-tabs-data" id="space-mobile">
+                        <div class="mob-survey-data-header">
+                            <h2>Space</h2>
+                            <div class="globalcity-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer survey-popup-close"></div>
+                        </div>
+                        <div class="mob-survey-data-body">
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">Boot space of 300 litres</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/space/boot-space.jpg" alt="Boot space of 300 litres " title="Boot space of 300 litres ">
+                                </div>
+                                <p>The Renault KWID’s class-leading boot space of 300 litres can be extended up to 1115 litres, making it the perfect partner for a long road trip.</p>
+                            </div>
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">Smart storage spaces</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/space/smart-storage-spaces.jpg" alt="Smart storage spaces" title="Smart storage spaces">
+                                </div>
+                                <p>Innovative smart storage spaces like the three set glove compartments, floor and door side console and centre console with bottle holders let you carry all essentials in the cabin at close reach.</p>
+                            </div>
+                        </div>
+                        <div class="mob-survey-data-footer">
+                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="text-uppercase btn btn-orange btn-full-width" data-role="click-tracking" data-event="CWInteractive" data-cat="kwidsurvey_m" data-action="KnowMore" data-label="SpaceClick_m">Know More</a>
+                        </div>
+                    </div><!-- space-mobile code end here -->
+                    <!-- connectivity-mobile code start here -->
+                    <div class="survey-result-popup hide cw-tabs-data" id="connectivity-mobile">
+                        <div class="mob-survey-data-header">
+                            <h2>Connectivity</h2>
+                            <div class="globalcity-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer survey-popup-close"></div>
+                        </div>
+                        <div class="mob-survey-data-body">
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">Touchscreen Display</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/connectivity/touchscreen-display.jpg" alt="Touchscreen Display" title="Touchscreen Display">
+                                </div>
+                                <p>User-friendly MediaNAV multimedia and navigation system which features a first-in-class seven-inch (18 cm) touchscreen display.</p>
+                            </div>
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">Turn by turn voice guidance</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/connectivity/turn-by-turn-voice.jpg" alt="Turn by turn voice guidance" title="Turn by turn voice guidance">
+                                </div>
+                                <p>Complemented by two speakers in the front. The MediaNAV system comes with a range of functions such as navigation with turn by turn voice guidance.</p>
+                            </div>
+                            <div class="mob-survey-data-body-card">
+                                <h3 class="text-black text-bold margin-bottom10 font14">Multimedia</h3>
+                                <div class="survey-car-image margin-bottom10">
+                                    <img class="lazy force-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/mobile/second-section/open/connectivity/multimedia.jpg" alt="Multimedia" title="Multimedia">
+                                </div>
+                                <p>Bluetooth audio streaming and hands-free telephony, USB and AUX–input ports and speed sensing volume control.</p>
+                            </div>
+                        </div>
+                        <div class="mob-survey-data-footer">
+                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" class="text-uppercase btn btn-orange btn-full-width" data-role="click-tracking" data-event="CWInteractive" data-cat="kwidsurvey_m" data-action="KnowMore" data-label="ConnectivityClick_m">Know More</a>
+                        </div>
+                    </div><!-- connectivity-mobile code end here -->
+                    <!-- es mobile footer code start here -->
+                    <div class="margin-left10 font14 survey-result-mob-links">
+                        <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221747742&iu=/1017752/1x1_CompareCars" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-cat="kwidsurvey_m" data-action="BottomTab" data-label="Explore_m">
+                            More on Renault
+                        </a>
+                        <span class="link-pipe margin-left10 margin-right10 text-black">|</span>
+                        <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221767302&iu=/1017752/1x1_CompareCars" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-cat="kwidsurvey_m" data-action="BottomTab" data-label="Kwid_model_m">More on CarWale</a>
+                        <p class="font13">Or call <span class="text-green font16 text-bold">1-800-209-3456</span> Toll free no.</p>
+                    </div><!-- es mobile footer code end here -->
+                </div>
+                <!-- mobile tab list start here -->
+            </div>
+        </div>
+        <div class="clear"></div>
+    </section>
+
+    <section>
+        <div class="container mb-view">
+            <div class="grid-12">
+                <h2 class="text-uppercase text-center margin-top30 margin-bottom20 special-skin-text m-special-skin-text">Experience the KWID AMT</h2>
+                <div class="font14 content-box-shadow content-inner-block-15nr buy-electric-car">
+                    <div class="grid-4 rightfloat">
+                    @{ Html.RenderPartial("~/Views/Shared/ES/_LeadForm.cshtml"); }
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container mb-view history-electric-cars">
+            <div class="grid-12">
+                <h2 class="text-uppercase text-center margin-bottom20 margin-top30 special-skin-text m-special-skin-text">RENAULT KWID - THE GREAT INDIAN HATCHBACK</h2>
+                <div class="font14 content-box-shadow content-inner-block-15lr padding-bottom20">
+                    <div class="grid-12 alpha omega responsive-art-content">
+                        <img class="lazy rightfloat margin-bottom15 margin-top15 margin-left20" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/04-fourth-section-462x274.jpg" alt="Renault KWID – Hatchback of the year" title="Renault KWID – Hatchback of the year" style="max-width:100%; width:auto;" />
+                        <div class="font14 margin-top10">
+                            The Renault KWID has won the hearts of thousands of Indians and critics alike, touching 1 lakh deliveries soon. With 24 awards and counting, the Renault KWID has become India’s favourite car.
+                        </div>
+                        <div class="font14 margin-top10">
+                            Renault recently introduced the new KWID AMT with innovative Easy-R Technology – a revolutionary 5-speed AMT. The dash-mounted AMT Dial has three modes – Reverse, Neutral and Drive – and is designed to make driving effortless.
+                        </div>
+                        <div class="font14 margin-top10">
+                            Get ready to drive the future.
+                        </div>
+                        <div class="margin-top20 margin-bottom20">
+                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221806062&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase font14">Know More</a>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container mb-view history-electric-cars">
+            <div class="grid-12">
+                <h2 class="text-uppercase text-center margin-bottom20 margin-top30 special-skin-text m-special-skin-text">Renault Kwid 1.0 AMT First Drive Review</h2>
+                <div class="font14 content-box-shadow content-inner-block-15lr padding-bottom20">
+                    <div class="grid-12 alpha omega responsive-art-content">
+                        <img class="lazy leftfloat margin-bottom15 margin-top15 margin-right20" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/renault-kwid/result-imgs/compressed/desktop/05-fifth-section-462x274.jpg" alt="Renault Kwid 1.0 AMT First Drive Review" title="Renault Kwid 1.0 AMT First Drive Review" style="max-width:100%; width:auto;" />
+                        <div class="font14 margin-top10">
+                            This, the new Renault Kwid AMT, is possibly the last chapter in the current Kwid's evolution story. The story itself mirrors that of the high-selling Alto quite closely: First there was the 800cc, then the 1-litre came along, and now there's the 1-litre with the AMT 'box.
+                        </div>
+                        <div class="font14 margin-top10">
+                            And, we must say, this one is special. Sure, it has its shortcomings, but as a package for first time car buyers, it does more right than wrong.
+                        </div>
+                        <div class="margin-top20 margin-bottom20">
+                            <a href="https://pubads.g.doubleclick.net/gampad/clk?id=1221779062&iu=/1017752/1x1_CompareCars" target="_blank" class="btn btn-white btn-sm text-uppercase font14">Know More</a>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container mb-view margin-bottom30">
+            <div class="grid-12">
+                <h2 class="text-uppercase text-center margin-top30 margin-bottom20 special-skin-text m-special-skin-text">Locate Dealer</h2>
+                <div class="content-box-shadow margin-top20 content-inner-block-15lr">
+                    <div class="grid-8 alpha text-center margin-top20 margin-bottom20">
+                        <div id="divMap"></div>
+                    </div>
+                    <div class="grid-4 alpha omega margin-top20">
+                        <div class="content-box-shadow content-inner-block-10 margin-bottom10">
+                            <h4 class="margin-bottom10 text-unbold text-black">Find dealers in your city</h4>
+                            <select class="form-control" id="drpDealerCity" data-bind='options:cities, optionsText: "cityName", optionsValue: "cityId"'></select>
+                        </div>
+                        <div class="content-box-shadow content-inner-block-10 map-dealer-list" data-bind="template:{name:'dealerTemplate',foreach:DealerDataList}" id="dealerDiv"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <script type="text/html" id="dealerTemplate">
+        <div class="map-dealer-list-card" data-bind="attr:{id:dealerId}">
+            <h4 class="margin-bottom5 text-unbold text-black">
+                <i class="icon-view fa uncheck"></i> <span data-bind="text:name"></span>
+            </h4>
+            <p class="text-light-grey font14">
+                <span data-bind="text:address"></span><br>
+                <span data-bind="text:cityName + ', ' + state + ' - ' + pincode"></span>
+            </p>
+            <h4 class="margin-bottom10 text-unbold">
+                <i class="fa fa-phone"></i>
+                <span data-bind="text:' ' + landlineNo "></span>
+                <!-- ko if : (landlineNo && mobileNo)-->
+                <span>,</span>
+                <!-- /ko -->
+                <!-- ko if : mobileNo -->
+                <span data-bind="text: ' ' + mobileNo "></span>
+                <!-- /ko -->
+            </h4>
+            <input type="hidden" data-bind="value:latitude" />
+            <input type="hidden" data-bind="value:longitude" />
+        </div>
+    </script>
+</div>
+

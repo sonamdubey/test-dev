@@ -1,0 +1,11 @@
+{
+  "ServerUri": "https://sq.carwale.com",
+  "Organization": null,
+  "ProjectKey": "carwaleweb:develop",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AV1Q3wIIcZ_OS4aYs1DT",
+      "ProfileTimestamp": "2017-08-29T18:01:04+05:30"
+    }
+  }
+}

@@ -1,0 +1,75 @@
+﻿@import "../mixins/_variables.scss";
+@import "../partials/_ratings.scss";
+@import "../mixins/_vendor-utils.scss";
+
+.app-banner {
+  @include get-vendor-prefixed(box-shadow, 1px 0 2px map-get($color-map, 'grey-shadow'));
+  padding: 15px 9px 15px 0;
+  background-color: map-get($color-map, 'white-bg');
+  margin-bottom: 3px;
+  font-size: 0;
+  font-family: LatoWeb,sans-serif,Arial;
+}
+
+.app-banner__btnclose {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.app-banner__btnclose-img {
+  padding: 10px;
+}
+
+.app-install-link {
+    width: 90%;
+    display: inline-block;
+}
+
+.app-banner__logo {  
+  vertical-align: top;
+}
+
+.app-banner__logo-img {
+  margin-top: 5px;
+  vertical-align: top;
+}
+
+.app-banner__content {
+  display: inline-block;
+  padding-left: 5px;
+  font-size: 11px;
+  font-weight: $font-bold;
+  color: map-get($color-map, 'black');
+}
+
+.app-banner__ratings {
+  margin-top: 5px;
+
+    .app-banner__ratefourhalf {
+        vertical-align: sub;
+        margin-right: 5px;
+    }
+
+    .app-banner__rate-numbers {
+        vertical-align: middle;
+        color: map-get($color-map, 'light-grey');
+    }
+}
+
+.app-banner__install-button {  
+  color:  map-get($color-map, 'white');
+  padding: 7px 9px;
+  float: right;
+  margin-top: 20px;
+  font-size: 9px;
+}
+
+@media only screen and (max-width : 359px) {
+  .app-banner__content {
+    width: 52%;
+  }
+
+  .app-banner__btnclose {
+    vertical-align: top;
+  }
+}

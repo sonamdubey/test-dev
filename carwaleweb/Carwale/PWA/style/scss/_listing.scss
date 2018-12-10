@@ -1,0 +1,212 @@
+.listing-screen {
+	width: 100vw;
+	min-height: 100vh;
+	background-color: color('white');
+}
+// h1
+.heading-container {
+	padding-bottom: 10px;
+	padding-top: 10px;
+	padding-left: 10px;
+	background-color: color('gainsboro');
+}
+.listing-heading {
+	color: color('charcoal');
+	font-size: 20px;
+	font-weight: 700;
+	display: block;
+	word-wrap: break-word;
+}
+// toolbar
+@import 'scss/filter-button';
+
+// model list
+.model-list__content {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: color('gainsboro');
+}
+
+.model-list__item {
+	@include vendor-prefix('transition', 'all 10s linear');
+	background: color('white');
+	margin-top: 10px;
+
+	&:first-child {
+		margin-top: 0;
+	}
+}
+
+.model__box {
+	@include flexbox;
+	@include align-items(center);
+	font-size: 0;
+	padding: 10px 30px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.model-box__image {
+	width: 130px;
+	height: 73px;
+	text-align: center;
+	background: color('snow');
+
+	img {
+		width: auto;
+		height: 73px;
+	}
+}
+
+.model-box__title {
+	@include flex-grow;
+	padding-left: 15px;
+}
+
+.model-box__make-name {
+	color: color('dark-gray');
+	font-size: 14px;
+	font-weight: $font-normal;
+	margin-bottom: 3px;
+	display: block;
+}
+
+.model-box__model-name {
+	color: $base-color;
+	font-size: 18px;
+	font-weight: $font-normal;
+	display: block;
+}
+
+.model-box__arrow {
+	@include arrow-down-icon;
+	@include vendor-prefix('transform', rotate(-90deg));
+	@include opacity(.7);
+	width: 12px;
+	height: 6px;
+	position: relative;
+	left: 2px;
+}
+
+@include oxygen-loader;
+
+@import './model-list-loader.scss';
+
+@import './no-result.scss';
+// compare cars	
+@import 'scss/compare-car';
+
+.no-result {
+	.listing-screen {
+		background-color: color('white');
+		min-height: 80vh;
+	}
+
+	.listing__content {
+		border-top: 1px solid color('white-smoke');
+	}
+}
+
+.listing__no-result {
+	margin-top: 65px;
+	margin-bottom: 15px;
+
+	.btn-secondary {
+		width: auto;
+		min-width: 154px;
+		padding: 11px 11px 10px;
+		margin-top: 20px;
+	}
+}
+
+.listing-no-result__image {
+	width: 236px;
+	height: 114px;
+	@include no-result-found;
+	display: inline-block;
+	margin-bottom: 15px;
+}
+
+.model-list__item-container {
+	@include vendor-prefix('transition', all 10s linear);
+	padding-top: 10px;
+}
+.model-card {
+	max-height: 420px;// NOTE: max-height should be increased when internal content is incresed or spacing changed
+	overflow: hidden;
+	@include vendor-prefix('transition', 'max-height 1s ease');
+}
+.model-card--collapse {
+	max-height: 0;
+}
+@import '/shortlist';
+
+// Action buttons
+@include shortlist-action-icon();
+.compare-action-icon {
+	@include compare-6f6f6f-icon;
+	width: 13px;
+	height: 10.9px;
+	&.compare--active {
+		@include compare-00afa0-icon;
+	}
+}
+
+.version__action-buttons {
+    background-color: color('snow-2');
+	display: table;
+	width: 100%;
+
+	.btn-container {
+		width: 1%;
+		display: table-cell;
+		text-align: center;
+		position: relative;
+		overflow: hidden;
+		padding: 10px 15px;
+
+		&:before {
+			display: block;
+			content: '';
+			width: 1px;
+			border-left: solid 1px color('dark-gray');
+			position: absolute;
+			top: 10px;
+			bottom: 10px;
+			left: 0;
+		}
+
+		&:first-child {
+			border-left: none;
+			width: 35%;
+
+			&:before {
+				content: none;
+			}
+		}
+
+		&:last-child {
+			width: 65%;
+		}
+	}
+	.btn-container__text {
+		color: color('dim-gray');
+		&.active {
+			color: color('charcoal');
+		}
+	}
+	.btn-container__icon {
+		display: inline-block;
+		background-size: contain;
+		position: relative;
+		margin-right: 5px;
+		text-align: center;
+		cursor: pointer;
+	}
+}
+
+@import './version-list';
+
+// freeflow li
+@import './mixins/card-wrapper';
+@include card-wrapper($card-spacing: 3px, $end-paddigns: 10px);

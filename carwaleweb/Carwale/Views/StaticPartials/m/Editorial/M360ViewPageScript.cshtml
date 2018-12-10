@@ -1,0 +1,61 @@
+﻿@model Carwale.DTOs.CMS.ThreeSixtyView.ThreeSixtyDTO
+
+@using System.Configuration;
+@using Carwale.Utility
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Entity.Enum;
+
+<script>
+    var loadDeferredStyles = function () {
+        var addStylesNode = document.getElementsByClassName("deferred-styles"), replacement = document.createElement("div"), styleLinks = "";
+        var maxStylesNodes = addStylesNode.length;
+        for (var i = 0; i < maxStylesNodes; i++) { styleLinks += addStylesNode[i].textContent; }
+        replacement.innerHTML = styleLinks;
+        document.body.appendChild(replacement)
+    };
+    var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame;
+    if (raf) raf(function () { window.setTimeout(loadDeferredStyles, 0); });
+    else window.addEventListener('load', loadDeferredStyles);
+
+    var cwTrackingPath = '@ConfigurationManager.AppSettings["HostUrl"]';
+    var cdnHostUrl = '@ConfigurationManager.AppSettings["CDNHostURL"].ToString()';
+
+    var modelDetails = {
+        makeId: '@Model.ModelDetails.MakeId',
+        makeName: '@Model.ModelDetails.MakeName',
+        urlMakeName: '@(Format.FormatSpecial(Model.ModelDetails.MakeName))',
+        name: '@Model.ModelDetails.ModelName',
+        maskingName: '@Model.ModelDetails.MaskingName',
+        modelId: '@Model.ModelDetails.ModelId'
+    };
+
+    var xmlVersion = {
+        closed: '@Model.XmlVersion[ThreeSixtyViewCategory.Closed]',
+        open: '@Model.XmlVersion[ThreeSixtyViewCategory.Open]',
+        interior: '@Model.XmlVersion[ThreeSixtyViewCategory.Interior]'
+    };
+
+    var defaultCookieDomain = '@Carwale.UI.Common.CookiesCustomers.CookieDomain';
+    var modelPageUrl = '@ManageCarUrl.CreateModelUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName)';
+    var category = '@Model.ActiveState';
+    var exteriorPageUrl = '@EditorialContent.Get360PageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, ThreeSixtyViewCategory.Closed, true)';
+    var openPageUrl = '@EditorialContent.Get360PageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, ThreeSixtyViewCategory.Open, true)';
+    var interiorPageUrl = '@EditorialContent.Get360PageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, ThreeSixtyViewCategory.Interior, true)';
+    var carName = modelDetails.makeName + ' ' + modelDetails.name;
+    var isMsite = true;
+    var threeSixtyDto = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model));
+    var exteriorHotspotsPresent = '@(Model.ModelDetails.Is360ExteriorAvailable && Model.ExteriorHotspots != null && Model.ExteriorHotspots.Count > 0)' == 'True';
+    var openHotspotsPresent = '@(Model.ModelDetails.Is360OpenAvailable && Model.OpenHotspots != null && Model.OpenHotspots.Count > 0)' == 'True';
+    var interiorHotspotsPresent = '@(Model.ModelDetails.Is360InteriorAvailable && Model.InteriorHotspots != null && Model.InteriorHotspots.Count > 0)' == 'True';
+</script>
+
+<script type="text/javascript" src="/static/m/js/frameworks.js" defer></script>
+<script type="text/javascript" src="/static/m/js/plugins/jquery-cookie.js" defer></script>
+<script type="text/javascript" src="https://www.youtube.com/iframe_api" defer></script>
+<script type="text/javascript" src="/static/js/videostracking.js" defer></script>
+<script type="text/javascript" src="/static/m/js/plugins/swiper.js" defer></script>
+<script type="text/javascript" src="/static/m/js/imagerotator.js" defer></script>
+<script type="text/javascript" src="/static/m/js/pano2vr_player.js" defer></script>
+<script type="text/javascript" src="/static/m/js/skin.js" defer></script>
+<script type="text/javascript" src="/static/js/v2/app/cwTracking.js" defer></script>
+<script type="text/javascript" src="/static/m/js/360view.js" defer></script>

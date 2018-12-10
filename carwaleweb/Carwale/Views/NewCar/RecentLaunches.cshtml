@@ -1,0 +1,243 @@
+﻿@model Carwale.DTOs.NewCars.RecentLaunchesDTO_Desktop
+@using Carwale.Utility;
+@using Carwale.UI.Common;
+@using Carwale.Entity.Enum;
+@{
+    ViewBag.PageId = 49;
+    ViewBag.BodyClass = "bg-white header-fixed-inner";
+    ViewBag.Title = "New Car Launches in " + DateTime.Now.Year;
+    ViewBag.Description = "List of all new cars launched in India in " + DateTime.Now.Year + " (last six months)";
+    ViewBag.canonical = "https://www.carwale.com/new-car-launches/";
+
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.AdId = "1398840401023";
+    ViewBag.AdPath = "/1017752/Upcoming_Cars_";
+
+    ViewBag.CustomCss = "~/Views/StaticPartials/RecentLaunchesCss.cshtml";
+    ViewBag.DefineAdSlots = @" <script type='text/javascript'>
+    googletag.cmd.push(function () {
+    googletag.defineSlot('"+ViewBag.AdPath+@"300x250', [[300, 250], [300, 600]], 'div-gpt-ad-"+ ViewBag.AdId+@"-0').addService(googletag.pubads());
+    googletag.defineSlot('"+ViewBag.AdPath+ @"300x250_BTF', [300, 250], 'div-gpt-ad-" + ViewBag.AdId + @"-1').addService(googletag.pubads());
+    googletag.defineSlot('" + ViewBag.AdPath+ @"970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90], [960, 60], [970, 60]], 'div-gpt-ad-" + ViewBag.AdId + @"-2').addService(googletag.pubads());
+    googletag.defineSlot('" + ViewBag.AdPath+ @"300x600', [[120, 240], [120, 600], [160, 600], [300, 250], [300, 600]], 'div-gpt-ad-" + ViewBag.AdId + @"-9').addService(googletag.pubads());
+    googletag.pubads().setTargeting(""City"", """ + Carwale.UI.Common.CookiesCustomers.MasterCity.ToString() +@""");
+    googletag.pubads().setTargeting('UserModelHistory', '"+ CookiesCustomers.UserModelHistory.Replace('~', ',')+@"');
+    //googletag.pubads().enableSyncRendering();
+    googletag.pubads().collapseEmptyDivs();
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+});</script>";
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+}
+@section Scripts{
+    <script type="text/javascript">
+
+    function bindreadyevents() {
+        $("img.lazy").lazyload({ skip_invisible: true });
+
+        $(document).on("mastercitychange", function (event, cityName, cityId, item) {
+            window.location.reload();
+        });
+    }
+    ready(bindreadyevents);
+    </script>
+}
+
+<aside class="container">
+    <div class="grid-12">
+        <div class="padding-bottom15 text-center">
+            @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_728x90.cshtml");}
+        </div>
+    </div>
+</aside>
+<div class="clear"></div>
+<section class="padding-top10 padding-bottom20 bg-light-grey no-bg-color">
+    <div class="container">
+        <div class="grid-12">
+            <div class="breadcrumb">
+                <!-- breadcrumb code starts here -->
+                <ul class="special-skin-text" itemscope itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/" itemprop="item" title="Carwale"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li>
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span class="fa fa-angle-right margin-right10"></span><a href="/new/" itemprop="item" title="New Cars"><span itemprop="name">New Cars</span></a><meta itemprop="position" content="2" /></li>
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span class="fa fa-angle-right margin-right10"></span><span itemprop="name">New Car Launches in @DateTime.Now.Year</span><meta itemprop="position" content="3" /></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <h1 class="font30 text-black special-skin-text">New Car Launches</h1>
+            <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="grid-8">
+            @if (Model != null && Model.RecordCount > 0)
+            {
+                foreach (var obj in Model.RecentLaunches)
+                {
+                    string modelUrl,versionUrl = string.Empty;
+                    bool isVersion = false;
+                    string modelName,versionName = string.Empty;
+                    modelUrl = ManageCarUrl.CreateModelUrl(obj.Make.MakeName, obj.Model.MaskingName);
+                    modelName = obj.Make.MakeName + " " + obj.Model.ModelName;
+                    if (obj.Version != null && obj.Version.VersionMasking != null)
+                    {
+                        versionUrl = ManageCarUrl.CreateVersionUrl(obj.Make.MakeName, obj.Model.MaskingName, obj.Version.VersionMasking);
+                        versionName = obj.Make.MakeName + " " + obj.Model.ModelName + " " + obj.Version.VersionName;
+                        isVersion = true;
+                    }
+                    <div class="content-box-shadow content-inner-block-10 margin-bottom20">
+                        <div class="grid-5 alpha omega">
+                            <img width="227" height="128" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" class="lazy" data-original='@ImageSizes.CreateImageUrl(obj.Image.HostUrl, ImageSizes._227X128, obj.Image.ImagePath,85)' title='@( isVersion ? versionName : modelName)' alt='@( isVersion ? versionName : modelName)' />
+                            <div>
+
+                                <a title="View @modelName Photos" class="inline-block" href="@(ManageCarUrl.CreateImageListingPageUrl(obj.Make.MakeName,obj.Model.MaskingName))">Photos</a>&nbsp;|&nbsp;
+                                <a title="View All versions of @modelName" class="inline-block" href="@modelUrl">All Versions</a>
+                            </div>
+                        </div>
+                        <div class="grid-7 alpha omega">
+                            <div>
+                                <h3 class="hd3 margin-bottom10"><a href="@(isVersion ? versionUrl : modelUrl)">@(isVersion ? versionName : modelName)</a></h3>
+
+                                <div class="item-details">
+                                    <div class="margin-bottom5"><b>Launched On: </b>@(Convert.ToDateTime(obj.LaunchedDate).ToString("dd-MMM-yyyy"))</div>
+                                    <div class="margin-bottom10">
+                                        Price :
+                                        <span class="price2">₹ @FormatPrice.GetFormattedPriceV2(obj.PriceOverview.Price.ToString())</span>
+                                        <span class="font12">@(obj.PriceOverview != null && Convert.ToInt16(obj.PriceOverview.PriceVersionCount) > 1 ? "Onwards" : string.Empty)</span>
+                                        <span class="ex-showroom font11 margin-left5 @((obj.PriceOverview != null) && (Convert.ToInt16(obj.PriceOverview.PriceStatus) == (int)Carwale.Entity.PriceBucket.PriceNotAvailable) ? "oliveText" : (obj.PriceOverview != null) && (Convert.ToInt16(obj.PriceOverview.PriceStatus) == (int)Carwale.Entity.PriceBucket.CarNotSold) ? "redText" : string.Empty) ">@((obj.PriceOverview != null) && (Convert.ToInt16(obj.PriceOverview.PriceStatus) == (int)Carwale.Entity.PriceBucket.HaveUserCity) ? obj.PriceOverview.PriceLabel + ", " + obj.PriceOverview.City.CityName : @obj.PriceOverview.PriceLabel) </span>
+                                    </div>
+                                    <div class="margin-bottom10">
+                                        @if (@obj.Review.ReviewCount > 0)
+                                        {
+                                            <div id="reviewRating">
+                                                <span>@Html.Raw(CommonOpn.GetRateImage(@obj.Review.ReviewRate))</span>  @obj.Review.ReviewRate/5 based on <a href="@(ManageCarUrl.CreateUserReviewUrl(obj.Make.MakeName,obj.Model.MaskingName))">@obj.Review.ReviewCount reviews</a>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div id="notRatedYet">
+                                                Not rated yet, <a href=@ManageCarUrl.CreateRatingPageUrl(obj.Model.ModelId) data-cwtccat="RatingLinkage" data-cwtcact="@($"{CwPages.NewCarLaunchDesktop}LinkClick")" data-cwtclbl="model=@obj.Model.ModelId">Be the first one to write a review</a>
+                                            </div>
+                                        }
+                                    </div>
+                                    @if(obj.PriceOverview != null && obj.PriceOverview.City == null && obj.PriceOverview.Price > 0)
+                                    {
+                                        <div>
+                                            <span title="Check @modelName On-road Price" class="text-uppercase btn btn-grey btn-xs inline-block"
+                                                  data-role="click-inview-imp" data-cat="desktop_newcarlaunches_btn" data-action="showpriceinmycity" data-label="@obj.Model.ModelName"
+                                                  onclick="javascript:RedirectToModelPage('@Format.FormatSpecial(obj.Make.MakeName)','@obj.Model.MaskingName', this)">@CWConfiguration.orpText</span>
+                                        <div class="clear"></div>
+                                    </div>
+                                    }
+                                    else if(obj.PriceOverview.PriceStatus == 1)
+                                    {
+                                        <div>
+                                            <span title="Check @modelName On-road Price" class="text-uppercase btn btn-grey btn-xs inline-block"
+                                                  data-role="click-inview-imp" data-cat="desktop_newcarlaunches_btn" data-action="viewpricebreakup" data-label="@String.Format("{0}_{1}", obj.Model.ModelName,obj.PriceOverview.City.CityName)"
+                                                  onclick="javascript:GetPriceQuote('','@obj.Model.ModelId','22',this)">@CWConfiguration.ViewPriceBreakupText</span>
+                                        <div class="clear"></div>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                }
+            }
+            else
+            {
+                <div id="message" class="alert">No matching records found.</div>
+            }
+
+
+            <div id="rptContent">
+                <table id="tbl_res" border="0" width="100%" cellpadding="0" cellspacing="0">
+                    <tr id="TopPager" class="dgNavDivTop" style="display:none;">
+                        <td colspan="2"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <div id="pnlGrid">
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="BottomPager" class="dgNavDivBottom">
+                        @{
+                            int totalPages = (int)Math.Ceiling(Model.RecordCount / (double)Model.PageSize);
+                            int showingFrom = Model.Pageno > 1 ? ((Model.Pageno - 1) * Model.PageSize) + 1 : 1;
+                            int showingTo = Model.RecordCount < (Model.Pageno * Model.PageSize) ? Model.RecordCount : (Model.Pageno * Model.PageSize);
+                        }
+
+                        @if (totalPages > 1)
+                        {
+                            <td>
+                                <span id="lblRecordsFooter" class="headers">Showing <span class='price2'> @(Model.Pageno > 1 ? ((Model.Pageno - 1) * Model.PageSize) + 1 : 1)-@(Model.RecordCount < (Model.Pageno * Model.PageSize) ? Model.RecordCount : (Model.Pageno * Model.PageSize))  </span> of <span class='price2'>@Model.RecordCount</span> Records</span>
+                            </td>
+                                        <td id="pgBot" align="right">
+                                            @if (Model.Pageno > 1)
+                                            {
+                                                <span id="divFirstNav"><span class='pg'><a href='/new-car-launches/page/@(Model.Pageno-1)'>Previous</a></span></span>
+                                            }
+                                            else
+                                            {
+                                                <span id="divFirstNav"><span class='pgEnd'>Previous</span></span>
+                                            }
+                                           
+                                            <span id="divPages">
+
+                                                @for (int i = 1; i <= totalPages; i++)
+                                                {
+                                                    if (Model.Pageno == i)
+                                                    {
+                                                        <span class='pgSel'>@i</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class='pg'><a href='/new-car-launches/page/@i/'>@i</a></span>
+
+                                                    }
+
+                                                }
+
+                                            </span>
+                                            @if (Model.Pageno < totalPages)
+                                            {
+                                                <span id="divLastNav"><a href='/new-car-launches/page/@(Model.Pageno+1)/'><span class='pg'>Next</span></a></span>
+                                            }
+                                            else
+                                            {
+                                                <span id="divLastNav"><span class='pgEnd'>Next</span></span>
+                                            }
+                                           
+                                        </td>
+                        }
+
+
+                    </tr>
+
+                </table>
+            </div>
+
+            
+
+
+        </div>
+        <div class="grid-4">
+            <div>
+               @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_ATF_300x250.cshtml");}
+
+
+                @{Html.RenderAction("UpcomingCars", "CarWidgets", new { makeId = -1, makeName = string.Empty, modelId=-1 });}
+
+                @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_BTF_300x250.cshtml");}
+                @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_Bottom_300x600.cshtml");}
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+<div class="clear"></div>

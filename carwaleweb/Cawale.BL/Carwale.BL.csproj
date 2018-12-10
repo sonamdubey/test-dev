@@ -1,0 +1,944 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{56389AB9-224E-48EB-9717-C80CBE58F48A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Carwale.BL</RootNamespace>
+    <AssemblyName>Carwale.BL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Carwale.BL.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Carwale.BL.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Testing|AnyCPU'">
+    <OutputPath>bin\Testing\</OutputPath>
+    <CodeAnalysisRuleSet>Carwale.BL.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>Carwale.BL.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AEPLCore.Cache, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Cache.2.0.7-beta-1\lib\net452\AEPLCore.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Logging, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Logging.1.0.2\lib\net452\AEPLCore.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Queue, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Queue.2.0.10-beta-2\lib\net452\AEPLCore.Queue.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Security">
+      <HintPath>..\libs\AEPLCore.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Utils, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Utils.1.0.4\lib\net452\AEPLCore.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="APIGatewayLibrary, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\APIGatewayLibrary.2.2.2\lib\net452\APIGatewayLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="BhriguServiceCaller, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BhriguServiceCaller.1.3.1\lib\net452\BhriguServiceCaller.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CalithaLib">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\CalithaLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Carwale.Common">
+      <HintPath>..\AppWebApi\bin\Carwale.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Carwale.PaymentWebServices.InquiryGatewayClient">
+      <HintPath>..\libs\Carwale.PaymentWebServices.InquiryGatewayClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Consul, Version=0.7.2.3, Culture=neutral, PublicKeyToken=20a6ad9a81df1d95, processorArchitecture=MSIL">
+      <HintPath>..\packages\Consul.0.7.2.3\lib\net45\Consul.dll</HintPath>
+    </Reference>
+    <Reference Include="ElasticClientManager">
+      <HintPath>..\libs\ElasticClientManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\libs\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Enyim.Caching, Version=2.16.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnyimMemcached.2.16.0\lib\net35\Enyim.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Gelf4Net, Version=3.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gelf4Net.3.0.0.7\lib\net45\Gelf4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="GoldParserEngine">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\GoldParserEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grpc.Core.1.10.0\lib\net45\Grpc.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Kafka">
+      <HintPath>..\libs\zipkin\Kafka.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net40\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Microsoft.Practices.Unity.DLL</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\libs\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OTPProto, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OTPProto.1.2.0\lib\net452\OTPProto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PBKDF2">
+      <HintPath>..\libs\PBKDF2.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.3.7.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.3.7\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabbitMQ.Client.5.0.1\lib\net451\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorEngine">
+      <HintPath>..\libs\RazorEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="s3fileupload">
+      <HintPath>..\libs\s3fileupload.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Interactive.Async, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.3.1.1\lib\net45\System.Interactive.Async.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ThriftNetStandard, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Apache.Thrift.1.0.2\lib\net451\ThriftNetStandard.dll</HintPath>
+    </Reference>
+    <Reference Include="zipkin4net, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\zipkin4net.1.2.0\lib\net451\zipkin4net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accessories\Tyres\TyresAdapterDesktopSearch.cs" />
+    <Compile Include="Accessories\Tyres\TyresBL.cs" />
+    <Compile Include="Accessories\Tyres\TyresAdapterMobileSearch.cs" />
+    <Compile Include="Advertizing\Apps\AppSplashScreenBL.cs" />
+    <Compile Include="Advertizing\Apps\SponsoredCampaignApp.cs" />
+    <Compile Include="Advertizing\Apps\ESCampaignBL.cs" />
+    <Compile Include="AppSiteAssociation\AppSiteAssociationBL.cs" />
+    <Compile Include="Authors\AuthorsBL.cs" />
+    <Compile Include="AutoComplete\AutoComplete.cs" />
+    <Compile Include="AutoComplete\AutoComplete_v1.cs" />
+    <Compile Include="AutoComplete\ESAutoComplete.cs" />
+    <Compile Include="AutoComplete\Gold\carSuggestion.cs" />
+    <Compile Include="AutoComplete\Gold\CarWithVersus.cs" />
+    <Compile Include="AutoComplete\Gold\versus.cs" />
+    <Compile Include="Calculations\Calculation.cs" />
+    <Compile Include="Campaigns\CampaignPredictionBL.cs" />
+    <Compile Include="Campaigns\CampaignValidation.cs" />
+    <Compile Include="Campaigns\DealerAdProvider.cs" />
+    <Compile Include="Campaigns\Template.cs" />
+    <Compile Include="CarData\CarDataLogic.cs" />
+    <Compile Include="CarData\CarRecommendationLogic.cs" />
+    <Compile Include="CarData\CarRootsBL.cs" />
+    <Compile Include="CentralizedCacheRefresh\CentralizedCacheRefreshBl.cs" />
+    <Compile Include="Classified\CarValuation\ValuationBL.cs" />
+    <Compile Include="Campaigns\LeadSource.cs" />
+    <Compile Include="Classified\Chat\ChatBL.cs" />
+    <Compile Include="Classified\Chat\ChatNotifications.cs" />
+    <Compile Include="Classified\Leads\LeadBL.cs" />
+    <Compile Include="Classified\Leads\LeadNotifications.cs" />
+    <Compile Include="Classified\ListingPayment\ReceiptLogic.cs" />
+    <Compile Include="Classified\MyListings\MyListings.cs" />
+    <Compile Include="Classified\MyListings\PremiumListingsLogic.cs" />
+    <Compile Include="Classified\Search\SearchBL.cs" />
+    <Compile Include="Classified\Search\MetaKeywordsSearch.cs" />
+    <Compile Include="Classified\UsedSellCar\CarDetailsBL.cs" />
+    <Compile Include="Classified\UsedSellCar\ConsumerToBusinessBL.cs" />
+    <Compile Include="Classified\UsedSellCar\ListingBL.cs" />
+    <Compile Include="Classified\Search\SearchParamsProcesser.cs" />
+    <Compile Include="Classified\Search\SearchUtility.cs" />
+    <Compile Include="Classified\UsedSellCar\SellCarBL.cs" />
+    <Compile Include="Classified\Stock\GetUsedCarDealerStatus.cs" />
+    <Compile Include="CMS\ExpertReviewAdapterMobile.cs" />
+    <Compile Include="CMS\MediaAdapter.cs" />
+    <Compile Include="CMS\NewsDetailAdapter.cs" />
+    <Compile Include="CMS\ThreeSixtyView.cs" />
+    <Compile Include="CMS\ThreeSixtyViewAdapter.cs" />
+    <Compile Include="CMS\UserReviews\UserReviews.cs" />
+    <Compile Include="CMS\UserReviews\UserReviewsListAdapter.cs" />
+    <Compile Include="CMS\GenericContentDetailAdapter.cs" />
+    <Compile Include="CompareCars\CCData.cs" />
+    <Compile Include="CompareCars\CompareCarAdapterApp.cs" />
+    <Compile Include="CarData\AutoComplete.cs" />
+    <Compile Include="CarData\CarMakesBL.cs" />
+    <Compile Include="CarData\CarModelsBL.cs" />
+    <Compile Include="CarData\Mileage.cs" />
+    <Compile Include="Classified\CarDetail\CarDetails.cs" />
+    <Compile Include="Classified\PopularUsedCars\PopularUCDetails.cs" />
+    <Compile Include="CarData\CarVersionsBL.cs" />
+    <Compile Include="Classified\CarValuation\CarValuation.cs" />
+    <Compile Include="Classified\CarValuation\CalculateBaseValue.cs" />
+    <Compile Include="Classified\CarValuation\CalculateFinalValue.cs" />
+    <Compile Include="CMS\CMSCommon.cs" />
+    <Compile Include="CMS\CMSContent.cs" />
+    <Compile Include="CMS\Photos\CMSPhotosBL.cs" />
+    <Compile Include="Campaigns\CampaignBL.cs" />
+    <Compile Include="Classified\CarValuation\ValuationAdjustments.cs" />
+    <Compile Include="Classified\CarValuation\ValuationInputValidation.cs" />
+    <Compile Include="CrossSell\CrossSellOperations.cs" />
+    <Compile Include="CrossSell\HouseCrossSell.cs" />
+    <Compile Include="CrossSell\PaidCrossSell.cs" />
+    <Compile Include="Customers\CurrentActiveUser.cs" />
+    <Compile Include="Customers\Customer.cs" />
+    <Compile Include="Customers\CustomerSecurity.cs" />
+    <Compile Include="Campaigns\CampaignRecommendationsBL.cs" />
+    <Compile Include="Customers\CustomerTracking.cs" />
+    <Compile Include="CustomerVerification\CustomerVerificationLogic.cs" />
+    <Compile Include="Dealers\Used\UsedDealerShowroomBL.cs" />
+    <Compile Include="Dealers\Used\UsedDealerCitiesBL.cs" />
+    <Compile Include="Dealers\Used\UsedDealerRatingsBL.cs" />
+    <Compile Include="Dealers\Used\UsedDealerStocksBL.cs" />
+    <Compile Include="Elastic\NewCarElasticSearch\NewCarSearchAppAdapterV2.cs" />
+    <Compile Include="Finance\Axis.cs" />
+    <Compile Include="Customers\UserFeedbackBL.cs" />
+    <Compile Include="CustomerVerification\CustomerVerificationBL.cs" />
+    <Compile Include="Dealers\Dealers.cs" />
+    <Compile Include="Dealers\NewCarDealers.cs" />
+    <Compile Include="Dealers\PQInquiryToDealer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Deals\DealsBL.cs" />
+    <Compile Include="Deals\DealInquiriesCL.cs" />
+    <Compile Include="Deals\DealsBLBase.cs" />
+    <Compile Include="Deals\DealsCL.cs" />
+    <Compile Include="Deals\DealsInquiryBL.cs" />
+    <Compile Include="Deals\DealsNotification.cs" />
+    <Compile Include="DeepLinkingAndroid\GetApiForCwApp.cs" />
+    <Compile Include="CMS\ExpertReviewAdapter.cs" />
+    <Compile Include="EditCMS\DesktopGalleryAdapter.cs" />
+    <Compile Include="EditCMS\MobileGalleryAdapter.cs" />
+    <Compile Include="Elastic\SuggestionBL.cs" />
+    <Compile Include="Elastic\ElasticSearchManager.cs" />
+    <Compile Include="Elastic\NewCarElasticSearch\NewCarElasticSearch.cs" />
+    <Compile Include="Elastic\NewCarElasticSearch\NewCarSearchAppAdapter.cs" />
+    <Compile Include="Elastic\Used\ESStockQuery.cs" />
+    <Compile Include="Elastic\Used\ProcessElasticJson.cs" />
+    <Compile Include="Elastic\Used\ProcessFilters.cs" />
+    <Compile Include="Elastic\Used\ESStockOperations.cs" />
+    <Compile Include="Experiments\ProductExperiments.cs" />
+    <Compile Include="ES\ESSurveyBL.cs" />
+    <Compile Include="Finance\FinanceAdapter.cs" />
+    <Compile Include="Finance\HdfcBL.cs" />
+    <Compile Include="Forums\CreateNVC.cs" />
+    <Compile Include="Forums\NotificationsBusinessLogic.cs" />
+    <Compile Include="Forums\PostsBusinessLogic.cs" />
+    <Compile Include="Forums\ThreadsBL.cs" />
+    <Compile Include="Forums\UserBusinessLogic.cs" />
+    <Compile Include="GeoLocation\ElasticLocation.cs" />
+    <Compile Include="GeoLocation\GeoCityLogic.cs" />
+    <Compile Include="GeoLocation\PQGeoLocationBL.cs" />
+    <Compile Include="GRPCFiles\HealthGrpc.cs" />
+    <Compile Include="Home\AppAdapterHomeV2.cs" />
+    <Compile Include="Home\AppAdapterHome.cs" />
+    <Compile Include="Home\AppAdapterHomeV3.cs" />
+    <Compile Include="ImageUpload\ImageBL.cs" />
+    <Compile Include="Insurance\CholaBL.cs" />
+    <Compile Include="Insurance\Common.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Insurance\CW.cs" />
+    <Compile Include="Insurance\Ensureti.cs" />
+    <Compile Include="Insurance\InsuranceAdapter.cs" />
+    <Compile Include="Insurance\CoverFoxBL.cs" />
+    <Compile Include="Insurance\PolicyBossBL.cs" />
+    <Compile Include="Insurance\RoyalSundaramBL.cs" />
+    <Compile Include="Interface\ICustomerVerificationLogic.cs" />
+    <Compile Include="Interface\Stock\Search\IStockSearchLogic.cs" />
+    <Compile Include="Interface\Stock\Search\INearbyCityLogic.cs" />
+    <Compile Include="IPToLocation\IPToLocation.cs" />
+    <Compile Include="LeadForm\LeadFormAdapter.cs" />
+    <Compile Include="Monetization\MonetizationBL.cs" />
+    <Compile Include="NewCars\AppAdapterNewCarsV3.cs" />
+    <Compile Include="NewCars\CompareCarDetailsAdapter.cs" />
+    <Compile Include="NewCars\CompareCarDetailsAdaptorMobile.cs" />
+    <Compile Include="NewCars\MileageAdapter.cs" />
+    <Compile Include="NewCars\ModelPageAdapterApp_V2.cs" />
+    <Compile Include="NewCars\NearbyCitiesSearch.cs" />
+    <Compile Include="NewCars\TopCarsBl.cs" />
+    <Compile Include="NewCars\TopCarsByBodyTypeAdaptor.cs" />
+    <Compile Include="NewCars\AppAdapterNewCarsV2.cs" />
+    <Compile Include="NewCars\AppAdapterNewCars.cs" />
+    <Compile Include="NewCars\CompareCarAdapter.cs" />
+    <Compile Include="NewCars\HomePageAdapter.cs" />
+    <Compile Include="NewCars\Leads.cs" />
+    <Compile Include="NewCars\MakePageAdapterDesktop.cs" />
+    <Compile Include="NewCars\MakePageAdapterMobile.cs" />
+    <Compile Include="NewCars\ModelPageAdapterAndroid.cs" />
+    <Compile Include="NewCars\ModelPageAdapterAndroid_V1.cs" />
+    <Compile Include="NewCars\ModelPageAdapterDesktop.cs" />
+    <Compile Include="NewCars\UpcomingCarListAdapter.cs" />
+    <Compile Include="NewCars\VersionPageAdapterAndroidV1.cs" />
+    <Compile Include="NewCars\VersionPageAdapterDesktop.cs" />
+    <Compile Include="NewCars\VersionPageAdapterApp.cs" />
+    <Compile Include="Notifications\SMSNotification.cs" />
+    <Compile Include="ApiCredentials.cs" />
+    <Compile Include="Offers\OfferBL.cs" />
+    <Compile Include="Otp\OtpLogic.cs" />
+    <Compile Include="Pager.cs" />
+    <Compile Include="PaymentGateway\BillDesk.cs" />
+    <Compile Include="PaymentGateway\PGCookie.cs" />
+    <Compile Include="PaymentGateway\Transaction.cs" />
+    <Compile Include="PaymentGateway\ValidateTransaction.cs" />
+    <Compile Include="PresentationLogic\NewCar.cs" />
+    <Compile Include="PriceQuote\CarPriceQuoteAdapter.cs" />
+    <Compile Include="PriceQuote\Charges.cs" />
+    <Compile Include="PriceQuote\CommonLTS.cs" />
+    <Compile Include="PriceQuote\LeadAndInquirySource.cs" />
+    <Compile Include="PriceQuote\ModelSimilarPriceDetailsBL.cs" />
+    <Compile Include="PriceQuote\PQAdapterAndroidV1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PriceQuote\PQAdapterAndroidV2.cs" />
+    <Compile Include="PriceQuote\PQAndroidAdapter.cs" />
+    <Compile Include="PriceQuote\PQDesktopAdapterV1.cs" />
+    <Compile Include="PriceQuote\PriceQuoteBL.cs" />
+    <Compile Include="PriceQuote\CarPrices.cs" />
+    <Compile Include="PriceQuote\PushToRabbitMQ.cs" />
+    <Compile Include="Prices\EmiCalculatorBl.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\AdvInquiryService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\CarWaleCalculatePremium\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Chola\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\CRM\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\HDFC_Bank_C2T\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\HDFC_Bank_C2T_Adapt\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PolicyBoss\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\RoyalSundaram\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\TCApi_Inquiry\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="SponsoredCar\SponsoredCar.cs" />
+    <Compile Include="Stock\CTStockAckClient.cs" />
+    <Compile Include="Stock\CTStockImageAckClient.cs" />
+    <Compile Include="Stock\Search\DesktopStockSearchLogic.cs" />
+    <Compile Include="Stock\Search\NearbyCityLogic.cs" />
+    <Compile Include="Stock\Search\SearchUtility.cs" />
+    <Compile Include="Stock\Search\StockSearchLogicBase.cs" />
+    <Compile Include="Stock\StockManager.cs" />
+    <Compile Include="Stock\StockBL.cs" />
+    <Compile Include="Stock\StockCertificationBL.cs" />
+    <Compile Include="Stock\StockCitiesBL.cs" />
+    <Compile Include="Stock\StockFinanceBL.cs" />
+    <Compile Include="Stock\StockRecommendationsBL.cs" />
+    <Compile Include="Stock\StocksBySlot.cs" />
+    <Compile Include="Stock\Search\MobileStockSearchLogic.cs" />
+    <Compile Include="Template\TemplateRender.cs" />
+    <Compile Include="LandingPage\LandingPageAdapter.cs" />
+    <Compile Include="ThirdParty\Leads\ThirdPartyInquiryDealer.cs" />
+    <Compile Include="Tracking\BhriguTracker.cs" />
+    <Compile Include="UserProfiling\UserProfilingBL.cs" />
+    <Compile Include="UserReview\RateCarObject.cs" />
+    <Compile Include="UserReview\UserReviewLandingObject.cs" />
+    <Compile Include="UserReview\UserReviewLogic.cs" />
+    <Compile Include="UserReview\WriteReviewObject.cs" />
+    <Compile Include="Videos\VideoService.cs" />
+    <Compile Include="XmlFeeds\CarMakesSitemapFeed.cs" />
+    <Compile Include="XmlFeeds\CarModelsSitemapFeed.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Carwale.CacheCore\Carwale.Cache.csproj">
+      <Project>{3f685d8d-1086-487a-8467-357ded4edaab}</Project>
+      <Name>Carwale.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.DataAccessLayer\Carwale.DAL.csproj">
+      <Project>{9cf1c70b-6eb2-4f13-8fbf-9ed9e5eb5fef}</Project>
+      <Name>Carwale.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.DTOs\Carwale.DTOs.csproj">
+      <Project>{71d19ca7-5224-4827-9535-570755738374}</Project>
+      <Name>Carwale.DTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Entity\Carwale.Entity.csproj">
+      <Project>{02e68020-d0cf-48a8-9059-48b28c3df144}</Project>
+      <Name>Carwale.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Interface\Carwale.Interfaces.csproj">
+      <Project>{b4e57a71-8ac4-4957-b0cb-82ec72f8d5b7}</Project>
+      <Name>Carwale.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Notifications\Carwale.Notifications.csproj">
+      <Project>{2bd35d9b-e0da-4dab-9234-ebbb75c33001}</Project>
+      <Name>Carwale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Utility\Carwale.Utility.csproj">
+      <Project>{7edc7859-19ea-4b79-acc3-0525860b4199}</Project>
+      <Name>Carwale.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Carwale.BL.ruleset" />
+    <None Include="packages.config" />
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.AddBuyerInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.AddNewCarCWOfferInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.AddNewCarInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.AddOtherInquiriesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.AddSellerInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.BookNewCarOfferInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.BookNewInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.CaptureInvoiceDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.ChangeEagernessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.ChangeInquiryDispositionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.FetchIpAddressResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.FetchLeadDispositionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.GetAllNewCarMakesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.GetAllWebFolloWUpResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.GetCarVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.GetCustomerNMESuggestionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.GetDealerCitiesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.GetInquirySourceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.GetNewCarBuyerInqResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.GetNewCarMakesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.GetNewCarModelResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.GetRetailDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.GetStockLeadDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.GetTaskListDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.InquiriesFollowUpResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.InsertBuyerInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.InsertNewCarInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.InsertOtherInquiriesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.InsertSellerInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.LeadFollowupLoadResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.RewardPointsDescriptionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.RewardRedeemSaveResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.SaveOtherRequestsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.TotalAvailableRewardPointsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.UpdateCustomerDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Carwale.BL.AdvInquiryService.UpdateNewCarBuyerInqResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\AdvInquiryService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\AdvInquiryService\configuration.svcinfo" />
+    <None Include="Service References\AdvInquiryService\configuration91.svcinfo" />
+    <None Include="Service References\AdvInquiryService\TCApi_Inquiry.disco" />
+    <None Include="Service References\AdvInquiryService\TCApi_Inquiry.wsdl" />
+    <None Include="Service References\Chola\CholaProductService.wsdl" />
+    <None Include="Service References\HDFC_Bank_C2T_Adapt\Carwale.BL.HDFC_Bank_C2T_Adapt.AddDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HDFC_Bank_C2T_Adapt\HDFC_Bank_C2T_Adapt.wsdl" />
+    <None Include="Service References\RoyalSundaram\Carwale.BL.RoyalSundaram.Branches.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RoyalSundaram\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\RoyalSundaram\configuration.svcinfo" />
+    <None Include="Service References\RoyalSundaram\configuration91.svcinfo" />
+    <None Include="Service References\RoyalSundaram\Royalservices.disco" />
+    <EmbeddedResource Include="AutoComplete\Gold\carSuggestion.cgt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="AutoComplete\Gold\CarWithVersus.cgt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="AutoComplete\Gold\versus.cgt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Service References\PolicyBoss\SmartQuote.disco" />
+    <None Include="Service References\PolicyBoss\Carwale.BL.PolicyBoss.GetHealthQuoteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PolicyBoss\Carwale.BL.PolicyBoss.GetMotorQuotePartnerResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PolicyBoss\Carwale.BL.PolicyBoss.GetMotorQuoteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PolicyBoss\Carwale.BL.PolicyBoss.GetQuoteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PolicyBoss\Carwale.BL.PolicyBoss.GetTravelQuoteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PolicyBoss\Carwale.BL.PolicyBoss.Get_MakeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PolicyBoss\Carwale.BL.PolicyBoss.get_modelResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PolicyBoss\Carwale.BL.PolicyBoss.Get_VariantResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PolicyBoss\Carwale.BL.PolicyBoss.Get_Vechical_cityResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PolicyBoss\Carwale.BL.PolicyBoss.HealthQuote.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PolicyBoss\Carwale.BL.PolicyBoss.HealthQuoteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\PolicyBoss\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\PolicyBoss\configuration.svcinfo" />
+    <None Include="Service References\PolicyBoss\configuration91.svcinfo" />
+    <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
+    <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
+    <None Include="Service References\CRM\Carwale.BL.CRM.PushToCRMResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CRM\Carwale.BL.CRM.UpdateDMSDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CRM\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\CRM\configuration.svcinfo" />
+    <None Include="Service References\CRM\configuration91.svcinfo" />
+    <None Include="Service References\CRM\PushCRM.disco" />
+    <None Include="Service References\CarWaleCalculatePremium\Carwale.BL.CarWaleCalculatePremium.CalculatePremium1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CarWaleCalculatePremium\Carwale.BL.CarWaleCalculatePremium.clsCarWaleDekhoOutDetails.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CarWaleCalculatePremium\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\CarWaleCalculatePremium\configuration.svcinfo" />
+    <None Include="Service References\CarWaleCalculatePremium\configuration91.svcinfo" />
+    <None Include="Service References\CarWaleCalculatePremium\CarWaleCalculatePremium.disco" />
+    <None Include="Service References\CarWaleCalculatePremium\CarWaleCalculatePremium.wsdl" />
+    <None Include="Service References\CRM\PushCRM.wsdl" />
+    <None Include="Service References\PolicyBoss\SmartQuote.wsdl" />
+    <None Include="Service References\PolicyBoss\SmartQuote.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PolicyBoss\SmartQuote1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PolicyBoss\SmartQuote2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PolicyBoss\SmartQuote3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PolicyBoss\SmartQuote4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PolicyBoss\SmartQuote5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RoyalSundaram\Royalservices.wsdl" />
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.AddBuyerInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.AddNewCarCWOfferInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.AddNewCarInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.AddOtherInquiriesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.AddSellerInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.BookNewCarOfferInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.BookNewInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.CaptureInvoiceDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.ChangeEagernessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.ChangeInquiryDispositionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.FetchIpAddressResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.FetchLeadDispositionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.GetAllNewCarMakesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.GetAllWebFolloWUpResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.GetCarVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.GetCustomerNMESuggestionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.GetDealerCitiesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.GetInquirySourceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.GetNewCarBuyerInqResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.GetNewCarMakesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.GetNewCarModelResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.GetRetailDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.GetStockLeadDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.GetTaskListDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.InquiriesFollowUpResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.InsertBuyerInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.InsertNewCarInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.InsertOtherInquiriesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.InsertSellerInquiryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.LeadFollowupLoadResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.RewardPointsDescriptionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.RewardRedeemSaveResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.SaveOtherRequestsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.TotalAvailableRewardPointsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.UpdateCustomerDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Carwale.BL.TCApi_Inquiry.UpdateNewCarBuyerInqResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\TCApi_Inquiry\configuration.svcinfo" />
+    <None Include="Service References\TCApi_Inquiry\configuration91.svcinfo" />
+    <None Include="Service References\TCApi_Inquiry\tcapi_inquiry.disco" />
+    <None Include="Service References\HDFC_Bank_C2T\Carwale.BL.HDFC_Bank_C2T.AddDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\HDFC_Bank_C2T\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\HDFC_Bank_C2T\configuration.svcinfo" />
+    <None Include="Service References\HDFC_Bank_C2T\configuration91.svcinfo" />
+    <None Include="Service References\HDFC_Bank_C2T\HDFC_Bank_C2T.disco" />
+    <None Include="Service References\HDFC_Bank_C2T\HDFC_Bank_C2T.wsdl" />
+    <None Include="Service References\TCApi_Inquiry\tcapi_inquiry.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+    <Folder Include="bin\Staging\" />
+    <Folder Include="bin\Testing\" />
+    <Folder Include="Carwale\BL\Campaigns\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AdvInquiryService\" />
+    <WCFMetadataStorage Include="Service References\CarWaleCalculatePremium\" />
+    <WCFMetadataStorage Include="Service References\Chola\" />
+    <WCFMetadataStorage Include="Service References\CRM\" />
+    <WCFMetadataStorage Include="Service References\HDFC_Bank_C2T\" />
+    <WCFMetadataStorage Include="Service References\HDFC_Bank_C2T_Adapt\" />
+    <WCFMetadataStorage Include="Service References\PolicyBoss\" />
+    <WCFMetadataStorage Include="Service References\RoyalSundaram\" />
+    <WCFMetadataStorage Include="Service References\TCApi_Inquiry\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\HDFC_Bank_C2T_Adapt\HDFC_Bank_C2T_Adapt.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\HDFC_Bank_C2T_Adapt\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\HDFC_Bank_C2T_Adapt\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\HDFC_Bank_C2T_Adapt\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Chola\CholaProductService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Chola\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Chola\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\Chola\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="DisableAnalyzersForVisualStudioBuild" BeforeTargets="CoreCompile" Condition="'$(BuildingInsideVisualStudio)' == 'True' And '$(BuildingProject)' == 'True'">
+    <!--
+    Disable analyzers when building a project inside Visual Studio. Note that analyzer behavior for IntelliSense
+    purposes is not altered by this.
+  -->
+    <ItemGroup>
+      <Analyzer Remove="@(Analyzer)" />
+    </ItemGroup>
+  </Target>
+  <Import Project="..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets'))" />
+  </Target>
+</Project>

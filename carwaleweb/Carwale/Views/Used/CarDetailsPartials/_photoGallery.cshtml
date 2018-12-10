@@ -1,0 +1,192 @@
+﻿@model Carwale.DTOs.Classified.CarDetails.CarDetailsModel
+@using Carwale.BL.Stock;
+
+<span id="pg_closeBtn" class="uc-gallery-sprite close-ic-xlg cur-pointer pos-top10 pos-right10"></span>
+<div id="photoGallery" class="uc-gallery-container" style="visibility: hidden;">
+    <!-- Ask to seller Gallery code starts here -->
+    <div>
+        <div class="margin-top10 pg-header-details font16">
+            <h3 class="leftfloat margin-right10 padding-right10 pg-car-name border-right-white font16 text-unbold">@Model.carDetailEntity.BasicCarInfo.MakeYear.ToString("yyyy") @Model.carDetailEntity.BasicCarInfo.MakeName @Model.carDetailEntity.BasicCarInfo.ModelName</h3>
+            <div class="leftfloat">₹<strong class="text-unbold">&nbsp;@Model.carDetailEntity.BasicCarInfo.Price</strong></div>
+            <div class="divbbt rightfloat">
+                <div class="inline-block carlocationTxt break-word">
+                    <p class="margin-bottom5">Car location: <span>@Model.carDetailEntity.BasicCarInfo.CityName</span></p>
+                    @if (Model.DeliveryCity != string.Empty)
+                    {
+                        <p>Delivery available in <span class="bbt">@Model.DeliveryCity</span></p>
+                    }
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    @*if (Model.carDetailEntity.BasicCarInfo.VideoCount > 0 && Model.carDetailEntity.BasicCarInfo.PhotoCount > 0 && Model.carDetailEntity.BasicCarInfo.IsPremium == true)
+        {*@
+    <div class="gallery-tabs-top @((Model.VideoCdtn && Model.carDetailEntity.BasicCarInfo.PhotoCount > 0) ? " " : " hideImportant")">
+        <div class="leftfloat gallery-tabs bold" id="videoTab">Videos <span>|</span> </div>
+        <div class="leftfloat gallery-tabs" id="photoTab">Photos</div>
+        <div class="clear"></div>
+    </div>
+    @* } *@
+    <div class="ask-gallery">
+        @if (Model.VideoCdtn)
+        {
+            <div id="videoContainer">
+                <iframe class="margin-top10" src="" width="891" height="501" frameborder="0"></iframe>
+            </div>
+        }
+        <div id="gallery" class="pg-gallery margin-top10" style="visibility: hidden;">
+            <div id="galleryHolder">
+                <div id="descriptions">
+                    <div class="pg-controls"></div>
+                </div>
+                <div class="pg-image-wrapper">
+                    <div class="pg-image"></div>
+                    <img class="pg-loader" src="https://img.aeplcdn.com/adgallery/loader.gif" style="display: none;" />
+                    <div class="pg-next">
+                        <div class="pg-next-image"></div>
+                    </div>
+                    <div class="pg-prev">
+                        <div class="pg-prev-image"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="pg-nav">
+                <div class="pg-back"><a></a></div>
+                <div class="pg-thumbs">
+                    <ul id="galleryList" class="pg-thumb-list">
+                        @foreach (var img in Model.carDetailEntity.ImageList.ImageUrls)
+                        {
+                            <li>
+                                <a href="" original-href="@img.ToString()" class="pg-thumb@Model.carDetailEntity.ImageList.ImageUrls.IndexOf(@img)">
+                                    <img src="@img.ToString()" border="0" alt="" title="" desc="" artid="" imgcnt="" arttitle="" arturl="" />
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="pg-forward"><a></a></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- Ask to seller form code starts here -->
+    <div class="ask-form-container">
+        <div id="pgbuyer_form" class="step-1">
+            <p class="font14 margin-top10 margin-bottom10">Get Seller Details</p>
+            <div class="uc-pg-fields form-control-box">
+                <input class="form-control margin-bottom25 uc-pg-name-txt" type="text" placeholder="Name" id="pgtxtName" value="@Model.CustomerDetails.BuyerName" maxlength="50" />
+                <span class="cw-used-sprite uc-uname"></span>
+                <span class="cw-blackbg-tooltip hide" id="pgtxtNameError">please </span>
+                <span class="cwsprite error-icon hide" id="pgerrorNameCircle"></span>
+            </div>
+            <div class="uc-pg-fields position-rel mobile-ug-field">
+                <span class="uc-pg-plus-num">+91</span>
+                <input id="pgtxtMobile" class="uc-pg-mobile-txt form-control" type="text" name="mobile" maxlength="10" placeholder="Enter 10 Digit Number" value="@Model.CustomerDetails.BuyerMobile" />
+                <span class="cw-used-sprite uc-mobile"></span>
+                <span class="cw-blackbg-tooltip hide" id="pgtxtMobileError"></span>
+                <span class="cwsprite error-icon hide" id="pgerrorMobileCircle"></span>
+            </div>
+            <div class="uc-pg-fields position-rel">
+                @if (!String.IsNullOrEmpty(Model.CustomerDetails.BuyerEmail))
+                {
+                    <input name="emailTick" type="checkbox" id="pgemailTick" checked>
+                }
+                else
+                {
+                    <input name="emailTick" type="checkbox" id="pgemailTick">
+                }
+                <label for="emailTick">Get updates on Email</label>
+            </div>
+            <div class="uc-pg-fields position-rel email-ug-field hide" id="pgEmail" style='@(String.IsNullOrEmpty(Model.CustomerDetails.BuyerEmail) ? "" :"display:block")'>
+                <input class="form-control" id="pgtxtEmail" name="Email" type="text" placeholder="Email" value='@(String.IsNullOrEmpty(Model.CustomerDetails.BuyerEmail) ? "" : @Model.CustomerDetails.BuyerEmail)'>
+                <span class="cw-blackbg-tooltip hide" id="pgtxtEmailError"></span>
+                <span class="cwsprite error-icon hide" id="pgerrorEmailCircle"></span>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.carDetailEntity.DealerInfo?.RatingText))
+            {
+                <div style="margin:20px 0;" class="dealer-rating-container position-rel">
+                    <span class="top-rated-seller-tag">@Model.carDetailEntity.DealerInfo.RatingText</span>
+                    <span class="dealer-rating-tooltip dealer-rating-tooltip--left">This seller has consistently been rated well by his customers</span>
+                </div>
+            }
+            <div class="margin-top20">
+                <a id="pggetsellerDetails" data-rank="@Model.RankFromQueryString" data-platform="@Model.ListingsTrackingPlatform" data-isPremium="@Model.IsPremiumFromQueryString" class="btn btn-xs text-uppercase btn-orange grid-12 seller-btn-container" data-cte-package-id="@Model.carDetailEntity.BasicCarInfo.CtePackageId"><span class="gsdTxt font18">GET SELLER DETAILS</span><span class="oneClickDetails hide font18 text-bold">1-Click <span class="font11">VIEW DETAILS</span></span></a>
+                <a id="pggettingDetails" class="btn btn-orange hide btn-xs text-uppercase grid-12">Getting Details <span>.</span><span>.</span><span>.</span></a>
+            </div>
+            <div class="clear"></div>
+            <p style="text-align:left; font-size:11px; margin-top:20px">By submitting this form you agree to our <a href="/visitoragreement.aspx" target="_blank">terms and conditions</a></p>
+        </div>
+        <!-- step-1 code ends here -->
+
+        <div id="pgseller-details" class="step-3 hide pgseller-details word-break">
+            <!-- step-3 code starts here -->
+            <h2 class="font20 margin-bottom10">Thank you!</h2>
+            <p class="margin-bottom15">Your details have been shared with the seller</p>
+            <p class="margin-bottom10"><strong>Contact Seller at:</strong></p>
+            <p class="margin-bottom10"><strong>Name:</strong></p>
+            <p>
+                @if (!string.IsNullOrEmpty(Model.carDetailEntity.DealerInfo?.RatingText))
+                {
+                    <span id="pgcontact_person" class="seller-details-right-name-field"></span>
+                    <span class="dealer-rating-container position-rel inline-block">
+                        <span class="top-rated-seller-tag top4">@Model.carDetailEntity.DealerInfo.RatingText</span>
+                        <span class="dealer-rating-tooltip dealer-rating-tooltip--left">This seller has consistently been rated well by his customers</span>
+                    </span>
+                }
+                else
+                {
+                    <span id="pgcontact_person"></span>
+                }
+            </p>
+            <p><span id="pgseller_name"></span></p>
+            <p class="margin-bottom10 margin-top5">
+
+                <a href="#" class="font14 seller-virtual-link" target="_blank">Check other cars from this seller</a>
+
+            </p>
+            <p class="margin-bottom10 margin-top15"><strong>Email:</strong></p>
+            <p class="margin-bottom15"><a id="pgseller_email" href="mailto:Ganesh@brokerdalal.com">Ganesh@brokerdalal.com</a></p>
+            <p class="margin-bottom10"><strong>Address:</strong></p>
+            <p id="pgseller_address" class="margin-bottom10 min-line-height">
+                Site No. D-267,Ttc Industrial Area,
+                <br />
+                Midc, Turbhe, Navi Mumbai.,
+                <br />
+                Maharashtra, 400705
+            </p>
+            <p class="margin-bottom10"><strong>Mobile:</strong></p>
+            <p id="pgseller_mobile" class="min-line-height">
+                +91-9898765435,<br />
+                +91-9876545890
+            </p>
+            <p class="font14 text-link margin-bottom10 margin-top15" id="pg-similarcars"><a href='/used/cars-for-sale/#city=@((Model.carDetailEntity.BasicCarInfo.CityId).ToString() == " 1" ? "3000" : Model.carDetailEntity.BasicCarInfo.CityId.ToString())&car=@Model.carDetailEntity.BasicCarInfo.MakeId.@Model.carDetailEntity.BasicCarInfo.RootId' target="_blank" onclick="dataLayer.push({ event: 'ViewSimilarCarsClick', cat: 'UsedCarDetails', act: 'ViewSimilarCarsClick_DetailsPhoto'});">View similar cars >></a></p>
+        </div>
+        <div class="content-inner-block-10 alert hide" id="pgnot_auth">
+            <div class="back-to-gsd-form">
+                <span>Error message</span>
+                <p style="color: #0288d1;cursor:pointer">Change your number</p>
+            </div>
+        </div>
+        <!-- step-3 code ends here -->
+        @*<div id="pgprocess_img" class="process-inline hide" style="position: relative;"></div>*@
+        <!-- Buyer Process captcha starts here -->
+        <div id="pg-captcha" class="captcha margin-top30 hide">
+            <h3 class="margin-bottom20 text-black">Security check</h3>
+            <iframe id="pg-captchaCode" src="" frameborder="0" scrolling="no" width="200" height="55"></iframe>
+            <div>
+                <p class="margin-bottom10">Enter the code shown above</p>
+                <div class="position-rel captcha-inputbox">
+                    <input id="pg-txtCaptchaCode" class="form-control" />
+                    <span id="pg-lblCaptcha" class="hide cw-blackbg-tooltip"></span>
+                    <span class="hide cwsprite error-icon"></span>
+                </div>
+                <p>(If you can't read it: <a class="text-link" onclick="javascript:regenerateCode(2)">Regenerate Code</a>)</p>
+                <input id="pg-btnVerifyCaptcha" type="button" class="btn btn-orange margin-top10" value="Verify" />
+            </div>
+        </div>
+        <!-- Buyer Process captcha ends here -->
+    </div>
+    <!-- Ask to seller form code ends here -->
+</div>

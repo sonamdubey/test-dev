@@ -1,0 +1,156 @@
+﻿@model Carwale.UI.ViewModels.UserReviews.WriteReview
+@using Carwale.Entity.Enum
+@using Carwale.Utility
+@{
+	ViewBag.Title = "Write a Review: " + Model.ReviewDetails.CarDetails.Make.Name + " " + Model.ReviewDetails.CarDetails.Model.Name + " " + Model.ReviewDetails.CarDetails.Version.Name;
+	ViewBag.Description = "Write a Review for:  " + Model.ReviewDetails.CarDetails.Make.Name + " " + Model.ReviewDetails.CarDetails.Model.Name + " " + Model.ReviewDetails.CarDetails.Version.Name + " - CarWale";
+	ViewBag.isMobile = Model.IsMobile;
+	ViewBag.BodyClass = "bg-light-grey " + (Model.IsMobile ? string.Empty : "header-fixed-inner");
+	ViewBag.landingPage = false;
+	ViewBag.Responsive = true;
+	ViewBag.CustomCss = "~/Views/StaticPartials/UserReviews/WriteReviewPageCss.cshtml";
+	Layout = (Model.IsMobile ? "~/views/shared/m/_MLayoutV2.cshtml" : "~/views/shared/_LayoutV2.cshtml");
+    int platformId = Model.IsMobile ? 43 : 1;
+    string eventLabel = string.Format("make={0}|model={1}|version={2}|source={3}|channel={4}", Model.ReviewDetails.CarDetails.Make.Name, Model.ReviewDetails.CarDetails.Model.Name, Model.ReviewDetails.CarDetails.Version.Name, platformId,Model.Channel);
+    string decryptedHash = Utils.Utils.DecryptTripleDES(Model.Hash);
+    int decryptedReviewId;
+    int.TryParse(decryptedHash.Split('|')[0], out decryptedReviewId);
+}
+
+@section Scripts{
+    <script type="text/javascript" src="/static/m/js/v2/app/loader.js" defer></script>
+	<script type="text/javascript" src="/static/m/js/write-review-v1.js" defer></script>
+}
+@if (!Model.IsMobile)
+{
+    <h1 class="container model-review__heading special-skin-text">Write a Review for @Model.ReviewDetails.CarDetails.Make.Name @Model.ReviewDetails.CarDetails.Model.Name @Model.ReviewDetails.CarDetails.Version.Name</h1>
+}
+<section class="write-review padding-top5">
+    <form>
+        <div id="write-review-form">
+            <div class="write-review-wrapper container">
+                <div class="content-box-shadow card-bottom-margin font14 user-review">
+                    <div class="review-wrapper">
+                        <div class="review-section content-box-shadow">
+                            <div class="padding-15-20 review-header">
+                                <div class="model-image-grid inline-block">
+                                    <img src="@ImageSizes.CreateImageUrl(Model.ReviewDetails.CarDetails.HostUrl,ImageSizes._160X89,Model.ReviewDetails.CarDetails.OriginalImgPath)" alt="@Model.ReviewDetails.CarDetails.Make.Name @Model.ReviewDetails.CarDetails.Model.Name @Model.ReviewDetails.CarDetails.Version.Name" />
+                                </div>
+								<div class="model-details-grid inline-block">
+									<h1 class="text-truncate margin-bottom5">@Model.ReviewDetails.CarDetails.Make.Name								@Model.ReviewDetails.CarDetails.Model.Name @Model.ReviewDetails.CarDetails.Version.Name</h1>
+								<div class="user-review__rating-title">
+									<span class="font15 text-slate-black text-bold">You rated:</span><span class="star-one"></span><span id="user-overall-rating" class="font15 text-slate-black text-bold">@Model.ReviewDetails.UserRating</span><span class="font13 text-xx-light">/5</span>
+								</div>
+								</div>
+                            </div>
+
+                            <div class="padding-right20 padding-bottom5 padding-left20 margin-bottom20">
+                                <h2 id="response-heading" class="grey-heading margin-bottom10">@Model.ReviewDetails.Review.Heading</h2>
+                                <p class="grey-subtitle margin-bottom10">@Model.ReviewDetails.Review.Description</p>
+                                <ol class="numeric-list margin-bottom15">
+									@foreach (var item in Model.ReviewDetails.Review.Parameters)
+									{
+										<li>@item</li>
+									}
+                                </ol>
+                                <div class="textarea-box margin-bottom15">
+                                    <textarea data-cwtccat="RateYourCar" data-cwtcact="DetailedReviewClicked" data-cwtclbl="@eventLabel" id="reviewDesc" name="comments" rows="9" cols="42" maxlength="7000" placeholder="@Model.ReviewDetails.Review.ReviewHintText" data-errormsgshow=""></textarea>
+
+                                    <div id="charCountDiv" class="review-char-count position-abt font12">
+                                        <span><span id="totalCharsTillNow">0</span>/</span><span id="totalCharsLimit">300</span>&nbsp;min
+                                    </div>
+
+                                    <div class="textarea-error position-abt">
+                                        <span class="error-text"></span>
+                                    </div>
+                                </div>
+
+                                <h3 class="font15 margin-bottom10 grey-heading">@Model.ReviewDetails.Title.Heading</h3>
+								<p class="text-slate-grey margin-bottom20">@Model.ReviewDetails.Title.Description</p>
+
+                                <div class="input-box form-control-box not-empty">
+                                    <input data-cwtccat="RateYourCar" data-cwtcact="TitleClicked" data-cwtclbl="@eventLabel" name="title" type="text" id="getReviewTitle" maxlength="149" data-errorMsgShow="" autocomplete="off" />
+                                    <label for="getReviewTitle">Your title</label>
+                                    <span class="boundary"></span>
+                                    <span class="error-text"></span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                        <div class="review-rating-wrapper">
+                            <div class="review-rating">
+                                <div class="content-box-shadow content-inner-block-20 card-bottom-margin font14 ">
+                                    <h2 class="padding-bottom5 grey-heading">@Model.ReviewDetails.MoreRatings.Heading<span class="text-light-grey text-unbold font14"></span></h2>
+                                    <ul id="car-review-questions" class="review-question-list margin-bottom20">
+                                       @foreach(var ques in Model.ReviewDetails.MoreRatings.Questions){
+                                        <li class="list-item question-type-star question-field">
+                                            <p class="item-title grey-subtitle">@ques.Heading</p>
+
+                                            <div class="answer-star-list inline-block hover-effect" data-errorMsgShow="">
+												@foreach (var rateOption in Model.ReviewDetails.MoreRatings.RatingOptions) {
+                                                <input type="radio" questiontId ="@ques.Id"  id="review-@ques.Id-@rateOption.Id" name="review-q-@ques.Id" value="@rateOption.Value" data-text="@rateOption.Heading" data-type="star" />
+                                                <label class="star-zero" for="review-@ques.Id-@rateOption.Id" data-text="@rateOption.Heading"></label>
+												}
+                                            </div>
+                                            <p class="error-text inline-block" style="display: none">Required</p>
+                                            <p id ="js-feedback-text-quest-@ques.Id"class="feedback-text inline-block"></p>
+                                        </li>
+                                       }
+                                    </ul>
+                                    <input type="hidden" id="reviewQuestions" name="reviewQuestions" />
+                                    @if (Model != null)
+                                    {
+                                        <input type="hidden" name="makeId" value="@Model.ReviewDetails.CarDetails.Make.Id" />
+                                        <input type="hidden" name="modelId" value="@Model.ReviewDetails.CarDetails.Model.Id" />
+                                        <input type="hidden" name="versionId" value="@(Model.ReviewDetails.CarDetails.Version.Id == 0 ? -1 : Model.ReviewDetails.CarDetails.Version.Id)" />
+										<input type="hidden" id="id" name="id" value="@Model.Hash" />
+                                        <input type="hidden" name="maskingName" value="@Model.ReviewDetails.CarDetails.Model.MaskingName" />
+                                        <input type="hidden" name="makeName" value="@Model.ReviewDetails.CarDetails.Make.Name" />
+                                        <input type="hidden" name="platformId" value="@((int)Platform.CarwaleMobile)" />
+                                    }
+
+                                    <div class="clear"></div>
+
+									<p id="responsemessage" class="error-text margin-bottom20"></p>
+                                    <input type="button" data-role="click-tracking" data-event="CWInteractive" data-action="submit_review" data-cat="msite_user_review" data-label="" id="submitReviewBtn" class="btn btn-orange btn-full-width review-submit-btn" value="Submit review" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </form>
+	<div id="write-review-response" class="container text-center review-response-block hide">
+        <div class="review-response-container content-box-shadow">
+            <div class="review-response__wrapper">
+                <div class="thankyou-card__icon"></div>
+                <p class="thankyou__title"></p>
+                <p class="thankyou__subtitle"></p>
+                <a href="/userreviews/" class="btn btn-orange padding-15-20 text-bold">Done</a>
+            </div>
+        </div>
+	</div>
+	
+</section>
+@{Html.RenderPartial("~/Views/Shared/_SpeedometerLoader.cshtml");}
+<div class="clear"></div>
+<script type="text/javascript">
+    var page = "writeReview";
+    var vmWriteReview;
+    var eventCategory = "RateYourCar";
+    var eventLabel = "@eventLabel";
+    var isMobileDevice;
+    var expiryTime = "@CWConfiguration.ReviewExpiryTime";
+    var decryptedReviewId = "@decryptedReviewId";
+</script>
+@if (Model.IsMobile)
+{
+    <script>
+        isMobileDevice = true
+    </script>
+}

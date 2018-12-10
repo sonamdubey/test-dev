@@ -1,0 +1,48 @@
+﻿<div class="share-page" align="center">
+    <span class="f-small">Share this page</span>
+    <a onclick="window.open('https://www.facebook.com/sharer.php?u=https://www.carwale.com@(Server.UrlEncode(Request.ServerVariables["HTTP_X_REWRITE_URL"]))', 'newWindow', 'width=626, height=436'); return false;" href="http://www.facebook.com/sharer.php?u=https://www.carwale.com@(Server.UrlEncode(Request.ServerVariables["HTTP_X_REWRITE_URL"]))" target="_blank" title="Share on Facebook" class="share-frnds facebook"></a>
+    <a onclick="window.open('https://twitter.com/home?status=https://www.carwale.com@(Server.UrlEncode(Request.ServerVariables["HTTP_X_REWRITE_URL"]))', 'newWindow', 'width=815, height=436'); return false;" href="http://twitter.com/home?status=https://www.carwale.com@(Server.UrlEncode(Request.ServerVariables["HTTP_X_REWRITE_URL"]))" target="_blank" title="Share on Twitter" class="share-frnds twitter"></a>
+</div>
+<style>
+    /*----------------- Share with Friends ---------------------------*/
+    .share-page {
+        border: 1px solid #CCCCCC;
+        background-color: #F3F3F3;
+        text-align: right;
+        width: 155px;
+        margin-top: 10px;
+        float: right;
+        padding: 5px;
+        vertical-align: middle;
+        line-height: 100%;
+    }
+
+        .share-page span {
+            float: left;
+            line-height: 15px;
+        }
+
+    .share-frnds {
+        background: url(@( Carwale.Utility.CWConfiguration._imgHostUrl)icons/share.gif);
+        background-repeat: no-repeat;
+        display: inline-block;
+    }
+
+    .facebook {
+        background-position: 0 0;
+        height: 16px;
+        width: 20px;
+    }
+
+    .twitter {
+        background-position: -21px 0;
+        height: 16px;
+        width: 20px;
+    }
+
+    .mail-frnds {
+        background-position: -41px 0;
+        height: 16px;
+        width: 16px;
+    }
+</style>

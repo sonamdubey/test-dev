@@ -1,0 +1,298 @@
+﻿@model Carwale.Entity.ViewModels.NewCarModel
+@using Carwale.UI.PresentationLogic
+@{
+    ViewBag.Title = ViewBag.IsSBIAd ? "Best SBI offers on CarWale" : "New Cars in India, New Cars in " + DateTime.Now.Year.ToString() + " – Search by Price & Manufacturer";
+	//ViewBag.landingPage = true;
+    ViewBag.Description = "CarWale is India's most authoritative source of new car pricing. Focused around car buyers, CarWale promises to help you buy the right car at the right price.";
+    ViewBag.Keywords = "";
+    ViewBag.BodyClass = "bg-light-grey special-landing-page";
+    ViewBag.CustomJS = "~/Views/StaticPartials/NewCarsPageScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/NewCarsPageCss.cshtml";
+    ViewBag.Canonical = "https://www.carwale.com/new/";
+    //ViewBag.HeaderClass = "header-landing";
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+    ViewBag.AdPath = "/1017752/" + ViewBag.DomainName + "NewCarHome_";
+    if (!ViewBag.IsSBIAd)
+    { 
+     ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+		var FirstSlot_976x400, SecondSlot_976x400, side_ATF_300x250, FeaturedCar_312x330, NewCarHome_EMI_224x230;
+        googletag.cmd.push(function () {						
+            FirstSlot_976x400 = googletag.defineSlot('" + ViewBag.AdPath + @"FirstSlot_976x400', [[976, 350], [976, 300], [976, 400], [976, 450], [976, 500], [976, 550], [976, 60], [976, 150], [976, 90], [976, 250], [970, 90]], 'FirstSlot_976x400').addService(googletag.pubads());
+			SecondSlot_976x400 = googletag.defineSlot('" + ViewBag.AdPath + @"SecondSlot_976x400', [[976, 350], [976, 400], [976, 60], [976, 500], [976, 550], [976, 150], [9760, 300], [976, 90], [976, 250], [970, 90]], 'SecondSlot_976x400').addService(googletag.pubads());
+			side_ATF_300x250 = googletag.defineSlot('" + ViewBag.AdPath + @"300x250', [[300, 250], [300, 330], [300, 308]], 'side_ATF_300x250').addService(googletag.pubads());
+			NewCarHome_EMI_224x230 = googletag.defineSlot('" + ViewBag.AdPath + @"EMI_224x230', [224, 230], 'NewCarHome_EMI_224x230').addService(googletag.pubads());
+			NewCarHome_FuelType_224x230 = googletag.defineSlot('" + ViewBag.AdPath + @"FuelType_224x230', [224, 230], 'NewCarHome_FuelType_224x230').addService(googletag.pubads());
+			googletag.defineSlot('" + ViewBag.AdPath + @"BodyType_224x230', [224, 230], 'div-gpt-ad-1491317900891-0').addService(googletag.pubads());
+			googletag.pubads().setTargeting('City', '" + (Carwale.UI.Common.CookiesCustomers.MasterCity) + @"');
+			googletag.pubads().setTargeting('UserModelHistory', '" + Carwale.UI.Common.CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+            googletag.pubads().disableInitialLoad();
+            googletag.pubads().collapseEmptyDivs(true);
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>";
+    }
+}
+<script>
+    var communicationtext = '@System.Configuration.ConfigurationManager.AppSettings["PriceSupportText"]';
+</script>
+
+@if (ViewBag.IsSBIAd)
+{
+ <section>
+    <div class="padding-top90 bg-white">
+        @Html.Partial("~/Views/Shared/NewCars/_SbiYono.cshtml")
+    </div>
+</section> 
+}
+else
+{
+   <header class="new-cars-top-banner position-rel">
+   	<div class="container newcars-campaign-container">
+   		<div class="welcome-box">
+   			<h1 class="text-uppercase margin-bottom10">New cars</h1>
+   		</div>
+   	</div>
+</header> 
+}
+
+<section class="container">
+    <!--  Brand-Budget-Bodytype section code starts here -->
+     @{Html.RenderAction("NewCarSearchWidget", "CarWidgets", new { pageId = ViewBag.PageId });}
+</section>
+@if (!ViewBag.IsSBIAd)
+{
+ <section class="container overflow-x-auto">
+     <!-- /1017752/NewCarHome_FirstSlot_976x400 -->
+     <div class="grid-12">        
+         <div id="FirstSlot_976x400" class="margin-top50 text-center">
+             <script>
+                 // Load the top ad as soon as possible. No lazy loading required here.
+                 googletag.cmd.push(function () {
+                     googletag.display('FirstSlot_976x400');
+                     googletag.pubads().refresh();
+                 });
+             </script>
+         </div>
+     </div>
+     <div class="clear"></div>
+ </section>
+}
+<section class="container">
+    <!--  Discover cars section code starts here -->
+    <div class="grid-12">
+        <h2 class="text-uppercase text-center margin-top50 margin-bottom30 special-skin-text">Featured cars</h2>
+        <div class="cw-tabs-panel newcar-discover-car-container content-box-shadow">
+            <div class="cw-tabs cw-tabs-flex">
+                <ul>
+                    <li class="active" data-tabs="upComingCars">Upcoming Cars</li>
+                    <li data-tabs="topSelling">Popular</li>
+                    <li data-tabs="newLaunches">Just Launched</li>
+                </ul>
+            </div>
+            <div class="upComingCars-newcars">
+                @Html.Partial("NewCars/_FeaturedCars")
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+
+@if (!ViewBag.IsSBIAd)
+{
+    <div class="container overflow-x-auto">
+        <div class="grid-12">
+            <!-- /1017752/NewCarHome_SecondSlot_976x400 -->
+            <div id="SecondSlot_976x400" class="margin-top20 margin-bottom20 text-center">
+                <script>
+                    // Load the top ad as soon as possible. No lazy loading required here.
+                    googletag.cmd.push(function () {
+                        googletag.display('SecondSlot_976x400');
+                        googletag.pubads().refresh();
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+}
+
+@{Html.RenderAction("TopCarsByBodyTypeCarousel", "CarWidgets");}
+
+<section class="container">
+    <!--  Compare section code starts here -->
+    <div class="grid-12">
+        <h2 class="text-uppercase text-center margin-top50 margin-bottom30 special-skin-text">compare cars</h2>
+        <div class="newcars-compare-car-container content-box-shadow">
+            <div class="grid-8 omega adblockCompare">
+                @Html.Partial("FRQ/_TopComparisonsContainer", Model.HotComparisons)
+                <div class="margin-bottom40 text-center" id="moreComparison">
+                    <a href="/comparecars/" class="btn btn-orange text-uppercase">More Comparisons</a>
+                </div>
+            </div>
+           @if (!ViewBag.IsSBIAd)
+           {
+            <div class="grid-4 omega overflow-x-auto compareAdDiv">
+                <div style="height:360px; display:table;">
+                    <div style="display:table-cell; vertical-align:middle; width:auto;">
+                        <!-- /1017752/NewCarHome_300x250 -->                        
+                        <div id="side_ATF_300x250" class="text-center">
+                            <script>
+                                // Load the top ad as soon as possible. No lazy loading required here.
+                                googletag.cmd.push(function () {
+                                    googletag.display('side_ATF_300x250');
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+           }
+            <div class="clear"></div>
+        </div>
+    </div>
+</section>
+<section class="container">
+    <!--  Tools you may need section code starts here -->
+    <div class="grid-12 margin-bottom50">
+        <h2 class="text-uppercase text-center margin-top50 margin-bottom30 special-skin-text">Car Buying Tools</h2>
+        <div class="cw-tabs-panel tools-may-need-wrapper content-box-shadow">
+            <div class="cw-tabs cw-tabs-flex">
+                <ul class="tools-may-need-UL">
+                    <li data-tabs="getFinal-price" class="active">On-Road Price</li>
+                    <li data-tabs="locate-dealer" class="">Dealer Locator</li>
+                    <li data-tabs="user-reviews" class="">User Reviews</li>
+                </ul>
+            </div>
+            <div class="cw-tabs-data" id="getFinal-price">
+                <div class="getFinal-price-container text-center margin-bottom50">
+                    <div class="margin-bottom40">
+                        <span class="cw-circle-icon final-price-logo"></span>
+                    </div>
+                    <p class="font16 margin-bottom30">Check on-road price of the car without filling any forms</p>
+                    <div class="final-price-search-container tools-price-dealer-container">
+                        <div class="final-price-search tools-price-dealer-search">
+                            <div class="final-price-carSelect">
+                                <div class="form-control-box">
+                                    <input class="form-control border-no rounded-corner0" type="text" placeholder="@(ViewData["PQWidget"] ?? "Type to select car name")" id="getFinalPrice">
+                                    <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
+                                    <span class="cwsprite error-icon PriceCarErrIcn hide"></span>
+                                    <div class="cw-blackbg-tooltip PriceCarErrMsg hide">Please select your car</div>
+                                </div>
+                            </div>
+                            <div class="final-price-citySelect">
+                                <div class="form-control-box">
+                                    <span class="select-box fa fa-angle-down"></span>
+                                    <input id="drpCity" class="form-control rounded-corner0 btn-disable" placeholder="Select City" readonly="readonly"/>
+                                    <span class="cwsprite error-icon cityErr hide"></span>
+                                    <div class="cw-blackbg-tooltip cityErrMsg hide">Please select your city</div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="get-final-price-btn">
+                            <button class="text-uppercase font18 btn btn-orange btn-lg rounded-corner-no-left" id="finalprice">check now</button>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="cw-tabs-data hide" id="locate-dealer">
+                <div class="locate-dealer-container text-center margin-bottom50">
+                    <div class="margin-bottom40">
+                        <a href="/new/locatenewcardealers.aspx">
+                            <span class="cw-circle-icon locate-dealer-logo"></span>
+                        </a>
+                    </div>
+                    <p class="font16 margin-bottom30">Find a car dealer near your current location</p>
+                    <div class="locate-dealer-search-container">
+                        <div class="locate-dealer-search">
+                            <div class="locate-dealer-carSelect">
+                                <div class="form-control-box">
+                                    <input class="form-control border-no rounded-corner0" type="text" placeholder="Type to select car make, eg: Volkswagen" id="locateDealerCarSelect">
+                                    <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
+                                    <span class="cwsprite error-icon errCarIcon" style="display:none;"></span>
+                                    <div class="cw-blackbg-tooltip errCar" style="display:none;">Please select a car</div>
+                                    <div class="cw-blackbg-tooltip errNoDealers" style="display:none;">No dealer details available</div>
+                                </div>
+                            </div>
+                            <div class="locate-dealer-citySelect">
+                                <div class="form-control-box" id="divDealerCity">
+                                    <span class="select-box fa fa-angle-down"></span>
+                                    <select id="drpDealerCity" class="form-control rounded-corner0 btn-disable" disabled data-bind='options: pqDealerCities, optionsText: "cityName", optionsValue: "cityId" '></select>
+                                    <span class="cwsprite error-icon errDealerCityIcon" style="display:none;"></span>
+                                    <div class="cw-blackbg-tooltip errDealerCity" style="display:none;">Please select your city</div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <a onclick="locateDealers(this);" id="findDealers">
+                            <div class="locate-dealer-btn">
+                                <button id="btnFindDealers" class="text-uppercase font18 btn btn-orange btn-lg rounded-corner-no-left">Locate dealer</button>
+                            </div>
+                        </a>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="cw-tabs-data hide" id="user-reviews">
+                <div class="find-user-review-container text-center margin-bottom50">
+                    <div class="margin-bottom40">
+                        <a href="/userreviews/"><span class="cw-circle-icon user-review-logo" style="cursor:pointer;"></span></a>
+                    </div>
+                    <p class="font16 margin-bottom30">Read user reviews of the cars of your choice</p>
+                    <div class="user-review-search-container">
+                        <div class="car-review-search">
+                            <div class="form-control-box">
+                                <input class="form-control border-no rounded-corner0 input-lg" type="text" placeholder="@(ViewData["PQWidget"] ?? "Type to select car name")" id="userReviewSearch">
+                                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
+                                <span class="cwsprite error-icon errUserreviews newCarErrIcn" style="display:none;"></span>
+                                <div class="cw-blackbg-tooltip errUserreviews newCarErrMsg" style="display:none;">Please select a car</div>
+                            </div>
+                        </div>
+                        <a href="/userreviews/" id="userReviewLink">
+                            <div class="findBtn">
+                                <button id="btnFindUserreviews" class="text-uppercase font18 btn btn-orange btn-lg rounded-corner-no-left">Find reviews</button>
+                            </div>
+                        </a>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+
+@if (!ViewBag.IsSBIAd)
+{
+ @section Scripts{
+     <!-- Lazy load ad code starts here -->
+     <script type="text/javascript">
+         //var landingPage = true;
+         // Refresh the bottom slot when it is about to come into view.
+         var refreshed = false;
+         // Value of scrollY at which the ad is about to come into view.
+         var adAlmostVisibleScrollValue = 300;
+         // Warning: This is a sample implementation. Listening to onscroll without
+         // any throttling might not be very efficient.
+         var listener = function () {
+             if (window.scrollY >= adAlmostVisibleScrollValue && !refreshed) {
+                 googletag.cmd.push(function () {                    
+                     googletag.pubads().refresh([side_ATF_300x250]);
+                 });
+                 // Refresh the ad only once.
+                 refreshed = true;
+                 // Remove the listener now.
+                 window.removeEventListener('scroll', listener);
+             }
+         }
+         window.addEventListener('scroll', listener);
+     </script>
+ }
+}
+
+
+

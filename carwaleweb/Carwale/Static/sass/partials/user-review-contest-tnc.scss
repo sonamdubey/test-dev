@@ -1,0 +1,133 @@
+﻿@import '../mixins/_variables.scss';
+@import '../mixins/_popup.scss';
+
+.how-to-win__header {
+	@include contest-banner;
+	height: 110px;
+}
+
+.how-to-win-container {
+	margin-bottom: 10px;
+}
+
+.content-body {
+	padding: 20px;
+	background-color: map-get($color-map, 'white');
+}
+
+.content__title {
+	font-size: 18px;
+	font-weight: $font-semibold;
+	color: map-get($color-map, 'charcoal');
+	text-align: center;
+}
+
+.content-list {
+	padding: 20px;
+	font-size: 13px;
+	font-weight: $font-normal;
+	color: map-get($color-map, 'dim-grey');
+}
+
+.content-list-item {
+	margin-bottom: 20px;
+	position: relative;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	&:before {
+		content: '';
+		width: 5px;
+		height: 5px;
+		display: block;
+		position: absolute;
+		top: 4px;
+		left: -15px;
+		border-radius: 50%;
+		background-color: map-get($color-map, 'light-grey-border');
+	}
+}
+
+.content__read-more {
+	font-size: 13px;
+	color: map-get($color-map, 'summer-sky');
+	letter-spacing: .59px;
+	padding-left: 20px;
+	cursor: pointer;
+}
+
+.popup__body {
+	padding: 10px 20px 55px 20px;
+	overflow-y: scroll;
+	height: 100%;
+}
+
+.terms-and-conditions-popup,
+.how-to-win-popup {
+	@include popup('right');
+	z-index: 10;
+	overflow-y: hidden;
+}
+
+@mixin how-to-win-desktop() {
+	@media only screen and (min-width: 768px) {
+		.how-to-win__header {
+			@include contest-banner-d;
+		}
+		.how-to-win-container {
+			margin-bottom: 30px;
+		}
+		.content__title {
+			font-size: 25px;
+			padding-top: 10px;
+		}
+
+		.content-body {
+			padding: 40px;
+		}
+
+		.content-list-item {
+			font-size: 16px;
+			&.tab-list__item-active {
+				font-weight: $font-semibold;
+			}
+
+			&::before {
+				top: 8px;
+			}
+		}
+			.tab-list-item__content {
+			font-weight: $font-normal;
+		}
+
+		.read-more-collapse-initial-text,
+		.read-more-collapse-final-text {
+			* {
+				display: block;
+			}
+		}
+
+		.text-expanded {
+			.read-more-collapse-initial-text {
+				.content-list {
+					padding-bottom: 0;
+				}
+			}
+		}
+		
+		.read-more-collapse-link {
+			font-size: 16px;
+			margin-left: 20px;
+		}
+
+		.terms-and-conditions-container {
+			background-color: map-get($color-map, 'white');
+
+			.content-body {
+				padding: 20px 20px 50px;
+			}
+		}
+	}
+}

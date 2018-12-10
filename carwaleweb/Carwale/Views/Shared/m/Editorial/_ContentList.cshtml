@@ -1,0 +1,46 @@
+﻿@model Carwale.DTOs.CMS.ContentListDTO
+@using Carwale.Utility;
+@using Carwale.UI.Common;
+
+<div class="clear"></div>
+
+<div class="grid-12">
+    @foreach (var article in Model.Articles)
+    {
+                <a class="normal position-rel block" style="text-decoration: none;" href='@(Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(article.BasicId.ToString()+"_clickmnews")==string.Empty?string.Format("/{0}{1}","m",article.ArticleUrl):Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(article.BasicId.ToString()+"_clickmnews"))'>
+                    @if (ViewData["IsNewsPage"] != null && ViewData["IsNewsPage"].ToString() == "true")
+                        {
+                        <div class="ed-tag position-abt font10 text-uppercase text-white text-center">@(article.CategoryMaskingName)</div>
+                        }
+                    <div class="box position-rel content-box-shadow content-inner-block-10 text-black margin-bottom15 rounded-corner2" style="overflow:hidden">
+                        <div class="leftfloat" style="width:100px; height:55px; vertical-align: top;">
+
+                            <img alt='@article.Title' title="@article.Title" src='@Carwale.Utility.ImageSizes.CreateImageUrl(@article.HostUrl.ToString(), Carwale.Utility.ImageSizes._110X61, @article.OriginalImgUrl.ToString())' width="100" onerror="this.onerror = null; this.src = '@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/cars/no-cars.jpg';">
+                        </div>
+                        <div style="margin-left:110px;">
+                            <div class="sub-heading margin-bottom10">
+                                @article.Title&nbsp;&nbsp;<span class="arr-small">&raquo;</span>
+                            </div>
+                            <div class="lightgray position-abt border-solid rounded-corner2 text-center text-grey font11" style="padding: 2px; bottom: -1px; width: 100px; right: -1px;">
+                                @article.DisplayDate.ConvertDateToDays()
+                            </div>
+                        </div>
+                    </div>
+                </a>
+        @(Html.Raw(Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(article.BasicId.ToString()+"_mnews")))
+    }
+</div>
+
+<div class="clear"></div>
+
+@Html.Partial("m/editorial/_ContentPager", Model.CMSPages)
+
+<div class="banner-div">
+    <div id="divBottomAdBar" class="ad-div">
+        <div id='div-gpt-ad-1435297201507-0' style='height:250px; width:300px;' class="text-center margin-top10 margin-bottom10">
+            <script type='text/javascript'>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1435297201507-0'); });
+            </script>
+        </div>
+    </div>
+</div>

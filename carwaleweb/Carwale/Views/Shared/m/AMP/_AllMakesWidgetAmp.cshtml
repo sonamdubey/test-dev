@@ -1,0 +1,44 @@
+﻿@model List<string>
+@using Carwale.Utility;
+    <p class="text-black font20 font-bold">Other popular Brands</p>
+    <div class="cw-tabs-data">
+        <div class="brand-type-container">
+            @*@if (Model.Count <=10 )
+            *{*@
+                <ul id="BrandTypeMainContent">
+                    @for (int i=0; i<Model.Count && i<10; i++)
+                    {
+                        if (!string.IsNullOrEmpty(Model[i]))
+                        {
+                            <li>
+                                <a href="@ManageCarUrl.CreateMakeUrl(Model[i], true)">
+                                    <span class="brand-type-title">@(Model[i])</span>
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            @*}*@
+            @if (Model.Count > 10)
+            {
+                <ul id="BrandTypeMoreContent" hidden>
+                @for (int i = 11; i < Model.Count; i++ )
+                {
+                    if (!string.IsNullOrEmpty(Model[i]))
+                    {
+                        <li>
+                            <a href="@ManageCarUrl.CreateMakeUrl(Model[i], true)">
+                                <span class="brand-type-title">@(Model[i])</span>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>     
+            <span class="other-brand__view-more" role="option" tabindex="1" on="tap: BrandTypeMoreContent.toggleVisibility, otherBrandViewMoreText.toggleVisibility, otherBrandViewLessText.toggleVisibility">
+                View <span id="otherBrandViewMoreText">more</span>
+                <span id="otherBrandViewLessText" hidden>less</span> brands
+            </span>              
+            }
+        </div>
+    </div>
+

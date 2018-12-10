@@ -1,0 +1,39 @@
+
+@mixin popup-header($isarrow: true, $font-size: 16, $font-wight: 600) {
+	.popup-header-container {
+        @include vendor-prefix(box-sizing, border-box);
+        @include flexbox;
+        background-color: map-get($color-map,'white-bg');
+        width: 100%;
+        padding-top: 19px;
+        padding-bottom: 19px;
+        position: fixed;
+        box-shadow: 0 2px 3px 0 rgba(204, 204, 204, 0.54);
+        line-height: 18px;
+    }
+
+    @if $isarrow == true {
+        .back-arrow-box {
+            @include back-arrow;
+            @include vendor-prefix(transform, rotate(90deg));
+            height: 19px;
+            width: 35px;
+            cursor: pointer;
+            background-size: 50%;
+            background-position: center;
+            position: relative;
+            left: 10px;
+        }
+    }
+
+    .popup__title {
+        color: map-get($color-map,'charcoal');
+        @include flex-grow(1);
+        padding-left: 15px;
+        font-size: $font-size * 1px;
+        font-weight: $font-wight;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}

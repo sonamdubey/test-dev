@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[TempAura] (
+    [Id]        NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [EntryDate] DATETIME     NOT NULL,
+    [HomePage]  NUMERIC (18) NOT NULL,
+    [ROS]       NUMERIC (18) NOT NULL,
+    [HomeClick] NUMERIC (18) NULL,
+    [ROSClick]  NUMERIC (18) NULL,
+    CONSTRAINT [PK_TempAura] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

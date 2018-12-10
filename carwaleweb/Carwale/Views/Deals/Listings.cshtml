@@ -1,0 +1,594 @@
+﻿@model Carwale.DTOs.Deals.AdvantageSearchModelDTO
+@using Carwale.UI.PresentationLogic;
+@{
+    ViewData["PageTag"] = "A-5";
+    ViewData["Title"] = "CarWale Advantage";
+    ViewData["landingPage"] = false;
+    ViewData["BodyClass"] = "bg-white";
+    var path = (System.Configuration.ConfigurationManager.AppSettings["staticurl"] != "" ? "https://st.aeplcdn.com" + System.Configuration.ConfigurationManager.AppSettings["stagingpath"] : "");
+    ViewBag.PageId = (int)Carwale.Entity.Enum.CwPages.AdvantageListingDesktop;
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="/static/css/advantagesearch.css" type="text/css" >
+}
+<!-- Car Loader Code Starts Here -->
+<div id="advLoading" class="blackOut-window show"></div>
+<div id="loadingCarImg" class="show">
+    <div class="loading-popup">
+        <span class="loading-icon"></span>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- Car Loader Code Ends Here -->
+<div @*class="min-height"*@>
+    <div id="mainContent" class="hide padding-top60">
+
+
+        @*<header class="advantage-landing-banner">
+                <div class="container">
+                    <div class="welcome-box">
+                        <h1 class="text-uppercase">Carwale Advantage</h1>
+                        <p class="font14">Exclusive savings on brand new cars</p>
+                    </div>
+                </div>
+            </header>*@
+
+        <div class="bg-white no-bg-color">
+            <div class="container position-rel">
+				<div id="offerOfWeek">
+					<!--ko if : offerOfTheWeek() == null-->
+					<div id="AdvtIntroWrap" class="listingBanner">
+						<div class="banner-img margin-left10">
+							<img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/advantage/advt-banner-car-image.jpg" alt="CarWale Advantage" title="CarWale Advantage" />
+						</div>
+						<div class="advantage-tab-details margin-top30 margin-left10 margin-bottom40 special-skin-text">
+							<div class="font20 text-grey margin-bottom10 special-skin-text">Introducing CarWale Advantage. </div>
+							<div class="font20 text-grey margin-bottom10 special-skin-text">Get exclusive savings on brand new cars.</div>
+							<ul class="margin-bottom20">
+								<li class="inline-block margin-right15 font14"><span class="fa fa-circle margin-right5"></span> Authorized dealers</li>
+								<li class="inline-block font14"><span class="fa fa-circle margin-right5"></span> Immediate availability </li>
+							</ul>
+						</div>
+						<span id="closeIconBanner" class="cwsprite cross-md-dark-grey position-abt pos-top20 pos-right20 font20 cur-pointer"></span>
+					</div>
+					<!-- /ko -->
+					<!--ko if : offerOfTheWeek() != null-->
+					<div id="offerOfWeekBanner" class="listingBanner">
+						<div class="margin-top10 ">
+							<h3 class="leftfloat">Offer of the Week</h3>
+							<div id="offerTime" class="rightfloat">
+								<span class="time-text inline-block">Ends in: </span>
+								<div class="inline-block">
+									<span data-days class="font14 text-bold text-red"></span> <span class="time-text">days : </span>
+									<span data-hours class="font14 text-bold text-red"></span> <span class="time-text">hours : </span>
+									<span data-mins class="font14 text-bold text-red"></span> <span class="time-text">mins : </span>
+									<span data-secs class="font14 text-bold text-red"></span> <span class="time-text">secs</span>
+								</div>
+							</div>
+						</div>
+						<div class="clear"></div>
+						<div class="week-offer-container border-solid margin-top15">
+							<div class="inline-block week-offer-img padding-top10 padding-bottom10">
+								<!-- ko if : offerOfTheWeek().carImageDetails.originalImgPath -->
+								<img data-bind="attr:{src:offerOfTheWeek().carImageDetails.hostUrl + '589x331' + offerOfTheWeek().carImageDetails.originalImgPath}" alt="CarWale Advantage" title="CarWale Advantage">
+								<!-- /ko -->
+								<!-- ko ifnot : offerOfTheWeek().carImageDetails.originalImgPath -->
+								<img data-bind="attr:{src:'https://img.carwale.com/used/no-cars.jpg'}" alt="CarWale Advantage " title="CarWale Advantage ">
+								<!-- /ko -->
+							</div>
+							<div class="week-offer-content rightfloat">
+								<div class="week-offer-car-info padding-top15 padding-bottom10">
+									<h3 class="text-black margin-bottom10" data-bind="text: offerOfTheWeek().make.makeName + ' ' + Common.utils.filterModelName(offerOfTheWeek().model.modelName) + ' '+ offerOfTheWeek().version.name"></h3>
+									<div class="font14 margin-top5 margin-bottom10">
+										<span class="reducedTxt position-rel text-black">
+											₹ <span data-bind="text:Common.utils.formatNumeric(offerOfTheWeek().OnRoadPrice)"></span>
+										</span>
+										<span class="text-green margin-left10">₹<span data-bind="text:Common.utils.formatNumeric(offerOfTheWeek().savings)"></span> off</span>
+									</div>
+									<h2 class="font24 text-bold margin-bottom15">
+										₹
+										<span data-bind="text:Common.utils.formatNumeric(offerOfTheWeek().OfferPrice)"></span>
+										<span class="text-light-grey small-text font12">On-Road Price <span data-bind="text:offerOfTheWeek().city.cityName"></span></span>
+									</h2>
+
+									<div class="btn btn-orange btn-sm text-uppercase">
+										<a data-role="click-tracking" data-event="CWInteractive" data-action="dealsaccess_desktop" data-cat="deals_desktop" data-label="offeroftheweek" class="text-white" data-bind="attr: {'href':  '/' + Common.utils.formatSpecial(offerOfTheWeek().make.makeName) + '-cars/' + offerOfTheWeek().model.maskingName + '/advantage/?src=d17&cityid=' + offerOfTheWeek().city.cityId + '&versionId=' + offerOfTheWeek().version.id}">View Offer Details</a>
+									</div>
+								</div>
+								<div class="week-offer-discount-info border-solid-left">
+									<div class="padding-left15 padding-right15 padding-top10 padding-bottom10">
+										<span>Limited stock. Hurry!</span>
+										<div class="font28 text-red text-bold">
+											₹
+											<span data-bind="text:Common.utils.formatNumeric(offerOfTheWeek().savings)"></span>
+										</div>
+										<div class="text-uppercase text-black font14 text-bold">flat cash savings</div>
+									</div>
+									<div class="bg-light-grey padding-left15 padding-right15 padding-top10 padding-bottom5" style="line-height:19px;">
+										<div class="margin-bottom5">Offer Includes:</div>
+										<div class="margin-bottom5">Regular Savings ₹ <span data-bind="text:Common.utils.formatNumeric(offerOfTheWeek().savings - offerOfTheWeek().extraSavings)"></span>/-</div>
+										<div class="margin-bottom5"><span class="text-bold">Extra Savings ₹ <span data-bind="text:Common.utils.formatNumeric(offerOfTheWeek().extraSavings)"></span></span>/- till the offer time ends</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="clear"></div>
+						</div>
+					</div>
+					<!-- /ko -->
+				</div>
+
+				<div class="grid-12 position-rel outer-product-container alpha omega advantage__diwali-offer--top" id="listingDetails">
+					<div class="margin-bottom15 margin-top5 padding-bottom10">
+						<h2 class=" text-bold text-grey font18 leftfloat margin-top10 special-skin-text">New Car Offers in&nbsp;<span id="advantage-city">@Model.SelectedCity.CityName</span></h2>
+						<span class="advantage__diwali-lamp"></span>
+						<span class="rightfloat advantage-brand-logo">
+							<span class="desk-deals-car-sprite book-now-thumb"></span><span class="desk-deals-car-sprite advantage-red-logo"></span>
+						</span>
+						<div class="clear"></div>
+					</div>
+					<div class="clear"></div>
+
+					<div class="grid-3 page-heading position-rel filter-lists">
+						<!-- Search filter code starts here -->
+						<div class="content-box-shadow filters main-filter-list">
+							<div class="font14">
+								<div id="filterStart"></div>
+								<!-- floating filter area code starts here-->
+								<div id="floating-box" style="position: relative;">
+									<!-- mainPart code ends here-->
+									<div id="mainPart">
+										<div class="content-inner-block-10 bg-light-grey">
+											<p class="font20 leftfloat text-bold">Filter</p>
+											<p class="text-link rightfloat margin-top5" id="resetFilters"><span class="fa fa-repeat text-light-grey"></span>&nbsp;Reset</p>
+											<div class="clear"></div>
+										</div>
+
+										<!--Select City Start-->
+										<div class="filter-set content-inner-block-10 padding-top15 padding-bottom15 position-rel selected" name="city">
+											<div class="coachmark filters-coachmark hide">
+												<span class="coachmark-arrow-left"></span>
+												<p class="font16 text-bold">Filters</p>
+												<p class="font16 inline-block">Refine your search using these Filters</p>
+												<p class="inline-block margin-left10"><a id="filterCoachmark" class="btn btn-green btn-green-sm">Next</a></p>
+												<p class="margin-top5"><a class="nomoreTips cur-pointer">Don't show anymore tips</a></p>
+											</div>
+											<h3 class="sub-values" data-name="city-accord">City<span class="fa fa-angle-up"></span></h3>
+											<div class="padding-top10 filter-accordian-content">
+												<div class="form-control-box">
+													<span class="select-box fa fa-angle-down"></span>
+													<select name="advDrpCity" id="advDrpCity" class="form-control ">
+														@foreach (var city in Model.Cities)
+														{
+															<option value="@city.CityId">@city.CityName</option>
+														}
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="border-solid-top"></div>
+										<!--Select City End-->
+										<!--Budget code starts here -->
+										<div class="filter-set content-inner-block-10 padding-top15 padding-bottom15" name="budget">
+											<h3 class="sub-values">
+												Budget
+												<span class="fa fa-angle-up"></span>
+											</h3>
+											<div class="slider-box padding-top10 budgetContainerMain filter-accordian-content">
+												<div class="used-budget-box">
+													<div id="minMaxContainer" class="border-solid">
+														<span class="leftfloat" id="budgetBtn">Choose budget</span>
+														<span id="upDownArrow" class="rightfloat fa fa-angle-down"></span>
+														<div class="clear"></div>
+													</div>
+													<div id="budgetListContainer" class="hide">
+														<div id="userBudgetInput">
+															<input type="text" class="priceBox" id="minInput" placeholder="Min" maxlength="4">
+															<input type="text" class="priceBox" id="maxInput" placeholder="Max" maxlength="4">
+															<div class="cw-blackbg-tooltip cw-blackbg-tooltip-search-error text-center hide">Max budget should be greater than Min budget.</div>
+														</div>
+														<ul id="minPriceList" class="text-left">
+															<li data-min-price="Any">Any</li>
+															<li data-min-price="1">1 Lakh</li>
+															<li data-min-price="3">3 Lakh</li>
+															<li data-min-price="4">4 Lakh</li>
+															<li data-min-price="6">6 Lakh</li>
+															<li data-min-price="8">8 Lakh</li>
+															<li data-min-price="12">12 Lakh</li>
+															<li data-min-price="20">20 Lakh</li>
+														</ul>
+														<ul id="maxPriceList" class="text-right  hide">
+															<li data-max-price="12">12 Lakh</li>
+															<li data-max-price="15">15 Lakh</li>
+															<li data-max-price="20">20 Lakh</li>
+															<li data-max-price="30">30 Lakh</li>
+															<li data-max-price="40">40 Lakh</li>
+															<li data-max-price="50">50 Lakh</li>
+															<li data-max-price="60">60 Lakh</li>
+															<li data-max-price="Any">Any</li>
+														</ul>
+													</div>
+												</div>
+												<div id="btnSetBudget" class="go-btn-box btn btn-xs btn-white text-uppercase">Go</div>
+												<div class="clear"></div>
+											</div>
+										</div>
+										<div class="border-solid-top"></div>
+										<!--Budget code ends here -->
+										<!--Manufacturer code starts here -->
+										<div class="filter-set manufacture-box content-inner-block-10 padding-top15 padding-bottom15 selected">
+											<h3 class="sub-values">Manufacturer <span class="fa fa-angle-down"></span></h3>
+											<div class="extra-fields padding-top10 hide filter-accordian-content">
+												<div id="manu-box">
+													<div class="filter-set">
+														<div class="list-points-makes ul-makes manufacture-list" id="divMakesList">
+															<ul class="ul-makes" id="makesList" data-bind="foreach:makes">
+																<li class="us-sprite makeLi" carfilterid="53">
+																	<div class="parentCheck">
+																		<span class="filterText" data-bind="attr:{'data-filterid': makeId}, text: makeName"></span>
+																	</div>
+																</li>
+															</ul>
+														</div>
+													</div>
+													<div class="clear"></div>
+												</div>
+											</div>
+										</div>
+										<div class="border-solid-top"></div>
+										<!--Manufacturer code ends here -->
+										<!--Fuel Type code starts here -->
+										<div class="filter-set content-inner-block-10 padding-top15 padding-bottom15" id="3" name="fuel" select="false">
+											<h3 class="sub-values">
+												Fuel Type
+												<span class="fa fa-angle-down"></span>
+											</h3>
+											<div class="list-points padding-top10 hide filter-accordian-content">
+												<ul>
+													<li class="us-sprite fuelLi" name="Petrol">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="1">Petrol</span>
+														</div>
+													</li>
+													<li class="us-sprite fuelLi" name="Diesel">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="2">Diesel</span>
+														</div>
+													</li>
+													<li class="us-sprite fuelLi" name="CNG">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="3">CNG</span>
+														</div>
+													</li>
+													<li class="us-sprite fuelLi" name="LPG">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="4">LPG</span>
+														</div>
+													</li>
+
+													<li class="us-sprite fuelLi" name="Electric">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="5">Electric</span>
+														</div>
+													</li>
+												</ul>
+											</div>
+											<div class="clear"></div>
+										</div>
+										<div class="border-solid-top"></div>
+										<!--Fuel Type code ends here -->
+										<!--Body Type code starts here -->
+										<div class="filter-set content-inner-block-10 bodyPart padding-top15 padding-bottom15" id="4" name="bodytype" select="false">
+											<h3 class="sub-values">
+												Body Type
+												<span class="fa fa-angle-down"></span>
+											</h3>
+											<div class="list-points padding-top10 hide filter-accordian-content">
+												<ul>
+													<li class="us-sprite bodytypeLi" name="Sedan">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="1">Sedan</span>
+														</div>
+													</li>
+													<li class="us-sprite bodytypeLi" name="Coupe">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="2">Coupe</span>
+														</div>
+													</li>
+													<li class="us-sprite bodytypeLi" name="Hatchback">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="3">Hatchback</span>
+														</div>
+													</li>
+													<li class="us-sprite bodytypeLi" name="Minivan">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="4">Minivan/Van</span>
+														</div>
+													</li>
+													<li class="us-sprite bodytypeLi" name="Convertible">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="5">Convertible</span>
+														</div>
+													</li>
+
+													<li class="us-sprite bodytypeLi" name="Suv">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="6">SUV/MUV</span>
+														</div>
+													</li>
+
+													<li class="us-sprite bodytypeLi" name="Truck">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="7">Truck</span>
+														</div>
+													</li>
+													<li class="us-sprite bodytypeLi" name="StationWagon">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="8">Station Wagon</span>
+														</div>
+													</li>
+													<li class="us-sprite bodytypeLi" name="MUV">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="9">MUV</span>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="border-solid-top"></div>
+										<!--Body Type code ends here -->
+										<!--Transmission code starts here -->
+										<div class="filter-set content-inner-block-10 padding-top15 padding-bottom15">
+											<h3 class="sub-values">
+												Transmission
+												<span class="fa fa-angle-down"></span>
+											</h3>
+											<div class="list-points padding-top10 hide filter-accordian-content">
+												<ul>
+													<li class="us-sprite transmissionLi" name="Manual">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="2">Manual</span>
+														</div>
+													</li>
+													<li class="us-sprite transmissionLi" name="Automatic">
+														<div class="parentCheck">
+															<span class="filterText" data-filterid="1">Automatic</span>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="border-solid-top"></div>
+										<!--Transmission code ends here -->
+
+
+									</div>
+									<div class="border-solid-top"></div>
+									<!--mainPart code ends here -->
+									<div class="clear"></div>
+									<div class="emptyDiv"></div>
+								</div>
+								<div class="clear"></div>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<!-- Search filter code ends here -->
+					</div>
+					<div class="grid-9 scrollable-content omega">
+						<div class="" id="dataDiv">
+							<!--Selected Filters and Reset Filter Section Start-->
+							<div class="border-solid-bottom">
+								<span class="font14 margin-top5 inline-block special-skin-text">Showing&nbsp;<span data-bind="text: visibleCarsCount"></span>&nbsp;of&nbsp;<span data-bind="text: totalCount"></span>&nbsp;cars</span>
+								<div id="btnSortFilter" class="sort-filter-div rightfloat">
+									<span class="padding-right5 font14 inline-block special-skin-text">Sort by :</span>
+									<span class="inline-block">
+										<select id="drpSort" class="form-control input-xs sorting-list">
+											<option value="0" data-sc="2" data-so="1">Relevance</option>
+											<option value="1" data-sc="1" data-so="0">Price: Low to High</option>
+											<option value="2" data-sc="1" data-so="1">Price: High to Low</option>
+											<option value="3" data-sc="0" data-so="0">Savings %: Low to High</option>
+											<option value="4" data-sc="0" data-so="1">Savings %: High to Low</option>
+										</select>
+									</span>
+								</div>
+								<div class="clear"></div>
+							</div>
+							<!-- Listing Content Start-->
+							<div class="clear">
+								<div id="cw-loading-box" class="position-rel">
+									<div class="clear">
+										<div class="stock-list" id="stockList">
+											<ul id="listingsData" data-bind="foreach:stocks">
+												<li data-bind="attr:{'data-model-id': $data.model.modelId ,'data-version-id': $data.version.id ,'data-model-maskingname': $data.model.maskingName}" class="aged-car-listing border-solid margin-top10 margin-bottom10">
+													<a target="_blank" data-bind="attr: {'href':  '/' + Common.utils.formatSpecial($data.make.makeName) + '-cars/' + $data.model.maskingName + '/advantage/?src=d01&cityid=' + $data.city.cityId + '&versionid=' + $data.version.id}">
+														<div class="contentWrapper" data-role="click-tracking" data-event="CWInteractive" data-action="dealsaccess_desktop" data-cat="deals_desktop" data-label="landingPage_card">
+															<div data-bind="if:$data.offers" class="position-abt pos-left0 pos-top0">
+																<div class="offers-title text-white font11 text-uppercase">
+																	<span class="offers-top-shadow"></span>
+																	<span class="offers-text">Offer</span>
+																	<span class="offers-right-ribbon">
+																		<span class="ribbon top"></span>
+																		<span class="ribbon bottom"></span>
+																	</span>
+																</div>
+															</div>
+															<div class="imageWrapper">
+																<!-- ko if : carImageDetails.originalImgPath -->
+																<img width="296" height="166" class="lazy" data-bind="attr:{src:carImageDetails.hostUrl + '310x174' + carImageDetails.originalImgPath}" alt=" " title=" ">
+																<!-- /ko -->
+																<!-- ko ifnot : carImageDetails.originalImgPath -->
+																<img width="296" height="166" class="lazy" data-bind="attr:{src:'https://img.carwale.com/used/no-cars.jpg'}" alt=" " title=" ">
+																<!-- /ko -->
+															</div>
+															<div class="carDescWrapper">
+																<div class="carTitle margin-top10 text-black">
+																	<h3 class="font14" data-bind="text: make.makeName + ' ' + Common.utils.filterModelName(model.modelName) "></h3>
+																	<h3 class="font14" data-bind="text: version.name"></h3>
+																</div>
+																<div class="small-desc margin-top5 font12 text-light-grey">
+																	<span data-bind="text:specificationsOverview"></span>
+																</div>
+																<div data-bind="if: $data.offers &&  $data.savings <= 0 && $data.offerValue <= 0" class="font13 margin-top5 margin-bottom5">
+																	<span class="text-green">Offer available</span>
+																</div>
+																<div data-bind="if: $data.offerValue > 0 &&  $data.savings <= 0" class="font13 margin-top5 margin-bottom5">
+																	<span class='text-green'>Offers worth </span>
+																	<span class="text-green"></span>₹
+																	<span class='text-green' data-bind="text: Common.utils.formatNumeric(offerValue)"></span>
+																</div>
+																<div data-bind="if: $data.savings > 0" class="font13 margin-top5 margin-bottom5">
+																	<span class="reducedTxt position-rel text-black">
+																		₹ <span data-bind="text: Common.utils.formatNumeric(OnRoadPrice)"></span>
+																	</span>
+																	<span class="text-green margin-left5">(₹ <span data-bind="text: Common.utils.formatNumeric(savings)"></span> off)</span>
+																</div>
+																<div class="font18 text-black">
+																	₹ <span class="text-bold" data-bind="text: Common.utils.formatNumeric(OfferPrice)"></span>
+																	<span class="text-grey font13 block" data-bind="text:'On-Road Price'+ ' ' +  city.cityName"></span>
+																</div>
+																<div class="font13 margin-top5">
+																	<span data-bind="css: $data.offerValue > 0 &&  $data.savings > 0 ? '' : 'no-offer-link'">
+																		<span class='text-green'>Extra offers worth </span>
+																		<span class="text-green">₹ </span>
+																		<span class='text-green' data-bind="text: Common.utils.formatNumeric(offerValue)"></span>
+																	</span>
+																</div>
+
+															</div>
+
+														</div>
+														<div class="clear"></div>
+													</a>
+													<div class="margin-top5 margin-left10">
+														<p data-role="click-tracking" data-event="CWInteractive" data-action="+versions_clicked" data-cat="deals_desktop">
+															<!-- ko if : versionCount > 1 -->
+															<span class="version-link cur-pointer text-link">
+																<span>+</span>
+																<span data-bind="text: (versionCount - 1)"></span>
+																<!-- ko if : versionCount > 2 -->
+																<span> versions</span>
+																<!-- /ko -->
+																<!-- ko if : versionCount == 2 -->
+																<span> version</span>
+																<!-- /ko -->
+															</span>
+															<span class="text-black"> available</span>
+															<!-- /ko -->
+														</p>
+													</div>
+												</li>
+											</ul>
+											<div class="clear"></div>
+										</div>
+
+										<div id="noCarsFoundContainer" class="hide margin-top10">
+											<div class="content-inner-block-10 bg-light-grey content-inner-block-10 border-solid">
+												<p class="margin-bottom5 font20">To find more cars...</p>
+												<p class="font16">Try broadening your search criteria</p>
+												<span class="us-sprite noResult-icon"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="text-center padding-top30 padding-bottom20 margin-auto block advantage-pagination">
+							<ul id="pager" class="pagination" data-bind="foreach:pages">
+								<li data-bind="attr:{class:className, 'data-pageno':no}"><a href="javascript:void(0);"><span data-bind="text:fieldText"></span></a></li>
+							</ul>
+						</div>
+						<div class="backtotop-link text-center padding-top10 padding-bottom10">
+							<a href="javascript:void(0);">Back to top</a>
+						</div>
+					</div>
+				</div>
+
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="globalcity-popup rounded-corner2 tran-ease-out-all hide" id="advantage-version-popup">
+    <div class="advantage-close-btn position-abt pos-top10 pos-right20 cwsprite cross-lg-lgt-grey cur-pointer z-index1"></div>
+    <div id="detailPopup" class="position-abt pos-left0 pos-top0">
+        <div class="advantage-left-popup version-list-left-popup bg-white padding-left15 padding-right15 padding-top30 padding-bottom20 text-left">
+            <h3 class="font16 text-black">Best Deal</h3>
+            <a id="bestDeal"></a>
+            <div class="clear"></div>
+        </div>
+
+        <div class="advantage-right-popup version-list-right-popup">
+            <div class="version-and-price">
+                <div class="version-section version-heading">
+                    Version
+                </div><div class="roadprice-section roadprice-heading">
+                    Final On-road-price
+                </div>
+            </div>
+            <ul id="filteredVersions" data-bind="foreach:filteredVersions">
+                <li class="version-and-price border-solid-bottom content-inner-block-20">
+                    <div class="version-section version-content">
+                        <a target="_blank" data-bind="attr: {href:  '/' + Common.utils.formatSpecial(make.makeName) + '-cars/' + $root.maskingName() + '/advantage/?src=d01&cityid=' + AdvantageSearch.getSelectedCityId() + '&versionid=' + version.id}"
+                           data-role="click-tracking" data-event="CWInteractive" data-action="dealsaccess_desktop" data-cat="deals_desktop" data-label="landingPage_versionslist">
+                            <h3 class="text-link font14" data-bind="text: version.name"></h3>
+                        </a>
+                        <span class="margin-top5 block" data-bind="text:specificationsOverview"></span>
+                    </div><div class="roadprice-section roadprice-content">
+                        <div class="font13 margin-bottom5">
+                            <!-- ko if : savings > 0 -->
+                            <span class="reducedTxt position-rel text-black">
+                                ₹ <span data-bind="text: Common.utils.formatNumeric(OnRoadPrice)"></span>
+                            </span>
+                            <span class="text-green margin-left5">₹<span data-bind="text: Common.utils.formatNumeric(savings)"></span> off</span>
+                            <!-- /ko -->
+                            <!-- ko if : savings == 0 -->
+                            <span class="position-rel text-green">
+                                Offer Available
+                            </span>
+                            <!-- /ko -->
+                        </div>
+                        <div class="font14 margin-top5 text-black">
+                            ₹ <span class="text-bold" data-bind="text: Common.utils.formatNumeric(OfferPrice)"></span>
+                            <span class="text-grey font13" data-bind="text: $('#advDrpCity option:selected').text()"></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </li>
+            </ul>           
+        </div>
+    </div>
+    <!-- /detailPopup -->
+    <div class="clear"></div>
+
+</div>
+
+@section Scripts
+{
+    <script  type="text/javascript"  src="/static/js/advantagesearch.js" ></script>
+
+    <script type="text/javascript">
+        Common.showCityPopup = false;
+        $(document).ready(function () {
+            AdvantageSearch.isAdvantageCity = "@Model.IsAdvantageCity" === "@true";
+            AdvantageSearch.cityId = "@Model.SelectedCity.CityId";
+            AdvantageSearch.filters.manufacturers = '@Model.Filters.Manufacturers';
+            AdvantageSearch.filters.fuels ='@Model.Filters.Fuels';
+            AdvantageSearch.filters.transmissions ='@Model.Filters.Transmissions';
+            AdvantageSearch.filters.bodyTypes ='@Model.Filters.BodyTypes';
+            AdvantageSearch.sort.sc ='@Model.Filters.SC';
+            AdvantageSearch.sort.so = '@Model.Filters.SO';
+            AdvantageSearch.pageSize = @System.Configuration.ConfigurationManager.AppSettings["AdvantagePageSizeDesktop"];
+            AdvantageSearch.offerOfWeek.offers = '@System.Configuration.ConfigurationManager.AppSettings["OfferOfWeek"]';
+            AdvantageSearch.budget.budgetRange = '@Model.Filters.BudgetRange';
+            AdvantageSearch.pageLoad.listingLoad();
+            AdvantageSearch.env = 2;
+        });
+    </script>
+}

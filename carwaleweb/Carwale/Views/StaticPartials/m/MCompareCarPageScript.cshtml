@@ -1,0 +1,17 @@
+﻿@model Carwale.Entity.ViewModels.CompareCarsModel
+<script type="text/javascript" src="/static/m/js/comparecar.js" defer></script>
+@if (Model.VersionsDetails.Count > 0)
+{
+    Carwale.Entity.CarData.CarVersionDetails car = Model.VersionsDetails[0];
+    string carName = string.Format("{0} {1}", car.MakeName, car.ModelName);
+    <script>
+        preselectCars = [];
+        preselectCars.push({ "carName": "@carName", "makeModel": "@carName", "version": "@car.VersionName", "img": "@Carwale.Utility.ImageSizes.CreateImageUrl(car.HostURL, Carwale.Utility.ImageSizes._110X61, car.OriginalImgPath)", "formatedMake": "@Carwale.UI.Common.UrlRewrite.FormatSpecial(car.MakeName)", "formatedModel": "@car.MaskingName", "versionId" : @car.VersionId, "modelId" : @car.ModelId });
+    @if(Model.VersionsDetails.Count >1 ){
+        car = Model.VersionsDetails[1];
+        <text>
+        preselectCars.push({ "carName": "@carName", "makeModel": "@carName", "version": "@car.VersionName", "img": "@Carwale.Utility.ImageSizes.CreateImageUrl(car.HostURL, Carwale.Utility.ImageSizes._110X61, car.OriginalImgPath)", "formatedMake": "@Carwale.UI.Common.UrlRewrite.FormatSpecial(car.MakeName)", "formatedModel": "@car.MaskingName", "versionId" : @car.VersionId, "modelId" : @car.ModelId });
+        </text>
+    }
+    </script>
+}

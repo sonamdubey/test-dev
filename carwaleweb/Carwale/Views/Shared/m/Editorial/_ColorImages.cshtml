@@ -1,0 +1,121 @@
+﻿@model Carwale.DTOs.CarData.PhotoGalleryDTO_V2
+@using Carwale.Utility;
+@using System.Configuration;
+@using Carwale.UI.PresentationLogic;
+@{
+    var activeIndex = Model.GalleryState.ActiveSlideIndex;
+    string cdnHostUrl = ConfigurationManager.AppSettings["CDNHostURL"].ToString();
+    bool showCarousel = !(Request.Browser.Type.Contains("Safari") || Request.Browser.Type.Contains("Mozilla"));
+    string noImageImagePath = cdnHostUrl + ImageSizes._0X0 + "/cw/static/png/gallery/no-image.png";
+    string greyGifUrl = cdnHostUrl + ImageSizes._0X0 + "/statics/grey.gif";
+    string loaderImg = cdnHostUrl + ImageSizes._0X0 + "/cw/static/circle-loader.gif";
+    string url = string.Empty;
+    string noImageClass = string.Empty;
+    string loaderClass = string.Empty;
+    string imgClass = string.Empty;
+}
+<div class="image-gallery__colourselection">
+    <a class="image-gallery-close hide" href="javascript: MGallery.swiper.openFullScreen();" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_image_gallery" data-label="color_close" data-action="color_close">
+        <span class="cwmsprite cross-lg-dark-grey"></span>
+    </a>
+    <div class="position-rel">
+        <div class="swiper-container noSwiper carColorStage">
+            <ul id="colors-swiper" class="swiper-wrapper image-gallery__top-stage swiperUl">
+                @{
+                    if (string.IsNullOrEmpty(Model.ModelColors[activeIndex].OriginalImgPath))
+                    {
+                        url = noImageImagePath;
+                        noImageClass = "no-image";
+                        imgClass = "color-img-container";
+                    }
+                    else
+                    {
+                        url = ImageSizes.CreateImageUrl(ConfigurationManager.AppSettings["CDNHostURL"].ToString(), ImageSizes._860X484, Model.ModelColors[activeIndex].OriginalImgPath, 80);
+                        noImageClass = "";
+                        loaderClass = "swiper-imgLoader";
+                        imgClass = "";
+                    }
+                }
+
+                <li data-role="click-tracking" data-event="CWInteractive" data-cat="msite_image_gallery" data-label="color_image" data-action="color_image"
+                     class="swiper-slide new image-gallery__top-gallery @loaderClass" data-color="@(Model.ModelColors[activeIndex].Color)">
+                    <a class="galleryAnchor" onclick="event.preventDefault();" href="@EditorialContent.GetColorUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, Model.ModelColors[activeIndex].Color, Model.ModelColors[activeIndex].ColorId, true)">
+                        <div class="@imgClass swiper-zoom-container"><img data-index class="swiper-lazy @noImageClass" title="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName @Model.ModelColors[activeIndex].Color colour" alt="@Model.ModelDetails.MakeName @Model.ModelColors[activeIndex].Color colour" data-src="@url" /></div>
+                    </a>
+                </li>
+                @foreach (var color in Model.ModelColors)
+                {
+                    if (color.HexCode != Model.ModelColors[activeIndex].HexCode)
+                    {
+                        if (string.IsNullOrEmpty(color.OriginalImgPath))
+                        {
+                            url = noImageImagePath;
+                            noImageClass = "no-image";
+                            loaderClass = "";
+                            imgClass = "color-img-container";
+                        }
+                        else
+                        {
+                            url = ImageSizes.CreateImageUrl(ConfigurationManager.AppSettings["CDNHostURL"].ToString(), ImageSizes._860X484, color.OriginalImgPath, 80);
+                            noImageClass = "";
+                            loaderClass = "swiper-imgLoader";
+                            imgClass = "";
+                        }
+                        <li data-role="click-tracking" data-event="CWInteractive" data-cat="msite_image_gallery" data-label="color_image" data-action="color_image"
+                             class="swiper-slide new image-gallery__top-gallery @loaderClass" data-color="@color.Color">
+                            <a class="galleryAnchor" onclick="event.preventDefault();" href="@EditorialContent.GetColorUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, color.Color, color.ColorId, true)">
+                                <div class="@imgClass swiper-zoom-container"><img data-index class="swiper-lazy @noImageClass" title="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName @color.Color colour" alt="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName @color.Color colour" data-src="@url" /></div>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+            <div data-role="click-tracking" data-event="CWInteractive" data-cat="msite_image_gallery" data-label="color_prev_click" data-action="color_prev_click"  title="previous" class="swiper-button-prev"></div>
+            <div data-role="click-tracking" data-event="CWInteractive" data-cat="msite_image_gallery" data-label="color_next_click" data-action="color_next_click"  title="next" class="swiper-button-next"></div>
+        </div>
+        <div class="mgallery-icons position-abt pos-bottom0">
+            <div class="leftfloat left-mgallery-unit">
+                <div class="leftfloat">
+                <a id="colors-section-btnDownload" class="btnDownload mgallery-img-icon @(string.IsNullOrEmpty(Model.ModelColors[activeIndex].OriginalImgPath) ? "hide" : string.Empty)" download href="@(cdnHostUrl + ImageSizes.CreateImageUrl(cdnHostUrl, ImageSizes._0X0, Model.ModelColors[activeIndex].OriginalImgPath, 100))">
+                    <img src="@(cdnHostUrl + "0x0/cw/static/icons/fff/download-17x14.png")" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_image_gallery" data-label="color_download" data-action="color_download">
+                </a>
+                </div>
+                <div class="rightfloat mgallery-count">
+                    <span>1</span>/<span>@Model.ModelColors.Count</span>
+                </div>
+            </div>
+            @if (showCarousel)
+            {
+                <div class="rightfloat">
+                    <a class="mgallery-img-icon mgallery-fullscreen-link" href="javascript: MGallery.swiper.openFullScreen();" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_image_gallery" data-label="color_fullscreen" data-action="color_fullscreen" >
+                        <img src="@(cdnHostUrl + "0x0/cw/static/360icons/interior/fullscreen.png")"><span>FullScreen</span>
+                    </a>
+                </div>
+            }
+        </div>
+        <div class="mgallery-zoom rightfloat hide" onclick="Javascript: MGallery.swiper.zoom(true, MGallery.colorTabSwiper.carColorStage, 'image-gallery__colourselection')">
+            <span class="text-grey">Zoom In</span>@*<span class="fa fa-3x fa-search-plus"></span>*@
+        </div>
+    </div>
+    <div class="color-thumbnail-container">
+        <div class="navigation-container">
+            <div class="swiper-container noSwiper carColorNav">
+                <div class="swiper-wrapper image-gallery__colour-container">
+                    <div data-role="click-tracking" data-event="CWInteractive" data-cat="msite_image_gallery" data-label="color_thumb" data-action="color_thumb"
+                         class="swiper-slide image-gallery__colour-thumnail colorBtnActive" style="background:#@Model.ModelColors[activeIndex].HexCode.Split(',')[0];"></div>
+                    @foreach (var color in Model.ModelColors)
+                    {
+                        if (color.HexCode != Model.ModelColors[activeIndex].HexCode)
+                        {
+                            <div class="swiper-slide image-gallery__colour-thumnail" style="background:#@color.HexCode.Split(',')[0];"></div>
+                        }
+                    }
+
+                </div>
+                <div title="previous" class="swiper-button-prev"></div>
+                <div title="next" class="swiper-button-next"></div>
+            </div>
+        </div>
+    </div>
+    <h3 style="text-align: center; color:#82888B;" class="font14 text-unbold">Colour : <span class="image-gallery__colour-name text-bold">@Model.ModelColors[activeIndex].Color</span></h3>
+</div>

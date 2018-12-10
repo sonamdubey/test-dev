@@ -1,0 +1,102 @@
+// Core variables and mixins
+@import 'scss/partials/utils';
+@import 'scss/partials/mixins';
+@import 'scss/partials/variables';
+@import 'scss/partials/typography';
+@import 'scss/partials/button';
+@import 'scss/partials/input';
+@import 'scss/partials/select';
+
+// Core CSS
+@import 'scss/base';
+body {
+    height: auto;
+}
+
+$isMobile: true;
+
+.global-location-screen {
+  &.location-popup {
+    z-index: 100;
+  }  
+}
+
+.location-root {
+  .speedometer__container {
+    z-index: 101;
+  }
+}
+
+@import 'scss/location';
+
+@include location-popup;
+@include location-close-button;
+
+// tags
+.tags-input-control__layout {
+  @include flexbox;
+  @include align-items(center);
+  @include vendor-prefix('box-shadow', 0 1px 4px 0 color('light-gray', .8));
+  position: relative;
+  padding: 7px 8px;
+  text-align: left;
+  background-color: color('white');
+  border: 1px solid color('light-gray');
+  border-radius: 4px;
+  white-space: nowrap;
+
+  .autocomplete-box {
+    position: static;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+
+    &:not(:only-child) {
+      max-width: 50%;
+      width: auto;
+    }
+
+    input[type='text'] {
+      border: 0;
+      box-shadow: none;
+      padding: 5px 4px;
+    }
+  }
+
+  .autocomplete-list {
+    top: 105%; // 100 + 5; input field height + box shadow visibility
+    border-top: 0;
+  }
+}
+
+// focus state
+.has-focus {
+  .tags-input-control__layout {
+    border-color: #3fbfff;
+  }
+}
+
+@include tag($closeable: true);
+
+@include btn('primary');
+@include toast-box;
+
+.location-root {
+  .toast-box {
+    display: block; // override `display: none` css from web-app css file
+    z-index: 101; // (location-popup's z-index + 1)
+  }
+}
+
+// error state
+.location-tags-form {
+  .oxygen-form-item-with-help {
+    text-align: left;
+  }
+
+  .has-error {
+    .tags-input-control__layout {
+      border-color: #ff653f;
+    }
+  }
+}

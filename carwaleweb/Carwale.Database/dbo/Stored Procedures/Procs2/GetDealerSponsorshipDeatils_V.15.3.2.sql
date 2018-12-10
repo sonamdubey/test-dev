@@ -1,0 +1,57 @@
+IF EXISTS (
+    SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[GetDealerSponsorshipDeatils_V]') 
+    AND xtype IN (N'P')
+)
+    DROP PROCEDURE [dbo].[GetDealerSponsorshipDeatils_V]
+GO
+
+	
+
+
+-- =============================================
+-- Author:		Ashish Verma
+-- Create date: 07/08/2014
+-- Description:	Get Sponsored dealer Details based on dealerId
+-- exec [dbo].[PQ_GetDealerSponsorshipV1.1] 35,1,""
+--modified by ashish verma on 21/08/2014
+--modified by ashish Verma Instead of dealer id we are retrieving dealer info by campaign id on 1/09/2014
+--modified by vinayak passing address,makename as output param 2/3/2015
+--modified by vinayak changed inner join to left join for carmakes,PQ_DealerCitiesModels 11/3/2015
+-- =============================================
+CREATE PROCEDURE [dbo].[GetDealerSponsorshipDeatils_V.15.3.2] 
+	-- Add the parameters for the stored procedure here
+	
+	
+	@CampaignId INT
+	,@DealerId INT OUTPUT
+	,@DealerName VARCHAR(30) OUTPUT
+	,@DealerMobile VARCHAR(50) OUTPUT
+	,@DealerEmail VARCHAR(250) OUTPUT
+	,@DealerActualMobile VARCHAR(100) OUTPUT
+	,@DealerLeadBusinessType INT OUTPUT
+	,@DealerAddress VARCHAR(MAX) OUTPUT
+	--,@MakeName VARCHAR(50) OUTPUT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	-- Insert statements for procedure here
+	--SELECT DealerId,DealerName,Phone AS PhoneNo,DealerEmailId AS DealerEmail
+	--FROM PQ_DealerSponsored WITH(NOLOCK)
+	--WHERE CityId= @CityId and ModelId=@ModelId and IsActive = 1
+	SELECT @DealerId = ds.DealerId, 
+	     @DealerName = ds.DealerName
+		,@DealerMobile = ds.Phone
+		,@DealerEmail = ds.DealerEmailId
+		,@DealerActualMobile = dl.MobileNo
+		,@DealerLeadBusinessType = dl.DealerLeadBusinessType --modified by ashish verma
+		,@DealerAddress= isnull(dl.Address1,' ')+isnull(dl.Address2,' ')
+		--,@MakeName=cm.Name
+		FROM PQ_DealerSponsored ds WITH (NOLOCK)
+		INNER JOIN Dealers dl WITH(NOLOCK) on dl.ID = ds.DealerId
+		--LEFT JOIN PQ_DealerCitiesModels dc WITH(NOLOCK) on dc.PqId=ds.Id
+		--LEFT JOIN CarMakes cm WITH(NOLOCK) on cm.ID=dc.MakeId 
+		WHERE	ds.Id = @CampaignId and ds.IsActive = 1 --modified by ashish Verma Instead of dealer id we are retrieving dealer info by campaign id
+END

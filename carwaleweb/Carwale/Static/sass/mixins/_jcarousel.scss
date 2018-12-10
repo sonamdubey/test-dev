@@ -1,0 +1,177 @@
+@import '_variables.scss';
+@import '_sprites.scss';
+@import '_vendor-utils.scss';
+@import '_custom-icon.scss';
+@import '../utils/_concatenation.scss';
+
+@mixin carousel-wrapper($prefix: '') {
+	$selector: concatSelectorName('carousel-wrapper', $prefix);
+
+	.#{$selector} {
+		width: 100%;
+		position: relative;
+	}
+}
+
+@mixin carousel-body($prefix: '') {
+	$selector: concatSelectorName('carousel-body', $prefix);
+
+	.#{$selector} {
+		position: relative;
+		overflow: hidden;
+		padding: 10px 5px;
+	}
+}
+
+@mixin carousel-list($prefix: '') {
+	$selector: concatSelectorName('carousel-list', $prefix);
+
+	.#{$selector} {
+		width: 20000em;
+		position: relative;
+	}
+}
+
+@mixin carousel-list-item ($prefix: '',$width: 318, $height: 346, $margin-right: 15, $border-color: 'smoke-white',$bgcolor: 'white') {
+	$selector: concatSelectorName('carousel-list-item', $prefix);
+
+	.#{$selector} {
+		@include get-vendor-prefixed(transform, translateY(0));
+		@include get-vendor-prefixed(backface-visibility, hidden);
+		width: $width * 1px;
+		height: $height * 1px;
+		margin-right: $margin-right * 1px;
+		border: 1px solid map-get($color-map, $border-color);
+		overflow: hidden;
+		display: inline-block;
+		border-radius: 3px;
+		background-color: map-get($color-map, $bgcolor);
+	}
+}
+
+//modifier for hover state of list item
+@mixin carousel-list-item--hover {
+	@include get-vendor-prefixed(transition, 'box-shadow .6s, background-color .6s, color .6s, opacity .6s,-webkit-transform .6s');
+	@include get-vendor-prefixed(transform, translateY(-4px));
+	box-shadow: 0 2px 8px 3px rgba(0, 0, 0, .12);
+}
+
+@mixin carousel__content-wrapper {
+	.carousel__content-wrapper {
+		position: relative;
+		overflow: hidden;
+	}
+}
+
+@mixin carousel-image-wrapper ($prefix: '', $height: 190, $width: 320) {
+	$selector: concatSelectorName('carousel-image-wrapper', $prefix);
+
+	.#{$selector} {
+		width: $width * 1px;
+		height: $height * 1px;
+		overflow: hidden;
+		text-align: center;
+		margin: 0 auto;
+
+		img {
+			max-height: $height * 1px;
+			max-width: 100%;
+
+			&[src*='grey.gif'] {
+				width: 100%;
+			}
+		}
+	}
+}
+
+@mixin carousel-info-wrapper ($prefix: '', $bgcolor: 'snow-1', $min-height: 155) {
+	$selector: concatSelectorName('carousel-info-wrapper', $prefix);
+
+	.#{$selector} {
+		padding: 20px 15px;
+		background: map-get($color-map, 'snow-1');
+		min-height: $min-height * 1px;
+	}
+}
+
+@mixin info-wrapper__model-name($font-size: 16, $font-weight: $font-bold, $color: 'charcoal') {
+	.info-wrapper__model-name {
+		display: block;
+		margin-bottom: 5px;
+		font-size: $font-size * 1px;
+		font-weight: $font-weight;
+		letter-spacing: .7px;
+		color: map-get($color-map, $color);
+	}
+}
+
+@mixin info-wrapper__model-price($font-size: 16, $color: 'eclipse') {
+	.info-wrapper__model-price {
+		font-size: $font-size * 1px;
+		color: map-get($color-map, $color);
+		letter-spacing: .6px;
+		margin-bottom: 10px;
+		display: block;
+	}
+}
+
+@mixin info-wrapper__subtitle($font-size: 13, $color: 'text-grey') {
+	.info-wrapper__subtitle {
+		font-size: $font-size * 1px;
+		color: map-get($color-map, $color);
+	}
+}
+
+@mixin info-wrapper__link($font-size: 16, $color: 'summer-sky') {
+	.info-wrapper__link {
+		font-size: $font-size * 1px;
+		color: map-get($color-map, $color);
+		cursor: pointer;
+		
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+@mixin carousel-container__heading($font-size: 20, $font-weight: $font-bold, $color: 'charcoal') {
+	.carousel-container__heading {
+		font-size: $font-size * 1px;
+		font-weight: $font-weight;
+		margin-bottom: 5px;
+		color: map-get($color-map, $color);
+	}
+}
+
+@mixin carousel-control-button($prefix: '') {
+	$selector: concatSelectorName('carousel-button', $prefix);
+
+	.#{$selector} {
+		top: 50%;
+		position: absolute;
+		cursor: pointer;
+
+		&.carousel-prev-button {
+			@include arrow;
+			transform: translateY(-50%);
+			left: -25px;
+		}
+
+		&.carousel-next-button {
+			@include arrow($direction: 'right');
+			transform: translateY(-50%);
+			right: -25px;
+		}
+
+		&:hover {
+			background-position: center;
+		}
+
+		&.inactive {
+			cursor: not-allowed;
+			background-position: center;
+			opacity: .3;
+		}
+	}
+}
+

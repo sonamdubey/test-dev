@@ -1,0 +1,285 @@
+﻿@using Carwale.UI.Common;
+@using Carwale.Utility;
+@{
+    ViewBag.Title = "Customize Your Ignis";
+    ViewBag.BodyClass = "bg-light-grey";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+    ViewBag.Responsive = true;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.Canonical = "";
+    ViewBag.Alternate = "";
+	ViewBag.CustomJS = "~/Views/StaticPartials/ES/IgnisSpotlightScript.cshtml";
+	ViewBag.CustomCss = "~/Views/StaticPartials/ES/IgniSpotlightCss.cshtml";
+    ViewBag.landingPage = true; 
+    ViewBag.HeaderClass = "header-landing";
+    Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayout.cshtml" : "~/views/shared/_Layout.cshtml");
+}
+<script>
+    $(document).ready(function () {
+        var readmoreFlag = 1;
+        $('.ignis-read-more-link').on('click', function (e) {
+            e.preventDefault();
+            readmoreFlag = -(readmoreFlag);
+            console.log(readmoreFlag);
+            var targetElement = $(this);
+            if (readmoreFlag === -1) {
+            	targetElement.addClass('collapse--active').text('Collapse');
+
+            }
+            else {
+            	targetElement.removeClass('collapse--active').text('Read More');
+            }
+            targetElement.closest('.about-ignis-container').find('.expanded-about-ignis').toggle();
+        });
+    });
+</script>
+<div id="fb-root"></div>
+<script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+
+<div class="ignis-main">
+    <section class="full-width-carousel banner">
+        <div class="banner1">
+
+		<div class="ignis-banner-content">
+            <p class="banner-text"> Celebrating</p>
+			<p class="banner-title"> 1 Year of IGNIS</p>
+		<p><a href="https://www.nexaexperience.com/ignis.html?utm_source=carwale&utm_medium=article-homepage&utm_campaign=ignis-anniversary" target="_blank" class="btn btn-orange btn-sm text-uppercase font16">Know More</a></p>	
+		</div>
+</div>
+        <div class="position-rel">
+            <div class="position-abt">
+                <script type='text/javascript' src='https://www.googletagservices.com/tag/js/gpt.js'>
+                                    googletag.pubads().definePassback('/1017752/Homepage_Wallpaper_1x1', [1, 1]).display();
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <div class="mb-margin">
+
+
+        <div id="gallery-close-btn" class="cwsprite cur-pointer cross-lg-white"></div>
+        <div id="gallery-blackOut-window"></div>
+        <div class="clear"></div>
+
+        <section class="container main-container">
+            <div class="grid-12">
+                <h2 class="main-container__title">WHY Customization</h2>
+				<div class="main-container-image">
+                    <img class="responsive-img lazy" src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/img-1.jpg" data-original="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/img-1.jpg?q=85" style="display: block;">
+                    <div class="main-container__image-detail">
+                        <span class="main-container__image-btn">
+                            Article
+                        </span>
+                        <p class="main-cotainer__image-text">
+                            Why should you cutomize your car?
+                        </p>
+                    </div>
+                </div>
+                <div class="about-ignis-container">
+                    <div class="about-ignis">
+						Everyone wants to stand out from the crowd, have a unique identity and personalisation. And nowadays it is everywhere, from your phones covers to your t-shirts. So why shouldn’t you get your car personalised as well? So, if you have been thinking of buying a hatchback, it is the perfect time to buy the Maruti Suzuki Ignis. And that is not only because it is one of the best looking modern hatchbacks but also because you will get a custom roof complimentary.
+						<br /><br />
+						It has been a year since Maruti Suzuki launched their uniquely designed hatchback, the Ignis. Unlike any other car in Maruti’s repertoire, the Ignis’ distinct grille, broad shoulders and bold wheel arches make it muscular while giving it a confident and planted stance. It is an open-minded and exciting design which continues its dynamism inside the cabin as well.
+                        
+                    </div>
+                    <div class="expanded-about-ignis">
+						The floating dashboard display with a dual-tone console gives a cockpit-like feel while its tablet-like display works with seamless smartphone connectivity as well. The Ignis is techno-savvy with start-stop button, rear parking sensors with camera, automatic climate control, et al.
+                        <br /><br />
+						The cabin is spacious thanks to the way its design and tall-boy build and the 60-40 split rear seats help open up much more cargo space as well. And it is safe as well. You have pre-tensioning seat-belts along with airbag in the front and ABS with EBD as standard across all variants, making it one of the safest cars around.
+                        <br /><br />
+						Because, with its powerful 1.2-litre VVT and 1.3-litre turbocharged diesel engines, you would be fast even without realising it. In case you are looking for comfort, you have the Auto-Gear Shift (AGS) system on offer with both the engine options, giving you a one-of-a-kind driving experience.
+						<br /><br />
+						And if that is not enough, the Ignis gets an entire array of customisable options from decals, to roof wraps going all the way to the door trims and the interiors. The Ignis is offered with different design styles for the custom roof. So make sure you check out all the possible combinations of colours, roofs and interior on the Nexa Experience website before you head to the showroom!
+                    </div>
+                    <a class="ignis-read-more-link" href="" title="">Read More</a>
+
+                </div>
+            </div>
+
+        <div class="grid-12 more-articles-section">
+            <p class="more-articles__title">More articles</p>
+            <div class="card-jcarousel">
+                <div class="swiper-container noSwiper carousel-stage-article">
+                    <ul class="swiper-wrapper">
+						<li class="swiper-slide">
+							<a class="text-decoration-none" target="_blank" href="https://www.carwale.com/marutisuzuki-cars/ignis/expert-reviews-26689/" title="">
+								<div class="carousel-box">
+									<div class="more-articles__image-container">
+										<img class="swiper-lazy" src="https://imgd.aeplcdn.com/310x174/cw/ec/31672/Maruti-Suzuki-Ignis-110629.jpg?q=85&wm=1" alt="Maruti Suzuki Ignis Road test" title="Maruti Suzuki Ignis Road test" />
+									</div>
+									<div class="more-articles__detail">
+										Maruti Suzuki Ignis Road test
+									</div>
+								</div>
+							</a>
+
+						</li> 
+						<li class="swiper-slide">
+							<a class="text-decoration-none" target="_blank" href="https://www.carwale.com/marutisuzuki-cars/ignis/expert-reviews-31672/" title="">
+								<div class="carousel-box">
+									<div class="more-articles__image-container">
+										<img class="swiper-lazy" src="https://imgd.aeplcdn.com/310x174/cw/ec/26689/Maruti-Suzuki-Ignis-Exterior-88511.jpg?q=85&wm=1" alt="Maruti Suzuki Ignis 1.3 Diesel Automatic First Drive Review" title="Maruti Suzuki Ignis 1.3 Diesel Automatic First Drive Review" />
+									</div>
+									<div class="more-articles__detail">
+										Maruti Suzuki Ignis 1.3 Diesel Automatic First Drive Review
+									</div>
+								</div>
+							</a>
+
+						</li>           
+						<li class="swiper-slide">
+							<a class="text-decoration-none" target="_blank" href="https://www.carwale.com/marutisuzuki-cars/ignis/expert-reviews-26684/" title="">
+								<div class="carousel-box">
+									<div class="more-articles__image-container">
+										<img class="swiper-lazy" src="https://imgd.aeplcdn.com/310x174/cw/ec/26684/Maruti-Suzuki-Ignis-Exterior-88437.jpg?q=85&wm=1" alt="Maruti Suzuki Ignis 1.2 Petrol First Drive Review" title="Maruti Suzuki Ignis 1.2 Petrol First Drive Review" />
+									</div>
+									<div class="more-articles__detail">
+										Maruti Suzuki Ignis 1.2 Petrol First Drive Review
+									</div>
+								</div>
+							</a>
+
+						</li>      
+
+                    </ul>
+                </div>
+                <div class="swiper-button-next feature-btn-next click_track"></div>
+                <div class="swiper-button-prev feature-btn-prev click_track swiper-button-disabled"></div>
+            </div>
+        </div>            
+            <div class="clear"></div>
+
+        </section>
+        <section>
+			<div class="mb-view electric-vehicles customize-section margin-bottom15">
+				<div class="grid-12 margin-bottom15">
+					<h2 class="cutomize-section__title">Customize IGNIS your way</h2>
+					<div class="font14">
+						<p class="customize-section__sub-title">Feel the difference of driving your Ignis your way, as each one is a unique one. Customize your ignis &amp; stand out from the crowd on every road.</p>
+						<div class="customize-section__image">
+						</div>
+
+					</div>
+					<div class="btn-orange-block"><a href="https://www.nexaexperience.com/ignis.html?utm_source=carwale&utm_medium=article-configure-now&utm_campaign=ignis-anniversary" target="_blank" class="btn btn-orange btn-sm">Configure Now </a></div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+        </section>   
+		<section>
+			<div class="grid-12">
+				<h2 class="gallery__title">IGNIS SHOWCASE</h2>
+			
+					<script async src="https://www.youtube.com/iframe_api"></script>
+					<script>
+						function onYouTubeIframeAPIReady() {
+							var player;
+							player = new YT.Player('YouTubeVideoPlayer', {
+								videoId: 'eM39tNW7slQ', // YouTube Video ID
+
+								playerVars: {
+								
+									controls: 1,        // Show pause/play buttons in player
+									showinfo: 0,        // Hide the video title
+									modestbranding: 0,  // Hide the Youtube Logo
+									loop: 1,            // Run the video in a loop
+									fs: 0,              // Hide the full screen button
+									cc_load_policy: 0, // Hide closed captions
+									iv_load_policy: 3,  // Hide the Video Annotations
+									autohide: 0         // Hide video controls when playing
+								}
+
+							});
+						}
+					</script>
+				<div id="YouTubeVideoPlayer" class="grid-12"></div>
+			
+			</div>
+
+		</section>
+		<section class="container">
+			<div class="grid-12 margin-bottom20">
+				<h2 class="gallery__title">GALLERY</h2>
+				<div class="gallery__container">
+					<div class="gallery-carousel carousel-stage-article swiper-container noSwiper">
+						<ul class="swiper-wrapper">
+							<li class="gallery__swipper__block swiper-slide">
+								<div class="large-image__container">
+									<img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/img-8.png" class="large-image__block" alt="" title="" />
+								</div>
+								<div class="small-image__container">
+									
+									<span class="small-image__block"><img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/img-9.png" alt="" title="" /></span>
+									<span class="small-image__block"><img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/img-10.png" alt="" title="" /></span>
+									<span class="small-image__block"><img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/img-11.png" alt="" title="" /></span>
+									<span class="small-image__block"><img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/img-12.png" alt="" title="" /></span>
+									
+								</div>
+							</li>
+							<li class="gallery__swipper__block swiper-slide">
+								<div class="large-image__container">
+									<img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/1-d.png" class="large-image__block" alt="" title="" />
+								</div>
+								<div class="small-image__container">
+
+									<span class="small-image__block"><img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/2.png" alt="" title="" /></span>
+									<span class="small-image__block"><img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/6.png" alt="" title="" /></span>
+									<span class="small-image__block"><img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/4.png" alt="" title="" /></span>
+									<span class="small-image__block"><img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/5.png" alt="" title="" /></span>
+
+								</div>
+							</li>
+							
+						</ul>
+						<div class="gallery-image__popup hide">
+							<img id="largePopupImage" title="" /><span class="image__popup__close-btn"></span>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+				<div class="btn-orange-block gallery-btn-block margin-top-10">
+					<span class="gallery-prev-btn click_track">Previous</span>
+					<a href="https://www.nexaexperience.com/ignis.html?utm_source=carwale&utm_medium=article-homepage&utm_campaign=ignis-anniversary" target="_blank" class="btn btn-orange btn-sm gallery-know-more-btn">KNOW MORE</a>
+					<span class="gallery-next-btn click_track">Next</span>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</section>     
+        <section class="margin-bottom20">
+			<div class="grid-12 margin-bottom20">
+				<h2 class="social-media__title">SOCIAL MEDIA</h2>
+				<div class="social-media__container">
+
+					<ul class="social-media__nav-btn margin-bottom20">
+
+						<li class="fb-nav-tab">Facebook</li>
+						<li class="twitter-nav-tab">Twitter</li>
+
+					</ul>
+					<div class="social__widget-container">
+						<div class="social__facebook-block">
+							<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fnexaexperience%2F&tabs=timeline&width=320&height=500&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
+
+						</div>
+						<div class="social__twitter-block">
+							<a class="twitter-timeline" data-width="100%" data-height="100%" data-dnt="true" href="https://twitter.com/NexaExperience?ref_src=twsrc%5Etfw">Tweets by NexaExperience</a>
+							<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+</section>
+    </div>
+</div>

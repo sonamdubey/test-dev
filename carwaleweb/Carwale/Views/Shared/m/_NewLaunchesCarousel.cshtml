@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Carwale.Entity.CarData.LaunchedCarModel>
+@using Carwale.UI.Common;
+@using Carwale.Entity;
+@using Carwale.Utility;
+<div class="cw-tabs-data hide" id="newLaunches"><div class="swiper-container"><ul class="swiper-wrapper">
+			@if (Model != null && Model.Any())
+			{
+				foreach (var item in Model)
+				{
+					<li class="swiper-slide card" redirect="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)"><div class="front"><div class="contentWrapper">
+								<div class="imageWrapper">
+							@if (item.Version != null && item.Version.VersionId > 0 && item.Version.VersionName != null)
+									{
+										<a class="model-city-link" data-ga-label="NewLaunchesCardClick_@(CookiesCustomers.MasterCityId > 0?@CookiesCustomers.MasterCity:"nocity")" data-ga-action="@item.Make.MakeName @item.Model.ModelName @item.Version.VersionName" data-redirect-url="@ManageCarUrl.CreateVersionUrl(item.Make.MakeName, item.Model.MaskingName, item.Version.VersionMasking, true)" href="@ManageCarUrl.CreateVersionUrl(item.Make.MakeName, item.Model.MaskingName, item.Version.VersionMasking, true)"><img class="lazy" data-original="@ImageSizes.CreateImageUrl(item.Image.HostUrl,ImageSizes._272X153, item.Image.ImagePath)" title="@item.Make.MakeName @item.Model.ModelName @item.Version.VersionName" alt="@item.Make.MakeName @item.Model.ModelName @item.Version.VersionName" width="272" height="153" src=""></a>
+									}
+									else
+									{
+										<a class="model-city-link" data-ga-label="NewLaunchesCardClick_@(CookiesCustomers.MasterCityId > 0?@CookiesCustomers.MasterCity:"nocity")" data-ga-action="@item.Make.MakeName @item.Model.ModelName" data-redirect-url="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)" href="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)"><img class="lazy" data-original="@ImageSizes.CreateImageUrl(item.Image.HostUrl,ImageSizes._272X153, item.Image.ImagePath)" title="@item.Make.MakeName @item.Model.ModelName" alt="@item.Make.MakeName @item.Model.ModelName" width="272" height="153" src=""></a>
+									}
+								</div><div class="carDescWrapper">
+							@if(item.Version != null && item.Version.VersionId > 0 && item.Version.VersionName != null)
+									{
+										<div class="carTitle margin-bottom10 model-city-link" data-ga-label="NewLaunchesCardClick_@(CookiesCustomers.MasterCityId > 0?@CookiesCustomers.MasterCity:"nocity")" data-ga-action="@item.Make.MakeName @item.Model.ModelName @item.Version.VersionName" data-redirect-url="@ManageCarUrl.CreateVersionUrl(item.Make.MakeName, item.Model.MaskingName, item.Version.VersionMasking, true)" ><a href="@ManageCarUrl.CreateVersionUrl(item.Make.MakeName, item.Model.MaskingName, item.Version.VersionMasking, true)"><h3 class="font18 text-link">@item.Make.MakeName @item.Model.ModelName @item.Version.VersionName</h3></a></div>
+									}
+									else
+									{
+										<div class="carTitle margin-bottom10 model-city-link" data-ga-label="NewLaunchesCardClick_@(CookiesCustomers.MasterCityId > 0?@CookiesCustomers.MasterCity:"nocity")" data-ga-action="@item.Make.MakeName @item.Model.ModelName" data-redirect-url="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)"><a href="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)"><h3 class="font18 text-link">@item.Make.MakeName @item.Model.ModelName</h3></a></div>
+									}
+									<div class="margin-bottom5 font24">₹ <span class="font25">@FormatPrice.GetFormattedPriceV2(item.PriceOverview != null ? item.PriceOverview.Price.ToString() : "0")</span>
+										@if (item.PriceOverview != null && item.PriceOverview.PriceVersionCount > 1)
+										{
+											<span class="font24">onwards</span>
+										}
+
+									</div>
+									@if (item.PriceOverview != null && item.PriceOverview.PriceLabel != null)
+									{
+										<div class='font14 text-light-grey @(item.PriceOverview.PriceStatus == (int)PriceBucket.PriceNotAvailable ? "oliveText" : item.PriceOverview.PriceStatus==(int)PriceBucket.CarNotSold ? "redText":"")'>
+											@(item.PriceOverview.PriceStatus == 1 ? item.PriceOverview.PriceLabel + ", " + item.PriceOverview.City.CityName : item.PriceOverview.PriceLabel)
+										<span>@(item.PriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + item.PriceOverview.ReasonText + "</p></div>") : Html.Raw(""))</span></div>
+									}
+									@if (CookiesCustomers.MasterCityId < 0)
+									{
+                                        <span class="select-city-link text-link" data-ga-action="NewLaunches_ShowPriceInMyCityClick" data-redirect-url="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)"><span>@System.Configuration.ConfigurationManager.AppSettings["ShowPriceInCityText"]</span></span>
+                                    }
+								</div></div></div><div class="back">
+					@if (item.Version != null && item.Version.VersionId > 0)
+							{
+								<div class="formWrapper"><div class="position-abt pos-right10 pos-top10 closeBtn cwmsprite back-circle-icon"></div><div class="formContent"><h2 class="margin-bottom15">₹ Check On-Road Price</h2><div class="margin-bottom25 text-light-grey font14">Email id, mobile number not required</div><div class="form-control-box margin-bottom20"><div id="drpCity_@item.Version.VersionId" class="form-control newlaunch fixed-height" data-bind="attr: { 'cityid': CityId, 'cityname': CityName, 'zoneid': ZoneId, 'zonename': ZoneName }" modelid="@item.Model.ModelId" versionid="@item.Version.VersionId" onclick="openCityPopUp(this,assignModelIdtoBtn)"><span>Select City</span></div><span class="cwmsprite error-icon hide"></span><div class="cw-blackbg-tooltip hide">Please select your city</div></div><button id="btn_@item.Version.VersionId" modelid="@item.Model.ModelId" versionid="@item.Version.VersionId" onclick="getPQ(this,  @Convert.ToInt32(ViewData["pageId"] != null ? ViewData["pageId"] : 0));" class="btn btn-orange btn-md btn-full-width text-uppercase newlaunch">check now</button></div></div>
+							}
+
+							else
+							{
+
+								<div class="formWrapper"><div class="position-abt pos-right10 pos-top10 closeBtn cwmsprite back-circle-icon"></div><div class="formContent"><h2 class="margin-bottom15">₹ Check On-Road Price</h2><div class="margin-bottom25 text-light-grey font14">Email id, mobile number not required</div><div class="form-control-box margin-bottom20"><div id="drpCity_@item.Model.ModelId" class="form-control newlaunch fixed-height" data-bind="attr: { 'cityid': CityId, 'cityname': CityName, 'zoneid': ZoneId, 'zonename': ZoneName }" modelid="@item.Model.ModelId" onclick="openCityPopUp(this,assignModelIdtoBtn)"><span>Select City</span></div><span class="cwmsprite error-icon hide"></span><div class="cw-blackbg-tooltip hide">Please select your city</div></div><button id="btn_@item.Model.ModelId" modelid="@item.Model.ModelId" onclick="getPQ(this,  @Convert.ToInt32(ViewData["pageId"] != null ? ViewData["pageId"] : 0));" class="btn btn-orange btn-md btn-full-width text-uppercase newlaunch">check now</button></div></div>
+
+
+							}
+
+						</div></li>
+				}
+			}
+		</ul><div class="clear"></div><!-- Add Pagination --><div class="swiper-pagination swiper-pagination-white"></div><!-- Navigation --><div class="swiper-button-next swiper-button-white"></div><div class="swiper-button-prev swiper-button-white"></div></div></div>

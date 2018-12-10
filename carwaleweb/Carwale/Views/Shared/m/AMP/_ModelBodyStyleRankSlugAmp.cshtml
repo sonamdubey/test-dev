@@ -1,0 +1,15 @@
+﻿@model Carwale.DTOs.NewCars.ModelPageDTO_Mobile
+@using Carwale.Entity.Enum;
+@using Carwale.Utility;
+@using Carwale.UI.PresentationLogic;
+<div class="position-abt text-center">
+    <span class="model-rank-slug__list-count">
+        <span class="model-rank-slug__list-number">@Model.Rank</span>
+    </span>
+    <div class="triangle triangle-left"></div>
+    <div class="triangle triangle-right"></div>
+</div>
+<div class="position-rel inline-block padding-left10 ">
+    <p class="font18 text-bold text-black">No.@Model.Rank in Top@(Model.NoOfTopCarsInBodyType < 10 ? string.Empty : " " + Model.NoOfTopCarsInBodyType) @(((CarBodyStyle)Model.ModelDetails.BodyStyleId).ToFriendlyString() + "s")</p>
+    <a title="@HtmlAttributes.GetTopBodyTypeLinkTitle(Model.NoOfTopCarsInBodyType, (CarBodyStyle)Model.ModelDetails.BodyStyleId)" href="@ManageCarUrl.CreateTopCarsByBodyTypeUrl(((CarBodyStyle)Model.ModelDetails.BodyStyleId).ToUrlString())" class="font14">View Complete List</a>
+</div>

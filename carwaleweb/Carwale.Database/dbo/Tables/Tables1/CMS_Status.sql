@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[CMS_Status] (
+    [ID]   SMALLINT     NOT NULL,
+    [Name] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_CMS_Status] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

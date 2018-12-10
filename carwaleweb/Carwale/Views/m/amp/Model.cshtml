@@ -1,0 +1,331 @@
+@model Carwale.DTOs.NewCars.ModelPageDTO_Mobile
+@using Carwale.Entity.Enum;
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using Carwale.Entity.CarData;
+@using Carwale.Entity.CMS.Photos;
+@{
+    string currentHost = Request.Url.GetLeftPart(UriPartial.Authority).Replace("http:", string.Empty).Replace("https:", string.Empty);
+    string colorCss = string.Empty;
+    if (Model.ModelColors != null && Model.ModelColors.Count > 0)
+    {
+        foreach (var code in Model.ModelColors)
+        {
+            var hexList = code.HexCode.Split(',');
+            foreach (var hex in hexList)
+            {
+                colorCss += ".c_" + hex + "{background-color:#" + hex + ";height:" + (25 / hexList.Length) + "px}";
+            }
+        }
+    }
+    ViewBag.Title = Model.PageMetaTags != null ? Model.PageMetaTags.Title : string.Empty;
+    ViewBag.Description = Model.PageMetaTags != null ? Model.PageMetaTags.Description : string.Empty;
+    ViewBag.Canonical = Model.PageMetaTags != null ? Model.PageMetaTags.Canonical : string.Empty;
+    Layout = "~/views/shared/m/_MLayoutAmp.cshtml";
+    ViewBag.ModelUrl = ManageCarUrl.CreateModelUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName);
+    ViewBag.NonAmpUrl = ViewBag.ModelUrl;
+}
+<!-- only one style tag is allowed, and it must have an "amp-custom" attribute -->
+@section Scripts{
+    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+}
+@section CustomAMPCSS{
+    @Html.Partial("~/Views/StaticPartials/m/Amp/ModelPageAmpCss.cshtml")@colorCss
+}
+@section Tracking{
+    <!-- Google Analytics Tracking -->
+<amp-analytics type="googleanalytics" id="google-analytics">
+        <script type="application/json">
+        {
+            "vars":{
+            "account": "UA-337359-1"
+            },
+            "triggers":{
+                "defaultPageview":{
+                    "on": "visible",
+                    "request": "pageview",
+                    "vars":{
+                    "title": "@ViewBag.Title"
+                    }
+                },
+                "tracklinkClicks":{
+                    "on": "click",
+                    "selector": "a[data-vars-ec], div[data-vars-ec], span[data-vars-ec]",
+                    "request": "event",
+                    "vars":{
+                    "eventCategory": "${ec}",
+                    "eventAction": "${ea}",
+                    "eventLabel": "${el}"
+                    }
+                },
+            "trackCarouselNext":{
+                    "on": "click",
+                    "selector": "#model-overview .amp-carousel-button-next",
+                    "request": "event",
+                    "vars":{
+                        "eventCategory": "contentcons",
+                        "eventAction": "msite_model_image_carousel_next_click",
+                        "eventLabel": "@(Model.ModelDetails.ModelName)_amp"
+                        }
+                        },"trackCarouselPrev":{
+                        "on": "click",
+                        "selector": "#model-overview .amp-carousel-button-prev",
+                        "request": "event",
+                        "vars":{
+                        "eventCategory": "contentcons",
+                        "eventAction": "msite_model_image_carousel_prev_click",
+                        "eventLabel": "@(Model.ModelDetails.ModelName)_amp"
+                        }
+                        },
+                        "ampCarouselNext": {
+                        "on": "amp-carousel-next",
+                        "request": "event",
+                        "vars":{
+                        "eventCategory": "contentcons",
+                        "eventAction": "msite_model_image_carousel_next",
+                        "eventLabel": "@(Model.ModelDetails.ModelName)_amp"
+                        }
+                        },
+                        "ampCarouselPrev": {
+                        "on": "amp-carousel-prev",
+                        "request": "event",
+                        "vars":{
+                        "eventCategory": "contentcons",
+                        "eventAction": "msite_model_image_carousel_prev",
+                        "eventLabel": "@(Model.ModelDetails.ModelName)_amp"
+                        }
+                },"trackCarouselNext":{
+                    "on": "click",
+                    "selector": "#model-overview .amp-carousel-button-next",
+                    "request": "event",
+                    "vars":{
+                        "eventCategory": "contentcons",
+                        "eventAction": "msite_model_image_carousel_next_click",
+                        "eventLabel": "@(Model.ModelDetails.ModelName)_amp"
+                        }
+                        },"trackCarouselPrev":{
+                        "on": "click",
+                        "selector": "#model-overview .amp-carousel-button-prev",
+                        "request": "event",
+                        "vars":{
+                        "eventCategory": "contentcons",
+                        "eventAction": "msite_model_image_carousel_prev_click",
+                        "eventLabel": "@(Model.ModelDetails.ModelName)_amp"
+                        }
+                        },
+                        "ampCarouselNext": {
+                        "on": "amp-carousel-next",
+                        "request": "event",
+                        "vars":{
+                        "eventCategory": "contentcons",
+                        "eventAction": "msite_model_image_carousel_next",
+                        "eventLabel": "@(Model.ModelDetails.ModelName)_amp"
+                        }
+                        },
+                        "ampCarouselPrev": {
+                        "on": "amp-carousel-prev",
+                        "request": "event",
+                        "vars":{
+                        "eventCategory": "contentcons",
+                        "eventAction": "msite_model_image_carousel_prev",
+                        "eventLabel": "@(Model.ModelDetails.ModelName)_amp"
+                        }
+                        }
+            }
+        }
+        </script>
+    </amp-analytics>
+}
+
+@{Html.RenderAction("ModelMenu", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, tab = ModelMenuEnum.Overview, modelDetails = Model.ModelDetails, isAmp = true });}
+
+@{Html.RenderPartial("~/Views/Shared/m/AMP/_ModelOverviewAmp.cshtml", Model);}
+<!-- Those who are removing this ad just let the inform offers team because this div is for scroll to offers slug -->
+<div id="scroll-offer"></div>
+<aside class="adblock">
+    <div id="top_banner_ad" class="adblock-content">
+        <amp-ad width=320 height=50
+                type="doubleclick"
+                data-slot="/1017752/CarWale_Mobile_ROS_AMP_320x50" 
+                json='{"targeting":{"Models":"@Model.ModelDetails.ModelName"}}'>
+        </amp-ad>
+    </div>
+</aside>
+@if (Model.MobileOverviewDetails != null && Model.MobileOverviewDetails.AdAvailable && Model.MobileOverviewDetails.MinPrice > 0 && Model.MobileOverviewDetails.New)
+{
+    <div class="campaign-offer-slug">
+        @{ Html.RenderPartial("~/Views/Shared/m/AMP/_OfferAndDealerAdAmp.cshtml", Model.OfferAndDealerAd); }
+    </div>
+}
+
+<!--Whats new Details code starts here -->
+@if (Model.WhatsNew != null && Model.WhatsNew.PageList != null && !string.IsNullOrWhiteSpace(Model.WhatsNew.PageList[0].Content))
+{
+    
+    int oldModelId = (Model.ModelDetails != null ? Model.ModelDetails.ReplacedModelId : 0);
+    <div class="write-review-section-wrapper">
+        @{Html.RenderPartial("~/Views/Shared/m/AMP/_WhatsNewAmp.cshtml", Model);}
+        @if (Model.MobileOverviewDetails.ReplacedModelDetails != null && !string.IsNullOrEmpty(Model.MobileOverviewDetails.ReplacedModelDetails.CompareCarUrl))
+        {
+            <div class="compare-cars-button">
+                <a data-vars-ec="CarWale_Opinion_whats_new_amp" data-vars-ea="comparison_clicked" data-vars-el="@(Model.ModelDetails.ModelName)_@(Model.MobileOverviewDetails.ReplacedModelDetails.ModelName)" href="@Model.MobileOverviewDetails.ReplacedModelDetails.CompareCarUrl" role="button" tabindex="0" title="Compare new & old @Model.ModelDetails.ModelName" class="whats-new__compare-button">Compare new &#38; old @Model.ModelDetails.ModelName</a>
+            </div>
+        }
+    </div>
+}
+
+
+<!--Whats new Details code ends here -->
+@if (Model.MobileOverviewDetails != null && !Model.MobileOverviewDetails.AdAvailable && Model.MobileOverviewDetails.MinPrice > 0 && Model.MobileOverviewDetails.New)
+{
+    <div class="campaign-offer-slug">
+        @{ Html.RenderPartial("~/Views/Shared/m/AMP/_OfferAndDealerAdAmp.cshtml", Model.OfferAndDealerAd); }
+    </div>
+}
+@if (Model.Rank > 0)
+{
+    <section class="model-rank-slug">
+        @{Html.RenderPartial("~/Views/Shared/m/AMP/_ModelBodyStyleRankSlugAmp.cshtml", Model);}
+    </section>
+}
+@if (Model.ModelDetails != null && Model.MobileOverviewDetails != null && Model.ModelDetails.New && !Model.ModelDetails.Futuristic)
+{
+    Html.RenderAction("KeyFeatures", "CarWidgets", new { modelId = Model.ModelDetails.ModelId, mileageData = Model.MileageData, transmissionTypes = Model.VariantList.TransmissionTypes, makeName = Model.ModelDetails.MakeName, modelName = Model.ModelDetails.ModelName, price = Model.MobileOverviewDetails.MinPrice.ToString() });
+}
+@if (Model.NewCarVersions.IsNotNullOrEmpty())
+{
+    <section id="model-variant-section">
+        @if(Model.ModelDetails.New)
+        {
+            { Html.RenderPartial("~/Views/Shared/m/AMP/_ModelVariantsTableAmp.cshtml" , Model.VariantList); }
+        }
+        else
+        {
+            { Html.RenderPartial("~/Views/Shared/m/AMP/_FuturisticModelVariantsTableAmp.cshtml", Model); }
+        }
+    </section>
+}
+<aside class="adblock">
+    <div class="adblock-content">
+        <amp-ad width=300 height=250
+                type="doubleclick"
+                data-slot="/1017752/CarWale_AMP_NewCar_Model_300x250_BTF"
+                data-multi-size-validation="false"
+            json='{"targeting":{"Models":"@Model.ModelDetails.ModelName"}}'>
+        </amp-ad>
+    </div>
+</aside>
+
+<!--Opinion code starts here -->
+@if ((Model.ProsCons != null && Model.ProsCons.PageList.IsNotNullOrEmpty())||(Model.Verdict != null && Model.Verdict.PageList.IsNotNullOrEmpty()))
+{
+    <section class="pros-and-cons-wrapper">
+        <div class="pros-and-cons-container">
+                <h2 class="pros-and-cons__title">CarWale's Take</h2>
+            @if (Model.ProsCons != null && Model.ProsCons.PageList.IsNotNullOrEmpty())
+            { 
+               Html.RenderPartial("~/Views/Shared/m/AMP/_ProsAndConsAmp.cshtml", Model); 
+            }
+            @if (Model.Verdict != null && Model.Verdict.PageList.IsNotNullOrEmpty())
+            {
+               Html.RenderPartial("~/Views/Shared/m/AMP/_VerdictAmp.cshtml", Model);
+            }
+       </div> 
+           @if (Model.ExpertReviewOpinion != null && Model.ExpertReviewOpinion.PageList.IsNotNullOrEmpty())
+            {
+                Html.RenderPartial("~/Views/Shared/m/AMP/_FullReviewV1Amp.cshtml", Model, new ViewDataDictionary { { "showH2", false } });
+            }
+    </section>
+}
+else if (Model.ExpertReviewOpinion != null && Model.ExpertReviewOpinion.PageList.IsNotNullOrEmpty())
+{
+    Html.RenderPartial("~/Views/Shared/m/AMP/_FullReviewV1Amp.cshtml", Model, new ViewDataDictionary { { "showH2", true } });  
+}
+<!--Opinion code ends here -->
+
+@if (Model.ModelDetails.New)
+{
+    <section id="model-price-other-city">
+        @{ Html.RenderAction("PriceInOtherCities", "CarWidgets", new { cityId = ViewBag.CityId,cityName = ViewBag.Cityname??string.Empty, modelDetails = Model.ModelDetails, modelId = Model.ModelDetails.ModelId, isAmp = true }); }
+    </section>
+}
+<aside class="adblock">
+    <div class="adblock-content">
+        <amp-ad width="300" height="250" type="doubleclick" data-slot="/1017752/CarWale_AMP_Model_300x250" data-multi-size-validation="false">
+            <div placeholder></div>
+        </amp-ad>
+    </div>
+</aside>
+<section class="clearfix" id="colours">
+    @{Html.RenderPartial("~/Views/Shared/m/AMP/_CarColoursWidgetAmp.cshtml", Model.ModelDetails);}
+</section>
+@if (Model.SimilarCars != null && Model.SimilarCars.SimilarCarModels.Count > 0)
+{
+    <section id="model-alternatives">
+        @{Html.RenderPartial("~/Views/Shared/m/AMP/_AlternateCarCarouselAmp.cshtml", Model.SimilarCars);}
+    </section>
+}
+<section id="mileage">
+    @{ Html.RenderAction("MileageComponent", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, data = Model.MileageData, isOverView = false, modelName = ViewBag.ModelName, isAmp = true }); }
+</section>
+<section id="model-images">
+    @{Html.RenderPartial("~/Views/Shared/m/AMP/_ModelImageWidgetAmp.cshtml", new Tuple<List<ModelImage>, CarModelDetails>(Model.ModelPhotosList, Model.ModelDetails));}
+</section>
+<section id="video-review">
+    @{ Html.RenderAction("VideosByCarId", "ModelComponent", new { id = Model.ModelDetails.ModelId, page= ContentPages.ModelPage, videos= Model.ModelVideos});}
+</section>
+@if (Model.ModelDetails.Futuristic)
+{
+    if (Model.UpcomingCarDetails != null)
+    {
+        <section id="upcoming-similar">
+            @{ Html.RenderAction("SimilarUpcomingCars", "CarWidgets", new { makeId=Model.ModelDetails.MakeId, modelId = Model.ModelDetails.ModelId, launchDate = Model.UpcomingCarDetails.LaunchDate, expectedPrice = Model.UpcomingCarDetails.Price!= null ? Model.UpcomingCarDetails.Price.MinPrice : 0, isAmp = true }); }
+        </section>
+    }
+    <section id="new-cars margin-top10">
+        @{ Html.RenderAction("ModelsCarousel", "ModelComponent", new { makeId = Model.ModelDetails.MakeId, cityId = MobileWeb.Common.CookiesCustomers.MasterCityId, makeName = Model.ModelDetails.MakeName, isAmp = true }); }
+    </section>
+    
+            }
+        
+        <section id="expert-review">
+            @{ Html.RenderAction("ExpertReviews", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, modelDetails = Model.ModelDetails, isAmp = true }); }
+        </section>
+        <section id="upcoming-cars">
+            @{Html.RenderAction("UpcomingModels", "ModelComponent", new { makeId = Model.ModelDetails.MakeId, makeName = Model.ModelDetails.MakeName, modelId = Model.ModelDetails.ModelId, isAmp = true });}
+        </section>
+        <section id="news-section">
+            @{ Html.RenderAction("TopLatestNews", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, modelDetails = Model.ModelDetails, isAmp = true }); }
+        </section>
+        <section id="model-user-review">
+            @{ Html.RenderAction("UserReviews", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, modelDetails = Model.ModelDetails, isAmp = true }); }
+        </section>
+        @if (Model.ModelDetails.New)
+        {
+            <div id="callslug" class="m-call-slug">
+                @if (Model.MobileOverviewDetails != null && Model.MobileOverviewDetails.AdAvailable)
+                {
+                    <a data-vars-ec="ShowORPTest" data-vars-ea="@ViewBag.GetOffersEventAction" data-vars-el="@(ViewBag.PricingEventLabel)@(ViewBag.IsVersionPage ? "" : "_NA")" href="@ViewBag.ModelUrl?q=lead&propertyid=5" class="dealer-call-slug btn-green">Get Offers from Dealers</a>
+                }
+                else
+                {
+                    <a data-vars-ec="ShowORPTest" data-vars-ea="@ViewBag.ShowPriceInMyCityEventAction" data-vars-el="@(ViewBag.PricingEventLabel)@(ViewBag.IsVersionPage ? "" : "_NA")" href="@ViewBag.ModelUrl?q=globalcity" class="price-call-slug">Show price in my city</a>
+                }
+            </div>
+        }
+
+        <aside class="adblock">
+            <div id="bottom_banner_ad" class="adblock-content">
+                <amp-ad width="300" height="250" type="doubleclick" data-slot="/1017752/CarWale_Mobile_ROS_AMP_300x250" data-multi-size-validation="false">
+                    <div placeholder></div>
+                </amp-ad>
+            </div>
+        </aside>
+        </aside>
+<section>
+	<div class="breadcrum">
+		<a href="/m/">Home</a> ›
+		<a href="@ManageCarUrl.CreateMakeUrl(Model.ModelDetails.MakeName,true)">@Model.ModelDetails.MakeName</a> ›
+			<span>@Model.ModelDetails.ModelName</span>
+	</div>
+</section>

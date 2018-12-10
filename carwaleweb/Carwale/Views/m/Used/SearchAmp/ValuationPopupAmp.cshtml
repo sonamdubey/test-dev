@@ -1,0 +1,122 @@
+﻿@{
+    string currentHostUrl = Request.Url.GetLeftPart(UriPartial.Authority).Replace("http:", string.Empty).Replace("https:", string.Empty);
+}
+
+<amp-lightbox layout="nodisplay" class="valuation-popup" id="valuation-popup" scrollable>
+    <div class="valuation-result-section">
+        <div class="top-corner valuationHeader">
+            <a id="evaluateResultPopupBackArrow" class="btn content-inner-block-10 padding-right30">
+                <span class="cwmsprite back-long-arrow-left-white" on="tap: valuation-popup.close" role="tab" tabindex="0"></span>
+            </a>
+        </div>
+        <div class="valuation-result-content">
+            <amp-list id="valuation-list" layout="fill" src="@currentHostUrl/api/valuation/" [src]="'@currentHostUrl' + (valuationUrl || '/api/valuation/')" items="." single-item reset-on-refresh>
+                <template type="amp-mustache">
+                    <div class="content-inner-block-10 content-box-shadow">
+                        <h1 class="pgsubhead margin-bottom5 font16">{{make}} {{model}} {{version}}</h1>
+                        <p class="margin-bottom5">
+                            <span class="margin-right5">{{fuel}}</span><span class="text-dark-grey">|</span>
+                            <span class="margin-left5 margin-right5">{{year}}</span><span class="text-dark-grey">|</span>
+                            <span class="margin-left5">{{city}}</span>
+                        </p>
+                    </div>
+                    {{#valuation}}
+                    <div class="right-price-box">
+                        {{^valuation.fairPrice}}
+                        {{^valuation.goodPrice}}
+                        {{^valuation.valuations}}
+                        <div class="right-price-not-available">
+                            <div class="cwmsprite not-avlbl-icon"></div>
+                            <div class="not-avlbl-text">Right Price is not available</div>
+                        </div>
+                        {{/valuation.valuations}}
+                        {{/valuation.goodPrice}}
+                        {{/valuation.fairPrice}}
+
+                        {{#valuation.warningNote}}
+                        <p class="font13 margin-top10 text-left padding-left10 padding-right10">{{valuation.warningNote}}</p>
+                        {{/valuation.warningNote}}
+
+                        {{#valuation.availableInfoNote}}
+                        <p class="font13 margin-top10 text-left padding-left10 padding-right10 fw700">{{valuation.availableInfoNote}}</p>
+                        {{/valuation.availableInfoNote}}
+
+                        {{#valuation.fairPrice}}
+                        {{#valuation.goodPrice}}
+                        <div class="right-price-title margin-top25">Right Price Guide</div>
+                        <div class="horizontal-bar margin-bottom50">
+                            <amp-layout class="fair-price-container" layout="fixed" width="{{indicatorPosition}}" height="67px">
+                                <div class="fair-price">
+                                    <div class="fair-mark"></div>
+                                    <div class="pointer-text">Asking Price</div>
+                                    <div class="price-pos">{{sellerAskingPrice}}</div>
+                                </div>
+                            </amp-layout>
+                            <div class="bar-pointer fair-pointer">
+                                <div>Fair Condition</div>
+                                <div class="price-pos">{{valuation.fairPrice}}</div>
+                                <div class="border-mark"></div>
+                            </div>
+                            <div class="bar-pointer good-pointer">
+                                <div>Good Condition</div>
+                                <div class="price-pos">{{valuation.goodPrice}}</div>
+                                <div class="border-mark"></div>
+                            </div>
+                        </div>
+                        {{/valuation.goodPrice}}
+                        {{/valuation.fairPrice}}
+
+                        {{#valuation.valuations.length}}
+                        <div class="right-price-table-wrapper">
+                            <ul class="right-price-table display-block table-header">
+                                {{#valuation.valuations.0.year}}
+                                <li class="right-price-list">Year</li>
+                                {{/valuation.valuations.0.year}}
+                                {{#valuation.valuations.0.version}}
+                                <li class="right-price-list">Version</li>
+                                {{/valuation.valuations.0.version}}
+                                <li class="right-price-list">Fair Car Condition</li>
+                                <li class="right-price-list">Good Car Condition</li>
+                            </ul>
+                            {{#valuation.valuations}}
+                            <ul class="right-price-table display-block table-list">
+                                {{#valuation.valuations.0.year}}
+                                <li class="right-price-list">{{year}}</li>
+                                {{/valuation.valuations.0.year}}
+                                {{#valuation.valuations.0.version}}
+                                <li class="right-price-list">{{version}}</li>
+                                {{/valuation.valuations.0.version}}
+                                <li class="right-price-list">{{fairPrice}}</li>
+                                <li class="right-price-list">{{goodPrice}}</li>
+                            </ul>
+                            {{/valuation.valuations}}
+                        </div>
+                        {{/valuation.valuations.length}}
+
+                        {{#valuation.disclaimer}}
+                        <p class="font13 margin-top15 text-left padding-left10 padding-right10"><span class="fw700">Note : </span>{{valuation.disclaimer}}</p>
+                        {{/valuation.disclaimer}}
+                    </div>
+                    {{/valuation}}
+                    {{^valuation}}
+                    <div class="error">Something went wrong. Please try again later.</div>
+                    {{/valuation}}
+                    <div id="valuation-seller-details">
+                        <div id="getSellerDetailsBtn" class="margin-right10 seller-btn-section border-solid-top padding-top10 padding-bottom10 padding-left10 getSellerDetailsBtn seller-btn-detail">
+                            <button class="btn btn-orange text-bold btn-sm text-uppercase margin-right10 getSellerDetails padding-left15 padding-right15" [hidden]="isLeadDataAvailable" on="tap:lead-popup">
+                                GET SELLER DETAILS
+                            </button>
+                            <button class="btn btn-orange text-bold btn-sm text-uppercase margin-right10 getSellerDetails padding-left15 padding-right15" [hidden]="!isLeadDataAvailable" hidden on="tap:lead-popup, lead-form.submit">
+                                <span class="font18">1-Click </span>
+                                <span class="font11">VIEW DETAILS</span>
+                            </button>
+                            {{#dealerRatingText}}
+                            <span class="top-rated-seller-tag padding-left20">{{dealerRatingText}}</span>
+                            {{/dealerRatingText}}
+                        </div>
+                    </div>
+                </template>
+            </amp-list>
+        </div>
+    </div>
+</amp-lightbox>

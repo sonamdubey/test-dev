@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Carwale.Entity.Classified.PopularUsedCars.PopularUsedCarModel>
+@using Carwale.Utility;
+<!--  Used Cars code starts here -->
+<h2 class="text-uppercase text-center margin-top50 margin-bottom30 special-skin-text">@Html.Raw(!String.IsNullOrWhiteSpace(ViewBag.UsedCity.CityName) ? ("used cars in " + ViewBag.UsedCity.CityName) : "popular used cars")</h2>
+<div class="jcarousel-wrapper">
+    <div class="jcarousel">
+        <ul>
+            @if (Model != null && Model.Any())
+            {
+                var car = 1;
+                foreach (var item in Model)
+                {
+                    <li class="front">
+                        <div class="contentWrapper">
+                            <div id="popularUCImage-@car" class="imageWrapper" onclick="trackHomePage('PopularUsed-Desktop-HP', 'Categ' + @car + '-ImageClick', '');">
+                                <a href="@item.titleUrl">
+                                    <img class="lazy" data-original="@item.Image.HostUrl@item.Image.ImagePath" title="@item.carName" alt="@item.carName">
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <div id="popularUCTitle-@car" class="carTitle margin-bottom20 text-bold" onclick="trackHomePage('PopularUsed-Desktop-HP', 'Categ' + @car + '-TitleClick', '');">
+                                    <a href="@item.titleUrl" title="Used @item.carName">Used @item.carName</a>
+                                </div>
+                                <div class="margin-bottom10 font24">
+                                    ₹<span class="font25"> @item.price</span><span class="font14"> average price</span>
+                                </div>
+                                <div id="popularUCSimilar-@car" class="font14 text-light-grey" onclick="trackHomePage('PopularUsed-Desktop-HP', 'Categ' + @car + '-SimilarCarsClick', '');">
+                                    <a href="@item.viewSimilarUrl">View similar @item.bodyType@Html.Raw("s")</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    car += 1;
+                }
+            }
+        </ul>
+    </div>
+</div>
+<div id="popularUCViewAll" class="text-center margin-bottom40" onclick="trackHomePage('PopularUsed-Desktop-HP', 'ViewAllClick', '');">
+    <a class="font16" href="/used/cars-@Html.Raw(string.IsNullOrWhiteSpace(ViewBag.UsedCity.CityName) ? "for-sale" : "in-"+Format.RemoveSpecialCharacters(ViewBag.UsedCity.CityName.ToLower()))/">View all</a>
+</div>

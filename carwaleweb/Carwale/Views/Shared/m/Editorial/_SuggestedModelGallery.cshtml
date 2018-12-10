@@ -1,0 +1,43 @@
+﻿@model List<Carwale.Entity.CarData.CarModelDetails>
+
+@using Carwale.Entity.Enum;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.BL.CMS;
+@using Carwale.Utility;
+@using Carwale.DTOs.CMS.ThreeSixtyView;
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="suggesed-model-gallery">
+        <h2 class="suggested-model-gallery__title m-special-skin-text">Recently viewed cars</h2>
+        <ul class="bg-white" data-role="inview-imp" data-event="CWNonInteractive" data-cat="msite_image_gallery" data-action="suggested_cars_imp" data-label="suggested_cars_imp">
+            @foreach (var model in Model)
+            {
+                string modelCarName = model.MakeName + " " + model.ModelName;
+                <li>
+                    <a href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(model.MakeName, model.MaskingName, null, 0, true)" class="block" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_image_gallery" data-action="suggested_cars" data-label="@modelCarName">
+                        <div class="suggested-gallery__image-wrapper">
+                            <img src="@(ImageSizes.CreateImageUrl(model.HostUrl, ImageSizes._272X153, model.OriginalImage))" alt="@modelCarName" title="@modelCarName" />
+                        </div>
+                        <div class="suggested-gallery__description">
+                            <h3>@modelCarName</h3>
+                            <div class="margin-bottom10">
+                                <span class="media-image-icon"></span>
+                                <span class="valign-middle text-grey">@(model.PhotoCount) Images</span>
+                            </div>
+                        </div>
+                    </a>
+                    @if (CMSCommon.IsThreeSixtyViewAvailable(model))
+                    {
+                        <a href="@EditorialContent.Get360PageUrl(model.MakeName, model.MaskingName, CMSCommon.Get360DefaultCategory(AutoMapper.Mapper.Map<ThreeSixtyAvailabilityDTO>(model)), true)" class="suggested-gallery__360-link-box" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_linkages" data-action="suggested_cars_image_gallery" data-label="@modelCarName">
+                            <span class="suggested-gallery__360-link" data-role="inview-imp" data-event="CWNonInteractive" data-cat="msite_360_linkages" data-action="suggested_cars_image_gallery_imp" data-label="@modelCarName">
+                                <span class="gallery__experience-text">EXPERIENCE</span>
+                                <span class="blue-360-24-17"></span>
+                            </span>
+                        </a>
+                    }
+                </li>
+            }
+        </ul>
+    </div>
+}

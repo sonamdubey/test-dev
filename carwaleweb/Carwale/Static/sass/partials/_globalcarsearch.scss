@@ -1,0 +1,134 @@
+﻿@import "../mixins/_sprites.scss";
+@import "../mixins/_padding.scss";
+@import "../mixins/_margin.scss";
+@import "../mixins/_background.scss";
+@import "../mixins/_vendor-utils.scss";
+@import "../mixins/_text.scss";
+@import "../mixins/_position.scss";
+@import "../mixins/_utils.scss";
+@import "../mixins/_fontawesome.scss";
+@import "../partials/_autocomplete.scss";
+
+@include back-long-arrow-left-icon;
+@include cross-md-dark-grey;
+@include recent-clock-icon;
+@include trending-icon;
+@include show;
+@include hide;
+
+@include padding("bottom",20);
+@include padding("right",10);
+@include margin("bottom",10);
+@include bg-color("white");
+@include text-color("white");
+@include text-color("black");
+@include text-bold;
+@include position("rel");
+@include position("abt");
+@include position("right",10);
+@include position("top",15);
+@include get-font-icon("spinner");
+@include fa-spin;
+
+
+.global-search-popup {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 10;
+
+    .form-control {
+        border: none;
+        border-radius: 0;
+        padding: 16px 50px;
+        font-size: 16px;
+    }
+
+    .back-arrow-box, .cross-box {
+        height: 30px;
+        width: 40px;
+        position: absolute;
+        top: 12px;
+        z-index: 11;
+        cursor: pointer;
+    }
+
+    .back-arrow-box {
+        left: 5px;
+
+        span.back-long-arrow-left {
+            position: absolute;
+            top: 7px;
+            left: 10px;
+            background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/6f6f6f/arrow-down.svg) no-repeat center;
+            transform: rotate(90deg);
+            width: 15px;
+            height: 15px;
+        }
+    }
+
+    .cross-box {
+        right: 5px;
+
+        span.cross-md-dark-grey {
+            position: absolute;
+            right: 13px;
+            top: 8px;
+            z-index: 11;
+        }
+
+        &:hover span.cross-md-dark-grey {
+            background-position: -62px -223px;
+        }
+    }
+}
+
+.cross-box-wrap
+{ 
+    input[type="text"]{padding-right:40px}
+    .cross-box {position:absolute; top:10px; right: 10px; bottom:10px; width:40px; z-index: 1; cursor:pointer }
+    .cross-box span.cross-md-dark-grey {position: absolute;left:0; right: 0;top: 0; bottom:0; margin:auto;}
+}
+
+.search-title {
+    padding: 10px 15px 6px;
+    font-size: 10px;
+    color: #babfc3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+.search-list-section {
+    li {
+        padding: 8px 0;
+        text-transform: capitalize;
+        border-bottom: solid 1px #efefef;
+        margin: 0 15px;
+
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+
+    a {
+        width: calc(100% - 35px);
+        display: inline-block;
+    }
+
+    .ad-text-icon {
+        margin-right: 6px;
+        font-size: 9px;
+        padding: 1px 4px 0;
+        background: #b9c1c4;
+        @include get-vendor-prefixed("border-radius","3px");
+    }
+}
+.model-search-name {
+    font-size: 14px;
+    color: #333;
+}
+.global-search-section {
+    border-radius: 0;
+    border-top: #e0e0e0 solid 1px;
+}

@@ -1,0 +1,106 @@
+@model Carwale.DTOs.CMS.UserReviews.UserReviewLanding
+@using Carwale.UI.PresentationLogic
+@using Carwale.Utility
+
+@{
+    Layout = "~/views/shared/m/_MLayoutV3.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/UserReviews/MUserReviewPageCss.cshtml";
+    ViewBag.IsMobile = true;
+}
+
+@section MetaData {
+    <title itemprop="name">@Model.MetaTags.Title - CarWale</title>
+    <meta itemprop="description" name="description" content="@Html.Raw(System.Text.RegularExpressions.Regex.Replace(Model.MetaTags.Description.ToString(), @"<[^>]*>", string.Empty))" />
+    @Helpers.GetOgTags("https://www.carwale.com/userreviews/", Model.MetaTags.Title, Model.MetaTags.Description, Model.PageDetails.PrimaryBanner)
+    @Helpers.GetTwitterTags("summary", Model.MetaTags.Title, Model.MetaTags.Description, Model.PageDetails.PrimaryBanner)
+}
+
+@section atfcss{
+    <link rel="stylesheet" href="/static/sass/partials/user-review-landing.css" type="text/css">
+}
+
+@section btfcss{
+    <link rel="stylesheet" href="/static/sass/m/css/globalcitypopup.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/globalcarsearch.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/nav.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/footer.css" type="text/css">
+}
+
+@section Scripts{
+    <script type="text/javascript" src="/static/m/js/model-selection-popup.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/write-review-section.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/misc.js" defer></script>
+    <script type="text/javascript" src="/static/js/utils/scroll-spy.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/user-review.js" defer></script>
+    <script type="text/javascript" src="/static/js/utils/scroll-to.js" defer></script>
+}
+
+<div id="userReviewContainer" class="user-review">
+    <div id="userReviewMenu" class="overall-tabs-container">
+        <div class="overall-tabs-wrapper">
+            <ul class="overall-tabs-wrapper__list">
+                <li class="tab-list__item" data-href="overview" data-cwtccat="MobileReviewsLandingPage" data-cwtcact="SubNavClicked" data-cwtclbl="WriteReview">
+                    <span class="tab-list-item__content">
+                        Write Review
+                    </span>
+                </li>
+                <li class="tab-list__item" data-href="how-to-win" data-cwtccat="MobileReviewsLandingPage" data-cwtcact="SubNavClicked" data-cwtclbl="HowToWin">
+                    <span class="tab-list-item__content">
+                        HOW TO WIN
+                    </span>
+                </li>
+
+                <li class="tab-list__item" data-href="terms-and-condition" data-cwtccat="MobileReviewsLandingPage" data-cwtcact="SubNavClicked" data-cwtclbl="TermsAndconditions">
+                    <span class="tab-list-item__content">
+                        TERMS AND CONDITIONS
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="user-review-container data-tab" id="overview" data-id="overview">
+        <div class="banner-container">
+            <div class="banner-info">
+                <div class="banner-info__content">
+                    Every week one lucky winner will receive an Amazon Voucher worth &#8377; @Carwale.BL.Experiments.ProductExperiments.VoucherPrice(43) <span class="banner__tnc-text">T&amp;C apply</span>  
+                </div>
+            </div>
+      </div>
+        <div class="write-review-container">
+            <div class="write-review-header">
+                <h2 class="write-review__title">Write Review</h2>
+                <p class="write-review__subtitle">Stand a chance to win Amazon vouchers in three steps:</p>
+                <ul class="write-review-steps-list">
+                    <li class="review-steps__list-item">
+                        <span class="review-steps__icon select-car-icon"></span>
+                        <p class="review-step-text">Select the Car</p>
+                    </li>
+                    <li class="review-steps__list-item">
+                        <span class="review-steps__icon ratings-icon"></span>
+                        <p class="review-step-text">Give ratings</p>
+                    </li>
+                    <li class="review-steps__list-item">
+                        <span class="review-steps__icon write-review-icon"></span>
+                        <p class="review-step-text">Write a review</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="write-review-form">
+                <div class="selection-feild-wrapper">
+                    <p class="model-selection-feild" data-cwtccat="MobileReviewsLandingPage" data-cwtcact="MmvSearchBarClicked" data-cwtclbl="na" >Select your Car to Rate & Write Review</p>
+                </div>
+                @{ Html.RenderPartial("~/views/shared/m/userreviews/_ModelPopup.cshtml");}
+            </div>
+        </div>
+    </div>
+    <div class="write-review-wrapper">
+        @{ Html.RenderPartial("~/views/shared/m/userreviews/_HowToWin.cshtml", Model.PageDetails.HowToWin);}
+        @{ Html.RenderPartial("~/views/shared/m/userreviews/_TermsAndCondition.cshtml", Model.PageDetails.TermsAndCondition);}
+    </div>
+</div>
+<div class="margin-top5 margin-bottom5 margin-left10 m-special-skin-text">
+    @if (Model.Breadcrumbs != null)
+    {
+        Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.Breadcrumbs);
+    }
+</div>

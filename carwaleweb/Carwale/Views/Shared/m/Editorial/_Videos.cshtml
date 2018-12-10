@@ -1,0 +1,89 @@
+﻿@model Carwale.DTOs.CarData.PhotoGalleryDTO_V2
+
+@using Carwale.Utility;
+@using Carwale.Entity.Enum;
+@using Carwale.UI.PresentationLogic;
+@using MobileWeb.Common;
+@using Carwale.Utility;
+@using Carwale.BL.CMS;
+@using Carwale.Entity.Enum;
+
+<div class="bg-white">
+    <div class="news-video-view">
+        <div>
+            <div class="video-frame" >
+                <iframe style="background-image: url('https://img.youtube.com/vi/@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoId/mqdefault.jpg')" id="videoIframe" src="https://www.youtube.com/embed/@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoId?rel=0&enablejsapi=1&version=3&playerapiid=ytplayer&controls=2" class="video-iframe" data-id="@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoId" onload="onVideoIframeReady('@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoId');" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                <div class="next-prev-btns @(Model.ModelVideos.Count == 1 ? "hide" : "")">
+                    <div onclick="Javascript: goToAdjVideo($('.news-video-options.active').prevAll('.news-video-options:first'), 1);" class="video-prev-btn arrow-fff-10"></div>
+                    <div onclick="Javascript: goToAdjVideo($('.news-video-options.active').nextAll('.news-video-options:first'), 2);" class="video-next-btn arrow-fff-10"></div>
+                </div>
+            </div>
+            <div class="content-inner-block-10 padding-bottom15 border-solid-bottom">
+                <h1 class="model-video-title font14 text-black text-bold">@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].VideoTitle</h1>
+                <div class="font12 text-light-grey margin-top5"><span class="video-viewsCount">@Model.ModelVideos[Model.GalleryState.ActiveVideoIndex].Views</span> views</div>
+            </div>
+        </div>
+
+        <div class="margin-top5 @(Model.ModelVideos.Count == 1 ? "content-inner-block-5" : "content-inner-block-10")">
+            @{ int index = 0; }
+            @if (Model.ModelVideos.Count > 1)
+            {
+             <div class="switch-container">
+                 <span class="switch-label text-bold">Up next</span>
+                <div class="rightfloat">                    
+                <span class="switch-label">Autoplay</span>
+                    <div class="switch">
+                        <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
+                        <label for="cmn-toggle-1"></label>
+                    </div>                
+                    </div>
+             </div>
+                <div class="clear"></div>
+            }
+            @foreach (var video in Model.ModelVideos)
+{
+    <div data-role="click-tracking" data-event="CWInteractive" data-cat="msite_video_details" data-label="@video.MakeName @video.ModelName" data-action="model_video"
+         onclick="Javascript:goToAdjVideo($(this))" class="news-video-options margin-bottom5 @(Model.GalleryState.ActiveVideoIndex == index ? "active" : "" )" data-videoid="@video.VideoId" data-videotitle="@video.VideoTitle" data-videotitleurl="@video.VideoUrl" data-views="@video.Views" data-index="@index" data-href="@CMSCommon.GetVideoUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, video.SubCatName, video.BasicId, true)">
+        <div class="video-view">
+            <img class="lazy" src="https://img.youtube.com/vi/@video.VideoId/mqdefault.jpg" title="" alt="">
+        </div>
+        <div data-role="inview-imp" data-event="CWNonInteractive" data-action="model_video_impression" data-cat="msite_video_details" data-label="@video.MakeName @video.ModelName" class="video-option-detail">
+            <div class="font13">@video.VideoTitle</div>
+            <div class="views-container font11 text-light-grey margin-top5 margin-top5">
+                <span>@video.Views</span> views
+            </div>
+            <div class="watching-container @(Model.GalleryState.ActiveVideoIndex == index ? "" : "hideImportant")">
+                <span class="text-light-grey watching">Watching now...</span>
+            </div>
+        </div>
+    </div>
+    index++;
+}
+        </div>
+        @if (Model.RecommendedVideos != null && Model.RecommendedVideos.Count > 0)
+{
+    <div data-role="inview-imp" data-event="CWNonInteractive" data-action="recommended_impression" data-cat="msite_video_details" data-label="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName"
+          class="padding-left10 padding-top10 padding-bottom10 @(Model.RecommendedVideos.Count == 1 ? "" : "border-solid-top")">
+        <div class="padding-bottom10 font13 text-black text-bold"><h2 class="font13 text-bold">Other Recommended Videos</h2></div>
+        <div class="alpha">
+            @foreach (var video in Model.RecommendedVideos)
+            {
+                <div class="margin-bottom5">
+                    <a data-role="click-tracking" data-event="CWInteractive" data-cat="msite_video_details" data-label="@video.MakeName @video.ModelName" data-action="recommended" class="no-link-decoration" href="@CMSCommon.GetVideoUrl(video.MakeName, video.MaskingName, video.SubCatName, video.BasicId, true)">
+                        <div class="news-video-options margin-bottom5">
+                            <div class="video-view">
+                                <img class="lazy" src="https://img.youtube.com/vi/@video.VideoId/mqdefault.jpg" title="" alt="">
+                            </div>
+                            <div class="video-option-detail">
+                                <div class="font13">@video.VideoTitle</div>
+                                <div class="font11 text-light-grey margin-top5 margin-top5"><span>@video.Views</span> views</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+}
+    </div>
+</div>

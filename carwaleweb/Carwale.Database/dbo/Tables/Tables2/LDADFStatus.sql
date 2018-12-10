@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[LDADFStatus] (
+    [ID]     SMALLINT      NOT NULL,
+    [Status] VARCHAR (100) NOT NULL,
+    CONSTRAINT [PK_LDExternalStatus] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

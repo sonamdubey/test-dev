@@ -1,0 +1,2495 @@
+﻿@{
+	ViewBag.Title = "All About Vento";
+	ViewBag.BodyClass = "bg-light-grey";
+	ViewBag.Keywords = "";
+	ViewBag.Description = "";
+	ViewBag.landingPage = true;
+	ViewBag.Responsive = true;
+	ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+	ViewBag.Canonical = "";
+	ViewBag.Alternate = "";
+	Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayout.cshtml" : "~/views/shared/_Layout.cshtml");
+}
+@if (ViewBag.isMobile != null && ViewBag.isMobile)
+{
+    <link href="/static/css/cw-common-responsive.css" rel='stylesheet' type='text/css'>
+}
+<style>
+    .slug-container {
+        display: inline-block;
+        height: 68px;
+        padding: 17px 20px;
+        background-color: #0199da;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        z-index: 10;
+        position: fixed;
+        cursor: pointer;
+        right: -94px;
+        top: 50%;
+        -webkit-transform: translateX(0px);
+        -moz-transform: translateX(0px);
+        -ms-transform: translateX(0px);
+        -o-transform: translateX(0px);
+        transform: translateX(0px);
+        transition: transform .6s ease;
+    }
+
+        .slug-container:hover {
+            -webkit-transform: translateX(-90px);
+            -moz-transform: translateX(-90px);
+            -ms-transform: translateX(-90px);
+            -o-transform: translateX(-90px);
+            transform: translateX(-90px);
+        }
+
+    .slug__image {
+        display: inline-block;
+        vertical-align: middle;
+        width: 30px;
+        height: 30px;
+        position: relative;
+    }
+
+        .slug__image:after {
+            content: '';
+            position: absolute;
+            background-image: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/ameo/icons/call.png');
+            width: 30px;
+            height: 30px;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+    .slug__text {
+        vertical-align: top;
+        padding-left: 20px;
+        color: #fff;
+        font-size: 12px;
+        text-transform: uppercase;
+        display: inline-block;
+        transition: all .2s;
+    }
+.padding-lr-40 {
+  padding: 0 40px;
+}
+.paddingbottom20 {
+	padding-bottom: 20px;
+}
+    .top-banner {
+        background: url("https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/vw-vento-wallpaper-d.jpg") no-repeat center top #05253d;
+        min-height: 432px;
+    }
+
+    .buy-automatic-car {
+        background: url("https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/vw-vento-pq-d.jpg") no-repeat center top #05253d;
+        min-height: 432px;
+    }
+
+.select-compare-car {
+  position: absolute;
+  top: 5px;
+  right: 40px;
+  min-width: 135px;
+  z-index: 1;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.select-compare-car .accordion-sprite {
+  float: right;
+  margin-top: 7px;
+}
+
+.select-compare-car2 {
+  position: absolute;
+  top: 5px;
+  right: 50px;
+  min-width: 135px;
+  z-index: 1;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.select-compare-car2 .accordion-sprite {
+  float: right;
+  margin-top: 7px;
+}
+
+.selected-car1, .selected-car2 {
+  background: #fff;
+  border: solid 1px #e2e2e2;
+  padding: 3px 10px;
+}
+
+.show-car-list1, .show-car-list2 {
+  background: #fff;
+  border: solid 1px #e2e2e2;
+  border-top: none;
+  border-radius: 0 0 2px 2px;
+  -moz-border-radius: 0 0 2px 2px;
+  -o-border-radius: 0 0 2px 2px;
+  -webkit-border-radius: 0 0 2px 2px;
+  -ms-border-radius: 0 0 2px 2px;
+}
+
+.show-car-list1 li, .show-car-list2 li {
+  background: #fff;
+  padding: 3px 10px;
+}
+
+.show-car-list1 li:hover, .show-car-list2 li:hover {
+  background: #e2e2e2;
+}
+
+.car-models {
+  padding: 5px;
+}
+
+.car-models li {
+  display: block;
+  display: table-cell;
+}
+
+.comp-border-right , .data-table-tr div:first-child, .data-table-tr div:nth-child(2) {
+  border-right: 1px solid #e2e2e2;
+}
+
+.car-models li h4 {
+  color: #0288d1;
+  font-size: 18px;
+  margin-top: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.car-models li .start-price {
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.car-models li p {
+  font-size: 12px;
+  color: #333;
+  margin-top: 5px !important;
+}
+
+.car-models a img {
+  vertical-align: middle;
+}
+
+.comparo-accordion {
+  margin: 10px 0 10px 0;
+  border: solid 1px #e2e2e2;
+  box-shadow: 0 1px 2px #e2e2e2;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.comparo-accordion li {
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.comparo-accordion li.sep {
+  border-bottom: solid 1px #e2e2e2;
+}
+
+.comparo-accordion li h5, .sarafi-accordion li span {
+  font-size: 18px;
+  color: #666666;
+  font-weight: normal;
+}
+
+.comparo-accordion li h5 {
+  float: left;
+  position: absolute;
+  left: calc(50% - 44px);
+}
+
+.comparo-accordion li h5.active-text {
+  color: #000;
+}
+
+.margin-top12 {
+  margin-top: 12px;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-boldest {
+  font-weight: 700;
+}
+
+.content-parent {
+  overflow-y: auto;
+  margin: auto;
+}
+
+.vento-img-box {
+  max-width: 100%;
+  width: auto;
+  display: block;
+  margin: auto;
+}
+
+.vento-content-box {
+  max-width: 100%;
+  width: auto;
+  display: block;
+  padding: 10px 20px;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.vertical-align {
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.vento-content-box ul {
+  list-style-type: disc;
+  padding-left: 15px;
+}
+
+.vento-content-box li {
+  margin: 5px 0;
+}
+
+.vento-content-box-head {
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.spec-sprite {
+  background-image: url("https://imgd.aeplcdn.com/0x0/cw/es/spotlight/mahindra/tuv/tuv-sprite.png?201703301151272242");
+  margin: auto;
+}
+
+.spec-head {
+  text-align: center;
+}
+
+.spec-details {
+  text-align: center;
+}
+
+.performance-icon {
+  width: 82px;
+  height: 82px;
+  background-position: -9px -8px;
+}
+
+.fuel-icon {
+  width: 82px;
+  height: 82px;
+  background-position: -108px -8px;
+}
+
+.transmission-icon {
+  width: 82px;
+  height: 82px;
+  background-position: -208px -9px;
+}
+
+.safety-icon {
+  width: 82px;
+  height: 82px;
+  background-position: -314px -8px;
+}
+
+.download-icon {
+  width: 32px;
+  height: 40px;
+  background-position: -267px -103px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.book-icon {
+  width: 32px;
+  height: 40px;
+  background-position: -60px -103px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.media-icon {
+  width: 33px;
+  height: 40px;
+  background-position: -211px -103px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.check-icon {
+  width: 32px;
+  height: 40px;
+  background-position: -313px -103px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.request-icon {
+  width: 32px;
+  height: 40px;
+  background-position: -153px -103px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.pq-box {
+  width: 100%;
+}
+
+.request-callback-box {
+  width: 996px;
+  margin: 0 auto;
+}
+
+.request-callback-box .grid-4 {
+  padding: 20px;
+  background: #f6f5f1;
+  position: relative;
+  top: 37px;
+  border-radius: 5px;
+}
+
+.jcarousel {
+  padding: 10px 0 0px 0;
+}
+
+.jcarousel li {
+  height: auto;
+  width: auto;
+}
+
+.vento-carousel li {
+  margin: 0px;
+  width: 295px;
+  padding: 0 5px;
+}
+
+.vento-carousel li img {
+  max-width: 100%;
+  width: auto;
+  display: block;
+}
+
+.vento-carousel .jcarousel-wrapper {
+  width: 92%;
+  margin: auto;
+}
+
+.vento-carousel .jcarousel-control-right {
+  right: 0px;
+}
+
+.vento-carousel .jcarousel-control-left {
+  left: 0px;
+}
+
+.compare-img-container img {
+  max-width: 100%;
+  width: auto;
+}
+
+.ad-container {
+  position: absolute;
+  bottom: 19%;
+  color: #1a1a1a;
+  left: 15%;
+}
+
+.ad-container .heading {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.ad-container .normal-text {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.ad-container .btn {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.btn-transparent {
+  background: rgba(0,0,0,0);
+  color: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  font-weight: 600;
+}
+
+.btn-transparent:hover {
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid #fff;
+}
+
+.full-width-carousel .banner {
+  max-width: 100%;
+  width: auto;
+  display: block;
+}
+
+.zero-transform {
+  -ms-transform: translateY(0%);
+  -moz-transform: translateY(0%);
+  -o-transform: translateY(0%);
+  -webkit-transform: translateY(0%);
+  transform: translateY(0%);
+  top: 0;
+}
+
+.car-name-head {
+  font-size: 16px;
+  font-weight: 600;
+  padding-left: 4px;
+  padding-top: 15px;
+}
+
+/*.car-version {
+  font-size: 12px;
+  padding-left: 5px;
+}*/
+
+/*.car-price {
+  font-size: 15px;
+  padding-left: 5px;
+}*/
+
+.vento-features li {
+  display: inline-block;
+  width: 33%;
+  text-align: center;
+  font-size: 15px;
+  vertical-align: top;
+}
+
+.vento-features li div {
+  margin-top: 10px;
+}
+
+.vento-features img {
+  max-width: 100%;
+  width: auto;
+  display: block;
+  margin: auto;
+}
+
+.quick-links {
+  padding: 20px 0px;
+  background: #fff;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.quick-links li {
+  display: inline-block;
+  width: 33%;
+  vertical-align: top;
+  border-color: #313131;
+  cursor: pointer;
+}
+
+.quick-links li:hover {
+  color: #1a89ce;
+}
+
+.quick-text {
+  width: 61%;
+  text-align: left;
+  font-weight: 700;
+  margin-left: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.quick-text:hover {
+  color: #1a89ce;
+}
+
+.download-brochure a:hover, .media-gallery a:hover {
+  text-decoration: none;
+}
+
+.pq-box #es-thankyou {
+  margin: 0;
+}
+
+.jcarousel li:hover {
+  box-shadow: none;
+  transform: none;
+  -ms-transform: none;
+  -moz-transform: none;
+  -o-transform: none;
+  -webkit-transform: none;
+  transition: none;
+  -webkit-transition: none;
+}
+
+.data-table {
+  display: table;
+  width: 100%;
+}
+
+.data-table-tr {
+  display: table-row;
+}
+.data-table-th {
+  background: #f2f2f2;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+  display: table-caption;
+}
+
+.data-table-td {
+  display: table-cell;
+  width: 33%;
+  padding: 10px 3px 10px 3px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.data-table-td.hide {
+  display: none;
+}
+
+.compare-img-container {
+  text-align: center;
+  width: 39%;
+  float: left;
+}
+
+.car-name-container {
+  float: left;
+  height: 74px;
+}
+
+.brand-logo {
+  margin: 0px 20px 10px 0;
+}
+
+.comparo-accordion li span {
+  float: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.bottom-link:first-child {
+  margin: 0 10px 0 0;
+}
+
+.bottom-link {
+  font-size: 14px;
+  margin: 0 10px;
+}
+
+.data-table-td .fa-check, .data-table-td .fa-times {
+  color: #b6b7b7;
+  font-size: 18px;
+}
+
+
+.plus-icon {
+  background-position: 0 -7px;
+  width: 12px;
+  height: 7px;
+}
+
+.minus-icon {
+  background-position: 0 0;
+  width: 12px;
+  height: 7px;
+}
+
+.content-inner-block-15nr {
+  padding: 15px 10px 15px 10px;
+}
+
+.content-inner-block-30 {
+  padding: 30px;
+}
+
+.content-inner-block-15lr {
+  padding: 0 15px 0 15px;
+}
+
+.content-inner-block-30-lr {
+  padding: 0 30px 0 30px;
+}
+
+.content-inner-block-30-lrt {
+  padding: 30px 30px 0 30px;
+}
+
+.lineht-pt8 {
+  line-height: 1.8;
+}
+
+#divAdBar {
+  display: none;
+}
+
+.carousel-box {
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: inline-block;
+  height: 375px;
+  overflow: hidden;
+}
+
+.image-container {
+  height: 174px;
+  overflow: hidden;
+  text-align: center;
+  width: 300px;
+  display: table;
+}
+
+.image-container a {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.inner-full-carousel {
+  width: 100%;
+}
+
+#es-thankyou {
+  margin: 95px 0 0;
+  text-align: center;
+}
+
+
+.buy-car-btn {
+  margin-top: 80px;
+}
+
+.tuv-icon {
+  max-width: 100%;
+  width: auto;
+  display: block;
+}
+
+.full-box-icon {
+  height: 87px;
+  width: 210px;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.other-models {
+  width: 33%;
+  margin: 10px auto;
+  border: 1px solid grey;
+  padding: 10px;
+}
+
+.other-models-text {
+  font-size: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.other-models-img {
+  display: inline-block;
+  vertical-align: middle;
+  width: 55%;
+}
+
+.other-models-text a {
+  color: #565a5c;
+  text-decoration: none;
+}
+
+.other-models-text a:hover {
+  color: #565a5c;
+  text-decoration: none;
+}
+
+.mobile-head {
+  display: none;
+}
+
+.desktop-head {
+  display: block;
+}
+
+.jcarousel-control-left, .jcarousel-control-right {
+  top: 28%;
+}
+
+.term-parent {
+  height: 20px;
+}
+
+.term-section {
+  float: right;
+  right: 6px;
+  position: relative;
+  color: #999;
+}
+
+.experience-now {
+  position: relative;
+  top: -5px;
+}
+
+    /*other cars offer section start*/
+    .other-cars-offer-container {
+        padding: 10px;
+        border: 1px solid #e2e2e2;
+        border-radius: 2px;
+        font-size: 0;
+        background-color: #fff;
+        box-shadow: 0 2px 3px 0 #e6e6e6;
+    }
+
+    .car-news-wrapper {
+        width: 50%;
+        padding: 10px;
+        display: inline-block;
+    }
+
+    .car-news-container {
+        border: 1px solid #e2e2e2;
+        border-radius: 2px;
+        font-size: 0;
+    }
+
+    .car-image-container {
+        width: 40%;
+        display: inline-block;
+        font-size: 13px;
+        padding: 5px 10px;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .car__image {
+        max-width: 100%;
+    }
+
+    .car-information-container {
+        width: 60%;
+        display: inline-block;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-right: 10px;
+        vertical-align: middle;
+    }
+
+    .car-information__name {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1a1a1a;
+    }
+
+    .car-information__price {
+        font-size: 24px;
+        font-weight: 600;
+        color: #666;
+    }
+
+    .car-information__link {
+        font-size: 14px;
+        color: #0288d1;
+        font-weight: 700;
+    }
+
+        .car-information__link:hover {
+            text-decoration: none;
+        }
+    /*other cars offer section end*/
+
+@@media only screen and (max-width:1000px) {
+  body {
+    min-width: 100%;
+  }
+
+  .mb-margin {
+    margin: 10px 10px 0 10px;
+  }
+
+  .jcarousel-pagination {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .ask-expert {
+    display: none;
+  }
+
+  .container {
+    width: 100% !important;
+  }
+
+  .buy-automatic-car .form-mb-margin {
+    padding-left: 20px;
+  }
+
+  .jcarousel-pagination {
+    margin-bottom: 10px;
+  }
+
+  .buy-automatic-car .grid-4 {
+    width: 31%;
+  }
+
+  .ad-container .heading {
+    font-size: 16px;
+  }
+
+  .ad-container .normal-text {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .ad-container .btn {
+    font-size: 14px;
+  }
+
+  .ad-container {
+    bottom: 20%;
+    left: 5%;
+  }
+}
+
+@@media only screen and (max-width:980px) {
+  .image-container {
+    width: 290px;
+  }
+
+  .image-container img {
+    width: 100%;
+  }
+
+  .buy-automatic-car .grid-4 {
+    width: 30%;
+  }
+
+  .icon-content {
+    max-width: 168px;
+  }
+
+  .content-inner-block-15nr {
+    padding: 15px 40px 20px 40px;
+  }
+
+  .car-buying-guide .content-inner-block-15nr {
+    padding: 15px 20px 20px 20px;
+  }
+}
+
+@@media only screen and (max-width:900px) {
+  .image-container {
+    width: 260px;
+    height: auto;
+  }
+
+  .buy-automatic-car {
+    background: #f6f5f1;
+  }
+
+  .buy-automatic-car .grid-7, .buy-automatic-car .grid-4 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .buy-car-btn {
+    display: none;
+  }
+
+  .request-callback-box .grid-4 {
+    right: 0;
+  }
+
+  .request-callback-box {
+    width: 100%;
+  }
+
+  .car-name-container {
+    float: left;
+    height: 84px;
+  }
+}
+
+@@media only screen and (max-width:800px) {
+  .car-buying-guide .grid-6, .car-buying-guide .grid-5 {
+    float: none;
+    width: 100%;
+  }
+
+  .car-buying-guide .grid-7 {
+    width: 100%;
+  }
+
+  .icon-content {
+    max-width: 100%;
+    margin-top: 15px;
+  }
+
+  .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .image-container {
+    width: 242px;
+  }
+
+  img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 55px 0;
+  }
+}
+@@media only screen and (min-width:769px) and (max-width:900px) {
+    .buy-automatic-car {
+        background: #fff;
+        padding: 0;
+    }
+    .request-callback-box .grid-4 {
+        background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/ameo/100418/ameo-banner-pq-msite.jpg?q=85') no-repeat center top #05253d;
+        background-size: cover;
+        top: 0px;
+    }
+    .request-callback-box #es-leadform {
+        position: relative;
+        top: 110px;
+        padding: 0 10px;
+    }
+
+        .request-callback-box .grid-4 {
+            background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/vw-vento-pq-m.jpg') no-repeat center top #ffffff;
+            background-size: cover;
+            top: 0px;
+        }
+
+        .request-callback-box #es-leadform {
+            position: relative;
+            top: 110px;
+            padding: 0 10px;
+        }
+    }
+    @@media only screen and (max-width:768px) {
+        .image-container {
+            width: 229px;
+        }
+
+        #es-thankyou {
+            margin: 10px 0 0;
+            text-align: center;
+        }
+
+        .padding-lr-40 {
+            padding: 0 20px;
+        }
+
+        .car-buying-guide .content-inner-block-15nr {
+            padding: 15px 10px 20px;
+        }
+
+        .content-inner-block-15nr {
+            padding: 15px 20px 20px;
+        }
+        /*.top-box .grid-6{
+    float:none;
+    width: 100%;
+}*/
+        .quick-links li {
+            width: 50%;
+            margin-bottom: 15px;
+            font-size: 11px;
+        }
+
+            .quick-links li.comp-border-right {
+                border: none;
+            }
+
+        .request-callback-box .grid-4 {
+            background: url("https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/vw-vento-pq-m.jpg") no-repeat center top #ffffff;
+            background-size: cover;
+            top: 0px;
+        }
+
+        .buy-automatic-car {
+            height: 432px;
+            padding: 0px;
+            background: #fafbfd;
+        }
+
+        .request-callback-box #es-leadform {
+            position: relative;
+            top: 100px;
+            padding: 0 10px;
+        }
+
+        .top-banner {
+            background: url("https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/vw-vento-wallpaper-tablet.jpg") no-repeat center top #05253d;
+            min-height: 232px;
+        }
+
+        .slug-container {
+            -webkit-transform: translateX(0px);
+            -moz-transform: translateX(0px);
+            -ms-transform: translateX(0px);
+            -o-transform: translateX(0px);
+            transform: translateX(0px);
+            transition: transform .6s ease;
+        }
+
+            .slug-container:hover {
+                -webkit-transform: translateX(0px);
+                -moz-transform: translateX(0px);
+                -ms-transform: translateX(0px);
+                -o-transform: translateX(0px);
+                transform: translateX(0px);
+            }
+
+        .car-information__name {
+            font-size: 16px;
+        }
+
+        .car-information__price {
+            font-size: 20px;
+        }
+
+        .car-information__link {
+            font-size: 12px;
+        }
+    }
+
+@@media only screen and (max-width:640px) {
+  img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 55px 0;
+  }
+
+  .grid-1, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .grid-7, .grid-8, .grid-9, .grid-10, .grid-11, .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .video-bg {
+    margin: 0 15px 0 15px;
+  }
+
+  .content-inner-block-30-lr {
+    padding: 0 15px 0 15px;
+  }
+
+  .content-inner-block-30-lrt {
+    padding: 15px 15px 0 15px;
+  }
+
+  .video-container iframe {
+    height: 306px;
+  }
+
+  .manual-transmission-bg {
+    background: none;
+  }
+
+  .point1, .point2, .point3, .point4, .point5 {
+    width: 100%;
+    margin: 10px 0 10px 0;
+    float: none;
+  }
+
+  .bottomr::after {
+    left: 0;
+  }
+
+  .point2, .point4 {
+    padding-left: 0;
+  }
+
+  .comparo-accordion li h5 {
+    left: calc(50% - 35px);
+  }
+
+  .car-models li.grid-4 {
+    width: 33%;
+  }
+
+  .car-models li.third-column, .compare2-drop {
+    /*display: none;*/;
+  }
+
+  .comparo-accordion .hide-content2.active {
+    /*display: none;*/;
+  }
+
+  .ad-container .heading {
+    font-size: 14px;
+  }
+
+  .ad-container .normal-text {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .ad-container .btn {
+    font-size: 12px;
+  }
+
+  .ad-container {
+    bottom: 20%;
+    left: 5%;
+  }
+
+  .normal-text {
+    display: none;
+  }
+
+  .vento-content-box {
+    -ms-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+    top: 0%;
+  }
+
+  .swap-parent {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+ /* optional */
+    -webkit-box-align: start;
+    -moz-box-align: start;
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+  }
+
+  .swap-parent .first_div {
+    -webkit-box-ordinal-group: 2;
+    -moz-box-ordinal-group: 2;
+    -ms-flex-order: 2;
+    -webkit-order: 2;
+    order: 2;
+  }
+
+  .swap-parent .second_div {
+    -webkit-box-ordinal-group: 1;
+    -moz-box-ordinal-group: 1;
+    -ms-flex-order: 1;
+    -webkit-order: 1;
+    order: 1;
+  }
+
+  .car-name-container {
+    float: left;
+    height: 104px;
+  }
+
+  .vento-features li {
+    width: 100%;
+  }
+
+  .other-models-text {
+    font-size: 10px;
+  }
+
+  .other-models {
+    padding: 5px;
+  }
+
+  .other-models-img {
+    width: 40%;
+  }
+
+  .mobile-head {
+    display: block;
+    border-top: 1px solid #e7d4d4;
+  }
+
+  .mobile-head-first {
+    border-top: none;
+  }
+
+  .desktop-head {
+    display: none;
+  }
+
+  .spec-sprite, .spec-parent {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .spec-parent {
+    width: 170px;
+    margin-left: 20px;
+  }
+
+  .spec-head, .spec-details {
+    text-align: left;
+  }
+
+  .specs-container {
+    text-align: center;
+  }
+  .request-callback-box #es-leadform {
+      top: 80px;
+  }
+}
+
+    @@media only screen and (max-width:550px) {
+        .top-banner {
+            background: url("https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/vw-vento-wallpaper-m.jpg") no-repeat center top #05253d;
+            min-height: 200px;
+        }
+
+        .request-callback-box #es-leadform {
+            top: 105px;
+        }
+
+        .car-news-wrapper {
+            display: block;
+            width: 100%;
+        }
+    }
+
+@@media only screen and (max-width: 480px) {
+  .nissan-main {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .full-width-carousel {
+    height: auto;
+  }
+
+  .jcarousel-wrapper {
+    width: 100%;
+  }
+
+  .jcarousel {
+    padding: 10px 0 10px;
+  }
+
+  .jcarousel-control-prev, .jcarousel-control-next {
+    background-size: 130px auto;
+    height: 34px;
+    left: 2px;
+    padding: 0;
+    position: relative;
+    top: 3px;
+    width: 20px;
+  }
+
+  .jcarousel-control-left {
+    left: 0;
+  }
+
+  .jcarousel-control-right {
+    right: 0;
+  }
+
+  .jcarousel-control-prev {
+    background-position: -21px -82px;
+  }
+
+  .jcarousel-control-prev:hover {
+    background-position: -21px -82px;
+  }
+
+  .jcarousel-control-next {
+    background-position: -42px -82px;
+  }
+
+  .jcarousel-control-next:hover {
+    background-position: -42px -82px;
+  }
+
+  .jcarousel-control-prev.inactive {
+    background-position: -21px -16px;
+  }
+
+  .jcarousel-control-next.inactive {
+    background-position: -42px -16px;
+  }
+/*.buy-automatic-car{ background:#f6f5f1;}*/
+  .buy-automatic-car .grid-4 {
+    margin-bottom: 20px;
+  }
+
+  .video-container iframe {
+    height: 222px;
+  }
+
+  .nissan-main .nissan-main.cw-tabs-flex li {
+    font-size: 14px;
+  }
+
+  .compare-img-container img {
+    width: 100%;
+  }
+
+  .terrano-compare-main .grid-6 {
+    width: 50%;
+  }
+
+  .select-compare-car {
+  }
+
+  .select-compare-car .accordion-sprite {
+    margin-top: 6px;
+  }
+
+  .select-compare-car2 {
+  }
+
+  .select-compare-car2 .accordion-sprite {
+    margin-top: 6px;
+  }
+
+  .car-models li h4 {
+    font-size: 16px;
+  }
+
+  .comparo-accordion li h5, .sarafi-accordion li span {
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+  .compare-img-container img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 75px 0;
+  }
+/*.car-name {position: relative; top: 7px;}*/
+  .compare-img-container {
+    padding: 13px;
+    width: 100%;
+  }
+
+  .bottom-link {
+    font-size: 15px;
+  }
+
+  .cw-tabs-flex li {
+    font-size: 15px;
+  }
+
+  .cw-tabs-flex li sub {
+    font-size: 12px;
+  }
+
+  .car-name-head {
+    font-size: 13px;
+    font-weight: 600;
+    padding-left: 10px;
+  }
+
+  /*.car-version {
+    font-size: 13px;
+    padding-left: 10px;
+  }*/
+
+  /*.car-price {
+    font-size: 11px;
+    padding-left: 10px;
+  }*/
+
+  .vento-features li {
+    width: 100%;
+  }
+
+  .ad-container .heading {
+    width: 220px;
+  }
+
+  .jcarousel-control-left, .jcarousel-control-right {
+    top: 36%;
+  }
+}
+
+@@media only screen and (max-width:412px) {
+  .icon-content {
+    margin-top: 0;
+    max-width: 170px;
+  }
+/*.quick-links { margin-bottom:20px;}*/
+  .ad-container .heading {
+    font-size: 12px;
+    margin-bottom: 2px;
+    width: 190px;
+  }
+
+  .ad-container .normal-text {
+    font-size: 10px;
+    margin-bottom: 2px;
+  }
+
+  .ad-container .btn {
+    font-size: 10px;
+  }
+
+  .ad-container {
+    bottom: 20%;
+    left: 5%;
+  }
+
+  .btn-sm {
+    padding: 5px 10px;
+  }
+/*.car-name {position: relative; top: 5px;}*/;
+}
+
+@@media only screen and (max-width:360px) {
+  .jcarousel-control-left, .jcarousel-control-right {
+    top: 31%;
+  }
+
+  .video-container iframe {
+    height: 159px;
+  }
+
+  .manual-transmission-bg img {
+    width: 100%;
+  }
+
+  .manual-transmission-bg img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 75px 0;
+  }
+
+  .compare-img-container {
+  }
+
+  .ad-container .heading {
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+
+  .ad-container .normal-text {
+    font-size: 10px;
+    margin-bottom: 2px;
+  }
+
+  .ad-container .btn {
+    font-size: 11px;
+  }
+
+  .ad-container {
+    bottom: 20%;
+    left: 5%;
+  }
+
+  .btn-sm {
+    padding: 5px 10px;
+  }
+
+  .vento-carousel li {
+    width: 255px;
+  }
+}
+
+@@media only screen and (max-width: 320px) {
+  .mb-view img {
+    width: 100%;
+  }
+
+  .video-container iframe {
+    height: 140px;
+  }
+
+  .car-models li h4 {
+    font-size: 14px;
+  }
+
+  .compare-img-container {
+  }
+
+  .comparo-accordion li h5, .sarafi-accordion li span {
+    font-size: 14px;
+  }
+  .top-banner {
+    background-position-x: 52%;
+    }
+}
+
+@@media only screen and (max-width: 240px) {
+  .mb-view img {
+    width: 100%;
+  }
+
+  img[src$="circle-loader.gif"] {
+    margin: 40px 0;
+  }
+
+  .video-container iframe {
+    height: 98px;
+  }
+
+  .cw-tabs-flex li {
+    font-size: 12px;
+  }
+
+  .padding-lr-40 {
+    padding: 0 10px;
+  }
+
+  .content-inner-block-15nr {
+    padding: 10px 10px 10px;
+  }
+
+  .comparo-accordion li {
+    padding: 8px 10px;
+  }
+
+  .data-table-td {
+    padding: 4px 10px 0;
+    font-size: 12px;
+  }
+
+  .data-table-tr div:first-child {
+    padding: 0 10px;
+  }
+
+  h2, .font20 {
+    font-size: 16px;
+  }
+}
+
+@@media all and (min-width: 240px) and (max-width: 768px) {
+    /* hide tagline-box on mobile devices from 240 to 768 */
+  .tagline-box {
+    display: none;
+  }
+}
+</style>
+
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+@if (ViewBag.isMobile != null && ViewBag.isMobile)
+{
+    <script type="text/javascript">
+        var isMobileDevice = true;
+    </script>
+    <script type="text/javascript" src="/static/js/responsive-common.js"></script>
+    <script>
+
+        /*! jCarousel - v0.3.3 - 2015-04-07
+        * http://sorgalla.com/jcarousel/
+        * Copyright (c) 2006-2015 Jan Sorgalla; Licensed MIT */
+        !function (a) { "use strict"; var b = a.jCarousel = {}; b.version = "0.3.3"; var c = /^([+\-]=)?(.+)$/; b.parseTarget = function (a) { var b = !1, d = "object" != typeof a ? c.exec(a) : null; return d ? (a = parseInt(d[2], 10) || 0, d[1] && (b = !0, "-=" === d[1] && (a *= -1))) : "object" != typeof a && (a = parseInt(a, 10) || 0), { target: a, relative: b } }, b.detectCarousel = function (a) { for (var b; a.length > 0;) { if (b = a.filter("[data-jcarousel]"), b.length > 0) return b; if (b = a.find("[data-jcarousel]"), b.length > 0) return b; a = a.parent() } return null }, b.base = function (c) { return { version: b.version, _options: {}, _element: null, _carousel: null, _init: a.noop, _create: a.noop, _destroy: a.noop, _reload: a.noop, create: function () { return this._element.attr("data-" + c.toLowerCase(), !0).data(c, this), !1 === this._trigger("create") ? this : (this._create(), this._trigger("createend"), this) }, destroy: function () { return !1 === this._trigger("destroy") ? this : (this._destroy(), this._trigger("destroyend"), this._element.removeData(c).removeAttr("data-" + c.toLowerCase()), this) }, reload: function (a) { return !1 === this._trigger("reload") ? this : (a && this.options(a), this._reload(), this._trigger("reloadend"), this) }, element: function () { return this._element }, options: function (b, c) { if (0 === arguments.length) return a.extend({}, this._options); if ("string" == typeof b) { if ("undefined" == typeof c) return "undefined" == typeof this._options[b] ? null : this._options[b]; this._options[b] = c } else this._options = a.extend({}, this._options, b); return this }, carousel: function () { return this._carousel || (this._carousel = b.detectCarousel(this.options("carousel") || this._element), this._carousel || a.error('Could not detect carousel for plugin "' + c + '"')), this._carousel }, _trigger: function (b, d, e) { var f, g = !1; return e = [this].concat(e || []), (d || this._element).each(function () { f = a.Event((c + ":" + b).toLowerCase()), a(this).trigger(f, e), f.isDefaultPrevented() && (g = !0) }), !g } } }, b.plugin = function (c, d) { var e = a[c] = function (b, c) { this._element = a(b), this.options(c), this._init(), this.create() }; return e.fn = e.prototype = a.extend({}, b.base(c), d), a.fn[c] = function (b) { var d = Array.prototype.slice.call(arguments, 1), f = this; return this.each("string" == typeof b ? function () { var e = a(this).data(c); if (!e) return a.error("Cannot call methods on " + c + ' prior to initialization; attempted to call method "' + b + '"'); if (!a.isFunction(e[b]) || "_" === b.charAt(0)) return a.error('No such method "' + b + '" for ' + c + " instance"); var g = e[b].apply(e, d); return g !== e && "undefined" != typeof g ? (f = g, !1) : void 0 } : function () { var d = a(this).data(c); d instanceof e ? d.reload(b) : new e(this, b) }), f }, e } }(jQuery), function (a, b) { "use strict"; var c = function (a) { return parseFloat(a) || 0 }; a.jCarousel.plugin("jcarousel", { animating: !1, tail: 0, inTail: !1, resizeTimer: null, lt: null, vertical: !1, rtl: !1, circular: !1, underflow: !1, relative: !1, _options: { list: function () { return this.element().children().eq(0) }, items: function () { return this.list().children() }, animation: 400, transitions: !1, wrap: null, vertical: null, rtl: null, center: !1 }, _list: null, _items: null, _target: a(), _first: a(), _last: a(), _visible: a(), _fullyvisible: a(), _init: function () { var a = this; return this.onWindowResize = function () { a.resizeTimer && clearTimeout(a.resizeTimer), a.resizeTimer = setTimeout(function () { a.reload() }, 100) }, this }, _create: function () { this._reload(), a(b).on("resize.jcarousel", this.onWindowResize) }, _destroy: function () { a(b).off("resize.jcarousel", this.onWindowResize) }, _reload: function () { this.vertical = this.options("vertical"), null == this.vertical && (this.vertical = this.list().height() > this.list().width()), this.rtl = this.options("rtl"), null == this.rtl && (this.rtl = function (b) { if ("rtl" === ("" + b.attr("dir")).toLowerCase()) return !0; var c = !1; return b.parents("[dir]").each(function () { return /rtl/i.test(a(this).attr("dir")) ? (c = !0, !1) : void 0 }), c }(this._element)), this.lt = this.vertical ? "top" : "left", this.relative = "relative" === this.list().css("position"), this._list = null, this._items = null; var b = this.index(this._target) >= 0 ? this._target : this.closest(); this.circular = "circular" === this.options("wrap"), this.underflow = !1; var c = { left: 0, top: 0 }; return b.length > 0 && (this._prepare(b), this.list().find("[data-jcarousel-clone]").remove(), this._items = null, this.underflow = this._fullyvisible.length >= this.items().length, this.circular = this.circular && !this.underflow, c[this.lt] = this._position(b) + "px"), this.move(c), this }, list: function () { if (null === this._list) { var b = this.options("list"); this._list = a.isFunction(b) ? b.call(this) : this._element.find(b) } return this._list }, items: function () { if (null === this._items) { var b = this.options("items"); this._items = (a.isFunction(b) ? b.call(this) : this.list().find(b)).not("[data-jcarousel-clone]") } return this._items }, index: function (a) { return this.items().index(a) }, closest: function () { var b, d = this, e = this.list().position()[this.lt], f = a(), g = !1, h = this.vertical ? "bottom" : this.rtl && !this.relative ? "left" : "right"; return this.rtl && this.relative && !this.vertical && (e += this.list().width() - this.clipping()), this.items().each(function () { if (f = a(this), g) return !1; var i = d.dimension(f); if (e += i, e >= 0) { if (b = i - c(f.css("margin-" + h)), !(Math.abs(e) - i + b / 2 <= 0)) return !1; g = !0 } }), f }, target: function () { return this._target }, first: function () { return this._first }, last: function () { return this._last }, visible: function () { return this._visible }, fullyvisible: function () { return this._fullyvisible }, hasNext: function () { if (!1 === this._trigger("hasnext")) return !0; var a = this.options("wrap"), b = this.items().length - 1, c = this.options("center") ? this._target : this._last; return b >= 0 && !this.underflow && (a && "first" !== a || this.index(c) < b || this.tail && !this.inTail) ? !0 : !1 }, hasPrev: function () { if (!1 === this._trigger("hasprev")) return !0; var a = this.options("wrap"); return this.items().length > 0 && !this.underflow && (a && "last" !== a || this.index(this._first) > 0 || this.tail && this.inTail) ? !0 : !1 }, clipping: function () { return this._element["inner" + (this.vertical ? "Height" : "Width")]() }, dimension: function (a) { return a["outer" + (this.vertical ? "Height" : "Width")](!0) }, scroll: function (b, c, d) { if (this.animating) return this; if (!1 === this._trigger("scroll", null, [b, c])) return this; a.isFunction(c) && (d = c, c = !0); var e = a.jCarousel.parseTarget(b); if (e.relative) { var f, g, h, i, j, k, l, m, n = this.items().length - 1, o = Math.abs(e.target), p = this.options("wrap"); if (e.target > 0) { var q = this.index(this._last); if (q >= n && this.tail) this.inTail ? "both" === p || "last" === p ? this._scroll(0, c, d) : a.isFunction(d) && d.call(this, !1) : this._scrollTail(c, d); else if (f = this.index(this._target), this.underflow && f === n && ("circular" === p || "both" === p || "last" === p) || !this.underflow && q === n && ("both" === p || "last" === p)) this._scroll(0, c, d); else if (h = f + o, this.circular && h > n) { for (m = n, j = this.items().get(-1) ; m++ < h;) j = this.items().eq(0), k = this._visible.index(j) >= 0, k && j.after(j.clone(!0).attr("data-jcarousel-clone", !0)), this.list().append(j), k || (l = {}, l[this.lt] = this.dimension(j), this.moveBy(l)), this._items = null; this._scroll(j, c, d) } else this._scroll(Math.min(h, n), c, d) } else if (this.inTail) this._scroll(Math.max(this.index(this._first) - o + 1, 0), c, d); else if (g = this.index(this._first), f = this.index(this._target), i = this.underflow ? f : g, h = i - o, 0 >= i && (this.underflow && "circular" === p || "both" === p || "first" === p)) this._scroll(n, c, d); else if (this.circular && 0 > h) { for (m = h, j = this.items().get(0) ; m++ < 0;) { j = this.items().eq(-1), k = this._visible.index(j) >= 0, k && j.after(j.clone(!0).attr("data-jcarousel-clone", !0)), this.list().prepend(j), this._items = null; var r = this.dimension(j); l = {}, l[this.lt] = -r, this.moveBy(l) } this._scroll(j, c, d) } else this._scroll(Math.max(h, 0), c, d) } else this._scroll(e.target, c, d); return this._trigger("scrollend"), this }, moveBy: function (a, b) { var d = this.list().position(), e = 1, f = 0; return this.rtl && !this.vertical && (e = -1, this.relative && (f = this.list().width() - this.clipping())), a.left && (a.left = d.left + f + c(a.left) * e + "px"), a.top && (a.top = d.top + f + c(a.top) * e + "px"), this.move(a, b) }, move: function (b, c) { c = c || {}; var d = this.options("transitions"), e = !!d, f = !!d.transforms, g = !!d.transforms3d, h = c.duration || 0, i = this.list(); if (!e && h > 0) return void i.animate(b, c); var j = c.complete || a.noop, k = {}; if (e) { var l = { transitionDuration: i.css("transitionDuration"), transitionTimingFunction: i.css("transitionTimingFunction"), transitionProperty: i.css("transitionProperty") }, m = j; j = function () { a(this).css(l), m.call(this) }, k = { transitionDuration: (h > 0 ? h / 1e3 : 0) + "s", transitionTimingFunction: d.easing || c.easing, transitionProperty: h > 0 ? function () { return f || g ? "all" : b.left ? "left" : "top" }() : "none", transform: "none" } } g ? k.transform = "translate3d(" + (b.left || 0) + "," + (b.top || 0) + ",0)" : f ? k.transform = "translate(" + (b.left || 0) + "," + (b.top || 0) + ")" : a.extend(k, b), e && h > 0 && i.one("transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd", j), i.css(k), 0 >= h && i.each(function () { j.call(this) }) }, _scroll: function (b, c, d) { if (this.animating) return a.isFunction(d) && d.call(this, !1), this; if ("object" != typeof b ? b = this.items().eq(b) : "undefined" == typeof b.jquery && (b = a(b)), 0 === b.length) return a.isFunction(d) && d.call(this, !1), this; this.inTail = !1, this._prepare(b); var e = this._position(b), f = this.list().position()[this.lt]; if (e === f) return a.isFunction(d) && d.call(this, !1), this; var g = {}; return g[this.lt] = e + "px", this._animate(g, c, d), this }, _scrollTail: function (b, c) { if (this.animating || !this.tail) return a.isFunction(c) && c.call(this, !1), this; var d = this.list().position()[this.lt]; this.rtl && this.relative && !this.vertical && (d += this.list().width() - this.clipping()), this.rtl && !this.vertical ? d += this.tail : d -= this.tail, this.inTail = !0; var e = {}; return e[this.lt] = d + "px", this._update({ target: this._target.next(), fullyvisible: this._fullyvisible.slice(1).add(this._visible.last()) }), this._animate(e, b, c), this }, _animate: function (b, c, d) { if (d = d || a.noop, !1 === this._trigger("animate")) return d.call(this, !1), this; this.animating = !0; var e = this.options("animation"), f = a.proxy(function () { this.animating = !1; var a = this.list().find("[data-jcarousel-clone]"); a.length > 0 && (a.remove(), this._reload()), this._trigger("animateend"), d.call(this, !0) }, this), g = "object" == typeof e ? a.extend({}, e) : { duration: e }, h = g.complete || a.noop; return c === !1 ? g.duration = 0 : "undefined" != typeof a.fx.speeds[g.duration] && (g.duration = a.fx.speeds[g.duration]), g.complete = function () { f(), h.call(this) }, this.move(b, g), this }, _prepare: function (b) { var d, e, f, g, h = this.index(b), i = h, j = this.dimension(b), k = this.clipping(), l = this.vertical ? "bottom" : this.rtl ? "left" : "right", m = this.options("center"), n = { target: b, first: b, last: b, visible: b, fullyvisible: k >= j ? b : a() }; if (m && (j /= 2, k /= 2), k > j) for (; ;) { if (d = this.items().eq(++i), 0 === d.length) { if (!this.circular) break; if (d = this.items().eq(0), b.get(0) === d.get(0)) break; if (e = this._visible.index(d) >= 0, e && d.after(d.clone(!0).attr("data-jcarousel-clone", !0)), this.list().append(d), !e) { var o = {}; o[this.lt] = this.dimension(d), this.moveBy(o) } this._items = null } if (g = this.dimension(d), 0 === g) break; if (j += g, n.last = d, n.visible = n.visible.add(d), f = c(d.css("margin-" + l)), k >= j - f && (n.fullyvisible = n.fullyvisible.add(d)), j >= k) break } if (!this.circular && !m && k > j) for (i = h; ;) { if (--i < 0) break; if (d = this.items().eq(i), 0 === d.length) break; if (g = this.dimension(d), 0 === g) break; if (j += g, n.first = d, n.visible = n.visible.add(d), f = c(d.css("margin-" + l)), k >= j - f && (n.fullyvisible = n.fullyvisible.add(d)), j >= k) break } return this._update(n), this.tail = 0, m || "circular" === this.options("wrap") || "custom" === this.options("wrap") || this.index(n.last) !== this.items().length - 1 || (j -= c(n.last.css("margin-" + l)), j > k && (this.tail = j - k)), this }, _position: function (a) { var b = this._first, c = b.position()[this.lt], d = this.options("center"), e = d ? this.clipping() / 2 - this.dimension(b) / 2 : 0; return this.rtl && !this.vertical ? (c -= this.relative ? this.list().width() - this.dimension(b) : this.clipping() - this.dimension(b), c += e) : c -= e, !d && (this.index(a) > this.index(b) || this.inTail) && this.tail ? (c = this.rtl && !this.vertical ? c - this.tail : c + this.tail, this.inTail = !0) : this.inTail = !1, -c }, _update: function (b) { var c, d = this, e = { target: this._target, first: this._first, last: this._last, visible: this._visible, fullyvisible: this._fullyvisible }, f = this.index(b.first || e.first) < this.index(e.first), g = function (c) { var g = [], h = []; b[c].each(function () { e[c].index(this) < 0 && g.push(this) }), e[c].each(function () { b[c].index(this) < 0 && h.push(this) }), f ? g = g.reverse() : h = h.reverse(), d._trigger(c + "in", a(g)), d._trigger(c + "out", a(h)), d["_" + c] = b[c] }; for (c in b) g(c); return this } }) }(jQuery, window), function (a) { "use strict"; a.jcarousel.fn.scrollIntoView = function (b, c, d) { var e, f = a.jCarousel.parseTarget(b), g = this.index(this._fullyvisible.first()), h = this.index(this._fullyvisible.last()); if (e = f.relative ? f.target < 0 ? Math.max(0, g + f.target) : h + f.target : "object" != typeof f.target ? f.target : this.index(f.target), g > e) return this.scroll(e, c, d); if (e >= g && h >= e) return a.isFunction(d) && d.call(this, !1), this; for (var i, j = this.items(), k = this.clipping(), l = this.vertical ? "bottom" : this.rtl ? "left" : "right", m = 0; ;) { if (i = j.eq(e), 0 === i.length) break; if (m += this.dimension(i), m >= k) { var n = parseFloat(i.css("margin-" + l)) || 0; m - n !== k && e++; break } if (0 >= e) break; e-- } return this.scroll(e, c, d) } }(jQuery), function (a) { "use strict"; a.jCarousel.plugin("jcarouselControl", { _options: { target: "+=1", event: "click", method: "scroll" }, _active: null, _init: function () { this.onDestroy = a.proxy(function () { this._destroy(), this.carousel().one("jcarousel:createend", a.proxy(this._create, this)) }, this), this.onReload = a.proxy(this._reload, this), this.onEvent = a.proxy(function (b) { b.preventDefault(); var c = this.options("method"); a.isFunction(c) ? c.call(this) : this.carousel().jcarousel(this.options("method"), this.options("target")) }, this) }, _create: function () { this.carousel().one("jcarousel:destroy", this.onDestroy).on("jcarousel:reloadend jcarousel:scrollend", this.onReload), this._element.on(this.options("event") + ".jcarouselcontrol", this.onEvent), this._reload() }, _destroy: function () { this._element.off(".jcarouselcontrol", this.onEvent), this.carousel().off("jcarousel:destroy", this.onDestroy).off("jcarousel:reloadend jcarousel:scrollend", this.onReload) }, _reload: function () { var b, c = a.jCarousel.parseTarget(this.options("target")), d = this.carousel(); if (c.relative) b = d.jcarousel(c.target > 0 ? "hasNext" : "hasPrev"); else { var e = "object" != typeof c.target ? d.jcarousel("items").eq(c.target) : c.target; b = d.jcarousel("target").index(e) >= 0 } return this._active !== b && (this._trigger(b ? "active" : "inactive"), this._active = b), this } }) }(jQuery), function (a) { "use strict"; a.jCarousel.plugin("jcarouselPagination", { _options: { perPage: null, item: function (a) { return '<a href="#' + a + '">' + a + "</a>" }, event: "click", method: "scroll" }, _carouselItems: null, _pages: {}, _items: {}, _currentPage: null, _init: function () { this.onDestroy = a.proxy(function () { this._destroy(), this.carousel().one("jcarousel:createend", a.proxy(this._create, this)) }, this), this.onReload = a.proxy(this._reload, this), this.onScroll = a.proxy(this._update, this) }, _create: function () { this.carousel().one("jcarousel:destroy", this.onDestroy).on("jcarousel:reloadend", this.onReload).on("jcarousel:scrollend", this.onScroll), this._reload() }, _destroy: function () { this._clear(), this.carousel().off("jcarousel:destroy", this.onDestroy).off("jcarousel:reloadend", this.onReload).off("jcarousel:scrollend", this.onScroll), this._carouselItems = null }, _reload: function () { var b = this.options("perPage"); if (this._pages = {}, this._items = {}, a.isFunction(b) && (b = b.call(this)), null == b) this._pages = this._calculatePages(); else for (var c, d = parseInt(b, 10) || 0, e = this._getCarouselItems(), f = 1, g = 0; ;) { if (c = e.eq(g++), 0 === c.length) break; this._pages[f] = this._pages[f] ? this._pages[f].add(c) : c, g % d === 0 && f++ } this._clear(); var h = this, i = this.carousel().data("jcarousel"), j = this._element, k = this.options("item"), l = this._getCarouselItems().length; a.each(this._pages, function (b, c) { var d = h._items[b] = a(k.call(h, b, c)); d.on(h.options("event") + ".jcarouselpagination", a.proxy(function () { var a = c.eq(0); if (i.circular) { var d = i.index(i.target()), e = i.index(a); parseFloat(b) > parseFloat(h._currentPage) ? d > e && (a = "+=" + (l - d + e)) : e > d && (a = "-=" + (d + (l - e))) } i[this.options("method")](a) }, h)), j.append(d) }), this._update() }, _update: function () { var b, c = this.carousel().jcarousel("target"); a.each(this._pages, function (a, d) { return d.each(function () { return c.is(this) ? (b = a, !1) : void 0 }), b ? !1 : void 0 }), this._currentPage !== b && (this._trigger("inactive", this._items[this._currentPage]), this._trigger("active", this._items[b])), this._currentPage = b }, items: function () { return this._items }, reloadCarouselItems: function () { return this._carouselItems = null, this }, _clear: function () { this._element.empty(), this._currentPage = null }, _calculatePages: function () { for (var a, b, c = this.carousel().data("jcarousel"), d = this._getCarouselItems(), e = c.clipping(), f = 0, g = 0, h = 1, i = {}; ;) { if (a = d.eq(g++), 0 === a.length) break; b = c.dimension(a), f + b > e && (h++, f = 0), f += b, i[h] = i[h] ? i[h].add(a) : a } return i }, _getCarouselItems: function () { return this._carouselItems || (this._carouselItems = this.carousel().jcarousel("items")), this._carouselItems } }) }(jQuery), function (a, b) { "use strict"; var c, d, e = { hidden: "visibilitychange", mozHidden: "mozvisibilitychange", msHidden: "msvisibilitychange", webkitHidden: "webkitvisibilitychange" }; a.each(e, function (a, e) { return "undefined" != typeof b[a] ? (c = a, d = e, !1) : void 0 }), a.jCarousel.plugin("jcarouselAutoscroll", { _options: { target: "+=1", interval: 3e3, autostart: !0 }, _timer: null, _started: !1, _init: function () { this.onDestroy = a.proxy(function () { this._destroy(), this.carousel().one("jcarousel:createend", a.proxy(this._create, this)) }, this), this.onAnimateEnd = a.proxy(this._start, this), this.onVisibilityChange = a.proxy(function () { b[c] ? this._stop() : this._start() }, this) }, _create: function () { this.carousel().one("jcarousel:destroy", this.onDestroy), a(b).on(d, this.onVisibilityChange), this.options("autostart") && this.start() }, _destroy: function () { this._stop(), this.carousel().off("jcarousel:destroy", this.onDestroy), a(b).off(d, this.onVisibilityChange) }, _start: function () { return this._stop(), this._started ? (this.carousel().one("jcarousel:animateend", this.onAnimateEnd), this._timer = setTimeout(a.proxy(function () { this.carousel().jcarousel("scroll", this.options("target")) }, this), this.options("interval")), this) : void 0 }, _stop: function () { return this._timer && (this._timer = clearTimeout(this._timer)), this.carousel().off("jcarousel:animateend", this.onAnimateEnd), this }, start: function () { return this._started = !0, this._start(), this }, stop: function () { return this._started = !1, this._stop(), this } }) }(jQuery, document);
+
+        /* jCarousel swipe code */
+        (function (a) { if (typeof define === "function" && define.amd && define.amd.jQuery) { define(["jquery"], a) } else { a(jQuery) } }(function (f) { var p = "left", o = "right", e = "up", x = "down", c = "in", z = "out", m = "none", s = "auto", l = "swipe", t = "pinch", A = "tap", j = "doubletap", b = "longtap", y = "hold", D = "horizontal", u = "vertical", i = "all", r = 10, g = "start", k = "move", h = "end", q = "cancel", a = "ontouchstart" in window, v = window.navigator.msPointerEnabled && !window.navigator.pointerEnabled, d = window.navigator.pointerEnabled || window.navigator.msPointerEnabled, B = "TouchSwipe"; var n = { fingers: 1, threshold: 75, cancelThreshold: null, pinchThreshold: 20, maxTimeThreshold: null, fingerReleaseThreshold: 250, longTapThreshold: 500, doubleTapThreshold: 200, swipe: null, swipeLeft: null, swipeRight: null, swipeUp: null, swipeDown: null, swipeStatus: null, pinchIn: null, pinchOut: null, pinchStatus: null, click: null, tap: null, doubleTap: null, longTap: null, hold: null, triggerOnTouchEnd: true, triggerOnTouchLeave: false, allowPageScroll: "auto", fallbackToMouseEvents: true, excludedElements: "label, button, input, select, textarea, a, .noSwipe" }; f.fn.swipe = function (G) { var F = f(this), E = F.data(B); if (E && typeof G === "string") { if (E[G]) { return E[G].apply(this, Array.prototype.slice.call(arguments, 1)) } else { f.error("Method " + G + " does not exist on jQuery.swipe") } } else { if (!E && (typeof G === "object" || !G)) { return w.apply(this, arguments) } } return F }; f.fn.swipe.defaults = n; f.fn.swipe.phases = { PHASE_START: g, PHASE_MOVE: k, PHASE_END: h, PHASE_CANCEL: q }; f.fn.swipe.directions = { LEFT: p, RIGHT: o, UP: e, DOWN: x, IN: c, OUT: z }; f.fn.swipe.pageScroll = { NONE: m, HORIZONTAL: D, VERTICAL: u, AUTO: s }; f.fn.swipe.fingers = { ONE: 1, TWO: 2, THREE: 3, ALL: i }; function w(E) { if (E && (E.allowPageScroll === undefined && (E.swipe !== undefined || E.swipeStatus !== undefined))) { E.allowPageScroll = m } if (E.click !== undefined && E.tap === undefined) { E.tap = E.click } if (!E) { E = {} } E = f.extend({}, f.fn.swipe.defaults, E); return this.each(function () { var G = f(this); var F = G.data(B); if (!F) { F = new C(this, E); G.data(B, F) } }) } function C(a4, av) { var az = (a || d || !av.fallbackToMouseEvents), J = az ? (d ? (v ? "MSPointerDown" : "pointerdown") : "touchstart") : "mousedown", ay = az ? (d ? (v ? "MSPointerMove" : "pointermove") : "touchmove") : "mousemove", U = az ? (d ? (v ? "MSPointerUp" : "pointerup") : "touchend") : "mouseup", S = az ? null : "mouseleave", aD = (d ? (v ? "MSPointerCancel" : "pointercancel") : "touchcancel"); var ag = 0, aP = null, ab = 0, a1 = 0, aZ = 0, G = 1, aq = 0, aJ = 0, M = null; var aR = f(a4); var Z = "start"; var W = 0; var aQ = null; var T = 0, a2 = 0, a5 = 0, ad = 0, N = 0; var aW = null, af = null; try { aR.bind(J, aN); aR.bind(aD, a9) } catch (ak) { f.error("events not supported " + J + "," + aD + " on jQuery.swipe") } this.enable = function () { aR.bind(J, aN); aR.bind(aD, a9); return aR }; this.disable = function () { aK(); return aR }; this.destroy = function () { aK(); aR.data(B, null); return aR }; this.option = function (bc, bb) { if (av[bc] !== undefined) { if (bb === undefined) { return av[bc] } else { av[bc] = bb } } else { f.error("Option " + bc + " does not exist on jQuery.swipe.options") } return null }; function aN(bd) { if (aB()) { return } if (f(bd.target).closest(av.excludedElements, aR).length > 0) { return } var be = bd.originalEvent ? bd.originalEvent : bd; var bc, bb = a ? be.touches[0] : be; Z = g; if (a) { W = be.touches.length } else { bd.preventDefault() } ag = 0; aP = null; aJ = null; ab = 0; a1 = 0; aZ = 0; G = 1; aq = 0; aQ = aj(); M = aa(); R(); if (!a || (W === av.fingers || av.fingers === i) || aX()) { ai(0, bb); T = at(); if (W == 2) { ai(1, be.touches[1]); a1 = aZ = au(aQ[0].start, aQ[1].start) } if (av.swipeStatus || av.pinchStatus) { bc = O(be, Z) } } else { bc = false } if (bc === false) { Z = q; O(be, Z); return bc } else { if (av.hold) { af = setTimeout(f.proxy(function () { aR.trigger("hold", [be.target]); if (av.hold) { bc = av.hold.call(aR, be, be.target) } }, this), av.longTapThreshold) } ao(true) } return null } function a3(be) { var bh = be.originalEvent ? be.originalEvent : be; if (Z === h || Z === q || am()) { return } var bd, bc = a ? bh.touches[0] : bh; var bf = aH(bc); a2 = at(); if (a) { W = bh.touches.length } if (av.hold) { clearTimeout(af) } Z = k; if (W == 2) { if (a1 == 0) { ai(1, bh.touches[1]); a1 = aZ = au(aQ[0].start, aQ[1].start) } else { aH(bh.touches[1]); aZ = au(aQ[0].end, aQ[1].end); aJ = ar(aQ[0].end, aQ[1].end) } G = a7(a1, aZ); aq = Math.abs(a1 - aZ) } if ((W === av.fingers || av.fingers === i) || !a || aX()) { aP = aL(bf.start, bf.end); al(be, aP); ag = aS(bf.start, bf.end); ab = aM(); aI(aP, ag); if (av.swipeStatus || av.pinchStatus) { bd = O(bh, Z) } if (!av.triggerOnTouchEnd || av.triggerOnTouchLeave) { var bb = true; if (av.triggerOnTouchLeave) { var bg = aY(this); bb = E(bf.end, bg) } if (!av.triggerOnTouchEnd && bb) { Z = aC(k) } else { if (av.triggerOnTouchLeave && !bb) { Z = aC(h) } } if (Z == q || Z == h) { O(bh, Z) } } } else { Z = q; O(bh, Z) } if (bd === false) { Z = q; O(bh, Z) } } function L(bb) { var bc = bb.originalEvent; if (a) { if (bc.touches.length > 0) { F(); return true } } if (am()) { W = ad } a2 = at(); ab = aM(); if (ba() || !an()) { Z = q; O(bc, Z) } else { if (av.triggerOnTouchEnd || (av.triggerOnTouchEnd == false && Z === k)) { bb.preventDefault(); Z = h; O(bc, Z) } else { if (!av.triggerOnTouchEnd && a6()) { Z = h; aF(bc, Z, A) } else { if (Z === k) { Z = q; O(bc, Z) } } } } ao(false); return null } function a9() { W = 0; a2 = 0; T = 0; a1 = 0; aZ = 0; G = 1; R(); ao(false) } function K(bb) { var bc = bb.originalEvent; if (av.triggerOnTouchLeave) { Z = aC(h); O(bc, Z) } } function aK() { aR.unbind(J, aN); aR.unbind(aD, a9); aR.unbind(ay, a3); aR.unbind(U, L); if (S) { aR.unbind(S, K) } ao(false) } function aC(bf) { var be = bf; var bd = aA(); var bc = an(); var bb = ba(); if (!bd || bb) { be = q } else { if (bc && bf == k && (!av.triggerOnTouchEnd || av.triggerOnTouchLeave)) { be = h } else { if (!bc && bf == h && av.triggerOnTouchLeave) { be = q } } } return be } function O(bd, bb) { var bc = undefined; if (I() || V()) { bc = aF(bd, bb, l) } else { if ((P() || aX()) && bc !== false) { bc = aF(bd, bb, t) } } if (aG() && bc !== false) { bc = aF(bd, bb, j) } else { if (ap() && bc !== false) { bc = aF(bd, bb, b) } else { if (ah() && bc !== false) { bc = aF(bd, bb, A) } } } if (bb === q) { a9(bd) } if (bb === h) { if (a) { if (bd.touches.length == 0) { a9(bd) } } else { a9(bd) } } return bc } function aF(be, bb, bd) { var bc = undefined; if (bd == l) { aR.trigger("swipeStatus", [bb, aP || null, ag || 0, ab || 0, W, aQ]); if (av.swipeStatus) { bc = av.swipeStatus.call(aR, be, bb, aP || null, ag || 0, ab || 0, W, aQ); if (bc === false) { return false } } if (bb == h && aV()) { aR.trigger("swipe", [aP, ag, ab, W, aQ]); if (av.swipe) { bc = av.swipe.call(aR, be, aP, ag, ab, W, aQ); if (bc === false) { return false } } switch (aP) { case p: aR.trigger("swipeLeft", [aP, ag, ab, W, aQ]); if (av.swipeLeft) { bc = av.swipeLeft.call(aR, be, aP, ag, ab, W, aQ) } break; case o: aR.trigger("swipeRight", [aP, ag, ab, W, aQ]); if (av.swipeRight) { bc = av.swipeRight.call(aR, be, aP, ag, ab, W, aQ) } break; case e: aR.trigger("swipeUp", [aP, ag, ab, W, aQ]); if (av.swipeUp) { bc = av.swipeUp.call(aR, be, aP, ag, ab, W, aQ) } break; case x: aR.trigger("swipeDown", [aP, ag, ab, W, aQ]); if (av.swipeDown) { bc = av.swipeDown.call(aR, be, aP, ag, ab, W, aQ) } break } } } if (bd == t) { aR.trigger("pinchStatus", [bb, aJ || null, aq || 0, ab || 0, W, G, aQ]); if (av.pinchStatus) { bc = av.pinchStatus.call(aR, be, bb, aJ || null, aq || 0, ab || 0, W, G, aQ); if (bc === false) { return false } } if (bb == h && a8()) { switch (aJ) { case c: aR.trigger("pinchIn", [aJ || null, aq || 0, ab || 0, W, G, aQ]); if (av.pinchIn) { bc = av.pinchIn.call(aR, be, aJ || null, aq || 0, ab || 0, W, G, aQ) } break; case z: aR.trigger("pinchOut", [aJ || null, aq || 0, ab || 0, W, G, aQ]); if (av.pinchOut) { bc = av.pinchOut.call(aR, be, aJ || null, aq || 0, ab || 0, W, G, aQ) } break } } } if (bd == A) { if (bb === q || bb === h) { clearTimeout(aW); clearTimeout(af); if (Y() && !H()) { N = at(); aW = setTimeout(f.proxy(function () { N = null; aR.trigger("tap", [be.target]); if (av.tap) { bc = av.tap.call(aR, be, be.target) } }, this), av.doubleTapThreshold) } else { N = null; aR.trigger("tap", [be.target]); if (av.tap) { bc = av.tap.call(aR, be, be.target) } } } } else { if (bd == j) { if (bb === q || bb === h) { clearTimeout(aW); N = null; aR.trigger("doubletap", [be.target]); if (av.doubleTap) { bc = av.doubleTap.call(aR, be, be.target) } } } else { if (bd == b) { if (bb === q || bb === h) { clearTimeout(aW); N = null; aR.trigger("longtap", [be.target]); if (av.longTap) { bc = av.longTap.call(aR, be, be.target) } } } } } return bc } function an() { var bb = true; if (av.threshold !== null) { bb = ag >= av.threshold } return bb } function ba() { var bb = false; if (av.cancelThreshold !== null && aP !== null) { bb = (aT(aP) - ag) >= av.cancelThreshold } return bb } function ae() { if (av.pinchThreshold !== null) { return aq >= av.pinchThreshold } return true } function aA() { var bb; if (av.maxTimeThreshold) { if (ab >= av.maxTimeThreshold) { bb = false } else { bb = true } } else { bb = true } return bb } function al(bb, bc) { if (av.allowPageScroll === m || aX()) { bb.preventDefault() } else { var bd = av.allowPageScroll === s; switch (bc) { case p: if ((av.swipeLeft && bd) || (!bd && av.allowPageScroll != D)) { bb.preventDefault() } break; case o: if ((av.swipeRight && bd) || (!bd && av.allowPageScroll != D)) { bb.preventDefault() } break; case e: if ((av.swipeUp && bd) || (!bd && av.allowPageScroll != u)) { bb.preventDefault() } break; case x: if ((av.swipeDown && bd) || (!bd && av.allowPageScroll != u)) { bb.preventDefault() } break } } } function a8() { var bc = aO(); var bb = X(); var bd = ae(); return bc && bb && bd } function aX() { return !!(av.pinchStatus || av.pinchIn || av.pinchOut) } function P() { return !!(a8() && aX()) } function aV() { var be = aA(); var bg = an(); var bd = aO(); var bb = X(); var bc = ba(); var bf = !bc && bb && bd && bg && be; return bf } function V() { return !!(av.swipe || av.swipeStatus || av.swipeLeft || av.swipeRight || av.swipeUp || av.swipeDown) } function I() { return !!(aV() && V()) } function aO() { return ((W === av.fingers || av.fingers === i) || !a) } function X() { return aQ[0].end.x !== 0 } function a6() { return !!(av.tap) } function Y() { return !!(av.doubleTap) } function aU() { return !!(av.longTap) } function Q() { if (N == null) { return false } var bb = at(); return (Y() && ((bb - N) <= av.doubleTapThreshold)) } function H() { return Q() } function ax() { return ((W === 1 || !a) && (isNaN(ag) || ag < av.threshold)) } function a0() { return ((ab > av.longTapThreshold) && (ag < r)) } function ah() { return !!(ax() && a6()) } function aG() { return !!(Q() && Y()) } function ap() { return !!(a0() && aU()) } function F() { a5 = at(); ad = event.touches.length + 1 } function R() { a5 = 0; ad = 0 } function am() { var bb = false; if (a5) { var bc = at() - a5; if (bc <= av.fingerReleaseThreshold) { bb = true } } return bb } function aB() { return !!(aR.data(B + "_intouch") === true) } function ao(bb) { if (bb === true) { aR.bind(ay, a3); aR.bind(U, L); if (S) { aR.bind(S, K) } } else { aR.unbind(ay, a3, false); aR.unbind(U, L, false); if (S) { aR.unbind(S, K, false) } } aR.data(B + "_intouch", bb === true) } function ai(bc, bb) { var bd = bb.identifier !== undefined ? bb.identifier : 0; aQ[bc].identifier = bd; aQ[bc].start.x = aQ[bc].end.x = bb.pageX || bb.clientX; aQ[bc].start.y = aQ[bc].end.y = bb.pageY || bb.clientY; return aQ[bc] } function aH(bb) { var bd = bb.identifier !== undefined ? bb.identifier : 0; var bc = ac(bd); bc.end.x = bb.pageX || bb.clientX; bc.end.y = bb.pageY || bb.clientY; return bc } function ac(bc) { for (var bb = 0; bb < aQ.length; bb++) { if (aQ[bb].identifier == bc) { return aQ[bb] } } } function aj() { var bb = []; for (var bc = 0; bc <= 5; bc++) { bb.push({ start: { x: 0, y: 0 }, end: { x: 0, y: 0 }, identifier: 0 }) } return bb } function aI(bb, bc) { bc = Math.max(bc, aT(bb)); M[bb].distance = bc } function aT(bb) { if (M[bb]) { return M[bb].distance } return undefined } function aa() { var bb = {}; bb[p] = aw(p); bb[o] = aw(o); bb[e] = aw(e); bb[x] = aw(x); return bb } function aw(bb) { return { direction: bb, distance: 0 } } function aM() { return a2 - T } function au(be, bd) { var bc = Math.abs(be.x - bd.x); var bb = Math.abs(be.y - bd.y); return Math.round(Math.sqrt(bc * bc + bb * bb)) } function a7(bb, bc) { var bd = (bc / bb) * 1; return bd.toFixed(2) } function ar() { if (G < 1) { return z } else { return c } } function aS(bc, bb) { return Math.round(Math.sqrt(Math.pow(bb.x - bc.x, 2) + Math.pow(bb.y - bc.y, 2))) } function aE(be, bc) { var bb = be.x - bc.x; var bg = bc.y - be.y; var bd = Math.atan2(bg, bb); var bf = Math.round(bd * 180 / Math.PI); if (bf < 0) { bf = 360 - Math.abs(bf) } return bf } function aL(bc, bb) { var bd = aE(bc, bb); if ((bd <= 45) && (bd >= 0)) { return p } else { if ((bd <= 360) && (bd >= 315)) { return p } else { if ((bd >= 135) && (bd <= 225)) { return o } else { if ((bd > 45) && (bd < 135)) { return x } else { return e } } } } } function at() { var bb = new Date(); return bb.getTime() } function aY(bb) { bb = f(bb); var bd = bb.offset(); var bc = { left: bd.left, right: bd.left + bb.outerWidth(), top: bd.top, bottom: bd.top + bb.outerHeight() }; return bc } function E(bb, bc) { return (bb.x > bc.left && bb.x < bc.right && bb.y > bc.top && bb.y < bc.bottom) } } }));
+    </script>
+}
+<script>
+    videoSlider = 1;
+    landingPage = true;
+    PushleadType = 23;
+    modelid = 918;
+    carName = "Volkswagen Vento";
+</script>
+
+<script type="text/javascript" src="/static/js/utils/scroll-to.js" defer></script>
+<script type="text/javascript" src="/static/js/es-scroll-to.js" defer></script>
+
+<div class="vento-main">
+	<section class="banner position-rel">
+		<a href="javascript:void(0)" id="assistant-btn" class="click_track" data-label="HP_Get Offer Details" rel="nofollow"><div class="top-banner"></div></a>
+		<img class="position-abt" src="https://ad.doubleclick.net/ddm/trackimp/N6267.139588.CARWALE/B10494210.141284830;dc_trk_aid=313518939;dc_trk_cid=75544818;ord=%%CACHEBUSTER%%;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=?" border="0" height="1" width="1" alt="Advertisement">
+	</section>
+
+	<div class="mb-margin">
+		<h2 class="text-uppercase text-center margin-bottom20 margin-top30">5 Reasons to Buy The Volkswagen Vento</h2>
+		<section class="container top-box">
+			<div class="grid-12">
+				<div class="bg-white content-box-shadow">
+					<div class="grid-12 alpha omega">
+						<div class="grid-6 alpha omega">
+							<div class="font18 text-bold margin-left20 margin-right20 padding-top5 padding-bottom5 mobile-head mobile-head-first">7 Speed Automatic Dual Shift Gearbox – Best of both worlds</div>
+                            <img class="vento-img-box" src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/5-reasons/7-speed.jpg" alt="Volkswagen Vento" />
+						</div>
+						<div class="grid-6 alpha omega content content-parent">
+							<div class="vento-content-box font15">
+								<div class="font18 text-bold desktop-head margin-bottom5">7 Speed Automatic Dual Shift Gearbox – Best of both worlds</div>
+								<div class="font14">First gearbox to combine the advantages of both worlds — no interruptions in traction and maximum driving pleasure. What you get -</div>
+								<ul class="margin-bottom10">
+									<li>Ease of shifting at the level of an automatic gearbox</li>
+									<li>Split-second gear changes, hardly noticeable to the occupants</li>
+									<li>Better driving performance with unbroken acceleration</li>
+								</ul>
+								<a href="javascript:void(0)" class="click_track_section experience-now" data-action="5Reasons_clicked" data-label="7 Speed_Experience Now" rel="nofollow">Experience Now &#x3e;</a>
+								<div class="font17 text-bold margin-bottom10 margin-top20">What owners say:</div>
+								<div class="text-bold margin-bottom5">Govind</div>
+								<div>“… Shifting gears in my Vento exemplifies perfection…”<a href="https://www.carwale.com/volkswagen-cars/vento/userreviews/46226/" target="_blank" class="click_track_section" data-action="5Reasons_clicked" data-label="7 Speed_Read more">Read more</a></div>
+							</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div class="grid-12 swap-parent alpha omega">
+						<div class="grid-6 alpha omega content-parent first_div">
+							<div class="vento-content-box font15">
+								<div class="font18 text-bold desktop-head margin-bottom5">Best-in-segment performance</div>
+								<div class="font14">The heart of the Vento is the powerful1.5L TDI or the 1.2L TSI Engine, always delivering the highest torque in the segment.</div>
+								<ul class="margin-bottom10">
+									<li>TDI Diesel - 250nm of torque all delivered at just 1,500 rpm</li>
+									<li>TSI Petrol – 175nm of torque, again the highest in its segment</li>
+									<li>1.6L MPI Petrol for best driving experience with optimized fuel efficiency</li>
+								</ul>
+								<a href="javascript:void(0)" class="click_track_section experience-now" data-action="5Reasons_clicked" data-label="Best-in-segment_Experience Now" rel="nofollow">Experience Now &#x3e;</a>
+								<div class="font17 text-bold margin-bottom10 margin-top20">What owners say:</div>
+								<div class="text-bold margin-bottom5">Yogi</div>
+								<div>“… true to its performance, incredible power at 2500rpm…”<a href="https://www.carwale.com/volkswagen-cars/vento/userreviews/44840/" target="_blank" class="click_track_section" data-action="5Reasons_clicked" data-label="Safety_Read more">Read more</a></div>
+							</div>
+						</div>
+						<div class="grid-6 alpha omega second_div">
+							<div class="font18 text-bold margin-left20 margin-right20 padding-top5 padding-bottom5 mobile-head">Best-in-segment performance</div>
+                            <img class="vento-img-box" src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/5-reasons/best-in-segment-performance.jpg" alt="Volkswagen Vento" />
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div class="grid-12 alpha omega">
+						<div class="grid-6 alpha omega">
+							<div class="font18 text-bold margin-left20 margin-right20 padding-top5 padding-bottom5 mobile-head">As sturdy as your resolve</div>
+                            <img class="vento-img-box" src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/5-reasons/safety.jpg" alt="Volkswagen Vento" />
+						</div>
+						<div class="grid-6 alpha omega content-parent">
+							<div class="vento-content-box font15">
+								<div class="font18 text-bold desktop-head margin-bottom5">As sturdy as your resolve</div>
+								<div class="font14 margin-bottom10">The Vento's Anti-lock Braking System (ABS) with Electronic Brakeforce Distribution (EBD) and Electronic Stabilization Programme (ESP) keep you in firm control on slippery roads or during heavy braking. In addition, two airbags, child seat anchor points and child safety locks among others ensure you and your loved ones are covered from all sides, always.</div>
+								<a href="javascript:void(0)" class="click_track_section experience-now" data-action="5Reasons_clicked" data-label="Safety_Experience Now" rel="nofollow">Experience Now &#x3e;</a>
+								<div class="font17 text-bold margin-bottom10 margin-top20">What owners say:</div>
+								<div class="text-bold margin-bottom5">Abhishek Shelke</div>
+								<div>“…Just amazing car with great stability at high speed and even on highway when speed is over 100kmph…”<a href="https://www.carwale.com/volkswagen-cars/vento/userreviews/59407/" target="_blank" class="click_track_section" data-action="5Reasons_clicked" data-label="Technology_Read more">Read more</a></div>
+							</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div class="grid-12 swap-parent alpha omega">
+						<div class="grid-6 alpha omega content-parent first_div">
+							<div class="vento-content-box font15">
+								<div class="font18 text-bold desktop-head margin-bottom5">Luxury at every angle</div>
+								<div class="font14 margin-bottom10">In your first moment with the New Vento, you’ll sense the familiar aura of great engineering and the sharp elegance of experience. It has been carefully designed to be sophisticated and luxurious. Little wonder that it comes with cozy but luxurious interiors, a multi function steering wheel, Cruise Control, a state-of-the-art touchscreen entertainment system and many more features that make your daily commute an absolute pleasure.</div>
+								<a href="javascript:void(0)" class="click_track_section experience-now" data-action="5Reasons_clicked" data-label="Luxury at every angle_Experience Now" rel="nofollow">Experience Now &#x3e;</a>
+								<div class="font17 text-bold margin-bottom10 margin-top15">What owners say:</div>
+								<div class="text-bold margin-bottom5">Mr. Choudhary</div>
+								<div>“…Great comfort…Cruise control is most welcome in this segment…”<a href="https://www.carwale.com/volkswagen-cars/vento/userreviews/46780/" target="_blank" class="click_track_section" data-action="5Reasons_clicked" data-label="Unparalleled Comforts_Read more">Read more</a></div>
+							</div>
+						</div>
+						<div class="grid-6 alpha omega second_div">
+							<div class="font18 text-bold margin-left20 margin-right20 padding-top5 padding-bottom5 mobile-head">Luxury at every angle</div>
+                            <img class="vento-img-box" src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/5-reasons/luxury-at-every-angle.jpg" alt="Volkswagen Vento" />
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div class="grid-12 alpha omega">
+						<div class="grid-6 alpha omega">
+							<div class="font18 text-bold margin-left20 margin-right20 padding-top5 padding-bottom5 mobile-head">Peace of Mind – Maintaining a car has never been easier</div>
+                            <img class="vento-img-box" src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/5-reasons/peace-in-mind.jpg" alt="Volkswagen Vento" />
+						</div>
+						<div class="grid-6 alpha omega content-parent">
+							<div class="vento-content-box font15">
+								<div class="font18 text-bold desktop-head margin-bottom5">Peace of Mind – Maintaining a car has never been easier</div>
+								<ul class="margin-bottom10">
+									<li>Standard warranty - Unlimited kilometers for 2 years</li>
+									<li>3-year Paint Warranty</li>
+									<li>6-year Anti-perforation Warranty</li>
+									<li>Volkswagen Roadside Assistance</li>
+									<li>Service interval of just once a year or every 15,000 kms</li>
+									<li>Volkswagen Service App – All you need to know, at your fingertips</li>
+									<li>24x7 Customer Care Helpline: <a href="tel:1800 209 0909">1800 209 0909</a></li>
+								</ul>
+								<a href="javascript:void(0)" class="click_track_section experience-now" data-action="5Reasons_clicked" data-label="Peace of Mind_Experience Now" rel="nofollow">Experience Now &#x3e;</a>
+							</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+
+
+			</div>
+			<div class="clear"></div>
+		</section>
+		<h2 class="text-uppercase text-center margin-bottom20 margin-top30">Volkswagen Vento Specifications</h2>
+		<section class="container content-box-shadow">
+			<div class="clear"></div>
+			<div class="grid-12 bg-white inline-block-noalign">
+				<h2 class="font20 text-underline text-uppercase text-center margin-bottom20 margin-top30">Tech Specs</h2>
+				<div class="grid-12">
+					<div class="grid-3 margin-bottom20">
+						<div class="specs-container">
+							<div class="spec-sprite performance-icon"> </div>
+							<div class="spec-parent">
+								<div class="spec-head font16 text-bold margin-top10">Performance</div>
+								<div class="spec-details font15">
+									<div>Power: 108 bhp<span class="fa fa-at"></span>4400 rpm</div>
+									<div>Torque: 250 Nm<span class="fa fa-at"></span>1500 rpm</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="specs-container">
+						<div class="grid-3 margin-bottom20">
+							<div class="spec-sprite fuel-icon"> </div>
+							<div class="spec-parent">
+								<div class="spec-head font16 text-bold margin-top10">Fuel Efficiency</div>
+								<div class="spec-details font14">
+									Mileage of 16 - 22 kmpl
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="specs-container">
+						<div class="grid-3 margin-bottom20">
+							<div class="spec-sprite transmission-icon"> </div>
+							<div class="spec-parent">
+                                <div class="spec-head font16 text-bold margin-top10">Transmission</div>
+                                <div class="spec-details font14">
+                                    7 Speed Automatic DSG <br /> 5 Speed Manual
+                                </div>
+							</div>
+						</div>
+					</div>
+					<div class="specs-container">
+						<div class="grid-3 margin-bottom20">
+							<div class="spec-sprite safety-icon"> </div>
+							<div class="spec-parent">
+                                <div class="spec-head font16 text-bold margin-top10">Safety</div>
+                                <div class="spec-details font14">
+                                    2 Airbags <br />ESP, ABS with EBD
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<h2 class="font20 text-uppercase text-center padding-bottom20 padding-top20 bg-white text-underline">Features</h2>
+			<div class="clear"></div>
+            <div class="grid-12 vento-carousel bg-white">
+                <div class="jcarousel-wrapper">
+                    <div class="jcarousel">
+                        <ul>
+                            <li>
+                                <img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/feature/auto-dimming-mirror.jpg" alt="Volkswagen Vento">
+                                <div class="margin-top10">
+                                    <div class="text-bold font16">Auto Dimming Rear View Mirror</div>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/feature/rear-parking-camera.jpg" alt="Volkswagen Vento">
+                                <div class="margin-top10">
+                                    <div class="text-bold font16">Rear Parking Camera</div>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/feature/connect-app.jpg" alt="Volkswagen Vento">
+                                <div class="margin-top10">
+                                    <div class="text-bold font16">App Connect – Hands free connectivity</div>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/feature/rain-sensor.jpg" alt="Volkswagen Vento">
+                                <div class="margin-top10">
+                                    <div class="text-bold font16">Automatic Rain Sensing Wipers</div>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/vento/20181122/feature/infotainment.jpg" alt="Volkswagen Vento">
+                                <div class="margin-top10">
+                                    <div class="text-bold font16">New Touchscreen Infotainment System</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="jcarousel-control-left click_track" data-label="features_left click"><span class="cwsprite jcarousel-control-prev"></span></span>
+                    <span class="jcarousel-control-right click_track" data-label="features_right click"><span class="cwsprite jcarousel-control-next"></span></span>
+                </div>
+            </div>
+			<div class="clear"></div>
+			<div class="margin-bottom20 margin-top20 text-center">
+				<a href="javascript:void(0)" id="assistance-feature-btn" class="btn btn-orange btn-sm click_track" data-label="Feature_Get Offer Details" rel="nofollow">Get Offer Details</a>
+			</div>
+		</section>
+		<section class="container terrano-compare-main">
+
+			<div class="grid-12">
+				<h2 class="text-center margin-top40 margin-bottom20">Volkswagen Vento vs COMPETITION</h2>
+				<div class="padding-lr-40 content-box-shadow paddingbottom20">
+					<div class="position-rel margin-top20">
+						<div class="car-models">
+							<ul>
+								<li class="comp-border-right grid-4 alpha omega">
+									<div class="compare-img-container">
+										<img class="lazy" src="https://imgd.aeplcdn.com/0X0/cw/es/spotlight/volkswagen/ameo/compare1.jpg" border="0" alt="Volkswagen Vento" title="Volkswagen Vento" />
+									</div>
+									<div class="car-name-container">
+										<div class="car-name-head">Volkswagen <br/> Vento</div>
+										@*<div class="car-version">Highline 1.2 (P) AT</div>
+										<div class="car-price">Price: ₹ 13.67L</div>*@
+									</div>
+									@*<h4>Nissan Terrano</h4>*@
+
+									<div class="clear"></div>
+								</li>
+								<li class="comp-border-right grid-4 alpha omega">
+									<div class="car-name">
+										<div class="hide-content2">
+											<div class="compare-img-container">
+												<img class="lazy force-lazy" src="https://imgd.aeplcdn.com/0X0/cw/es/spotlight/volkswagen/ameo/compare2.jpg" border="0" alt="Honda City" title="Honda City" />
+											</div>
+											<div class="car-name-container">
+												<div class="car-name-head">Honda <br/> City</div>
+												@*<div class="car-version">ZX CVT Petrol</div>
+												<div class="car-price">Price: ₹ 16.36L</div>*@
+											</div>
+											<div class="clear"></div>
+										</div>
+									</div>
+								</li>
+								<li class="grid-4 third-column alpha omega">
+									<div class="car-name">
+										<div class="hide-content2">
+											<div class="compare-img-container">
+												<img class="lazy force-lazy" src="https://imgd.aeplcdn.com/0X0/cw/es/spotlight/volkswagen/ameo/compare3.jpg" border="0" alt="Hyundai Verna" title="Hyundai Verna" />
+											</div>
+											<div class="car-name-container">
+												<div class="car-name-head">Hyundai <br/> Verna</div>
+												@*<div class="car-version">1.6 VTVT SX (O) AT</div>
+												<div class="car-price">Price: ₹ 15.19L</div>*@
+											</div>
+											<div class="clear"></div>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<div class="clear"></div>
+						</div>
+						<div class="comparo-accordion">
+							@*<ul>
+								<li class="sep" data-role="click-tracking" data-event="CWInteractive" data-action="comparo-widget" data-cat="comparo-widget-tabs" data-label="Highlights">
+									<h5 class="active-text">More Features</h5>
+									<span class="accordion-sprite minus-icon plus-icon"></span>
+									<div class="clear"></div>
+								</li>
+							</ul>*@
+							<div class="clear"></div>
+							<div class="data text-bold">
+								<div class="data-table">
+									<div class="data-table-th">Max Torque (Nm<span class="fa fa-at"></span>rpm)</div>
+									<div class="data-table-tr">
+										<div class="data-table-td">175 <span class="fa fa-at"></span> 1500</div>
+										<div class="data-table-td creta-content hide-content2 active">145 <span class="fa fa-at"></span> 4600</div>
+										<div class="data-table-td creta-content hide-content">151 <span class="fa fa-at"></span> 4850</div>
+									</div>
+								</div>
+								<div class="data-table">
+									<div class="data-table-th">Mileage (ARAI) (kmpl)</div>
+									<div class="data-table-tr">
+										<div class="data-table-td">18.19</div>
+										<div class="data-table-td creta-content hide-content">18</div>
+										<div class="data-table-td creta-content hide-content2 active">17.4</div>
+									</div>
+								</div>
+								<div class="data-table">
+									<div class="data-table-th">Fuel Tank Capacity (litres)</div>
+									<div class="data-table-tr">
+										<div class="data-table-td">55</div>
+										<div class="data-table-td creta-content hide-content">40</div>
+										<div class="data-table-td creta-content hide-content2 active">45</div>
+									</div>
+								</div>
+								<div class="data-table">
+									<div class="data-table-th">Turbocharged Engine</div>
+									<div class="data-table-tr">
+										<div class="data-table-td">Y</div>
+										<div class="data-table-td creta-content hide-content">N</div>
+										<div class="data-table-td creta-content hide-content2 active">N</div>
+									</div>
+								</div>
+								<div class="data-table">
+									<div class="data-table-th">No. of Gears</div>
+									<div class="data-table-tr">
+										<div class="data-table-td">7</div>
+										<div class="data-table-td creta-content hide-content">CVT</div>
+										<div class="data-table-td creta-content hide-content2 active">6</div>
+									</div>
+								</div>
+								<div class="data-table">
+									<div class="data-table-th">Gear, Shift Indicator</div>
+									<div class="data-table-tr">
+										<div class="data-table-td">Y</div>
+										<div class="data-table-td creta-content hide-content">N</div>
+										<div class="data-table-td creta-content hide-content2 active">Y</div>
+									</div>
+								</div>
+								<div class="data-table">
+									<div class="data-table-th">Electronic Stability Program (ESP)</div>
+									<div class="data-table-tr">
+										<div class="data-table-td">Y</div>
+										<div class="data-table-td creta-content hide-content">N</div>
+										<div class="data-table-td creta-content hide-content2 active">N</div>
+									</div>
+								</div>
+								<div class="data-table">
+									<div class="data-table-th">Hill Hold Control</div>
+									<div class="data-table-tr">
+										<div class="data-table-td">Y</div>
+										<div class="data-table-td creta-content hide-content">N</div>
+										<div class="data-table-td creta-content hide-content2 active">N</div>
+									</div>
+								</div>
+								<div class="data-table">
+									<div class="data-table-th">Dual Clutch Gearbox</div>
+									<div class="data-table-tr">
+										<div class="data-table-td">Y</div>
+										<div class="data-table-td creta-content hide-content">N</div>
+										<div class="data-table-td creta-content hide-content2 active">N</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</section>
+		<section>
+            <div class="container mb-view pq-box" id="jsFormContainer">
+                <div class="grid-12">
+                    <h2 class="text-uppercase text-center margin-top40 margin-bottom20 pq-box__title">KNOW MORE ABOUT THE OFFER</h2>
+                    <div class="font14 content-box-shadow content-inner-block-15nr buy-automatic-car">
+                        <div class="request-callback-box">
+                            <div class="grid-4 rightfloat">
+                                @{ Html.RenderPartial("~/Views/Shared/ES/_LeadForm.cshtml"); }
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+		</section>
+
+        <h2 class="text-uppercase text-center margin-bottom20 margin-top30">Offers on other Volkswagen Cars</h2>
+        <section class="container margin-top30">
+            <div class="other-cars-offer-container grid-12 alpha omega">
+                <div class="car-news-wrapper">
+                    <div class="car-news-container">
+                        <div class="car-image-container">
+                            <img class="car__image" alt="Volkswagen Polo" title="Volkswagen Polo" src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/polo/20181122/more-vw-cars-polo.jpg" height="auto" width="188" />
+                        </div>
+                        <div class="car-information-container">
+                            <h3 class="car-information__name">Volkswagen Polo</h3>
+                            <p class="car-information__price">₹ 10.21 Lakh</p>
+                            <a href="/specials/volkswagen-polo/" class="car-information__link click_track_section" data-action="Offers-on-other-VW-cars" data-label="Polo_Explore-Now" target="_blank" rel="nofollow" title="Volkswagen Polo">Explore Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="car-news-wrapper">
+                    <div class="car-news-container">
+                        <div class="car-image-container">
+                            <img class="car__image" alt="Volkswagen Ameo" title="Volkswagen Ameo" src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/volkswagen/ameo/20181122/more-vw-cars-ameo.jpg" height="auto" width="188" />
+                        </div>
+                        <div class="car-information-container">
+                            <h3 class="car-information__name">Volkswagen Ameo</h3>
+                            <p class="car-information__price">₹ 6.8 Lakh</p>
+                            <a href="/specials/volkswagen-ameo/" class="car-information__link click_track_section" data-action="Offers-on-other-VW-cars" data-label="Ameo_Explore-Now" target="_blank" rel="nofollow" title="Volkswagen Ameo">Explore Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+
+		<h2 class="text-uppercase text-center margin-bottom20 margin-top30">QUICK LINKS</h2>
+		<section>
+			<div class="container">
+				<div class="grid-12 quick-links content-box-shadow">
+					<ul>
+                        <!-- Temporary removing this
+					    <li class="comp-border-right click_track check-price" data-label="get on road price">
+						    <span class="check-icon spec-sprite"></span>
+						    <span class="inline-block-noalign quick-text text-black">GET ON ROAD PRICE</span>
+					    </li>
+                        -->
+						<li class="comp-border-right click_track media-gallery" data-label="media gallery">
+							<a href="https://www.carwale.com/volkswagen-cars/vento/photos/volkswagen-vento-right-front-three-quarter-81135.html" target="_blank" class="text-black">
+								<span class="media-icon spec-sprite"></span>
+								<span class="inline-block-noalign quick-text text-black">MEDIA GALLERY</span>
+							</a>
+						</li>
+						<li class="click_track download-brochure" data-label="download e-brochure">
+                            <a href="https://www.volkswagen.co.in/content/dam/vw-ngw/vw_pkw/importers/in/pdf/vento-ebrochure.pdf/_jcr_content/renditions/original./vento-ebrochure.pdf" rel="nofollow noopener" target="_blank" class="text-black">
+                                <span class="download-icon spec-sprite"></span>
+                                <span class="inline-block-noalign quick-text text-black">DOWNLOAD E-BROCHURE</span>
+                            </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</section>
+		<section class="term-parent">
+			<div class="term-section">
+				*T&C Apply
+			</div>
+		</section>
+	</div>
+</div>
+<div class="slug-container js-button">
+    <div class="slug__image"></div>
+    <div class="slug__text js__text-container">
+        <p class="click_track_section" data-action="Floating_btn" data-label="Request-a-callback">Request<br>a call back</p>
+    </div>
+</div>
+<script>
+    var VolkswagenVento = {
+        doc: $(document),
+        personLeadCity: {},
+        newWidth: null,
+        apiInput: {},
+
+        compareCarWithVolkswagenVento: function () {
+
+        },
+
+        responsive: {
+
+            responsiveCarousel: function () {
+                var jcarousel = $('.vento-carousel .jcarousel');
+                jcarousel
+                    .on('jcarousel:reload jcarousel:create', function () {
+                        var carousel = $(this);
+                        if (VolkswagenVento.newWidth == null) {
+                            VolkswagenVento.newWidth = carousel.innerWidth();
+                        }
+                    })
+                    .jcarousel();
+            },
+
+            registerEvent: function () {
+
+                $('.full-width-carousel .jcarousel').jcarousel('scroll', 0);
+                $(".full-width-carousel .jcarousel ul li").css("width", $(window).outerWidth());
+                VolkswagenVento.responsive.responsiveCarousel();
+                $('.vento-carousel .jcarousel').jcarousel('scroll', 0);
+
+                VolkswagenVento.newWidth = null;
+
+                $(".content-parent").css({ 'width': $(".vento-img-box").width() - 1 });
+                if ($(document).width() <= 622) {
+                    $(".content-parent").css({ 'height': 'auto' });
+                } else {
+                    $(".content-parent").css({ 'height': $(".vento-img-box").height() });
+                }
+                for (var i = 0; i < $(".content-parent").length; i++) {
+                    if ($(".content-parent").get(i).scrollHeight > $(".content-parent").height()) {
+                        $($(".vento-content-box")[i]).addClass("zero-transform");
+                    } else {
+                        $($(".vento-content-box")[i]).removeClass("zero-transform");
+                    }
+                }
+            }
+        },
+
+        lazyImg: {
+
+            callEventLazy: function () {
+                $("img.lazy").lazyload();
+                $(window).load(function () {
+                    VolkswagenVento.lazyImg.applyLazyLoad();
+                });
+            },
+
+            applyLazyLoad: function () {
+                $("img.lazy").lazyload({
+                    event: "imgLazyLoad",
+                    effect: "fadeIn"
+                });
+            }
+        },
+
+        leadForm: {
+
+            registerEvent: function () {
+
+                $("#esLeadFormSubmit").click(function () {
+                    VolkswagenVento.leadForm.submit($(this));
+                });
+
+                if (typeof isMobileDevice == "undefined") {
+                    $("#personCity").cw_autocomplete({
+                        resultCount: 5,
+                        source: ac_Source.allCarCities,
+                        click: function (event, ui, orgTxt) {
+                            VolkswagenVento.personLeadCity.name = Common.utils.getSplitCityName(ui.item.label);
+                            VolkswagenVento.personLeadCity.id = ui.item.id;
+                            ui.item.value = VolkswagenVento.personLeadCity.name;
+                        },
+                        open: function (result) {
+                            VolkswagenVento.personLeadCity.result = result;
+                        },
+                        afterfetch: function (result, searchtext) {
+                            this.result = result;
+                            if (typeof result == "undefined" || result.length <= 0)
+                                VolkswagenVento.leadForm.showHideMatchError(true, $('#personCity'), "No city Match");
+                            else
+                                VolkswagenVento.leadForm.showHideMatchError(false, $('#personCity'));
+                        }
+                    });
+                }
+                else {
+                    var personCityInputField = $("#personCity");
+
+                    $(personCityInputField).cw_easyAutocomplete({
+                        inputField: personCityInputField,
+                        resultCount: 5,
+                        source: ac_Source.allCarCities,
+                        click: function (event) {
+                            var selectionValue = personCityInputField.getSelectedItemData().value,
+                            selectionLabel = personCityInputField.getSelectedItemData().label;
+
+                            VolkswagenVento.personLeadCity.name = Common.utils.getSplitCityName(selectionLabel);
+                            VolkswagenVento.personLeadCity.id = selectionValue;
+                            $(personCityInputField).val(VolkswagenVento.personLeadCity.name);
+                        },
+
+                        afterFetch: function (result, searchText) {
+                            VolkswagenVento.personLeadCity.result = result;
+
+                            if (typeof result == "undefined" || result.length <= 0) {
+                                VolkswagenVento.leadForm.showHideMatchError(true, $(personCityInputField).closest('.easy-autocomplete'), "No city Match");
+                            }
+                            else {
+                                VolkswagenVento.leadForm.showHideMatchError(false, $(personCityInputField).closest('.easy-autocomplete'));
+                            }
+                        }
+                    });
+                }
+            },
+
+            submit: function (event) {
+                var nameEle = $(event).parent().find("#personName");
+                //var emailEle = $(event).parent().find("#personEmail");
+                var mobileEle = $(event).parent().find("#personMob");
+                var cityEle = $(event).parent().find("#personCity");
+                var err = form.validation.contact(nameEle.val(), "vento@carwale.com", mobileEle.val()); //, $.trim(cityEle.val())); emailEle.val(),
+
+                if (VolkswagenVento.leadForm.processErrorResults(err, nameEle, mobileEle, cityEle)) { //emailEle,
+                    $("#esLeadFormSubmit").html("Submitting...").attr("disabled", true);
+                    VolkswagenVento.apiCall.leadPush(VolkswagenVento.leadForm.getUserObject(nameEle.val(), mobileEle.val()), VolkswagenVento.leadForm.processResponse); //emailEle.val(),
+                }
+            },
+            getUserObject: function (custname, custmobile) {
+                var customerinfo = {
+                    carName: carName,
+                    name: custname,
+                    mobile: custmobile,
+                    cityid: VolkswagenVento.personLeadCity.id,
+                    versionId: "",
+                    modelId: modelid,
+                    makeId: "",
+                    leadType: PushleadType,
+                    cityName: VolkswagenVento.personLeadCity.name
+                };
+                return customerinfo;
+            },
+            processResponse: function (data) {
+                $("#es-leadform").hide();
+                $("#es-thankyou").show();
+                $(".request-callback-box .grid-4").css("background", "white");
+            },
+            validateCity: function (targetId) {
+
+                var cityVal = Common.utils.getSplitCityName(targetId.val());
+                if (cityVal == $.cookie("_CustCityMaster") && typeof (VolkswagenVento.personLeadCity) != "undefined" && Number(VolkswagenVento.personLeadCity.id) > 0 && VolkswagenVento.personLeadCity.id == $.cookie("_CustCityIdMaster")) {
+                    if (typeof isMobileDevice == "undefined") {
+                        VolkswagenVento.leadForm.showHideMatchError(false, targetId);
+                    }
+                    else {
+                        VolkswagenVento.leadForm.showHideMatchError(false, $(targetId).closest('.easy-autocomplete'));
+                    }
+                    return true;
+                }
+                else if (cityVal == "" || targetId.hasClass('border-red') ||
+                            (
+                                ($('li.ui-menu-item a:visible:eq(0)').text() != cityVal && cityVal != "") &&
+                                (typeof (VolkswagenVento.personLeadCity) == "undefined" || typeof (VolkswagenVento.personLeadCity.name) == "undefined" || VolkswagenVento.personLeadCity.name.toLowerCase() != cityVal.toLowerCase())
+                            )
+                       ) {
+                    if (typeof isMobileDevice == "undefined") {
+                        VolkswagenVento.leadForm.showHideMatchError(true, targetId, "Please Enter City");
+                    }
+                    else {
+                        VolkswagenVento.leadForm.showHideMatchError(true, $(targetId).closest('.easy-autocomplete'), "Please Enter City");
+                    }
+                    return false;
+                }
+                return true;
+            },
+            processErrorResults: function (err, nameEle, mobileEle, cityEle) { //emailEle,
+
+                var isFormValid = true;
+                if (err && err.length > 2) {
+
+                    if (err[0] == "") {
+                        nameEle.siblings().addClass('hide');
+                        nameEle.removeClass('border-red');
+                    }
+                    else {
+                        nameEle.siblings().removeClass('hide');
+                        nameEle.addClass('border-red');
+                        var errSpan = nameEle.siblings()[1];
+                        $(errSpan).text(err[0]);
+                        isFormValid = false;
+                    }
+
+                    if (err[2] == "") {
+                        mobileEle.siblings('.cw-blackbg-tooltip, .error-icon').addClass('hide');
+                        mobileEle.removeClass('border-red');
+                    }
+                    else {
+                        mobileEle.siblings('.cw-blackbg-tooltip, .error-icon').removeClass('hide');
+                        mobileEle.addClass('border-red');
+                        var errSpan = mobileEle.siblings()[1];
+                        $(errSpan).text(err[2]);
+                        isFormValid = false;
+                    }
+                }
+                if (!VolkswagenVento.leadForm.validateCity(cityEle)) {
+                    isFormValid = false;
+                }
+                return isFormValid;
+            },
+            showHideMatchError: function (error, TargetId, errText) {
+                if (error) {
+                    TargetId.siblings('.error-icon').removeClass('hide');
+                    TargetId.siblings('.cw-blackbg-tooltip').removeClass('hide').text(errText);
+                    TargetId.addClass('border-red');
+                }
+                else {
+                    TargetId.siblings().addClass('hide');
+                    TargetId.removeClass('border-red');
+                }
+            }
+
+        },
+
+        apiCall: {
+
+            leadPush: function (customerinfo, callback) {
+                var url = window.location.href.toLowerCase();
+                VolkswagenVento.apiInput.DealerId = 6898;
+                VolkswagenVento.apiInput.CityId = customerinfo.cityid;
+                VolkswagenVento.apiInput.ActualDealerId = 21975;
+                VolkswagenVento.apiInput.ModelId = customerinfo.modelId;
+                VolkswagenVento.apiInput.Email = '';
+                VolkswagenVento.apiInput.Name = customerinfo.name;
+                VolkswagenVento.apiInput.Mobile = customerinfo.mobile;
+                VolkswagenVento.apiInput.BuyTimeText = "1 week";
+                VolkswagenVento.apiInput.BuyTimeValue = 7;
+                VolkswagenVento.apiInput.RequestType = 1;
+                VolkswagenVento.apiInput.UtmaCookie = isCookieExists('__utma') ? $.cookie('__utma') : '';
+                VolkswagenVento.apiInput.UtmzCookie = isCookieExists('_cwutmz') ? $.cookie('_cwutmz') : '';
+                VolkswagenVento.apiInput.InquirySourceId = 191;
+                VolkswagenVento.apiInput.LeadClickSource = 247;
+                VolkswagenVento.apiInput.PlatformSourceId = 1;
+                VolkswagenVento.apiInput.PQId = 0;
+                VolkswagenVento.apiInput.ModelsHistory = '';
+                VolkswagenVento.apiInput.IsAutoApproved = false;
+                VolkswagenVento.apiInput.AssignedDealerId = -1;
+                VolkswagenVento.apiInput.SponsoredBannerCookie = '';
+                VolkswagenVento.apiInput.Comments = url.indexOf("source") > 0 ? Common.utils.getValueFromQS('source') : "";
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/webapi/DealerSponsoredAd/PostDealerInquiry/',
+                    data: VolkswagenVento.apiInput,
+                    success: function (response) {
+                        callback(response);
+                    },
+                    error: function () {
+                        callback(null);
+                    }
+                });
+            }
+        },
+        isScrolledIntoView: function (elem) {
+            var docViewTop = $(window).scrollTop();
+            var docViewBottom = docViewTop + $(window).height();
+
+            var elemTop = $(elem).offset().top;
+            var elemBottom = elemTop + $(elem).height();
+
+            return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+        },
+        openPqWidget: function (versionId, modelId, pageId) {
+            var caption = "";
+            var url = "/new/quickpqwidget.aspx?model=" + modelId + "&version=" + versionId + "&pageid=" + pageId;
+            var applyIframe = false;
+            var GB_Html = "";
+            GB_show(caption, url, 230, 500, applyIframe, GB_Html);
+        }
+    }
+
+    var windowWidth, resizeId;
+
+    $(document).ready(function () {
+
+        $("body").removeClass("rsz-lyt");
+        windowWidth = $(window).width();
+
+        $("#esLeadFormSubmit").attr('data-label', 'submit').addClass("click_track");
+        $("#es-leadform").append('<div class="margin-top15">Or Call us on <a href="tel:1800 2090 230">1800 2090 230</a></div>');
+        $($("#es-leadform").children()[2]).hide();
+        $("#personEmail").parent().hide();
+        VolkswagenVento.responsive.registerEvent();
+        VolkswagenVento.lazyImg.callEventLazy();
+        VolkswagenVento.leadForm.registerEvent();
+        VolkswagenVento.compareCarWithVolkswagenVento();
+        VolkswagenVento.responsive.responsiveCarousel();
+        VolkswagenVento.lazyImg.applyLazyLoad();
+
+        $("#es-thankyou h2").html("Thank You for sharing your details. Our representative will call you back shortly.");
+
+        $(".read-more-btn").click(function () {
+            var _self = $(this);
+            var id = _self.attr('id');
+            var label = $('#' + id).text() == "Read More" ? "ReadMore" : "ReadLess";
+            if (!_self.hasClass("img-active")) {
+                _self.addClass('img-active');
+                _self.text("Read Less");
+                _self.parent().siblings().show();
+                VolkswagenVento.leadForm.TrackLinks(id, label);
+            }
+            else {
+                _self.text("Read More");
+                _self.removeClass('img-active');
+                _self.parent().siblings().hide();
+                VolkswagenVento.leadForm.TrackLinks(id, label);
+            }
+        });
+
+        $(".hide-content").addClass("comp-border-right");
+
+        $("#assistant-btn, #assistance-feature-btn, .book-drive, .request-callback-div, .experience-now").click(function () {
+            $('html, body').animate({
+                scrollTop: $(".pq-box").offset().top
+            }, 500);
+        });
+
+        var label = '';
+        $(".click_track").click(function () {
+            label = $(this).attr('data-label');
+            dataLayer.push({
+                event: 'CWInteractive',
+                cat: 'vw_vento',
+                act: 'Button_Clicked_' + label
+            });
+        });
+        $(".click_track_section").click(function () {
+            label = $(this).attr('data-label');
+            var action = $(this).attr('data-action');
+            dataLayer.push({
+                event: 'CWInteractive',
+                cat: 'vw_vento',
+                act: action + '_' + label
+            });
+        });
+        dataLayer.push({
+            event: 'CWNonInteractive',
+            cat: 'vw_vento',
+            act: 'vento_shown'
+        });
+        $(".check-price").on('click', function () {
+            VolkswagenVento.openPqWidget(4732, 975, 128);
+        });
+        $(".ask-expert").addClass("hide");
+    });
+
+    $(window).resize(function () {
+        clearTimeout(resizeId);
+        if ($(window).width() != windowWidth) {
+            windowWidth = $(window).width();
+            resizeId = setTimeout(VolkswagenVento.responsive.registerEvent, 500);
+        }
+    });
+
+    $($(".vento-img-box")[0]).on('load', function () {
+        if ($(document).width() <= 622) {
+            $(".hide-content").removeClass("comp-border-right");
+            $(".content-parent").css({ 'height': 'auto' });
+        } else {
+            $(".hide-content").addClass("comp-border-right");
+            $(".content-parent").css({ 'height': $(".vento-img-box").height() });
+        }
+    })
+
+    $(document).scroll(function () {
+        if (VolkswagenVento.isScrolledIntoView($(".pq-box"))) {
+            dataLayer.push({
+                event: 'CWNonInteractive',
+                cat: 'vw_vento',
+                act: 'PQ_banner_shown'
+            });
+            $(document).unbind('scroll');
+        }
+    });
+
+
+</script>

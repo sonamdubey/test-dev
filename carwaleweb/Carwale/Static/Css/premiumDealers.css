@@ -1,0 +1,435 @@
+﻿@charset "utf-8";
+/****************************************************************************************************/
+/****************************BBT Page css starts here ****************************************************/
+.cw-bbt-sprite {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-bbt-sprite.png?201606131620219302") no-repeat;
+  display: inline-block;
+}
+
+.cw-kms-icon {
+  background-position: 0px -321px;
+  width: 17px;
+  *width: 19px;
+  height: 14px;
+}
+
+.cw-bbt-fb {
+  background-position: 0px 0px;
+  width: 36px;
+  height: 36px;
+}
+
+.cw-bbt-tw {
+  background-position: 0px -46px;
+  width: 36px;
+  height: 36px;
+}
+
+.cw-bbt-yt {
+  background-position: 0px -92px;
+  width: 36px;
+  height: 36px;
+}
+
+.cw-bbt-gp {
+  background-position: 0px -138px;
+  width: 36px;
+  height: 36px;
+}
+
+.cw-bbt-ln {
+  background-position: 0px -209px;
+  width: 36px;
+  height: 36px;
+}
+
+.cw-bbt-ig {
+  background-position: 0px -230px;
+  width: 36px;
+  height: 36px;
+}
+
+.cw-bbt-pi {
+  background-position: 0px -275px;
+  width: 36px;
+  height: 36px;
+}
+
+.cwd-bbt .margin-top30 {
+  margin-top: 30px;
+}
+
+/*BBT left right arrow css starts here */
+.cwd-bbt .arrow-position a.prev, .cwd-bbt .arrow-position a.next {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-sprite_v1.3.png?static1fix") no-repeat;
+  display: block;
+  height: 19px;
+  position: relative;
+  width: 11px !important;
+}
+
+.cwd-bbt .arrow-position a.prev {
+  background-position: -21px -272px;
+  float: left;
+  cursor: pointer;
+}
+
+.cwd-bbt .arrow-position a.prev:hover {
+  background-position: -21px -301px;
+}
+
+.cwd-bbt .arrow-position a.prev.disabled {
+  background-position: -21px -330px !important;
+}
+
+.cwd-bbt .arrow-position a.next {
+  background-position: 0 -272px;
+  float: right;
+  width: 11px !important;
+  cursor: pointer;
+}
+
+.cwd-bbt .arrow-position a.next:hover {
+  background-position: 0 -301px;
+}
+
+.cwd-bbt .arrow-position a.next.disabled, .arrow-position a.next.disabled {
+  background-position: 0 -330px !important;
+}
+
+.cwd-bbt .arrow-position a.prev.disabled, .arrow-position a.next.disabled, .arrow-position a.prev.disabled, .arrow-position a.next.disabled {
+  cursor: default;
+}
+
+.cwd-bbt .arrow-position {
+  margin-right: 10px;
+  margin-top: -37px;
+  width: 30px;
+}
+
+/*Cars in stock carousel css starts here*/
+.cwd-bbt .list_carousel_widget li {
+  width: 230px;
+  background: #f8f8f8;
+  border: 2px solid #f5f5f5;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 2px;
+}
+
+.cwd-bbt .list_carousel_widget li .imgheight {
+  height: 110px;
+  width: 206px;
+  border: 1px solid #e2e2e2;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cwd-bbt .list_carousel_widget li img {
+  height: auto;
+  max-width: 206px;
+}
+
+.cwd-bbt .list_carousel_widget li h3 a {
+  color: #5b5b5b;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/*top carousel css starts here*/
+.cwd-bbt .list_carousel_top {
+  position: relative;
+}
+
+.cwd-bbt .list_carousel_top li img {
+  width: 974px;
+}
+
+.cwd-bbt .list_carousel_top .jcarousel-clip-horizontal, .cwd-bbt .list_carousel_top .jcarousel-clip-vertical {
+  min-height: 456px;
+  line-height: 0px;
+  width: 974px;
+  overflow: hidden;
+}
+
+.cwd-bbt .list_carousel_top .jcarousel-container-horizontal {
+  width: 974px;
+}
+
+.cwd-bbt #prev_next_top.arrow-position {
+  top: 55%;
+  position: absolute;
+  z-index: 2;
+}
+
+.cwd-bbt #prev_next_top.arrow-position .next {
+  right: -940px;
+  cursor: pointer;
+}
+
+.cwd-bbt #prev_next_top.arrow-position .prev {
+  top: 50%;
+  left: 10px;
+  cursor: pointer;
+}
+
+.jcarousel-clip-horizontal, .jcarousel-clip-vertical {
+  height: 240px;
+  overflow: hidden;
+}
+
+/*Tabs css starts here*/
+.cwd-bbt .bordertop {
+  border-top: 4px solid #cccccc;
+}
+
+.cwd-bbt .cw-tabs li .activeli {
+  position: absolute;
+  top: 42px;
+  *top: 35px;
+  left: -25px;
+  display: none;
+  cursor: pointer;
+}
+
+@-moz-document url-prefix() {
+ 
+  .cwd-bbt .cw-tabs li .activeli {
+    top: 43px;
+  }
+}
+
+.cwd-bbt .cw-tabs li.active .activeli {
+  display: block;
+}
+
+.cwd-bbt .cw-tabs li.active .activeli.activeli-1, .cwd-bbt .cw-tabs li:hover .activeli.activeli-1 {
+  left: 0px;
+  *left: 0px;
+}
+
+.cwd-bbt .cw-tabs li.active .activeli.activeli-3, .cwd-bbt .cw-tabs li:hover .activeli.activeli-3 {
+  left: -25px;
+}
+
+.cwd-bbt .cw-tabs li.active .activeli.activeli-1, .cwd-bbt .cw-tabs li:hover .activeli.activeli-1 .active-arrow {
+  text-align: center;
+}
+
+.cwd-bbt .cw-tabs li.active .activeli.activeli-3, .cwd-bbt .cw-tabs li:hover .activeli.activeli-3 .active-arrow {
+  text-align: center;
+}
+
+.cwd-bbt .active-border {
+  border-bottom: 4px solid #c70601;
+  height: 4px;
+  width: 193px;
+}
+
+.cwd-bbt .active-arrow {
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 6px 6.5px 0;
+  margin: 0 auto;
+  border-color: #c70601 transparent transparent transparent;
+}
+
+.cwd-bbt .cw-tabs ul {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+.cwd-bbt .cw-tabs li {
+  display: block;
+  float: left;
+  margin-right: 20px;
+  padding: 10px 55px 10px 25px;
+  font-weight: bold;
+  font-size: 16px;
+  position: relative;
+  cursor: pointer;
+}
+
+.cwd-bbt .border-right {
+  border-right: 1px dotted #ddd;
+  height: 15px;
+  position: absolute;
+  right: 5px;
+  top: 16px;
+}
+
+.cwd-bbt .cw-tabs li:last-child {
+  border-right: 0px;
+}
+
+.cwd-bbt .cw-tabs li.active, .cwd-bbt .cw-tabs li:hover {
+  background: #fff;
+  color: #000;
+}
+
+.cwd-bbt .cw-data {
+  background: #fff;
+  padding: 10px;
+}
+
+/*Tabs1 carousel css starts here*/
+.cwd-bbt .list_carousel_tab1 {
+  position: relative;
+}
+
+.cwd-bbt .cw-data.list_carousel_tab1 {
+  padding: 0px;
+}
+
+.cwd-bbt .list_carousel_tab1 li {
+  width: 920px;
+  padding-top: 15px;
+}
+
+.cwd-bbt .list_carousel_tab1 li img {
+  width: inherit;
+  height: inherit;
+}
+
+.cwd-bbt .list_carousel_tab1 .jcarousel-clip-horizontal, .cwd-bbt .list_carousel_tab1 .jcarousel-clip-vertical {
+  height: 215px;
+  width: 920px;
+  margin: 0 20px;
+  overflow: hidden;
+}
+
+.cwd-bbt .list_carousel_top .jcarousel-container-horizontal {
+  width: 960px;
+}
+
+.cwd-bbt #prev_next_tab1.arrow-position {
+  top: 55%;
+  position: absolute;
+  z-index: 2;
+}
+
+.cwd-bbt #prev_next_tab1.arrow-position .next {
+  right: -930px;
+  cursor: pointer;
+}
+
+.cwd-bbt #prev_next_tab1.arrow-position .prev {
+  top: 50%;
+  left: 0px;
+  cursor: pointer;
+}
+
+/*Tabs2 carousel css starts here*/
+.alignStarsTab {
+  width: 499px;
+}     
+
+/*this aligns the images in the tab with the text*/ 
+.cwd-bbt .list_carousel_tab2 {
+  position: relative;
+}
+
+.cwd-bbt .cw-data.list_carousel_tab2 {
+  padding: 0px;
+}
+
+.cwd-bbt .list_carousel_tab2 li {
+  width: 920px;
+  padding-top: 15px;
+}
+
+.cwd-bbt .list_carousel_tab2 li img {
+  width: inherit;
+  height: inherit;
+}
+
+.cwd-bbt .list_carousel_tab2 .jcarousel-clip-horizontal, .cwd-bbt .list_carousel_tab2 .jcarousel-clip-vertical {
+  height: 215px;
+  width: 920px;
+  margin: 0 20px;
+  overflow: hidden;
+}
+
+.cwd-bbt .list_carousel_top .jcarousel-container-horizontal {
+  width: 960px;
+}
+
+.cwd-bbt #prev_next_tab2.arrow-position {
+  top: 55%;
+  position: absolute;
+  z-index: 2;
+}
+
+.cwd-bbt #prev_next_tab2.arrow-position .next {
+  right: -930px;
+  cursor: pointer;
+}
+
+.cwd-bbt #prev_next_tab2.arrow-position .prev {
+  top: 50%;
+  left: 0px;
+  cursor: pointer;
+}
+
+/*Tabs3 carousel css starts here*/
+.cwd-bbt .list_carousel_tab3 {
+  position: relative;
+}
+
+.cwd-bbt .cw-data.list_carousel_tab3 {
+  padding: 0px;
+}
+
+.cwd-bbt .list_carousel_tab3 li {
+  width: 920px;
+  padding-top: 15px;
+}
+
+.cwd-bbt .list_carousel_tab3 li img {
+  width: inherit;
+  height: inherit;
+}
+
+.cwd-bbt .list_carousel_tab3 .jcarousel-clip-horizontal, .cwd-bbt .list_carousel_tab3 .jcarousel-clip-vertical {
+  height: 215px;
+  width: 920px;
+  margin: 0 20px;
+}
+
+.cwd-bbt .list_carousel_top .jcarousel-container-horizontal {
+  width: 960px;
+}
+
+.cwd-bbt #prev_next_tab3.arrow-position {
+  top: 55%;
+  position: absolute;
+  z-index: 111;
+}
+
+.cwd-bbt #prev_next_tab3.arrow-position .next {
+  right: -930px;
+}
+
+.cwd-bbt #prev_next_tab3.arrow-position .prev {
+  top: 50%;
+  left: 0px;
+}
+
+/*googlemap css starts here*/
+.cwd-googlemap-l {
+  border: 1px solid #e2e2e2;
+  width: 560px;
+  height: 280px;
+  padding: 10px;
+  margin-right: 20px;
+}
+/****************************BBT Page css ends here ************************************************************************/
+/****************************************************************************************************/
+
+

@@ -1,0 +1,55 @@
+﻿@model Carwale.DTOs.NewCars.ModelPageDTO_Mobile
+@using Carwale.Utility;
+<amp-analytics type="googleanalytics">
+    <script type="application/json">
+        {
+        "vars":{
+        "account":"UA-337359-1"
+        },
+        "triggers":{
+        "OpinionImpression":{
+        "on":"visible",
+        "selector":"#verdictAmpModelPage",
+        "request":"event",
+        "vars":{
+        "eventCategory": "${ec}",
+        "eventAction": "${ea}",
+        "eventLabel": "${el}"
+        }
+        }
+        }
+        }
+    </script>
+</amp-analytics>
+@if (Model.Verdict != null && Model.Verdict.PageList.IsNotNullOrEmpty())
+{
+    <div class="@((Model.ProsCons != null && Model.ProsCons.PageList.IsNotNullOrEmpty())?"verdict-container":"verdict-container-margin")">
+        <h3 style="margin-bottom:-27px;" class="verdict-container__title">@Model.ModelDetails.ModelName Verdict</h3>
+        <div style="margin-bottom: 19px;margin-left: 66px;">
+            <amp-img id="verdictAmpModelPage" data-vars-ec="CarWale_Opinion_verdict_amp" data-vars-ea="Impression" data-vars-el="@Model.ModelDetails.ModelName" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" height="1" width="1">
+            </amp-img>
+        </div>
+        <div class="verdict__description">
+            <div class="read-more-collapse-container">
+                <div id="verdictShortReviewText">
+                    @Html.Raw(Model.Verdict.SmallDescription)
+                    @{
+    var showVerdictFullDescription = (Model.Verdict.PageList[0].Content.Replace("<p>", string.Empty).Replace("</p>", string.Empty)).Length > 175;
+                    }
+                    @if (showVerdictFullDescription)
+                    {
+                        <span data-vars-ec="CarWale_Opinion_verdict_amp" data-vars-ea="more_clicked" data-vars-el="@Model.ModelDetails.ModelName" class="verdict-read-more-collapse-link" on="tap: verdictShortReviewText.hide, verdictFullReviewText.show" role="button" tabindex="0">...More</span>
+                    }
+                </div>
+                @if (showVerdictFullDescription)
+                {
+                    <div id="verdictFullReviewText" hidden>
+                        @Html.Raw(Model.Verdict.PageList[0].Content)
+                        <span data-vars-ec="CarWale_Opinion_verdict_amp" data-vars-ea="collapse_clicked" data-vars-el="@Model.ModelDetails.ModelName" class="verdict-read-more-collapse-link" on="tap: verdictShortReviewText.show, verdictFullReviewText.hide" role="button" tabindex="0">Collapse</span>
+                    </div>
+                }
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+}

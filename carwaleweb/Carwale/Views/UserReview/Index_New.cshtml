@@ -1,0 +1,132 @@
+﻿@model Carwale.DTOs.CMS.UserReviews.UserReviewLanding
+@{
+    ViewBag.BodyClass = "header-fixed-inner user-review-body";
+    ViewBag.landingPage = false;
+    ViewBag.Title = @Model.MetaTags.Title;
+    ViewBag.Description = @Model.MetaTags.Description;
+    ViewBag.CustomJS = "~/Views/StaticPartials/UserReviewPageScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/UserReviewPageCss.cshtml";
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+    int countShowTnC = 2;
+}
+@section MetaTags {
+   @Helpers.GetOgTags("https://www.carwale.com/userreviews/", Model.MetaTags.Title, Model.MetaTags.Description, Model.PageDetails.PrimaryBanner)
+   @Helpers.GetTwitterTags("summary", Model.MetaTags.Title, Model.MetaTags.Description, Model.PageDetails.PrimaryBanner)
+}
+<div id="user-review-container">  
+    <div class="clear"></div>
+    <div class="banner-spy-container">
+        <div class="banner-container">
+            <div class="container">
+                <div class="banner-info">
+                    <div class="banner-info__content">
+                        Every week one lucky winner will receive an Amazon Voucher worth &#x20B9; @Carwale.BL.Experiments.ProductExperiments.VoucherPrice(1) <span class="banner__tnc-text">T&amp;C apply</span>  
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="userReviewMenu" class="overall-tabs-container">
+            <div class="overall-tabs-wrapper">
+                <ul class="overall-tabs-wrapper__list container">
+                    <li class="tab-list__item" data-href="overview" data-cwtccat="DesktopReviewsLandingPage" data-cwtcact="SubNavClicked" data-cwtclbl="WriteReview">
+                        <span class="tab-list-item__content">
+                            Write Review
+                        </span>
+                    </li>
+                    <li class="tab-list__item" data-href="how-to-win" data-cwtccat="DesktopReviewsLandingPage" data-cwtcact="SubNavClicked" data-cwtclbl="HowToWin">
+                        <span class="tab-list-item__content">
+                            How To Win
+                        </span>
+                    </li>
+
+                    <li class="tab-list__item" data-href="terms-and-condition" data-cwtccat="DesktopReviewsLandingPage" data-cwtcact="SubNavClicked" data-cwtclbl="TermsAndConditions">
+                        <span class="tab-list-item__content">
+                            Terms and conditions
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="write-review-container grid-12 data-tab" data-id="overview">
+            <div class="write-review-header">
+                <h2 class="write-review__title">Write Review</h2>
+                <p class="write-review__subtitle">@Model.PageDetails.WriteReview.Title</p>
+                <ul class="write-review-steps-list">
+                    <li class="review-steps__list-item">
+                        <span class="review-steps__icon select-car-icon"></span>
+                        <p class="review-step-text">Select the Car</p>
+                    </li>
+                    <li class="review-steps__list-item">
+                        <span class="review-steps__icon ratings-icon"></span>
+                        <p class="review-step-text">Give ratings</p>
+                    </li>
+                    <li class="review-steps__list-item">
+                        <span class="review-steps__icon write-review-icon"></span>
+                        <p class="review-step-text">Write a review</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="write-review-section">
+                <div class="write-review__content">
+                    <div class="write-review__input">
+                        <input id="makeModelSearch" data-cwtccat="DesktopReviewsLandingPage" data-cwtcact="MmvSearchBarClicked" data-cwtclbl="na" type="text" class="form-control"  placeholder="Select your Car to Rate & Write Review" />
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="clear"></div>
+            <div class="write-review-wrapper">
+                <div class="how-to-win-container review-block  data-tab" data-id="how-to-win">
+                    <div class="how-to-win__header"></div>
+                    <div class="content-body">
+                        <h2 class="content__title">@Model.PageDetails.HowToWin.Title</h2>
+                        <ul class="content-list">
+                            @foreach (var desc in Model.PageDetails.HowToWin.Description)
+                            {
+                                <li class="content-list-item">@desc</li>
+                            }
+                        </ul>
+                    </div>
+                </div>     
+            </div>
+        </div>
+
+        <div class="terms-and-conditions-container review-block data-tab" data-id="terms-and-condition">
+            <div class="content-body container">
+                <h2 class="content__title">@Model.PageDetails.TermsAndCondition.Title</h2>
+                <div id="termsAndCondition">
+                    <div class="read-more-collapse-container">
+                        <div class="read-more-collapse-initial-text">
+                            <ul class="content-list">
+                                @for (int i = 0; i < countShowTnC && i < Model.PageDetails.TermsAndCondition.Description.Count; i++)
+                                {
+                                    <li class="content-list-item">@Model.PageDetails.TermsAndCondition.Description[i]</li>
+                                }
+                            </ul>
+                        </div>
+                        <span class="ellipsis-text"></span>
+                        <div class="read-more-collapse-final-text">
+                            <ul class="content-list">
+                                @for (int i = countShowTnC; i < Model.PageDetails.TermsAndCondition.Description.Count; i++)
+                                {
+                                    <li class="content-list-item">@Model.PageDetails.TermsAndCondition.Description[i]</li>
+                                }
+                            </ul>
+                        </div>
+                        <span class="read-more-collapse-link">Read More</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<div class="clear"></div>
+<div class="container margin-top10">
+    @if (Model.Breadcrumbs != null)
+    {
+        Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.Breadcrumbs);
+    }
+</div>

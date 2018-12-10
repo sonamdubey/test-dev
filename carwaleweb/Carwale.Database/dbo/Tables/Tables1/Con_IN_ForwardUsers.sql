@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Con_IN_ForwardUsers] (
+    [ID]         NUMERIC (18)  IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [FromEmail]  VARCHAR (100) NOT NULL,
+    [ToEmail]    VARCHAR (100) NOT NULL,
+    [CreateDate] DATETIME      NOT NULL,
+    CONSTRAINT [PK_Com_IN_ForwardUsers] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

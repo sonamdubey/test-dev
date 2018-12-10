@@ -1,0 +1,365 @@
+.filters__screen {
+	@include vendor-prefix('box-shadow', 0 0 12px 0 color('light-gray'));
+	@include vendor-prefix('transform', translate(0, 110%));
+	@include vendor-prefix('transition', transform .5s ease);
+	height:100%;
+	width: 100%;
+	background: #f9f9f9; // TODO: add in color map
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 5;
+	will-change: transform
+}
+
+// active state
+.screen--translate {
+	&.filters__screen {
+		@include vendor-prefix('transform', translate(0, 0));
+	}
+}
+
+$filter-head-line-height: 44px;
+
+.filters-screen__head {
+	@include flexbox;
+	@include flex-wrap;
+	background: color('white');
+	border-bottom: 1px solid #f2f2f2; // TODO: add in color map
+	cursor: pointer;
+	line-height: $filter-head-line-height;
+}
+
+.filters__content{
+	@include flexbox;
+	@include flex-direction(column);
+	height:100%;
+}
+
+.filters-head__left-content {
+	@include flex-grow(1);
+	padding-left: 20px;
+}
+
+.filters-head__title {
+	font-size: 16px;
+	color: $base-color;
+}
+
+.filters-head__count {
+	font-size: 14px;
+	color: color('dark-gray');
+	margin-left: 5px;
+}
+
+.filter__apply {
+	@include ripple-parent;
+	font-size: 15px;
+	font-weight: $font-bold;
+	color: color('summer-sky');
+	padding-right: 20px;
+	padding-left: 20px;
+	cursor: pointer;
+}
+
+.accordion__list {
+	padding: 20px;
+	overflow-y: auto;
+	@include flex-grow;
+}
+
+.accordion-list__item {
+	margin-bottom: 10px;
+	background: color('white');
+	border: 1px solid color('white-smoke');
+	@include vendor-prefix('border-radius', 2px);
+	cursor: pointer;
+}
+
+/* accordion head */
+.accordion__head {
+	@include ripple-parent;
+	padding: 12px 15px;
+}
+
+.accordion-head__content {
+	position: relative;
+
+	&:after {
+		@include arrow-down-icon;
+		@include vendor-prefix('transition', all .2s ease);
+		@include opacity(.5);
+		content: '';
+		width: 14px;
+		height: 8px;
+		display: block;
+		position: absolute;
+		top: 39%;
+		right: 0;
+		will-change: transform;
+	}
+}
+
+.accordion-head__title {
+	font-size: 16px;
+	color: $base-color;
+}
+
+.accordion-head__preview {
+	@include text-truncate('85%');
+	margin-top: 7px;
+	font-size: 13px;
+	color: color('shamrock-green');
+}
+
+/* accordion body */
+.accordion__body {
+	height: 0;
+	overflow: hidden;
+}
+
+/* accordion active state */
+.accordion-item--active {
+	.accordion-head__content {
+		&:after {
+			@include vendor-prefix('transform', rotate(180deg));
+		}
+	}
+
+	.accordion-head__preview {
+		display: none;
+	}
+}
+
+.filter__blackout-window {
+	@include blackout-window;
+
+	&.screen--active {
+		opacity: 1;
+		pointer-events: auto;
+	}
+}
+
+// budget
+.filter-budget-rheostat {
+	margin: 0 30px;
+	padding-top: 40px;
+	padding-bottom: 35px;
+
+	.rheostat-background {
+		margin-bottom: 18px;
+	}
+
+	.pit-item {
+		font-size: 11px;
+		color: color("dark-gray");
+
+		&:last-child {
+			left: auto !important;
+			right: 0;
+		}
+	}
+
+	&.rheostat-horizontal {
+		.rheostat-handle {
+			top: 28px;
+			margin-left: -16px;
+		}
+
+		.rheostat-progress {
+			top: 42px;
+		}
+	}
+
+	.rheostat-handle[style*="left: 0%"] {
+		.rheostat-handle-tooltip {
+			left: -10px;
+		}
+	}
+
+	.pit-item[style*="left: 0%"] {
+		left: -6% !important;
+	}
+
+	.pit-item[style*="left: 100%"] {
+		right: -5% !important;
+	}
+}
+
+// body type & transmission type
+.filter-transmission-type__list,
+.filter-body-type__list,
+.filter-seats__list {
+	@include flexbox;
+	@include flex-wrap(wrap);
+	@include justify-content(center);
+	padding-bottom: 5px;
+}
+.filter-transmission-type__item,
+.filter-body-type__item {
+	@include ripple-parent;
+	width: 95px;
+	min-height: 65px;
+	margin: 5px;
+	padding: 5px;
+	text-align: center;
+
+	.item__heading {
+		font-size: 11px;
+		font-weight: $font-bold;
+		color: color('dark-gray');
+		line-height: 13px;
+		user-select: none;
+	}
+
+	&.active {
+		.item__heading {
+			color: color("shamrock-green");
+		}
+
+		.item__icon {
+			@include opacity(1);
+		}
+	}
+
+	img[src*="hatchback"] {
+		width: 60px;
+		right: 0;
+		margin: 0 auto;
+	}
+}
+
+.filter-seats__item{
+	@include ripple-parent;
+	width: 40px;
+	min-height: 30px;
+	margin: 5px;
+	padding: 6px;
+	text-align: center;
+	border: solid 1px color('dark-gray');
+	border-radius: 5px;
+
+	.item__heading {
+		font-size: 11px;
+		font-weight: $font-bold;
+		color: color('dark-gray');
+		line-height: 13px;
+		user-select: none;
+	}
+
+	&.active {
+		border: solid 1px color("shamrock-green");
+		.item__heading {
+			color: color("shamrock-green");
+		}
+
+		.item__icon {
+			@include opacity(1);
+		}
+	}
+}
+.filter-body-type__item {
+	.item__icon-content {
+		width: 73px;
+		height: 38px;
+		position: relative;
+		margin: 0 auto 7px;
+	}
+
+	.item__icon {
+		@include opacity(.54);
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+}
+.filter-transmission-type__item  {
+	.item__icon-content {
+		width: 73px;
+		height: 38px;
+		position: relative;
+		margin: 0 auto 7px;
+		text-align: center;
+	}
+	.item__icon {
+		@include opacity(.54);
+		bottom: 0;
+		left: 0;
+		height: 100%;
+		position: static;
+	}
+}
+
+// fuel type 
+.filter-fuel-type__list {
+	@include flexbox;
+	@include flex-wrap(wrap);
+	@include justify-content(center);
+	padding-bottom: 20px;
+}
+
+.filter-fuel-type__item {
+	@include ripple-parent();
+	width: 68px;
+	margin: 5px;
+	padding: 5px;
+	text-align: center;
+
+	.item__icon-content {
+		@include fuel-type-icon-container(50);
+		position: relative;
+		margin: 0 auto 8px;
+	}
+
+	.item__icon {
+		position: absolute;
+		bottom: 5px;
+		left: 0;
+		z-index: 1;
+	}
+
+	.item__heading {
+		position: relative;
+		font-size: 11px;
+		font-weight: $font-bold;
+		line-height: 13px;
+		color: color('dark-gray');
+		user-select: none;
+	}
+
+	&.active {
+		.item__heading {
+			color: color("shamrock-green");
+		}
+
+		.item__icon-content {
+			@include fuel-type-icon-container-active();
+		}
+	}
+
+	&.disable {
+		@include opacity(.5);
+
+		.item__heading {
+			@include opacity(.4);
+		}
+
+		.item__icon {
+			@include opacity(.2);
+		}
+	}
+}
+
+.apply-filters{
+    padding: 10px;
+	z-index: 10;
+	background-color: color('white')
+}
+
+.btn-full-width {
+    display: block;
+    width: 100%;
+}
+
+@include btn('primary')

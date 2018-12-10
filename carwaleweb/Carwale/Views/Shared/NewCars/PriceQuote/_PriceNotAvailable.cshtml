@@ -1,0 +1,51 @@
+﻿@model Carwale.DTOs.PriceQuote.NearByCityDetailsDto
+@using Carwale.Entity.Enum;
+
+@{ string cardNo = Model.CardNo > 0 ? "card" + Model.CardNo : ""; }
+
+<section class="pq-card price-breakup-section margin-top20">
+    <div class="visible-pacakage price-not-available @(Model.Cities.Count == 0 ? "no-city-available" : "")">
+        <ul class="other-oem-packages-title">
+            <li class="other-oem-packages__li-title">
+                <div class="margin-bottom20">
+                    <span class="other-oem-packages__description">Sorry, Price not available</span>
+                    <span class="other-oem-packages__description-info">Try following one of the action.</span>
+                </div>
+                @if (Model.Cities.Count > 0)
+                {
+                    <div class="other-oem-packages__price-not-available">
+                        <span class="price-not-available__title">See price in nearby cities</span>
+                        <div class="price-not-available__container">
+                            <ul class="price-not-available__wrapper">
+                                @for (int city = 0; city < Model.Cities.Count; city++)
+                                {
+                                    <li>
+                                        <a class="btn-pill-body-type active near-by-city"
+                                           data-attr-versionid="@Model.VersionId" data-attr-cityid="@Model.Cities[city].Id" data-attr-cityname="@Model.Cities[city].Name"
+                                           data-attr-iscrosssellpricequote='@(Model.IsCrossSellPriceQuote ? "true" : "false")'
+                                           data-attr-pageid=@((int)SponsoredCarPageId.PQNearByCity) data-attr-cardno='@(cardNo)' data-attr-hidecampaign="true">@Model.Cities[city].Name</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </li>
+        </ul>
+
+        <div class="other-oem-packages__other-options">
+            @if (Model.CardNo == 0)
+            {
+                <span class="other-options__by-version no-link">Change Version</span>
+                <span class="other-options__by-city pq-city-change no-link">Change City</span>
+            }
+            else
+            {
+                <a title="" class="other-options__by-version" hidecampaign="true" pageid=@((int)SponsoredCarPageId.PriceNotAvailableVersionChange)>Change Version</a>
+                <a title="" class="other-options__by-city pq-city-change" data-attr-versionid="@Model.VersionId" data-attr-cityid="@Model.Location.CityId" data-attr-cityname="@Model.Location.CityName"
+                   data-attr-areaid="@Model.Location.AreaId" data-attr-iscrosssellpricequote='@(Model.IsCrossSellPriceQuote ? "true" : "false")'
+                   data-attr-pageid=@((int)SponsoredCarPageId.PriceNotAvailableCityChange) data-attr-cardno='@(cardNo)' data-attr-hidecampaign="true">Change City</a>
+            }
+        </div>
+    </div>
+</section>

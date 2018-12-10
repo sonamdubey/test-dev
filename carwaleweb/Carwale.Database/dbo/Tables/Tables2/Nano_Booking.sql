@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[Nano_Booking] (
+    [Id]                NUMERIC (18)  IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [CustomerId]        NUMERIC (18)  NOT NULL,
+    [Name]              VARCHAR (100) NOT NULL,
+    [Email]             VARCHAR (50)  NOT NULL,
+    [MobileNo]          VARCHAR (50)  NOT NULL,
+    [LandlineNo]        VARCHAR (50)  NOT NULL,
+    [CityId]            NUMERIC (18)  NULL,
+    [Address]           VARCHAR (500) NULL,
+    [VersionId]         NUMERIC (18)  NULL,
+    [BookingAmount]     NUMERIC (18)  NULL,
+    [StampDuty]         NUMERIC (18)  NULL,
+    [PaymentMode]       SMALLINT      NOT NULL,
+    [Paid]              BIT           CONSTRAINT [DF_Nano_Booking_Paid] DEFAULT ((0)) NOT NULL,
+    [RequestDateTime]   DATETIME      NOT NULL,
+    [PaymentDateTime]   DATETIME      NULL,
+    [IsPickupRequested] BIT           NULL,
+    [Comments]          VARCHAR (500) NULL,
+    [InvNo]             VARCHAR (50)  NULL,
+    [SourceId]          SMALLINT      CONSTRAINT [DF_Nano_Booking_SourceId] DEFAULT ((1)) NOT NULL,
+    [IsRefunded]        BIT           NULL,
+    [RefundComment]     VARCHAR (500) NULL,
+    CONSTRAINT [PK_Nano_Booking] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

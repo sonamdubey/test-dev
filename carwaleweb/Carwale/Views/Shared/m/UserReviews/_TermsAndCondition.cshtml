@@ -1,0 +1,25 @@
+﻿@model Carwale.Entity.UserReview.SectionDetails
+<div class="terms-and-conditions-container review-block data-tab" data-id="terms-and-condition">
+    <div class="content-body">
+        <h2 class="content__title">@Model.Title</h2>
+        <ul class="content-list">
+            @for (int i = 0; i < 4 && i < Model.Description.Count; i++)
+            {
+                <li class="content-list-item">@Model.Description[i]</li>
+            }
+        </ul>
+        <span id="termAndCondition" class="content__read-more" data-hash="#termandcondition" data-cwtccat="MobileReviewsLandingPage" data-cwtcact="TAndCReadMore" data-cwtclbl="na">Read More</span>
+    </div>
+    <div class="popupContainer terms-and-conditions-popup js-terms-and-conditions-popup">
+        <div class="popup__header">@Model.Title<span class="popup__back" data-cwtccat="MobileReviewsLandingPage" data-cwtcact="TAndCBackClicked" data-cwtclbl="na"></span></div>
+        <div class="popup__body">
+            <ul class="content-list">
+                @foreach (var desc in Model.Description)
+                {
+                    <li class="content-list-item">@desc</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+

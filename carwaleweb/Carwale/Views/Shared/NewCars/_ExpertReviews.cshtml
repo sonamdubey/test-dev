@@ -1,0 +1,42 @@
+﻿@model Carwale.DTOs.WidgetDTOs.ArticlesWidget
+@using Carwale.Utility;
+		<section id="expertreviews" class="margin-top10">
+            <h2 class="margin-top15 font20 special-skin-text">@Model.Heading</h2>
+			<div class="content-box-shadow content-inner-block-10 margin-top10">
+				<div class="margin-bottom20">
+                    @if (Model.Articles.Count > 0) { 
+					
+						foreach (var artical in Model.Articles)
+						{
+                            if (artical != null)
+                            {
+                                <article class="list-seperator">
+                                    <h3><a title="Review of @(!string.IsNullOrWhiteSpace(ViewBag.ModelName)?ViewBag.ModelName:ViewBag.MakeName)-@artical.Title" class="font20 margin-top10" href="@artical.ArticleUrl">@Html.Raw(artical.Title.ToString())</a></h3>
+                                    <div class="grid-4 alpha">
+                                        <a href="@artical.ArticleUrl">
+                                            <img class="lazy" width="199" height="112"
+                                                 alt="@artical.Title.ToString()"
+                                                 title="@artical.Title.ToString()"
+                                                 src="https://imgd.aeplcdn.com/0x0/statics/grey.gif"
+                                                 data-original='@ImageSizes.CreateImageUrl(artical.HostUrl.ToString(),ImageSizes._199X112,artical.OriginalImgUrl.ToString())' />
+                                        </a>
+                                    </div>
+                                    <div class="grid-8 omega">
+                                        <p class="margin-top10">@Html.Raw(Format.LimitText(artical.Description.ToString(), 180))</p>
+                                    </div>
+                                    <footer class="leftfloat margin-top10 margin-left10">
+                                        <p>@Html.Raw((!string.IsNullOrWhiteSpace(artical.DisplayDate.ToLongDateString()) ? Convert.ToDateTime(artical.DisplayDate.ToLongDateString()).ToString("dd MMM yyyy") : string.Empty)) by @Html.Raw(artical.AuthorName.ToString()) | <span class="text-link" onclick="window.location = '@(artical.ArticleUrl)';">Read more</span></p>
+                                    </footer>
+                                    <div class="clear"></div>
+                                </article>
+                            }
+						}
+						<div class="text-center">
+							<a class="margin-left50" href="@Model.LandingUrl">All @Model.Heading</a>
+						</div>
+                    } else {
+						@Html.Raw("CarWale hasn’t road tested any " + ViewBag.ModelName + " car yet")
+					}
+				</div>
+			</div>           
+		</section>

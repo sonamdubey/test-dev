@@ -1,0 +1,16 @@
+@mixin text-truncate($width: '') {
+	@if $width != '' {
+		width: #{$width};
+	}
+
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+@mixin text--italic {
+	.text--italic {
+		font-style: italic;
+	}
+}

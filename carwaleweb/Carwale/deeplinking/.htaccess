@@ -1,0 +1,59 @@
+# Helicon ISAPI_Rewrite configuration file
+# Version 3.1.0.112
+
+RewriteEngine On
+
+RewriteMap map_tipsadvicescategories txt:../urlmappings/map_tipsadvicescategories.txt
+RewriteMap map_makes txt:../urlmappings/map_makes.txt
+RewriteMap map_image_category txt:../urlmappings/map_image_category.txt
+RewriteMap map_cities txt:../urlmappings/map_cities.txt
+RewriteMap lowercase int:tolower
+
+
+#-----------------------------DEEPLINKING RULES-----------------------------------------------
+RewriteRule ^([a-zA-Z_-]+)-cars/swift-dzire/								/api/v2/deeplinking/?screenid=1&model=dzire	[NC,L]
+RewriteRule ^new/prices.aspx												/api/v2/deeplinking/?screenid=17	[NC,L]
+RewriteRule ^new/locatenewcardealers.aspx									/api/v2/deeplinking/?screenid=22	[NC,L]
+RewriteRule ^research/pricequote.aspx										/api/v2/deeplinking/?screenid=17	[NC,L]
+RewriteRule ^research/locatedealerpopup.aspx								/api/v2/deeplinking/?screenid=22	[NC,L]
+RewriteRule ^new/(.*)-dealers/(.*)-(.*)/(.*)/$								/api/v2/deeplinking/?screenid=25&makeId=${map_makes:${lowercase:$1}}	[NC,L]
+RewriteRule ^userreviews/$													/api/v2/deeplinking/?screenid=10	[NC,L]
+RewriteRule ^research/userreviews/reviewdetails.aspx						/api/v2/deeplinking/?screenid=11	[NC,L,QSA]
+RewriteRule ^new/$															/api/v2/deeplinking/?screenid=18	[NC,L]
+RewriteRule ^upcoming-cars/page/(.*)/$										/api/v2/deeplinking/?screenid=14 [NC,L]
+RewriteRule ^upcoming-cars/$												/api/v2/deeplinking/?screenid=14 [NC,L]
+RewriteRule ^(.*)-dealer-showrooms/(.*)-(.*)/$								/api/v2/deeplinking/?screenid=24&makeId=${map_makes:${lowercase:$1}}&city=${lowercase:$2}	[NC,L]
+RewriteRule ^new/(.*)-dealers/$												/api/v2/deeplinking/?screenid=23&makeId=${map_makes:${lowercase:$1}}	[NC,L]
+RewriteRule ^features/(.*)-([\d]+)/$										/api/v2/deeplinking/?screenid=4&basicId=$2 [NC,L] 
+RewriteRule ^news/(.*)-([\d]+)/$											/api/v2/deeplinking/?screenid=4&basicId=$2 [NC,L]
+RewriteRule ^(.*)-cars/news/$												/api/v2/deeplinking/?screenid=12&categoryId=1&makeId=${map_makes:${lowercase:$1}}&make=$1	[NC,L]
+RewriteRule ^([a-zA-Z_-]+)-cars/upcoming/$									/api/v2/deeplinking/?screenid=14&makeId=${map_makes:${lowercase:$1}} [NC,L] 
+RewriteRule ^([a-zA-Z_-]+)-cars/expert-reviews/$							/api/v2/deeplinking/?screenid=4&makeId=${map_makes:${lowercase:$1}}&make=$1&categoryId=2 [NC,L]
+RewriteRule ^([a-zA-Z_-]+)-cars/(.*)/expert-reviews/$						/api/v2/deeplinking/?screenid=4&model=$2&categoryId=2 [NC,L]
+RewriteRule ^([a-zA-Z_-]+)-cars/features/$									/api/v2/deeplinking/?screenid=4&makeId=${map_makes:${lowercase:$1}}&make=$1&categoryId=6  [NC,L]
+RewriteRule ^([a-zA-Z_-]+)-cars/(.*)/features/$								/api/v2/deeplinking/?screenid=4&model=$2&categoryId=6 [NC,L]
+RewriteRule ^([a-zA-Z_-]+)-cars/(.*)/userreviews/$							/api/v2/deeplinking/?screenid=10&makeId=${map_makes:${lowercase:$1}}&model=$2 [NC,L] 
+RewriteRule ^([a-zA-Z_-]+)-cars/(.*)/price-in-(.*)/(.*)-([0-9]+)/$			/api/v2/deeplinking/?screenid=3&city=${lowercase:$3}&versionId=$5	[NC,L]
+RewriteRule ^([a-zA-Z_-]+)-cars/(.*)/price-in-(.*)/$						/api/v2/deeplinking/?screenid=1&model=$2&city=${lowercase:$3}	[NC,L]
+RewriteRule ^([a-zA-Z_-]+)-cars/(.*)/advantage/$							/api/v2/deeplinking/?screenid=19&model=$2	[NC,L,QSA]
+RewriteRule ^([a-zA-Z_-]+)-cars/(.*)/news/$									/api/v2/deeplinking/?screenid=12&categoryId=1&makeId=${map_makes:${lowercase:$1}}&make=$1&model=$2	[NC,L]
+RewriteRule ^([a-zA-Z_-]+)-cars/(.*)/(.*)-([\d]+)/$							/api/v2/deeplinking/?screenid=3&versionId=$4	[NC,L]
+RewriteRule ^([a-zA-Z_-]+)-cars/(.*)/$										/api/v2/deeplinking/?screenid=1&model=$2	[NC,L]
+RewriteRule ^([a-zA-Z_-]+)-cars/$											/api/v2/deeplinking/?screenid=2&makeId=${map_makes:${lowercase:$1}}	[NC,L]
+RewriteRule ^advantage/$																		/api/v2/deeplinking/?screenid=20	[NC,L,QSA]
+RewriteRule ^comparecars/(.*)-(.*)-vs-(.*)-(.*)-vs-(.*)-(.*)-vs-(.*)-(.*)/$						/api/v2/deeplinking/?screenid=9&model1=$2&model2=$4&model3=$6&model4=$8	[NC,L,QSA]
+RewriteRule ^comparecars/(.*)-(.*)-vs-(.*)-(.*)-vs-(.*)-(.*)/$									/api/v2/deeplinking/?screenid=9&model1=$2&model2=$4&model3=$6	[NC,L,QSA]
+RewriteRule ^comparecars/(.*)-(.*)-vs-(.*)-(.*)/$							/api/v2/deeplinking/?screenid=9&model1=$2&model2=$4	[NC,L,QSA]
+RewriteRule ^comparecars/$													/api/v2/deeplinking/?screenid=9	[NC,L]
+RewriteRule ^used/cars-in-(.*)/(.*)-(.*)-(.*)/$								/api/v2/deeplinking/?screenid=7&profileId=$4	[NC,L]
+RewriteRule ^used/cars-in-(.*)/$											/api/v2/deeplinking/?screenid=6&cityId=${lowercase:$1}	[NC,L]
+RewriteRule ^used/$															/api/v2/deeplinking/?screenid=6	[NC,L]
+RewriteRule ^insurance/$													/api/v2/deeplinking/?screenid=21	[NC,L]
+RewriteRule ^news/$															/api/v2/deeplinking/?screenid=12&categoryId=1	[NC,L]
+RewriteRule ^expert-reviews/$												/api/v2/deeplinking/?screenid=12&categoryId=2	[NC,L]
+RewriteRule ^features/$														/api/v2/deeplinking/?screenid=12&categoryId=6	[NC,L]
+RewriteRule ^expert-reviews/(.*)-([0-9]+)/$									/api/v2/deeplinking/?screenid=4&basicId=$2 [NC,L]
+RewriteRule ^([a-zA-Z_-]+)-cars/(.*)/expert-reviews-(.*)/$					/api/v2/deeplinking/?screenid=4&basicId=$3 [NC,L]
+RewriteRule ^(.+)															/api/v2/deeplinking/?screenid=-1 [NC,L]
+RewriteRule ^(.*)															/api/v2/deeplinking/?screenid=0 [NC,L]
+

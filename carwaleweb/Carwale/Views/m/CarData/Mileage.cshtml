@@ -1,0 +1,99 @@
+﻿@model Carwale.DTOs.NewCars.MileagePageDTO
+@using Carwale.Entity.Enum;
+@using Carwale.UI.HtmlHelpers;
+@using Carwale.BL.Experiments;
+@{  
+	Uri url = new Uri("https://www.carwale.com"+ Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+	string urlWithoutQS = url.GetLeftPart(UriPartial.Path);
+	ViewBag.modelName = Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName;
+	ViewBag.PageId = 202;
+	ViewBag.PageName = "MileagePage";
+	ViewBag.Title = Model.PageMetaTags.Title;
+	ViewBag.Description = Model.PageMetaTags.Description;
+	ViewBag.Canonical = Model.PageMetaTags.Canonical;
+	ViewBag.adPath = System.Configuration.ConfigurationManager.AppSettings["adPathMobile"];
+	ViewBag.CallSlugDisplay = true;
+	ViewBag.Keywords = null;
+	ViewBag.CustomCss = "~/Views/StaticPartials/m/MMileagePageCss.cshtml";
+	ViewBag.DeeplinkAlternativesAndroid = url.AbsolutePath;
+	ViewBag.DeeplinkAlternatives = url.AbsolutePath;
+	ViewBag.CustomJs = "~/Views/StaticPartials/m/MMileagePageScript.cshtml";
+	ViewBag.TrackingText = "MileagePage";
+	ViewBag.DefineAdSlots =
+@"<script type='text/javascript'>
+			var AdSlots = {};
+			googletag.cmd.push(function () {
+			googletag.pubads().disableInitialLoad();
+			googletag.pubads().setCentering(true);
+			AdSlots['div-gpt-ad-1419227721763-0'] = googletag.defineSlot('/1017752/" + ViewBag.adPath + @"CarWale_Mobile_ROS_320x50', [[320, 50], [320, 100]], 'div-gpt-ad-1419227721763-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+			 //Ad for quatation page bottom Ad
+			AdSlots['div-gpt-ad-1435297201507-0'] = googletag.defineSlot('/1017752/" + ViewBag.adPath + @"CarWale_Mobile_ROS_300x250', [[300, 250], [300, 350]], 'div-gpt-ad-1435297201507-0').addService(googletag.pubads());
+			googletag.pubads().setTargeting('Models', '" + Model.ModelDetails.ModelName + @"');
+			googletag.pubads().setTargeting('Section', '');
+			googletag.pubads().setTargeting('ShowBreadcrubsAd', '" + (Request.Cookies["_abtest"] != null && Convert.ToInt16(Request.Cookies["_abtest"].Value) > 50) + @"');
+			googletag.pubads().setTargeting('City', '" + MobileWeb.Common.CookiesCustomers.MasterCity + @"');
+			googletag.pubads().collapseEmptyDivs(true);
+			googletag.pubads().enableSingleRequest();
+			googletag.enableServices();
+			});
+		</script>";
+	Layout = "~/views/shared/m/_MLayoutV2.cshtml";
+}
+@section Plugins{
+	<script type="text/javascript" src="/static/m/js/plugins/swiper.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/plugins/beauty-tooltips.js" defer></script>
+}
+@section MetaTags {
+        @{string imagePath = Carwale.Utility.ImageSizes.CreateImageUrl(Model.ModelDetails.HostUrl, Carwale.Utility.ImageSizes._1280x720, Model.ModelDetails.OriginalImage);
+        @Helpers.GetOgTags(Model.PageMetaTags.Canonical, ViewBag.Title, Model.PageMetaTags.Description, imagePath);
+        @Helpers.GetTwitterTags("summary", ViewBag.Title, Model.PageMetaTags.Description, imagePath);
+        }
+}
+@if (Model.ModelDetails.New && !Model.ModelDetails.Futuristic && Model.Schema != null)
+{
+	@section CarSchema{
+		<script type="application/ld+json">
+			@Html.Raw(Model.Schema)
+		</script>
+	}
+}
+@if (Model.ModelDetails != null)
+{
+    Html.RenderAction("ModelMenu", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, tab = ModelMenuEnum.MileagePage, modelDetails = Model.ModelDetails});
+}
+<section>
+    <div id='divAdBar'>@Helpers.GetAdBar("1419227721763", 320, 0, 20, 10, true)</div>		
+	<div class="grid-12 grid--no-padding clearfix">
+			<h1 class="margin-bottom10 margin-left10">@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName Mileage</h1>
+            @if (Model.PageMetaTags?.Summary != null)
+            {
+                <p class="font11 margin-bottom10 margin-left10">@(Model.PageMetaTags.Summary)</p>
+            }
+        @if (Model.ModelDetails != null) { Html.RenderAction("MileageComponent", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, data = Model.MileageData, isOverView = true, modelName = ViewBag.modelName , isMileagePage = true}); }
+		@{ Html.RenderAction("FullReviews", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, modelName = Model.ModelDetails.ModelName, futuristic = Model.ModelDetails.Futuristic });}
+        @if (Model.SimilarCars != null && (Model.SimilarCars.SimilarCarModels.Count > 0 || Model.SimilarCars.SimilarUpcomingCar.ExpectedLaunchId > 0))
+        {
+            <section>
+                @{ Html.RenderPartial("m/cardata/_AlternateCars", Model.SimilarCars); }
+            </section>
+        }
+	</div>
+		
+	<div id="blackOut-window" class="blackOut-window black-window hide"></div>
+	<div class="clear"></div>
+	<div class="banner-div">
+		<div id="divBottomAdBar" class="ad-div">
+			<div id='div-gpt-ad-1435297201507-0' style='min-height:250px; width:300px;' class="text-center margin-bottom20">
+				<script type='text/javascript'>
+					googletag.cmd.push(function () { googletag.display('div-gpt-ad-1435297201507-0'); });
+				</script>
+			</div>
+		</div>
+	</div>
+	<div class="margin-top5 margin-bottom10 margin-left10">
+		@if (Model.BreadcrumbEntitylist != null)
+		{
+			Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist);
+		}
+	</div>
+</section>

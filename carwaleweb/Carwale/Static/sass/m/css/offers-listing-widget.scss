@@ -1,0 +1,42 @@
+﻿@import "../../mixins/_vendor-utils.scss";
+@import "../../mixins/_variables.scss";
+@import "../../mixins/_sprites.scss";
+
+.available-offers {
+	padding-top: 10px;
+	border-top: 1px solid map-get($color-map, "smoke-white");
+	position: absolute;
+	margin-top: 10px;
+	width: 87%;
+	bottom: 13px
+}
+.available-offers__link {
+	display: block;
+}
+.available-offers__text {
+	color: map-get($color-map, "dim-grey");
+	padding-top: 4px;
+	padding-left: 5px;
+}
+.available-offers__logo {
+	width: 20px;
+	height: 20px;
+}
+.available-offers__arrow {
+	@include get-vendor-prefixed(transform, rotate(-90deg));
+	@include down-arrow;
+	position: absolute;
+	right: -3px;
+    top: 14px;
+    width: 14px;
+    height: 14px;
+    background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.available-offers__arrow,
+.available-offers__logo,
+.available-offers__text {
+	display: inline-block;
+	vertical-align: middle;
+}

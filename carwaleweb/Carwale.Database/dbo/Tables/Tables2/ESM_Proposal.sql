@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[ESM_Proposal] (
+    [id]                     NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [Title]                  VARCHAR (50) NOT NULL,
+    [ClientId]               NUMERIC (18) NOT NULL,
+    [BrandId]                NUMERIC (18) NOT NULL,
+    [OrgId]                  NUMERIC (18) NULL,
+    [ESMUserId]              NUMERIC (18) NOT NULL,
+    [Probability]            NUMERIC (18) NULL,
+    [ExpectedClosingDate]    DATETIME     NULL,
+    [Remark]                 VARCHAR (50) NOT NULL,
+    [CreatedOn]              DATETIME     NOT NULL,
+    [LastUpdatedOn]          DATETIME     NULL,
+    [UpdatedBy]              NUMERIC (18) NOT NULL,
+    [LastProbabilityUpdated] NUMERIC (18) NULL,
+    [CampaignType]           INT          NULL,
+    [ProposedAmount]         NUMERIC (18) NULL,
+    [ProductTypeId]          NUMERIC (18) NULL,
+    [Property]               INT          NULL,
+    [IsApp]                  INT          NULL,
+    [IsDesktop]              INT          NULL,
+    [IsMobile]               INT          NULL,
+    [IsDeleted]              BIT          NULL,
+    CONSTRAINT [PK_ESM_Proposal] PRIMARY KEY CLUSTERED ([id] ASC) WITH (FILLFACTOR = 90)
+);
+

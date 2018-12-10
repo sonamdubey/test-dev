@@ -1,0 +1,8 @@
+﻿@model List<Carwale.Entity.Geolocation.Cities>
+@if (Model != null)
+{
+    foreach (var city in Model)
+    {
+        <li cityid="@city.CityId">@city.CityName</li>
+    }
+}

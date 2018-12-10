@@ -1,0 +1,47 @@
+﻿@model List<Carwale.Entity.Classified.StockSummary>
+@using Carwale.UI.Common;
+
+@if ( Model.Count > 0)
+{
+    <section id="divUsedCarSuggestion">
+        <h2 class="margin-top10">Recent used @ViewBag.ModelName listings</h2>
+        <div class="content-box-shadow content-inner-block-10 margin-top15">
+            @foreach (var recentused in Model)
+            {
+                <div style="border-bottom: 1px dashed #EBEBEB; padding: 10px 0; width:270px; float:left;">
+                    <span>
+                        <a class="font14" href="/used/cars-in-@(recentused.CityName != null ? UrlRewrite.FormatSpecial(recentused.CityName) : null)/@UrlRewrite.FormatSpecial(recentused.MakeName)-@recentused.MaskingName-@recentused.ProfileId/">
+                            @recentused.MakeYear,@(recentused.MakeName + " " + recentused.ModelName + " " + recentused.VersionName)
+                        </a>
+                        <br />
+                    </span>
+                    <span class="text-grey">At ₹ @recentused.Price, @recentused.Km kms, in @recentused.CityName</span>
+                </div>
+            }
+            <div class="clear"></div>
+            <div class="margin-top10">
+                <span class="inline-block margin-right10">More used cars in</span>
+                <div class="form-control-box inline-block" style="width:200px;">
+                    <span class="select-box fa fa-angle-down"></span>
+                    <select class="form-control" id="ucsUsedCarSuggestion_ddlUsedCarLocations" name="ucsUsedCarSuggestion$ddlUsedCarLocations" onchange="UsedCityChange()">
+                        <option value="0">--Select City--</option>
+                        <option value="-1">------------</option>
+                        <option value="10">New Delhi</option>
+                        <option value="1">Mumbai</option>
+                        <option value="2">Bangalore</option>
+                        <option value="176">Chennai</option>
+                        <option value="105">Hyderabad</option>
+                        <option value="12">Pune</option>
+                        <option value="128">Ahmedabad</option>
+                        <option value="198">Kolkata</option>
+                        <option value="244">Chandigarh</option>
+                        <option value="9">Cochin</option>
+                        <option value="-2">Others</option>
+                    </select>                 
+                </div>
+                <a onclick="javascript:goUsedSearch()" class="btn btn-orange text-uppercase margin-left5">Go</a>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </section>
+}

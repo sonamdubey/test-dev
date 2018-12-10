@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[CRM_DALostBrand] (
+    [CDAId]     NUMERIC (18) NOT NULL,
+    [VersionId] NUMERIC (18) NOT NULL,
+    [UpdatedOn] DATETIME     CONSTRAINT [DF_CRM_DALostBrand_UpdatedOn] DEFAULT (getdate()) NOT NULL,
+    [UpdatedBy] NUMERIC (18) NOT NULL,
+    CONSTRAINT [PK_CRM_DALostBrand] PRIMARY KEY CLUSTERED ([CDAId] ASC) WITH (FILLFACTOR = 90)
+);
+

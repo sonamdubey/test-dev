@@ -1,0 +1,14 @@
+﻿
+@mixin font-size($size){
+    font-size: $size*1px;
+}
+
+@mixin font-weight($wt){
+    font-weight: $wt;
+}
+
+@mixin font-size-class($size){
+    .font#{$size}{
+        @include font-size($size);
+    }
+}

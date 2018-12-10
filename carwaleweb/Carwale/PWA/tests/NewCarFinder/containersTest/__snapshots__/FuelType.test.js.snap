@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for FuelType container component when data is available should match snapshot 1`] = `
+<div
+  className="fuel-type-screen"
+>
+  <div
+    className="screen__head"
+  >
+    <p
+      className="screen-head__title"
+    >
+      Select your preferred fuel type
+    </p>
+  </div>
+  <div
+    className="screen__body"
+  >
+    <ul
+      className="fuel-type__list"
+    >
+      <li
+        className="fuel-type-list__item "
+        key="1"
+        onClick={[Function]}
+      >
+        <ListItem
+          item={
+            Object {
+              "carCount": 12,
+              "description": "Indian auto industry offers several car models powered by engines running on petrol, diesel, CNG and LPG.",
+              "icon": "https://imgd.aeplcdn.com/0x0/cw/fuel/svg/petrol.svg",
+              "id": 1,
+              "isSelected": false,
+              "name": "Petrol",
+            }
+          }
+          showDescription={true}
+        />
+      </li>
+      <li
+        className="fuel-type-list__item "
+        key="2"
+        onClick={[Function]}
+      >
+        <ListItem
+          item={
+            Object {
+              "carCount": 13,
+              "description": "Get the list of cars Under 3 lakhs and their on road price, mileage, rating review. C
+heck out the list of best diesel, compact suv, sedan, hatchback cars below 3 lakhs available in India.",
+              "icon": "https://imgd.aeplcdn.com/0x0/cw/fuel/svg/diesel.svg",
+              "id": 2,
+              "isSelected": false,
+              "name": "Diesel",
+            }
+          }
+          showDescription={true}
+        />
+      </li>
+      <li
+        className="fuel-type-list__item disable"
+        key="3"
+        onClick={[Function]}
+      >
+        <ListItem
+          item={
+            Object {
+              "carCount": 0,
+              "description": null,
+              "icon": "https://imgd.aeplcdn.com/0x0/cw/fuel/svg/cng.svg",
+              "id": 3,
+              "isSelected": false,
+              "name": "CNG",
+            }
+          }
+          showDescription={true}
+        />
+      </li>
+      <li
+        className="fuel-type-list__item disable"
+        key="4"
+        onClick={[Function]}
+      >
+        <ListItem
+          item={
+            Object {
+              "carCount": 0,
+              "description": null,
+              "icon": "https://imgd.aeplcdn.com/0x0/cw/fuel/svg/lpg.svg",
+              "id": 4,
+              "isSelected": false,
+              "name": "LPG",
+            }
+          }
+          showDescription={true}
+        />
+      </li>
+      <li
+        className="fuel-type-list__item disable"
+        key="5"
+        onClick={[Function]}
+      >
+        <ListItem
+          item={
+            Object {
+              "carCount": 0,
+              "description": null,
+              "icon": "https://imgd.aeplcdn.com/0x0/cw/fuel/svg/electric.svg",
+              "id": 5,
+              "isSelected": false,
+              "name": "Electric",
+            }
+          }
+          showDescription={true}
+        />
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Tests for FuelType container component when no fuel type data is available should match snapshot 1`] = `
+<div
+  className="fuel-type-screen"
+>
+  <div
+    className="screen__head"
+  >
+    <p
+      className="screen-head__title"
+    >
+      Select your preferred fuel type
+    </p>
+  </div>
+  <div
+    className="screen__body"
+  >
+    <ul
+      className="fuel-type__list"
+    />
+  </div>
+</div>
+`;

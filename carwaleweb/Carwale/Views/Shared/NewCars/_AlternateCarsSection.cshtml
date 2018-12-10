@@ -1,0 +1,55 @@
+﻿@using Carwale.Utility;
+@using Carwale.DTOs.CarData;
+@model SimilarCarsDTO
+
+<div id="divAlternatives" class="content-box-shadow content-inner-block-10 margin-bottom20">
+    <h2 class="font20">@Model.SourceModelName Alternatives</h2>
+    <div class="sc-ver">
+        <div class="lt">
+            <a data-role="click-tracking" data-event="CWInteractive" data-action="alternative cars click" data-cat="deals_desktop" data-label="isSponsored_Nissan_Micra" href='@ManageCarUrl.CreateModelUrl("nissan","micra")'>
+                <img src="https://imgd.aeplcdn.com/110x61/cw/ec/10636/Nissan-Micra-Exterior-98190.jpg?wm=0&amp;q=70" title="Nissan Micra" alt="Nissan Micra" width="122" height="79">
+            </a>
+            <div>
+                <a data-role="click-tracking" data-event="CWInteractive" data-action="alternative cars click" data-cat="deals_desktop" data-label="isSponsored_Nissan_Micra" class="text-grey text-bold" href='@ManageCarUrl.CreateModelUrl("nissan","micra")'><span> Nissan Micra</span></a>
+                <span class="ad-text-icon font9">Ad</span>
+            </div>
+            <div title="Avg. Ex-Showroom" class="fontblack margin-top5">
+                <span class="font14 text-light-grey"> ₹ 5.99 Lakhs onwards</span>
+            </div>
+            <div><a href="javascript:void(0)" class="font12" onclick="GetPriceQuote('','273','27')" data-role="click-tracking" data-event="CWInteractive" data-action="alternative cars click" data-cat="deals_desktop" data-label="isSponsored_Nissan_Micra_PQLinkClicked">Check on-road price</a></div>
+            <div class="ccsm">
+                <a class="font12" href="/comparecars/marutisuzuki-baleno-vs-nissan-micra/" title="Compare Maruti Suzuki Baleno  with Micra " data-role="click-tracking" data-event="CWInteractive" data-action="alternative cars click" data-cat="deals_desktop" data-label="isSponsored_Nissan_Micra">Compare with Baleno</a>
+            </div>
+        </div>
+        @foreach (var alternateCar in Model.SimilarCarModels)
+        {
+            if (alternateCar.ModelId != 273)
+            {
+            <div class="lt">
+                <a data-role="click-tracking" data-event="CWInteractive" data-action="alternative cars click" data-cat="deals_desktop" data-label="@((alternateCar.IsFeatured ? "isSponsored_" : "") + alternateCar.MakeName + "_" + alternateCar.ModelName)" href='@ManageCarUrl.CreateModelUrl(alternateCar.MakeName, alternateCar.MaskingName)'>
+                    <img src="@Carwale.Utility.ImageSizes.CreateImageUrl(alternateCar.HostUrl, Carwale.Utility.ImageSizes._110X61, alternateCar.ModelImageOriginal, 70)" title="@alternateCar.MakeName @alternateCar.ModelName" alt="@alternateCar.MakeName @alternateCar.ModelName" width="122" height="79" />
+                </a>
+                <div>
+                    <a data-role="click-tracking" data-event="CWInteractive" data-action="alternative cars click" data-cat="deals_desktop" data-label="@((alternateCar.IsFeatured ? "isSponsored_" : "") + alternateCar.MakeName + "_" + alternateCar.ModelName)" class="text-grey text-bold" href='@ManageCarUrl.CreateModelUrl(alternateCar.MakeName, alternateCar.MaskingName)'><span> @alternateCar.MakeName @alternateCar.ModelName</span></a>
+                    @if (alternateCar.IsFeatured)
+                    {
+                        <span class="ad-text-icon font9">Ad</span>
+                    }
+                </div>
+                <div title="@alternateCar.PricesOverview.PriceLabel@(!string.IsNullOrWhiteSpace(alternateCar.PricesOverview.City.Name) ? ", " + alternateCar.PricesOverview.City.Name : string.Empty)" class="fontblack margin-top5">
+                    <span class="font14 text-light-grey">@(string.Format("{0} {1} {2}",alternateCar.PricesOverview.PricePrefix,alternateCar.PricesOverview.Price,alternateCar.PricesOverview.PriceSuffix))</span>
+
+                </div>
+                <div><a href="javascript:void(0)" class="font12" onclick="GetPriceQuote('','@alternateCar.ModelId','@(ViewBag.IsCityPage ? "46" : "27")', this)" data-role="click-tracking" data-event="CWInteractive" data-action="alternative cars click" data-cat="deals_desktop" data-label="@((alternateCar.IsFeatured ? "isSponsored_" : "") + alternateCar.MakeName + "_" + alternateCar.ModelName + "_PQLinkClicked")">Check on-road price</a></div>
+                @if (alternateCar.MakeName != "" && alternateCar.ModelName != "")
+                {
+                    <div class="ccsm">
+                        <a class="font12" href="@(alternateCar.CompareCarUrl)" title="Compare @ViewBag.ModelName  with @alternateCar.ModelName " data-role="click-tracking" data-event="CWInteractive" data-action="alternative cars click" data-cat="deals_desktop" data-label="@((alternateCar.IsFeatured ? "isSponsored_" : "") + alternateCar.MakeName + "_" + alternateCar.ModelName)">Compare with @Model.SourceModelName</a>
+                    </div>
+                }
+            </div>
+            }
+        }
+    </div>
+    <div class="clear"></div>
+</div>

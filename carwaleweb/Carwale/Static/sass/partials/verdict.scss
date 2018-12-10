@@ -1,0 +1,51 @@
+﻿@import '../mixins/_variables.scss';
+@import '../partials/read-more-collapse.scss';
+
+
+.verdict-container {
+	padding: 10px 15px;
+	color: map-get($color-map, 'white');
+}
+
+.verdict-container__title {
+	font-size: 16px;
+	margin-bottom: 5px;
+	color: map-get($color-map, 'white');
+	font-weight: $font-bold;
+}
+
+.verdict__description {
+	position: relative;
+	color: map-get($color-map, 'snow');
+	font-size: 14px;
+	line-height: 23px;
+
+	.read-more-collapse-button {
+		font-size: 15px;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+	}
+
+    a {
+        color: #3fbfff;
+    }
+}
+.expert-review__description {
+	padding-bottom: 20px;
+	position: relative;
+	color: map-get($color-map, 'white');
+	font-size: 14px;
+	line-height: 23px;
+
+	.read-more-collapse-button {
+		font-size: 15px;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+	}
+    
+    a {
+        color: #3fbfff;
+    }
+}

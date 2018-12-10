@@ -1,0 +1,15 @@
+﻿/**
+ *
+ * @parameters:
+ * $class-name: Default name
+ * $class-prefix: Class prefix
+ */
+
+@function concatSelectorName($class-name, $class-prefix: '') {
+    @if ($class-prefix != ''){
+            @return $class-prefix+ '-' + $class-name;
+    }
+    @else {
+        @return $class-name;
+    }
+}

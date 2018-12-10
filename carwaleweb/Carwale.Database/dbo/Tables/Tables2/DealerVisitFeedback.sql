@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[DealerVisitFeedback] (
+    [Id]             INT            IDENTITY (1, 1) NOT NULL,
+    [DealerId]       INT            NOT NULL,
+    [VisitDate]      DATETIME       CONSTRAINT [DF__DealerVis__Visit__4CC2C0F8] DEFAULT ((0)) NOT NULL,
+    [Owner]          NVARCHAR (100) CONSTRAINT [DF__DealerVis__Owner__4DB6E531] DEFAULT ('') NULL,
+    [StockAtDealer]  INT            CONSTRAINT [DF__DealerVis__Stock__4EAB096A] DEFAULT ((0)) NOT NULL,
+    [StockOnCarwale] INT            CONSTRAINT [DF__DealerVis__Stock__4F9F2DA3] DEFAULT ((0)) NOT NULL,
+    [WithOutPicOnCW] INT            CONSTRAINT [DF__DealerVis__WithO__509351DC] DEFAULT ((0)) NOT NULL,
+    [DlrRespondent]  NVARCHAR (100) CONSTRAINT [DF__DealerVis__DlrRe__51877615] DEFAULT ('') NULL,
+    [Designation]    NVARCHAR (100) NULL,
+    [DlrRespMobile]  VARCHAR (50)   CONSTRAINT [DF__DealerVis__DlrRe__536FBE87] DEFAULT ('') NULL,
+    [BuyerInquiry]   TINYINT        CONSTRAINT [DF__DealerVis__Buyer__5463E2C0] DEFAULT ((0)) NOT NULL,
+    [CarsSold]       TINYINT        CONSTRAINT [DF__DealerVis__CarsS__555806F9] DEFAULT ((0)) NOT NULL,
+    [SellLeads]      TINYINT        CONSTRAINT [DF__DealerVis__SellL__564C2B32] DEFAULT ((0)) NOT NULL,
+    [CWSupport]      TINYINT        CONSTRAINT [DF__DealerVis__CWSup__57404F6B] DEFAULT ((0)) NOT NULL,
+    [OAllSatis]      TINYINT        CONSTRAINT [DF__DealerVis__OAllS__583473A4] DEFAULT ((0)) NOT NULL,
+    [UseCWSW]        TINYINT        CONSTRAINT [DF__DealerVis__UseCW__592897DD] DEFAULT ((0)) NOT NULL,
+    [IsUseful]       TINYINT        CONSTRAINT [DF__DealerVis__IsUse__5A1CBC16] DEFAULT ((0)) NOT NULL,
+    [Suggestion]     NVARCHAR (500) CONSTRAINT [DF__DealerVis__Sugge__5B10E04F] DEFAULT ('') NULL,
+    [Comments]       NVARCHAR (500) CONSTRAINT [DF__DealerVis__Comme__5C050488] DEFAULT ('') NULL,
+    [ExecutiveId]    INT            CONSTRAINT [DF__DealerVis__Execu__5CF928C1] DEFAULT ((0)) NOT NULL,
+    [EntryDate]      DATETIME       CONSTRAINT [DF__DealerVis__DateA__5DED4CFA] DEFAULT (getdate()) NOT NULL,
+    CONSTRAINT [PK_DealerVisitRpt] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

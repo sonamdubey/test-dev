@@ -1,0 +1,150 @@
+﻿@import "../mixins/_variables.scss";
+@import "../mixins/_sprites.scss";
+@import "../mixins/_vendor-utils.scss";
+
+.edit-model-popup {
+	@include get-vendor-prefixed("transform","translateY(110%)");
+	@include get-vendor-prefixed("transition-property"," all");
+	@include get-vendor-prefixed("transition-duration",".5s");
+	width: 100%;
+	min-height: 320px;
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border: 1px solid map-get($color-map, "white-smoke");
+	background-color: map-get($color-map, "snow");
+	z-index: 10;
+	
+	&.edit-model-popup--active {
+		@include get-vendor-prefixed("transform","translateY(0)");
+	}
+
+	&.edit-model-popup--full-height {
+		min-height: 100%;
+	}
+}
+
+.change-model-title {
+	background-color: map-get($color-map, "white");
+	border-bottom: 1px solid map-get($color-map, "white-smoke");
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+   
+	
+	.change-model__label {
+		padding: 10px 20px;
+		display: inline-block;
+		font-size: 16px;
+		color: map-get($color-map, "charcoal");
+	}
+
+	.edit-model-popup__close-btn {
+		@include cross-default-15x16;
+		float: right;
+		width: 45px;
+		height: 45px;
+		background-repeat: no-repeat;
+		background-size: 15px;
+		background-position: 16px 13px;
+	}
+}
+
+.model-content-wrapper{
+	padding-top: 46px;
+}
+.model-input-wrapper {
+	position: relative;
+	padding: 20px;
+
+	.model-name-input {
+		font-family: "LatoWeb",sans-serif,Arial;
+		display: block;
+		width: 100%;
+		line-height: 16px;
+		padding: 10px;
+		color: map-get($color-map, "charcoal");
+		background-color: map-get($color-map, "white");
+		border: 1px solid map-get($color-map, "grey-btn-border");
+		border-radius: 4px;
+	}
+
+	.model-name-input__placeholder {
+		font-size: 15px;
+		color: map-get($color-map, "silver");
+		position: absolute;
+		top: 28px;
+		left: 31px;
+	}
+
+	.model-input__clrBtn {
+		position: absolute;
+		top: 31px;
+		right: 31px;
+		font-size: 15px;
+		color: map-get($color-map, "summer-sky");
+		cursor: pointer;
+		background-color: map-get($color-map, "white");
+		@include get-vendor-prefixed("appearance","none");
+	}
+}
+
+.suggested-cars-wrapper__title {
+	padding-left: 20px;
+	padding-right: 20px;
+	font-size: 16px;
+	color: map-get($color-map, "charcoal");
+}
+
+.suggested-cars{
+	.suggested-cars__listItem {
+		width: 140px;
+		height: auto;
+		background-color: map-get($color-map, "white");
+		border: 1px solid map-get($color-map, "white-smoke-border");
+
+		&:first-child {
+			margin-left: 20px;
+		}
+
+		&:last-child {
+			margin-right: 20px;
+		}
+	}
+}
+
+.suggested-car-image {
+	display: block;
+	width: 97px;
+	height: 54px;
+	margin-right: 20px;
+	margin-left: 20px;
+	margin-top: 10px; 
+}
+
+.suggested-car-details {
+	margin: 5px 15px 17px;
+	text-align: center;   
+
+		p {
+			color: map-get($color-map, "charcoal");
+		}
+
+		span {
+			color: map-get($color-map, "grey-subtitle");
+		}
+}
+
+@media screen and (orientation: landscape) and (max-width: 768px) {
+  .edit-model-popup {
+	top: 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+	.car-model-details__modelName {
+		max-width: 82%;
+	}
+}

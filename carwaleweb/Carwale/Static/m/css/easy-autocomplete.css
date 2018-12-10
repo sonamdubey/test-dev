@@ -1,0 +1,112 @@
+﻿.easy-autocomplete {
+  width: 100% !important;
+  position: relative;
+}
+
+.easy-autocomplete input {
+  float: none;
+}
+
+.easy-autocomplete-container {
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  text-align: left;
+}
+
+.easy-autocomplete-container ul {
+  background: none repeat scroll 0 0 #fff;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  display: none;
+  margin-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  position: relative;
+  top: -1px;
+}
+
+.easy-autocomplete-container ul li,
+.easy-autocomplete-container ul .eac-category {
+  background: inherit;
+  border-color: #ccc;
+  border-image: none;
+  border-style: solid;
+  border-width: 0 1px;
+  display: block;
+  font-size: 14px;
+  font-weight: normal;
+  position: relative;
+}
+
+.easy-autocomplete-container .list-item {
+  padding: 10px;
+}
+
+.easy-autocomplete-container a.list-item {
+  display: block;
+}
+
+.easy-autocomplete-container ul li div {
+  display: block;
+  font-weight: normal;
+  word-break: break-all;
+}
+
+.easy-autocomplete-container ul li b {
+  font-weight: bold;
+}
+
+.easy-autocomplete-container a {
+  color: #333;
+}
+
+.easy-autocomplete-container .text-link {
+  color: #0288d1;
+}
+
+.easy-autocomplete-container ul li.selected {
+  background: none repeat scroll 0 0 #ebebeb;
+  cursor: pointer;
+}
+
+.easy-autocomplete-container ul img,
+.easy-autocomplete-container ul img + a {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#eac-container-usedCarsList a{
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/*voice search slug in global search*/
+/* Note: To Remove all below code after Experiment*/
+.js-voice-search {
+	padding: 0 10px;
+	font-weight: 700
+}
+
+.js-voice-search .action-btn {
+		padding: 10px 5px;
+		display: inline-block;
+		margin-left: 3px;
+	}
+
+.bg-color-grey {
+	background: #f4f3f3;
+}
+
+.font14 {
+	font-size: 14px;
+}
+
+.text-link {
+	cursor: pointer;
+	color: #0288d1;
+}

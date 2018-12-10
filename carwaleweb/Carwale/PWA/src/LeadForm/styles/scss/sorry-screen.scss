@@ -1,0 +1,33 @@
+.sorry-screen-div {
+  text-align: center;
+  margin: 20px 20px 30px;
+}
+
+.location-popup__location-icon-wrapper,
+.location-popup__sorry-icon-wrapper {
+  background: map-get($color-map, "gainsboro");
+  width: 70px;
+  height: 70px;
+  line-height: 2;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 20px;
+  border-radius: 50%;
+}
+
+.location-popup-icon {
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin: 15px;
+}
+
+.location-popup__sorry-icon {
+  @include location-error-icon;
+}
+
+.sorry-screen__response {
+  color: map-get($color-map, 'dark-grey');
+  font-size: 20px;
+  font-weight: $font-bold;
+}

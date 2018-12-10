@@ -1,0 +1,103 @@
+﻿@model Carwale.UI.ViewModels.Used.Search.SearchViewModel
+@using Carwale.Utility
+
+@{
+    var metaKeywords = Model.MetaKeywords;
+    ViewBag.Title = metaKeywords.SearchPageTitle;
+    ViewBag.Description = metaKeywords.PageDescription;
+    ViewBag.Canonical = metaKeywords.Canonical;
+    ViewBag.Keywords = metaKeywords.PageKeywords;
+    ViewBag.GlobalCitySelectAction = "filter-form.submit";
+    Layout = "~/views/shared/m/_MLayoutAmp.cshtml";
+}
+@section Scripts{
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+}
+
+@section CustomAMPCSS{
+    @Html.Partial("~/Views/m/Used/SearchAmp/SearchAmpCss.cshtml")
+}
+<p class="usedcar__listing-title m-special-skin-text">
+    <span id="listingTitle" class="font18 text-bold m-special-skin-text">Used Cars@(string.IsNullOrEmpty(Model.FilterCityName) ? "" : " in " + Model.FilterCityName)</span>
+    <span id="searchListingCount" class="font14 m-special-skin-text">(@Format.Numeric(Model.TotalStockCount.ToString()) Cars)</span>
+</p>
+
+<div id="btnSortFilter" class="sort-filter-div">
+    <span class="sort-filter-wrapper">
+        <button id="btnSort" on="tap:sort-popup" class="sort-filter-btn sort-btn" data-vars-ea="SortClicked">Sort</button>
+        <button id="btnFilter" on="tap: filter-popup" class="sort-filter-btn filter-btn" data-vars-ea="FilterClicked">Filter</button>
+    </span>
+</div>
+
+@{Html.RenderPartial("~/Views/m/Used/SearchAmp/SortPopupAmp.cshtml", Model);}
+@{Html.RenderPartial("~/Views/m/Used/SearchAmp/FilterPopupAmp.cshtml", Model);}
+
+@if (Model.TotalStockCount == 0)
+{
+    <div id="nocars" class="margin-top10 font16 text-center m-special-skin-text">
+        Sorry! No cars found in <span class="text-bold" id="nocarsCity">
+            @(string.IsNullOrEmpty(Model.FilterCityName) ? "All Over India" : Model.FilterCityName)
+        </span> (<span class="text-link changeCityLink" on="tap: globalCityPopup" role="tab" tabindex="0">click here</span> to change city)
+    </div>
+}
+
+@if (Model.StockList != null && Model.StockList.Count != 0)
+{
+    <section>
+        <div class="search-list">
+            <ul id="listing">
+                @{Html.RenderPartial("~/Views/m/Used/SearchAmp/StockListAmp.cshtml", Model);}
+            </ul>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.NextPageUrl))
+        {
+            <div class="search-list-btn">
+                <a href="/m/used/cars-for-sale/@Model.NextPageUrl" class="search-list-show-more-btn" data-vars-ea="ShowMoreClicked">Show More Cars</a>
+            </div>
+        }
+        else
+        {
+            <div class="pagination">
+                <span id="listingEndText" class="font16 text-bold m-special-skin-text">End </span>
+            </div>
+        }
+    </section>
+}
+
+@{Html.RenderPartial("~/Views/m/Used/SearchAmp/ValuationPopupAmp.cshtml");}
+@{Html.RenderPartial("~/Views/m/Used/SearchAmp/SimilarCarsPopupAmp.cshtml");}
+@{Html.RenderPartial("~/Views/m/Used/SearchAmp/LeadFormAmp.cshtml", Model.CurrQS);}
+
+@section Tracking{
+    <amp-analytics type="googleanalytics">
+        <script type="application/json">
+            {
+                "vars":{
+                    "account": "UA-337359-1",
+                    "actionSelector": "[data-vars-ea]"
+                },
+                "triggers":{
+                    "trackPageview":{
+                        "on": "visible",
+                        "request": "pageview",
+                        "vars":{
+                            "title": "@ViewBag.Title"
+                        }
+                    },
+                    "trackClicks":{
+                        "on":"click",
+                        "selector":"span${actionSelector}, p${actionSelector}, li${actionSelector}, a${actionSelector}",
+                        "request":"event",
+                        "vars":{
+                            "eventCategory":"MSite_UsedCarSearch",
+                            "eventAction":"${ea}",
+                            "eventLabel":"${el}"
+                        }
+                    }
+                }
+            }
+        </script>
+    </amp-analytics>
+}

@@ -1,0 +1,36 @@
+﻿@using Carwale.Entity.Enum;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Utility;
+@model Dictionary<CarBodyStyle, Tuple<int[], string>>
+
+<section>
+    <!-- Top 10 Cars carousel code starts here -->
+    <div id="topCarsCarousal" class="container">
+        <div class="grid-12 margin-bottom20">
+            <h2 class="text-uppercase text-center margin-top30 margin-bottom10 m-special-skin-text">top 10 cars in india</h2>
+            <div class="swiper-container">
+                <ul class="swiper-wrapper top-cars-swipper">
+@foreach (CarBodyStyle key in Model.Keys)
+{
+                    <li class="swiper-slide rounded-corner2">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="@ManageCarUrl.CreateTopCarsByBodyTypeUrl(key.ToUrlString())" title="@HtmlAttributes.GetTopBodyTypeLinkTitle(Model[key].Item1.Length, key)">
+                                    <img src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" class="lazy" width="278" height="155" data-original="@ImageSizes.CreateImageUrl(CWConfiguration._imgHostUrl,ImageSizes._0X0,"/cw/static/top-10-cars/m/"+key.ToUrlString()+"_msite.png?v=1")" />
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <a href="@ManageCarUrl.CreateTopCarsByBodyTypeUrl(key.ToUrlString())" class="text-black font16 text-bold" title="@HtmlAttributes.GetTopBodyTypeLinkTitle(Model[key].Item1.Length, key)">@HtmlAttributes.GetTopBodyTypeLinkText(Model[key].Item1.Length, key)</a>
+                                <p class="margin-top5 text-light-grey font12 truncate-text">@Model[key].Item2</p>
+                            </div>
+                        </div>
+                    </li>
+}
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--Top 10 Cars carousel code Ends here -->
+</section>
+

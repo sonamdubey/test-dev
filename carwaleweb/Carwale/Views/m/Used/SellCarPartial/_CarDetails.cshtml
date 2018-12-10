@@ -1,0 +1,334 @@
+﻿@model Carwale.UI.ViewModels.Used.SellCar.CarDetails
+
+<div id="formCarDetail" class="form-screen hide form-screen-group" data-form-title="Car details">
+    <div id="bodyYearform" class="screen-group--item always-active">
+        <div class="screen__head">
+            <p class="screen-head__title">Car Manufacturing Year</p>
+			<div class="screen-head__banner">
+				<span class="screen-head__icon year-form-icon"></span>
+			</div>
+        </div>
+        <div class="screen__body">
+			<div id="getMonthYear" class="group-box" data-title="Car mfg year" data-title-toolbar="true">
+				<div class="select-box field-box select-box-no-input">
+					<select id="getMonth" class="chosen-select" data-title="Month">
+						<option></option>
+						<option value="1">Jan</option>
+						<option value="2">Feb</option>
+						<option value="3">Mar</option>
+						<option value="4">Apr</option>
+						<option value="5">May</option>
+						<option value="6">Jun</option>
+						<option value="7">Jul</option>
+						<option value="8">Aug</option>
+						<option value="9">Sept</option>
+						<option value="10">Oct</option>
+						<option value="11">Nov</option>
+						<option value="12">Dec</option>
+					</select>
+					<p class="select-label">Month</p>
+					<span class="boundary"></span>
+					<span class="error-text"></span>
+				</div>
+
+				<div class="select-box field-box select-box-no-input">
+					<select id="getYear" class="chosen-select" data-title="Year">
+						<option></option>
+						@foreach (var year in Model.MakeYears)
+						{
+							<option value="@year">@year</option>
+						}
+					</select>
+					<p class="select-label">Year</p>
+					<span class="boundary"></span>
+					<span class="error-text"></span>
+				</div>
+			</div>
+        </div>
+    </div>
+
+    <div id="bodyCarForm" class="screen-group--item">
+        <div class="screen__head">
+            <p class="screen-head__title">Select your Car</p>
+			<div class="screen-head__banner">
+				<span class="screen-head__icon car-form-icon"></span>
+			</div>
+        </div>
+        <div class="screen__body step-group">
+            <div id="carSelectionTagList" class="margin-bottom15 step-group__selected hide">
+                <p class="pill-list__label">You have selected</p>
+                <ul></ul>
+            </div>
+
+			<div id="getCarName" class="group-box" data-title="Car">
+				<div id="carMakeBody" class="step-group__item">
+					<div class="select-box field-box no-dropdown-icon">
+						<select id="getCarMake" class="chosen-select">
+							<option value="0"></option>
+							@foreach (var make in Model.Makes)
+							{
+								<option value="@make.MakeId">@make.MakeName</option>
+							}
+						</select>
+						<p class="select-label">Select make</p>
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+					</div>
+
+					<ul id="popularMakeList" class="btn-pill-group pill-group--type-input text-center">
+						@foreach (var popularMake in Model.PopularMakes)
+						{
+							<li>
+								<input type="radio" name="popularMake" id="carMake@(popularMake.MakeId)" value="@popularMake.MakeId">
+								<label for="carMake@(popularMake.MakeId)" class="btn-pill pill--150-14">@(popularMake.MakeName)</label>
+							</li>
+						}
+					</ul>
+				</div>
+
+				<div id="carModelBody" class="step-group__item hide">
+					<div class="select-box field-box no-dropdown-icon">
+						<select id="getCarModel" class="chosen-select">
+							<option value="0"></option>
+						</select>
+						<p class="select-label">Select model</p>
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+					</div>
+				</div>
+
+				<div id="carVersionBody" class="step-group__item hide">
+					<div class="select-box field-box no-dropdown-icon">
+						<select id="getCarVersion" class="chosen-select">
+							<option value="0"></option>
+						</select>
+						<p class="select-label">Select version</p>
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+					</div>
+				</div>
+			</div>
+
+            <div id="alternateFuelBody" class="hide">
+                <p class="screen-body__title margin-bottom10">Alternate fuel</p>
+                <ul id="getAlternateFuel" class="btn-pill-group pill-group--type-input radio-box field-box" data-title="Alternate fuel">
+                    <li>
+                        <input type="radio" name="alternateFuel" id="fuel1" value="1">
+                        <label for="fuel1" class="btn-pill pill--150-14">CNG</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="alternateFuel" id="fuel2" value="2">
+                        <label for="fuel2" class="btn-pill pill--150-14">LPG</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="alternateFuel" id="fuel0" value="0" checked>
+                        <label for="fuel0" class="btn-pill pill--150-14">None</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="bodyColorForm" class="screen-group--item">
+        <div class="screen__head">
+            <p class="screen-head__title">Select Car Colour</p>
+			<div class="screen-head__banner">
+				<span class="screen-head__icon color-form-icon"></span>
+			</div>
+        </div>
+        <div class="screen__body">
+            <ul id="getColor" class="option-list color-option-list radio-box field-box no-auto-summary" data-title="Colour">
+            </ul>
+
+            <div id="otherColorField" class="input-box field-box hide no-auto-summary" data-title="Colour">
+                <input type="text" id="getOtherColour">
+                <label for="getOtherColour">Type other colour</label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="bodyOwnerForm" class="screen-group--item">
+        <div class="screen__head">
+            <p class="screen-head__title">Number of Owners</p>
+			<div class="screen-head__banner">
+				<span class="screen-head__icon owner-form-icon"></span>
+			</div>
+        </div>
+        <div class="screen__body">
+            <ul id="getOwners" class="option-list owner-option-list radio-box field-box" data-title="Owners">
+                <li class="option-list__item">
+                    <input type="radio" id="owner1" name="carOwner" value="1">
+                    <label for="owner1">
+                        <span class="list-item__icon owner-icon-1"></span>
+                        <span class="list-item__label">First owner</span>
+                    </label>
+                </li>
+                <li class="option-list__item">
+                    <input type="radio" id="owner2" name="carOwner" value="2">
+                    <label for="owner2">
+                        <span class="list-item__icon owner-icon-2"></span>
+                        <span class="list-item__label">Second owner</span>
+                    </label>
+                </li>
+                <li class="option-list__item">
+                    <input type="radio" id="owner3" name="carOwner" value="3">
+                    <label for="owner3">
+                        <span class="list-item__icon owner-icon-3"></span>
+                        <span class="list-item__label">Third owner</span>
+                    </label>
+                </li>
+                <li class="option-list__item">
+                    <input type="radio" id="owner4" name="carOwner" value="8">
+                    <label for="owner4">
+                        <span class="list-item__icon owner-icon-4"></span>
+                        <span class="list-item__label">Four or more</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="bodyKilometer" class="screen-group--item">
+        <div class="screen__head">
+            <p class="screen-head__title">Kilometers Driven</p>
+			<div class="screen-head__banner">
+				<span class="screen-head__icon kilometer-form-icon"></span>
+			</div>
+        </div>
+        <div class="screen__body">
+            <div id="kmsInputBox" class="input-box field-box" data-title="Kms driven" data-title-toolbar="true" data-suffix="Km">
+                <input type="tel" id="getKms" maxlength="8">
+                <label for="getKms">Kms driven<sup>*</sup></label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+                <div class="getNumbersInWord"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="bodyExpectedPrice" class="screen-group--item" data-url="@Model.BuyingIndexApiUrl">
+        <div class="screen__head">
+            <p class="screen-head__title">Expected Selling Price</p>
+			<div class="screen-head__banner">
+				<span class="screen-head__icon expected-price-form-icon"></span>
+			</div>
+        </div>
+        <div class="screen__body">
+            <div class="recommend-price-box">
+                <span class="switch-box">
+                    <label class="switch__slider switch--on-off">
+                        <input type="checkbox" id="recommendedCheckbox" class="switch__chkbox" value="">
+                        <span class="switch__state"></span>
+                    </label>
+                </span>
+                <span id="recommendedCheckboxLabel" class="inline-block">
+                    Recommended Price -
+                    <span class="font18 text-black">
+                        &#x20b9;
+                        <span id="recommendedPriceText" class="font-semibold"></span>
+                    </span>
+                </span>
+            </div>
+            <p class="font14 text-center margin-bottom30">Cars priced realistically sold 3 times faster</p>
+            <div id="expectedPriceInputBox" class="input-box field-box input-prefix--rupee prefix-focus--inr" data-title="Expected price" data-title-toolbar="true" data-prefix="&#x20b9;">
+                <input type="tel" id="getExpectedPrice" maxlength="12">
+                <label for="getExpectedPrice">Expected Price</label>
+                <span class="boundary"></span>
+                <span class="error-text"></span>
+                <div class="getNumbersInWord"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="bodyInsurance" class="screen-group--item">
+        <p class="listing-live-toolbar">Your listing is live. Please add further details to get better response.</p>
+        <div class="screen__head">
+            <p class="screen-head__title">Car Insurance</p>
+			<div class="screen-head__banner">
+				<span class="screen-head__icon insurance-form-icon"></span>
+			</div>
+        </div>
+        <div class="screen__body">
+            <ul id="getInsurance" class="btn-pill-group pill-group--type-input margin-bottom10 radio-box field-box no-auto-summary" data-title="Insurance">
+                <li>
+                    <input type="radio" id="insurance1" name="carInsurance" value="1">
+                    <label for="insurance1" class="btn-pill pill--150-14">Comprehensive</label>
+                </li>
+                <li>
+                    <input type="radio" id="insurance2" name="carInsurance" value="2">
+                    <label for="insurance2" class="btn-pill pill--150-14">Third Party</label>
+                </li>
+                <li>
+                    <input type="radio" id="insurance0" name="carInsurance" value="3">
+                    <label for="insurance0" class="btn-pill pill--150-14">Expired</label>
+                </li>
+            </ul>
+
+            <div id="insuranceValidity" class="hide">
+                <p class="screen-body__title margin-bottom15">Insurance validity</p>
+
+				<div id="getValidityPeriod" class="group-box" data-title="Car validity">
+					<div class="select-box field-box select-box-no-input no-auto-summary">
+						<select id="getInsuranceMonth" class="chosen-select" data-title="Month">
+							<option value="0"></option>
+							<option value="1">Jan</option>
+							<option value="2">Feb</option>
+							<option value="3">Mar</option>
+							<option value="4">Apr</option>
+							<option value="5">May</option>
+							<option value="6">Jun</option>
+							<option value="7">Jul</option>
+							<option value="8">Aug</option>
+							<option value="9">Sept</option>
+							<option value="10">Oct</option>
+							<option value="11">Nov</option>
+							<option value="12">Dec</option>
+						</select>
+						<p class="select-label">Month</p>
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+					</div>
+
+					<div class="select-box field-box select-box-no-input no-auto-summary">
+						<select id="getInsuranceYear" class="chosen-select" data-title="Year">
+							<option value="0"></option>
+							@foreach (var year in Model.InsuranceYears)
+							{
+								<option value="@year">@year</option>
+							}
+						</select>
+						<p class="select-label">Year</p>
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+					</div>
+				</div>
+            </div>
+            <div id="registrationType">
+                <p class="screen-body__title margin-bottom15">Registration type</p>
+                <div class="select-box field-box select-box-no-input no-auto-summary">
+                    <select id="getRegistraionType" class="chosen-select" data-title="Registration type">
+                        <option value="0"></option>
+                        <option value="1">Individual</option>
+                        <option value="2">Corporate</option>
+                        <option value="3">Taxi</option>
+                    </select>
+                    <p class="select-label">Registration type</p>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+            <div id="registrationNumber" class="field-box-registration">
+                <p class="screen-body__title margin-bottom5">Car registration number</p>
+				<p class="font12 text-light-grey">Eg : MH-04 BW 4236</p>
+				<div id="getRegistration" class="field-box no-auto-summary" data-title="Car registration number">
+					<input type="text" class="register__input register--input-1" maxlength="2">
+					<input type="text" class="register__input register--input-2" maxlength="8">
+					<p class="error-text"></p>
+				</div>
+            </div>
+        </div>
+    </div>
+
+</div>

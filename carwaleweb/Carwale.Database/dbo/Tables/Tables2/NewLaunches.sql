@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[NewLaunches] (
+    [Id]        NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [ModelId]   NUMERIC (18) NULL,
+    [EntryDate] DATETIME     NULL,
+    CONSTRAINT [PK_NewLaunches] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

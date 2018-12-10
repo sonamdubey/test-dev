@@ -1,0 +1,252 @@
+﻿/* sbi yono */
+
+.sbi-yono__section {
+    padding-top: 33px;
+    background: white;
+    text-align: center;
+    position: relative;
+    background: url(https://imgd.aeplcdn.com/0x0//cw/static/sbi-yono/background-msite.svg) repeat-x;
+    background-position: bottom;
+    background-position: left 0 bottom 37px;
+	border-top: 1px solid #e2e2e2;
+}
+.sbi-yono__logos {
+    margin-bottom: 14px;
+    color: #e2e2e2;
+}
+.yono__sbi-logo {
+    display: inline-block;
+    vertical-align: middle;
+    height: 18px;
+    width: 48px;
+    background: url('https://imgd.aeplcdn.com/0x0//cw/static/sbi-yono/sbi.png') no-repeat;
+    background-size: 100%;
+    margin-right: 5px;
+}
+.yono__carwale-logo {
+    width: 120px;
+    height: 20px;
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/new-header/logo.svg) no-repeat;
+    display: inline-block;
+    margin-left: 5px;
+    vertical-align: middle;
+    position: relative;
+    top: -4px;
+}
+.sbi-yono__title {
+    z-index: 1;
+    margin-bottom: 34px;
+}
+
+.sbi-yono__offer-tag {
+    display: inline-block;
+    font-size: 13px;
+    text-align: center;
+    color: white;
+    background: #00afa0;
+    padding: 7px 13px 8px 14px;
+    position: relative;
+    margin: 0 auto 20px;
+    min-width: 230px;
+    border: 1px solid #fff;
+}
+.sbi-yono__offer-tag:before, .sbi-yono__offer-tag:after {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: -10px;
+    border: 16px solid #0edcca;
+    z-index: 1;
+}
+.sbi-yono__offer-tag:before {
+    left: -33px;
+    border-right-width: 15px;
+    border-left-color: transparent;
+}
+.sbi-yono__offer-tag:after {
+    right: -33px;
+    border-left-width: 15px;
+    border-right-color: transparent;
+}
+.sbi-yono__offer-tag {
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.sbi-yono__offer-tag .yono-offer__tag-text:before, 
+.sbi-yono__offer-tag .yono-offer__tag-text:after {
+    content: "";
+    position: absolute;
+    display: block;
+    border-style: solid;
+    border-color: #06685f #0edcca #0edcca #0edcca;
+    bottom: -10px;
+    z-index: 2;
+}
+
+.sbi-yono__offer-tag .yono-offer__tag-text:before {
+    left: -2px;
+    border-width: 8px 0 0 7px;
+}
+
+.sbi-yono__offer-tag .yono-offer__tag-text:after {
+    right: -2px;
+    border-width: 8px 7px 0 0;
+}
+.sbi-yono__offer-head {
+    font-size: 13px;
+    color: #82888b;
+    text-align: center;
+}
+
+.yono-offer__list {
+    font-size: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-bottom: 30px;
+}
+.yono-offer__list-item {
+    font-size: 12px;
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+    padding-left: 35px;
+    text-align: left;
+    padding-right: 24px;
+    margin-bottom: 26px;
+    max-width: 170px;
+
+    background-repeat: no-repeat;
+    background-size: 24px;
+    background-position: left center;
+}
+.yono-offer__list-item:nth-of-type(2n) {
+    padding-right: 10px;
+}
+.yono-offer__emi {
+    background-image: url('https://imgd.aeplcdn.com/0x0//cw/static/sbi-yono/emi.svg');
+}
+.yono-offer__cash {
+    background-image: url('https://imgd.aeplcdn.com/0x0//cw/static/sbi-yono/cash.svg');
+}
+.yono-offer__road-price {
+    background-image: url('https://imgd.aeplcdn.com/0x0//cw/static/sbi-yono/onroad-price.svg');
+    background-size: 21px;
+}
+.yono-offer__tenure {
+    background-image: url('https://imgd.aeplcdn.com/0x0//cw/static/sbi-yono/tenure.svg');
+}
+
+.yono-offer__note {
+    font-size: 9px;
+    text-align: left;
+    color: #fff;
+    background-color: #565a5c;
+    padding: 7px 14px;
+}
+.yono-offer__car {
+    display: block;
+    height: 40px;
+    width: 87px;
+    background: url('https://imgd.aeplcdn.com/0x0//cw/static/sbi-yono/car-illustration.svg') no-repeat;
+    position: absolute;
+    right: 9px;
+    bottom: 40px;
+    background-size: 87px;
+}
+@media only screen and (min-width: 400px) {
+    .sbi-yono__section {
+        background-position: bottom;
+        background-position: left 0 bottom 26px;
+    }
+    .yono-offer__car {
+        bottom: 24px;
+    }
+}
+@media only screen and (min-width: 800px) {
+    .sbi-yono__section {
+        background-image: url('https://imgd.aeplcdn.com/0x0//cw/static/sbi-yono/background-desktop.svg');
+        background-position: bottom;
+        background-position: left 0 bottom 31px;
+		border-top: none;
+        margin-bottom: 50px;
+    }
+    .sbi-yono__logos {
+        font-size: 15px;
+    }
+    .yono__sbi-logo {
+        width: 60px;
+        height: 26px;
+    }
+    .yono__carwale-logo {
+        width: 150px;
+        height: 26px;
+    }
+    .sbi-yono__offer-tag {
+        font-size: 16px;
+        padding: 8px 28px;
+        font-weight: 600;
+        margin-bottom: 22px;
+    }
+    .sbi-yono__offer-tag:before,
+    .sbi-yono__offer-tag:after {
+        border-width: 18px;
+        bottom: -11px;
+    }
+    .sbi-yono__offer-tag:before {
+        left: -39px;
+    }
+    .sbi-yono__offer-tag:after {
+        right: -39px;
+    }
+    .sbi-yono__offer-tag .yono-offer__tag-text:before, 
+    .sbi-yono__offer-tag .yono-offer__tag-text:after {
+        bottom: -11px;
+    }
+    .sbi-yono__offer-tag .yono-offer__tag-text:before {
+        left: -3px;
+        border-width: 8px 0 0 11px;
+    }
+    .sbi-yono__offer-tag .yono-offer__tag-text:after {
+        right: -3px;
+        border-width: 8px 11px 0 0;
+    }
+    .sbi-yono__offer-head {
+        font-size: 20px;
+    }
+    .sbi-yono__title {
+        margin-bottom: 46px;
+    }
+    .yono-offer__list-item {
+        font-size: 16px;
+        max-width: 235px;
+        background-size: 40px;
+        padding-left: 53px;
+        margin-right: 20px;
+    }
+    .yono-offer__road-price {
+        background-size: 32px;
+    }
+    .yono-offer__list {
+        margin-bottom: 90px;
+    }
+    .yono-offer__car {
+        height: 70px;
+        width: 188px;
+        right: 18%;
+        background-size: cover;
+        bottom: 45px;
+    }
+    .yono-offer__note {
+        font-size: 12px;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+}
+@media only screen and (min-width: 800px) and (max-width: 1090px) {
+    .yono-offer__list-item {
+        font-size: 15px;
+        margin-right: 8px;
+        max-width: 222px;
+    }
+}

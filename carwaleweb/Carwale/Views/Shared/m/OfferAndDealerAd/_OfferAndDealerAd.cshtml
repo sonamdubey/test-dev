@@ -1,0 +1,235 @@
+﻿@model Carwale.DTOs.OfferAndDealerAd.OfferAndDealerAdDTO
+@using System.Linq;
+
+@{
+    var campaignPresent = Model.DealerAd != null && Model.DealerAd.Campaign != null && Model.DealerAd.CampaignType == (int)Carwale.Entity.Enum.CampaignAdType.Pq && Model.ShowCampaign;
+    var offerPresent = Model.Offer != null && Model.Offer.OfferDetails != null && Model.Offer.CategoryDetails != null && Model.Offer.CategoryDetails.Count > 0;
+    var category = (campaignPresent ? (offerPresent ? "WithCampaignandOffers" : "WithCampaign") : "WithOffers");
+    var modelName = Model.CarDetails != null && Model.CarDetails.CarModel != null ? Model.CarDetails.CarModel.ModelName : "";
+    var campaignDealerId = Model.DealerAd != null && Model.DealerAd.Campaign != null ? String.Format("{0}_{1}",Model.DealerAd.Campaign.Id ,Model.DealerAd.Campaign.DealerId) :"0";
+}
+@if (campaignPresent || offerPresent)
+{
+    <div class="offer-container hide-ribbon @(campaignPresent ? "teal-bg" : "")" data-event="CWNonInteractive" data-role="impression" data-action='@(Model.Page.ToString() + "_Template")'
+         data-cat='@(Model.Platform + "_Offers_" + Model.Page.ToString() + category)' data-label='@modelName'>
+        <div class="offers-icons-section">
+            @if (campaignPresent)
+            {
+                <div class="offer-icon-unit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="400" height="320">
+                        <path class="path1" fill="none" stroke="#6f6f6f" stroke-width="1.361" stroke-linejoin="round" d="M4.952 16.607l14.525 14.338a1.91 1.91 0 0 0 2.718-2.609l.004.006-4.217-4.179m6.817 1.541a1.91 1.91 0 0 1-2.514 2.741l.009.005" />
+                        <path class="path2" fill="none" stroke="#6f6f6f" stroke-width="1.361" stroke-linejoin="round" d="M27.447 23.07a1.91 1.91 0 0 1-2.724 2.656l.002.002-4.118-4.186m2.875-2.862l4.006 4.332a1.91 1.91 0 0 0 2.694-2.703l.001.001-6.701-7.592-4.084 4.053m0 0c-.579.579-.905.953-1.668.953a1.91 1.91 0 0 1-1.909-1.909c0-.456.238-1.191.715-1.429m9.386-9.673l-9.597 9.832" />
+                        <path class="path3" fill="none" stroke="#6f6f6f" stroke-width="1.361" stroke-miterlimit="10" d="M34.998 14.729l-5.22 5.142M15.835 4.656l4.986 5.285" />
+                        <path class="path4" fill="none" stroke="#6f6f6f" stroke-width="1.327" stroke-miterlimit="10" d="M14.521 1.138l1.863 1.863a1.36 1.36 0 0 1 0 1.925L4.85 16.46a1.36 1.36 0 0 1-1.925 0l-1.863-1.863a1.36 1.36 0 0 1 0-1.925L12.596 1.138a1.36 1.36 0 0 1 1.925 0z" />
+                        <path class="path5" fill="none" stroke="#6f6f6f" stroke-width="1.228" stroke-miterlimit="10" d="M38.7 12.593l-1.863 1.863a1.36 1.36 0 0 1-1.925 0l-9.657-9.657a1.36 1.36 0 0 1 0-1.925l1.863-1.863a1.36 1.36 0 0 1 1.925 0l9.657 9.657a1.36 1.36 0 0 1 0 1.925z" />
+                    </svg>
+                </div>
+            }
+            else if (offerPresent)
+            {
+                <div class="dealer-icon-unit ">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 113.64 115.01">
+                        <path fill="none" stroke="#6f6f6f" stroke-width="3" stroke-miterlimit="10" d="M1.51 19.49l1.67 35.82a6 6 0 0 0 1.75 4l52.48 52.48a6 6 0 0 0 8.49 0l34.5-34.5a6 6 0 0 0 0-8.49L47.48 15.84a6 6 0 0 0-4.1-1.76l-35.73-.87a6 6 0 0 0-6.14 6.28z" />
+                        <path fill="none" stroke="#6f6f6f" stroke-width="3" stroke-miterlimit="10" d="M107.38 68.56l3-3a6 6 0 0 0 0-8.49L57.46 4.15a6 6 0 0 0-4.1-1.76L17 1.5a5.46 5.46 0 0 0-5.58 5.71" />
+                        <circle fill="none" stroke="#6f6f6f" stroke-width="3" stroke-miterlimit="10" cx="19.33" cy="31.46" r="7.94" />
+                    </svg>
+                </div>
+            }
+        </div>
+
+        @if (campaignPresent && Model.CampaignDetailsVisible)
+        {
+            <div class="campaign-section top-offer-section">
+                <div class="campaign__heading">
+                    <div class="campaign__title">@Model.DealerAd.Campaign.ContactName</div>
+
+                    @if (Model.DealerAd.Campaign.DealerShowroom != null)
+                    {
+                        <div class="campaign__sub-title dealer-address">@Model.DealerAd.Campaign.DealerShowroom.Address</div>
+                    }
+                    else
+                    {
+                        if (Model.Location != null && Model.Location.CityId > 0)
+                        {
+                            <div class="campaign__sub-title dealer-address">
+                                @{
+                            var areaPresent = Model.Location.CityId == Carwale.UI.Common.CookiesCustomers.MasterCityId && Carwale.UI.Common.CookiesCustomers.MasterAreaId > 0;
+
+                            @(areaPresent ? Carwale.UI.Common.CookiesCustomers.MasterArea : "")
+                                    @((areaPresent ? ", " : "") + Model.Location.CityName)
+                                }
+                            </div>
+                        }
+                    }
+                    @if (!string.IsNullOrEmpty(Model.DealerAd.Campaign.ContactNumber))
+                    {
+                        <div class="campaign__call-detail">
+                            <span data-role="impression"
+                                  data-event="CWNonInteractive"
+                                  data-cat='@(string.Format(Model.Platform + "_Offers_{0}{1}", Model.Page.ToString(), category))'
+                                  data-action='@(string.Format("{0}_DealerContactNumber", Model.Page.ToString()))'
+                                  data-label="@modelName">
+
+                                <img class="campaign__call-icon" src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/6f6f6f/phone-icon.svg?21052018250" alt="" title="">
+                                <a href="tel:@Model.DealerAd.Campaign.ContactNumber" class="campaign__call-number" title=""
+                                   data-role="click"
+                                   data-event="CWInteractive"
+                                   data-cat='@(string.Format(Model.Platform + "_Offers_{0}{1}", Model.Page.ToString(), category))'
+                                   data-action='@(string.Format("{0}_DealerContactNumber", Model.Page.ToString()))'
+                                   data-label="@modelName">@Model.DealerAd.Campaign.ContactNumber</a>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        @if (offerPresent)
+        {
+            <div class="campaign-section @(campaignPresent ? (Model.Page == Carwale.Entity.Enum.Pages.PriceQuote ? "offer-with-campaign-heading" : "") : "top-offer-section")">
+                <div class="campaign__heading">
+                    <div class="campaign__title">@Model.Offer.OfferDetails.Heading</div>
+                    <span class="campaign__sub-title">@Model.Offer.OfferDetails.CallOutLine</span>
+                </div>
+                @if (offerPresent)
+                {
+                    var totalOffers = Model.Offer.CategoryDetails.Count;
+
+                    <div class="offers-wrapper">
+                        <ul class="offers__list">
+                            @for (int offer = 0; offer < totalOffers; offer++)
+                            {
+                                <li class="offers__li">
+                                    <img class="offers-list__icon" src="@Carwale.Utility.ImageSizes.CreateImageUrl(Carwale.Utility.CWConfiguration._imgHostUrl, Carwale.Utility.ImageSizes._0X0, Model.Offer.CategoryDetails[offer].OriginalImgPath)"
+                                         onerror="this.onerror=null;this.src='@(Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/cars/no-cars.jpg';" alt="no-cars">
+                                    <p class="offers-list__content @(totalOffers > 1 ? "truncate-offer" : "")">@Model.Offer.CategoryDetails[offer].OfferText</p>
+                                    @if (totalOffers > 1 && offer == 0)
+                                    {
+                                        <span data-event="CWNonInteractive" data-role="impression" data-action='@(Model.Page.ToString() + "_ExpandButton")' data-label='@modelName'
+                                              data-cat='@(Model.Platform + "_Offers_" + Model.Page.ToString() + category)'></span>
+                                        <span class="open-all-offers js-open-offer" data-event="CWInteractive" data-role="click" data-action='@(Model.Page.ToString() + "_ExpandButton")' data-label='@modelName'
+                                              data-cat='@(Model.Platform + "_Offers_" + Model.Page.ToString() + category)'>+@(totalOffers - 1)&nbsp;Offer@(totalOffers > 2 ? "s" : "")</span>
+                                    }
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    if (Model.Page != Carwale.Entity.Enum.Pages.PriceQuote)
+                    {
+                        <div class="offers-ribbon" data-position="195" data-event="CWInteractive" data-role="click" data-action='@(Model.Page.ToString() + "_OffersIcon")'
+                             data-cat='@(Model.Platform + "_Offers_" + Model.Page.ToString() + category)' data-label='@modelName'>
+                            <div class="ribbon-icon-wrapper" data-event="CWNonInteractive" data-role="impression" data-action='@(Model.Page.ToString() + "_OffersIcon")'
+                                 data-cat='@(Model.Platform + "_Offers_" + Model.Page.ToString() + category)' data-label='@modelName'></div>
+                            <span class="percent-icon"></span>
+                            <span>@totalOffers</span>
+                            <span class="offers-ribbon__content">&nbsp;Offer@(totalOffers > 1 ? "s" : "") Available</span>
+                        </div>
+                    }
+                }
+            </div>
+        }
+
+        @if (campaignPresent && !offerPresent)
+        {
+            var makeName = Model.CarDetails != null && Model.CarDetails.CarMake != null ? Model.CarDetails.CarMake.MakeName : "";
+
+            <div class="campaign-section dealer-template">
+                <div class="campaign__heading">
+                    <span class="campaign__sub-title">Get in touch with Authorised @makeName Dealership on call for best buying options like:</span>
+                </div>
+                <ul class="dealer-offer__list">
+                    <li class="dealer-offer__li">
+                        Doorstep Demo
+                    </li>
+                    <li class="dealer-offer__li">
+                        Offers n Discounts
+                    </li>
+                    <li class="dealer-offer__li">
+                        Lowest EMI
+                    </li>
+                    <li class="dealer-offer__li">
+                        Exchange Benefits
+                    </li>
+                </ul>
+            </div>
+        }
+
+
+        @if (campaignPresent)
+        {
+            var linkLeadSource = new Carwale.DTOs.PriceQuote.LeadSourceDTO();
+            var recoLeadSource = new Carwale.DTOs.PriceQuote.LeadSourceDTO();
+
+            if (Model.LeadSource != null)
+            {
+                if (Model.Page == Carwale.Entity.Enum.Pages.PriceQuote)
+                {
+                    var campaignType = Model.DealerAd.CampaignType == (int)Carwale.Entity.Enum.CampaignAdType.PaidCrossSell ? "PaidCS" : (Model.DealerAd.CampaignType == (int)Carwale.Entity.Enum.CampaignAdType.HouseCrossSell ? "HouseCS" : "Pq");
+                    linkLeadSource = Model.LeadSource.Where(x => x.LeadClickSourceDesc == string.Format("NewPq-{0}OffersButton", campaignType)).FirstOrDefault();
+                    recoLeadSource = Model.LeadSource.Where(x => x.LeadClickSourceDesc == string.Format("NewPq-{0}OffersButtonReco", campaignType)).FirstOrDefault();
+                }
+                else
+                {
+                    if (offerPresent)
+                    {
+                        linkLeadSource = Model.LeadSource.Where(x => x.LeadClickSourceDesc == "OfferCampaignSlugWithOffer").FirstOrDefault();
+                        recoLeadSource = Model.LeadSource.Where(x => x.LeadClickSourceDesc == "OfferCampaignSlugWithOfferReco").FirstOrDefault();
+                    }
+                    else
+                    {
+                        linkLeadSource = Model.LeadSource.Where(x => x.LeadClickSourceDesc == "OfferCampaignSlugWithoutOffer").FirstOrDefault();
+                        recoLeadSource = Model.LeadSource.Where(x => x.LeadClickSourceDesc == "OfferCampaignSlugWithoutOfferReco").FirstOrDefault();
+                    }
+                }
+            }
+            <div class="deal-link">
+                <p class="deal-link__tag" title="@Model.DealerAd.Campaign.ActionText"
+                   id="btnGenericSlug"
+                   dealercampaignexist="true"
+                   sourceclick="@(linkLeadSource?.LeadClickSourceId)"
+                   leadinquirysource="@(linkLeadSource?.InquirySourceId)"
+                   data-role="click" data-event="CWInteractive"
+                   data-action='@(Model.Page.ToString() + "_Template")'
+                   data-cat='@(Model.Platform + "_Offers_" + Model.Page.ToString() + category)' data-label='@modelName'
+                   recoleadsource="@(recoLeadSource?.LeadClickSourceId)"
+                   recoinquirysource="@(recoLeadSource?.InquirySourceId)"
+                   modelid=@(Model.CarDetails != null && Model.CarDetails.CarModel != null ? Model.CarDetails.CarModel.ModelId : 0)
+                   versionid=@(Model.CarDetails != null && Model.CarDetails.CarVersion != null ? Model.CarDetails.CarVersion.Id : 0)
+                   campaigncta
+                   campaignid_dealerid="@campaignDealerId"
+                   propertyid="3">
+                    @(offerPresent ? Model.Offer.OfferDetails.CtaText : "Get The Best Deal")
+                </p>
+            </div>
+        }
+
+        @if (offerPresent)
+        {
+            <div class="offer-footer">
+                @if (!string.IsNullOrEmpty(Model.Offer.OfferDetails.ValidityText))
+                {
+                    <p class="offer__validity">@Model.Offer.OfferDetails.ValidityText</p>
+                }
+
+                <div class="js-offer__tnc">
+                    T&amp;C Apply
+                    <span class="tnc__icon"></span>
+                    <section class="offers-tool-tip hide">
+                        @if (!string.IsNullOrEmpty(Model.Offer.OfferDetails.Disclaimer))
+                        {
+                            <div class="offers-tool-tip__title">@Model.Offer.OfferDetails.Disclaimer</div>
+                        }
+                        <div>
+                            <ul class="offers-terms-list">
+                                @foreach (var item in @Model.Offer.OfferDetails.ToolTipText)
+                                {
+                                    <li>@item</li>
+                                }
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        }
+    </div>
+}

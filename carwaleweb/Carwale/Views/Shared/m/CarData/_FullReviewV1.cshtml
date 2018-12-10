@@ -1,0 +1,52 @@
+﻿@model  Carwale.UI.ViewModels.NewCars.CarSynopsisModelPage
+@using Carwale.Utility
+@if (Model != null && Model.PageList.IsNotNullOrEmpty())
+{
+    if (Model.ShowH2Tag)
+    {
+        <h2 id="model-review-container-title" class="margin-bottom10 margin-left10 m-special-skin-text" data-role="inview-imp" data-event="CWNonInteractive" data-action="Impression" data-cat="CarWale_Opinion_expert_review_m" data-label="@Model.ModelName">@Model.Heading</h2>
+    }
+    <section class="@(Model.ShowH2Tag ? "pros-and-cons-container pros-and-cons-wrapper only-review-section" : "")">
+        
+            <div class="model-review-container" id="model-review-container">
+            @if (!Model.ShowH2Tag)
+            {
+                <h3 id="model-review-container-title" class="model-review-container__title m-special-skin-text" data-role="inview-imp" data-event="CWNonInteractive" data-action="Impression" data-cat="CarWale_Opinion_expert_review_m" data-label="@Model.ModelName">@Model.Heading</h3>
+            }
+                <div class="model-review__wrapper" id="prosConsModelReview" data-cwticat="CarWaleOpinionExpertReview" data-cwtiact="Impression" data-cwtilbl="@("modelid=" + Model.ModelId + "|source=" + (uint)Carwale.Entity.Enum.Platform.CarwaleMobile)" cwt="">
+                    <div class="read-more-collapse-container">
+                        <div class="read-more-collapse-initial-text">
+                            <div id="divShortSynopsis">
+                                <div id="divShortDescContent">@Html.Raw(Model.Description)</div>
+                            </div>
+                        </div>
+                        <div class="read-more-collapse-final-text">
+                            <div id="divFullSynopsis">
+                                <div>
+                                    @if (Model.PageList != null)
+                                {
+                                    foreach (var page in Model.PageList)
+                                    {
+                                        <div id="@Format.RemoveSpecialCharacters(page.PageName)-@Model.BasicId">
+                                            @Html.Raw(page.Priority == 1 ? "<span class='first-page-start' basic='" + Model.BasicId + "' idx='-1'></span>" : "")
+                                            @Html.Raw(page.Priority == Model.PageList.Count ? "<span class='next-page-trigger' basic='" + Model.BasicId + "'></span>" : "")
+                                            @if (@Model.IsExpertReview){
+                                                <h3 class="model-review-container__subtitle">@page.PageName</h3>
+                                            }
+                                            <div class="text-area-right">@Html.Raw(page.Content)</div>
+                                        </div>
+                                        @Html.Raw(page.Priority == Model.PageList.Count ? "<span class='last-page-end' basic='" + Model.BasicId + "' idx='-1'></span>" : "")
+                                    }
+                                }
+                                </div>
+                            </div>
+                        </div>
+                        <p class="full-review-btn-wrapper">
+                            <span class="read-more-collapse-link fix-hide-review" id="full-review-btn">...Full Review</span>
+                        </p>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+        </div>
+    </section>
+} 

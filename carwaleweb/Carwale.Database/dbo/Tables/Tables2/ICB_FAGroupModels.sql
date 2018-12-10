@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[ICB_FAGroupModels] (
+    [FAGroupId]  NUMERIC (18) NOT NULL,
+    [CarModelId] NUMERIC (18) NOT NULL,
+    CONSTRAINT [PK_ICB_FAGroupModels] PRIMARY KEY CLUSTERED ([FAGroupId] ASC, [CarModelId] ASC) WITH (FILLFACTOR = 90)
+);
+

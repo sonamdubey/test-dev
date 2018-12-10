@@ -1,0 +1,8 @@
+﻿@model Carwale.Entity.CarData.CarMakeDescription
+
+@if (!string.IsNullOrEmpty(Model.MakeDescription))
+{<article class="bg-white">
+        <div><b>About @ViewBag.MakeName</b></div>
+        @Html.Raw(Model.MakeDescription)
+    </article>
+}

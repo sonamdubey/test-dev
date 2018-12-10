@@ -1,0 +1,234 @@
+﻿@model Carwale.DTOs.CMS.ContentDetailPagesDTO_V2
+@using Carwale.Utility
+@using Carwale.UI.Common
+@using Carwale.Entity.CarData
+@using Carwale.UI.HtmlHelpers
+@{
+    ViewBag.BodyClass = "bg-white header-fixed-inner";
+    ViewBag.CustomJS = "~/Views/StaticPartials/editorial/NewsDetailsScripts.cshtml";
+    ViewBag.CustomCSS = "~/Views/StaticPartials/editorial/NewsDetailsCss.cshtml";
+    ViewBag.Title = Model.ArticlePages.Title;
+    ViewBag.PageDetails = Model.ArticlePages;
+    ViewBag.PageId = 9;
+    ViewBag.Revisit = "5";
+    ViewBag.DocumentState = "Static";
+    ViewBag.Url = Model.ArticlePages.ArticleUrl;
+    ViewBag.Canonical = "https://www.carwale.com" + Model.ArticlePages.ArticleUrl;
+    ViewBag.Alternate = "https://www.carwale.com/m" + Model.ArticlePages.ArticleUrl;
+    ViewBag.AdId = "1396440332273";
+    ViewBag.AdPath = "/1017752/ReviewsNews_";
+    ViewBag.DefineAdSlots =
+       @"<script type='text/javascript'>
+        var AdSlots = {};
+        googletag.cmd.push(function () {
+        googletag.defineSlot('" + ViewBag.AdPath + @"300x250', [300, 250], 'div-gpt-ad-" + ViewBag.AdId + @"-0').addService(googletag.pubads());
+        googletag.defineSlot('" + ViewBag.AdPath + @"970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90]], 'div-gpt-ad-" + ViewBag.AdId + @"-2').addService(googletag.pubads());
+        AdSlots['div-gpt-ad-1514458400839-0'] = googletag.defineSlot('/1017752/Carwale_News_Desktop_300x250', [[300, 250], [300, 600]], 'div-gpt-ad-1514458400839-0').addService(googletag.pubads());
+        googletag.pubads().setTargeting('Models', '" + ViewBag.Tags + @"');
+        googletag.pubads().setTargeting('City', '" + CookiesCustomers.MasterCity + @"');
+        googletag.pubads().setTargeting('UserModelHistory', '" + CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+        googletag.pubads().collapseEmptyDivs();
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+        });</script>";
+}
+
+<section class="container">
+    <div class="grid-12">
+        <div class="padding-bottom15 text-center">
+            @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_728x90.cshtml"); }
+        </div>
+    </div>
+</section>
+<div class="clear"></div>
+<section class="bg-light-grey padding-top10 padding-bottom20 no-bg-color overall-container">
+    <div class="container">
+        <div class="grid-12">
+            <!-- breadcrumb code starts here -->@{ Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist); }
+            <h1 class="font30 text-black special-skin-text">@ViewBag.Title</h1>
+            <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="grid-8">
+            <div class="content-details" id="@Model.ArticlePages.BasicId" categoryid="@Model.ArticlePages.CategoryId" categoryname="@Model.ArticlePages.CategoryMaskingName">
+                <div class="content-box-shadow content-inner-block-10 margin-bottom20">
+
+                    <!--Below code for expert Review Subnavigation ends here-->
+                    <div class="margin-top10">
+                        <div class="leftfloat">
+
+                            @Html.Raw(Model.ArticlePages.DisplayDate.ToString("MMMM dd, yyyy, hh:mm tt") + " IST by " + (!string.IsNullOrEmpty(Model.ArticlePages.AuthorMaskingName)
+ ? "<a href='/authors/" + Model.ArticlePages.AuthorMaskingName + "/'>" + Model.ArticlePages.AuthorName + "</a>" : Model.ArticlePages.AuthorName))
+                        </div>
+                        <div class="rightfloat">
+                            <span class="v-views-icon news-sprite margin-right5"></span>@Model.ArticlePages.Views @(Model.ArticlePages.Views>1? "Views":"View")
+                           
+                            <br />
+                            <span class="spnComments" id="fbcomments_@Model.ArticlePages.BasicId">
+                                <a style="font-size: 13px;" href="#article-comments-@Model.ArticlePages.BasicId">
+                                    @if (Model.ArticlePages.FacebookCommentCount <= 0)
+                                    {<span>Be the first to comment</span>}
+                                    else
+                                    {<span> @Model.ArticlePages.FacebookCommentCount comment(s)</span>}
+                                </a>
+                            </span>
+                        </div>
+                        <div class="clear"></div>
+                        <ul class="social margin-top15" data-articleurl="@(ViewBag.Url)">
+                            <li style="float: left; width: 90px; height: 20px;">
+                                <iframe src="https://www.facebook.com/plugins/like.php?layout=button_count&show_faces=false&action=like&font&colorscheme=light&width=100&height=25&href=https://www.carwale.com@(ViewBag.Url)" scrolling="no" frameborder="0" style="border: none; overflow: hidden; width: 100px; height: 25px;" allowtransparency="true"></iframe>
+                            </li>
+                            <li style="float: left; width: 90px; height: 20px;">
+                                <iframe allowtransparency="true" frameborder="0" scrolling="no" src='https://platform.twitter.com/widgets/tweet_button.html?text=@ViewBag.Title&via=CarWale&url=https://www.carwale.com@(ViewBag.Url)&counturl=https://www.carwale.com@(ViewBag.Url)' style="width: 110px; height: 40px;"></iframe>
+                            </li>
+                            <li style="float: left; width: 90px; height: 20px;">
+                                <div class="g_plus">
+                                    <!-- Place this tag where you want the +1 button to render -->
+                                    <g:plusone size="medium" href="https://www.carwale.com@(ViewBag.Url)" callback="googlePlusCallBack" count="true"></g:plusone>
+                                    <!-- Place this tag after the last plusone tag -->
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    @foreach (var page in Model.ArticlePages.PageList)
+                    {
+                        <div id="@Format.RemoveSpecialCharacters(page.PageName)-@Model.ArticlePages.BasicId" class="news-detail">
+                            @Html.Raw(page.Priority == 1 ? "<span class='first-page-start' basic='" + Model.ArticlePages.BasicId + "' idx='-1'></span>" : "")
+                            @Html.Raw(page.Priority == Model.ArticlePages.PageList.Count() ? "<span class='next-page-trigger' basic='" + Model.ArticlePages.BasicId + "'></span>" : "")
+                            <div id="articlebody" class="margin-bottom5">
+                                @if (Model.ArticlePages.OriginalImgUrl != "")
+                                {
+                                    <div style='text-align:center;'>
+                                        <img style='margin-top:10px; padding:5px; border:1px solid #ccc; background-color:#fff;' title='@Model.ArticlePages.Title' alt='@Model.ArticlePages.Title' class='margin-top10 size-thumbnail img-border-news' src=@Carwale.Utility.ImageSizes.CreateImageUrl(Model.ArticlePages.HostUrl, Carwale.Utility.ImageSizes._642X361, Model.ArticlePages.OriginalImgUrl) border='0' width='100%' />
+                                    </div>
+                                    if (Model.ArticlePages.MainImgCaption != "")
+                                    {
+
+                                        <div style='font-size:11px; color:#666; text-align:left;'>@Model.ArticlePages.MainImgCaption</div>
+                                    }
+                                }
+
+                                <div class="text-area-right content-font">
+                                    @Html.Raw(page.Content)
+                                </div>
+                            </div>
+
+                            <!-- Tags code starts here-->
+                            @if (ViewBag.Tags.Length > 0)
+                            {
+                                <div id="tag_Id">
+                                    <span class="news-sprite tag-icon"></span><span class="margin-right5">Tags:</span>
+                                    <b>@ViewBag.Tags</b>
+                                </div>
+                            }
+                            <!-- Tags code ends here-->
+                        </div>
+
+
+                        @Html.Raw(page.Priority == Model.ArticlePages.PageList.Count() ? "<span class='last-page-end' basic='" + Model.ArticlePages.BasicId + "' idx='-1'></span>" : "")
+                    }
+                </div>
+                <div class="clear"></div>
+            </div>
+            <!-- Comments code starts here-->
+            <div class="margin-bottom20 content-inner-block-5 content-box-shadow" id="article-comments-@Model.ArticlePages.BasicId">
+                <span id="comments-toggle-@Model.ArticlePages.BasicId" idx='-1' class="font16 text-bold collaps newsComments fb-comments"><span>Show Comments</span><span class="hide">Hide Comments</span></span>
+                <div class="hide">
+                    <div class="fb-comments" data-href="https://@Request.ServerVariables["HTTP_HOST"]@ViewBag.Url" data-num-posts="20" data-width="628"></div>
+                </div>
+                <!-- Fb comments script -->
+                @Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(Model.ArticlePages.BasicId.ToString())
+            </div>
+            <!-- Comments code ends here-->
+            <div id="related-articles" data-bind="template: { name: 'related-news', foreach: articles, afterRender : loadgplus }"></div>
+        </div>
+        <div class="grid-4">
+            <div class="content-block-white">
+                @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_ATF_300x250.cshtml"); }
+            </div>
+
+            @if (Model.NewsWidgetModel != null && Model.NewsWidgetModel.PopularNews != null && Model.NewsWidgetModel.RecentNews != null && Model.NewsWidgetModel.PopularNews.Count > 0 && Model.NewsWidgetModel.RecentNews.Count > 0)
+            {
+                <div class="content-box-shadow margin-bottom20">
+                    @{ Html.RenderPartial("~/Views/Shared/FRQ/_NewsRightWidget.cshtml", Model.NewsWidgetModel); }
+                </div>
+            }
+
+            @if (Model.ArticlePages.VehiclTagsList.IsNotNullOrEmpty())
+            {
+                Html.RenderAction("PriceInOtherCities", "CarWidgets", new
+                {
+                    cityId = CookiesCustomers.MasterCityId,
+                    cityName = CookiesCustomers.MasterCity,
+                    modelDetails = new CarModelDetails(),
+                    modelId = Model.ArticlePages.VehiclTagsList[0].ModelBase.ModelId
+                });
+            }
+
+            @if (Model.VideoWidgetModel != null && Model.VideoWidgetModel.Videos != null && Model.VideoWidgetModel.Videos.Count > 0)
+            {
+                <div class="content-box-shadow margin-bottom20">
+                    @{ Html.RenderPartial("~/Views/Shared/FRQ/_PopularVideoWidget.cshtml", Model.VideoWidgetModel); }
+                </div>
+            }
+
+            @if (Model.CarWidgetModel != null && Model.CarWidgetModel.UpcomingCars != null && Model.CarWidgetModel.UpcomingCars.Count > 0)
+            {
+                <div class="content-box-shadow ">
+                    @{ Html.RenderPartial("~/Views/Shared/FRQ/_PopularCarWidget.cshtml", Model.CarWidgetModel); }
+                </div>
+            }
+            <aside>
+                <div class="ad-container ad-slot">
+                    <div id="floating-ad" class="content-box-shadow content-inner-block-5 margin-top20 ad-slot" style="min-width: 312px; display: block !important; ">
+                        <div class="text-right font11 text-medium-grey">Ad</div>
+                        @Helpers.GetAdBar("1514458400839", 300, 0, 0, 0, false, 0)
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+<div class="clear"></div>
+@section Styles{
+    <script type="application/ld+json">
+        {
+        "@@context":"http://schema.org",
+        "@@type":"NewsArticle",
+        "inLanguage":"English",
+        "headline":"@Model.ArticlePages.Title",
+        "description":"@Model.ArticlePages.Description",
+        "articleBody":"@Model.ArticleBodyText",
+        "mainEntityOfPage":{
+        "@@type": "WebPage",
+        "@@id": "@string.Format("https://www.carwale.com{0}", Model.ArticlePages.ArticleUrl)"
+        },
+        "datePublished":"@Model.ArticlePages.DisplayDate.ToString("yyyy-MM-ddTHH:mm:sszzz")",
+        "dateModified":"@Model.ArticlePages.ModifiedDate.ToString("yyyy-MM-ddTHH:mm:sszzz")",
+        "url":"@string.Format("https://www.carwale.com{0}", Model.ArticlePages.ArticleUrl)",
+        "publisher":{
+        "@@type":"Organization",
+        "name":"CarWale",
+        "url":"https://www.carwale.com/",
+        "logo":{
+        "@@type":"ImageObject",
+        "url":"https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/cw-logo-v1.png",
+        "height":"60",
+        "width":"294"
+        }
+        },
+        "author":{
+        "@@type":"Person",
+        "name":"@Model.ArticlePages.AuthorName"
+        },
+        "image":{
+        "@@type":"ImageObject",
+        "url":"@string.Format("https://imgd.aeplcdn.com/{0}", Model.ArticlePages.LargePicUrl)",
+        "height":"361",
+        "width":"642"
+        }
+        }
+    </script>
+}

@@ -1,0 +1,125 @@
+﻿.input-box {
+  height: 60px;
+  text-align: left;
+}
+
+.input-box input {
+  width: 100%;
+  display: block;
+  padding: 7px 0;
+  border-bottom: 1px solid #82888b;
+  color: #4d5057;
+}
+
+.input-box label {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  font-size: 16px;
+  color: #82888b;
+  pointer-events: none;
+  -webkit-transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -o-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+.input-box input[type="text"]:focus,
+.input-box input[type="number"]:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.input-box input,
+.input-number-prefix {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.input-number-box input {
+  padding-left: 30px;
+}
+
+.input-number-box .input-number-label {
+  font-size: 12px;
+  position: relative;
+  top: 4px;
+  color: #a2a2a2;
+}
+
+.input-number-prefix {
+  display: none;
+  position: absolute;
+  top: 7px;
+  color: #82888b;
+}
+
+/* on focus */
+.input-box input:focus ~ label,
+.input-box.not-empty label {
+  top: -14px;
+  font-size: 12px;
+}
+
+.input-number-box input:focus ~ .input-number-prefix,
+.input-number-box.not-empty .input-number-prefix {
+  display: inline-block;
+}
+
+.input-box input:focus ~ .boundary:before,
+.input-box input:focus ~ .boundary:after {
+  width: 50%;
+}
+
+.input-box.input-no-focus input:focus {
+  border-color: #82888b;
+}
+
+.input-box.input-no-focus input:focus ~ .boundary:before,
+.input-box.input-no-focus input:focus ~ .boundary:after {
+  width: 0;
+}
+/* boundary */
+.boundary {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+.boundary::before,
+.boundary::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: #41b4c4;
+  -webkit-transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -o-transition: 0.2s ease all;
+  transition: 0.2s ease all;
+}
+
+.boundary::before {
+  left: 50%;
+}
+
+.boundary::after {
+  right: 50%;
+}
+
+.error-text {
+  font-size: 12px;
+  position: relative;
+  top: 4px;
+  left: 0;
+  color: #d9534f;
+}
+
+.invalid ~ .boundary:before,
+.invalid ~ .boundary:after,
+.invalid .boundary:before,
+.invalid .boundary:after {
+  background-color: #d9534f;
+  width: 50%;
+}

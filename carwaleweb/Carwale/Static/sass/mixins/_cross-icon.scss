@@ -1,0 +1,9 @@
+@import '../mixins/_sprites.scss';
+
+@mixin cross-icon($width: 10, $height: 8) {
+    @include cross-icon-default($background-size: 8);
+    display: inline-block;
+    width: $width * 1px;
+    height: $height * 1px;
+    cursor: pointer;
+}

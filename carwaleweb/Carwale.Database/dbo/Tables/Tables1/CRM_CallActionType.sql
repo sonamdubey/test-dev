@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[CRM_CallActionType] (
+    [Id]   SMALLINT     NOT NULL,
+    [Name] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_CRM_CallActionType] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

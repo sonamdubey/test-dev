@@ -1,0 +1,493 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/* filter box classes */
+.filter-set h3, .manufacture-box h3 {
+  display: block;
+  position: relative;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sub-values .fa-angle-up, .sub-values .fa-angle-down {
+  position: absolute;
+  top: 3px;
+  right: 0px;
+  font-size: 20px;
+  -moz-transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+  -ms-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+}
+
+.slider-box ul li {
+  display: block;
+  float: left;
+  width: 80px;
+}
+
+.list-points li, .list-points-makes li {
+  background: url(../images/inputUnchecked.png) no-repeat scroll 0 3px;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 8px;
+  padding-left: 30px;
+  position: relative;
+}
+
+.list-points li.active, .list-points-makes li.active {
+  background: url(../images/inputChecked.png) no-repeat scroll 0 3px;
+}
+
+.ul-makes2 {
+  height: 260px;
+  overflow-y: scroll;
+  position: relative;
+}
+/* stock list classes */
+.stock-detail  .thumb-area .img-placer {
+  width: 310px;
+  height: 175px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 7px;
+  text-align: center;
+}
+
+.stock-detail .table-div {
+  width: 355px;
+}
+
+.stock-list li {
+  border-top: 1px solid #ccc;
+}
+
+.stock-list li:first-child {
+  border-top: none;
+}
+
+.stock-list li .shortlistIcon:hover {
+  background-position: -100px -432px;
+}
+
+.stock-list li:hover .btn-white {
+  background: #f04031;
+  color: #fff;
+  text-decoration: none;
+}
+
+.available-pics a {
+  display: block;
+  float: left;
+  margin: 5px 0 0 20px;
+  color: #666;
+}
+
+.available-pics a:first-child {
+  margin-left: 0;
+}
+
+.nearByCity ul {
+  margin-bottom: 5px;
+}
+
+.nearByCity li {
+  font-size: 14px;
+}
+
+.selectedFilters {
+  width: 560px;
+}
+
+.stock-list li .shortlistIcon.active {
+  background-position: -100px -432px;
+}
+
+.transform {
+  -moz-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  -webkit-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+  -moz-transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+  -ms-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+}
+
+.transformy {
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  -moz-transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+  -ms-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+}
+
+.go-btn-box {
+  float: left;
+  margin-left: -2px;
+}
+
+.table-div h2 a {
+  display: block;
+  width: 355px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shortlistCardetails p a {
+  display: block;
+  width: 285px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+/* floating strip classes */
+.usedpopup-close {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  z-index: 0;
+}
+
+.usedsearch-floating-strip {
+  background: #3c3c3c;
+  font-size: 14px;
+  width: 100%;
+}
+
+.float {
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+}
+
+.nofloat {
+  position: relative;
+}
+
+.usedsearch-floating-strip .inner-div {
+  width: 550px;
+}
+
+.usedsearch-floating-strip .action-box {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 13px 26px;
+  color: #fff;
+  position: relative;
+  cursor: pointer;
+  border-left: 1px solid #232323;
+  border-right: 1px solid #232323;
+  -moz-box-shadow: -1px 0 0 #4e4e4e;
+  -webkit-box-shadow: -1px 0 0 #4e4e4e;
+  -o-box-shadow: -1px 0 0 #4e4e4e;
+  -ms-box-shadow: -1px 0 0 #4e4e4e;
+  box-shadow: -1px 0 0 #4e4e4e;
+}
+
+.usedsearch-floating-strip .action-box:first-child {
+  border-right: none;
+}
+
+.usedsearch-floating-strip .action-box:hover {
+  background: #fff;
+  color: #3c3c3c;
+}
+
+.usedsearch-floating-strip .action-box:hover .fa-edit {
+  color: #ef3f30;
+}
+
+.feedback-form, .shortlist-popup {
+  width: 440px;
+  padding: 20px;
+  position: absolute;
+  bottom: 52px;
+  right: 235px;
+  z-index: 1;
+  background: #fff;
+  -moz-box-shadow: 0px -1px 3px #ccc;
+  -webkit-box-shadow: 0px -1px 3px #ccc;
+  -o-box-shadow: 0px -1px 3px #ccc;
+  -ms-box-shadow: 0px -1px 3px #ccc;
+  box-shadow: 0px -1px 3px #ccc;
+}
+
+.shortlist-popup {
+  width: 547px;
+  padding: 20px 10px;
+}
+
+.wishlist-data li span.cross-md-lgt-grey:hover {
+  background-position: -62px -246px;
+}
+
+.usedsearch-floating-strip .shortlist-popup li {
+  padding: 10px;
+  border-left: none;
+  background: #fff;
+  position: relative;
+  border-top: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.usedsearch-floating-strip .shortlist-popup li:first-child {
+  border-top: none;
+}
+
+.shortlist-popup li:hover {
+  background: #f0f0f0;
+}
+
+.shortlistCarthumb, .shortlistCardetails {
+  display: block;
+  float: left;
+  width: 147px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.shortlistCardetails {
+  margin: 0 0 0 15px;
+  width: 315px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.filter-parameters {
+  display: inline-block;
+  color: #828282;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.filter-parameters:first-child {
+  margin-left: 0;
+}
+
+.wishlist-data {
+  height: 230px;
+  overflow-y: scroll;
+}
+
+.filter-parameters:hover {
+  color: #666;
+  text-decoration: line-through;
+}
+
+.filter-parameters:hover .cross-sm-lgt-grey {
+  background-position: -85px -240px;
+}
+/* bt content classes */
+.us-popup td {
+  padding: 5px;
+}
+
+
+/* new toolyip classes */
+.short-list-tab-cnt-main {
+  font-size: 11px;
+  height: 22px;
+  min-width: 25px;
+  position: absolute;
+  right: 8px;
+  text-align: center;
+  top: 2px;
+}
+
+.short-list-tab-counter {
+  background: #ef3f30 none repeat scroll 0 0;
+  border-radius: 5px;
+  color: #fff;
+  padding: 0 2px;
+}
+/* slider box classes */
+.ui-widget-overlay {
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.ui-slider {
+  position: relative;
+  text-align: left;
+}
+
+.ui-slider .ui-slider-handle {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/us-sprite.png?v1=04032016) no-repeat 0px -140px;
+  cursor: pointer;
+  height: 20px;
+  position: absolute;
+  text-decoration: none;
+  width: 20px;
+  z-index: 2;
+  top: -8px;
+  margin-left: -5px;
+}
+
+.ui-slider .ui-slider-range {
+  border: 0 none;
+  display: block;
+  font-size: 0.7em;
+  position: absolute;
+  z-index: 1;
+}
+
+.ui-slider-vertical {
+  height: 91px;
+  width: 5px;
+}
+
+.ui-slider-vertical .ui-slider-handle {
+  left: -7px;
+  margin-bottom: -10px;
+  margin-left: 0;
+}
+
+.ui-slider-vertical .ui-slider-range {
+  left: 0;
+  width: 100%;
+}
+
+.ui-slider-vertical .ui-slider-range-min {
+  bottom: 0;
+}
+
+.ui-slider-vertical .ui-slider-range-max {
+  top: 0;
+}
+
+.ui-widget-content {
+  margin: 10px 0 10px 0;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/cw-slider-grey.gif?v1=04032016);
+  width: 198px;
+  height: 7px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.ui-widget-content a {
+  color: #333333;
+}
+
+.ui-widget-header {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/cw-slider-blue.gif?v1=04032016);
+  width: 198px;
+  height: 7px;
+}
+
+.ui-widget-header a {
+  color: #FFFFFF;
+}
+
+.slider-box {
+  margin: 0;
+}
+
+/* used sprite classes */
+.cw-used-sprite {
+  background: url(../images/cwusedsprite.png) no-repeat;
+  display: inline-block;
+}
+
+.cw-cam-icon {
+  background-position: -34px -203px;
+  width: 20px;
+  height: 17px;
+}
+
+.cw-video-icon {
+  background-position: -62px -204px;
+  width: 22px;
+  height: 18px;
+}
+
+.shortlistIcon-sm {
+  background-position: 0 -236px;
+  width: 24px;
+  height: 22px;
+}
+
+.shortlistIcon {
+  background-position: -58px -432px;
+  width: 32px;
+  height: 35px;
+}
+
+.shortlistIcon-active {
+  background-position: -100px -432px;
+  width: 32px;
+  height: 35px;
+}
+
+.tooltip-arrow {
+  background-position: 0 -269px;
+  width: 9px;
+  height: 7px;
+  position: absolute;
+  top: 12px;
+  right: 8px;
+}
+
+.gb-close {
+  background-position: -35px -236px;
+  width: 11px;
+  height: 11px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.gb-close:hover {
+  background-position: -57px -236px;
+  width: 11px;
+  height: 11px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.gb-back {
+  background-position: -35px -257px;
+  width: 11px;
+  height: 11px;
+  position: absolute;
+  top: 10px;
+  right: 30px;
+}
+
+.gb-back:hover {
+  background-position: -57px -257px;
+  width: 11px;
+  height: 11px;
+  position: absolute;
+  top: 10px;
+  right: 30px;
+}
+
+.featured-text {
+  background-position: -62px -396px;
+  width: 88px;
+  height: 29px;
+  position: absolute;
+  top: 10px;
+  left: 0px;
+}

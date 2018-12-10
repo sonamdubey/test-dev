@@ -1,0 +1,385 @@
+﻿.model-city-version {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 7px 0 3px 0;
+  line-height: 21px;
+  margin-bottom: 10px;
+}
+
+.city-version-title .fa {
+  vertical-align: middle;
+}
+
+.city-version-unit {
+  display: inline-block;
+  width: 46%;
+  vertical-align: top;
+}
+
+.city-version-unit-show-price {
+  padding: 10px 0 10px 0;
+}
+
+.city-version-content {
+  font-weight: bold;
+}
+
+.city-version-divider {
+  border-left: 1px solid #cccccc;
+  padding: 0 5px;
+  width: 1px;
+  height: 36px;
+  display: inline-block;
+}
+
+.pop-version-info {
+  font-size: 12px;
+}
+
+.pop-version-name {
+  color: #515151;
+  font-weight: bold;
+}
+
+.pop-version-diesel, .pop-version-manual {
+  border-right: 2px solid #ccc;
+  padding: 0 7px 0 0;
+  margin-right: 5px;
+  color: #81888e;
+}
+
+@media only screen and (max-device-width: 340px) {
+  .city-version-unit.newcar-city {
+    vertical-align: top;
+    padding: 0 0 0 0;
+  }
+}
+
+/* model pills list */
+.list-type-pills__item {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  background: none;
+  border: solid 1px #cccccc;
+  border-radius: 13px;
+  line-height: 11px;
+  margin-left: 5px;
+}
+
+.list-type-pills__item:first-child {
+  margin-left: 0;
+}
+
+.item--padding {
+  padding: 5px 11px;
+}
+
+.item--360-padding {
+  padding: 3px 7px;
+}
+
+.list-type-pills__item span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.list-type-pills__item a {
+  display: block;
+  padding: 5px 11px;
+}
+
+.list-item__target:hover {
+  text-decoration: none;
+}
+
+.list-type-pills__item a:hover {
+  text-decoration: none;
+}
+
+.list-item__label {
+  font-size: 13px;
+  color: #565a5c;
+  font-weight: 700;
+}
+
+.item--icon-right-margin {
+  margin-right: 7px;
+}
+
+.video-link-padding {
+  padding: 7px 11px;
+}
+
+.media-image-icon {
+  width: 15px;
+  height: 16px;
+  background: url( https://imgd.aeplcdn.com/0x0/cw/static/icons/565a5c/image-12x12.png) center no-repeat;
+  display: inline-block;
+}
+
+.media-video-icon {
+  width: 15px;
+  height: 13px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/565a5c/video-12x12.png') no-repeat;
+  display: inline-block;
+}
+
+.media-color-icon {
+  width: 15px;
+  height: 16px;
+  background: url( https://imgd.aeplcdn.com/0x0/cw/static/png/gallery/coloursx16.png) center no-repeat;
+  display: inline-block;
+}
+
+.media-image-icon-24 {
+  height: 24px;
+  background: url( https://imgd.aeplcdn.com/0x0/cw/static/icons/fff/image-24x24.png ) center no-repeat;
+  display: block;
+  margin-bottom: 7px;
+}
+
+.dark-grey-360-31 {
+  width: 31px;
+  height: 20px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/360icons/360-dark-grey-31.png') no-repeat;
+  display: inline-block;
+}
+
+.blue-360-24-17 {
+  width: 24px;
+  height: 17px;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/04b4c4/360-24x17.png?1502099988287) no-repeat;
+  display: inline-block;
+}
+
+.new-tag-360-24-12 {
+  width: 26px;
+  height: 12px;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ef3f30/new-tag-24x12.png?1502099988287) no-repeat;
+  display: inline-block;
+  background-size: contain;
+}
+
+.section-left {
+  float: left;
+  width: 72%;
+}
+
+.section-left h1 {
+  line-height: 18px;
+}
+
+.section-left h2 {
+  line-height: 21px;
+}
+
+.section-right {
+  float: right;
+  width: 27%;
+  text-align: right;
+}
+
+.rating-car {
+  background: #ff9948;
+  color: #fff;
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-bottom: 2px;
+}
+
+.rating-car .fa-star {
+  margin-right: 3px;
+}
+
+.section-right a {
+  font-size: 12px;
+}
+
+/*360 icon code*/
+.model-section-tab__new-icon {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ef3f30/new-tag-30x15.png);
+  width: 30px;
+  height: 15px;
+  display: inline-block;
+  margin-left: 2px;
+}
+.youtube-video-icon{
+    width: 72px;
+    height: 53px;
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/360icons/video-icon-72x53.png) no-repeat;
+    display: inline-block;
+}
+
+.carousel-yt-icon{
+    position: absolute;
+    top: 34%;
+    left: 40%;
+}
+
+.review-yt-video-icon{
+    position: absolute;
+    top: 18%;
+    left: 40%;
+}
+
+.video-card img{width:100% !important;}
+
+/*customise emi link start*/
+.emi-links__container {
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+.page--price-in-city .emi-links__container {
+    width: 60%;
+    display: inline-block;
+    text-align: left;
+}
+
+.customise-emi-link, .check-your-emi-link {
+    width: 100%;
+    /*display: block;*/
+    margin-top: 10px;
+    margin-bottom: 14px;
+    text-align: center;
+    font-weight: 700;
+    cursor: pointer;
+    color: #0288d1;
+    background-color: transparent;
+    padding: 0;
+    text-decoration: underline;
+}
+
+.pic-customise-link {
+    text-decoration: none;
+}
+.price-breakup__emi .customise-emi-link {
+    margin-top: 3px;
+    margin-bottom: 0;
+    text-align: left;
+}
+.get-assistance-link {
+    padding-top: 7px;
+    padding-bottom: 13px;
+    border-bottom: 1px solid #efefef;
+}
+    .get-assistance-link.top-border {
+        border-top: 1px solid #efefef;
+    }
+.deals-car-sprite {
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/pq-new/info-icon.svg?v1') no-repeat;
+    display: inline-block;
+}
+.info-icon {
+    width: 15px;
+    height: 15px;
+    vertical-align: text-bottom;
+}
+
+.emi-calculator-root {
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 6;
+    height: 100vh;
+    overflow: auto;
+    padding-bottom: 50px;
+    background: #ffffff;
+}
+
+.btn-secondary-sm {
+    display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	touch-action: manipulation;
+	cursor: pointer;
+    background-image: none;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-appearance: none;
+    font-size: 12px;
+    line-height: 14px;
+    padding: 9px;
+    color: #00afa0;
+    background-color: transparent;
+    border: 1px solid #00afa0;
+    text-decoration: none;
+}
+
+.btn-rect-customise-emi {
+    margin: 10px;
+    min-width: 110px;
+    -moz-border-radius: 21px;
+    -webkit-border-radius: 21px;
+    border-radius: 21px;
+    font-weight: 700;
+    border:1px solid #ef3f30;
+    border-color: #ef3f30;
+    border-radius:3px;
+    color:#ef3f30;
+    position:relative;
+    font-size: 12px;
+    line-height: 14px;
+    padding: 9px;
+    cursor:pointer;
+    display:inline-block;
+    text-align:center;
+}
+
+.customise-emi-btn {
+    margin: 10px;
+    min-width: 110px;
+    -moz-border-radius: 21px;
+    -webkit-border-radius: 21px;
+    border-radius: 21px;
+    font-weight: 700;
+    color: #ef3f30;
+    border-color: #ef3f30;
+}
+
+/*customise emi link end*/
+.advantage-link__thumbsup {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/aged-car-sprite.png?201611091627546064) no-repeat 0 0;
+  background-position: -110px -79px;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  margin: 0 3px 3px 0;
+  display: inline-block;
+}
+
+/*model page fincial slug*/
+
+.finacial-services-slug__text {
+    font-size: 12px;
+    color: #6f6f6f;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 9px;
+}
+
+.finacial-services-slug--logo {
+    margin-left: 7px;
+}
+
+.finacial-services-slug--logo__image {
+    max-width: 175px;
+}
+
+.finacial-services-slug-volkswagen__img {
+    vertical-align: middle;
+}
+
+.customize-emi--abtest {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.customize-emi__change-btn {
+   text-decoration: none;
+   width: auto;
+}

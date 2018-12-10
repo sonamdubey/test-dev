@@ -1,0 +1,855 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/*change*/
+.quotation-tabs-main {
+  padding: 0px 0;
+  position: relative;
+}
+
+.quotation-tabs {
+  background: transparent;
+  border: none;
+  border-top: 1px solid #e2e2e2;
+  box-sizing: border-box;
+  margin-bottom: -1px;
+  width: 980px;
+  float: left;
+  position: relative;
+  zoom: 1;
+  z-index: 0;
+}
+
+.quotation-tabs ul {
+  border-right: 1px solid #e2e2e2;
+  width: 891px;
+  list-style: none;
+  position: relative;
+}
+
+.quotation-tabs li {
+  margin: 0;
+  padding: 0;
+  border-top: none;
+  border-bottom: 1px solid #e2e2e2;
+  *height: 58px;
+  padding: 10px 0 !important;
+  width: 222px;
+}
+
+.quotation-tabs li.ui-tabs-selected {
+  background: #fff;
+  padding-bottom: 0px;
+  border-bottom-width: 0;
+  border-right: 1px solid #e2e2e2;
+  border-bottom: 1px solid #fff;
+}
+
+.quotation-tabs .ui-tabs-nav a {
+  padding: 10px;
+  color: #333333;
+  float: left;
+  height: 57px;
+  *height: 58px;
+  display: block;
+  width: 202px;
+  top: 0px;
+}
+
+.quotation-tabs li.ui-tabs-selected a {
+  color: #333333;
+}
+
+.quotation-tabs li .pq-car-thumb {
+  height: auto;
+  padding-left: 10px;
+}
+
+.quotation-tabs li span.car-name {
+  color: #333333;
+  font-size: 13px;
+  margin-bottom: 0px;
+  width: 135px;
+  display: block;
+  margin-left: 5px;
+}
+
+.quotation-tabs li.ui-state-active span.car-name {
+  color: #333333;
+  font-size: 14px;
+  font-weight: bold;
+  width: 202px;
+  display: block;
+  margin: 15px 0 0 0;
+}
+
+.quotation-tabs-main .ui-state-disabled .ui-icon {
+  opacity: .35;
+  filter: Alpha(Opacity=35);
+  cursor: default;
+}
+
+.quotation-tabs li .pq-car-data {
+  width: 132px;
+  font-weight: bold;
+}
+
+.quotation-tabs li .pq-car-data.active {
+  width: 202px;
+  font-size: 16px;
+}
+
+.ui-state-active .pq-car-thumb, .ui-state-active .pq-price {
+  display: none;
+}
+
+.quotation-tabs li.ui-state-active .pq-car-data {
+  width: 202px;
+}
+
+.quotation-tabs .ui-tabs-panel {
+  display: block;
+  background: none;
+  border: none;
+  margin-top: -1px;
+  width: 960px;
+  border-top: 1px solid #e2e2e2;
+}
+/*new*/
+.tabs {
+  position: relative;
+}
+
+.tabs li {
+  list-style-type: none;
+  position: relative;
+}
+
+.pq-price {
+  font-size: 12px;
+}
+
+.pqCar .orp-car-left {
+  width: 200px;
+  margin: 0 10px 10px 20px;
+}
+
+.orp-table {
+  color: #333333;
+}
+
+.orp-table .orp-small-text {
+  color: #666;
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+.location-icon {
+  background-position: -474px -592px;
+  height: 20px;
+  width: 12px;
+  vertical-align: middle;
+}
+
+#orp-car-tab {
+  width: 100%;
+}
+
+.orp-add-btn {
+  height: 58px;
+  padding: 10px;
+  float: left;
+}
+
+a#addTab_3 {
+  text-decoration: none;
+  display: block;
+  color: #333333;
+}
+
+.stNav {
+  background: #fff;
+  cursor: pointer;
+  float: left;
+}
+
+.stPrev, .stNext {
+  float: left;
+  border-right: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+  height: 77px;
+}
+
+.stNext {
+  border-left: 1px solid #e2e2e2;
+  margin-left: -1px;
+}
+
+.add-text {
+  float: left;
+  margin-top: 20px;
+  margin-left: 10px;
+  color: #666;
+}
+
+.price-text {
+  color: #333;
+}
+
+/*jquery ui*/
+.ui-helper-hidden {
+  display: none;
+}
+
+.ui-helper-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  line-height: 1.3;
+  text-decoration: none;
+  font-size: 100%;
+  list-style: none;
+}
+
+.ui-state-disabled {
+  cursor: default !important;
+}
+/* changed*/
+.quotation-tabs-main .ui-icon {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/price-quote-sprite.png?static1fix);
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+.orp-next-icon {
+  background-position: -450px -588px;
+  color: #000000;
+  height: 20px;
+  margin: 34px 12px 0;
+  width: 15px;
+}
+
+.orp-prev-icon {
+  background-position: -426px -588px;
+  color: #000000;
+  height: 20px;
+  margin: 34px 12px 0;
+  width: 15px;
+}
+
+.ui-tabs-close:hover {
+  background-position: -166px -897px;
+}
+
+.ui-icon-plus {
+  background-position: -356px -570px;
+  min-height: 60px;
+  min-width: 60px;
+}
+
+.ui-tabs-nav a, .ui-tabs-nav a span {
+  line-height: 1.5;
+}
+
+/*pqTabs css starts here 170715*/
+#orp-car-tab .jcarousel-clip-horizontal,
+#orp-car-tab .jcarousel-clip-vertical, .alt-jcarousel .jcarousel-clip-horizontal {
+  width: 222px;
+  float: left;
+}
+
+ul#pqTabs, ul.jcarousel-list {
+  width: 20000em !important;
+  position: relative;
+}
+
+.orp-add-btn.tabfullwidth {
+  border-right: 0px;
+  right: 4px;
+}
+
+.orp-add-btn.tabfullwidth .add-text {
+  display: none;
+}
+
+.stNav.disabled .orp-prev-icon, .stNav.disabled .orp-next-icon {
+  opacity: 0.40;
+  filter: alpha(opacity=40);
+  z-index: 0;
+  position: relative;
+}
+/*pqTabs css starts here 170715*/
+
+
+.pq-map-pointer {
+  position: absolute;
+  top: 1px;
+  z-index: 3;
+  left: 0;
+  font-size: 18px;
+}
+
+.orp-add-btn a#addNewPQ {
+  display: inline-block;
+}
+
+/*Get Seller Price Style*/
+.offers-dis-section .get-offer-icon-group {
+  font-size: 12px;
+  width: auto;
+}
+
+.offers-dis-section .gop-icon-container {
+  font-style: normal;
+  margin: 15px 25px 10px 0;
+  text-align: left;
+  float: none;
+  display: inline-block;
+}
+
+.bharti-axa-slider.offers-dis-section .gop-icon-container {
+  text-align: center;
+  margin-right: 60px;
+}
+
+.bharti-axa-slider.offers-dis-section .gop-icon-container:last-child {
+  margin-right: 0;
+}
+
+.offers-dis-section .gop-ic-commom {
+  height: 65px;
+  margin-bottom: 8px;
+  width: 64px;
+}
+
+.offers-dis-section .last-icon {
+  margin-right: 0;
+}
+
+.offers-dis-section .gop-icon-container span {
+  display: block;
+  padding: 0 0 0 5px;
+}
+
+.offers-dis-section .gop-icon-container .gop-sprite {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-md-circle-icon.png?v2") no-repeat scroll 0 0;
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.offers-dis-section .gop-icon-container .gop-sprite.gop-lowest-emi {
+  background-position: -94px 0;
+}
+
+.offers-dis-section .gop-icon-container .gop-sprite.gop-offers-discounts {
+  background-position: -188px 0;
+}
+
+.offers-dis-section .gop-icon-container .gop-sprite.gop-exchange-benefits {
+  background-position: -286px 0;
+}
+
+.offers-dis-section .gop-icon-container .gop-sprite.gop-zero-dpr {
+  background-position: -794px 0;
+}
+
+.offers-dis-section .gop-icon-container .gop-sprite.gop-road-assistance {
+  background-position: -721px 0;
+}
+
+.offers-dis-section .gop-icon-container .gop-sprite.gop-hydro-static {
+  background-position: -648px 0;
+}
+
+.offers-dis-section .gop-icon-container .gop-sprite.gop-thank-you {
+  background-position: -867px 0;
+}
+
+.material-form .nc-pg-fields-input-text {
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+.material-form .nc-pg-fields-input-text:before, .material-form .nc-pg-fields-input-text:after {
+  position: absolute;
+  bottom: 0;
+  content: "";
+  height: 7px;
+  width: 1px;
+  display: block;
+}
+
+.material-form .nc-pg-fields-input-text:before {
+  left: -1px;
+  border-left: 1px solid #cccccc;
+}
+
+.material-form .nc-pg-fields-input-text:after {
+  right: 6px;
+  border-left: 1px solid #cccccc;
+}
+
+.material-form .nc-pg-fields input[type="text"], .pq-template-form .material-form input[type="text"] {
+  display: block;
+  width: 98%;
+  padding: 5px 10px 5px 10px;
+  line-height: 1.42857143;
+  background-color: #fff;
+  border-bottom: 1px solid #cccccc;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  position: relative;
+  border-radius: 0;
+}
+
+.material-form .nc-pg-fields input[type="text"]:hover, .material-form .nc-pg-fields input[type="text"]:focus, .pq-template-form .material-form .nc-pg-fields input[type="text"]:hover, .pq-template-form .material-form input[type="text"]:focus {
+  border-bottom: 1px solid #cccccc;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.material-form .btnSubmit, .material-form .divDone {
+  min-width: 220px;
+}
+
+.pq-template-form .material-form .divCustForm {
+  width: 100%;
+}
+
+.pq-template-form .material-form {
+  min-height: 210px;
+}
+
+.sellPricePrivacyContent {
+  line-height: 22px;
+}
+
+.material-form .divCustForm {
+  width: 360px;
+}
+
+.nc-thank-you-text, .pq-template-form .nc-thank-you-text {
+  color: #1a1a1a;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.material-form .btnSubmit {
+  margin: 30px 0 0 0;
+  min-height: 37px;
+}
+
+/* color type tabs */
+.color-type ul {
+  display: inline-block;
+  margin-top: 5px;
+  background: #f1eff0;
+  font-size: 13px;
+  padding: 3px;
+  color: #82888b;
+  border: 1px solid #eae9e9;
+  border-radius: 22px;
+  -moz-box-shadow: 0 2px 8px -2px #999 inset;
+  -o-box-shadow: 0 2px 8px -2px #999 inset;
+  -ms-box-shadow: 0 2px 8px -2px #999 inset;
+  -webkit-box-shadow: 0 2px 8px -2px #999 inset;
+  box-shadow: 0 2px 8px -2px #999 inset;
+}
+
+.color-type li {
+  display: inline-block;
+  width: 110px;
+  padding: 5px 0;
+  text-align: center;
+  margin: 0;
+  cursor: pointer;
+}
+
+.color-type li.active {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/color-type-bg.png?static1fix) repeat-x #0e405b;
+  color: #fff;
+  border-radius: 22px;
+  font-weight: bold;
+}
+
+.color-type li.metalic {
+  width: 95px;
+}
+
+/* Thank you Request Assitance Right Panel */
+.suggestion-box .listTable li {
+  display: table;
+  width: 100%;
+  padding: 10px 0;
+  table-layout: fixed;
+  cursor: pointer;
+}
+
+.suggestion-box .listTable .listCell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.suggestion-box .listTable .listCell:first-child {
+  width: 25px;
+}
+
+.suggestion-box .listTable .listCell:nth-child(2) {
+  width: 125px;
+}
+
+.suggestion-box p {
+  line-height: 22px;
+}
+
+.suggestion-box .listTable .unchecked {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/inputUnchecked.png?static1fix") no-repeat scroll 0 1px;
+  cursor: pointer;
+  height: 20px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+
+.suggestion-box .listTable .checked {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/inputchecked.png?static1fix") no-repeat scroll 0 1px;
+}
+
+.suggestion-box .listTable .empty {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/inputEmpty.png?static1fix") no-repeat scroll 0 1px;
+}
+
+.suggestion-box .btn.padLR16 {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.suggestion-box .btn.padLR17 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Advantage Ad Slug Style */
+.advantage-ad-slug {
+  padding: 10px 10px 10px 10px;
+}
+
+.advantage-ad-slug li {
+  font-size: 14px;
+  margin: 5px 0 12px 0;
+}
+
+.advantage-ad-slug .fa-circle {
+  font-size: 10px;
+  color: #a8afb3;
+  vertical-align: top;
+  padding: 6px 0 0 0;
+}
+
+.loginPopUpWrapper.sliderWrapper {
+  right: -500px;
+  width: 440px;
+}
+
+.emi-options {
+  text-align: left;
+  margin: 0 0 10px 0;
+}
+
+.emi-options-text {
+  display: inline-block;
+  vertical-align: top;
+  padding: 25px 0 0 15px;
+}
+
+.emi-option-container {
+  margin: 25px 0 0 0;
+}
+
+.bank-bazaar-slider .offers-dis-section .gop-icon-container {
+  margin: 0;
+}
+
+.emi-icon, .compare-icon, .apply-icon {
+  width: 68px;
+  height: 69px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.offers-dis-section .gop-icon-container .emi-icon {
+  background-position: -570px 3px;
+}
+
+.offers-dis-section .gop-icon-container .compare-icon {
+  background-position: -474px 3px;
+}
+
+.offers-dis-section .gop-icon-container .apply-icon {
+  background-position: -379px 3px;
+}
+
+.price-quote-all-imgs {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/price-quote-sprite.png?static1fix);
+  display: inline-block;
+}
+
+.circle-call-icon {
+  background-position: -53px -577px;
+  width: 19px;
+  height: 19px;
+  position: relative;
+  top: 2px;
+  *top: -3px;
+  margin-right: 5px;
+}
+
+.price-quote-all-imgs {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/price-quote-sprite.png?static1fix);
+  display: inline-block;
+}
+
+.circle-call-icon {
+  background-position: -53px -577px;
+  width: 19px;
+  height: 19px;
+  position: relative;
+  top: 2px;
+  *top: -3px;
+  margin-right: 5px;
+}
+
+.price-not-avalable-row td{padding: 0 0 14px;}
+.advantage-new-click {
+  color: #5b5b5b;
+  cursor: pointer;
+}
+
+.advantage-new-click:hover {
+  text-decoration: none;
+  color: #0288d1;
+}
+
+.advantage-new-click .book-now-thumb {
+  width: 32px;
+  height: 32px;
+  background-position: -123px -317px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 4px 0;
+}
+
+.material-form .cw-nc-error-red-icon {
+  top: -4px;
+}
+
+.material-form .cw-blackbg-tooltip {
+  top: 21px;
+  padding: 2px 5px;
+}
+
+.material-form .ng-div-city .cw-nc-error-red-icon {
+  top: 10px;
+}
+
+.material-form .ng-div-city .cw-blackbg-tooltip {
+  top: 37px;
+  padding: 2px 5px;
+}
+
+.sponsored-dealer-ad .pq-data-highlight-call {
+  position: relative;
+  width: 100%;
+  min-height: 210px;
+  margin: 10px 10px 10px 0px;
+  text-align: center;
+  padding: 10px 10px 10px 10px;
+  border: 1px solid #e2e2e2;
+  border-radius: 5px;
+}
+
+.sponsored-dealer-ad .sponsored-dealer-slot {
+  text-align: left;
+  margin-top: 4px;
+}
+
+.sponsored-dealer-ad h2#addHeader, .sponsored-dealer-ad #addHeader {
+  font-size: 18px;
+}
+
+.sponsored-dealer-ad #addHeader {
+  margin-bottom: 5px;
+}
+
+.sponsored-dealer-ad .new-highlight-points li, .sponsored-dealer-slot li {
+  display: block;
+  margin: 5px 0 8px 0;
+}
+
+.sponsored-dealer-ad .calling-num {
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.sponsored-dealer-ad .sds-ashokleyland-logo, .sponsored-dealer-ad .sds-astonmartin-logo, .sponsored-dealer-ad .sds-audi-logo, .sponsored-dealer-ad .sds-bentley-logo, .sponsored-dealer-ad .sds-bmw-logo, .sponsored-dealer-ad .sds-bugatti-logo, .sponsored-dealer-ad .sds-caterham-logo, .sponsored-dealer-ad .sds-chevrolet-logo, .sponsored-dealer-ad .sds-dastsun-logo, .sponsored-dealer-ad .sds-ferrari-logo, .sponsored-dealer-ad .sds-fiat-logo, .sponsored-dealer-ad .sds-force-logo, .sponsored-dealer-ad .sds-ford-logo, .sponsored-dealer-ad .sds-honda-logo, .sponsored-dealer-ad .sds-hyundai-logo, .sponsored-dealer-ad .sds-icml-logo, .sponsored-dealer-ad .sds-isuzu-logo, .sponsored-dealer-ad .sds-jaguar-logo, .sponsored-dealer-ad .sds-lamborghini-logo, .sponsored-dealer-ad .sds-landrover-logo, .sponsored-dealer-ad .sds-mahindra-logo, .sponsored-dealer-ad .sds-marutisuzuki-logo, .sponsored-dealer-ad .sds-maserati-logo, .sponsored-dealer-ad .sds-mercedes-benz-logo, .sponsored-dealer-ad .sds-mini-logo, .sponsored-dealer-ad .sds-mitsubishi-logo, .sponsored-dealer-ad .sds-nissan-logo, .sponsored-dealer-ad .sds-porsche-logo, .sponsored-dealer-ad .sds-premier-logo, .sponsored-dealer-ad .sds-renault-logo, .sponsored-dealer-ad .sds-rexton-logo, .sponsored-dealer-ad .sds-rolls-royce-logo, .sponsored-dealer-ad .sds-skoda-logo, .sponsored-dealer-ad .sds-ssangyong-logo, .sponsored-dealer-ad .sds-tata-logo, .sponsored-dealer-ad .sds-toyota-logo, .sponsored-dealer-ad .sds-volkswagen-logo, .sponsored-dealer-ad .sds-volvo-logo {
+  width: auto;
+  height: auto;
+}
+
+.sponsored-dealer-ad .sds-ashokleyland-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-ashokleyland-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-astonmartin-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-astonmartin-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-audi-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-audi-logo-new.png?201606171609585767) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-bentley-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-bentley-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-bmw-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-bmw-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-bugatti-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-bugatti-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-caterham-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-caterham-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-chevrolet-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-chevrolet-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-dastsun-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-dastsun-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-ferrari-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-ferrari-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-fiat-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-fiat-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-force-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-force-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-ford-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-ford-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-honda-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-honda-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-hyundai-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-hyundai-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-icml-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-icml-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-isuzu-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-isuzu-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-jaguar-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-jaguar-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-lamborghini-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-lamborghini-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-landrover-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-landrover-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-mahindra-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-mahindra-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-marutisuzuki-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-marutisuzuki-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-maserati-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-maserati-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-mercedes-benz-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-mercedes-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-mini-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-mini-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-mitsubishi-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-mitsubishi-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-nissan-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-nissan-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-porsche-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-porsche-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-premier-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-premier-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-renault-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-renault-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-rexton-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-rexton-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-rolls-royce-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-rollsroyce-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-skoda-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-skoda-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-ssangyong-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-ssangyong-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-tata-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-tata-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-toyota-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-toyota-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-volkswagen-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-volkswagen-logo.png?static1fix) no-repeat 92% bottom;
+}
+
+.sponsored-dealer-ad .sds-volvo-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-volvo-logo.png?static1fix) no-repeat 92% bottom;
+}

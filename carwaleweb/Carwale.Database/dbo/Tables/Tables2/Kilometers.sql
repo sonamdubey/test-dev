@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Kilometers] (
+    [ID]         NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [Kilometers] NUMERIC (18) NOT NULL,
+    CONSTRAINT [PK_Kilometers] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

@@ -1,0 +1,21 @@
+﻿@model Carwale.DTOs.Classified.CarDetails.CarDetailsWeb
+@using Carwale.Utility;
+<div id="specifications" class="cw-tabs-data uc-data hide overviewConatiner">
+    <div class="specification-list">
+        <ul>
+            @foreach (var spec in Model.Specification)
+            {
+                <li>
+                    <h2 class="font18 margin-bottom10 padding-left10">@spec.CategoryName</h2>
+                    @foreach (var item in spec.SpecificationList)
+                    {
+                        <div class="equal-width text-light-grey">@Format.FormatSpecificationData(item.SpecName)</div>
+                        <div title="@Format.FormatSpecificationData(String.Format("{0} {1}",item.SpecValue, item.SpecUnit))" class="equal-width">@Format.FormatSpecificationData(String.Format("{0} {1}", item.SpecValue, item.SpecUnit))</div>
+                    }
+                    <div class="clear"></div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+

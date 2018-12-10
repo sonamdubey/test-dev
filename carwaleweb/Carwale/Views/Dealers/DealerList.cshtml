@@ -1,0 +1,210 @@
+﻿@model Carwale.Entity.ViewModels.DealerListModel
+@using Carwale.Entity;
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@{
+    ViewBag.PageId = 81;
+    ViewBag.Title = Model.Dealers.MakeName + " Dealer Showrooms in " + Model.Dealers.CityName + "| " + Model.Dealers.MakeName + " New Car Showrooms in " + Model.Dealers.CityName;
+    ViewBag.Description = ViewBag.subHeading + ". Dealer information includes full address, phone numbers, email, pin code etc.";
+    ViewBag.Keywords = Model.Dealers.MakeName + " dealers " + Model.Dealers.CityName + ", " + Model.Dealers.MakeName + " showrooms " + Model.Dealers.CityName + ", " + Model.Dealers.CityName + " car dealers," + Model.Dealers.MakeName + " dealers, " + Model.Dealers.CityName + " car showrooms, car dealers, car showrooms, dealerships";
+    ViewBag.BodyClass = "bg-white header-fixed-inner";
+    ViewBag.HeaderClass = "header-fixed";
+    ViewBag.CustomJS = "~/Views/StaticPartials/DealerListScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/DealerListCss.cshtml";
+    ViewBag.Canonical = "https://www.carwale.com/" + Format.FormatURL(Model.Dealers.MakeName) + "-dealer-showrooms/" + Format.FormatText(Model.Dealers.CityName) + "-" + Model.cityId + "/";
+    ViewBag.Alternate = "https://www.carwale.com/m/" + Format.FormatURL(Model.Dealers.MakeName) + "-dealer-showrooms/" +Format.FormatText(Model.Dealers.CityName) + "-" + Model.cityId + "/";
+
+    ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+                googletag.cmd.push(function () {
+                googletag.defineSlot('/1017752/Carwale_Dealers_970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90], [960, 60], [970, 60]], 'div-gpt-ad-1439110989763-0').addService(googletag.pubads());
+                googletag.pubads().setTargeting('make', '" + Model.Dealers.MakeName + @"');
+                googletag.pubads().setTargeting('City', '" + Model.Dealers.CityName + @"');
+                googletag.pubads().setTargeting('UserModelHistory','" + CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+                googletag.pubads().enableSingleRequest();
+                googletag.pubads().collapseEmptyDivs();
+                googletag.enableServices();
+                });
+            </script>";
+}
+
+<section class="container padding-bottom15">
+    <!--  Brand-Budget-Bodytype section code starts here -->
+    <div class="grid-12" style="min-height:90px">
+        <!-- /1017752/Homepage_FirstSlot_976x400 -->
+        <div id='div-gpt-ad-1439110989763-0' class="text-center">
+            <script type='text/javascript'>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1439110989763-0'); });
+            </script>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+
+<div class="blackOut-window"></div>
+
+<section class="bg-light-grey padding-top10 padding-bottom20 no-bg-color">
+    <div class="container">
+        <div class="grid-12">
+            <!-- breadcrumb code starts here -->
+            @{ Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist); }
+        </div>
+    </div>
+</section>
+<div class="bg-light-grey clearfix no-bg-color">
+    @Html.Partial("_LocateDealerWidget")
+
+    <div>
+        <section class="container">
+            <div class="grid-12 position-rel margin-bottom10">
+                <h1 class="font30 text-black margin-top20 margin-bottom5 special-skin-text">@Model.Dealers.MakeName Dealer Showrooms in @Model.Dealers.CityName</h1>
+                <span class="font13 text-dark-grey special-skin-text">@ViewBag.subHeading</span>
+                <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+                <div class="grid-7">
+                    <ul class="manufacturer-dealer-list left-scroll-content">
+
+                        @foreach (var item in Model.Dealers.NewCarDealers)
+                        {
+                            if (item.IsPremium == true)
+                            {
+                                <li class="dealer-list-deatils bg-white margin-bottom20" campaignid="@item.CampaignId" dealerid="@item.DealerId">
+                                    <span class="dealer-title show"><a href="/new/@UrlRewrite.FormatSpecial(Model.Dealers.MakeName)-dealers/@Model.cityId-@UrlRewrite.FormatSpecial(Model.Dealers.CityName)/@UrlRewrite.FormatSpecial(item.Name)-@item.DealerId/">@item.Name</a></span>
+                                    @if (item.WorkingTime != "-")
+                                    {
+                                        <span class="dealer-time show">
+                                            Time @((DateTime.Parse(item.WorkingTime.Split('-')[0].ToString()).ToString("hh:mm tt")) + "-" + (DateTime.Parse(item.WorkingTime.Split('-')[1].ToString()).ToString("hh:mm tt")))
+                                        </span>
+                                    }
+                                    @if (item.Address != "")
+                                    {
+                                        <div class="dealer-info">
+                                            <span class="fa fa-map-marker"></span>
+                                            <span class="dealer-address-text">@(item.Address + ", " + item.CityName + ", " + item.State + " " + item.PinCode)</span>
+                                        </div>
+                                    }
+                                    @if (item.MobileNo != "")
+                                    {
+                                        <div class="dealer-info">
+                                            <span class="fa fa-phone"></span>
+                                            <span class="dealer-phone-text">@item.MobileNo</span>
+                                        </div>
+                                    }
+                                    <div class="clear"></div>
+                                    <button data-cwtccat="DealerListingPage" data-cwtcact="RequestAssitanceButtonClick" data-cwtclbl="make:@Model.Dealers.MakeName|city:@Model.Dealers.CityName" class=" btn btn-orange text-uppercase dealer-req-btn behavior">REQUEST ASSISTANCE</button>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="dealer-list-deatils bg-white margin-bottom20 non-premium-dealer" dealerid="@item.DealerId">
+                                    <span class="dealer-title show">@item.Name</span>
+                                    @if (item.Address != "")
+                                    {
+                                        <div class="dealer-info">
+                                            <span class="fa fa-map-marker"></span>
+                                            <span class="dealer-address-text">@(item.Address + ", " + item.CityName + ", " + item.State + " " + item.PinCode)</span>
+                                        </div>
+                                    }
+                                    @if (item.MobileNo != "" || item.LandlineNo != "")
+                                    {
+                                        <div class="dealer-info">
+                                            <span class="fa fa-phone"></span>
+                                            <span class="dealer-phone-text">@(item.MobileNo + ((item.MobileNo == "") || (item.LandlineNo == "") ? "" : " , ") + ((string.IsNullOrEmpty(item.LandlineCode) || string.IsNullOrEmpty(item.LandlineNo)) ? @item.LandlineNo : @item.LandlineCode + "-" + @item.LandlineNo))</span>
+                                        </div>
+                                    }
+                                    @if (item.EmailId != "")
+                                    {
+                                        <div class="dealer-info">
+                                            <span class="fa fa-envelope"></span>
+                                            <span class="dealer-phone-text">@item.EmailId</span>
+                                        </div>
+                                    }
+                                    <div class="clear"></div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                       @{ Html.RenderAction("GetActiveModelCarousel", "CarWidgets", new { makeId = Model.makeId, makeName = Model.Dealers.MakeName,cityId = Model.cityId,cityName = Model.CityName, cityMaskingName = Model.CityMaskingName }); }
+
+                    <div class="font12 text-dark-grey special-skin-text">Every car model may not be available at each of the @Model.Dealers.MakeName dealers in @Model.Dealers.CityName</div>
+                    
+                </div>
+                <div class="dealer-map bg-white padding-bottom5">
+                    <span class="font18 padding-top10 padding-bottom10 show">Locate your nearest dealer</span>
+                    <div id="divMap" style="width:380px;height:530px">
+                    </div>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+        </section>
+    </div>
+</div>
+
+
+<div class="req-assit-popup rounded-corner2 hide" id="dealer-request-popup">
+    <!-- global city pop up code starts here -->
+    <div class="req-assit-popup-data text-center">
+        <div class="globalcity-close-btn position-abt pos-top10 pos-right10 cwsprite cross-lg-lgt-grey cur-pointer"></div>
+        <div class="contactdetails">
+            <div class="mdPopup-box rounded-corner50 margin-bottom20">
+                <span class="cwsprite assistance-icon margin-top10"></span>
+            </div>
+            <p class="font20 margin-bottom15 text-capitalize">Request Assistance</p>
+            <div class="form-control-box margin-bottom10">
+                <input type="text" id="custName" placeholder="Name" class="padding-right30 form-control">
+                <span class="cwsprite error-icon err-name-icon error hide"></span>
+                <div class="cw-blackbg-tooltip err-name-msg error hide"></div>
+            </div>
+
+            <div class="form-control-box margin-bottom10">
+                <input type="text" id="custMobile" placeholder="Mobile +91" class="padding-right30 form-control">
+                <span class="cwsprite error-icon err-mobile-icon error hide"></span>
+                <div class="cw-blackbg-tooltip hide err-mobile-msg error"></div>
+            </div>
+
+            <div class="form-control-box margin-bottom15" id="divModel">
+                <select id="drpModel" data-placeholder="Select Model" class="chosen-select form-control grid-12" data-bind="options: pqCarModels()[0].modelDetails, optionsText:'modelName', optionsValue:'modelId'" multiple></select>
+                <span class="cwsprite error-icon hide city-error-icon error"></span>
+                <div class="cw-blackbg-tooltip city-err-msg hide error"></div>
+            </div>
+            <input type="hidden" id="encryptedResponse" />
+            <div>
+                <button class="btn btn-orange font18 text-uppercase margin-bottom10" type="button" onclick="SubmitLead(this)">Done</button>
+            </div>
+            <small class="margin-top5">By proceeding ahead, you agree to CarWale <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a>.</small>
+        </div>
+    </div>
+
+    <div class=" req-assit-popup-data text-center thank-you-msg hide">
+        <h2 class="tyHeading word-break"></h2>
+        <div class="margin-top20 font14">
+            <p class="margin-bottom10">You can provide your email id below to receive the price-list,brochure and other collaterals over email.</p>
+            <div class="position-rel">
+                <span id="emailIcon" class="dealer-sprite dealer-email-icon-lg"></span>
+                <input class="customeremail form-control" type="text" id="custEmailOptional" placeholder="Enter Your Email" maxlength="50">
+                <span class="cwsprite error-icon err-email-icon hide error"></span>
+                <div class="cw-blackbg-tooltip hide err-email-msg error"></div>
+            </div>
+            <div class="margin-top10">
+                <input type="button" id="btnDone" class="btn btn-orange text-uppercase back-btn" name="price" value="Done">
+            </div>
+        </div>
+        <div class="clear"></div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var MapDataList = @Html.Raw(Model.mapData);
+    var MakeId=@Html.Raw(Model.makeId);
+    var CityId=@Html.Raw(Model.cityId);
+    var PageId=@ViewBag.PageId;
+    var MakeName = '@Model.Dealers.MakeName';
+    var CityName = '@Model.Dealers.CityName';
+
+    $(document).ready(function(){
+        Location.USERIP = "@ViewBag.UserIP";
+        dealerListing.CITYNAME = "@Html.Raw(Model.Dealers.NewCarDealers[0].CityName)";
+        dealerListing.CITYID = @Html.Raw(Model.cityId);
+    });
+</script>

@@ -1,0 +1,131 @@
+.valuation-report {
+	@include vendor-prefix('transition', transform .5s linear);
+	@include vendor-prefix('transform', translateX(110%));
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow-x: hidden;
+	height: 100%;
+	width: 100%;
+	background-color: color('white');
+	will-change: transform;
+	z-index: 1;
+}
+
+.selection-report--active {
+	@include vendor-prefix('transform', translateX(0));
+}
+
+.valuation-report__header {
+	box-shadow: 0 2px 5px 0 color('gainsboro');
+	background-color: color('white');
+	display: block;
+}
+
+.valuation-report__header-title {
+	padding: 17px 20px 17px 53px;
+	font-size: 16px;
+	font-weight: $font-semibold;
+	color: color('charcoal')
+}
+
+.valuation-report__back-arrow {
+	@include arrow-down-icon;
+	@include vendor-prefix('transform', rotate(90deg));
+	display: inline-block;
+	width: 53px;
+	height: 53px;
+	position: absolute;
+	background-size: 15px;
+	cursor: pointer;
+}
+
+.valuation-report__container {
+	height: 100%;
+	overflow: auto;
+}
+
+.report__car-detail {
+	background-color: color('snow-2');
+	padding: 20px;
+	position: relative;
+}
+
+.report-detail__make {
+	font-size: 12px;
+	text-transform: uppercase;
+	color: color('dim-gray');
+	font-weight: $font-bold;
+	margin-bottom: 2px;
+}
+
+.report-detail__model {
+	font-size: 18px;
+	color: color('dim-gray');
+	font-weight: $font-bold;
+	margin-bottom: 10px;
+}
+
+.report-detail__car-info {
+	font-size: 13px;
+	color: color('nobel');
+	
+	.car-info__item {
+		display: inline-block;
+		text-transform: capitalize;
+		border-left: 1px solid color('nobel');
+		padding-left: 10px;
+		padding-right: 10px;
+
+		&:first-child {
+			padding-left: 0;
+			border-left: none;
+		}
+
+		&:last-child {
+			padding-right: 0;
+		}
+	}
+}
+
+.report-car-detail__evaluate-link {
+	display: inline-block;
+	text-align: center;
+	font-size: 14px;
+	line-height: 14px;
+	text-transform: capitalize;
+	padding: 20px 20px 9px 9px;
+	color: #00afa0;
+	background-color: color('snow-2');
+	position: absolute;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+}
+
+.valuation-report__btn {
+	padding: 10px 20px;
+	background-color: color('white');
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+.valuationEdit.hide {
+	float: right;
+	display: inline;
+}
+
+@include btn('primary');
+
+@media only screen and (max-width: 320px) {
+    .report-detail__model {
+        font-size: 16px;
+    }
+    .report-detail__car-info {
+        font-size: 11px;
+    }
+}

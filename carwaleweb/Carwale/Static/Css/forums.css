@@ -1,0 +1,103 @@
+﻿/* Will be used in Forum pages. */
+h1.forums-hd1 {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/grey-btn-bg.jpg?v1=04032016) repeat-x scroll center bottom #494949;
+  padding: 6px 5px;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 2px 0px;
+  color: #FFF!important;
+}
+
+.postHead {
+  background-color: #e5e5e5;
+  padding: 3px;
+  font-size: 11px;
+  border: none;
+}
+
+.postHead {
+  color: #666666;
+  border: 1px #D5D5D5 solid;
+}
+
+.poster {
+  background-color: #f8f8f8;
+  color: #555555;
+}
+
+.post, .poster, .postFooter {
+  padding: 8px;
+}
+
+.msgBox {
+  border: 1px solid #D5D5D5;
+  border-top: 0px;
+  margin-bottom: 5px;
+}
+
+.post, .postFooter {
+  border-right: 1px #D5D5D5 solid;
+}
+
+.linkButton {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/linkButton_bg.jpg?v1=04032016);
+  padding: 2px 4px 3px 4px;
+  margin: 2px 0;
+  font-size: 13px;
+  font-weight: bold;
+  border: none;
+}
+
+.linkButton, a.linkButton, a.linkButton:link, a.linkButton:visited, a.linkButton:hover, a.linkButton:active {
+  color: #f5f5f5;
+  text-decoration: none;
+}
+
+.bdrBottom {
+  border-bottom: 1px #D5D5D5 solid;
+}
+
+.bdr {
+  border: 1px #D5D5D5 solid;
+}
+
+.bdr td {
+  border-right: 1px #D5D5D5 solid;
+  border-bottom: 1px #D5D5D5 solid;
+}
+
+.startBy {
+  color: #888888;
+}
+
+.quote {
+  margin: 10px 15px;
+  padding: 5px;
+  background-color: #f3f3f3;
+  border: 1px dashed #dddddd;
+  border-left: 2px solid #999999;
+}
+
+.noPadding td {
+  padding: 1px;
+}
+
+.writePost {
+  background-color: #F6F6F6;
+  border-collapse: collapse;
+}
+
+.footerStrip {
+  margin: 5px 0px;
+  background-color: #fafafa;
+  border: #eeeeee 1px solid;
+  padding: 5px;
+}
+
+.footerStrip, .footerStrip a, .footerStrip a:link, .footerStrip a:visited, .footerStrip a:active {
+  font-weight: bold;
+}
+
+a.startBy {
+  color: #9D8888;
+}

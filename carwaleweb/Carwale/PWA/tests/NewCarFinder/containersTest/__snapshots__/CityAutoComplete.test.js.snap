@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for CityAutocomplete container component should redirect to success url on list item selection 1`] = `
+<Redirect
+  push={true}
+  to={
+    Object {
+      "pathname": "/find-car/filters",
+    }
+  }
+/>
+`;
+
+exports[`Tests for CityAutocomplete container component should redirect to success url on pressing confirm 1`] = `
+<Redirect
+  push={true}
+  to={
+    Object {
+      "pathname": "/find-car/filters",
+    }
+  }
+/>
+`;
+
+exports[`Tests for CityAutocomplete container component should render confirm when city cookie present 1`] = `
+<div
+  className="location__content"
+>
+  <div
+    className="location-content__head"
+  >
+    <p
+      className="location-selection__title"
+    >
+      Confirm
+       your City
+    </p>
+    <p
+      className="location-selection__subtitle"
+    >
+      This is necessary to personalise results for you
+    </p>
+  </div>
+  <div
+    className="location-content__body"
+  >
+    <Autocomplete
+      inputEvents={
+        Object {
+          "onBlur": [Function],
+          "onChange": [Function],
+          "onClear": [Function],
+          "onFocus": [Function],
+        }
+      }
+      inputProps={
+        Object {
+          "className": "city-field",
+          "id": "getCity",
+          "placeholder": "Type your city",
+          "successUrl": "/",
+          "value": "Mumbai, Maharashtra",
+        }
+      }
+      list={Array []}
+      renderSuggestionList={[Function]}
+      setFocus={false}
+    />
+    <button
+      className="btn-secondary btn-confirm-city"
+      onClick={[Function]}
+    >
+      Confirm
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Tests for CityAutocomplete container component should render w/o confirm when no city cookie present 1`] = `
+<div
+  className="location__content"
+>
+  <div
+    className="location-content__head"
+  >
+    <p
+      className="location-selection__title"
+    >
+      Select
+       your City
+    </p>
+    <p
+      className="location-selection__subtitle"
+    >
+      This is necessary to personalise results for you
+    </p>
+  </div>
+  <div
+    className="location-content__body"
+  >
+    <Autocomplete
+      inputEvents={
+        Object {
+          "onBlur": [Function],
+          "onChange": [Function],
+          "onClear": [Function],
+          "onFocus": [Function],
+        }
+      }
+      inputProps={
+        Object {
+          "className": "city-field",
+          "id": "getCity",
+          "placeholder": "Type your city",
+          "successUrl": "/",
+          "value": "",
+        }
+      }
+      list={Array []}
+      renderSuggestionList={[Function]}
+      setFocus={true}
+    />
+  </div>
+</div>
+`;

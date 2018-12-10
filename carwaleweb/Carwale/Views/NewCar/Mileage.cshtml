@@ -1,0 +1,120 @@
+﻿@model Carwale.DTOs.NewCars.MileagePageDTO
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using Carwale.UI.HtmlHelpers;
+@using Carwale.BL.Experiments;
+@{
+    ViewBag.BodyClass = "bg-white header-fixed-inner";
+    if(Model.PageMetaTags != null)
+    {
+        ViewBag.Title = Model.PageMetaTags.Title ?? string.Empty;
+        ViewBag.Description = Model.PageMetaTags.Description ?? string.Empty;
+        ViewBag.Canonical = Model.PageMetaTags.Canonical ?? string.Empty;
+    }
+    ViewBag.modelName = Model.ModelDetails?.MakeName + " " + Model.ModelDetails?.ModelName;
+    ViewBag.landingPage = false;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.DeeplinkAlternativesAndroid = ViewBag.DeeplinkAlternatives;
+    ViewBag.AdId = "1396440106184";
+    ViewBag.AdPath = "/1017752/NewCar_";
+    ViewBag.CustomJS = "~/Views/StaticPartials/MileagePageScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/MileagePageCss.cshtml";
+    ViewBag.PageId = 202;
+    ViewBag.DefineAdSlots =
+        @"<script type='text/javascript'>
+    var AdSlots = {};
+		googletag.cmd.push(function () {
+			googletag.pubads().disableInitialLoad();
+			googletag.pubads().setCentering(true);
+			AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-0'] = googletag.defineSlot('" + ViewBag.AdPath + @"300x250', [[300, 250], [300, 600]], 'div-gpt-ad-" + ViewBag.AdId + @"-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+			
+			AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-2'] = googletag.defineSlot('" + ViewBag.AdPath + @"970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90], [960, 60], [970, 60]], 'div-gpt-ad-" + ViewBag.AdId + @"-2').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+			googletag.pubads().setTargeting('Models', '" + (Model.ModelDetails.ModelId == 493 ? "Amaze" : Model.ModelDetails.ModelName) + @"');
+			googletag.pubads().setTargeting('City', '" + (CookiesCustomers.MasterCity) + @"');
+			googletag.pubads().setTargeting('UserModelHistory','" + CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+            googletag.pubads().collapseEmptyDivs(true);
+			googletag.pubads().enableSingleRequest();
+			googletag.enableServices();
+		});
+		</script>";
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+}
+
+@if (Model.ModelDetails.New && !Model.ModelDetails.Futuristic && Model.Schema != null)
+{
+    @section CarSchema{
+        <script type="application/ld+json">
+            @Html.Raw(Model.Schema)
+        </script>
+    }
+}
+
+@section MetaTags {
+        @{string imagePath = Carwale.Utility.ImageSizes.CreateImageUrl(Model.ModelDetails.HostUrl, Carwale.Utility.ImageSizes._1280x720, Model.ModelDetails.OriginalImage);
+        @Helpers.GetOgTags(Model.PageMetaTags.Canonical, ViewBag.Title, Model.PageMetaTags.Description, imagePath);
+        @Helpers.GetTwitterTags("summary", ViewBag.Title, Model.PageMetaTags.Description, imagePath);
+        }
+}
+<aside class="container">
+    <div class="grid-12">
+        <div class="padding-bottom15 text-center">
+            @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_728x90.cshtml"); }
+        </div>
+    </div>
+</aside>
+<div class="clear"></div>
+<div class="bg-light-grey padding-top10 padding-bottom20 no-bg-color">
+    <div class="container">
+        <main>
+            <section>
+                <div class="grid-12">
+                    @if (Model.BreadcrumbEntitylist != null) { Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist); }
+                    <h1 class="font30 text-black special-skin-text">@Html.Raw(Model.PageMetaTags.Heading)</h1>
+                    @if (Model.PageMetaTags?.Summary != null)
+                    {
+                        <p class="font11 margin-bottom10">@(Model.PageMetaTags.Summary)</p>
+                    }
+                    <div class="border-solid-bottom margin-top5 margin-bottom15"></div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+                <div class="grid-8">
+                    <div style="margin-bottom: -5px;">
+                        @if (!Model.ModelDetails.Futuristic && Model.ModelDetails.New && Model.SubNavigation != null)
+                        {
+                            Html.RenderPartial("~/Views/Shared/NewCars/_QuickMenu.cshtml", Model.SubNavigation);
+                        }
+                    </div>
+                    <div class="content-box-shadow content-inner-block-10 margin-bottom10">
+                        @{Html.RenderAction("MileageComponent", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, data = Model.MileageData, isOverView = true, modelName = ViewBag.CarName, isMobile = false, isMileagePage = true });}
+                        <div class="mileage-ad" data-role="impression-tracking" data-event="CWNonInteractive" data-cat="BBfuel_cards" data-action="impression_Mileage" data-label="impression_@(Model.ModelDetails.ModelName)_Mileage">
+                            <div class="light-grey-text font10 position-rel pos-right5 margin-left5 text-right margin-top5">Ad</div>
+                            <span class="m-sprite petrol"></span>
+                            <span class="mlg-ad-text">
+                                Fuel credit card
+                                <br />
+                                offers
+                            </span>
+                            <div>
+                                <a data-role="click-tracking" data-event="CWInteractive" data-cat="BBfuel_cards" data-action="Click_Mileage" data-label="Click_<%=model %>_Mileage" href="https://www.bankbazaar.com/credit-card.html?variant=slide&headline=HEADLINE_CC_MelaSale&WT.mc_id=bb01|CC|mileage_desktop&utm_source=bb01&utm_medium=display&utm_campaign=bb01|CC|mileage_desktop&variantOptions=mobileRequired" target="_blank" class="btn btn-orange btn-xs">View cards</a>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <!-- Model review code starts here -->
+                    @{ Html.RenderAction("ModelSynopsis", "CarWidgets", new { modelId = Model.ModelDetails.ModelId, isFuturistic = Model.ModelDetails.Futuristic, modelName = Model.ModelDetails.ModelName, makeName = Model.ModelDetails.MakeName }); }
+                    <!-- Model review code ends here -->
+                    @if (Model.SimilarCars != null && (Model.SimilarCars.SimilarCarModels.Count > 0 || Model.SimilarCars.SimilarUpcomingCar.ExpectedLaunchId > 0)) { Html.RenderPartial("~/Views/Shared/NewCars/_AlternateCars.cshtml", Model.SimilarCars); }
+
+
+                </div>
+            </section>
+        </main>
+        <div class="grid-4">
+            <aside>
+                @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_ATF_300x250.cshtml"); }
+            </aside>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

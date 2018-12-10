@@ -1,0 +1,206 @@
+﻿@using Carwale.Utility;
+@model Carwale.Entity.Accessories.Tyres.TyreDetailSummary
+@{
+    if(Model != null && Model.TyreSummary != null)
+    {
+        ViewBag.Title = string.Format("{0} {1} {2} Tyre Price, Review ", Model.TyreSummary.BrandName, Model.TyreSummary.ModelName, Model.Size);
+        ViewBag.Description = string.Format("Checkout {0} {1} {2} Tyre Price in India at CarWale.", Model.TyreSummary.BrandName, Model.TyreSummary.ModelName, Model.Size);
+    }
+    ViewBag.Canonical = "https://www.carwale.com" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.Alternate = "https://www.carwale.com/m" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.BodyClass = "header-fixed-inner";
+    ViewBag.landingPage = false;
+    ViewBag.Responsive = false;
+    ViewBag.AdId = "1522237704379";
+    ViewBag.CustomCss = "~/Views/StaticPartials/TyreSection/TyreDetailCss.cshtml";
+    ViewBag.DefineAdSlots =
+       @"<script type='text/javascript'>
+            var AdSlots = {};
+            googletag.cmd.push(function () {
+            googletag.pubads().disableInitialLoad();
+            googletag.pubads().setCentering(true);
+            AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-0'] = googletag.defineSlot('/1017752/Carwale_Desktop_Tyres_Details_970x90', [[970, 90], [970, 60], [728, 90], [960, 66], [970, 66], [960, 60], [950, 90]], 'div-gpt-ad-" + ViewBag.AdId + @"-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+            googletag.pubads().collapseEmptyDivs(true);
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+        </script>";
+    
+    
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+}
+@section Styles{
+<noscript class="deferred-styles"><link rel="stylesheet" href="/static/css/tyre-section.css" type="text/css"></noscript>
+}
+<div class="blackOut-window"></div>
+<div class="rounded-corner2 hide" id="tyre-info-popup">
+    <div class="globalcity-popup-data text-center">
+        <div class="tyre-info-close globalcity-close-btn position-abt pos-top10 pos-right10 cwmsprite cross-lg-lgt-grey cur-pointer"></div>
+        <div class="text-center" id="infoPopup">
+            <h3 class="text-black">Tyre Size</h3>
+            <img class="tyre-info-img" src="" alt="Tyre Size Information" title="Tyre Size Information">
+        </div>
+    </div>
+</div>
+<section>
+    <aside class="container">
+        <div class="grid-12">
+            <div class="padding-bottom15 text-center ad-slot">
+                @Helpers.GetAdBar("1522237704379", 970, 0, 0, 0, true, 0)
+            </div>
+        </div>
+    </aside>
+</section>
+@if(Model != null && Model.TyreSummary != null)
+{
+<section class="container">
+    <div class="grid-12">
+        <div class="margin-top5 margin-bottom10 padding-left10 padding-right10">
+            <a href="/">Home</a> &rsaquo;
+            <a href='/tyres/'>Tyres</a> &rsaquo;
+            <a href="@Format.FormatText(string.Format("/tyres/{0}/", Model.TyreSummary.BrandName))" class="lightgray">@Model.TyreSummary.BrandName</a> &rsaquo;
+            <span class="lightgray special-skin-text">@Model.TyreSummary.ModelName</span>
+        </div>
+    </div>
+</section>
+<div class="clear"></div>
+<section class="container">
+    <div class="grid-12">
+        <div class="content-box-shadow">
+            <div class="tyre-overview-img position-rel inline-block">
+                <img src="@(Model.TyreSummary.HostUrl + Carwale.Utility.ImageSizes._370X208 + Model.TyreSummary.OriginalImgPath)" alt="@Model.TyreSummary.BrandName @Model.TyreSummary.ModelName" title="@Model.TyreSummary.BrandName @Model.TyreSummary.ModelName">
+                <div class="tyre-price"><span class="fa fa-rupee"></span> @(Model.TyreSummary.Price > 0 ? Carwale.Utility.Format.FormatNumericCommaSep(Model.TyreSummary.Price.ToString()) + "/-" : "NA")*</div>
+                <div class="tyre-price__info">*Prices are indicative and may vary at dealer</div>
+            </div>
+            <div class="tyre-overview-info inline-block">
+                <h1 class="text-black font18 padding-left10 padding-right10">@Model.TyreSummary.BrandName @Model.TyreSummary.ModelName</h1>
+                <div class="font16 text-gray margin-top10 margin-bottom15 padding-left10 padding-right10"><span>Tyre Size : </span><span class="text-bold">@Model.Size</span> <span id="tyre-info" class="info-icon desk-deals-car-sprite inline-block" title=""></span></div>
+                <div class="font16 text-gray margin-bottom15 padding-left10 padding-right10"><span>Tyre Type : </span><span class="text-bold">@Model.Overview[Model.Overview.Count - 1].Value</span></div>
+                <div class="font16 text-gray margin-bottom5 padding-left10 padding-right10 @(Model.Overview[Model.Overview.Count - 2].Value == null ? "hide" : "")"><span class="cwmsprite warranty-icon"></span>@Model.Overview[Model.Overview.Count - 2].Value Warranty</div>
+            </div>
+        </div>
+    </div>
+</section>
+if(Model.TyreSummary.BrandId == 7)
+{ 
+<section class="container">
+    <div class="grid-12 margin-top20">
+        <div class="dealer-slug-view content-box-shadow padding-top20 padding-bottom20">
+            <div class="dealer-slug">
+                <div>
+                    <span class="dealer-slug__icon"></span>
+                    <p class="dealer-slug__title text-uppercase">find a tyre dealer near your location</p>
+                    <a href="/new/michelin-dealers/india/" class="text-capitalize dealer-slug__btn btn--red" rel="nofollow">view dealers</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+}
+<section class="container">
+    <div class="grid-12 margin-top30">
+        <h2 class="margin-bottom10 special-skin-text">Tyre Overview</h2>
+        <div class="content-box-shadow content-inner-block-20">
+            <table class="tyre-overview-table" cellpadding="0" cellspacing="0">              
+                <thead>
+                    <tr>
+                        @foreach (var item in Model.Overview)
+                        {
+                            <td>@item.Label</td>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @foreach (var item in Model.Overview)
+                        {
+                            <td>@item.Value
+                            @if (item.Label == "Speed Rating")
+                            {
+                            <span id="speed-rating-info" class="info-icon desk-deals-car-sprite inline-block" title=""></span>
+                            }
+                            </td>
+                        }
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+       
+    </div>
+</section>
+<div class="clear"></div>
+
+<div class="clear"></div>
+<section class="container text-center margin-top20 margin-bottom20">
+    <img src="https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/d/tyre-spec-970x394.jpg?v16011909" alt="How to read a tyre" title="How to read a tyre" />
+</section>
+
+<section class="container margin-top20 margin-bottom20">
+    <div class="grid-12" id="features">
+        <h2 class="text-black margin-bottom15 special-skin-text">Tyres Features</h2>
+        <div class="content-box-shadow padding-top40 padding-bottom40 padding-left10">
+            @Html.Raw(Model.TyreSummary.ProductFeature)         
+        </div>
+    </div>
+</section>
+<div class="clear"></div>
+}
+@if (Model.Articles != null)
+{
+<section class="container margin-top20 margin-bottom20">
+    <div class="grid-12">
+        <h2 class="margin-bottom10 margin-top10 special-skin-text">All About Tyres</h2>
+        <div class="content-box-shadow content-inner-block-20">
+            <div class="tyre-home-carousel">
+                <div class="news-type-container">
+                    <ul>
+                        @{
+                            int newsNumber = 0;
+                        }
+                        @foreach (var news in Model.Articles)
+                        {
+                            <li class="padding-bottom50 @(@newsNumber>1 ? "news-body-list hide":"")">
+                                @if (newsNumber % 2 == 0)
+                                {
+                                    <div class="grid-5 alpha">
+                                        <div class="img-preview">
+                                            <a href="@news.ArticleUrl"><img width="393" height="221" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(news.HostUrl, ImageSizes._393X221, news.OriginalImgUrl)" title="@news.Title" alt="@news.Title"></a>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="grid-7 omega">
+                                    <p class="margin-bottom20 font20"><a href="@news.ArticleUrl" class="text-black">@news.Title</a></p>
+                                    <div class="margin-bottom15 font14 line-height">@Html.Raw(news.Description)</div>
+                                    <div class="margin-bottom15">
+                                        <a href="@news.ArticleUrl" class="margin-right25 btn btn-white btn-md text-uppercase leftfloat">Read More</a>
+                                        <p class="leftfloat margin-top10 text-light-grey font14 special-skin-text">@ExtensionMethods.ConvertDateToDays(news.DisplayDate) by <span class="text-dark-grey">@news.AuthorName</span></p>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                @if (newsNumber % 2 == 1)
+                                {
+                                    <div class="grid-5 omega">
+                                        <div class="img-preview">
+                                            <a href="@news.ArticleUrl"><img width="393" height="221" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(news.HostUrl, ImageSizes._393X221, news.OriginalImgUrl)" title="@news.Title" alt="@news.Title"></a>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="clear"></div>
+                            </li>
+                            {
+                                newsNumber = newsNumber + 1;
+                            }
+                        }
+                </div>
+                <div class="padding-bottom50 text-center">
+                    <a href="javascript:void()" rel="nofollow" class="font16 view-more-btn">View <span>more</span> news</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+}
+<script type="text/javascript" src="/static/js/tyre-detail.js" defer></script>

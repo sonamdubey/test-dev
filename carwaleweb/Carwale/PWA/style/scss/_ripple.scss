@@ -1,0 +1,30 @@
+.ink {
+	display: block;
+	position: absolute;
+	border-radius: 100%;
+	@include vendor-prefix("transform", scale(0));
+
+	&.animate {
+		@include vendor-prefix("animation", ripple .5s ease-out);
+	}
+}
+
+@mixin ripple-parent() {
+	position: relative;
+	overflow: hidden;
+	@include vendor-prefix("transform", rotate(0)); // add rotate(0) since animation ignores overflow: hidden property in ios
+}
+
+@-webkit-keyframes ripple {
+	100% {
+		@include opacity(0);
+		@include vendor-prefix("transform", scale(2.5));
+	}
+}
+
+@keyframes ripple {
+	100% {
+		@include opacity(0);
+		@include vendor-prefix("transform", scale(2.5));
+	}
+}

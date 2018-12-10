@@ -1,0 +1,18 @@
+﻿@model Carwale.DTOs.CarData.CompareDetailsModel
+@using System.Linq;
+<script type="text/javascript" src="/static/m/js/comparecar.js" defer></script>
+<script language="javascript" type="text/javascript">
+    var versionIDS = [@string.Join(",",Model.CarData.CarDetails.Select(car=>car.VersionId))]
+    var modelId = '@string.Join(",", Model.CarData.CarDetails.Select(car => car.ModelId))';
+    var logoUrl = '@System.Configuration.ConfigurationManager.AppSettings["BridgestoneUrl"]';
+    var PageId = 26;
+ </script>
+<script type="text/javascript" src="/static/m/js/comparecardetail.js" defer></script>
+@{Html.RenderPartial("m/_DealerLeadPopUpAsync", new Tuple<Carwale.Entity.CarData.CarModelDetails, Carwale.Entity.Dealers.SponsoredDealer>(null,null));}
+<script type="text/javascript" src="/static/m/js/lead-form-support.js" defer></script>
+<script type="text/javascript" src="/static/m/js/plugins/beauty-tooltips.js" defer></script>
+@if (Model.Location.CityId > 0) 
+{ 
+    <script type="text/javascript" src="/static/m/js/utils/emi-slug.js" defer></script>
+    { Html.RenderPartial("~/Views/Shared/m/_EmiCalculator.cshtml"); }
+}

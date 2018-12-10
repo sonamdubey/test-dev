@@ -1,0 +1,53 @@
+﻿@import '../mixins/_variables.scss';
+@import '../mixins/_sprites.scss';
+
+
+@mixin input-field {	
+	.input-container {
+		position: relative;
+
+		.input__title {
+			font-size: 11px;
+			color: map-get($color-map, 'grey');
+			margin-bottom: 10px;
+			display: block;
+			letter-spacing: 1px;
+			text-transform: uppercase;
+		}
+
+		.form-input {
+			width: 100%;
+			height: 44px;
+			border: 1px solid map-get($color-map, 'disabledGray');
+			border-radius: 3px;
+			padding: 10px 17px;
+			color: map-get($color-map, 'trout-grey');
+			line-height: 16px;
+			font-size: 15px;
+			font-weight: normal;
+
+			&::placeholder {
+				color: map-get($color-map, 'silver');
+			}
+			&:focus {
+				border-color: #3fbfff;
+				outline: none;
+			}
+			
+		}
+
+
+		.input-error {
+			border: 1px solid  map-get($color-map, 'red');
+		}
+
+		.input__error-message {
+			position: absolute;
+			left: 2px;
+			top: 100%;
+			display: none;
+			font-size: 11px;
+			color: map-get($color-map, 'red');
+		}
+	}
+}

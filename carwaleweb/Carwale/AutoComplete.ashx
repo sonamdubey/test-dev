@@ -1,0 +1,1 @@
+﻿<%@ WebHandler Language="C#" Class="Carwale.UI.AutoComplete.AutoComplete" %>

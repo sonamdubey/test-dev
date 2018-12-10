@@ -1,0 +1,122 @@
+﻿@mixin scrollSpy($height: 50, $font-size: 13 , $bg-color: 'white', $activetabColor: 'shamrockGreen', $text-transform: uppercase) {
+	.overall-tabs-container {
+		display: inline-block;
+		height: $height * 1px;
+		position: relative;
+		width: 100%;
+
+		&.overall-tabs-container-fixed {
+			.overall-tabs-wrapper {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 6;
+				width: 100%;
+			}
+		}
+	}
+
+	.overall-tabs-wrapper {
+		@include vendor-prefix('animation', fadein .5s);
+		@include vendor-prefix('transition', all .3s ease);
+		height: $height * 1px;
+		box-shadow: map-get($color-map, 'grey-btn-border') 0 2px 3px;
+		background-color: map-get($color-map, $bg-color);
+		perspective: 1000px;
+	}
+
+	.overall-tabs-wrapper__list {
+		overflow-x: auto;
+		overflow-y: hidden;
+		white-space: nowrap;
+		list-style-type: none;
+		height: 100%;
+		display: block;
+
+		&::-webkit-scrollbar {
+			height: 0
+		}
+	}
+
+	.tab-list__item {
+		display: inline-block;
+		color: map-get($color-map, 'grey-btn-border');
+		text-decoration: none;
+		padding-top: ($height - $font-size)/2 - 1 * 1px;
+		padding-bottom: ($height - $font-size)/2 - 1 * 1px;
+		cursor: pointer;
+	}
+	.tab-list__item-active {
+		.tab-list-item__content {
+			color: map-get($color-map, $activetabColor);
+			border-bottom: 4px solid map-get($color-map, $activetabColor);
+		}
+	}
+
+	.tab-list-item__content {
+		color: map-get($color-map, 'charcoal');
+		padding: 13px 0 12px;
+		margin: 10px;
+		text-transform: $text-transform;
+		font-weight: $font-semibold;
+		font-size: $font-size * 1px;
+		letter-spacing: .59px;
+	}
+
+	@media only screen and (min-width: 768px) {
+		.overall-tabs-container {
+
+			&.overall-tabs-container-fixed {
+				opacity: 0;
+				transition: opacity .3s ease;
+				will-change: opacity;
+
+				&.overall-tabs-container--visible {
+					opacity: 1;
+					z-index: 8;
+				}
+			}
+			.tab-list-item__content {
+				font-size: $font-size + 3 * 1px;
+				text-transform: capitalize;
+			}
+
+			.overall-tabs-wrapper__list {
+				display: table;
+			}
+
+			.tab-list__item {
+				display: table-cell;
+				text-align: center;
+				padding-top: 12px;
+			}
+		}
+
+		.tab-list__item-active {
+			.tab-list-item__content {
+				font-weight: $font-bold;
+			}
+		}
+	}
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 1
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 1
+    }
+}

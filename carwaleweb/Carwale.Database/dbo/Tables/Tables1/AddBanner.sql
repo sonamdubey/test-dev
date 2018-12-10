@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[AddBanner] (
+    [Id]         NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [BannerSize] VARCHAR (50) NOT NULL,
+    [FileName]   VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_AddBanner] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

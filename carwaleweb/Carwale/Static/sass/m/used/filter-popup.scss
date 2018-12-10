@@ -1,0 +1,362 @@
+﻿@import '../../mixins/_variables.scss';
+@import '../../mixins/_vendor-utils.scss';
+@import '../../mixins/_sprites.scss';
+@import '../../mixins/_flexbox.scss';
+@import '../../mixins/_popup.scss';
+@import '../../mixins/_accordion.scss';
+@import '../../mixins/_arrow.scss';
+@import '../../mixins/_cross-icon.scss';
+
+@include popup-header($class-prefix: 'filter', $border-color: 'color-gainsboro', $background-color: 'white-bg');
+@include popup-back-button($class-prefix: 'filter');
+@include popup-title($class-prefix: 'filter', $vertical-align: 'top');
+@include popup-submit-btn($class-prefix: 'filter');
+@include accordion-list-item;
+@include accordion-head-content;
+@include accordion-head-title;
+@include accordion-selected-item;
+@include accordion-body-content;
+
+.filter__popup {
+    @include popup($bg-color: 'snow');
+    overflow-y: hidden;
+    z-index: 10;
+}
+
+.filter-popup__header {
+    @include flexbox;
+    @include flex-wrap;
+    padding: 0;
+    line-height: 55px;
+}
+
+.popup-head__left-content {
+    @include flex-grow;
+}
+
+.filter-popup-head__title {
+    @include inline-flex;
+}
+
+.filter-car__count {
+    @include inline-flex;
+    font-size: 14px;
+    margin-left: 5px;
+    color: map-get($color-map, 'text-grey');
+    font-weight: $font-normal;
+    vertical-align: middle;
+}
+.filter__list {
+    padding: 10px 10px 116px;  //padding-bottom 116 is header height
+    overflow-y: scroll;
+    height: 100%;
+    margin-bottom: 60px;
+}
+
+.body-content__item {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.body-content__input-field {
+    @include vendor-prefix(border, 1px solid map-get($color-map, 'light-grey-border'));
+    border-radius: 3px;
+    width: 100%;
+    padding: 8px 16px 8px 5px;
+    position: relative;
+    background-color: map-get($color-map, 'white-bg');
+    cursor: pointer;
+    height: 44px;
+
+    &:after {
+        @include arrow($opacity: .7, $top: 17, $right: 10, $direction: 'right');
+    }
+
+}
+
+.input-field-state {
+     display: block; 
+     background-color: map-get($color-map, 'white-bg'); 
+     font-size: 16px; 
+     padding: 5px; 
+     line-height: 16px; 
+     color: map-get($color-map, 'text-grey');
+     margin-left: 5px; 
+}
+
+.city-field--selected-state {
+    display: inline-block;
+    padding: 8px 10px;
+    color: map-get($color-map, 'dim-grey');
+    background-color: map-get($color-map, 'smoke-white');
+    border-radius: 2px;
+    font-size: 12px;
+    line-height: 11px;
+    margin-right: 5px;
+    margin-left: 5px; 
+}
+
+.selected-car-list__item {
+    width: 50%;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 10px;
+    float: left;
+}
+
+.selected-car-item__name {
+    padding: 6px 10px 7px;
+    background-color: map-get($color-map, 'snow');
+    position: relative;
+}
+
+.selected-car__make-name {
+    max-width: 90%;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: middle;
+    line-height: 18px;
+    font-size: 12px;
+}
+
+.close-box {
+    @include cross-icon($width: 29, $height: 29);
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+
+.checkbox__list {
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 0;
+}
+
+.checkbox-list__item {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    width: 50%;
+    padding: 0 4px 15px 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+     &.active {
+        .item-selection__indicator {
+            @include tick-icon-white;
+            border-color: map-get($color-map, 'puerto-rico');
+            background-color: map-get($color-map, 'puerto-rico');
+        }
+
+        .checkbox-list-item__name {
+            color: map-get($color-map, 'charcoal');
+        }
+    }
+}
+
+.checkbox-list-item__name {
+    padding-left: 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 0;
+    position: relative;
+    font-size: 15px;
+    color: map-get($color-map, 'text-grey');
+}
+
+.item-selection__indicator {
+    @include vendor-prefix(border, 1px solid map-get($color-map, 'dark-grey-border'));
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: map-get($color-map, 'white-bg'); 
+    border-radius: 2px;
+}
+
+.filter-item__slider {
+    padding-top: 30px;
+    padding-bottom: 20px;
+    position: relative;
+    margin: 0 20px;
+}
+
+.filter-slider__container {
+    height: 4px;
+    background-color: map-get($color-map, 'light-grey-border');
+    border-radius: 2px;
+    margin-bottom: 20px;
+
+    .ui-widget-header {
+       background-color: map-get($color-map, 'shamrockGreen');
+        height: 4px;
+        border-radius: 2px;
+        position: absolute;
+    }
+}
+
+.filter-slider__bullets {
+    @include vendor-prefix(transition, all .1s linear);
+    @include vendor-prefix(border, 2px solid map-get($color-map, 'white'));
+    background-color: map-get($color-map, 'shamrockGreen');
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    position: absolute;
+    top: 16px;
+    margin-left: -15px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.slider__value-tooltip {
+    font-weight: $font-normal;
+    position: absolute;
+    bottom: 35px;
+    left: -13px;
+    min-width: 52px;
+    font-size: 14px;
+    color: map-get($color-map, 'shamrockGreen');
+    text-align: center;
+    outline: none;
+    background: map-get($color-map, 'white');
+    border-radius: 4px;
+}
+
+.slider__value {
+    position: absolute;
+    font-weight: $font-normal;
+    font-size: 12px;
+    color: map-get($color-map, 'text-grey');
+    text-transform: capitalize;
+}
+
+.slider__min-value {
+    left: -4%;
+}
+
+.slider__max-value {
+    right: -6%;
+}
+
+.filter-body__icon-list {
+    @include flexbox;
+    @include flex-wrap(wrap);
+    @include justify-content(center);
+    padding-bottom: 20px;
+}
+
+.icon-list__item {
+    @include vendor-prefix('transform', 'rotate(0)');
+    position: relative;
+    overflow: hidden;
+    width: 95px;
+    min-height: 65px;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.icon-list-item__img-container {
+    width: 73px;
+    height: 38px;
+    position: relative;
+    margin: 0 auto 7px;
+}
+
+.list-item__img {
+    opacity: .54;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.list-item__img[src*=hatchback] {
+    width: 60px;
+    right: 0;
+    margin: 0 auto;
+}
+
+.list-item__name {
+    font-size: 12px;
+    font-weight: $font-semibold;
+    color: map-get($color-map, 'text-grey');
+    line-height: 13px;
+}
+
+.transmission-type__list-item {
+    .list-item__img {
+        height: 100%;
+        position: static;
+    }
+}
+
+.fuel-type__img-container {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(240, 240, 240, .5);
+    border-radius: 50%;
+    position: relative;
+    margin: 0 auto 8px;
+
+    &:before {
+        @include vendor-prefix('transform', 'scale(0)');
+        @include vendor-prefix('transition', 'transform .3s ease');
+        display: block;
+        width: 60px;
+        height: 60px;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(map-get($color-map, 'shamrockGreen'),.3);
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    &:after {
+        display: block;
+        width: 60px;
+        height: 12.5px;
+        background-color: map-get($color-map, 'white-bg');
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+}
+
+.fuel-type__img {
+    @include opacity(1);
+    bottom: 5px;
+    z-index: 1;
+}
+
+.active-icon {
+    .list-item__img {
+        opacity: 1;
+    }
+
+    .list-item__name {
+        color: map-get($color-map, 'shamrockGreen');
+    }
+
+    .fuel-type__img-container:before {
+        @include vendor-prefix('transform', 'scale(1)');
+    }
+}
+
+.ownership-list__item {
+    height: 60px;
+    width: 60px;
+}
+
+.ownership-list-item__img {
+    position: static;
+    height: 80%;
+}

@@ -1,0 +1,2 @@
+﻿CREATE USER [cwmis] WITHOUT LOGIN;
+

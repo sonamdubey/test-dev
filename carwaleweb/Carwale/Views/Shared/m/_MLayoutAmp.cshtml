@@ -1,0 +1,400 @@
+﻿@using Carwale.Utility;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.BL.Experiments;
+@using Carwale.UI.Common;
+@{
+    var showAdvantageLink = Advanatge.ShowAdvantageDiscountLink;
+    string currentHostUrl = Request.Url.GetLeftPart(UriPartial.Authority).Replace("http:", string.Empty).Replace("https:", string.Empty);
+    string pageUrl = Request.RawUrl.Replace("/amp/","/");
+    bool showExperimentalColor = ProductExperiments.IsShowExperimentalColor(CookiesCustomers.AbTest);
+}
+<!doctype html>
+<html amp itemscope itemtype="http://www.schema.org/WebPage" lang="en">
+<!-- you can use "amp" or "AMP" or "⚡" -->
+<head>
+    <meta charset="utf-8">
+    <title itemprop="name">@ViewBag.Title - CarWale</title>
+    <meta itemprop="description" name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@(ViewBag.Keywords ?? string.Empty)" />
+    <link rel="canonical" href="@ViewBag.Canonical" />
+    <link rel="shortcut icon" href="@(CWConfiguration._imgHostUrl)0x0/cw/design15/carwale.png?staticimgsfix" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="amp-google-client-id-api" content="googleanalytics">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    @RenderSection("Scripts", false)
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+    <script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+    <script async custom-element="amp-lightbox" src="https://cdn.ampproject.org/v0/amp-lightbox-0.1.js"></script>   
+    <script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+    <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet" type="text/css">
+	<!-- this style tag is required -->
+    <style amp-custom>.rupee-icon{font-family:'rupee';speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;letter-spacing:0;-webkit-font-feature-settings:"liga";-moz-font-feature-settings:"liga=1";-moz-font-feature-settings:"liga";-ms-font-feature-settings:"liga" 1;font-feature-settings:"liga";-webkit-font-variant-ligatures:discretionary-ligatures;font-variant-ligatures:discretionary-ligatures;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale} @@font-face{font-family:'rupee';src:url(https://stc.aeplcdn.com/fonts/rupee.woff) format('woff');font-weight:400;font-style:normal;font-display:swap} body,figure,li,p,ul{margin:0}body{font-family:'Lato',Serif;font-size:13px;color:#565a5c;background:#f5f5f5}#header{background:white;padding:14px 12px;}h1{margin:0 0 10px;font-size:20px;font-weight:600}h2{font-size:18px;color:#1a1a1a;font-weight:500}a{color:#0288d1;text-decoration:none}li,ul{list-style:none;padding:0}article{padding:10px}article p{line-height:1.8;font-size:15px;margin-bottom:10px}.article-body{border:1px solid #e2e2e2;padding:10px;background:#fff;min-height:68px}figure{font-size:0}#footer{text-align:center;background:#323434;padding:30px 10px 15px}.adblock{margin:10px auto}.adblock-content{margin:0 auto;text-align:center;}#top_banner_ad{width:320px;} #bottom_banner_ad{width:300px;}.adblock-content [placeholder]{background-color:#dcdcdc}.social .imgSocial{background:url(@(CWConfiguration._imgHostUrl)0x0/cw/static/sprites/m/icons-sharing.png?v=1) no-repeat;color:#fff;float:left;font-size:small;height:29px;line-height:29px;margin:0 0 0 10px;padding-left:35px;width:30px}.social .imgFacebook{background-position:-73px 0}.social .imgTwitter{background-position:-143px 0}.social .imgEmail{background-position:0 0}.related-list h2{margin:0 0 10px}.related-list li figure{width:120px;float:left;margin-right:10px}.related-list li .title-wrap{display:block;margin-left:130px}.related-list li .title-wrap .title-link{display:block}.fa,.inlineblock{display:inline-block}.related-list li .title-wrap .pub-time{color:#565a5c}.related-list li figure img{max-width:100%}.margin-top5{margin-top:5px}.margin-top10{margin-top:10px}.margin-top15{margin-top:15px}.margin-bottom5{margin-bottom:5px}.margin-bottom10{margin-bottom:10px}.margin-bottom15,amp-youtube{margin-bottom:15px}.margin-left10{margin-left:10px}.margin-right10{margin-right:10px}.padding10{padding:10px}.padding-top10{padding-top:10px}.font12{font-size:12px}.font11{font-size:11px}.text-medium-grey{color:#999}.clear{clear:both}.border-solid-top{border-top:1px solid #ccc}.text-white{color:#fff}.text-left{text-align:left}.text-right{text-align:right}.width30{width:29%}.width70{width:69%}.article-body .articleImgWrap{padding:5px;border:1px solid #ccc;background-color:#fff}.article-body .imgCaption{background-color:#f2f2f2;font-size:11px;color:#666;padding:5px;text-align:left}.fa{font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}table{margin:auto;width:inherit}.valign-middle{vertical-align:middle}.nav-icon{width:15px;height:16px;display:inline-block;background:url(https://imgd.aeplcdn.com/0x0/cw/static/icons/new-header/hamburger.svg?23Jan2018) no-repeat;background-size:cover;margin-right:12px;position:relative;cursor:pointer;top:3px;}#nav,.blackOut-window>a{position:fixed;top:0;right:0;bottom:0}.blackOut-window>a{background:#000;left:0;z-index:9;opacity:.8;display:none;filter:alpha(opacity=80)}#nav:target+.blackOut-window>a,.navUL li{display:block}#nav:target{left:0}#nav{background:#fff;width:260px;left:-260px;overflow-y:scroll;z-index:2147483647;}#blackOut-window{display:block}.navUL{padding-top:20px}.navUL li{position:relative}.navUL li a,.navUL li h3{color:#1a1a1a;font-size:14px;text-decoration:none;display:block;height:42px;padding:6px 0 0 15px}.navUL li a.active,.navUL li a:hover,.navUL li h3:hover{font-weight:600}.navUL li a:hover span.nav-drop{color:#1a1a1a}.navUL li h3{background:0;border:0;font-weight:400}.navUL li ul{display:none;border-top:1px solid #ebecec;border-bottom:1px solid #ebecec;background:#f6f7f7}.ae-sprite,.bridgestone-logo,.cwmsprite{display:inline-block}.navUL li ul a{padding:11px 0 0 51px;height:37px;border-left:4px solid transparent}.navUL li ul a.active,.navUL li ul a:hover{background:#fff;border-left:4px solid #ef3f30}.bottom-arrow,.bottom-arrow:before{position:absolute;border-left:6px solid transparent;border-right:6px solid transparent}.navUL .adv-menu-link a{padding-top:5px;padding-bottom:5px}.bottom-arrow{right:10px;top:25px;width:0;height:0;border-top:6px solid #565a5c;transition:transform .3s;-webkit-transition:transform .3s;-moz-transition:transform .3s;-ms-transition:transform .3s}.bottom-arrow:before{content:"";left:-6px;top:-8px;border-top:6px solid #fff}section[expanded] .bottom-arrow{transform:rotate(180deg);-webkit-transform:rotate(180deg);-moz-transform:rotate(180deg);-ms-transform:rotate(180deg)}section[expanded] h3{font-weight:700}.cwmsprite{background:url(@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/sprites/m/cwmsprite.png?201703221915194719) no-repeat}.trackday-icon,.electriccar-icon,.forum-icon,.home-icon,.insurance-icon,.myCarWale-icon,.nav-loan-icon,.newCars-icon,.reviews-icon,.sellCars-icon,.tyre-icon,.usedCars-icon,.amt-icon,.specials-icon,.survey-icon{width:26px;height:26px;margin-right:10px;top:5px;position:relative}.trackday-icon{background-position:-86px -526px;top:12px;opacity:.6;}.survey-icon{background-position:-181px -592px;}.amt-icon{background-position: -186px -516px; opacity:.7; top:8px; }.home-icon{background-position:0 -58px}.newCars-icon{background-position:0 -93px;top:9px}.usedCars-icon{background-position:0 -127px;top:7px}.sellCars-icon{background-position:3px -312px}.reviews-icon{background-position:0 -184px}.insurance-icon{background-position:0 -212px}.nav-loan-icon{background-position:-177px -61px}.electriccar-icon{background-position:-183px -211px;width:27px}.forum-icon{background-position:0 -243px}.myCarWale-icon{background-position:0 -277px;top:6px}.ae-sprite{background:url(@(CWConfiguration._imgHostUrl)0x0/cw/static/sprites/ae-sprite.png) no-repeat}.ae-car-icon,.ae-new-label-icon{height:25px;position:relative;top:5px}.tyre-icon{background-position:-151px -212px}.ae-new-label-icon{background-position:-156px 1px;height:24px;top:-10px;left:5px;width:39px}.font10{font-size:10px}.bridgestone-logo{background:url(@(CWConfiguration._imgHostUrl)0x0/cw/es/bridgestone/bridgestone-logo.png) no-repeat;background-size:70px auto;width:70px;height:9px}.new-red-tag-icon {width: 36px;height: 16px;background-position: -170px -377px;position: relative;top: 2px;}.specials-icon{background-position: -158px -557px;}.navUL li ul a.sponsored-text{padding-top: 5px;}.sponsored-label{position: absolute;right: 10px;font-size: 11px;}.app-download-menu{padding:10px 0 15px 10px;background: #f5f5f5;}.app-download-menu .app-link-container a{display:inline-block;vertical-align:top;}.social .imgWhatsApp{background-position:-215px 0}.search-icon-grey-box{display:inline-block;float:right;margin-right:15px;}.search-icon-grey{background:url(https://imgd.aeplcdn.com/0x0/cw/static/icons/new-header/search.svg) no-repeat;background-size: contain;width:24px;height:24px;float:right}.back-long-arrow-left{background-position:-155px 0;width:21px;height:16px}.form-control{width:100%;padding:10px;box-shadow:inset 0 1px 1px rgba(0,0,0,.075);border-radius:4px;color:#555;background:#fff;border:1px solid #ccc;box-sizing:border-box;line-height:1.42857143;outline:0}.global-search-popup .back-long-arrow-left {background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/6f6f6f/arrow-down.svg) no-repeat center;transform: rotate(90deg);width: 15px;height: 15px;position: absolute;top: 7px;left: 10px;}.global-search-popup .back-arrow-box,.global-search-popup .cross-box{height:30px;width:40px;position:absolute;top:11px;z-index:11;cursor:pointer}.global-search-popup .back-arrow-box{position:absolute;left:5px}.global-search-popup .back-arrow-box span.back-long-arrow-left{position:absolute;top:5px;left:10px}.global-search-popup .cross-box{right:5px;display:inline;outline:0}.global-search-popup .cross-box span.cross-md-dark-grey{position:absolute;right:13px;top:8px;z-index:11}.cross-md-dark-grey{background-position:-62px -246px;width:13px;height:13px}.global-search-popup .cross-box:hover span.cross-md-dark-grey{background-position:-62px -223px}.easy-autocomplete input{float:none;box-sizing:border-box}.global-search-popup{position:fixed;left:0;top:0;right:0;z-index:10}.global-search-popup .form-control{border:none;padding:16px 50px}.form-control,.form-control-box{position:relative}.hide{display:none}.search__result{color:#333;text-decoration:none;font-weight:400;word-break:break-all;padding:10px;background:#fff;display:block}.trending-icon,.trending-search{display:inline-block}.search-title{font-size:10px;text-transform: uppercase;letter-spacing:1px;color:#babfc3;background:#fff;padding:10px}.search__result-list{background-color:#fff}.trending-section{position:absolute;top:47px;border-top:solid 1px #e0e0e0;width:100%}.upcoming-info{float:right;font-size:12px}.trending-icon{background-position:-211px -22px;width:17px;height:12px;padding-right:10px;background-image:url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/cwmsprite.png?201703091415368953);background-repeat:no-repeat;box-sizing:border-box;margin-left:10px}#globalsearchsuggest-list[src*="/api/v3/autocomplete/?source=1,2,3,4&value=&size=6&isamp=true"]{display:none}.logo-menu-wrapper{width:60%;display:inline-block;vertical-align:middle;}.search-wrapper{width:38%;display:inline-block;vertical-align:middle;}.global-location{float:right;color:#666;position:relative;font-size:15px}.global-location__input{border-bottom:1px solid #666;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:auto;max-width:100px;text-align:right;position:relative;padding-right:15px}.global-location__input--value{font-size:13px;text-transform:capitalize}.location-icon{width:24px;height:24px;position:relative;right:0;top:0;display:inline-block;background:url(https://imgd.aeplcdn.com/0x0/cw/static/icons/new-header/location.svg) right no-repeat;background-size:contain}.city-selected:before {content: '';width: 7px;height: 7px;background-color: #e53012;border-radius: 50%;position: absolute;top: 1px;right: -1px;}.footer{background:#323434;margin-top:10px;padding:20px 10px 15px}.footer__logo-section{border-bottom:1px solid #ccc;margin-bottom:5px}.footer__logo-section div{vertical-align:top;display:inline-block;margin-bottom:15px;margin-right:15px;color:#999}.footer__cw-logo{background-size:172%;background-position:-18px 5px;width:98px;height:20px}.ct-logo{background-position:-58px -373px;width:99px;height:25px}.bw-logo{background-position:0 -402px;width:79px;height:27px;top:-2px}.footer-forums-link{display:inline-block;font-weight:600;color:#999;padding:10px}.footer__app-download-menu{padding-left:15px;padding-top:5px;color:#fff}.footer__bottom{border-top:1px solid #ccc;color:#fff;font-size:11px;padding-top:10px;margin-top:5px}.btn-abtest .btn-orange{background:#e53012;}.btn-abtest .btn-green{background:#00afa0;}.list-item-style{padding: 3px 0;margin: 0 10px;text-transform: capitalize; border-bottom: solid 1px #efefef;}.list-item-style:last-child{border-bottom: 0;}.article__subheading{margin-bottom:10px;line-height:1.4;}
+        @RenderSection("CustomAMPCSS", false)</style>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    @RenderSection("Schema", false)
+</head>
+<body class="@(showExperimentalColor ? "btn-abtest" : "")">
+
+    <amp-sidebar id="nav" layout="nodisplay" side="left">
+        <!-- nav code starts here -->
+        <ul class="navUL">
+            <li>
+                <a href="/m/" data-vars-el="Home AMPDOC_URL" data-vars-mt="Main">
+                    <span class="cwmsprite home-icon"></span>
+                    <span class="navbarTitle">Home</span>
+                </a>
+            </li>
+            <li>
+                <amp-accordion class="accordion">
+                    <section>
+                        <h3 data-vars-el="New Cars AMPDOC_URL" data-vars-mt="Main">
+                            <span class="cwmsprite newCars-icon"></span>
+                            <span class="navbarTitle">New Cars</span>
+                            <span class="bottom-arrow"></span>
+                        </h3>
+
+                        <ul class="nestedUL">
+                            <li><a href="/m/new/" data-vars-el="Find New Cars AMPDOC_URL" data-vars-mt="Sub">Find New Cars</a></li>
+                            @if (showAdvantageLink)
+                            { 
+                                <li>
+                                    <a href="/m/advantage/" id="menuAdvantage" data-vars-el="New Car Offers AMPDOC_URL" data-vars-mt="Sub">
+                                        New Car Offers
+                                    </a>
+                                </li>
+                            }
+                            <li><a href="/m/comparecars/" data-vars-el="Compare Cars AMPDOC_URL" data-vars-mt="Sub">Compare Cars</a></li>
+                            <li><a href="/quotation/landing/" data-vars-el="Check On-Road Price AMPDOC_URL" data-vars-mt="Sub">Check On-Road rice</a></li>
+                            <li><a href="/m/research/locatedealerpopup.aspx" data-vars-el="Find Dealer AMPDOC_URL" data-vars-mt="Sub">Find Dealer</a></li>
+                            <li><a href="/m/upcoming-cars/" data-vars-el="Upcoming Cars AMPDOC_URL" data-vars-mt="Sub">Upcoming Cars</a></li>
+                        </ul>
+                    </section>
+                </amp-accordion>
+            </li>
+            <li>
+                <amp-accordion class="accordion">
+                    <section>
+                        <h3 data-vars-el="Used Cars AMPDOC_URL" data-vars-mt="Main">
+                            <span class="cwmsprite usedCars-icon"></span>
+                            <span class="navbarTitle">Used Cars</span>
+                            <span class="bottom-arrow"></span>
+                        </h3>
+                        <ul class="nestedUL">
+                            <li><a href="/m/used/cars-for-sale/" data-vars-el="All Used Cars AMPDOC_URL" data-vars-mt="Sub">All Used Cars</a></li>
+                            <li><a href="/m/used/" data-vars-el="Find Used Cars AMPDOC_URL" data-vars-mt="Sub">Find Used Cars</a></li>
+                            <li><a href="/m/used/carvaluation/" data-vars-el="Check Car Valuation AMPDOC_URL" data-vars-mt="Sub">Check Car Valuation</a></li>
+                            <li><a href="/used/mylistings/search/" data-vars-el="My Listing AMPDOC_URL" data-vars-mt="Sub">My Listings<span class="margin-left5 cwmsprite new-red-tag-icon"></span></a></li>
+                        </ul>
+                    </section>
+                </amp-accordion>
+            </li>
+            <li>
+                <a href="/used/sell/" class="sellCarLink" data-vars-el="Sell Car AMPDOC_URL" data-vars-mt="Main">
+                    <span class="cwmsprite sellCars-icon"></span>
+                    <span class="navbarTitle">Sell Car</span>
+                </a>
+            </li>
+
+            <li>
+                <amp-accordion class="accordion">
+                    <section>
+                        <h3 data-vars-el="Reviews and News AMPDOC_URL" data-vars-mt="Main">
+                            <span class="cwmsprite reviews-icon"></span>
+                            <span class="navbarTitle">Reviews and News</span>
+                            <span class="bottom-arrow"></span>
+                        </h3>
+                        <ul class="nestedUL">
+                            <li><a href="/m/news/" data-vars-el="News AMPDOC_URL" data-vars-mt="Sub">News</a></li>
+                            <li><a href="/m/expert-reviews/" data-vars-el="Expert Reviews AMPDOC_URL" data-vars-mt="Sub">Expert Reviews</a></li>
+                            <li><a href="/userreviews/" data-vars-el="User Reviews AMPDOC_URL" data-vars-mt="Sub">User Reviews</a></li>
+                            <li><a href="/m/images/" data-vars-el="Images AMPDOC_URL" data-vars-mt="Sub">Images<span class='margin-left5 cwmsprite new-red-tag-icon'></span></a></li>
+                            <li><a href="/m/videos/" data-vars-el="Videos AMPDOC_URL" data-vars-mt="Sub">Videos<span class='margin-left5 cwmsprite new-red-tag-icon'></span></a></li>
+                            <li><a href="/m/tipsadvice/" data-vars-el="Tips and Advice AMPDOC_URL" data-vars-mt="Sub">Tips and Advice</a></li>
+                            <li><a href="/m/features/" data-vars-el="Special Reports AMPDOC_URL" data-vars-mt="Sub">Special Reports</a></li>
+                            <li><a href="/m/forums/" data-vars-el="Forums AMPDOC_URL" data-vars-mt="Sub">Forums</a></li>
+                        </ul>
+                    </section>
+                </amp-accordion>
+            </li>    
+            <li>
+                <amp-accordion class="accordion">
+                    <section>
+                        <h3 data-vars-el="Specials AMPDOC_URL" data-vars-mt="Main">
+                            <span class="cwmsprite specials-icon"></span>
+                            <span class="navbarTitle">Specials</span>
+                            <span class="bottom-arrow"></span>
+                        </h3>
+                        <ul class="nestedUL">
+                            <li><a href="/m/tyres/" data-vars-el="Car Tyres AMPDOC_URL" data-vars-mt="Sub">Car Tyres</a></li>
+                            <li><a href="/m/electriccars/" data-vars-el="All about Electric AMPDOC_URL" data-vars-mt="Sub">All about Electric</a></li>
+                            <li><a href="/the-great-indian-hatchback-of-2016/" data-vars-el="Great Indian Hatchback AMPDOC_URL" data-vars-mt="Sub">Great Indian Hatchback</a></li>
+                        </ul>
+                    </section>
+                </amp-accordion>
+            </li>
+            <li id="navInsuranceLink">
+                <a href="/m/insurance/?utm=mnavigation/" data-vars-el="Insurance AMPDOC_URL" data-vars-mt="Main">
+                    <span class="cwmsprite insurance-icon"></span>
+                    <span class="navbarTitle">Insurance</span>
+                </a>
+            </li>
+                       
+            <li>
+                <a href="https://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|form_page_oops&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide&variantOptions=mobileRequired" rel="nofollow" target="_blank" data-vars-el="Loans AMPDOC_URL" data-vars-mt="Main">
+                    <span class="cwmsprite nav-loan-icon opacity60"></span>
+                    <span class="navbarTitle">Loans</span>
+                    <span class="font9 ad-text-icon">Ad</span>
+                </a>
+            </li>
+            @*<li>
+                <a href="/m/forums/">
+                    <span class="cwmsprite forum-icon"></span>
+                    <span class="navbarTitle">Forums</span>
+                </a>
+            </li>*@
+            <li class="padding-bottom20">
+                <a href="tel:18002090230" data-vars-el="Phone AMPDOC_URL" data-vars-mt="Main">
+                    <span class="phone-icon"></span>
+                    <span class="navbarTitle margin-left10">1800 2090 230</span>
+                    <span class="text-grey font12">Toll free</span>
+                    <p class="font12 margin-left20 padding-left10">Mon-Fri &amp; Sun (10 AM - 7 PM) <br /> Sat (10 AM - 5:30 PM)</p>
+                </a>
+            </li>
+             <li class="app-download-menu bg-light-grey border-solid-top margin-top20">
+                    <div class="margin-bottom5">Download Mobile App</div>
+                    <div class="app-link-container">
+                        <a target="_blank" href="https://itunes.apple.com/in/app/carwale/id910137745?mt=8"><amp-img height="35" width="100" src="https://imgd.aeplcdn.com/0x0/cw/static/icons/app-store-img.png" alt="Download App" title="Download App"></amp-img></a>
+                        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.carwale&referrer=utm_source%3DCarWaleMsite%26utm_medium%3DMenuDrawer%26utm_campaign=CarWale%2520MobilesiteMenuDrawer"><amp-img height="35" width="100"  src="https://imgd.aeplcdn.com/0x0/cw/static/icons/google-store-img.png" alt="Download App" title="Download App"></amp-img></a>
+                    </div>
+                </li>
+        </ul>
+    </amp-sidebar>
+    <div class="blackOut-window"><a href="#"></a></div>
+
+    <header id="header">
+        <div class="logo-menu-wrapper">
+            <a id="#nav" class="inlineblock valign-middle" on="tap:nav.open" data-vars-event-action="Hamburger-Icon-Click">
+                <span class="navbarBtn nav-icon margin-right10"></span>
+            </a>
+            <figure class="brand-logo inlineblock valign-middle">
+                <a href="/m/" data-vars-event-action="CarwaleLogo-Click"><amp-img placeholder src="https://imgd.aeplcdn.com/0x0/cw/static/icons/new-header/logo.svg" width="120" alt="carwale" title="carwale.com" height="20"> </amp-img></a>
+            </figure>
+        </div>
+            <div class="search-wrapper">
+                <div class="global-location" on="tap: @(!string.IsNullOrWhiteSpace(ViewBag.GlobalCitySelectAction) ? "globalCityPopup" : "AMP.navigateTo(url='" + currentHostUrl + pageUrl + "?q=globalcity')")" role="tab" tabindex="0">
+                    <span class="location-icon"></span>
+                </div>
+                <span class="search-icon-grey-box" on="tap:AMP.setState({searchterm : ''}),global__search,blackOut-window.show,globalsearchsuggest-list.hide" role="tab" tabindex="0" data-vars-event-action="Global-Search-Icon-Click">
+                    <span class="inlineblock valign-middle search-icon-grey"></span>
+                </span>
+            </div>
+    </header>
+    
+    @RenderBody()
+    <amp-lightbox layout="nodisplay" class="global__search" id="global__search">
+      <div id="global-search-popup-cars" class="global-search-popup">
+          <div class="form-control-box" id="search">
+		  	<span class="back-arrow-box" id="gs-close" on="tap: global__search.close" role="tab" tabindex="0" data-vars-event-action="Global-Search-Back-Icon-Click"><span class="cwmsprite back-long-arrow-left"></span></span>
+             <span class="cross-box hide" id="gs-text-clear" on="tap:globalsearchsuggest-form.focus, AMP.setState({searchterm :''}),globalsearchsuggest-list.hide,trendingsuggest-list.show" role="tab" tabindex="1"><span class="cwmsprite cross-md-dark-grey"  ></span></span>
+     
+             <div class="easy-autocomplete">
+                <input type="text" id="globalsearchsuggest-form" class="form-control" placeholder="Search" autocomplete="off"  on="input-debounced:AMP.setState({searchterm : event.value}),globalsearchsuggest-list.show" required="" value="" [value]="searchterm || ''" autofocus>
+                 <div class="trending-section">
+                     <div class="search-title">Trending Searches</div>
+
+                     <amp-list id="trendingsuggest-list" layout="responsive" src="@currentHostUrl/api/trending/models/?count=5&platformId=1&isamp=true" width="200" height="120" class="search__result-list" items="trendingCars">
+                         <template type="amp-mustache">
+                             <div class="list-item-style">
+                                 <span class="cwmsprite trending-icon"></span><span on="tap: AMP.navigateTo(url='{{url}}')" role="link" tabindex="2" class="search__result trending-search" data-vars-event-label="{{makeName}}_{{modelName}}_5_amp">{{makeName}} {{modelName}}</span>
+                             </div>
+                         </template>
+                     </amp-list>
+
+                 </div>
+                 <amp-list id="globalsearchsuggest-list" layout="responsive" [src]="'@currentHostUrl/api/v3/autocomplete/?source=1,2,3,4&value=' + (searchterm || '') + '&size=6&isamp=true'" hidden="" src="@currentHostUrl/api/v3/autocomplete/?source=1,2,3,4&value=&size=6&isamp=true" height="140" width="200" class="search__result-list" items="." reset-on-refresh>
+                     <template type="amp-mustache">
+                         <span class="search__result" on="tap: AMP.navigateTo(url='{{payload.url}}')" data-vars-event-label="{{displayName}}" role="link" tabindex="2">{{displayName}}<span class="upcoming-info">{{additionalInfo}}</span></span>
+                     </template>
+                 </amp-list>
+             </div>
+         </div>
+     </div>
+        <div class="blackOut-window"><a id="blackOut-window" href="#" on="tap: global__search.close" data-vars-event-action="Global-Search-Outside-Click"></a></div>
+    </amp-lightbox>
+
+    @if (!string.IsNullOrWhiteSpace(ViewBag.GlobalCitySelectAction))
+    {
+        <amp-lightbox layout="nodisplay" id="globalCityPopup" class="global-city-popup" on="lightboxClose: AMP.setState({globalCitySearchterm : ''})" scrollable>
+            <div id="globalCityDiv" class="landing-city-popup city-car-filter">
+                <div class="globalcity-close-btn position-abt pos-top10 pos-right10" on="tap: globalCityPopup.close" role="tab" tabindex="0">
+                    <div class="cwmsprite cross-lg-white cur-pointer"></div>
+                </div>
+                <div class="container">
+                    <div class="city-banner-div">
+                        <div class="padding-top70">
+                            <h2 class="text-capitalize text-white text-center font20 show" id="select-heading">Select Your City</h2>
+                            <h2 class="text-capitalize text-white text-center font20 hide" id="selected-city-text">
+                                <span class="cwmsprite edit-city"></span>
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <section class="container">
+                    <div class="grid-12">
+                        <div class="margin-minus20">
+                            <div class="margin-bottom15 position-rel">
+                                <div id="loc-widget" class="globalcity-popup-data loc-widget text-center">
+                                    <div class="cityNameWrap table position-rel validWidget">
+                                        <div class="easy-autocomplete">
+                                            <input id="globalCityInput" class="form-control blur ui-autocomplete-input cityName" type="text" placeholder="Type your city e.g. Mumbai" autocomplete="off"
+                                                   on="input-debounced: AMP.setState({globalCitySearchterm : event.value})" [value]="globalCitySearchterm || ''">
+                                        </div>
+                                        <div class="easy-autocomplete-container">
+                                            <ul id="popupCityList" class="ui-content">
+                                                <amp-list id="globalcitySuggest-list" layout="fixed-height" src="@currentHostUrl/api/v2/autocomplete/city/?term=&record=5&size=5&SourceId=43&showFeaturedCar=true" height="1" [height]="(globalCitySearchterm || '' ) == '' ? 0 : 185"
+                                                          [src]="'@currentHostUrl/api/v2/autocomplete/city/?term=' + (globalCitySearchterm || '') + '&record=5&size=5&SourceId=43&showFeaturedCar=true'" items="." reset-on-refresh>
+                                                    <template type="amp-mustache">
+                                                        <li on="tap: AMP.setState({cityId : '{{payload.cityId}}', cityName : '{{payload.cityName}}'}), @ViewBag.GlobalCitySelectAction" role="tab" tabindex="0">{{payload.cityName}}</li>
+                                                    </template>
+                                                </amp-list>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </section>
+            </div>
+        </amp-lightbox>
+    }
+    
+        <footer class="footer clearfix">
+            <div class="clearfix padding-top10">
+                <div class="text-center">
+                    <div class="footer__logo-section">
+                        <div>
+                            <a href="https://www.carwale.com/m/" class="cwmsprite footer__cw-logo"></a>
+                            <p class="margin-left15 font11">ask the experts</p>
+                        </div>
+                        <div>
+                            <a href="https://m.cartrade.com/" target="_blank" class="cwmsprite ct-logo"></a>
+                        </div>
+                        <div>
+                            <a href="https://www.bikewale.com/m/" target="_blank" class="cwmsprite bw-logo"></a>
+                        </div>
+                    </div>
+                    <div>
+                        <ul>
+                            <li class="inline-block">
+                                <a href="https://www.carwale.com/m/forums/" class="footer-forums-link">Forums</a>
+                            </li>
+                            <li class="inline-block">
+                                <a href="https://www.carwale.com/m/social/" class="footer-forums-link">Social Hub</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer__app-download-menu">
+                        <div class="margin-bottom10">Download Mobile App</div>
+                        <div class="app-link-container">
+                            <a target="_blank" href="https://itunes.apple.com/in/app/carwale/id910137745?mt=8">
+                                <amp-img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/app-store-img.png" alt="Download App" title="Download App" width="114" height="39"></amp-img>
+                            </a>
+                            <a target="_blank" href="https://play.google.com/store/apps/details?id=com.carwale&amp;referrer=utm_source%3DCarWaleMsite%26utm_medium%3DFooter%26utm_campaign=CarWale%2520MobilesiteFooter">
+                                <amp-img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/google-store-img.png" alt="Download App" title="Download App" width="115" height="40"></amp-img>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="footer__bottom">
+                        <div class="float-left inline-block">© CarWale India</div>
+                        <div class="float-right inline-block">
+                            <a href="/visitoragreement.aspx" class="text-white">Visitor Agreement </a>&amp;
+                            <a href="/privacypolicy.aspx" class="text-white">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        @RenderSection("Tracking", false)
+        <amp-analytics type="googleanalytics" id="google-analytics-layout">
+            <script type="application/json">
+                {
+                "vars":{
+                "account":"UA-337359-1"
+                },
+                "triggers":{
+                "NavigationDrawerInteractions":{
+                "on":"click",
+                "selector":"#nav [aria-expanded='false'], .navUL li a",
+                "request":"event",
+                "vars":{
+                "eventCategory":"Navigation-drawer-Mobile",
+                "eventAction":"${mt}-Menu-item-Click",
+                "eventLabel":"${el}"
+                }
+                },
+                "TopMenuInteractions":{
+                "on":"click",
+                "selector":"#header [data-vars-event-action], #gs-close, #blackOut-window",
+                "request":"event",
+                "vars":{
+                "eventCategory":"TopMenu-Mobile",
+                "eventAction":"${eventAction}",
+                "eventLabel":"${ampdocUrl}"
+                }
+                },
+                "GlobalCityInteractions":{
+                "on":"click",
+                "selector":".global-location__input",
+                "request":"event",
+                "vars":{
+                "eventCategory":"AreaLocation-abtest",
+                "eventAction":"popupdisplayed",
+                "eventLabel":"UserInitiated|||"
+                }
+                },
+                "SearchResultClick":{
+                "on":"click",
+                "selector":"#globalsearchsuggest-list a",
+                "request":"event",
+                "vars":{
+                "eventCategory":"TopMenu-Mobile",
+                "eventAction":"Global-AutoSuggest-Value-Click",
+                "eventLabel":"${eventLabel}"
+                }
+                },
+                "TrendingImpression":{
+                "on":"visible",
+                "selector":"#trendingsuggest-list",
+                "request":"event",
+                "vars":{
+                "eventCategory":"Search_Global",
+                "eventAction":"trending_shown",
+                "eventLabel":"trending_shown_5"
+                },
+                "extraUrlParams":{
+                "ni":"1"
+                }
+                },
+                "TrendingClick":{
+                "on":"click",
+                "selector":"#trendingsuggest-list a",
+                "request":"event",
+                "vars":{
+                "eventCategory":"Search_Global",
+                "eventAction":"trending_click",
+                "eventLabel":"${eventLabel}"
+                }
+                }
+                }
+                }
+            </script>
+        </amp-analytics>
+</body>
+</html>

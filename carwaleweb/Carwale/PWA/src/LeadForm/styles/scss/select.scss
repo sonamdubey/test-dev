@@ -1,0 +1,58 @@
+.oxygen-select {
+  display: inline-block;
+  position: relative;
+}
+
+.oxygen-select-label {
+  color: #6f6f6f;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 7px;
+  display: block;
+}
+
+.oxygen-select-content {
+  position: relative;
+}
+
+.oxygen-select-arrow-separator {
+  position: absolute;
+  top: 0;
+  right: 40px;
+  display: block;
+  height: 100%;
+  border-left: 1px solid #d5d5d5;
+}
+
+.oxygen-select-field {
+  @include arrow-down-icon;
+  width: 100%;
+  color: #484848;
+  font-size: 15px;
+  padding: 10px 56px 10px 16px; // 40px arrow button + 16px right padding = 56px
+  display: inline-block;
+  border-radius: 3px;
+  border: 1px solid #d5d5d5;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: right 12px center; // 12px left space + 12px right space + 16px icon width = 40px arrow button
+  height: 44px;
+
+  &:focus {
+    outline: 0;
+    border-color: #3fbfff;
+  }
+}
+
+// error state
+.has-error {
+  .oxygen-select-field {
+    border-color: #ff653f;
+  }
+}

@@ -1,0 +1,28 @@
+﻿@using Carwale.Entity.Classified.Leads;
+<div id="getSellerDetailsBtn" class="margin-right10 seller-btn-section border-solid-top uc-btn padding-top10 padding-bottom10 padding-left10 padding-right10 getSellerDetailsBtn seller-btn-detail">
+    <div class="position-rel inline-block seller-btn-position rightfloat padding0 grid-8">
+        <span class="coachmark det-new-coachmark text-left hide">
+            <span class="coachmark-arrow-bottom"></span>
+            <p class="font16 text-bold">Get Seller Details</p>
+            <p class="font14 inline-block">
+                Get address and mobile no.<br />
+                of the seller
+            </p>
+            <p class="inline-block margin-left10"><a id="detNewcm" class="btn btn-green btn-green-sm">Next</a></p>
+            <p class="margin-top5"><a href="javascript:void(0)" id="detNoMoreTips" class="noMoreTips">Don't show anymore tips</a></p>
+        </span>
+        <a class="btn btn-orange btn-sm getSellerDetails grid-12" id="getsellerDetails">
+            <div class="text-bold getSimilarCarSellerDetails font18">Get Seller Details</div>
+            <div class="oneClickDetails hideImportant">
+                <span class="font18">1-Click </span><span class="font18">View Details</span>
+            </div>
+        </a>
+        <span class="applozic-launcher" data-mck-id data-mck-name></span>
+    </div>
+    <div class="grid-4 chat-btn-container">
+        <button class="btn-xs chat-btn">
+            <span id="chatIcon" class="chat-btn--whatsapp-icon" data-chat-lead-type="@LeadType.WhatsAppLead.ToString("D")"></span>
+            <span class="chat-btn__text">Chat</span>
+        </button>
+    </div>
+</div>

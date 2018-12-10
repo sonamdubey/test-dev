@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for Make container component when data is available should match snapshot 1`] = `
+<div
+  className="make-type-screen"
+>
+  <div
+    className="screen__head"
+  >
+    <p
+      className="screen-head__title"
+    >
+      Select your preferred Brands
+    </p>
+    <p
+      className="screen-head__subtitle"
+    >
+      Popular Brands
+    </p>
+    <ul
+      className="make__list list__popular-make"
+    >
+      <li
+        className="make-list__item list-popular-make__item "
+        key="50"
+        onClick={[Function]}
+      >
+        <MakeItem
+          item={
+            Object {
+              "makeId": 50,
+              "makeName": "Force Motors",
+              "modelCount": 2,
+            }
+          }
+          showCount={true}
+        />
+      </li>
+    </ul>
+  </div>
+  <div
+    className="screen__body"
+  >
+    <p
+      className="screen-body__title"
+    >
+      Other Brands
+    </p>
+    <ul
+      className="make__list list__other-make"
+    >
+      <li
+        className="make-list__item list-other-make__item disable"
+        key="10"
+        onClick={[Function]}
+      >
+        <MakeItem
+          item={
+            Object {
+              "makeId": 10,
+              "makeName": "Maruti Suzuki",
+              "modelCount": 0,
+            }
+          }
+          showCount={true}
+        />
+      </li>
+      <li
+        className="make-list__item list-other-make__item disable"
+        key="7"
+        onClick={[Function]}
+      >
+        <MakeItem
+          item={
+            Object {
+              "makeId": 7,
+              "makeName": "Honda",
+              "modelCount": 0,
+            }
+          }
+          showCount={true}
+        />
+      </li>
+      <li
+        className="make-list__item list-other-make__item disable"
+        key="17"
+        onClick={[Function]}
+      >
+        <MakeItem
+          item={
+            Object {
+              "makeId": 17,
+              "makeName": "Toyota",
+              "modelCount": 0,
+            }
+          }
+          showCount={true}
+        />
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Tests for Make container component when no make data is available should match snapshot 1`] = `
+<div
+  className="make-type-screen"
+>
+  <div
+    className="screen__head"
+  >
+    <p
+      className="screen-head__title"
+    >
+      Select your preferred Brands
+    </p>
+    <p
+      className="screen-head__subtitle"
+    >
+      Popular Brands
+    </p>
+    <ul
+      className="make__list list__popular-make"
+    />
+  </div>
+  <div
+    className="screen__body"
+  >
+    <p
+      className="screen-body__title"
+    >
+      Other Brands
+    </p>
+    <ul
+      className="make__list list__other-make"
+    />
+  </div>
+</div>
+`;

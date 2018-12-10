@@ -1,0 +1,125 @@
+﻿@model Carwale.Entity.ViewModels.CompareCarsDetailModel
+@using Carwale.UI.Common;
+@using Carwale.Utility
+<div class="cc-area CarHeader" id="data-table-top">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td class="grey-bg-top CarHeaderFilter" align="center">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="align-left"><a id="chkShowDiff" class="cc-a-static cc-sprite chk-box"><strong>Hide common features </strong></a>
+                    </tr>
+                    <tr>
+                        <td height="15"></td>
+                    </tr>
+                    <tr>
+                        <td class="align-left"><a id="chkHighlightDiff" class="cc-a-static cc-sprite chk-box"><strong>Highlight differences</strong></a>
+                    </tr>
+                </table>
+            </td>
+            <td class="cars" style="width: @(Model.TblHeaderWidth)px">
+                <table id="tblCVCHeader" width="100%">
+                    <tr>
+                        @{var tempCounter = 1;}
+                        @foreach (var competator in Model.CarDetails)
+                        {
+                            <td modelid="@competator.ModelId">
+                                @if (tempCounter++ == Model.CarDetails.Count && Model.FeaturedVersionId != -1)
+                                {
+                                    <span class="cc-sprite close-btn" onclick="HideSponsoredAd('@competator.ModelName',@Model.CarDetails.Count)" data-role="impression" data-event="CWNonInteractive" data-action="@competator.ModelName close" data-cat="Comparecars_filters" data-label='@competator.ModelName close_shown'></span>
+                                    <span class="font11 idsponsored" style="float: right;">Sponsored</span>
+                                }
+                                else
+                                {
+                                    <span class="cc-sprite close-btn" title="Remove" onclick="window.location.href = '@competator.CloseUrl';return false;"></span> }
+                            </td>
+                        }
+                    </tr>
+                    <tr id="trCarImage">
+                        @{tempCounter = 1;}
+                        @foreach (var competator in Model.CarDetails)
+                        {
+                            <td class="img-div">
+                                <a modelid="@competator.ModelId" href="/@UrlRewrite.FormatSpecial(competator.MakeName)-cars/@competator.MaskingName/" data-action="Click_Image_@competator.MaskingName" data-label="@Model.TargetLabel" track-sponsored="@(competator.VersionId == Model.FeaturedVersionId ? "true" : "false")">
+                                    <img class="lazy" src="@(CWConfiguration._imgHostUrl)144x81/cw/cars/no-cars.jpg" data-original="@ImageSizes.CreateImageUrl(competator.HostURL, ImageSizes._110X61, competator.OriginalImgPath)" width="145px" border="0" title="@competator.MakeName @competator.ModelName @competator.VersionName" alt="@competator.MakeName @competator.ModelName @competator.VersionName" />
+                                </a>
+                            </td>
+                        }
+                    </tr>
+                    <tr id="trCarName" class="verticalAlign">
+                        @{tempCounter = 1;}
+                        @foreach (var competator in Model.CarDetails)
+                        {
+                            <td>
+                                <a modelid="@competator.ModelId" class="hyperLink" data-action="Click_Model_@competator.MaskingName" data-label="@Model.TargetLabel" track-sponsored="@(competator.VersionId == Model.FeaturedVersionId ? "true" : "false")" href="/@UrlRewrite.FormatSpecial(competator.MakeName)-cars/@competator.MaskingName/">@competator.MakeName @competator.ModelName</a><br />
+
+                                @if (((Model.FeaturedVersionId != -1 ? Model.ValidVersionIds.Count + 1 : Model.ValidVersionIds.Count) > Model.ValidVersionIds.Count) && Model.FeaturedCarData != null && !string.IsNullOrEmpty(Model.FeaturedCarData.ExternalLinkTracker) && Model.FeaturedCarData.FeaturedVersionId == competator.VersionId)
+                                {
+                                    <span data-role="impression" data-event="CWNonInteractive" data-action="Impression_@competator.MaskingName" data-cat="Comparecars_filters" data-label="@Model.TargetLabel" class="margin-left5 margin-right5">|</span><a href="@Model.FeaturedCarData.ExternalLinkTracker" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-action="Click_@competator.MaskingName" data-cat="Comparecars_filters" data-label="@Model.TargetLabel">@(string.IsNullOrEmpty(Model.FeaturedCarData.ExternalLinkText) ? "Explore" : Model.FeaturedCarData.ExternalLinkText)<i class="fa fa-external-link text-lighter-grey"></i></a>
+                                }
+                                <br />
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @{tempCounter = 1;}
+                        @foreach (var competator in Model.CarDetails)
+                        {
+                            <td>
+                                <div tabindex="-1" class="vName" vid="@competator.VersionId">@competator.VersionName<span class="cw-sprite dwnArrow"></span></div>
+                                <div class="selVersions">
+                                    <ul class="ulSelect">
+                                        @if (Model.ModelsVersionDict.ContainsKey(competator.ModelId) && Model.FeaturedVersionId != competator.VersionId)
+                                        {
+                                            foreach (var version in Model.ModelsVersionDict[competator.ModelId])
+                                            {
+                                                if (version.ID != competator.VersionId)
+                                                {
+                                                    <li vid=@version.ID>@version.Name</li>
+                                                }
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                    <tr>
+                        @{tempCounter = 1;}
+                        @foreach (var competator in Model.CarDetails)
+                        {
+                            <td>
+                                <span class="fontblack">₹ @(competator.PriceOverview.Price > 0 ? FormatPrice.GetFormattedPriceV2(competator.PriceOverview.Price.ToString()) : "N/A") @competator.PriceOverview.PriceLabel </span>                                
+                            </td>
+                        }
+                    </tr>   
+                    @if (CookiesCustomers.MasterCityId <= 0)
+                    {
+                        <tr>
+                            @{tempCounter = 1;}
+                            @foreach (var competator in Model.CarDetails)
+                            {
+
+                                <td modelid="@competator.ModelId">
+                                    @if (competator.IsNew)
+                                    {
+                                        <div class="select-city-link" data-makemaskingname=@Format.FormatURL(competator.MakeName) data-modelmaskingname=@competator.MaskingName data-role="click-inview-imp" data-action="showpriceinmycity" data-cat="Desktop_CompareDetails" data-label='@(competator.ModelName)'><span class="btn btn-white btn-xs font12" style="font-weight:bold">@(System.Configuration.ConfigurationManager.AppSettings["ShowPriceInCityText"] ?? "Show price in my city")</span></div>
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    }             
+                </table>
+            </td>
+            @if (Model.ValidVersionIds.Count < 4)
+            {
+                <td>
+                    <div style="margin-top: auto;">
+                        @{Html.RenderPartial("~/Views/Shared/NewCars/_AddCarCard.cshtml");
+                        }
+                    </div>
+                </td>
+            }
+        </tr>
+    </table>
+</div>

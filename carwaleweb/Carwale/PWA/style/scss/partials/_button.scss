@@ -1,0 +1,177 @@
+//
+// Buttons
+// --------------------------------------------------
+
+// normalize button
+button {
+	border: none;
+	outline: none;
+	background-color: transparent;
+}
+
+//
+//## Button color map with their default and hover state
+$button-color-map: (
+	"primary-color": color("white"),
+	"primary-background": color("orange-red"),
+	"primary-border": color("orange-red"),
+	"primary-hover-color": color("white"),
+	"primary-hover-background": color("hd-orange"),
+	"primary-hover-border": color("orange-red"),
+
+	"secondary-color": color("shamrock-green"),
+	"secondary-background": transparent,
+	"secondary-border": color("shamrock-green"),
+	"secondary-hover-color": color("white"),
+	"secondary-hover-background": color("shamrock-green"),
+	"secondary-hover-border": color("shamrock-green")
+);
+
+//
+//## A mixin to get button text properties
+// @param $state: button state i.e. primary, secondary
+// @param $size: button size i.e. sm
+@mixin btn-text-property($state, $size) {
+	width: 100%;
+
+	@if ($state == "primary") {
+		font-size: 18px;
+		line-height: 20px;
+		font-weight: $font-bold;
+		padding: 13px;
+		@include vendor-prefix("border-radius", 6px);
+	}
+	@else if ($state == "secondary") {
+		@if ($size == "sm") {
+			font-size: 12px;
+			line-height: 14px;
+			padding: 9px;
+			@include vendor-prefix("border-radius", 4px);
+		}
+		@else {
+			font-size: 15px;
+			line-height: 17px;
+			padding: 15px;
+			@include vendor-prefix("border-radius", 6px);
+		}
+	}
+}
+
+
+//
+//## Base style
+@mixin btn-base {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	touch-action: manipulation;
+	cursor: pointer;
+	background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+	white-space: nowrap;
+	@include vendor-prefix("user-select", none);
+	-webkit-appearance: none;
+}
+
+
+//
+//## Mixin to generate button
+// @param $state: button state i.e. primary, secondary
+// @param $size: button size i.e. sm
+@mixin btn($state, $size: "") {
+	$className: "btn-" + $state;
+
+	@if ($size != "") {
+		$className: "btn-" + $state + "-" + $size;
+	}
+
+	.#{$className} {
+		@include btn-base;
+		@include btn-text-property($state, $size);
+		color: btn-color($state + "-color");
+		background: btn-color($state + "-background");
+		border: 1px solid btn-color($state + "-border");
+		text-decoration: none;
+
+		&:hover {
+			@if not($isMobile) {
+				@if btn-color($state + "-color") == btn-color($state + "-hover-color") {
+					color: btn-color($state + "-hover-color");
+				}
+				@if btn-color($state + "-border") == btn-color($state + "-hover-border") {
+					border: btn-color($state + "-hover-border");
+				}
+				background: btn-color($state + "-hover-background");
+			}
+
+			text-decoration: none;
+		}
+
+		&[disabled] {
+			cursor: not-allowed;
+			@include opacity(.4);
+		}
+	}
+}
+
+//
+//## Button type: pill
+
+//
+//## A mixin to get button text properties
+// @param $state: button state i.e. primary, secondary
+// @param $size: button size i.e. sm
+@mixin btn-pill-text-property($size) {
+	font-weight: $font-semibold;
+	color: color("dark-gray");
+	border: 1px solid color("dark-gray");
+	background-color: color("white");
+
+	@if ($size == "sm") {
+		font-size: 11px;
+		padding: 8px 10px;
+		@include vendor-prefix("border-radius", 15px);
+	}
+	@else {
+		font-size: 15px;
+		padding: 9px 20px;
+		@include vendor-prefix("border-radius", 38px);
+	}
+}
+
+@mixin btn-pill-ripple-property($size) {
+	.ink {
+		@if ($size == "sm") {
+			@include vendor-prefix("border-radius", 15px);
+		}
+		@else {
+			@include vendor-prefix("border-radius", 38px);
+		}
+	}
+}
+
+// pill type button
+@mixin btn-pill($state, $size: "") {
+	$className: "btn-" + $state + "-pill";
+
+	@if ($size != "") {
+		$className: "btn-" + $state + "-" + $size + "-pill";
+	}
+
+	.#{$className} {
+		display: inline-block;
+		vertical-align: middle;
+		cursor: pointer;
+		@include btn-pill-text-property($size);
+		@include ripple-parent();
+		@include btn-pill-ripple-property($size);
+
+		&.active {
+			color: color("shamrock-green");
+			border-color: color("shamrock-green");
+		}
+
+		&.disable {
+			@include opacity(.4);
+		}
+	}
+}

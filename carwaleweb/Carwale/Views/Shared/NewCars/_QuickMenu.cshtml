@@ -1,0 +1,153 @@
+﻿@model Carwale.DTOs.CarData.SubNavigationDTO
+
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using Carwale.BL.CMS;
+@using Carwale.Entity.Enum;
+@using Carwale.UI.PresentationLogic;
+@{
+    if (string.IsNullOrEmpty(ViewBag.GalleryObject))
+    {
+        ViewBag.GalleryObject = Newtonsoft.Json.JsonConvert.SerializeObject(new { modelId = Model.ModelId, makeId = Model.MakeId, makeName = Model.MakeName, modelName = Model.ModelName, isNew = Model.IsNew, isFuturistic = Model.IsFuturistic, modelMaskingName = Model.MaskingName });
+    }
+    string trackingAction360 = string.Empty;
+    switch (Model.Page)
+    {
+        case Pages.ModelPageId: trackingAction360 = "model"; break;
+        case Pages.PIC: trackingAction360 = "price_in_city"; break;
+        case Pages.VersionPage: trackingAction360 = "version"; break;
+        case Pages.ExpertReviewDetails: trackingAction360 = "expertreview"; break;
+        case Pages.UserReviewListing: trackingAction360 = "user_review"; break;
+        case Pages.ImageLanding: trackingAction360 = "Images"; break;
+        case Pages.Mileage: trackingAction360 = "mileage"; break;
+    }
+    string carName = string.Format("{0} {1}", Model.MakeName, Model.ModelName);
+}
+<!-- nav code starts here -->
+<div style="margin-bottom: -5px;">
+    @if (Model != null)
+    {
+        if (!Model.subNavOnCarCompare)
+        {
+            <div id="dropdown-nav">
+                <ul id="ulSubNavigation" class="dropdown-menu dropdown-menu-skin">
+                    <li id="liOverview"><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="@Model.ModelName" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" id="overview" class="@(Model.ModelName.Length>10?"truncate-modelname":"")" title="@Model.ModelName" href="/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/@Model.MaskingName/">@Model.ModelName</a></li>
+                    @if (Model.IsNew)
+                    { 
+                        <li id="liNavPrice" data-modelId="@Model.ModelId" data-pageId="@Model.PQPageId"><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="On Road Price" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" href="javascript:void(0)">On Road Price</a></li>
+                    }
+                    @if (Model.IsReviewsAvial)
+                    {
+                        <li id="liReviews">
+                            <a href="javascript:void(0)">Reviews</a>
+                            <ul>
+                                @if (Model.IsExpertReviewAvial)
+                                {
+                                    <li hastagname="#expertreviews" @if (Model.Category != "") { <text> data-cwtccat="@Model.Category" data-cwtcact="ReviewTabClick" data-cwtclbl="@Model.Label" </text> }><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="Expert Reviews" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" href="/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/@Model.MaskingName/@(Model.IsModelPage?"#expertreviews":"expert-reviews/")">Expert Reviews</a></li>
+                                }
+                                @if (Model.IsUserReviewsAvailable)
+                                {
+                                    <li hastagname="#userreviews" @if (Model.Category != "") { <text> data-cwtccat="@Model.Category" data-cwtcact="ReviewTabClick" data-cwtclbl="@Model.Label" </text> }><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="User Reviews" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" href="/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/@Model.MaskingName/@(Model.IsModelPage?"#userreviews":"userreviews/")">User Reviews</a></li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li id="liNews" hastagname="#news"><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="News" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" href="/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/@Model.MaskingName/@(Model.IsModelPage?"#news":"news/")">News</a></li>
+                    }
+                    @if (Model.ImageCount > 0 || Model.Is360Avail || Model.VideoCount > 0)
+                       {
+                          <li id="liPhotos">
+                                <a href="javascript:void(0)">Gallery</a>
+                                <ul>
+                                    @if (Model.ImageCount > 0)
+                            {
+                                        <li data-cwtccat="@Model.Category" data-cwtcact="PhotosTabClick" data-cwtclbl="@Model.Label">
+                                            <a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="Images" data-label="@string.Format("{0}-{1}-{2}-{3}", Model.Category, Model.MakeName, Model.ModelName, ViewBag.CityName)" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.MakeName, Model.MaskingName)">Images (@Model.ImageCount)</a>
+                                        </li>
+                                    }
+                                    @if (Model.Is360Avail)
+                            {
+                                        <li data-role="inview-imp" data-cat="desktop_360_linkages" data-label="@carName" data-action="@(trackingAction360)_sub_nav_impression">
+                                            <a href="@EditorialContent.Get360PageUrl(Model.MakeName, Model.MaskingName, Model.Default360Category, false)" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_linkages" data-action="@(trackingAction360)_sub_nav" data-label="@carName">360° View</a>
+                                        </li>
+                                    }
+                                    @if (Model.VideoCount > 0)
+                            {
+                                        <li data-role="inview-imp" data-cat="desktop_video_linkages" data-action="@(trackingAction360)_sub_nav_impression" data-label="@carName">
+                                            <a data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_linkages" data-action="@(trackingAction360)_sub_nav" data-label="@carName" href="@CMSCommon.GetVideoUrl(Model.MakeName, Model.MaskingName, null, 0)">Videos (@Model.VideoCount)</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                       }
+
+                    @if (!Model.IsVersionDetailPage)
+                    {
+                        <li id="liColors" @if (!Model.ShowColorsLink) { <text> hastagname="#colours" </text> } @if (Model.ShowColorsLink) { <text> data-role="inview-imp" data-cat="desktop_colour_linkages" data-label="@string.Format("{0} {1}",Model.MakeName,Model.ModelName)" data-action="@(trackingAction360)_sub_nav_impression" </text> }><a data-role="click-tracking" data-event="CWInteractive" @if (Model.ShowColorsLink) { <text> data-cat="desktop_colour_linkages" data-label="@string.Format("{0} {1}",Model.MakeName,Model.ModelName)" data-action="@(trackingAction360)_sub_nav" </text> } else { <text> data-cat="New Sub Navigation" data-action="Colours" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" </text> } href="/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/@Model.MaskingName/@(Model.ShowColorsLink?"colours/":"#colours")">Colours</a></li>
+                    }
+                    else if (Model.IsMileageAvail && !Model.IsMileagePage)
+                    {
+                        <li id="liMileage"><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="Mileage" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" href="/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/@Model.MaskingName/mileage/">Mileage</a></li>
+                    }
+                    <li id="liVersions" hastagname="#versions"><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="Versions" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" href="/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/@Model.MaskingName/#versions">Versions</a></li>
+                    <li id="liMore">
+                        <a href="javascript:void(0)">More</a>
+                        <ul>
+                            @if (Model.IsReviewsAvial)
+                            {
+                                <li hastagname="#news"><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="News" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" href="/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/@Model.MaskingName/@(Model.IsModelPage?"#news":"news/")">News</a></li>
+                            }
+                            @if (!Model.IsVersionDetailPage && Model.IsMileageAvail && !Model.IsMileagePage)
+                            {
+                                <li><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="Mileage" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" href="/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/@Model.MaskingName/mileage/">Mileage</a></li>
+                            }
+                            @if (Model.IsNew)
+                            {
+                                <li><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="Dealers" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" href="/new/@UrlRewrite.FormatSpecial(Model.MakeName)-dealers/">Dealers</a></li>
+                            }
+                            @if (Model.IsUsedCarAvail)
+                            {
+                                <li hastagname="#ucsusedcarsuggestion_divusedcarsuggestion"><a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="Used Model" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" href="/used/@UrlRewrite.FormatSpecial(Model.MakeName)-@Model.MaskingName-cars/">Used Model</a></li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+            <!--copy below code and paste in Subnavigation starts  -->
+        }
+        if (Model.PageDetails != null)
+        {
+            <div id="menuareaExpReview">
+                <ul class="menu" style="display: inline;">
+                    @{ulong basicId = ViewBag.PageDetails.BasicId;}
+                    @foreach (var page in ViewBag.PageDetails.PageList)
+                    {
+                        <li style="display: inline; margin-right: 10px;">
+                            <a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="@Html.Raw(page.PageName)" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" href="#@Format.RemoveSpecialCharacters(page.PageName)-@basicId">
+                                <strong>
+                                    @Html.Raw(page.PageName)
+                                </strong>
+                            </a>
+                        </li>
+                    }
+                    @if (ViewBag.PageDetails.ShowGallery)
+                    {
+                        <li style="display: inline; margin-right: 10px;">
+                            <a data-role="click-tracking" data-event="CWInteractive" data-cat="Sub Navigation" data-action="Photos" data-label="@string.Format("{0}-{1}-{2}-{3}",Model.Category,Model.MakeName,Model.ModelName, ViewBag.CityName)" href="#photos-@basicId" idx="-1">
+                                <strong>
+                                    Photos
+                                </strong>
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <div class="clear"></div>
+            </div>
+                            }
+
+                        }
+</div>
+<script type="text/javascript" src="/static/js/quickmenu.js" defer></script>

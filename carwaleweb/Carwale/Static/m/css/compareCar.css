@@ -1,0 +1,85 @@
+﻿.MakeDropDownName {
+  border: 1px solid #b3b4c6;
+  background-color: white;
+  padding: 5px 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.aro-par {
+  vertical-align: middle;
+  width: 16px;
+  font-size: 20px;
+  color: red;
+}
+
+div.comparecar {
+  text-align: center;
+  padding: 0;
+  border: 0px;
+}
+
+.divAdContainer {
+  text-align: center;
+}
+
+.linkButtonBigNew {
+  height: 35px;
+  background-image: url('/m/images/nav.png');
+  background-position: 0px 0px;
+  text-align: center;
+  line-height: 35px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.popup {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 45%;
+  margin: auto;
+  max-width: 300px;
+  width: 80%;
+  z-index: 1000;
+}
+
+#divOverlay {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  filter: Alpha(Opacity=0);
+  opacity: 0;
+  z-index: 999;
+}
+
+.error {
+  color: red;
+}
+
+.ui-content {
+  padding: 0 !important;
+}
+
+@media screen and (min-width:330px) {
+  .compareImageContainer {
+    width: 316px;
+    margin: auto;
+    text-align: center;
+  }
+
+  .compareImageContainer img {
+    width: 272px;
+    height: auto;
+  }
+}
+
+@media screen and (max-width:329px) {
+  .compareImageContainer img {
+    max-width: 100%;
+  }
+}

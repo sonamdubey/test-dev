@@ -1,0 +1,184 @@
+﻿@model Carwale.UI.ViewModels.Used.Search.SearchViewModel
+@using System.Configuration;
+@{
+    var carTradeCertificationId = Convert.ToInt32(ConfigurationManager.AppSettings["CartradeCertificationId"]);
+    var financeUrlText = ConfigurationManager.AppSettings["FinanceLinkText"];
+    Random rand = new Random();
+}
+
+@for (int i = 0; i < Model.StockList.Count; i++)
+{
+    var stock = Model.StockList[i];
+    if (!string.IsNullOrEmpty(stock.NearbyCityText))
+    {
+        <li class="nbText">@stock.NearbyCityText</li>
+    }
+    <li class="usedsearch-car-item filter-list listingData listing__data" id='searchListingMobile-@(Model.StockFetched + i)' data-vars-ea="ListingClick">
+        <span class="position-rel block">
+            <a class="block img-holder usedsearch-img-holder position-rel no-direct mozillaBlankTabBugFix" target="_blank" href='/m@(stock.Url)'>
+                <amp-img class="lazy height-width-default" layout="responsive" width="16" height="9" src="@(string.IsNullOrEmpty(stock.OriginalImgPath) ? "https://img.carwale.com/used/no-cars.jpg?q=85" : string.Format("{0}{1}{2}?q=85", stock.HostUrl, "370x208", stock.OriginalImgPath))" />
+                @if (stock.IsPremium)
+                {
+                    <span class="used__featured-icon">Featured</span>
+                }
+            </a>
+
+            @if (stock.CertificationScore != null && stock.CertificationId == carTradeCertificationId)
+            {
+                <a class="no-direct mozillaBlankTabBugFix" target="_blank" href='/m@(stock.Url)' >
+                    <span class="certification-score rounded-corner2 block">
+                        <span class="block font12 semibold">@stock.CertificationScore/5</span>
+                        <span class="block semibold">Certified</span>
+                    </span>
+                </a>
+            }
+            @if (!string.IsNullOrEmpty(stock.CertProgLogoUrl))
+            {
+                <span class="common-certification-program-slug" data-vars-ea="Certification_Program_Click" data-vars-el="@(stock.CertProgId)">
+                    <amp-img src="@stock.CertProgLogoUrl" layout="fill" />
+                </span>
+            }
+        </span>
+
+        <div class="stockDetailsBlock">
+            <div class="listingTxt block no-direct mozillaBlankTabBugFix" id="listingTxt">
+                <table class="full-width">
+                    <tr>
+                        <td>
+                            <a href="/m@(stock.Url)" target="_blank" title="@stock.CarName">
+                                <h2 class="margin-bottom5 listing__car-name">@stock.CarName</h2>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="left-side-text-emi">
+                                <a class="listingTxt no-direct inlineblock" href="/m@(stock.Url)" target="_blank" title="@stock.CarName">
+                                    ₹ <span>@stock.Price</span>
+                                </a>
+                                <div>
+                                    <span class="view-market-price custom-top" role="tab" tabindex="0" data-vars-ea="RightPriceClick" data-vars-el="profileId=@(stock.ProfileId)"
+                                            on="tap:AMP.setState({valuationUrl : '@Html.Raw(stock.ValuationUrl)', leadProfileId : '@stock.ProfileId', leadOriginId : 34, leadCity: '@stock.CityName', recoProfileId: '@stock.ProfileId', leadRank: '@(Model.StockFetched+i+1)', leadDeliveryCity: '@(stock.DeliveryCity)', recoUrl:'@Html.Raw(stock.SimilarCarsUrl)'}), valuation-popup">
+                                        Check Right Price
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="/m@(stock.Url)" target="_blank" title="@stock.CarName">
+                                <table class="vehicle-age-info">
+                                    <tr>
+                                        <td class="vehicle-age-info__content"><span class="vehicle-age-info--data">@stock.Km km</span></td>
+                                        <td class="vehicle-age-info__content"><span class="vehicle-age-info--data">@(string.IsNullOrEmpty(stock.AdditionalFuel) ? stock.Fuel : $"{stock.Fuel} + 1")</span></td>
+                                        <td class="vehicle-age-info__content"><span class="vehicle-age-info--data">@stock.MakeYear</span></td>
+                                    </tr>
+                                </table>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="top-seller-wrapper rightfloat">
+                                @if (!string.IsNullOrWhiteSpace(stock.DealerRatingText))
+                                {
+                                    <span class="top-rated-seller-tag tag-in-table">@stock.DealerRatingText</span>
+                                }
+                            </div>
+                            <a href="/m@(stock.Url)" target="_blank" title="@stock.CarName">
+                                <div class="city-info-wrapper @(string.IsNullOrWhiteSpace(stock.DealerRatingText) ? "city-info-wrapper--full-width": "")">
+                                    <span class="rsz-lyt city-info__text-truncate area-location__wrapper">
+                                        @if (!string.IsNullOrEmpty(stock.AreaName))
+                                        {
+                                            <span class="city-info__area-name">@stock.AreaName</span>
+                                            <span class="city-info__city-name"> , @stock.CityName</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="block">@stock.CityName</span>
+                                        }
+                                    </span>
+                                </div>
+                                @if (!string.IsNullOrEmpty(stock.DeliveryText))
+                                {
+                                    <span class="city-info__text-truncate delivery-text block">@stock.DeliveryText</span>
+                                }
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <span class="block clear"></span>
+            </div>
+
+            <div class="detailsBtn" [hidden]="isLeadDataAvailable">
+                <button class="text-bold getSimilarCarSellerDetails font18 btn btn-orange btn-xs getSellerDetails grid-12"
+                        on="tap:AMP.setState({leadProfileId : '@stock.ProfileId', leadOriginId : 5, leadCity: '@stock.CityName', recoProfileId: '@stock.ProfileId', leadRank: '@(Model.StockFetched+i+1)', leadDeliveryCity: '@(stock.DeliveryCity)', recoUrl:'@Html.Raw(stock.SimilarCarsUrl)'}), lead-popup">
+                    Get Seller Details
+                </button>
+            </div>
+            <div class="detailsBtn getSellerDetails" [hidden]="!isLeadDataAvailable" hidden>
+                <button class="detailsBtn btn btn-orange btn-xs text-uppercase getSellerDetails text-bold grid-12"
+                        on="tap:AMP.setState({leadProfileId : '@stock.ProfileId', leadOriginId : 5, leadCity: '@stock.CityName', recoProfileId: '@stock.ProfileId', leadRank: '@(Model.StockFetched+i+1)', leadDeliveryCity: '@(stock.DeliveryCity)', recoUrl:'@Html.Raw(stock.SimilarCarsUrl)'}), lead-popup, lead-form.submit">
+                    <span class="font18">1-Click </span>
+                    <span class="font11">View Details</span>
+                </button>
+            </div>
+            <div class="clear"></div>
+
+            @if (Model.IsSimilarCarAvailable)
+            {
+                <p class="recommendedCarsPopupBtn m-special-skin-text" data-vars-ea="ShowSimilarCars_Click"
+                    on="tap:AMP.setState({recoUrl:'@Html.Raw(stock.SimilarCarsUrl)'}), similarcar-popup" role="tab" tabindex="0">
+                    Show Similar Cars
+                </p>
+            }
+        </div>
+    </li>
+    if ((Model.StockFetched + i + 1) % 4 == 0)
+    {
+        int randomNo = rand.Next();
+        string adUnit = "Top";
+        switch ((Model.StockFetched + i + 1) % 3)
+        {
+            case 0:
+                adUnit = "Bottom";
+                break;
+            case 1:
+                adUnit = "Top";
+                break;
+            case 2:
+                adUnit = "Middle";
+                break;
+        }
+        <li class="adslotUsedMsiteSearch">
+            <amp-ad width="320px" height="50px" type="doubleclick" data-slot="/1017752/UsedCarSearch_Mobile_320x50_@adUnit"
+                    json='{"targeting":{"UsedCarSearch_Mobile_City":"@Model.FilterCityName"},"UsedCarSearch_Mobile_MakeModel":"@Model.AdUnit.AdMakeOrRootName" ,"BudgetRange":"@Model.AdUnit.AdBudgetRange"}'>
+            </amp-ad>
+        </li>
+    }
+    <amp-analytics type="googleanalytics">
+        <script type="application/json">
+            {
+                "vars":{
+                    "account":"UA-337359-1"
+                },
+                "triggers":{
+                    "listingImpression@(Model.StockFetched + i)":{
+                        "on":"visible",
+                        "selector":"#searchListingMobile-@(Model.StockFetched + i) amp-img",
+                        "request":"event",
+                        "vars":{
+                            "eventCategory":"UsedCars",
+                            "eventAction":"SearchListing",
+                            "eventLabel":"cid=1|pid=@(stock.ProfileId)|rkAbs=@(Model.StockFetched + i + 1)|isPremium=@(stock.IsPremium ? "1" : "0")|isTopRatedSeller=@(!string.IsNullOrWhiteSpace(stock.DealerRatingText) ? "1" : "0")|isCertified=@(stock.CertificationId > 0 ? "1" : "0")|isNearbyCityListing=@(stock.IsNearbyCityListing ? "1" : "0")|cnt=@(Model.TotalStockCount)"
+                        },
+                        "extraUrlParams":{
+                            "ni":"1"
+                        }
+                    }
+                }
+            }
+        </script>
+    </amp-analytics>
+}

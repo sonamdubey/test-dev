@@ -1,0 +1,89 @@
+﻿
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+<style>
+    .isuzu-container .bottom-border,.isuzu-container .top-border{border-bottom:1px solid #ccc;overflow:hidden}.isuzu-container{border:1px solid #ccc;width:100%;height:331px;color:#565a5c;display:inline-block;background-color:#fdfdfd;margin-bottom:45px;background-image:url(https://imgd.aeplcdn.com/0x0/cw/es/isuzu-vmax/grey-bg.png)}.isuzu-container .img-container{position:relative;width:486px;height:329px}.isuzu-container .content-container{width:488px;padding-left:35px}.isuzu-container .comparo-accordion{-moz-border-radius:2px;-ms-border-radius:2px;-o-border-radius:2px;-webkit-border-radius:2px;border-radius:2px}.isuzu-container .comparo-accordion li{cursor:pointer;padding:5px}.isuzu-container .accordion{width:410px;border:1px solid #ccc}.isuzu-container .comparo-accordion__interior{height:74px}.isuzu-container .comparo-accordion__exterior{height:45px}.isuzu-container .top-border{border-top:1px solid #ccc}.isuzu-container .accordion-bullets li:nth-child(odd){width:55%;display:inline-block;padding-left:10px}.isuzu-container .accordion-bullets li:nth-child(even){width:44%;display:inline-block}.isuzu-container .accordion-bullets ul{list-style-type:disc;padding:7px 0;color:#0288d1}.isuzu-container .toggle-icon{display:inline-block;width:15px;height:10px;float:right;margin-top:5px;background-position:-195px -307px}.isuzu-container .minus-icon{background-position:-195px -297px}.isuzu-container .circle-dot{display:inline-block;width:5px;height:5px;background-color:#0288d1;vertical-align:middle;border-radius:50%;margin-right:8px}.isuzu-container .fade-text{opacity:.5}#close-btn-isuzu{z-index:2;right:-3px;top:5px;cursor:pointer}
+</style>
+<script type="text/javascript">
+    function ready(a) { (document.attachEvent ? "complete" === document.readyState : "loading" !== document.readyState) ? a() : document.addEventListener("DOMContentLoaded", a) } function sponsoredZoneAccordion() { dataLayer.push({ event: "CWNonInteractive", cat: "HPSlug", act: "Volvo-V90-booking-engine", lab: "Volvo-V90-booking-engine" }); var a = $(".isuzu-container"), t = $(a).find(".img-toggle"), e = $(a).find(".comparo-accordion .text-click"); $(e).addClass("inactive"); var n = ""; $(a).find(".click-track").click(function () { n = $(this).attr("data-label"), dataLayer.push({ event: "CWInteractive", cat: "HPSlug", act: "Volvo-V90-booking-engine", lab: n }) }), $(a).find("li.comparo-accordion__label").click(function () { var t = $(this).closest(".comparo-accordion").find(".data"); $(t).is(":hidden") && ($(a).find(".data").slideUp(), $(t).slideDown(), $(a).find(".comparo-accordion span.head-text").removeClass("active-text"), $(this).find(".head-text").addClass("active-text"), $(a).find(".comparo-accordion span.toggle-icon").removeClass("minus-icon"), $(this).find(".toggle-icon").addClass("minus-icon")) }), $(e).on("click", function () { if ($(this).hasClass("inactive")) { var a = $(this).find(".text-src").attr("data-src"); $("#default-img").fadeOut(), $(t).fadeOut("fast", function () { $(t).attr("src", a).fadeIn() }), $(e).addClass("fade-text inactive"), $(this).removeClass("fade-text inactive"), $("#close-btn-isuzu").fadeIn() } }), $("#close-btn-isuzu").on("click", function () { $("#default-img").fadeIn(), $(t).attr("src", ""), $(this).fadeOut(), $(e).removeClass("fade-text").addClass("inactive") }) } ready(sponsoredZoneAccordion);
+</script>
+<div>
+    <div class="isuzu-container">
+        <div class="img-container leftfloat">
+            <div id="close-btn-isuzu" class="close-btn-isuzu position-abt hide">
+                <img src="https://imgd.aeplcdn.com/0x0/cw/es/isuzu-vmax/close-btn-isuzu.png" alt="close-icon" />
+            </div> 
+            <img id="default-img" class="position-abt default-img lazy" src="" data-original="https://imgd.aeplcdn.com/0x0/cw/es/feature-zone-tab/volvo-v90.jpg?q=85" alt="Volvo V90 Cross Country"/> 
+            <img class="img-toggle position-abt pos-top0" src=""/>
+        </div>
+        <div class="content-container rightfloat">
+            <p class="font22 text-bold margin-top25">V90 Cross Country - The Get Away Car </p>
+            <p class="font18 margin-bottom15">Book Online & Get an Exclusive Weekend Get Away</p>
+            <div class="accordion margin-bottom25">
+                <div class="comparo-accordion">
+                    <ul class="bottom-border">
+                        <li class="click-track comparo-accordion__label" data-label="Exterior">
+                            <span class="font16 text-bold head-text">Exterior</span>
+                            <span class="cwsprite toggle-icon minus-icon"></span>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                    <div class="data font14 bottom-border comparo-accordion__exterior">
+                        <div class="accordion-bullets first">
+                            <ul>
+                                <li>
+                                    <span class="text-click">
+                                        <span class="circle-dot"></span>
+                                        <span class="text-src click-track" data-src="https://imgd.aeplcdn.com/0x0/cw/es/feature-zone-tab/adaptive-cruise-control.jpg?q=85" data-label="Adaptive Cruise Control">Adaptive Cruise Control</span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="text-click">
+                                        <span class="circle-dot"></span>
+                                        <span class="text-src click-track" data-src="https://imgd.aeplcdn.com/0x0/cw/es/feature-zone-tab/distance-alert.jpg?q=85" data-label="Distance Alert">Distance Alert</span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="comparo-accordion">
+                    <ul>
+                        <li class="click-track interior comparo-accordion__label" data-label="Interior">
+                            <span class="font16 text-bold head-text">Interior</span>
+                            <span class="cwsprite toggle-icon"></span>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                    <div class="data font14 top-border comparo-accordion__interior hide">
+                        <div class="accordion-bullets first">
+                            <ul>
+                                <li>
+                                    <span class="text-click">
+                                        <span class="circle-dot"></span>
+                                        <span class="text-src click-track" data-src="https://imgd.aeplcdn.com/0x0/cw/es/feature-zone-tab/city-safe.jpg?q=85" data-label="City Safety">City Safety</span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="text-click">
+                                        <span class="circle-dot"></span>
+                                        <span class="text-src click-track" data-src="https://imgd.aeplcdn.com/0x0/cw/es/feature-zone-tab/park-assist.jpg?q=85" data-label="Park Assist Camera">Park Assist Camera</span>
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="text-click">
+                                        <span class="circle-dot"></span>
+                                        <span class="text-src click-track" data-src="https://imgd.aeplcdn.com/0x0/cw/es/feature-zone-tab/transmission.jpg?q=85" data-label="Transmission">Transmission</span>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <a href="/volvo-cars/v90-cross-country/booking/#booking_heading" target="_blank" data-label="Book Now" class="click-track margin-right25 btn btn-orange btn-md leftfloat">Book Know</a>
+        </div>
+    </div>
+</div>

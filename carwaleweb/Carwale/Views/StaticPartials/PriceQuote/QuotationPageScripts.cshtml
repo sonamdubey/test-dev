@@ -1,0 +1,22 @@
+﻿@model Carwale.DTOs.PriceQuote.QuotationPageDesktopDTO
+@using Carwale.Entity.Enum;
+
+<script type="text/javascript" src="/static/js/pricebreakup.js" defer></script>
+<script type="text/javascript" src="/static/js/utils/dropdown.js" defer></script>
+<script type="text/javascript" src="/static/js/utils/scroll-lock.js" defer></script>
+<script type="text/javascript" src="/static/js/utils/popup.js" defer></script>
+<script type="text/javascript" src="/static/js/PriceQuote/quotation-common-v1.js" defer></script>
+<script type="text/javascript" src="/static/js/PriceQuote/quotation-v1.js" defer></script>
+<script type="text/javascript" src="/static/m/js/offers.js" defer></script>
+<script type="text/javascript" src="/static/js/PriceQuote/model-change.js" defer></script>
+<script>
+    var pageId = '@((int)CwPages.QuotationDesktopNew)';
+    var globalPageObject = {id: parseInt(pageId), name: "Quotation"};
+    var globalPlatformObject = {id: @((int)Platform.CarwaleDesktop), name: "Desktop"};
+</script>
+@if (Model.EmiCalculatorModelLink != null && Model.EmiCalculatorModelLink.Count > 0)
+{
+    <script type="text/javascript" src="/static/m/js/utils/emi-slug.js" defer></script>
+    { Html.RenderPartial("~/Views/Shared/m/_EmiCalculator.cshtml"); }
+}
+

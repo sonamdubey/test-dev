@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[CarParts] (
+    [ID]           NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [PartSubCatId] NUMERIC (18) NOT NULL,
+    [CarVersionId] NUMERIC (18) NOT NULL,
+    [Price]        NUMERIC (18) CONSTRAINT [DF_CarParts_Price] DEFAULT (0) NOT NULL,
+    CONSTRAINT [PK_CarParts] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

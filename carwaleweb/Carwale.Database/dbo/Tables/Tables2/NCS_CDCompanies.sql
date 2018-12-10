@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[NCS_CDCompanies] (
+    [ID]       NUMERIC (18)  IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [Name]     VARCHAR (500) NOT NULL,
+    [IsActive] BIT           NOT NULL,
+    CONSTRAINT [PK_NCS_CorporateCompanies] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

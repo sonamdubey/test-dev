@@ -1,0 +1,25 @@
+﻿@{Html.RenderPartial("~/Views/Shared/Notification/_NotificationPopupScript.cshtml");}
+@{
+    bool isMobile = Carwale.UI.ClientBL.DeviceDetectionManager.IsMobile(new HttpContextWrapper(HttpContext.Current));
+}
+<div id="customNotificationPopup" class="hide @(isMobile ? "" : "notification-popup-container" )">
+    <div id="notification-popup">
+        <div class="notification-content-wrapper">
+            <span class="notification-bell-icon"></span>
+            <div class="content-wrapper__data">
+                <p class="notification-content-line1">Get the latest updates from CarWale</p>
+                <p class="notification-content-line2">You can manage them any time from your browser settings</p>
+            </div>
+        </div>
+        <span class="notification-close-btn"></span>
+        <div class="notification-button-wrapper">
+            <button id="notification-no-btn">No Thanks</button>
+            <button id="notification-notify-btn">Yes Please</button>
+        </div>
+    </div>
+    <div id="notification-greyout" class="@(isMobile ? "" : "hide" )"></div>
+</div>
+<link href="/static/sass/partials/custom-notification-popup.css" rel="stylesheet" inline />
+<script>
+    var variantCustomPopup = "VariantA";
+</script>

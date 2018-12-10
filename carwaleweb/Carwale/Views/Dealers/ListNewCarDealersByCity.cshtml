@@ -1,0 +1,99 @@
+﻿@model Carwale.Entity.Dealers.DealerListMakeEntity
+@using Carwale.UI.Common;
+@{
+    ViewBag.BodyClass = "bg-white header-fixed-inner";
+    ViewBag.PageId = 22;
+    ViewBag.CustomCss = "~/Views/StaticPartials/ListNewCarDealersByCityCss.cshtml";
+    ViewBag.CustomJs = "~/Views/StaticPartials/ListNewCarDealersByCityScripts.cshtml";
+    ViewBag.HeaderClass = "header-fixed";
+    ViewBag.Title = Model.CarDetails.MakeName + " Car Dealers | " + Model.CarDetails.MakeName + " Car Showrooms in India";
+    ViewBag.Keywords = Model.CarDetails.MakeName + " car dealers, " + Model.CarDetails.MakeName + " car showrooms," + Model.CarDetails.MakeName + " dealers, " + Model.CarDetails.MakeName + " showrooms, " + Model.CarDetails.MakeName + " dealerships, dealerships, test drive";
+    ViewBag.Description = Model.CarDetails.MakeName + " car dealers/showrooms in India. Find new car dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc.";
+    ViewBag.Revisit = "5";
+    ViewBag.DocumentState = "Static";
+    ViewBag.canonical = "https://www.carwale.com/new/" + Carwale.UI.Common.UrlRewrite.FormatSpecial(Model.CarDetails.MakeName.ToLower()) + "-dealers/";
+    ViewBag.AdId = "1397028284211";
+    ViewBag.AdPath = "/1017752/Carwale_Dealers_";
+    ViewBag.targetKey = "make";
+    ViewBag.targetValue = Model.CarDetails.MakeName;
+    ViewBag.PageId = 22;
+    ViewBag.DefineAdSlots = @"<script type='text/javascript'>googletag.cmd.push(function () {
+            googletag.defineSlot('/1017752/Carwale_Dealers_970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90], [960, 60], [970, 60]], 'div-gpt-ad-1397028284211-2').addService(googletag.pubads());
+            googletag.pubads().setTargeting('make', '" + Model.CarDetails.MakeName + @"');
+             googletag.pubads().setTargeting('City', '" + CookiesCustomers.MasterCity.ToString() + @"');
+            googletag.pubads().setTargeting('UserModelHistory','" + CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+             //googletag.pubads().enableSyncRendering();
+             googletag.pubads().collapseEmptyDivs();
+             googletag.pubads().enableSingleRequest();
+             googletag.enableServices();});</script>";
+}
+
+<section class="padding-bottom15">
+    <div class="container">
+        <div class="grid-12" style="min-height:90px">
+            <div class="text-center">
+                <!-- 970x90 -->
+                <div id='div-gpt-ad-1397028284211-2'>
+                    <script type='text/javascript'>
+                        googletag.cmd.push(function () { googletag.display('div-gpt-ad-1397028284211-2'); });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<section class="bg-light-grey padding-top10 padding-bottom20 no-bg-color">
+    <div class="container">
+        <div class="grid-12">
+            @{ Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist); }
+        </div>
+    </div>
+</section>
+
+<div class="bg-light-grey clearfix no-bg-color">
+    @Html.Partial("_LocateDealerWidget")
+    <section class="container">
+        <div class="grid-12 margin-bottom20">
+            <h1 class="font30 text-black margin-top20 special-skin-text">@Model.CarDetails.MakeName Dealers in India</h1>
+            <p class="special-skin-text">@Model.CarDetails.MakeName has @Model.DealersByMake[0].TotalCount authorized showrooms across India. Here is a list of dealer showrooms in various states and cities.</p>
+            <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+
+            <div class="scrollable-content clearfix">
+                <div class="manufacturer-dealer-city grid-7 left-scroll-content">
+                    <ul class="content-box-shadow font18 text-black">
+                        @for (var DealerCount = 0; DealerCount < Model.DealersByMake.Count; DealerCount++)
+                        {
+                            <li id="@Model.DealersByMake[DealerCount].StateId" class="city-dealer-li">
+                                <span>@Model.DealersByMake[DealerCount].StateName</span><span class="rightfloat fa fa-angle-down font15"></span>
+                                <div class="dealer-city-names hide">
+                                    <ul>
+                                        @for (var city = 0; city < Model.DealersByMake[DealerCount].cities.Count; city++)
+                                        {
+                                            <li>
+                                                <a href="/@Carwale.UI.Common.UrlRewrite.FormatSpecial(Model.CarDetails.MakeName)-dealer-showrooms/@Carwale.UI.Common.UrlRewrite.FormatSpecial(@Model.DealersByMake[DealerCount].cities[city].CityName).ToString()-@Model.DealersByMake[DealerCount].cities[city].CityId/">
+                                                    <span class="locate-dealer-city-name">@Model.DealersByMake[DealerCount].cities[city].CityName&nbsp;</span>(@Model.DealersByMake[DealerCount].cities[city].TotalCount)<br>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="grid-7 left-scroll-content">
+                    @{ Html.RenderAction("GetActiveModelCarousel", "CarWidgets", new { makeId = Model.CarDetails.MakeId, makeName = Model.CarDetails.MakeName }); }
+                </div>
+                <div class="dealer-map bg-white padding-bottom5 manufacturer-map">
+                    <span class="font18 padding-top10 padding-bottom10 show">Locate your nearest dealer</span>
+                    <div id="mapDiv" style="width:380px;height:530px;">
+                    </div>
+                    <!-- <img src="/images/dealer-map.jpg" alt="" title=""> -->
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </section>
+</div>

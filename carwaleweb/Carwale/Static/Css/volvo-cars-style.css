@@ -1,0 +1,833 @@
+﻿/*specific*/
+.container {
+  width: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+.mb-margin {
+  margin: 10px 10px 0 10px;
+}
+
+.volvo-main .grid-1, .volvo-main .grid-2, .volvo-main .grid-3, .volvo-main .grid-4, .volvo-main .grid-5, .volvo-main .grid-6, .volvo-main .grid-7, .volvo-main .grid-8, .volvo-main .grid-9, .volvo-main .grid-10, .volvo-main .grid-11, .volvo-main .grid-12 {
+  float: none;
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.full-width-carousel .banner {
+  max-width: 100%;
+  width: auto;
+  display: block;
+}
+
+.ad-container {
+  position: absolute;
+  bottom: 10%;
+  color: white;
+  left: 2%;
+}
+
+.ad-container .heading {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ad-container .normal-text {
+  font-size: 10px;
+  margin-bottom: 2px;
+}
+
+.feature-list {
+  text-align: center;
+  padding: 20px 0 0 0;
+}
+
+.feature-list li {
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  max-width: 287px;
+  height: 300px;
+  border: 1px solid #ccc;
+  margin: 0 5px 20px;
+  text-align: left;
+}
+
+.feature-list li .image-wrapper {
+  width: 100%;
+  height: 160px;
+}
+
+.feature-list li .image-wrapper img {
+  display: block;
+}
+
+.feature-list li .content-wrapper {
+  padding: 10px 20px;
+}
+
+.feature-list .content-wrapper h2 {
+  font-size: 16px;
+  min-height: 65px;
+}
+
+.feature-list .content-wrapper h2 a {
+  color: #1a1a1a;
+}
+
+.feature-list .content-wrapper h2 a:hover {
+  text-decoration: none;
+}
+
+.feature-list .content-wrapper a {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.left-form-content {
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+.mandatory-text {
+  float: right;
+  margin-top: 12px;
+}
+
+.mandatory-text .red-astrick {
+  color: red;
+}
+
+.check-info {
+  margin-left: 5px;
+}
+
+.check-info input {
+  vertical-align: bottom;
+  margin-right: 4px;
+}
+
+.form-social-sprites {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/es/volvo/form-social-icons.png?44313465) no-repeat;
+  display: inline-block;
+}
+
+.mobile-warn-text {
+  font-size: 9px;
+}
+
+.contact-section {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.contact-text {
+  color: #04b4c4;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.contact-text .fa-phone {
+  border: 2px solid #04b4c4;
+  padding: 4px 6px;
+  border-radius: 40px;
+  font-size: 18px;
+  vertical-align: text-bottom;
+  margin-right: 5px;
+}
+
+.social-form-input {
+  padding-left: 65px;
+  text-align: center;
+}
+
+.social-icon-prefix {
+  position: absolute;
+  width: 60px;
+  height: 28px;
+  margin-top: 5px;
+  border-right: 1px solid #0e405b;
+  z-index: 1;
+}
+
+.form-fb-icon {
+  background-position: 10px 0;
+  width: 40px;
+  height: 30px;
+  margin-left: 9px;
+}
+
+.form-twitter-icon {
+  background-position: -23px 0;
+  width: 40px;
+  height: 30px;
+  margin-left: 9px;
+}
+
+.form-linkdin-icon {
+  background-position: -70px 0;
+  width: 40px;
+  height: 30px;
+  margin-left: 9px;
+}
+
+.form-insta-icon {
+  background-position: -115px 0;
+  width: 40px;
+  height: 30px;
+  margin-left: 9px;
+}
+
+.greeting-section .cross-lg-dark-grey {
+  background-position: -36px -252px;
+  right: 5px;
+}
+
+.gallery-active .cross-lg-white {
+  background-position: -36px -200px;
+}
+
+.blue-thanks-icon {
+  background-position: 2px -38px;
+  width: 65px;
+  height: 65px;
+}
+
+.greeting-section {
+  text-align: center;
+}
+
+.left-form-content.greeting-section {
+  width: 100%;
+}
+
+.greeting-section p {
+  margin-top: 10px;
+  padding: 0 20px;
+}
+
+.green-thanks-icon {
+  margin-top: 30px;
+}
+
+.volvo-main .right-content-volvo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/es/volvo/volvo-blue-shaded.jpg?123456) no-repeat right top;
+  min-height: 320px;
+}
+
+.blue-bg-heading {
+  background: #295073;
+  color: #fff;
+  font-size: 14px;
+  padding: 10px 15px 12px;
+  text-align: center;
+  border-radius: 30px;
+}
+
+.right-content-section {
+  width: 90%;
+  margin: 0 auto;
+  color: #ffffff;
+  padding: 20px 0 15px 0;
+}
+
+.batch-container {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0 0;
+  margin: 20px 0 0 0;
+}
+
+.batch-list {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.batch-list p {
+  font-size: 14px;
+}
+
+.batch-title {
+  background: #09b2c7;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 7px;
+  margin-bottom: 4px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Connected Carousel Styles */
+.connected-carousels-photos {
+  position: relative;
+  border: 1px solid #cdcdcd;
+  background: #fff;
+  padding: 5px;
+  margin: 0 auto;
+}
+
+.connected-carousels-photos .swiper-wrapper {
+  padding: 0;
+}
+
+.connected-carousels-photos .stage-photos {
+  width: 100%;
+  margin: 0 auto 5px;
+  position: relative;
+}
+
+.connected-carousels-photos .navigation-photos {
+  width: 100%;
+  max-width: 768px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.connected-carousels-photos .carousel-photos {
+  overflow: hidden;
+  position: relative;
+}
+
+.connected-carousels-photos .carousel-photos .swiper-slide {
+  width: 100%;
+  margin: 0;
+  font-size: 0;
+  position: relative;
+  height: auto;
+  text-align: center;
+  cursor: pointer;
+}
+
+.connected-carousels-photos .carousel-navigation-photos {
+  height: auto;
+  width: 100%;
+  background: 0 0;
+  padding-left: 0;
+  margin-bottom: 0px;
+  padding-top: 1px;
+}
+
+.navigation-photos .swiper-slide {
+  display: block;
+  position: relative;
+  width: 90px;
+  height: 50px;
+  overflow: hidden;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.navigation-photos .swiper-slide img {
+  width: 90px;
+  height: 50px;
+  border: 1px solid #cdcdcd;
+}
+
+.navigation-photos .swiper-slide.swiper-slide-active img {
+  border: 1px solid #2a2a2a;
+}
+
+.connected-carousels-photos .photos-next-stage,.connected-carousels-photos .photos-prev-stage {
+  display: block;
+  position: absolute;
+  top: 40%;
+  color: #fff;
+}
+
+.connected-carousels-photos .photos-prev-stage {
+  left: 0;
+}
+
+.connected-carousels-photos .photos-next-stage {
+  right: 0;
+}
+
+.connected-carousels-photos .photos-prev-navigation,.connected-carousels-photos .photos-prev-stage {
+  background-position: -153px -207px;
+}
+
+.connected-carousels-photos .photos-next-navigation,.connected-carousels-photos .photos-next-stage {
+  background-position: -177px -238px;
+}
+
+.connected-carousels-photos .photos-prev-navigation:hover,.connected-carousels-photos .photos-prev-stage:hover {
+  background-position: -153px -238px;
+}
+
+.connected-carousels-photos .photos-next-navigation:hover,.connected-carousels-photos .photos-next-stage:hover {
+  background-position: -177px -238px;
+}
+
+.connected-carousels-photos .photos-next-navigation.inactive,.connected-carousels-photos .photos-next-stage.inactive,.connected-carousels-photos .photos-prev-navigation.inactive,
+.connected-carousels-photos .photos-prev-stage.inactive {
+  background-position: -153px -176px;
+  cursor: not-allowed;
+}
+
+.connected-carousels-photos .photos-next-navigation.inactive,.connected-carousels-photos .photos-next-stage.inactive {
+  background-position: -177px -176px;
+  cursor: not-allowed;
+}
+
+.connected-carousels-photos .photos-prev-navigation {
+  left: 0;
+  top: 3%;
+}
+
+.connected-carousels-photos .photos-next-navigation {
+  right: 0;
+  top: 3%;
+}
+
+.swiper-button-next {
+  right: 5px;
+  background-position: -71px -145px;
+}
+
+.swiper-button-prev {
+  left: 5px;
+  background-position: -36px -145px;
+}
+
+.swiper-button-next,.swiper-button-prev {
+  border: 0;
+  background-color: rgba(255, 255, 255, 0) !important;
+  cursor: pointer;
+}
+
+.swiper-slide img {
+  max-width: 100%;
+  height: auto;
+}
+
+.navigation-photos .swiper-button-next,.navigation-photos .swiper-button-prev {
+  display: none;
+}
+
+.swiper-lazy-preloader {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/circle-loader.gif") no-repeat center center;
+}
+
+.swiper-lazy {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/circle-loader.gif") no-repeat center center;
+}
+
+#gallery-blackOut-window {
+  display: none;
+  background: #000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  opacity: .9;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  filter: alpha(opacity=90);
+  -moz-opacity: 0.9;
+  -khtml-opacity: 0.9;
+}
+
+#gallery-close-btn {
+  display: none;
+}
+
+#gallery-blackOut-window {
+  display: none;
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  opacity: .9;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  filter: alpha(opacity=90);
+  -moz-opacity: 0.9;
+  -khtml-opacity: 0.9;
+}
+
+.gallery-active #gallery-blackOut-window {
+  display: block;
+}
+
+.gallery-active .connected-carousels-photos {
+  border: 0;
+  background: transparent;
+  z-index: 10;
+  position: fixed;
+  top: 25%!important;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 550px;
+  padding: 0;
+}
+
+.gallery-active .carousel-navigation-photos .swiper-slide img {
+  border-color: #2a2a2a;
+}
+
+.gallery-active .carousel-navigation-photos .swiper-slide:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 84px;
+  display: block;
+  background: #2a2a2a;
+  opacity: .4;
+}
+
+.gallery-active .swiper-slide.swiper-slide-active img {
+  border-color: #f5f5f5;
+}
+
+.gallery-active .swiper-slide.swiper-slide-active:after {
+  content: none;
+}
+
+.gallery-active #gallery-close-btn {
+  display: block;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+@media only screen and (min-width:480px) {
+  .ad-container .heading {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  .left-form-content {
+    max-width: 70%;
+  }
+
+  .gallery-active .connected-carousels-photos {
+    top: 10% !important;
+  }
+}
+
+@media only screen and (min-width:640px) {
+  .blue-bg-heading {
+    font-size: 16px;
+  }
+
+  .batch-list {
+    display: inline-block;
+    width: 48%;
+  }
+
+  .batch-container {
+    margin-top: 10px;
+  }
+
+  .gallery-active .connected-carousels-photos {
+    top: 5% !important;
+    height: 550px;
+/*overflow-y: scroll;*/;
+  }
+}
+
+@media only screen and (min-width:768px) {
+  .volvo-main .grid-1, .volvo-main .grid-2, .volvo-main .grid-3, .volvo-main .grid-4, .volvo-main .grid-5, .volvo-main .grid-6, .volvo-main .grid-7, .volvo-main .grid-8, .volvo-main .grid-9, .volvo-main .grid-10, .volvo-main .grid-11, .volvo-main .grid-12 {
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .volvo-main .grid-12 {
+    width: 100%;
+  }
+
+  .volvo-main .grid-11 {
+    width: 91.66666667%;
+    *width: 73.20%;
+  }
+
+  .volvo-main .grid-10 {
+    width: 83.33333333%;
+    *width: 79.6%;
+  }
+
+  .volvo-main .grid-9 {
+    width: 75%;
+    *width: 70.90%;
+  }
+
+  .volvo-main .grid-8 {
+    width: 66.66666667%;
+    *width: 63.20%;
+  }
+
+  .volvo-main .grid-7 {
+    width: 58.33333333%;
+    *width: 55.6%;
+  }
+
+  .volvo-main .grid-6 {
+    width: 50%;
+    *width: 47.90%;
+  }
+
+  .volvo-main .grid-5 {
+    width: 41.66666667%;
+    *width: 40.3%;
+  }
+
+  .volvo-main .grid-4 {
+    width: 33.33333333%;
+    *width: 32.60%;
+  }
+
+  .volvo-main .grid-3 {
+    width: 25%;
+    *width: 24.90%;
+  }
+
+  .volvo-main .grid-2 {
+    width: 16.66666667%;
+    *width: 16.30%;
+  }
+
+  .volvo-main .grid-1 {
+    width: 8.33333333%;
+  }
+
+  .ad-container .heading {
+    font-size: 24px;
+  }
+
+  .invitation-container {
+    max-height: 323px;
+  }
+
+  .volvo-main .left-form {
+    min-height: 320px;
+  }
+
+  .left-form-content {
+    max-width: 100%;
+  }
+
+  .volvo-main .right-content-volvo {
+    min-height: 320px;
+  }
+
+  .right-content-section {
+    padding: 60px 0 34px 0;
+  }
+
+  .blue-thanks-icon {
+    margin-top: 50px;
+  }
+
+/* Swiper 3.3.1 */
+  .swiper-container {
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+ /*z-index: 1;*/
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-container-no-flexbox .swiper-slide {
+    float: left;
+  }
+
+  .swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+ /*z-index: 1;*/
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    -ms-transition-property: -ms-transform;
+    transition-property: transform;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 10px 0 20px;
+  }
+
+  .swiper-container-android .swiper-slide, .swiper-wrapper {
+    -webkit-transform: translate3d(0px, 0, 0);
+    -moz-transform: translate3d(0px, 0, 0);
+    -o-transform: translate(0px, 0px);
+    -ms-transform: translate3d(0px, 0, 0);
+    transform: translate3d(0px, 0, 0);
+  }
+
+  .swiper-slide {
+    -webkit-flex-shrink: 0;
+    -ms-flex: 0 0 auto;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+/* IE10 Windows Phone 8 Fixes */
+  .swiper-wp8-horizontal {
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+  }
+
+  .swiper-wp8-vertical {
+    -ms-touch-action: pan-x;
+    touch-action: pan-x;
+  }
+/* Arrows */
+  .swiper-button-prev, .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    width: 37px;
+    height: 70px;
+    margin-top: -22px;
+    z-index: 1;
+    text-indent: -9999px;
+    padding: 5px;
+    border: 1px solid #e6e6e6;
+    background-color: #fff !important;
+  }
+
+  .swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled {
+    cursor: not-allowed;
+  }
+
+  .swiper-button-prev {
+    left: 0;
+    right: auto;
+    background-position: -32px -135px;
+  }
+
+  .swiper-button-next {
+    right: 0;
+    left: auto;
+    background-position: -65px -134px;
+  }
+/* Preloader */
+  .swiper-imgLoader {
+    background: url("https://imgd.aeplcdn.com/0x0/cw/static/circle-loader.gif") no-repeat center center;
+  }
+
+  .swiper-slide {
+    width: 280px;
+    height: 320px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    -webkit-transition: width 0.4s;
+    -moz-transition: width 0.4s;
+    transition: width 0.4s;
+  }
+
+  .swiper-lazy {
+    display: block;
+    width: 100%;
+    height: 250px;
+  }
+
+  .swiper-container .swiper-button-prev, .swiper-container .swiper-button-next {
+    display: none;
+  }
+/* gallery */
+  .connected-carousels-photos {
+    width: 976px;
+    z-index: 1;
+  }
+
+  .connected-carousels-photos .navigation-photos {
+    max-width: 100%;
+  }
+
+  .navigation-photos .swiper-slide,.navigation-photos .swiper-slide img {
+    width: 186px;
+    height: 85px;
+  }
+
+  .navigation-photos .swiper-slide {
+    padding-left: 0;
+    padding-right: 5px;
+  }
+
+  .navigation-photos .swiper-button-prev,.navigation-photos .swiper-button-next {
+    top: 38%;
+    display: block;
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    transform: scale(0.7);
+  }
+
+  .navigation-photos .swiper-button-prev {
+    left: -6px;
+  }
+}
+
+@media only screen and (min-width:996px) {
+  .gallery-active .connected-carousels-photos {
+    top: 15% !important;
+  }
+
+  .ad-container {
+    position: absolute;
+    bottom: 15%;
+    left: 10%;
+  }
+
+  .container {
+    width: 996px;
+    margin: 0 auto;
+  }
+
+  .feature-list li {
+    margin: 0 10px 20px;
+  }
+
+  .batch-container {
+    width: 90%;
+    margin: 10px auto 0;
+  }
+}
+
+@media only screen and (min-width:1024px) {
+  .ad-container {
+    left: 14%;
+    bottom: 6%;
+  }
+
+  .gallery-active .connected-carousels-photos {
+    top: 15% !important;
+  }
+}

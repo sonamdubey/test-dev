@@ -1,0 +1,290 @@
+﻿table {
+  display: table;
+}
+
+table tr {
+  display: table-row;
+}
+
+table td, table th {
+  display: table-cell;
+}
+
+.form-prefix {
+  left: 8px;
+  top: 13px;
+}
+
+.breadcrumb {
+  padding: 0 10px;
+  display: none;
+}
+
+.emi-calculator-container {
+  padding: 0 10px;
+}
+
+.loan-amount-container {
+  border: 1px solid #ccc;
+  padding: 10px 10px;
+}
+
+.loan-amount-fields label {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 10px;
+}
+
+.loan-amount-fields .form-control-box {
+  width: 48%;
+  vertical-align: top;
+  margin-bottom: 20px;
+}
+
+.loan-amount-fields .form-control-box input, .interest-calci td input {
+  padding-left: 20px;
+}
+
+.loan-amount-options .inline-block {
+}
+
+.loan-amount-options input {
+  vertical-align: middle;
+}
+
+.loan-amount-options label {
+  vertical-align: super;
+}
+
+.loan-amount-fields .fa {
+  left: 8px;
+  top: 13px;
+}
+
+.emi-tabular-calculation {
+  margin-top: 20px;
+}
+
+.emi-tabular-calculation table {
+  width: 100%;
+  border-bottom: none;
+  border-right: 0;
+}
+
+.emi-tabular-calculation th {
+  padding: 5px 10px;
+  text-align: center;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.emi-tabular-calculation td {
+  padding: 5px 10px;
+  text-align: center;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.emi-tabular-calculation td a {
+  margin-left: 10px;
+}
+
+.interest-link-para {
+  border: 1px solid #ccc;
+  border-top: none;
+  padding: 10px;
+  background: #fff;
+}
+
+.interest-calci-container h1, .emi-calculator-container h1 {
+  font-size: 18px;
+}
+
+.interest-calci {
+  padding: 0 0 10px 0;
+  margin-top: 10px;
+}
+
+.interest-calci table {
+  width: 100%;
+  border-bottom: none;
+  border-right: 0;
+}
+
+.interest-calci th {
+  padding: 5px 10px;
+  text-align: center;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.interest-calci td {
+  padding: 7px 10px;
+}
+
+.interest-calci td label {
+  padding: 0 0 5px 0;
+  display: block;
+}
+
+.interest-calci .interest-pa th {
+  border: none;
+  padding: 10px;
+  text-align: left;
+}
+
+.interest-calci .interest-pa td {
+  padding: 2px 10px 15px;
+}
+
+.interest-pa-para {
+  border-top: 1px solid #ccc;
+}
+
+.interest-calci .option-two-th {
+  border-right: none;
+}
+
+.bank-calculation table {
+  width: 100%;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.bank-calculation table tbody {
+}
+
+.bank-calculation table th {
+  padding: 7px 10px;
+}
+
+.bank-calculation table td {
+  padding: 7px 10px;
+  text-align: center;
+}
+
+.bank-calculation table .bank-breakup-first {
+  text-align: left;
+}
+
+.bank-breakup-center {
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+.emi-view-chart th, .emi-view-chart td {
+  font-size: 11px;
+  width: 23%;
+}
+
+@media only screen and (max-width:1000px) {
+  body {
+    min-width: 100%;
+  }
+
+  .container {
+    width: 100% !important;
+    margin: 0 auto 20px auto;
+  }
+}
+
+@media only screen and (max-width:800px) {
+  .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+@media only screen and (max-width:640px) {
+  .grid-1, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .grid-7, .grid-8, .grid-9, .grid-10, .grid-11, .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .emi-calci-right-section {
+    display: none;
+  }
+}
+
+@media only screen and (min-width:460px) {
+  .emi-view-chart th, .emi-view-chart td {
+    font-size: 13px;
+    width: 23%;
+  }
+}
+
+@media only screen and (min-width:768px) {
+  .breadcrumb {
+    padding: 0;
+    display: block;
+  }
+
+  .loan-amount-container {
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .emi-tabular-calculation {
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0 0 10px;
+  }
+
+  .emi-calci-left-section {
+    padding: 0;
+  }
+
+  .interest-link-para {
+    border: none;
+    padding: 10px 0 0;
+    background: none;
+  }
+
+  .loan-amount-fields .form-control-box {
+    margin-bottom: 15px;
+  }
+
+  .emi-calculator-container h1, .interest-calci-container h1 {
+    font-size: 30px;
+  }
+
+  .interest-calci-container .loan-amount-container, .emi-tabular-calculation.emi-view-chart {
+    width: 100%;
+  }
+
+  .emi-tabular-calculation.emi-view-chart {
+    margin-left: 0;
+  }
+
+  .interest-calci-container .interest-link-para {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #fff;
+  }
+
+  .bank-calculation {
+    margin-bottom: 20px;
+  }
+
+  .interest-calci .form-control-box {
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width:800px) {
+  .emi-calculator-container {
+    padding: 0;
+  }
+}
+
+#roi {
+  width: 330px;
+}

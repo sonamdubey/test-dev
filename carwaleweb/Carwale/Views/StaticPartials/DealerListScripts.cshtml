@@ -1,0 +1,13 @@
+﻿@model Carwale.Entity.ViewModels.DealerListModel
+<script  type="text/javascript"  src="/static/js/dealer-locator.js" ></script>
+<script  type="text/javascript"  src="/static/js/chosen.jquery.min.js" ></script>
+<script  type="text/javascript"  src="/static/src/dealershowroomdesktop.js" ></script>
+<script  type="text/javascript"  src="/static/src/dealerlocatormaps.js" ></script>
+<script type="text/javascript">
+    var dealerListing = { CITYID: "", CITYNAME: "" };
+    Common.showCityPopup = false;
+    $(document).ready(function () {
+        Location.utils.globalCityByUserAction(dealerListing.CITYID, dealerListing.CITYNAME, zoneId = -1, "DealerLocatorCitySet");
+    });
+</script>
+

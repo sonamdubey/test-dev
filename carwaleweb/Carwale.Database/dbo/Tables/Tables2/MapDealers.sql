@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[MapDealers] (
+    [MD_Id]      NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [DealerId]   NUMERIC (18) NOT NULL,
+    [CustomerId] NUMERIC (18) NOT NULL,
+    CONSTRAINT [PK_MapDealers] PRIMARY KEY CLUSTERED ([MD_Id] ASC) WITH (FILLFACTOR = 90)
+);
+

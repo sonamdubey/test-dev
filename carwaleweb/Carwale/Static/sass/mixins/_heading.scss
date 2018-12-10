@@ -1,0 +1,45 @@
+﻿
+@import "_variables";
+@mixin h1
+{
+  h1{
+    font-size: 20px;
+    font-weight:600;
+  }
+}
+
+@mixin h2
+{
+h2{
+  font-size:18px;
+  font-weight:500;
+  color :map-get($color-map,"black");
+}
+}
+
+@mixin h3
+{
+h3{
+  font-size:16px;
+  font-weight:600;
+}
+}
+@mixin h4
+{
+    h4{
+        font-size:14px;
+    }
+}
+
+@mixin h5
+{
+    h5{
+        font-size:12px;
+    }
+}
+
+@mixin h6
+{
+    h6{ font-size:10px;
+}
+}

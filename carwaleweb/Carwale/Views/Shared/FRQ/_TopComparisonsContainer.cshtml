@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Carwale.Entity.CompareCars.HotCarComparison>
+<div class="jcarousel-wrapper compare-carousel" id="hotComparison">
+    <div class="jcarousel">
+        <ul>
+            @Html.Partial("FRQ/_TopComparisons", Model)
+        </ul>
+    </div>
+    <span class="jcarousel-control-left dynamic-carousel" data-swipecount="2" data-title="previous" id="prevComparison"><span class="cwsprite jcarousel-control-prev"></span></span>
+    <span class="jcarousel-control-right dynamic-carousel" data-swipecount="2" data-title="next" id="nextComparison"><span class="cwsprite jcarousel-control-next"></span></span>
+</div>
+
+<div class="clear"></div>                 

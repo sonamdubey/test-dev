@@ -1,0 +1,28 @@
+﻿CREATE TABLE [UCAlert].[NDUsedCarAlertCustomerList] (
+    [UsedCarAlert_Id]       INT           IDENTITY (1, 1) NOT NULL,
+    [CustomerId]            BIGINT        NULL,
+    [Email]                 VARCHAR (100) NOT NULL,
+    [CityId]                SMALLINT      NULL,
+    [MakeId]                VARCHAR (MAX) NULL,
+    [modelId]               VARCHAR (100) NULL,
+    [FuelTypeId]            VARCHAR (50)  NULL,
+    [BodyStyleId]           VARCHAR (50)  NULL,
+    [TransmissionId]        VARCHAR (50)  NULL,
+    [SellerId]              VARCHAR (50)  NULL,
+    [MinBudget]             INT           NULL,
+    [MaxBudget]             INT           NULL,
+    [MinKms]                INT           NULL,
+    [MaxKms]                INT           NULL,
+    [MinCarAge]             INT           NULL,
+    [MaxCarAge]             INT           NULL,
+    [NeedOnlyCertifiedCars] BIT           NULL,
+    [NeedCarWithPhotos]     BIT           NULL,
+    [OwnerTypeId]           VARCHAR (50)  NULL,
+    [EntryDateTime]         DATE          NULL,
+    [LastUpdated]           DATE          CONSTRAINT [DF_NDUsedCarAlertCustomerList_LastUpdated] DEFAULT (getdate()) NULL,
+    [IsActive]              BIT           CONSTRAINT [DF_NDUsedCarAlertCutomerList_IsActive] DEFAULT ((1)) NULL,
+    [AlertFrequency]        TINYINT       NOT NULL,
+    [alertUrl]              VARCHAR (MAX) NULL,
+    CONSTRAINT [PK_NDUsedCarAlertCutomerList_UsedCarAlert_Id] PRIMARY KEY CLUSTERED ([UsedCarAlert_Id] ASC)
+);
+

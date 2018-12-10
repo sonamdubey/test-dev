@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[CRM_ADM_Roles] (
+    [Id]       NUMERIC (18)  NOT NULL,
+    [Name]     VARCHAR (100) NOT NULL,
+    [IsActive] BIT           CONSTRAINT [DF_CRM_ADM_Roles_IsActive] DEFAULT ((1)) NOT NULL,
+    CONSTRAINT [PK_CRM_ADM_Roles] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

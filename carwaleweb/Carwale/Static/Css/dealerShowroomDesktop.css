@@ -1,0 +1,634 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/* Main banner Start Here */
+#banner {
+  width: 960px;
+  height: 300px;
+  overflow: hidden;
+  line-height: 0;
+}
+
+#banner img {
+  width: 960px;
+  overflow: hidden;
+}
+/*Main banner Ends Here*/
+
+/* tabs starts here */
+.dealer-tabs {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/tab-bg.jpg?static1fix) repeat-x scroll 0 0 #efefef;
+  border: 1px solid #e2e2e2;
+}
+
+.dealer-tabs ul {
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+.dealer-tabs li {
+  font-weight: bold;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/tab-bg.jpg?static1fix) repeat-x scroll 0 0 #efefef;
+  border-right: 1px solid #e2e2e2;
+  display: block;
+  float: left;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.dealer-tabs li.active, .dealer-tabs li:hover {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/tab-bg-active.jpg) repeat-x scroll 0 0 #fff;
+  border-bottom: 2px solid #fff;
+  margin-bottom: -2px;
+}
+
+.dealer-data {
+  background: #fff;
+  padding: 10px 0;
+  position: relative;
+  border: 1px solid #e2e2e2;
+  border-top: none !important;
+}
+
+.tabs-box {
+  border-bottom: 1px solid #e2e2e2;
+}
+/* tabs ends here */
+/* carousel starts here */
+.main-carousel-div {
+  position: relative;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.arrow-position-prev, .arrow-position-next {
+  position: absolute;
+  top: 46px;
+  width: 12px;
+}
+
+.arrow-position-prev {
+  left: 10px;
+}
+
+.arrow-position-next {
+  right: 10px;
+}
+
+.jcarousel-container-horizontal {
+  width: 530px;
+}
+
+.jcarousel-clip {
+  overflow: hidden;
+}
+
+.jcarousel-clip-horizontal, .jcarousel-clip-vertical {
+  width: 530px;
+  height: auto;
+}
+
+.highlighted-image {
+  padding: 20px  0;
+  width: 480px;
+  height: 284px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.highlighted-image img {
+  width: 480px;
+  overflow: hidden;
+  height: auto;
+}
+
+.active-img-text {
+}
+
+.list_carousel_widget {
+  width: 530px;
+  margin-left: 30px;
+}
+
+.list_carousel_widget li {
+  text-align: center;
+  width: 160px;
+  padding: 5px;
+  margin: 0 10px 8px 0;
+}
+
+.dealer-carousel-pic {
+  border: 1px solid #e2e2e2;
+  padding: 5px;
+  overflow: hidden;
+}
+
+.dealer-carousel-pic-active {
+  border: 1px solid #e2e2e2;
+  padding: 5px;
+  overflow: hidden;
+  background: #dadada;
+}
+
+.list_carousel_widget li a img {
+  margin: 10px 0;
+  line-height: 0;
+  width: 110px;
+  overflow: hidden;
+}
+
+.list_carousel_widget li a {
+  display: block;
+  height: 85px;
+  overflow: hidden;
+  border: 1px solid #f3f3f3;
+  background: #fff;
+}
+
+.list_carousel_widget li span {
+  color: #666;
+  display: block;
+  margin-top: 8px;
+}
+
+.prev_next a.prev, .prev_next a.next {
+  width: 11px;
+  height: 19px;
+}
+
+.prev_next a.prev {
+  background-position: -21px -272px;
+  float: left;
+}
+
+.prev_next a.prev:hover {
+  background-position: -21px -301px;
+}
+
+.prev_next a.next {
+  background-position: 0 -272px;
+  float: right;
+}
+
+.prev_next a.next:hover {
+  background-position: 0px -301px;
+}
+/* carousel ends here */
+/***************************************** common classes stsrts here ****************************************/
+.margin-top30 {
+  margin-top: 30px;
+}
+
+.font20 {
+  font-size: 20px;
+}
+
+.dealer-left-lg, .dealer-right-lg, .dealer-right-sm, .dealer-left-sm, .dealer-left-md, .dealer-right-md {
+  display: block;
+  float: left;
+}
+
+.dealer-left-lg {
+  width: 633px;
+}
+
+.dealer-right-lg {
+  width: 695px;
+}
+
+.dealer-right-sm {
+  width: 320px;
+  border-left: 1px solid #e2e2e2;
+}
+
+.dealer-left-sm {
+  width: 260px;
+}
+
+.dealer-left-md {
+  width: 477px;
+}
+
+.dealer-right-md {
+  width: 476px;
+  border-left: 1px solid #e2e2e2;
+}
+/****************************************** byuing assistance *********************************/
+.selected-vehicle {
+  padding: 60px 0;
+}
+
+.service-selection {
+  border-left: 1px solid #e2e2e2;
+}
+
+.select-services {
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.select-services li, .select-services li.checked {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/unchecked.png?static1fix) no-repeat scroll 0 1px;
+  padding: 0 0 2px 25px;
+  font-size: 14px;
+  margin-bottom: 18px;
+  cursor: pointer;
+}
+
+.select-services li.checked {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/checked.png?static1fix) no-repeat scroll 0 1px;
+}
+
+.country-code {
+  position: absolute;
+  left: 10px;
+  top: 11px;
+  width: 30px;
+}
+
+.mob-no-box input {
+  padding-left: 40px !important;
+  width: 220px !important;
+}
+
+.contact-details li {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.contact-details li .mob-no-box {
+  position: relative;
+}
+
+.contact-details li input {
+  outline: none;
+  background: #f8f8f8;
+  color: #666;
+  border-radius: 2px;
+  box-shadow: 2px 2px 5px #e2e2e2 inset;
+  padding: 10px 30px 10px 10px;
+  width: 250px;
+}
+
+.contact-details li .error-msg {
+  margin-top: 5px;
+  color: #999;
+}
+
+.red-border {
+  border: 1px solid #;
+  ec584c;
+}
+
+.call-for-query {
+  border-top: 1px solid #e2e2e2;
+  margin: 10px 10px 0 10px;
+  padding: 10px;
+  text-align: center;
+}
+
+.dealer-customer-care {
+  width: 345px;
+  margin: 0 auto;
+}
+
+.dealer-customer-care span {
+  float: left;
+}
+
+.dealer-customer-care p {
+  float: left;
+  width: 125px;
+  text-align: left;
+  line-height: 1.1;
+}
+
+.header-mob-no {
+  margin-top: 2px;
+}
+
+.header-dealer-name {
+  margin-top: 2px;
+}
+/************************************************ contact details ********************************/
+.dealer-address li {
+  margin-bottom: 20px;
+}
+
+.dealer-address li .dealer-contacts-icon {
+  float: left;
+  width: 20px;
+  margin-right: 10px;
+}
+
+.dealer-address li p {
+  float: left;
+  width: 355px;
+  font-size: 13px;
+}
+/********************************************* photo gallery ***********************************/
+.dealer-photo-gallery {
+  margin-left: 4px;
+}
+
+.dealer-photo-gallery li {
+  display: block;
+  float: left;
+  margin: 10px 5px 0;
+  width: 225px;
+  height: 130px;
+  overflow: hidden;
+  border: 1px solid #e2e2e2;
+}
+
+.dealer-photo-gallery li img {
+  width: 225px;
+  overflow: hidden;
+}
+
+.word-break {
+  word-break: break-all;
+}
+
+.border-none {
+  border: none;
+}
+/***************************************************** carwale popup ************************************/
+#blackOut-window {
+  background: #000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: .5;
+  z-index: 999;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+}
+
+.thank-you-popup {
+  position: fixed;
+  width: 438px;
+  height: 251px;
+  padding: 10px;
+  border-radius: 5px;
+  background: #fff;
+  top: 30%;
+  left: 30%;
+  z-index: 999;
+}
+
+.thank-you-popup h2 {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #cccccc;
+}
+
+.dealer-mob-no span {
+  float: left;
+  width: 30px;
+}
+
+.dealer-mob-no p {
+  float: left;
+  width: 200px;
+}
+/************************************************ dealer locator pages *********************************/
+.dealer-pg-heading h1 {
+  font-size: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.brand-list input, .brand-input input, .your-location select {
+  background: #f8f8f8;
+  color: #666666;
+  border-radius: 2px;
+  box-shadow: 2px 2px 5px #e2e2e2 inset;
+  padding: 8px 10px;
+  width: 225px;
+}
+
+.brand-list {
+  width: 245px;
+  height: 260px;
+  overflow-y: scroll;
+}
+
+.brand-list li {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/unchecked.png?static1fix) no-repeat;
+  margin-bottom: 15px;
+  padding-left: 25px;
+  cursor: pointer;
+}
+
+.brand-list li.checked {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/checked.png?static1fix) no-repeat;
+}
+
+.your-location {
+  width: 245px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e2e2;
+}
+
+.your-location .grey-btn {
+  padding: 5px 20px;
+}
+
+.large-map-box {
+  padding: 5px 5px 0;
+  background: #f0f0f0;
+  margin-top: 20px;
+}
+
+.avail-dealer-details {
+  margin-top: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #e2e2e2;
+}
+
+.dealer-detail-list li {
+  padding: 10px 0;
+  margin-right: 10px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.dealer-detail-list li h2 {
+  font-weight: 700;
+}
+/*.dealer-detail-list li:last-child{ border-bottom:none;}*/
+.premium-dealer .premium-dealer-pic {
+  float: left;
+  width: 152px;
+  114px; overflow: hidden;
+  margin-right: 20px;
+}
+
+.premium-dealer .premium-dealer-pic img {
+  width: 152px;
+  overflow: hidden;
+}
+
+.premium-dealer .premium-dealer-detail {
+  float: left;
+  width: 350px;
+}
+
+.premium-dealer .extra-options li {
+  display: block;
+  float: left;
+  margin-right: 20px;
+  padding-bottom: 0;
+  border: none;
+}
+
+.premium-dealer .extra-options li span {
+  display: block;
+  float: left;
+  margin-right: 7px;
+}
+
+.premium-dealer .extra-options li p {
+  display: block;
+  float: left;
+}
+
+.premium-dealer-detail a {
+  color: #666;
+}
+
+/************************************************ sprite classes ********************************************/
+.dealer-sprite {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/dealer-sprite.png?v1=04032016") no-repeat;
+  display: inline-block;
+}
+
+.dealer-checked-btn {
+  background-position: 0 0;
+  width: 14px;
+  height: 14px;
+}
+
+.dealer-unchecked-btn {
+  background-position: -25px 0;
+  width: 14px;
+  height: 14px;
+}
+
+.dealer-call-icon-red {
+  background-position: -50px 0;
+  width: 21px;
+  height: 23px;
+  margin-top: 3px;
+}
+
+.dealer-validation-icon {
+  background-position: -80px 0;
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  right: 15px;
+  top: 8px;
+}
+
+.dealer-left-arrow {
+  background-position: 0 -28px;
+  width: 10px;
+  height: 16px;
+}
+
+.dealer-right-arrow {
+  background-position: -20px -28px;
+  width: 10px;
+  height: 16px;
+}
+
+.dealer-user-icon, .dealer-email-icon-lg {
+  position: absolute;
+  right: 15px;
+}
+
+.dealer-user-icon {
+  background-position: -40px -28px;
+  width: 24px;
+  height: 22px;
+  top: 8px;
+}
+
+.dealer-email-icon-lg {
+  background-position: -77px -31px;
+  width: 17px;
+  height: 12px;
+  top: 13px;
+}
+
+.dealer-camera-pic {
+  background-position: 0 -59px;
+  width: 16px;
+  height: 13px;
+}
+
+.dealer-search {
+  background-position: -27px -57px;
+  width: 10px;
+  height: 15px;
+  position: relative;
+  top: -2px;
+}
+
+.dealer-clock-pic {
+  background-position: -48px -58px;
+  width: 15px;
+  height: 16px;
+}
+
+.dealer-get-direction-pic {
+  background-position: -73px -57px;
+  width: 12px;
+  height: 12px;
+}
+
+.dealer-email-icon-sm {
+  background-position: 0 -78px;
+  width: 15px;
+  height: 15px;
+}
+
+.dealer-buying-assistance-pic {
+  background-position: -25px -81px;
+  width: 16px;
+  height: 12px;
+}
+
+.dealer-call-icon-grey {
+  background-position: -51px -81px;
+  width: 10px;
+  height: 12px;
+}
+
+.dealer-call-icon-small {
+  background-position: -51px -81px;
+  width: 10px;
+  height: 12px;
+  position: absolute;
+  right: 22px;
+  top: 13px;
+}
+
+.popup-close-btn {
+  background-position: -71px -82px;
+  cursor: pointer;
+  height: 15px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 15px;
+}
+
+.popup-close-btn:hover {
+  background-position: -96px -82px;
+}

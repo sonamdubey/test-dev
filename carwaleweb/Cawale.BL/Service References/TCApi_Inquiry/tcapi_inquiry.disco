@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://webserver:8084/wsapis/tcapi_inquiry.asmx?wsdl" docRef="http://webserver:8084/wsapis/tcapi_inquiry.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://webserver:8084/wsapis/tcapi_inquiry.asmx" xmlns:q1="http://tradingcars.carwale.com/wsapis/" binding="q1:TCApi_InquirySoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://webserver:8084/wsapis/tcapi_inquiry.asmx" xmlns:q2="http://tradingcars.carwale.com/wsapis/" binding="q2:TCApi_InquirySoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

@@ -1,0 +1,17 @@
+## standard config: https://github.com/stylelint/stylelint-config-standard/blob/master/index.js
+
+{
+    "extends": "stylelint-config-standard",
+    "plugins": [
+        "stylelint-scss"
+    ],
+    "rules": {
+        "selector-class-pattern": "[a-z0-9-]+(_{2}?[a-z0-9-]+)?",
+        "indentation": "tab",
+        "max-nesting-depth": 1,
+        "string-quotes": "single",
+        "at-rule-no-unknown": null,
+        "scss/at-rule-no-unknown": true,
+        "number-leading-zero": "never"
+    }
+}

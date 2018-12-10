@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for Autocomplete component should display the value passed 1`] = `
+<div
+  className="autocomplete-box"
+>
+  <div
+    className="autocomplete-field"
+  >
+    <input
+      className="city-field-class"
+      id="city-input"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      placeholder="Type your city"
+      type="text"
+      value="Mumbai, Maharashtra"
+    />
+    <span
+      className="clear-field-target show"
+      onClick={[Function]}
+    >
+      Clear
+    </span>
+  </div>
+</div>
+`;

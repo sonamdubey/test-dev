@@ -1,0 +1,1455 @@
+﻿@import "_opacity";
+$img-cdn-path: "https://imgd.aeplcdn.com";
+$wave-border-img: "#{$img-cdn-path}/0x0/cw/static/user-review/border-img-pattern.png";
+%cwmsprite {
+    background-image: url(#{$img-cdn-path}/0x0/cw/static/sprites/m/cwmsprite.png?201703091415368953);
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+@mixin nav-icon {
+    .nav-icon {
+        @extend %cwmsprite;
+        background-position: 0 5px;
+        width: 24px;
+        height: 19px;
+        cursor: pointer;
+        position: relative;
+        top: -1px;
+        &:hover {
+            background-position: 0 -24px;
+        }
+    }
+}
+
+@mixin cw-logo {
+    .cw-logo {
+        @extend %cwmsprite;
+        background-position: -35px 1px;
+        width: 108px;
+        height: 20px;
+        &.cw-lg-fixed-position {
+            position: absolute;
+            left: 50%;
+            margin-left: -50px;
+        }
+    }
+}
+
+@mixin ct-logo {
+    .ct-logo {
+        @extend %cwmsprite;
+        background-position: -58px -373px;
+        width: 99px;
+        height: 25px;
+    }
+}
+
+@mixin bw-logo {
+    .bw-logo {
+        @extend %cwmsprite;
+        background-position: 0 -402px;
+        width: 79px;
+        height: 27px;
+        position: relative;
+        top: -2px;
+    }
+}
+
+%grid-list {
+    width: 24px;
+    height: 24px;
+}
+
+%grid-list-active {
+    cursor: default;
+}
+
+@mixin grid-icon {
+    @include opacity-class(40);
+    .grid-icon {
+        @extend %cwmsprite;
+        @extend %grid-list;
+        @extend .opacity40;
+        background-position: -152px -183px;
+        @include opacity-class(100);
+        &.active {
+            @extend %grid-list-active;
+            @extend .opacity100;
+        }
+    }
+}
+
+@mixin list-icon {
+    @include opacity-class(40);
+    .list-icon {
+        @extend %cwmsprite;
+        @extend %grid-list;
+        @extend .opacity40;
+        background-position: -179px -183px;
+        &.active {
+            @extend %grid-list-active;
+        }
+    }
+}
+
+%menu-icons {
+    width: 26px;
+    height: 26px;
+    margin-right: 10px;
+    top: 5px;
+    position: relative;
+}
+
+@mixin specials-icon {
+    .specials-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: -158px -557px;
+    }
+}
+
+@mixin survey-icon {
+    .survey-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: -181px -592px;
+    }
+}
+
+@mixin home-icon {
+    .home-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: 0 -58px;
+    }
+}
+
+@mixin newCars-icon {
+    .newCars-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: 0 -93px;
+        top: 9px;
+    }
+}
+
+@mixin usedCars-icon {
+    .usedCars-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: 0 -127px;
+        top: 7px;
+    }
+}
+
+@mixin sellCars-icon {
+    .sellCars-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: 3px -312px;
+    }
+}
+
+@mixin reviews-icon {
+    .reviews-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: 0 -184px;
+    }
+}
+
+@mixin insurance-icon {
+    .insurance-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: 0 -212px;
+    }
+}
+
+@mixin nav-loan-icon {
+    .nav-loan-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: -177px -61px;
+    }
+}
+
+@mixin forum-icon {
+    .forum-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: 0 -243px;
+    }
+}
+
+@mixin myCarWale-icon {
+    .myCarWale-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: 0 -277px;
+        top: 6px;
+    }
+}
+
+@mixin tyre-icon {
+    .tyre-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: -151px -212px;
+    }
+}
+
+@mixin electriccar-icon {
+    .electriccar-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        background-position: -183px -211px;
+        width: 27px;
+    }
+}
+
+@mixin amt-icon {
+    @include opacity-class(70);
+    .amt-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        @extend .opacity70;
+        background-position: -186px -516px;
+        top: 8px;
+    }
+}
+
+@mixin trackday-icon {
+    @include opacity-class(60);
+    .trackday-icon {
+        @extend %cwmsprite;
+        @extend %menu-icons;
+        @extend .opacity60;
+        background-position: -86px -526px;
+        top: 12px;
+    }
+}
+
+@mixin new-red-tag-icon {
+    .new-red-tag-icon {
+        @extend %cwmsprite;
+        width: 36px;
+        height: 16px;
+        background-position: -170px -377px;
+        position: relative;
+        top: 2px;
+    }
+}
+
+@mixin edit-city-icon {
+    .edit-city {
+        @extend %cwmsprite;
+        width: 13px;
+        height: 16px;
+        background-position: -197px -300px;
+        margin-left: 5px;
+    }
+}
+
+%cross-lg {
+    width: 16px;
+    height: 16px;
+}
+
+@mixin cross-lg-white {
+    .cross-lg-white {
+        @extend %cwmsprite;
+        @extend %cross-lg;
+        background-position: -36px -200px;
+    }
+}
+
+@mixin cross-lg-lgt-grey {
+    .cross-lg-lgt-grey {
+        @extend %cwmsprite;
+        @extend %cross-lg;
+        background-position: -36px -226px;
+    }
+}
+
+@mixin cross-lg-dark-grey {
+    .cross-lg-dark-grey {
+        @extend %cwmsprite;
+        @extend %cross-lg;
+        background-position: -36px -252px;
+    }
+}
+
+%cross-md {
+    width: 13px;
+    height: 13px;
+}
+
+@mixin cross-md-white {
+    .cross-md-white {
+        @extend %cwmsprite;
+        @extend %cross-md;
+        background-position: -62px -200px;
+    }
+}
+
+@mixin cross-md-lgt-grey {
+    .cross-md-lgt-grey {
+        @extend %cwmsprite;
+        @extend %cross-md;
+        background-position: -62px -223px;
+    }
+}
+
+@mixin cross-md-dark-grey {
+    .cross-md-dark-grey {
+        @extend %cwmsprite;
+        @extend %cross-md;
+        background-position: -62px -246px;
+    }
+}
+
+%cross-sm {
+    width: 10px;
+    height: 10px;
+}
+
+@mixin cross-sm-white {
+    .cross-sm-white {
+        @extend %cwmsprite;
+        @extend %cross-sm;
+        background-position: -85px -200px;
+    }
+}
+
+@mixin cross-sm-lgt-grey {
+    .cross-sm-lgt-grey {
+        @extend %cwmsprite;
+        @extend %cross-sm;
+        background-position: -85px -220px;
+    }
+}
+
+@mixin cross-sm-dark-grey {
+    .cross-sm-dark-grey {
+        @extend %cwmsprite;
+        @extend %cross-sm;
+        background-position: -85px -240px;
+    }
+}
+
+%review-sm {
+    width: 16px;
+    height: 10px;
+}
+
+@mixin review-sm-white {
+    .review-sm-white {
+        @extend %cwmsprite;
+        @extend %review-sm;
+        background-position: -36px -306px;
+    }
+}
+
+@mixin review-sm-lgt-grey {
+    .review-sm-lgt-grey {
+        @extend %cwmsprite;
+        @extend %review-sm;
+        background-position: -59px -306px;
+    }
+}
+
+@mixin review-sm-dark-grey {
+    .review-sm-dark-grey {
+        @extend %cwmsprite;
+        @extend %review-sm;
+        background-position: -81px -306px;
+    }
+}
+
+@mixin tick-sm-green {
+    .tick-sm-green {
+        @extend %cwmsprite;
+        background-position: 0 -318px;
+        width: 16px;
+        height: 11px;
+    }
+}
+
+%lr-arrow-sm {
+    width: 6px;
+    height: 13px;
+}
+
+%tb-arrow-sm {
+    width: 12px;
+    height: 7px;
+}
+
+@mixin left-arrow-sm-white {
+    .left-arrow-sm-white {
+        @extend %cwmsprite;
+        @extend %lr-arrow-sm;
+        background-position: -155px -35px;
+    }
+}
+
+@mixin right-arrow-sm-white {
+    .right-arrow-sm-white {
+        @extend %cwmsprite;
+        @extend %lr-arrow-sm;
+        background-position: -161px -35px;
+    }
+}
+
+@mixin top-arrow-sm-white {
+    .top-arrow-sm-white {
+        @extend %cwmsprite;
+        @extend %tb-arrow-sm;
+        background-position: -155px -35px;
+    }
+}
+
+@mixin bottom-arrow-sm-white {
+    .bottom-arrow-sm-white {
+        @extend %cwmsprite;
+        @extend %tb-arrow-sm;
+        background-position: -155px -41px;
+    }
+}
+
+@mixin left-arrow-sm-lgt-grey {
+    .left-arrow-sm-lgt-grey {
+        @extend %cwmsprite;
+        @extend %lr-arrow-sm;
+        background-position: -155px -58px;
+    }
+}
+
+@mixin right-arrow-sm-lgt-grey {
+    .right-arrow-sm-lgt-grey {
+        @extend %cwmsprite;
+        @extend %lr-arrow-sm;
+        background-position: -161px -58px;
+    }
+}
+
+@mixin top-arrow-sm-lgt-grey {
+    .top-arrow-sm-lgt-grey {
+        @extend %cwmsprite;
+        @extend %tb-arrow-sm;
+        background-position: -155px -58px;
+    }
+}
+
+@mixin bottom-arrow-sm-lgt-grey {
+    .bottom-arrow-sm-lgt-grey {
+        @extend %cwmsprite;
+        @extend %tb-arrow-sm;
+        background-position: -155px -64px;
+    }
+}
+
+@mixin left-arrow-sm-dark-grey {
+    .left-arrow-sm-dark-grey {
+        @extend %cwmsprite;
+        @extend %lr-arrow-sm;
+        background-position: -155px -81px;
+    }
+}
+
+@mixin right-arrow-sm-dark-grey {
+    .right-arrow-sm-dark-grey {
+        @extend %cwmsprite;
+        @extend %lr-arrow-sm;
+        background-position: -161px -81px;
+    }
+}
+
+@mixin top-arrow-sm-dark-grey {
+    .top-arrow-sm-dark-grey {
+        @extend %cwmsprite;
+        @extend %tb-arrow-sm;
+        background-position: -155px -81px;
+    }
+}
+
+@mixin bottom-arrow-sm-dark-grey {
+    .bottom-arrow-sm-dark-grey {
+        @extend %cwmsprite;
+        @extend %tb-arrow-sm;
+        background-position: -155px -87px;
+    }
+}
+
+%lr-arrow-xlg {
+    width: 25px;
+    height: 45px;
+}
+
+@mixin left-arrow-xlg-white {
+    .left-arrow-xlg-white {
+        @extend %cwmsprite;
+        @extend %lr-arrow-xlg;
+        background-position: -36px -90px;
+    }
+}
+
+@mixin right-arrow-xlg-white {
+    .right-arrow-xlg-white {
+        @extend %cwmsprite;
+        @extend %lr-arrow-xlg;
+        background-position: -72px -90px;
+    }
+}
+
+@mixin left-arrow-xlg-lgt-grey {
+    .left-arrow-xlg-lgt-grey {
+        @extend %cwmsprite;
+        @extend %lr-arrow-xlg;
+        background-position: -36px -35px;
+    }
+}
+
+@mixin right-arrow-xlg-lgt-grey {
+    .right-arrow-xlg-lgt-grey {
+        @extend %cwmsprite;
+        @extend %lr-arrow-xlg;
+        background-position: -72px -35px;
+    }
+}
+
+@mixin left-arrow-xlg-dark-grey {
+    .left-arrow-xlg-dark-grey {
+        @extend %cwmsprite;
+        @extend %lr-arrow-xlg;
+        background-position: -36px -145px;
+    }
+}
+
+@mixin right-arrow-xlg-dark-grey {
+    .right-arrow-xlg-dark-grey {
+        @extend %cwmsprite;
+        @extend %lr-arrow-xlg;
+        background-position: -72px -145px;
+    }
+}
+
+%circle-icon {
+    width: 33px;
+    height: 33px;
+    cursor: pointer;
+}
+
+@mixin alert-circle-icon {
+    .alert-circle-icon {
+        @extend %circle-icon;
+        @extend %cwmsprite;
+        background-position: -107px -121px;
+        z-index: 1
+    }
+}
+
+@mixin info-circle-icon {
+    .info-circle-icon {
+        @extend %circle-icon;
+        @extend %cwmsprite;
+        background-position: -107px -207px;
+        z-index: 1;
+    }
+}
+
+@mixin back-circle-icon {
+    .back-circle-icon {
+        @extend %circle-icon;
+        @extend %cwmsprite;
+        background-position: -107px -291px;
+    }
+}
+
+@mixin rupee-circle-icon {
+    .rupee-circle-icon {
+        @extend %circle-icon;
+        @extend %cwmsprite;
+        background-position: -59px -333px;
+    }
+}
+
+%search-icon {
+    width: 18px;
+    height: 18px;
+}
+
+@mixin search-icon-grey {
+    .search-icon-grey {
+        background-position: -62px -275px;
+        @extend %cwmsprite;
+        @extend %search-icon;
+    }
+}
+
+@mixin search-icon-white {
+    .search-icon-white {
+        background-position: -64px -278px;
+        @extend %cwmsprite;
+        @extend %search-icon;
+    }
+}
+
+@mixin gplay-icon {
+    .gplay-icon {
+        @extend %cwmsprite;
+        background-position: 0 -339px;
+        width: 114px;
+        height: 40px;
+    }
+}
+
+@mixin app-store-icon {
+    .app-store-icon {
+        @extend %cwmsprite;
+        background-position: 0 -389px;
+        width: 136px;
+        height: 40px;
+    }
+}
+
+%social-login-icon {
+    width: 22px;
+    height: 25px;
+    vertical-align: top;
+}
+
+@mixin fb-login-icon {
+    .fb-login-icon {
+        @extend %cwmsprite;
+        @extend %social-login-icon;
+        background-position: -103px -89px;
+    }
+}
+
+@mixin gplus-login-icon {
+    .gplus-login-icon {
+        @extend %cwmsprite;
+        @extend %social-login-icon;
+        background-position: -103px -89px;
+    }
+}
+
+@mixin error-icon {
+    .error-icon {
+        @extend %cwmsprite;
+        background-position: -177px -35px;
+        width: 19px;
+        height: 19px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 9;
+    }
+}
+
+@mixin cityPopup-icon {
+    .cityPopup-icon {
+        @extend %cwmsprite;
+        background-position: -107px -35px;
+        width: 29px;
+        height: 38px;
+    }
+}
+
+@mixin contactDealer-icon {
+    .contactDealer-icon {
+        @extend %cwmsprite;
+        background-position: -157px -136px;
+        width: 40px;
+        height: 42px;
+    }
+}
+
+@mixin back-long-arrow-left-icon {
+    .back-long-arrow-left {
+        @extend %cwmsprite;
+        background-position: -155px 0;
+        width: 21px;
+        height: 16px;
+    }
+}
+
+@mixin back-long-arrow-left-white-icon {
+    .back-long-arrow-left-white {
+        @extend %cwmsprite;
+        background-position: -155px -101px;
+        width: 21px;
+        height: 21px;
+    }
+}
+
+@mixin car-location-icon {
+    .car-location-ic {
+        @extend %cwmsprite;
+        background-position: 0 -346px;
+        width: 44px;
+        height: 53px;
+    }
+}
+
+@mixin car-location-icon-sm {
+    .car-location-ic-sm {
+        @extend %cwmsprite;
+        background-position: -179px -333px;
+        width: 28px;
+        height: 32px;
+    }
+}
+
+@mixin recent-clock-icon {
+    .recent-clock {
+        @extend %cwmsprite;
+        vertical-align: sub;
+        background-position: -213px -45px;
+        width: 27px;
+        height: 14px;
+        margin-bottom: 1px;
+    }
+}
+
+@mixin trending-icon {
+    .trending-icon {
+        @extend %cwmsprite;
+        background-position: -211px -22px;
+        width: 27px;
+        height: 12px;
+    }
+}
+
+%ae-sprite {
+    background-image: url("#{$img-cdn-path}/0x0/cw/static/sprites/ae-sprite.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+@mixin ae-new-label-icon {
+    .ae-new-label-icon {
+        @extend %ae-sprite;
+        position: relative;
+        background-position: -156px 1px;
+        height: 24px;
+        top: -10px;
+        left: 5px;
+        width: 39px;
+    }
+}
+
+%cwm-circle-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/sprites/cw-circle-icon.png?v19012016);
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 92px;
+    height: 92px;
+}
+
+@mixin getfinalprice-icon {
+    .getfinalprice-icon {
+        @extend %cwm-circle-icon;
+        background-position: 0 0;
+    }
+}
+
+@mixin locatedealer-icon {
+    .locatedealer-icon {
+        @extend %cwm-circle-icon;
+        background-position: -102px 0;
+    }
+}
+
+@mixin userreview-icon {
+    .userreview-icon {
+        @extend %cwm-circle-icon;
+        background-position: -204px 0;
+    }
+}
+
+@mixin checkcarvalue-icon {
+    .checkcarvalue-icon {
+        @extend %cwm-circle-icon;
+        background-position: -306px 0;
+    }
+}
+
+@mixin sellcar-icon {
+    .sellcar-icon {
+        @extend %cwm-circle-icon;
+        background-position: -408px 0;
+    }
+}
+
+@mixin pq-no-name {
+    .pq-no-name {
+        @extend %cwm-circle-icon;
+        background-position: -510px 0;
+    }
+}
+
+@mixin pq-no-mobile {
+    .pq-no-mobile {
+        @extend %cwm-circle-icon;
+        background-position: -611px 0;
+    }
+}
+
+@mixin pq-no-email {
+    .pq-no-email {
+        @extend %cwm-circle-icon;
+        background-position: -712px 0;
+    }
+}
+
+@mixin car-loan-icon {
+    .car-loan-icon {
+        @extend %cwm-circle-icon;
+        background-position: -1827px 0;
+    }
+}
+
+@mixin car-insurance-icon {
+    .car-insurance-icon {
+        @extend %cwm-circle-icon;
+        background-position: -1930px 0;
+    }
+}
+
+%buyerprocess-sprite {
+    background:url("#{$img-cdn-path}/0x0/cw/static/sprites/m/buyerprocess-sprite.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+@mixin seller-name {
+    .seller-name {
+        @extend %buyerprocess-sprite;
+        background-position: 0 0;
+        height: 17px;
+    }
+}
+
+@mixin seller-masking-no {
+    .seller-masking-no {
+        @extend %buyerprocess-sprite;
+        background-position: 0 -27px;
+        height: 17px;
+    }
+}
+
+@mixin seller-email {
+    .seller-email {
+        @extend %buyerprocess-sprite;
+        background-position: 0px -50px;
+        height: 19px;
+    }
+}
+
+@mixin seller-address {
+    .seller-address {
+        @extend %buyerprocess-sprite;
+        background-position: 3px -79px;
+        height: 19px;
+    }
+}
+
+@mixin seller-callbtn {
+    .seller-callbtn {
+        @extend %buyerprocess-sprite;
+        background-position: 0 -108px;
+        width: 18px;
+        height: 18px;
+    }
+}
+
+%deals-car-sprite {
+    background:url(#{$img-cdn-path}/0x0/cw/static/icons/svg/offers-icon.svg);
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+@mixin advt-icon {
+    .advt-icon {
+        @extend %deals-car-sprite;
+        background-position: -115px -190px;
+        width: 21px;
+        height: 22px;
+    }
+}
+
+@mixin advt-logo-111x14 {
+    .advt-logo-111x14 {
+        @extend %deals-car-sprite;
+        background-position: 0 -293px;
+        width: 111px;
+        height: 14px;
+    }
+}
+
+@mixin info-icon {
+    .info-icon {
+        @extend %deals-car-sprite;
+        background-position: -113px -245px;
+        width: 17px;
+        height: 17px;
+        vertical-align: text-bottom;
+    }
+}
+
+@mixin book-now-thumb {
+    .book-now-thumb {
+        @extend %deals-car-sprite;
+        width: 22px;
+        height: 22px;
+        vertical-align: middle;
+        margin: 0 3px 3px 0;
+    }
+}
+
+%car-buying-sprite {
+    background:url(#{$img-cdn-path}/0x0/cw/cba/car-buying-asst-sprite.png?v1) -68px 7px no-repeat;
+    display: inline-block;
+    width: 67px;
+    height: 67px;
+}
+
+@mixin contact-dealer-icon {
+    .contact-dealer-icon {
+        @extend %car-buying-sprite;
+        background-position: 0 0px;
+    }
+}
+
+@mixin offers-available-icon {
+    .offers-available-icon {
+        @extend %car-buying-sprite;
+        background-position: 0 -75px;
+    }
+}
+
+@mixin final-price-icon {
+    .final-price-icon {
+        @extend %car-buying-sprite;
+        background-position: 0 -153px;
+    }
+}
+
+@mixin card-new-icon {
+    .new-icon {
+        @extend %car-buying-sprite;
+        width: 30px;
+        height: 27px;
+        background-position: -88px -186px;
+        position: absolute;
+        top: -6px;
+    }
+}
+
+%cwm-md-circle {
+    background: url("#{$img-cdn-path}/0x0/cw/static/sprites/cw-md-circle-icon.png?v2.2") no-repeat scroll 0 0;
+    width: 65px;
+    height: 65px;
+    display: block;
+}
+
+@mixin saving50per-icon {
+    .saving50per {
+        @extend %cwm-md-circle;
+        background-position: -940px 0;
+    }
+}
+
+@mixin web-pointer-icon {
+    .web-pointer {
+        @extend %cwm-md-circle;
+        background-position: -381px 0;
+    }
+}
+
+@mixin finance-icon {
+    .finance {
+        @extend %cwm-md-circle;
+        background-position: -1013px 0;
+    }
+}
+
+@mixin certificate-icon {
+    .certificate {
+        @extend %cwm-md-circle;
+        background-position: -1086px 0;
+    }
+}
+
+@mixin green-thanks-icon {
+    .green-thanks-icon {
+        @extend %cwm-md-circle;
+        background-position: -866px 0;
+    }
+}
+
+%city-icons {
+    background: url(#{$img-cdn-path}/0x0/cw/static/sprites/m/m-city-icons.png) no-repeat;
+    display: block;
+}
+
+@mixin mumbai-icon {
+    .mumbai {
+        @extend %city-icons;
+        background-position: 0px 0px;
+        width: 60px;
+        height: 42px;
+    }
+}
+
+@mixin delhi-icon {
+    .delhi {
+        @extend %city-icons;
+        background-position: -65px 0px;
+        width: 44px;
+        height: 45px;
+    }
+}
+
+@mixin bangalore-icon {
+    .bangalore {
+        @extend %city-icons;
+        background-position: -114px 0px;
+        width: 60px;
+        height: 52px;
+    }
+}
+
+@mixin chennai-icon {
+    .chennai {
+        @extend %city-icons;
+        background-position: -179px 0px;
+        width: 33px;
+        height: 49px;
+    }
+}
+
+@mixin pune-icon {
+    .pune {
+        @extend %city-icons;
+        background-position: -217px 0px;
+        width: 59px;
+        height: 31px;
+    }
+}
+
+@mixin hyderabad-icon {
+    .hyderabad {
+        @extend %city-icons;
+        background-position: -281px 0px;
+        width: 46px;
+        height: 50px;
+    }
+}
+
+@mixin kolkata-icon {
+    .kolkata {
+        @extend %city-icons;
+        background-position: -332px 0px;
+        width: 61px;
+        height: 18px;
+    }
+}
+
+@mixin ahmedabad-icon {
+    .ahmedabad {
+        @extend %city-icons;
+        background-position: -398px 0px;
+        width: 39px;
+        height: 53px;
+    }
+}
+
+@mixin chandigarh-icon {
+    .chandigarh {
+        @extend %city-icons;
+        background-position: -442px 0px;
+        width: 49px;
+        height: 49px;
+    }
+}
+
+// city icons with id
+// id-dimension
+$city-id-map: ( "1-67": "Mumbai",
+"2-67": "Bangalore",
+"10-67": "New Delhi",
+"12-67": "Pune",
+"105-67": "Hyderabad",
+"128-67": "Ahmedabad",
+"176-67": "Chennai",
+"177-67": "Coimbatore",
+"198-67": "Kolkata");
+@mixin city-icon-id($id,
+$dimension) {
+    @if map-has-key($city-id-map,
+    $id+'-'+$dimension) {
+        .city-icon-#{$id} {
+            width: $dimension + px;
+            height: $dimension + px;
+            background: url(#{$img-cdn-path}/0x0/cw/static/icons/city/#{$dimension}x#{$dimension}/#{$id}.png) no-repeat;
+            display: inline-block;
+        }
+    }
+    @else {
+        @warn "Please add the city for required dimension";
+    }
+}
+
+// button tag icon
+@mixin cross-white-10x10 {
+    width: 10px;
+    height: 10px;
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/fff/cross-10x10.png) no-repeat;
+    display: inline-block;
+}
+
+@mixin cross-default-15x16 {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/cross-v2.svg') no-repeat;
+    display: inline-block;
+    background-size: 18px;
+}
+
+@mixin cross-white-svg {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/fff/cross.svg) no-repeat;
+}
+
+@mixin cross-black {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/cross-icon.svg) no-repeat;
+}
+
+@mixin tick-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/tick.svg) no-repeat;
+}
+
+//assisted buying icon
+@mixin car-banner {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/assistedbuying/assisted-buying-car-banner.svg) no-repeat;
+}
+
+@mixin skyline-bg {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/skyline-bg.svg) repeat-x;
+}
+
+@mixin dedicated-manager {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/assistedbuying/dedicated-manager.svg) no-repeat;
+}
+
+@mixin car-inspect {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/assistedbuying/car-inspection.svg) no-repeat;
+}
+
+@mixin ownership-check {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/assistedbuying/ownership-check.svg) no-repeat;
+}
+
+@mixin back-default {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/arrow-down.svg);
+}
+
+@mixin edit-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/35beff/edit.svg) no-repeat center;
+}
+
+@mixin tick-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/02d4bb/tick-icon.svg);
+}
+
+@mixin header-chat-grey {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/chat.svg) no-repeat right;
+}
+
+@mixin chat-white {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/fff/chat.svg) no-repeat;
+}
+
+@mixin chat-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/00b2a0/chat.svg) no-repeat;
+}
+
+@mixin tick-icon-white {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/tick.svg) no-repeat center;
+}
+
+@mixin thankyou-icon {
+    background-image: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/thank-you.svg?15May2018);
+}
+
+@mixin white-cross {
+    background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/white-cross.svg?17Jul2018');
+	background-repeat: no-repeat;
+}
+
+@mixin download-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/02d4bb/download-icon.svg);
+}
+
+@mixin down-arrow {
+    background-image: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/arrow-down.svg);
+}
+
+@mixin location-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/new-header/location.svg) no-repeat;
+}
+
+//congratulations icon
+@mixin congratulations-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/svg/nc-dealer-form/congratulations-icon.svg);
+}
+
+@mixin sorry-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/svg/nc-dealer-form/sorry-icon.svg);
+}
+
+@mixin percent-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/02d4bb/percent.svg) no-repeat;
+}
+
+@mixin percent-6f6f6f-icon {
+	background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/percent.svg') no-repeat;
+}
+
+@mixin rc-transfer {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/assistedbuying/rc-transfer.svg) no-repeat;
+}
+
+@mixin price-negotiate {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/assistedbuying/price-negotiation.svg) no-repeat;
+}
+
+@mixin star-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/fff/star.svg) no-repeat;
+}
+
+@mixin arrow-teal-left-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/00afa0/circle/arrow-left.svg) no-repeat;
+}
+
+@mixin notification-icon-teal {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/00afa0/notification.svg) no-repeat;
+}
+
+@mixin arrow-grey-left-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/aaa/circle/arrow-left.svg) no-repeat;
+}
+
+@mixin bell-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/aaa/circle/bell.svg) no-repeat;
+}
+
+@mixin top-number-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/ef9423/top-number.svg) no-repeat;
+}
+
+@mixin arrow-blue-right-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/3fbfff/arrow-down.svg) no-repeat 50%;
+}
+
+@mixin info-yellow-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/pq-new/info-icon.svg?v1) no-repeat;
+}
+
+@mixin car-handpick {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/assistedbuying/handpick-car.svg) no-repeat;
+}
+
+@mixin back-arrow {
+    background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/arrow-down.svg) no-repeat;
+}
+
+@mixin global-location-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/location-icon.svg') no-repeat center;
+}
+
+@mixin location-error-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/location-error-icon.svg') no-repeat center;
+}
+
+@mixin error-icon-red {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/f03f30/error.png') no-repeat center;
+}
+
+@mixin cross-icon-default($background-size: 18) {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/cross-v2.svg') no-repeat center;
+    background-size: $background-size * 1px;
+}
+@mixin phone-6f6f6f {
+	background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/phone-icon.svg') no-repeat;
+}
+
+@mixin tick-7fd7cf-icon {
+	background: url('#{$img-cdn-path}/0x0/cw/static/icons/7fd7cf/tick.svg') no-repeat;
+}
+
+@mixin sellcar-6f6f6f-icon {
+	background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/sell-car.svg?09142018') no-repeat;
+}
+
+@mixin car-aaa-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/aaa/circle/car.svg') no-repeat center;
+}
+
+@mixin edit-aaa-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/aaa/circle/edit.svg') no-repeat center;
+}
+
+@mixin star-aaa-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/aaa/circle/star.svg') no-repeat center;
+}
+
+@mixin arrow-aaa-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/aaa/arrow.svg') no-repeat center;
+}
+
+@mixin search-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/new-header/search.svg') no-repeat center;
+}
+
+@mixin batch-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/user-review/batch-icon.svg') no-repeat center;
+}
+
+@mixin contest-banner {
+    background: url('#{$img-cdn-path}/0x0/cw/static/user-review/user-review-contest-banner.svg?29Aug') no-repeat center;
+}
+
+@mixin contest-banner-d {
+    background-image: url('#{$img-cdn-path}/0x0/cw/static/user-review/user-review-contest-banner.svg');
+    background-size: cover;
+}
+
+@mixin user-review-accesories-bg {
+    background: url('#{$img-cdn-path}/0x0/cw/static/user-review/user-reviews-accesories-left-bg.svg') no-repeat,
+    url('#{$img-cdn-path}/0x0/cw/static/user-review/user-reviews-accesories-right-bg.svg') no-repeat;
+}
+
+@mixin swiper-loader {
+    background: url('#{$img-cdn-path}/0x0/cw/static/circle-loader.gif') no-repeat center center;
+}
+
+@mixin thumbs-up-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/f7c991/thumbs-up.svg') no-repeat center;
+}
+
+@mixin thumbs-down-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/7fd7cf/thumbs-down.svg') no-repeat center;
+}
+
+@mixin youtube-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/360icons/video-icon-72x53.png') no-repeat;
+}
+
+@mixin views-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/view.svg') no-repeat;
+}
+
+@mixin like-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/like.svg') no-repeat;
+}
+
+@mixin image-icon {
+    background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/565a5c/image-icon.svg') no-repeat center;
+}
+
+@mixin choices-icon {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/used/similar-cars.svg');
+    background-repeat: no-repeat;
+}
+
+
+/*youtube video icon*/
+
+@mixin youtube-icon {
+    background: url(#{$img-cdn-path}/0x0/cw/static/360icons/video-icon-89x64.png) no-repeat;
+}
+
+@mixin left-border-curve-fbfbfb-icon {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/used/dealer-logo-bg-curve.svg?=v3');
+    background-repeat: no-repeat;
+}
+
+@mixin left-border-curve-f9f9f9-icon {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/used/icons/f9f9f9/dealer-logo-bg-curve.svg');
+    background-repeat: no-repeat;
+}
+
+
+@mixin cw-logo-white-icon {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/used/cw-crest-white.svg');
+    background-repeat: no-repeat;
+    }
+    
+@mixin dealer {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/pq-new/dealer.svg');
+	background-repeat: no-repeat;
+}
+@mixin hands-6f6f6f-icon {
+	background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/hands.svg') no-repeat center;
+}
+
+@mixin calculator-6f6f6f-icon {
+	background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/calculator.svg') no-repeat;
+}
+
+@mixin optional-packages-6f6f6f {
+	background: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/optional-packages.svg') no-repeat;
+}
+
+@mixin shortlist-icon-transperant {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/used/uc-shortlist.svg');
+    background-repeat: no-repeat;
+} 
+
+@mixin shortlist-icon-teal {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/used/uc-shortlisted.svg');
+    background-repeat: no-repeat;
+} 
+
+@mixin gallery-icon {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/used/uc-gallery-icon.svg');
+    background-repeat: no-repeat;
+}
+
+@mixin external-link {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/external-link-icon.svg?=v2');
+	background-repeat: no-repeat;
+}
+
+/*whatsapp icon*/
+@mixin whatsapp-icon {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/00b2a0/whatsapp-icon.svg');
+	background-repeat: no-repeat;
+}
+@mixin trophy-white {
+    background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/fff/trophy.svg?=v3');
+    background-repeat: no-repeat;
+}
+
+@mixin arrow-white-down-icon {
+    background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/fff/arrow-down.svg');
+    background-repeat: no-repeat;
+}
+
+@mixin tick-00a0af-circle {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/00afa0/circle/tick.svg');
+	background-repeat: no-repeat;
+}
+
+@mixin arrow-white {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/uparrow.svg');
+	background-repeat: no-repeat;
+}
+
+@mixin bell-icon {
+    background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/65818f/bell-filled.svg');
+    background-repeat: no-repeat;
+}

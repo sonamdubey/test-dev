@@ -1,0 +1,201 @@
+@import "../../../mixins/_variables.scss";
+@import "../../../mixins/_arrow.scss";
+@import "../../../mixins/_scroll-spy.scss";
+@import "../../../mixins/_flexbox.scss";
+
+.navigation-container {
+    position: relative;
+}
+
+/*carwale link container css start*/
+.referrer-link-container {
+    position: relative;
+    padding: 9px 20px;
+    background-color: map-get($color-map, 'green-vogue');
+    height: 35px;
+
+    a {
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+.referrer-link__back-arrow {
+    @include arrow($width: 18, $height: 10, $direction: 'right', $opacity: 1, $top: 13);
+    @include arrow-white;
+    left: 20px;
+    background-size: 18px;
+}
+
+.referrer-link__text {
+    padding-left: 25px;
+    vertical-align: middle;
+    font-size: 14px;
+    color: map-get($color-map, 'white');
+}
+/*carwale link container css end*/
+
+/*navigation container css start*/
+
+@include scrollSpy($text-transform: capitalize, $font-size: 14);
+
+.navigation-container__header {
+    @include flexbox;
+    @include flex-wrap($value: wrap);
+
+         &:before,
+          &:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+         }
+
+         &:before {
+            bottom: 55px;
+            border-bottom: 5px solid map-get($color-map, 'red');
+        }
+
+        &:after {
+            bottom: 50px;
+            border-bottom: 5px solid map-get($color-map, 'astronaut-blue');
+            left: 0;
+            right: 0;
+        }
+}
+
+.navigation-header__dealer-logo,
+.navigation-header__franchisee-logo {
+    @include flexbox;
+    @include flex-grow;
+    height: 73px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+} 
+
+.navigation-header__dealer-logo {
+    padding-right: 20px;
+    @include justify-content($value: flex-end);
+}
+
+.navigation-header__franchisee-logo {
+    padding-left: 20px;
+}
+
+.navigation-header-menu-container {
+    @include order($int: 2);
+
+    .overall-tabs-wrapper__list {
+        text-align: center;
+    }
+}
+/*navigation container css end*/
+
+@media (min-width: 768px) {
+    .navigation-header-menu-container {    
+        .overall-tabs-wrapper__list {
+            width: 100%;
+            text-align: center;
+        }
+}
+    .overall-tabs-container {
+        .tab-list__item {
+            padding-top: 17px;
+        }
+
+        .tab-list-item__content {
+            font-size: 14px;
+        }
+
+        &.overall-tabs-container-fixed {
+            @include vendor-prefix('transition', 'none');
+            opacity: 1;
+            will-change: auto;
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .referrer-link-container  {
+        padding: 13px 60px;
+        height: 45px;
+    }
+
+    .referrer-link__back-arrow {
+        top: 17px;
+        left: 60px;
+    }
+
+    .navigation-menu-container {
+        height: 89px;
+
+            &.overall-tabs-container-fixed {
+                .navigation-container__header {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    z-index: 6;
+                    width: 100%;
+                    background-color: map-get($color-map, 'white');
+            }
+        }
+    }
+
+    .overall-tabs-wrapper {
+        box-shadow: none;
+    }
+
+    .overall-tabs-wrapper__list {
+        margin: 0 auto;
+
+        .tab-list__item {
+            &:only-child {
+                cursor: default;
+            }
+        }
+
+        .tab-list-item__content {
+            cursor: pointer;
+        }
+
+    }
+
+    .tab-list__item-active {
+        .tab-list-item__content {
+            border-bottom: none;
+        }
+    }
+
+    .navigation-container__header {
+        @include flex-wrap;
+        @include align-items($value: center);
+        height: 89px;
+
+        &:before {
+            bottom: -5px;
+        }
+
+        &:after {
+            bottom: -10px;
+        }
+    }
+
+    .navigation-header-menu-container {
+        @include flex-grow(2);
+        @include order($int: 1);
+    }
+
+    .navigation-header__franchisee-logo,
+    .navigation-header__dealer-logo {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .navigation-header__franchisee-logo {
+        padding-left: 60px;
+    }
+
+    .navigation-header__dealer-logo {
+        @include order($int: 2);
+        padding-right: 60px;
+    }
+}

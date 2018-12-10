@@ -1,0 +1,23 @@
+@import "../../../mixins/_variables.scss";
+
+@mixin container-head {
+    .container-head {
+        padding: 30px 20px 20px;
+    }
+}
+
+@mixin container-title($color: 'charcoal', $font-size: 20, $font-weight: $font-bold) {
+    .container__title {
+        color: map-get($color-map, $color);
+        font-size: $font-size * 1px;
+        font-weight: $font-weight;
+        text-transform: uppercase;
+        text-align: center;
+    }
+}
+
+@mixin container-body {
+    .container-body {
+        padding: 0 20px 30px;
+    }
+}

@@ -1,0 +1,530 @@
+﻿.tyre-home-banner {
+  background: #161209 url('https://imgd.aeplcdn.com/0x0/cw/es/tyres/banner.jpg') no-repeat left top;
+  background-size: cover;
+  height: 130px;
+}
+.warranty-icon {
+  background-position: -107px -624px;
+  width: 15px;
+  height: 18px;
+}
+
+.warranty-text {
+  color: #0288d1;
+}
+
+.root-input input::placeholder {
+  color: #666;
+}
+
+.manufacture-year {
+  color: #ccc;
+}
+
+#features ul li {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.info-icon {
+  vertical-align: middle;
+}
+
+.tyre-tabs .cw-tabs-panel ul {
+  margin-bottom: 10px;
+}
+
+.strip {
+  padding: 10px 30px 10px 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.pill-box,.pill-box:hover {
+  text-decoration: none;
+}
+
+.pill-box {
+  margin: 0 5px 10px 5px;
+  display: inline-block;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  -o-border-radius: 25px;
+  -ms-border-radius: 25px;
+  border-radius: 25px;
+  padding: 8px 0;
+  border: 1px solid #ccc;
+  width: 100%;
+  color: #565a5c;
+  -webkit-tap-highlight-color: transparent;
+  max-width: 60px;
+}
+
+.active-box, .pill-box:hover {
+  background-color: #0e405b;
+  color: #fff;
+}
+
+.year-group {
+  padding: 10px 0 0 0;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.tyre-brand .pill-box {
+  max-width: none;
+  width: auto;
+  padding: 8px 10px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.tyre-home-carousel .swiper-slide.card {
+  height: 345px;
+}
+
+.tyre-tag-type {
+  background: #26536a;
+  display: inline-block;
+  color: #fff;
+  padding: 4px 12px 5px 10px;
+  position: absolute;
+  left: 0;
+  top: 140px;
+  border-radius: 0 15px 15px 0;
+}
+
+.tyre-model-view {
+  margin-bottom: 10px;
+}
+
+.tyre-model-view .car-image {
+  max-width: 40%;
+  display: inline-block;
+}
+
+.tyre-model-view .car-image img {
+  max-width: 100%;
+}
+
+.tyre-model-view .car-desc {
+  max-width: 65%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.tyre-model-view .car-name {
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.tyre-model-view .car-name .car-year {
+  font-weight: normal;
+}
+
+.tyre-model-view .version-dropdown {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.tyre-model-view .version-dropdown .form-control {
+  padding: 5px 10px 5px 10px;
+}
+
+.tyre-model-view .car-tyre-size {
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.tyre-list {
+  text-align: center;
+}
+
+.tyre-list .carDescWrapper {
+  padding: 0 0 10px 0;
+}
+
+.tyre-list li {
+  float: left;
+  width: 50%;
+  vertical-align: top;
+  background: #fff;
+  position: relative;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  min-height: 245px;
+  height: auto;
+}
+
+.tyre-list .tyre-tag-type {
+  position: relative;
+  top: auto;
+  margin: 10px 0 0 0;
+  padding: 4px 19px 5px 15px;
+}
+
+.tyre-list li .imageWrapper {
+  height: auto;
+}
+
+.tyre-list .imageWrapper img {
+  min-height: 90px;
+}
+
+.tyre-list .warranty-icon,.tyre-warranty .warranty-icon {
+  margin: 0 5px 0 0;
+  vertical-align: top;
+}
+
+.tyre-overview-table {
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
+.tyre-overview-table tr td {
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  width: 48%;
+  display: table-cell;
+  padding: 6px 10px;
+  background: #fff;
+}
+
+.tyre-overview-table tr:nth-child(2n+2) td {
+  background: #f5f5f5;
+}
+
+.tyre-overview-table tr .tyre-item-label {
+  border-right: none;
+}
+
+.tyre-overview-img img {
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+.tyre-price {
+  font-size: 18px;
+  position: absolute;
+  right: 0;
+  bottom: 30px;
+  background: #26536a;
+  display: inline-block;
+  color: #fff;
+  padding: 4px 12px 5px 10px;
+  border-radius: 20px 0 0 20px;
+}
+
+.tyre-news-carousel .swiper-slide {
+  height: 130px;
+  border: 1px solid #ccc;
+}
+
+.tyre-news-carousel .imageWrapper {
+  display: inline-block;
+  width: 40%;
+  vertical-align: top;
+}
+
+.tyre-news-carousel .carDescWrapper {
+  display: inline-block;
+  width: 55%;
+  vertical-align: top;
+  padding: 10px 10px;
+}
+
+.tyre-news-carousel .tyre-cost {
+  font-size: 22px;
+  margin-top: 5px;
+}
+
+.tyre-news-carousel .tyre-warranty {
+  color: #0e405b;
+  margin-top: 5px;
+}
+
+.tyre-details-tabs .cw-tabs-panel {
+  overflow-x: scroll;
+}
+
+.tyre-details-tabs .cw-tabs ul {
+  margin-bottom: 0;
+}
+
+.tyre-details-tabs .cw-tabs li {
+  font-size: 14px;
+  display: inline-block;
+  width: 49.3%;
+}
+
+.tyre-details-tabs .cw-tabs li a {
+  text-decoration: none;
+  color: #82888b;
+}
+
+.tyre-details-tabs .cw-tabs-panel::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+}
+
+.news-conditional-class {
+  width: 49.3%;
+}
+
+#tyre-info-popup {
+  position: fixed;
+  top: 30%;
+  left: 5%;
+  right: 5%;
+  z-index: 10;
+  background: #fff;
+}
+
+#tyre-info-popup .globalcity-popup-data {
+  padding: 20px 20px 10px;
+}
+
+.tyre-info-img {
+  max-width: 100%;
+}
+
+.compatible-car-unit {
+  position: relative;
+}
+
+.compatible-car-form {
+  border: 1px solid #ccc;
+  padding: 6px 10px 8px 10px;
+}
+
+.btnCompatCar {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.btnCompatCar .btn {
+  padding: 6px 10px 6px 10px;
+}
+
+.search-popup {
+  background: #fff;
+  width: 92%;
+  display: none;
+  z-index: 999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  -os-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  -wbkit-transform: translate(-50%,-50%);
+}
+
+.errManufactYear {
+  top: 140px;
+  right: 20px;
+}
+
+.pointerEvent {
+  pointer-events: none;
+}
+
+.displayModel {
+  font-size: 14px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.displayModel:first-child {
+  border-top: 1px solid #ccc;
+}
+
+.not-found-section {
+  margin-top: 45px;
+  margin-bottom: 45px;
+}
+
+.not-found-section img {
+  max-width: 100%;
+  margin: 10px 0 0  0;
+}
+
+.hideFeatures {
+  visibility: hidden;
+}
+
+.tyre-model-name {
+  width: 135px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.swiper-type-news .front {
+  height: 320px;
+}
+
+/* popup-selected-value */
+.popup-selected-value {
+  min-width: 100px;
+  max-width: 200px;
+  padding: 4px 25px 4px 10px;
+  border: 1px solid #babfc3;
+  background: #fff url(https://imgd.aeplcdn.com/0x0/cw/design15/m/dropArrowBg.png) no-repeat 92% 50%;
+  cursor: pointer;
+  display: inline-block;
+  text-align: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border-radius: 2px;
+  margin-top: 5px;
+}
+
+/* modal popup */
+.modal-popup-container {
+  display: none;
+  width: 80%;
+  min-height: 100px;
+  font-size: 14px;
+  position: fixed;
+  top: 10%;
+  left: 0;
+  right: 0;
+  background: #f5f5f5;
+  z-index: 3;
+  margin: 0 auto;
+}
+
+.modal-background {
+  display: none;
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  -moz-opacity: 0.6;
+  -khtml-opacity: 0.6;
+  opacity: 0.6;
+}
+
+.popup-header {
+  position: relative;
+  background: #565a5c;
+  padding: 15px 20px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.popup-cross {
+  padding: 5px;
+  position: absolute;
+  top: 13px;
+  right: 15px;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.popup-body {
+  padding: 15px 20px;
+  max-height: 315px;
+  overflow-y: scroll;
+}
+
+.popup-list li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.popup-list li:first-child {
+  margin-top: 0;
+}
+
+.popup-list .active {
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.popup-list .list-group-label {
+  color: #babfc3;
+  font-weight: 700;
+  cursor: default;
+  pointer-events: none;
+}
+
+.tyre-list li .imageWrapper.sponsored {position: relative;}
+.sponsored-on-image{position: absolute;top: 4px;font-size: 11px;right: 4px;}
+
+.tyre-price__info {
+    font-size: 13px;
+    text-align: right;
+    color: #aaa;
+    padding-right: 15px;
+}
+
+@media only screen and (max-width: 320px) {
+  .tyre-model-view .car-desc {
+    width: 58%;
+  }
+
+    /* modal popup */
+  .popup-body {
+    max-height: 250px;
+  }  
+}
+/*Michelin tyre slug*/
+.dealer-container {
+    background-color: #ffffff;
+}
+.dealer-slug-view {
+    background-color: #f5f5f5;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+}
+.dealer-slug {
+    max-width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+}
+.dealer-slug__icon {
+    float: left;
+    height:53px;
+    width:53px;
+    color: #fff;
+    position: relative;
+    margin: 10px 10px 10px 20px;
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/michellin-tyres/michellin-tyre-location-foreground.svg) no-repeat;
+}
+.dealer-slug__title  {
+  color: #565a5c;
+  font-weight: 600;
+  font-size: 14px;
+  float: left;
+}
+.dealer-slug__btn {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0288d1;
+    float: left;
+}
+.dealer-slug__btn:hover {
+    text-decoration: none;
+}
+@media only screen and (max-width: 320px) {
+    .dealer-slug__title {
+        font-size: 13px;
+    }
+}

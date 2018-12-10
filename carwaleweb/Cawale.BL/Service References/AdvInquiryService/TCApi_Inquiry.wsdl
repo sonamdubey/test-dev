@@ -1,0 +1,1593 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tradingcars.carwale.com/deals/wsapis/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tradingcars.carwale.com/deals/wsapis/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tradingcars.carwale.com/deals/wsapis/">
+      <s:element name="CheckService">
+        <s:complexType />
+      </s:element>
+      <s:element name="CheckServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckServiceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddBuyerInquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInquiryDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddBuyerInquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddBuyerInquiryResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddSellerInquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="branchId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInquiryDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddSellerInquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddSellerInquiryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewCarInquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="branchId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInquiryDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewCarInquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddNewCarInquiryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewCarCWOfferInquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="branchId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInquiryDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewCarCWOfferInquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddNewCarCWOfferInquiryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOtherInquiries">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="branchId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInquiryDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddOtherInquiriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AddOtherInquiriesResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FetchIpAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="input" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FetchIpAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FetchIpAddressResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertBuyerInquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInquiryDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertBuyerInquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertBuyerInquiryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertSellerInquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="branchId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInquiryDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertSellerInquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertSellerInquiryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertNewCarInquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="branchId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInquiryDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertNewCarInquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertNewCarInquiryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertOtherInquiries">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="branchId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInquiryDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertOtherInquiriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertOtherInquiriesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNewCarMakes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNewCarMakesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNewCarMakesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllNewCarMakes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllNewCarMakesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllNewCarMakesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNewCarModel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="makeId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNewCarModelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNewCarModelResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCarVersion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="modelId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCarVersionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCarVersionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInquirySource">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInquirySourceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInquirySourceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDealerCities">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDealerCitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDealerCitiesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaskListDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inputJson" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaskListDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTaskListDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeInquiryDisposition">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inputJson" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeInquiryDispositionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChangeInquiryDispositionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InquiriesFollowUp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inputJson" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InquiriesFollowUpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InquiriesFollowUpResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCustomerDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inputJson" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCustomerDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateCustomerDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeadFollowupLoad">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="leadId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LeadFollowupLoadResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LeadFollowupLoadResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FetchLeadDispositions">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FetchLeadDispositionsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FetchLeadDispositionsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeEagerness">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inputJson" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeEagernessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChangeEagernessResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOtherRequests">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="inputJson" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveOtherRequestsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SaveOtherRequestsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllWebFolloWUp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllWebFolloWUpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllWebFolloWUpResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BookNewCarOfferInquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="branchId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInquiryDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BookNewCarOfferInquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BookNewCarOfferInquiryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BookNewInquiry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="branchId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInquiryDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BookNewInquiryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BookNewInquiryResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStockLeadDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="stockId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStockLeadDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStockLeadDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRetailDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jsonRetailDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRetailDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRetailDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CaptureInvoiceDetails">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jsonRetailDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CaptureInvoiceDetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CaptureInvoiceDetailsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TotalAvailableRewardPoints">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jsonRewardDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="TotalAvailableRewardPointsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TotalAvailableRewardPointsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RewardPointsDescription">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jsonRewardDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RewardPointsDescriptionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RewardPointsDescriptionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RewardRedeemSave">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jsonRewardDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RewardRedeemSaveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RewardRedeemSaveResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateNewCarBuyerInq">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jsonInquiryDetails" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateNewCarBuyerInqResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateNewCarBuyerInqResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNewCarBuyerInq">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="key" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="customerId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="inqId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNewCarBuyerInqResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNewCarBuyerInqResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerNMESuggestion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="jsonAutoSuggest" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomerNMESuggestionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCustomerNMESuggestionResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CheckServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckService" />
+  </wsdl:message>
+  <wsdl:message name="CheckServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddBuyerInquirySoapIn">
+    <wsdl:part name="parameters" element="tns:AddBuyerInquiry" />
+  </wsdl:message>
+  <wsdl:message name="AddBuyerInquirySoapOut">
+    <wsdl:part name="parameters" element="tns:AddBuyerInquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddSellerInquirySoapIn">
+    <wsdl:part name="parameters" element="tns:AddSellerInquiry" />
+  </wsdl:message>
+  <wsdl:message name="AddSellerInquirySoapOut">
+    <wsdl:part name="parameters" element="tns:AddSellerInquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddNewCarInquirySoapIn">
+    <wsdl:part name="parameters" element="tns:AddNewCarInquiry" />
+  </wsdl:message>
+  <wsdl:message name="AddNewCarInquirySoapOut">
+    <wsdl:part name="parameters" element="tns:AddNewCarInquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddNewCarCWOfferInquirySoapIn">
+    <wsdl:part name="parameters" element="tns:AddNewCarCWOfferInquiry" />
+  </wsdl:message>
+  <wsdl:message name="AddNewCarCWOfferInquirySoapOut">
+    <wsdl:part name="parameters" element="tns:AddNewCarCWOfferInquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddOtherInquiriesSoapIn">
+    <wsdl:part name="parameters" element="tns:AddOtherInquiries" />
+  </wsdl:message>
+  <wsdl:message name="AddOtherInquiriesSoapOut">
+    <wsdl:part name="parameters" element="tns:AddOtherInquiriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchIpAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:FetchIpAddress" />
+  </wsdl:message>
+  <wsdl:message name="FetchIpAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:FetchIpAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertBuyerInquirySoapIn">
+    <wsdl:part name="parameters" element="tns:InsertBuyerInquiry" />
+  </wsdl:message>
+  <wsdl:message name="InsertBuyerInquirySoapOut">
+    <wsdl:part name="parameters" element="tns:InsertBuyerInquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertSellerInquirySoapIn">
+    <wsdl:part name="parameters" element="tns:InsertSellerInquiry" />
+  </wsdl:message>
+  <wsdl:message name="InsertSellerInquirySoapOut">
+    <wsdl:part name="parameters" element="tns:InsertSellerInquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertNewCarInquirySoapIn">
+    <wsdl:part name="parameters" element="tns:InsertNewCarInquiry" />
+  </wsdl:message>
+  <wsdl:message name="InsertNewCarInquirySoapOut">
+    <wsdl:part name="parameters" element="tns:InsertNewCarInquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertOtherInquiriesSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertOtherInquiries" />
+  </wsdl:message>
+  <wsdl:message name="InsertOtherInquiriesSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertOtherInquiriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNewCarMakesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNewCarMakes" />
+  </wsdl:message>
+  <wsdl:message name="GetNewCarMakesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNewCarMakesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllNewCarMakesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllNewCarMakes" />
+  </wsdl:message>
+  <wsdl:message name="GetAllNewCarMakesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllNewCarMakesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNewCarModelSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNewCarModel" />
+  </wsdl:message>
+  <wsdl:message name="GetNewCarModelSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNewCarModelResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCarVersionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCarVersion" />
+  </wsdl:message>
+  <wsdl:message name="GetCarVersionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCarVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInquirySourceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInquirySource" />
+  </wsdl:message>
+  <wsdl:message name="GetInquirySourceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInquirySourceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDealerCitiesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDealerCities" />
+  </wsdl:message>
+  <wsdl:message name="GetDealerCitiesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDealerCitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTaskListDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTaskListDetails" />
+  </wsdl:message>
+  <wsdl:message name="GetTaskListDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTaskListDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangeInquiryDispositionSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangeInquiryDisposition" />
+  </wsdl:message>
+  <wsdl:message name="ChangeInquiryDispositionSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangeInquiryDispositionResponse" />
+  </wsdl:message>
+  <wsdl:message name="InquiriesFollowUpSoapIn">
+    <wsdl:part name="parameters" element="tns:InquiriesFollowUp" />
+  </wsdl:message>
+  <wsdl:message name="InquiriesFollowUpSoapOut">
+    <wsdl:part name="parameters" element="tns:InquiriesFollowUpResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomerDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCustomerDetails" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCustomerDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCustomerDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="LeadFollowupLoadSoapIn">
+    <wsdl:part name="parameters" element="tns:LeadFollowupLoad" />
+  </wsdl:message>
+  <wsdl:message name="LeadFollowupLoadSoapOut">
+    <wsdl:part name="parameters" element="tns:LeadFollowupLoadResponse" />
+  </wsdl:message>
+  <wsdl:message name="FetchLeadDispositionsSoapIn">
+    <wsdl:part name="parameters" element="tns:FetchLeadDispositions" />
+  </wsdl:message>
+  <wsdl:message name="FetchLeadDispositionsSoapOut">
+    <wsdl:part name="parameters" element="tns:FetchLeadDispositionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangeEagernessSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangeEagerness" />
+  </wsdl:message>
+  <wsdl:message name="ChangeEagernessSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangeEagernessResponse" />
+  </wsdl:message>
+  <wsdl:message name="SaveOtherRequestsSoapIn">
+    <wsdl:part name="parameters" element="tns:SaveOtherRequests" />
+  </wsdl:message>
+  <wsdl:message name="SaveOtherRequestsSoapOut">
+    <wsdl:part name="parameters" element="tns:SaveOtherRequestsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllWebFolloWUpSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllWebFolloWUp" />
+  </wsdl:message>
+  <wsdl:message name="GetAllWebFolloWUpSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllWebFolloWUpResponse" />
+  </wsdl:message>
+  <wsdl:message name="BookNewCarOfferInquirySoapIn">
+    <wsdl:part name="parameters" element="tns:BookNewCarOfferInquiry" />
+  </wsdl:message>
+  <wsdl:message name="BookNewCarOfferInquirySoapOut">
+    <wsdl:part name="parameters" element="tns:BookNewCarOfferInquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="BookNewInquirySoapIn">
+    <wsdl:part name="parameters" element="tns:BookNewInquiry" />
+  </wsdl:message>
+  <wsdl:message name="BookNewInquirySoapOut">
+    <wsdl:part name="parameters" element="tns:BookNewInquiryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStockLeadDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStockLeadDetails" />
+  </wsdl:message>
+  <wsdl:message name="GetStockLeadDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStockLeadDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRetailDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRetailDetails" />
+  </wsdl:message>
+  <wsdl:message name="GetRetailDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRetailDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CaptureInvoiceDetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:CaptureInvoiceDetails" />
+  </wsdl:message>
+  <wsdl:message name="CaptureInvoiceDetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:CaptureInvoiceDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="TotalAvailableRewardPointsSoapIn">
+    <wsdl:part name="parameters" element="tns:TotalAvailableRewardPoints" />
+  </wsdl:message>
+  <wsdl:message name="TotalAvailableRewardPointsSoapOut">
+    <wsdl:part name="parameters" element="tns:TotalAvailableRewardPointsResponse" />
+  </wsdl:message>
+  <wsdl:message name="RewardPointsDescriptionSoapIn">
+    <wsdl:part name="parameters" element="tns:RewardPointsDescription" />
+  </wsdl:message>
+  <wsdl:message name="RewardPointsDescriptionSoapOut">
+    <wsdl:part name="parameters" element="tns:RewardPointsDescriptionResponse" />
+  </wsdl:message>
+  <wsdl:message name="RewardRedeemSaveSoapIn">
+    <wsdl:part name="parameters" element="tns:RewardRedeemSave" />
+  </wsdl:message>
+  <wsdl:message name="RewardRedeemSaveSoapOut">
+    <wsdl:part name="parameters" element="tns:RewardRedeemSaveResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateNewCarBuyerInqSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateNewCarBuyerInq" />
+  </wsdl:message>
+  <wsdl:message name="UpdateNewCarBuyerInqSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateNewCarBuyerInqResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNewCarBuyerInqSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNewCarBuyerInq" />
+  </wsdl:message>
+  <wsdl:message name="GetNewCarBuyerInqSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNewCarBuyerInqResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerNMESuggestionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCustomerNMESuggestion" />
+  </wsdl:message>
+  <wsdl:message name="GetCustomerNMESuggestionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCustomerNMESuggestionResponse" />
+  </wsdl:message>
+  <wsdl:portType name="AdvantageInquirySoap">
+    <wsdl:operation name="CheckService">
+      <wsdl:input message="tns:CheckServiceSoapIn" />
+      <wsdl:output message="tns:CheckServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBuyerInquiry">
+      <wsdl:input message="tns:AddBuyerInquirySoapIn" />
+      <wsdl:output message="tns:AddBuyerInquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddSellerInquiry">
+      <wsdl:input message="tns:AddSellerInquirySoapIn" />
+      <wsdl:output message="tns:AddSellerInquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddNewCarInquiry">
+      <wsdl:input message="tns:AddNewCarInquirySoapIn" />
+      <wsdl:output message="tns:AddNewCarInquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddNewCarCWOfferInquiry">
+      <wsdl:input message="tns:AddNewCarCWOfferInquirySoapIn" />
+      <wsdl:output message="tns:AddNewCarCWOfferInquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddOtherInquiries">
+      <wsdl:input message="tns:AddOtherInquiriesSoapIn" />
+      <wsdl:output message="tns:AddOtherInquiriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchIpAddress">
+      <wsdl:input message="tns:FetchIpAddressSoapIn" />
+      <wsdl:output message="tns:FetchIpAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertBuyerInquiry">
+      <wsdl:input message="tns:InsertBuyerInquirySoapIn" />
+      <wsdl:output message="tns:InsertBuyerInquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertSellerInquiry">
+      <wsdl:input message="tns:InsertSellerInquirySoapIn" />
+      <wsdl:output message="tns:InsertSellerInquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewCarInquiry">
+      <wsdl:input message="tns:InsertNewCarInquirySoapIn" />
+      <wsdl:output message="tns:InsertNewCarInquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertOtherInquiries">
+      <wsdl:input message="tns:InsertOtherInquiriesSoapIn" />
+      <wsdl:output message="tns:InsertOtherInquiriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewCarMakes">
+      <wsdl:input message="tns:GetNewCarMakesSoapIn" />
+      <wsdl:output message="tns:GetNewCarMakesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllNewCarMakes">
+      <wsdl:input message="tns:GetAllNewCarMakesSoapIn" />
+      <wsdl:output message="tns:GetAllNewCarMakesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewCarModel">
+      <wsdl:input message="tns:GetNewCarModelSoapIn" />
+      <wsdl:output message="tns:GetNewCarModelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCarVersion">
+      <wsdl:input message="tns:GetCarVersionSoapIn" />
+      <wsdl:output message="tns:GetCarVersionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInquirySource">
+      <wsdl:input message="tns:GetInquirySourceSoapIn" />
+      <wsdl:output message="tns:GetInquirySourceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDealerCities">
+      <wsdl:input message="tns:GetDealerCitiesSoapIn" />
+      <wsdl:output message="tns:GetDealerCitiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTaskListDetails">
+      <wsdl:input message="tns:GetTaskListDetailsSoapIn" />
+      <wsdl:output message="tns:GetTaskListDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeInquiryDisposition">
+      <wsdl:input message="tns:ChangeInquiryDispositionSoapIn" />
+      <wsdl:output message="tns:ChangeInquiryDispositionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InquiriesFollowUp">
+      <wsdl:input message="tns:InquiriesFollowUpSoapIn" />
+      <wsdl:output message="tns:InquiriesFollowUpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomerDetails">
+      <wsdl:input message="tns:UpdateCustomerDetailsSoapIn" />
+      <wsdl:output message="tns:UpdateCustomerDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LeadFollowupLoad">
+      <wsdl:input message="tns:LeadFollowupLoadSoapIn" />
+      <wsdl:output message="tns:LeadFollowupLoadSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FetchLeadDispositions">
+      <wsdl:input message="tns:FetchLeadDispositionsSoapIn" />
+      <wsdl:output message="tns:FetchLeadDispositionsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeEagerness">
+      <wsdl:input message="tns:ChangeEagernessSoapIn" />
+      <wsdl:output message="tns:ChangeEagernessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveOtherRequests">
+      <wsdl:input message="tns:SaveOtherRequestsSoapIn" />
+      <wsdl:output message="tns:SaveOtherRequestsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllWebFolloWUp">
+      <wsdl:input message="tns:GetAllWebFolloWUpSoapIn" />
+      <wsdl:output message="tns:GetAllWebFolloWUpSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BookNewCarOfferInquiry">
+      <wsdl:input message="tns:BookNewCarOfferInquirySoapIn" />
+      <wsdl:output message="tns:BookNewCarOfferInquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="BookNewInquiry">
+      <wsdl:input message="tns:BookNewInquirySoapIn" />
+      <wsdl:output message="tns:BookNewInquirySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStockLeadDetails">
+      <wsdl:input message="tns:GetStockLeadDetailsSoapIn" />
+      <wsdl:output message="tns:GetStockLeadDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRetailDetails">
+      <wsdl:input message="tns:GetRetailDetailsSoapIn" />
+      <wsdl:output message="tns:GetRetailDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CaptureInvoiceDetails">
+      <wsdl:input message="tns:CaptureInvoiceDetailsSoapIn" />
+      <wsdl:output message="tns:CaptureInvoiceDetailsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TotalAvailableRewardPoints">
+      <wsdl:input message="tns:TotalAvailableRewardPointsSoapIn" />
+      <wsdl:output message="tns:TotalAvailableRewardPointsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RewardPointsDescription">
+      <wsdl:input message="tns:RewardPointsDescriptionSoapIn" />
+      <wsdl:output message="tns:RewardPointsDescriptionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RewardRedeemSave">
+      <wsdl:input message="tns:RewardRedeemSaveSoapIn" />
+      <wsdl:output message="tns:RewardRedeemSaveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateNewCarBuyerInq">
+      <wsdl:input message="tns:UpdateNewCarBuyerInqSoapIn" />
+      <wsdl:output message="tns:UpdateNewCarBuyerInqSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNewCarBuyerInq">
+      <wsdl:input message="tns:GetNewCarBuyerInqSoapIn" />
+      <wsdl:output message="tns:GetNewCarBuyerInqSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerNMESuggestion">
+      <wsdl:input message="tns:GetCustomerNMESuggestionSoapIn" />
+      <wsdl:output message="tns:GetCustomerNMESuggestionSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AdvantageInquirySoap" type="tns:AdvantageInquirySoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckService">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/CheckService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBuyerInquiry">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/AddBuyerInquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddSellerInquiry">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/AddSellerInquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewCarInquiry">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/AddNewCarInquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewCarCWOfferInquiry">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/AddNewCarCWOfferInquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOtherInquiries">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/AddOtherInquiries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchIpAddress">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/FetchIpAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertBuyerInquiry">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/InsertBuyerInquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertSellerInquiry">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/InsertSellerInquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewCarInquiry">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/InsertNewCarInquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertOtherInquiries">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/InsertOtherInquiries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewCarMakes">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetNewCarMakes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllNewCarMakes">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetAllNewCarMakes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewCarModel">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetNewCarModel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCarVersion">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetCarVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInquirySource">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetInquirySource" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDealerCities">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetDealerCities" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTaskListDetails">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetTaskListDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeInquiryDisposition">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/ChangeInquiryDisposition" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InquiriesFollowUp">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/InquiriesFollowUp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomerDetails">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/UpdateCustomerDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeadFollowupLoad">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/LeadFollowupLoad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchLeadDispositions">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/FetchLeadDispositions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeEagerness">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/ChangeEagerness" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOtherRequests">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/SaveOtherRequests" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllWebFolloWUp">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetAllWebFolloWUp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BookNewCarOfferInquiry">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/BookNewCarOfferInquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BookNewInquiry">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/BookNewInquiry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockLeadDetails">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetStockLeadDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRetailDetails">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetRetailDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CaptureInvoiceDetails">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/CaptureInvoiceDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TotalAvailableRewardPoints">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/TotalAvailableRewardPoints" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RewardPointsDescription">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/RewardPointsDescription" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RewardRedeemSave">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/RewardRedeemSave" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateNewCarBuyerInq">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/UpdateNewCarBuyerInq" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewCarBuyerInq">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetNewCarBuyerInq" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerNMESuggestion">
+      <soap:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetCustomerNMESuggestion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="AdvantageInquirySoap12" type="tns:AdvantageInquirySoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CheckService">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/CheckService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBuyerInquiry">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/AddBuyerInquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddSellerInquiry">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/AddSellerInquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewCarInquiry">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/AddNewCarInquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddNewCarCWOfferInquiry">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/AddNewCarCWOfferInquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOtherInquiries">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/AddOtherInquiries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchIpAddress">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/FetchIpAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertBuyerInquiry">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/InsertBuyerInquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertSellerInquiry">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/InsertSellerInquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewCarInquiry">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/InsertNewCarInquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertOtherInquiries">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/InsertOtherInquiries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewCarMakes">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetNewCarMakes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllNewCarMakes">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetAllNewCarMakes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewCarModel">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetNewCarModel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCarVersion">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetCarVersion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInquirySource">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetInquirySource" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDealerCities">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetDealerCities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTaskListDetails">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetTaskListDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeInquiryDisposition">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/ChangeInquiryDisposition" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InquiriesFollowUp">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/InquiriesFollowUp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCustomerDetails">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/UpdateCustomerDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LeadFollowupLoad">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/LeadFollowupLoad" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FetchLeadDispositions">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/FetchLeadDispositions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeEagerness">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/ChangeEagerness" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveOtherRequests">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/SaveOtherRequests" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllWebFolloWUp">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetAllWebFolloWUp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BookNewCarOfferInquiry">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/BookNewCarOfferInquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BookNewInquiry">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/BookNewInquiry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStockLeadDetails">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetStockLeadDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRetailDetails">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetRetailDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CaptureInvoiceDetails">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/CaptureInvoiceDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TotalAvailableRewardPoints">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/TotalAvailableRewardPoints" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RewardPointsDescription">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/RewardPointsDescription" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RewardRedeemSave">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/RewardRedeemSave" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateNewCarBuyerInq">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/UpdateNewCarBuyerInq" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNewCarBuyerInq">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetNewCarBuyerInq" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCustomerNMESuggestion">
+      <soap12:operation soapAction="http://tradingcars.carwale.com/deals/wsapis/GetCustomerNMESuggestion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AdvantageInquiry">
+    <wsdl:port name="AdvantageInquirySoap" binding="tns:AdvantageInquirySoap">
+      <soap:address location="http://localhost:9999/deals/wsapis/TCApi_Inquiry.asmx" />
+    </wsdl:port>
+    <wsdl:port name="AdvantageInquirySoap12" binding="tns:AdvantageInquirySoap12">
+      <soap12:address location="http://localhost:9999/deals/wsapis/TCApi_Inquiry.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

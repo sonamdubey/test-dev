@@ -1,0 +1,261 @@
+@import "_flex.scss";
+@import "_vendor-utils.scss";
+@import "_variables.scss";
+@import "_vendor-prefix.scss";
+
+// loader background (background-color, position-direction)
+@mixin loader-bg($bgColour, $direction: fixed) {
+	.loader-bg {
+		position: $direction;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		@if($bgColour == "white") {
+			background: rgba(map-get($color-map, 'white'), .9);
+		}
+		overflow-y: hidden;
+		z-index: 7;
+		display: none;
+	}
+}
+
+// loader spinner (loader-color, position-direction)
+@mixin loader-spin($loaderColor, $direction: fixed) {
+	@if map-has-key($color-map , $loaderColor){
+		.loader__spin {
+            @include get-vendor-prefixed('animation', 'spin 1.1s 20 linear');
+            @include vendor-prefix('border-radius', '50%');
+			position: $direction;
+			top: 45%;
+			right: 0;
+			left: 0;
+			width: 40px;
+			height: 40px;
+			display: inline-block;
+			margin: 0 auto;
+			border: 3px solid map-get($color-map, $loaderColor);
+			border-top-color: transparent;
+			@include get-vendor-prefixed('animation', 'spin 1.1s 20 linear');
+		}
+	}
+	@else {
+		@warn "Please add the color to $color-map";
+	}
+}
+
+@mixin loader-spin-animation {
+	@-webkit-keyframes spin {
+		from { -webkit-transform: rotate(0deg); }
+		to { -webkit-transform: rotate(360deg); }
+	}
+	@-moz-keyframes spin {
+		from { -moz-transform: rotate(0deg); }
+		to { -moz-transform: rotate(360deg); }
+	}
+	@-ms-keyframes spin {
+		from { -ms-transform: rotate(0deg); }
+		to { -ms-transform: rotate(360deg); }
+	}
+	@keyframes spin {
+		from { transform:rotate(0deg); }
+		to { transform:rotate(360deg); }
+	}
+}
+
+@mixin speedometer-loader {
+	.speedometer__container.hide {
+		display: none;
+	}
+	.speedometer__container {
+		@include flexbox;
+		@include align-items(center);
+		@include justify-content(center);
+        background: rgba(map-get($color-map, 'dark-black'), .7);
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 10;
+	}
+
+	.speedometer-loader__content {
+		width: 80px;
+		height: 44px;
+		overflow: hidden;
+		margin: 0 auto;
+		text-align: center;
+		position: relative;
+	}
+
+	.speedometer-loader {
+		width: 80px;
+		height: 40px;
+		overflow: hidden;
+		margin: 0 auto;
+		text-align: center;
+		position: relative;
+	}
+
+	.speedometer-loader {
+		&:before {
+			@include get-vendor-prefixed('animation', 'rotateSpeedometer 1.5s ease-in-out 50');
+			@include get-vendor-prefixed('transform', 'rotate(-225deg)');
+			@include vendor-prefix('border-radius', '50%');
+			content: '';
+			width: 80px;
+			height: 80px;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			border-width: 6px;
+			border-style: solid;
+            border-top-color: map-get($color-map, 'white');
+			border-right-color: map-get($color-map, 'white');
+			border-left-color: transparent;
+			border-bottom-color: transparent;
+		}
+	}
+
+	.speedometer-loader {
+		&:after {
+			@include get-vendor-prefixed('animation', 'rotateNeedle 1.5s ease-in-out 50');
+			@include get-vendor-prefixed('transform',  'rotate(35deg)');
+			background-color: map-get($color-map, 'white');
+			border-radius: 4px;
+			content: '';
+			width: 4px;
+			height: 40px;
+			position: absolute;
+			left: 0;
+			right: 0;
+			margin: 0 auto;
+			text-align: center;
+			bottom: -20px;
+		}
+	}
+
+	.speedometer-needle-circle {
+		@include vendor-prefix('border-radius', '50%');
+		background-color: map-get($color-map, 'white');
+		width: 8px;
+		height: 8px;
+		display: block;
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		text-align: center;
+		margin: 0 auto;
+	}
+
+	@-webkit-keyframes rotateSpeedometer {
+		10% {
+			-webkit-transform: rotate(-55deg);
+		}
+		30% {
+			-webkit-transform: rotate(-85deg);
+		}
+		50% {
+			-webkit-transform: rotate(-65deg);
+		}
+		70% {
+			-webkit-transform: rotate(-105deg);
+		}
+		80% {
+			border-width: 6px;
+		}
+		100% {
+			border-width: 5px;
+		}
+	}
+
+	@keyframes rotateSpeedometer {
+		10% {
+			transform: rotate(-55deg);
+		}
+		30% {
+			transform: rotate(-85deg);
+		}
+		50% {
+			transform: rotate(-65deg);
+		}
+		70% {
+			transform: rotate(-105deg);
+		}
+		80% {
+			border-width: 6px;
+		}
+		100% {
+			border-width: 5px;
+		}
+	}
+
+	@-webkit-keyframes rotateNeedle {
+		0% {
+			height: 40px;
+		}
+
+		10% {
+			-webkit-transform: rotate(-55deg);
+		}
+
+		30% {
+			-webkit-transform: rotate(-25deg);
+		}
+
+		50% {
+			-webkit-transform: rotate(-45deg);
+		}
+
+		100% {
+			-webkit-transform: rotate(45deg);
+		}
+	}
+
+	@keyframes rotateNeedle {
+		0% {
+			height: 40px;
+		}
+
+		10% {
+			transform: rotate(-55deg);
+		}
+
+		30% {
+			transform: rotate(-25deg);
+		}
+
+		50% {
+			transform: rotate(-45deg);
+		}
+
+		100% {
+			transform: rotate(45deg);
+		}
+	}	
+}
+
+@mixin oxygen-loader($containerHeight: '100px', $loaderHeight: '50px') {
+	.oxygen-loader {
+		@include flexbox;
+		@include align-items(center);
+		@include justify-content(center);
+		width: 100%;
+        height: #{$containerHeight};
+		text-align: center;
+
+        &.hide{
+            display: none;
+        }
+
+		img {
+			height: #{$loaderHeight};
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+}

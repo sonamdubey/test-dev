@@ -1,0 +1,97 @@
+﻿@model Carwale.DTOs.Classified.CarDetails.CarDetailsModel
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+<div id="overview" class="cw-tabs-data">
+    <div class="overview-list padding-bottom10">
+        <ul>
+            <li>
+                <div class="equal-width text-light-grey" title="Price">Price</div>
+                <div class="equal-width dark-text">₹ @Model.carDetailEntity.BasicCarInfo.Price</div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                <div class="equal-width text-light-grey">Year</div>
+                <div class="equal-width dark-text">@Model.carDetailEntity.BasicCarInfo.MakeYear.ToString("MMM yyyy")</div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                <div class="equal-width text-light-grey">Kilometer</div>
+                <div class="equal-width dark-text">@Model.carDetailEntity.BasicCarInfo.Kilometers km</div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                <div class="equal-width text-light-grey">Fuel Type</div>
+                <div class="equal-width dark-text">@(String.IsNullOrEmpty(Model.carDetailEntity.BasicCarInfo.AdditionalFuel) ? Model.carDetailEntity.BasicCarInfo.FuelName : Model.carDetailEntity.BasicCarInfo.FuelName + " + " + Model.carDetailEntity.BasicCarInfo.AdditionalFuel)</div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                <div class="equal-width text-light-grey">Transmission</div>
+                <div class="equal-width dark-text">@Model.carDetailEntity.BasicCarInfo.TransmissionType</div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                <div class="equal-width text-light-grey">Car Available at</div>
+                <div class="equal-width dark-text">
+                    <p>@Model.carDetailEntity.BasicCarInfo.CarAvailbaleAt</p>
+                    @if (Model.DeliveryCity != string.Empty)
+                    {
+                        <div class="font11 margin-top5 divbbt">
+                            <p>Delivery available in <span class="bbt">@Model.DeliveryCity</span></p>
+                        </div>
+                    }
+
+                </div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                <div class="equal-width text-light-grey">Color</div>
+                <div class="equal-width dark-text">@(String.IsNullOrEmpty(Model.carDetailEntity.BasicCarInfo.InteriorColor) ? Model.carDetailEntity.BasicCarInfo.Color : Model.carDetailEntity.BasicCarInfo.Color + ", " + Model.carDetailEntity.BasicCarInfo.InteriorColor)</div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                <div class="equal-width text-light-grey">Fuel Economy</div>
+                <div class="equal-width dark-text">@Model.carDetailEntity.BasicCarInfo.FuelEconomy</div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                <div class="equal-width text-light-grey">No. of Owner(s)</div>
+                <div class="equal-width dark-text">@Model.carDetailEntity.BasicCarInfo.NoOfOwners.ToString()</div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                <div class="equal-width text-light-grey">Registered at</div>
+                <div class="equal-width dark-text">@Model.carDetailEntity.BasicCarInfo.RegisterCity</div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                <div class="equal-width text-light-grey">
+                    Insurance
+                    @if (Model.carDetailEntity.BasicCarInfo.ShowInsuranceLink)
+                    {
+                        <p class="font11 margin-top5" data-role="impression" data-event="CWInteractive" data-action="Insurance_link_shown_on_Used_car_details" data-cat="Insurance_desktop" data-label="@Model.carDetailEntity.BasicCarInfo.MakeName-@Model.carDetailEntity.BasicCarInfo.ModelName-@Model.carDetailEntity.BasicCarInfo.VersionName-@Model.carDetailEntity.BasicCarInfo.CityName">
+                            <a target="_blank" href="/insurance/?versionid=@Model.carDetailEntity.BasicCarInfo.VersionId&reg=@Model.carDetailEntity.BasicCarInfo.MakeYear.ToString("yyyy-MM-dd")&utm=dusedcarspage&cityId=@Model.carDetailEntity.BasicCarInfo.CityId" id="bhartiAxa" class="font11 text-link" data-role="click-tracking" data-event="CWInteractive" data-action="Insurance_link_clicked_on_Used_car_details" data-cat="Insurance_desktop" data-label="@Model.carDetailEntity.BasicCarInfo.MakeName-@Model.carDetailEntity.BasicCarInfo.ModelName-@Model.carDetailEntity.BasicCarInfo.VersionName-@Model.carDetailEntity.BasicCarInfo.CityName">Renew your policy now</a>
+                        </p>
+                    }
+                </div>
+                <div class="equal-width dark-text" style="width: 325px; padding-right: 0">
+                    @Model.carDetailEntity.BasicCarInfo.Insurance
+                    @if (!string.IsNullOrEmpty(Model.carDetailEntity.BasicCarInfo.InsuranceExpiry) && !(Model.carDetailEntity.BasicCarInfo.Insurance.ToString().Trim().ToLower().Equals("not available")))
+                    {
+                        <span class='font11 light-grey-text'>, till @Model.carDetailEntity.BasicCarInfo.InsuranceExpiry</span>
+                    }                   
+                </div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                <div class="equal-width text-light-grey">LifeTime Tax</div>
+                <div class="equal-width dark-text">@Model.carDetailEntity.BasicCarInfo.LifeTimeTax</div>
+                <div class="clear"></div>
+            </li>
+            <li>
+                <div class="equal-width text-light-grey">Last Updated</div>
+                <div class="equal-width dark-text">@Model.carDetailEntity.BasicCarInfo.LastUpdatedDate</div>
+                <div class="clear"></div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+﻿@model Carwale.DTOs.CarData.ModelMenuDTO_V1
+@using Carwale.Entity.Enum;
+@using Carwale.Utility;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.BL.CMS;
+@using Carwale.DTOs.CMS;
+
+@{
+    string modelUrl = ManageCarUrl.CreateModelUrl(Model.MakeName, Model.MaskingName);
+}
+<div class="header-fixed__bottom">
+    <ul class="model-section-list">
+        <li class="model-section-tab model-section-active">
+            <a data-vars-ea="@Model.ModelName"  data-vars-ec="Sub Navigation" data-vars-el="@Model.TrackingLabel" href="#" title="@Model.ModelName">@Model.ModelName</a>
+        </li>
+        @if (Model.IsVariantAvailable)
+        {
+            <li class="model-section-tab">
+                <a data-vars-ea="Variants" data-vars-ec="Sub Navigation" data-vars-el="@Model.TrackingLabel" href='@(Model.ActiveSection != ModelMenuEnum.Overview ? modelUrl : string.Empty)#variants'>Variants</a>
+            </li>
+        }
+        @if (Model.Is360Available)
+        {
+            <li class="model-section-tab">
+                <a data-vars-ec="msite_360_linkage" data-vars-ea="model_top_menu" data-vars-el="@Model.MakeName @Model.ModelName" href='@EditorialContent.Get360PageUrl(Model.MakeName, Model.MaskingName, Model.Default360Category, true)'>
+                    360° View
+                    <span class="new-icon-30x15"></span>
+                </a>
+            </li>
+        }
+        @if (Model.PhotoCount > 0)
+        {
+            <li class="model-section-tab">
+                <a data-vars-ea="model_top_menu" data-vars-ec="msite_images" data-vars-el="@Model.MakeName @Model.ModelName" href="@CMSCommon.GetImageUrl(Model.MakeName, Model.MaskingName, null, 0, true)">Images</a>
+            </li>
+        }
+        @if (Model.IsExpertReviewAvailable)
+        {
+            <li class="model-section-tab">
+                <a data-vars-ec="msite_expert_reviews" data-vars-ea="model_top_menu" data-vars-el="@Model.MakeName @Model.ModelName" href='@EditorialContent.GetListingPaginationUrl(0, true, new Carwale.DTOs.CMS.NewsListingDTO { category = "expert-reviews", make = new Car { name = Model.MakeName }, model = new Car { name = Model.MaskingName } })'>Expert Reviews</a>
+            </li>
+        }
+        @if (Model.IsColorAvailable)
+        {
+            <li class="model-section-tab">
+                <a data-vars-ea="Colours" data-vars-ec="Sub Navigation" data-vars-el="@Model.TrackingLabel" href='@(Model.IsPriceInCityPage ? modelUrl : string.Empty)#colours'>Colours</a>
+            </li>
+        }
+        @if (Model.VideoCount > 0)
+        {
+            <li class="model-section-tab">
+                <a data-vars-ea="sub_nav_video_amp" data-vars-ec="msite_video_linkages" data-vars-el="@Model.TrackingLabel" href='@CMSCommon.GetVideoUrl(Model.MakeName, Model.MaskingName, null, 0, true)'>Videos</a>
+            </li>
+        }        
+        @if (Model.IsMileageAvailable)
+        {
+            <li class="model-section-tab">
+                <a data-vars-ea="Mileage" data-vars-ec="Sub Navigation" data-vars-el="@Model.TrackingLabel" href='#mileage'>Mileage</a>
+            </li>
+        }
+    </ul>
+</div>

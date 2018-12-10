@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://opr.carwale.com/webservices/PushCRM.asmx?wsdl" docRef="http://opr.carwale.com/webservices/PushCRM.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://opr.carwale.com/webservices/PushCRM.asmx" xmlns:q1="https://www.carwale.com/webservices/" binding="q1:PushCRMSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://opr.carwale.com/webservices/PushCRM.asmx" xmlns:q2="https://www.carwale.com/webservices/" binding="q2:PushCRMSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

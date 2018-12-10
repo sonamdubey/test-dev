@@ -1,0 +1,51 @@
+﻿@model Carwale.Entity.CarData.PageMetaTags
+@{ 
+    Uri url = new Uri("https://www.carwale.com" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+}
+@if(Model != null)
+{  
+<meta charset="utf-8"><title itemprop="name">@Model.Title</title>
+if (Model.Description != null)
+{
+    <meta itemprop="description" name="description" content="@Html.Raw(System.Text.RegularExpressions.Regex.Replace(Model.Description.ToString(), @"<[^>]*>", string.Empty))" />
+}
+if (Model.Keywords != null)
+{
+    <meta name="keywords" content="@(Model.Keywords ?? "")" />
+}
+if (!string.IsNullOrEmpty(Model.Canonical))
+{
+    <link rel="canonical" href="@Model.Canonical" />
+}
+if (Model.Amphtml != null && Model.Amphtml != "")
+{
+    <link rel="amphtml" href="@Model.Amphtml" />
+}
+if (Model.DeeplinkAlternativesAndroid != null)
+{
+    <link rel="alternate" href="android-app://com.carwale/carwaleandroid1/www.carwale.com@(Model.DeeplinkAlternativesAndroid)" />
+}
+if (!String.IsNullOrWhiteSpace(Model.PrevUrl))
+{
+    <link rel="prev" href="@Model.PrevUrl" />
+}
+if (!String.IsNullOrWhiteSpace(Model.NextUrl))
+{
+    <link rel="next" href="@Model.NextUrl" />
+}
+@Helpers.GetOgTags(url.GetLeftPart(UriPartial.Path), Model.Title, Model.Description,string.Empty)
+}
+<meta name="google-site-verification" content="y33JBqCALrAtfZBeI-VVHz7jyLJrZqpOsggckAZlBj8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<link href="https://s.yimg.com" rel="dns-prefetch">
+<link href="https://www.googletagmanager.com" rel="dns-prefetch">
+<link href="https://www.googletagservices.com" rel="dns-prefetch">
+<link href="https://connect.facebook.net" rel="dns-prefetch">
+<link href="https://s3.amazonaws.com" rel="dns-prefetch">
+<link href="https://script.crazyegg.com" rel="dns-prefetch">
+<link href="https://stats.g.doubleclick.net" rel="dns-prefetch">
+<link href="https://imgd.aeplcdn.com" rel="dns-prefetch">
+<link href="https://st.aeplcdn.com" rel="dns-prefetch">
+<link rel="SHORTCUT ICON" href="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/carwale.png?v=1.1" />
+

@@ -1,0 +1,12 @@
+﻿@{
+    bool isMobile = Carwale.UI.ClientBL.DeviceDetectionManager.IsMobile(new HttpContextWrapper(HttpContext.Current));
+}
+<script>
+    var isMobile = @Json.Encode(isMobile);
+</script>
+<script src="/static/js/private-mode.js" defer></script>
+<script src="/static/js/utils/scroll-lock.js" defer></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-app.js" defer></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase-messaging.js" defer></script>
+<script src="/static/js/notification/customPopupNotification.js" defer></script>
+<script src="/static/js/notification/firebaseNotification.js" defer></script>

@@ -1,0 +1,23 @@
+﻿@model Carwale.Entity.CarData.ModelReview
+	<section id="modelReview">
+        <h2 class="margin-top15 special-skin-text">
+            @ViewBag.ModelName @(ViewBag.IsFuturistic ? "Preview" : "Review")
+        </h2>
+		<div class="content-box-shadow content-inner-block-10 margin-top10">
+			<span id="spnSmallDescSynopsis" class="@((ViewBag.IsFuturistic) ? "hide" : "show")">
+				@Html.Raw(Model.SmallReview)
+				<a onclick="$('#spnSmallDescSynopsis').hide();$('#spnLargeDescSynopsis').show().find('img.lazy').lazyload();">
+					@((!string.IsNullOrEmpty(Model.SmallReview) && !string.IsNullOrEmpty(Model.FullReview)) ? "...read full review" : "")
+				</a>
+			</span>
+			<div id="spnLargeDescSynopsis" class="@(ViewBag.IsFuturistic ? "show" : "hide" )">
+				@Html.Raw(Model.FullReview)
+				<br />
+				<div align="right">
+					<a onclick="$('#spnLargeDescSynopsis').hide();$('#spnSmallDescSynopsis').show();">
+						@((!string.IsNullOrEmpty(Model.SmallReview) && !string.IsNullOrEmpty(Model.FullReview)) ? "Hide full review" : "")
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>

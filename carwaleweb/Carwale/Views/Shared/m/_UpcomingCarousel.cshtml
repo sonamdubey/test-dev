@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Carwale.Entity.CarData.UpcomingCarModel>
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using Carwale.Entity.Enum;
+@if (Model != null && Model.Any())
+{
+    <div class="pgsubhead margin-top20 margin-bottom10">
+        @if (ViewBag.UpcomingSimilarCars ==true  )
+        {
+            <h2 class="m-special-skin-text">Similar Upcoming Cars</h2>
+        }
+        else if(ViewBag.Pagename == "makepage")
+        {
+            <h2 class="m-special-skin-text">Upcoming @ViewBag.MakeName Cars</h2>
+        }
+    </div>
+    <div class="cw-tabs-data" id="upComingCars">
+        <div class="swiper-container model-card-container">
+            <ul class="swiper-wrapper model-card-wrapper car-card-wrapper">
+                @foreach (var item in Model)
+                {
+                    string cardModelUrl = ManageCarUrl.CreateModelUrl(item.MakeName, item.MaskingName);
+                    <li class="swiper-slide model-card card flip" redirect="@cardModelUrl">
+                        <div class="front">
+                            <div class="contentWrapper">
+                                <div class="position-abt pos-right10 pos-top10 infoBtn cwmsprite alert-circle-icon"></div>
+                                <div class="imageWrapper">
+                                    <a href="@cardModelUrl">
+                                        <img class="lazy" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(item.Image.HostUrl, Carwale.Utility.ImageSizes._272X153, item.Image.ImagePath)" title="@item.MakeName @item.ModelName" alt="@item.MakeName @item.ModelName" width="272" height="153" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif">
+                                    </a>
+                                </div>
+                                <div class="carDescWrapper">
+                                    <div class="carTitle margin-bottom10"><a title="@item.MakeName @item.ModelName" href="@cardModelUrl"><h3 class="font18 text-black">@item.MakeName  @item.ModelName</h3></a></div>
+                                    <div class="margin-bottom5 font24">₹ <span class="font25">@Html.Raw(item.Price.MaxPrice == item.Price.MinPrice ? FormatPrice.GetFormattedPriceV2(item.Price.MinPrice.ToString()) : FormatPrice.GetFormattedPriceV2(item.Price.MinPrice.ToString(), item.Price.MaxPrice.ToString()))</span></div>
+                                    <div class="margin-bottom15 font14 text-light-grey">Estimated price</div><div class="margin-bottom5 font18">@item.ExpectedLaunch</div><div class="font14 text-light-grey">Expected launch</div>
+									
+                                    @if (item.ModelId == CWConfiguration.MahindraMozarroModelid)
+                                    {
+                                        <div class="text-link infoBtn font14 padding-top10" onclick="Common.utils.trackAction('CWInteractive', 'HPSlug_m', 'HPSlug_m_Click-Contact Mahindra', 'Contact Mahindra'); cwTracking.trackCustomData('ESProperties', 'Click', 'adtype=HPSlug_m|clickedon=Contact Mahindra', true);">Contact Mahindra</div>
+                                    }
+                                    @if (Carwale.UI.Common.TestDrive.isFeaturedUpcoming(item.ModelId.ToString()))
+                                    {
+                                        <div class="font14 text-link margin-top10" onclick="location.href = '/m/campaigns/?id=419160827'">@Carwale.UI.Common.TestDrive.GetFeaturedUpcomingString(item.ModelId.ToString())</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="back"><div class="formWrapper">
+                        <div class="position-abt pos-right10 pos-top10 closeBtn cwmsprite back-circle-icon"></div>
+                            <div class="formContent">
+                                <h2 class="margin-bottom15"><span class="fa fa-bell-o"></span> Be the first to know</h2>
+                                    <div class="userInputContent"><div class="position-rel margin-bottom20">
+                                        <input prefill="name" class="form-control" type="text" name="userName" placeholder="Name"><span class="cwmsprite error-icon hide"></span><div class="cw-blackbg-tooltip hide">Please provide your name</div>
+                                    </div>
+                                    <div class="position-rel margin-bottom20"><input prefill="email" class="form-control" type="text" name="userEmail" placeholder="Email"><span class="cwmsprite error-icon hide"></span>
+                                        <div class="cw-blackbg-tooltip hide">Please provide your name</div>
+                                    </div>
+                                    <div class="position-rel margin-bottom20"><span class="form-mobile-prefix">+91</span><input prefill="mobile" class="form-control padding-left40" type="text" name="userMobile" placeholder="Mobile"><span class="cwmsprite error-icon hide"></span>
+                                        <div class="cw-blackbg-tooltip hide">Please provide your name</div>
+                                    </div>
+                                    <button id="btnUpcoming_@item.ModelId" class="margin-bottom15 btn btn-orange btn-md btn-full-width text-uppercase" modelid="@item.ModelId" makeid="@item.MakeName" onclick="@(ViewBag.CityId != null && ViewBag.CityId > 0 ? string.Format("pushInquiry(this, {0})", ViewBag.CityId ):string.Format("pushInquiry(this)"))">Done</button>
+                                    <div class="font12"><p>By proceeding ahead, you agree to CarWale <a href="https://www.carwale.com/visitoragreement.aspx" title="visitor agreement" target="_blank">visitor agreement</a> and <a href="https://www.carwale.com/privacypolicy.aspx" title="privacy policy" target="_blank">privacy policy</a>.</p></div>
+                                </div>
+                            </div>
+                            <div class="thankYouForm text-center margin-top90 hide"><div><span class="fa fa-envelope-o"></span></div><h3 class="text-black font26 margin-top10 margin-bottom20">Thank You!</h3><p>We would keep you posted on all <br />the latest updates</p></div>
+                        </div></div>
+                    </li>
+                }
+                @{ 
+                    int pageId = -1;
+                    if (ViewBag.PageId != null && int.TryParse(ViewBag.PageId.ToString(),out pageId) && (pageId == (int)CwPages.NewCarLandingDesktop || pageId == (int)CwPages.HomePageMsite))
+                    {
+                        <li class="swiper-slide card swiper-card__read-more">
+                            <div class="contentWrapper">
+                                <a href="/m/upcoming-cars/">All Upcoming Cars </a>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul><div class="clear"></div><!-- Add Pagination --><div class="swiper-pagination swiper-pagination-white"></div><!-- Navigation --><div class="swiper-button-next swiper-button-white"></div><div class="swiper-button-prev swiper-button-white"></div>
+        </div>
+    </div>}

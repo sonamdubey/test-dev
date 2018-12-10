@@ -1,0 +1,25 @@
+﻿CREATE TABLE [CD].[ItemMaster] (
+    [ItemMasterId]      BIGINT        IDENTITY (1, 1) NOT NULL,
+    [Name]              VARCHAR (100) NULL,
+    [DatatypeId]        SMALLINT      NULL,
+    [UnitTypeId]        SMALLINT      NULL,
+    [SortOrder]         INT           NULL,
+    [Description]       VARCHAR (150) NULL,
+    [IsActive]          BIT           CONSTRAINT [DF_ItemMaster_IsActive] DEFAULT ((1)) NULL,
+    [CreatedOn]         DATETIME      CONSTRAINT [DF_ItemMaster_CreatedOn] DEFAULT (getdate()) NULL,
+    [UpdatedOn]         DATETIME      NULL,
+    [UpdatedBy]         VARCHAR (50)  NULL,
+    [Abbreviation]      CHAR (5)      NULL,
+    [MinVal]            SMALLINT      NULL,
+    [MaxVal]            INT           NULL,
+    [ItemImportance]    INT           NULL,
+    [Icon]              TINYINT       NULL,
+    [IsPublished]       BIT           CONSTRAINT [DF__ItemMaste__IsPub__339FAB6E] DEFAULT ((0)) NULL,
+    [IsOverviewable]    BIT           CONSTRAINT [DF_itemmaster_IsOverviewable] DEFAULT ((0)) NULL,
+    [OverviewSortOrder] INT           NULL,
+    [ItemTypeId]        SMALLINT      NULL,
+    CONSTRAINT [PK_ItemMaster] PRIMARY KEY CLUSTERED ([ItemMasterId] ASC),
+    CONSTRAINT [FK_ItemMaster_UnitTypes] FOREIGN KEY ([UnitTypeId]) REFERENCES [CD].[UnitTypes] ([UnitTypeId]),
+    CONSTRAINT [IX_ItemMaster] UNIQUE NONCLUSTERED ([Abbreviation] ASC)
+);
+

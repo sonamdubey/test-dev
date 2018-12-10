@@ -1,0 +1,65 @@
+﻿@import "../mixins/_sprites.scss";
+@import "../mixins/_utils.scss";
+@import "../mixins/_fontawesome.scss";
+@import "../mixins/_position.scss";
+@import "../mixins/_fonts.scss";
+@import "../mixins/_text.scss";
+@import "../mixins/_padding.scss";
+@import "../mixins/_margin.scss";
+
+@include cw-logo;
+@include search-icon-grey;
+@include search-icon-white;
+@include nav-icon;
+@include leftfloat;
+@include rightfloat;
+@include get-font-icon("map-marker");
+@include position("abt");
+@include position("rel");
+@include position("top",4);
+@include position("right",0);
+@include font-size-class(13);
+@include padding("right",15);
+@include text-transform("capitalize");
+@include margin("right",10);
+
+
+.header-fixed{
+    background: rgba(14, 64, 91,.9);
+    background: #0e405b + \9;
+    padding : 10px;
+    z-index: 3;
+}
+.header-fixed-inner{
+    padding-top: 65px;
+}
+
+.global-search{
+    float: left;
+    padding: 0 10px;
+    position: relative;
+    top: 2px;
+    cursor: pointer;
+}
+.global-location{
+    float: left;
+    color: #fff;
+    padding : 0 5px 0 10px;
+    position: relative;
+    font-size: 15px;
+}
+.global-location{
+    &.highlight{
+        z-index:10; 
+        pointer-events: none;
+    }
+    .locInput{
+        border-bottom: 1px solid #fff;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: auto;
+        max-width: 100px;
+        text-align: right;
+    }
+}

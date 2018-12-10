@@ -1,0 +1,41 @@
+@import '../scss/partials/input.scss';
+
+.kilometer-driven__title {
+	font-size: 11px;
+	color: color('dim-gray');
+	padding-bottom: 10px;
+	text-transform: uppercase;
+}
+.kilometer-driven__container {
+	padding: 10px 20px 5px;
+}
+.kilometer-driven__input-container {
+    position: relative;
+
+    &.invalid {
+			.error-text {
+				position: absolute;
+				top: 100%;
+				margin-top: 2px;
+				left: 0;
+				display: block;
+			}
+    }
+}
+.kilometer-driven__input-container {
+	.form-control {
+		border-color: color('light-gray');
+		font-weight: $font-semibold;	
+
+    &::placeholder { 
+			color: color('dark-gray');
+			opacity: 1;
+			font-weight: normal;
+		}
+		
+		&:-ms-input-placeholder { 
+				color: color('dark-gray');
+				font-weight: normal;
+		}
+	}
+}

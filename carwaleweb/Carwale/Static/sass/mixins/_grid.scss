@@ -1,0 +1,27 @@
+﻿
+%grid{
+    float : left;
+    position : relative;
+    min-height : 1px;
+    padding-right : 10px;
+    padding-left : 10px;
+}
+
+@mixin grid-size($gridSize){
+    .grid-#{$gridSize}{
+    @extend %grid;
+    width :  ($gridSize/12)*100%;
+    }
+}
+
+@mixin alpha{
+    .alpha{
+        padding-left:0;
+    }
+}
+
+@mixin omega{
+    .omega{
+        padding-right:0;
+    }
+}

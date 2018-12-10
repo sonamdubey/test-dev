@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Carwale.Entity.CMS.Articles.ArticleSummary>
+@using Carwale.Entity.CMS.Articles
+@using Carwale.Utility
+<div class="cw-tabs-data" id="News">
+    @{
+        ArticleSummary _news1, _news2;
+        _news1 = Model.First();
+        _news2 = Model.Last();
+
+    <!-- News data code starts here-->
+        <div class="padding-bottom50">
+            <div class="grid-5 alpha">
+                <div class="img-preview">
+                    @if (Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news1.BasicId.ToString() + "_clickhome") == string.Empty)
+                    {
+                        <a href="@_news1.ArticleUrl"><img width="393" height="221" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(_news1.HostUrl, ImageSizes._393X221, _news1.OriginalImgUrl)" title="@_news1.Title" alt="@_news1.Title"></a>
+                    }
+                    else
+                    {
+                        <a href="@Html.Raw(Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news1.BasicId.ToString() + "_clickhome"))"><img width="393" height="221" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(_news1.HostUrl, ImageSizes._393X221, _news1.OriginalImgUrl)" title="@_news1.Title" alt="@_news1.Title"></a>
+                    }
+                </div>
+            </div>
+            <div class="grid-7 omega">
+                @if (Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news1.BasicId.ToString() + "_clickhome") == string.Empty)
+                {
+                    <p class="margin-bottom20 font20"><a href="@_news1.ArticleUrl" class="text-black">@_news1.Title</a></p>
+                }
+                else
+                {
+                    <p class="margin-bottom20 font20"><a href="@Html.Raw(Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news1.BasicId.ToString() + "_clickhome"))" class="text-black">@_news1.Title</a></p>
+                }
+                <div class="margin-bottom15 font14 line-height">@Html.Raw(_news1.Description)</div>
+                <div class="margin-bottom15">
+                    @if (Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news1.BasicId.ToString() + "_clickhome") == string.Empty)
+                    {
+                        <a href="@_news1.ArticleUrl" class="margin-right25 btn btn-white btn-md text-uppercase leftfloat">Read More</a>
+                    }
+                    else
+                    {
+                        <a href="@Html.Raw(Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news1.BasicId.ToString() + "_clickhome"))" class="margin-right25 btn btn-white btn-md text-uppercase leftfloat">Read More</a>
+                    }
+                    <p class="leftfloat margin-top10 text-light-grey font14">@ExtensionMethods.ConvertDateToDays(_news1.DisplayDate) by <span class="text-dark-grey">@_news1.AuthorName</span></p>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            @(Html.Raw(Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news1.BasicId.ToString() + "_home")))
+            <div class="clear"></div>
+        </div>
+        <div class="padding-bottom50">
+            <div class="grid-7 alpha">
+                @if (Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news2.BasicId.ToString() + "_clickhome") == string.Empty)
+                {
+                    <p class="margin-bottom20 font20"><a href="@_news2.ArticleUrl" class="text-black">@_news2.Title</a></p>
+                }
+                else
+                {
+                    <p class="margin-bottom20 font20"><a href="@Html.Raw(Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news2.BasicId.ToString() + "_clickhome"))" class="text-black">@_news2.Title</a></p>
+                }
+                <div class="margin-bottom15 font14 line-height">@Html.Raw(_news2.Description)</div>
+                <div class="margin-bottom15">
+                    @if (Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news2.BasicId.ToString() + "_clickhome") == string.Empty)
+                    {
+                        <a href="@_news2.ArticleUrl" class="margin-right25 btn btn-white btn-md text-uppercase leftfloat">Read More</a>
+                    }
+                    else
+                    {
+                        <a href="@Html.Raw(Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news2.BasicId.ToString() + "_clickhome"))" class="margin-right25 btn btn-white btn-md text-uppercase leftfloat">Read More</a>
+                    }
+                    <p class="leftfloat margin-top10 text-light-grey font14">@ExtensionMethods.ConvertDateToDays(_news2.DisplayDate) by <span class="text-dark-grey">@_news2.AuthorName</span></p>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="grid-5 omega">
+                <div class="img-preview">
+                    @if (Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news2.BasicId.ToString() + "_clickhome") == string.Empty)
+                    {
+                        <a href="@_news2.ArticleUrl"><img width="393" height="221" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(_news2.HostUrl, ImageSizes._393X221, _news2.OriginalImgUrl)" title="@_news2.Title" alt="@_news2.Title"></a>
+                    }
+                    else
+                    {
+                        <a href="@Html.Raw(Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news2.BasicId.ToString() + "_clickhome"))"><img width="393" height="221" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(_news2.HostUrl,ImageSizes._393X221, _news2.OriginalImgUrl)" title="@_news2.Title" alt="@_news2.Title"></a>
+                    }
+                </div>
+            </div>
+            @(Html.Raw(Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(_news2.BasicId.ToString()+"_home")))
+            <div class="clear"></div>
+        </div>
+        <div class="padding-bottom50 text-center">
+            <a href="/news/" class="font16">View more news</a>
+        </div>
+    }
+</div><!-- Ends here-->

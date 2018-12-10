@@ -1,0 +1,27 @@
+﻿@model Carwale.Entity.ViewModels.CompareCarsDetailModel
+@using Carwale.UI.Common;
+@using Newtonsoft.Json;
+<script type="text/javascript">
+    var FeaturedVersionID = '@Model.FeaturedVersionId';
+    var ValVersionIDs = '@Model.ValVersionIDs';
+    var ValVersionCount = '@Model.ValidVersionIds.Count';
+    var carmakejson = @Html.Raw(JsonConvert.SerializeObject(Model.CarMakes));
+    var zoneNameForModelVersion = (@CookiesCustomers.MasterZoneId  <= 0 ? '@CookiesCustomers.MasterCity' : '@CookiesCustomers.MasterZone');
+    var canUrl = '@Html.Raw(Model.PageMetaTags.Canonical.Replace("https://www.carwale.com","") + "?" + (Model.PageMetaTags.YouHere))';
+    var modelIdArray = @Html.Raw(JsonConvert.SerializeObject(Model.ModelIds));
+    var dataList = [];
+    @foreach (var cardetails in Model.CarDetails)
+    {
+        if (Model.FeaturedVersionId != cardetails.VersionId)
+        {
+            <text>
+    dataList.push({ id: @cardetails.ModelId, text: '@(Carwale.Utility.Format.FormatSpecial(cardetails.MakeName) + "-"+ cardetails.MaskingName)' });
+    </text>
+        }
+    }
+    var PageId = 25;
+    isComparePage = true;
+</script>
+<script type="text/javascript" src="/static/src/cc-script.js" defer></script>
+<script type="text/javascript" src="/static/src/pq-common.js" defer></script>
+<script type="text/javascript" src="/static/js/lead-form-support.js" defer></script>

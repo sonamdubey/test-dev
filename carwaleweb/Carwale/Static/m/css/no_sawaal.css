@@ -1,0 +1,220 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+.pageNew.row {
+  background: #f9f9f9;
+}
+
+.border_all {
+  border: 1px solid #d5d5d5;
+}
+
+.pageNew  h2 {
+  font-size: 18px;
+}
+
+.pageNew .leftSide {
+  background: #fff;
+}
+
+.innerH {
+  padding: 12px;
+  min-height: 500px;
+}
+
+.innerH h3 {
+  font-size: 14px;
+  color: #5b5b5b;
+  margin-bottom: 10px;
+}
+
+.innerH p {
+  margin-top: 10px;
+  line-height: 16px;
+}
+
+.details h3 {
+  font-size: 14px;
+}
+
+.details {
+  margin-top: 22px;
+}
+
+.details h3 strong {
+  color: #000000;
+}
+
+.details ul {
+  overflow: hidden;
+}
+
+.details ul li {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/no_sawaal_sprite.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+  float: left;
+  margin: 8px 0 0 5px;
+  padding-bottom: 6px;
+  padding-left: 25px;
+  padding-top: 2px;
+  width: 200px;
+  height: 15px;
+}
+
+.details ul li.name {
+  background-position: 0 0;
+}
+
+.details ul li.pin {
+  background-position: 0 -81px;
+}
+
+.details ul li.mobile {
+  background-position: 0 -27px;
+}
+
+.details ul li.ques {
+  background-position: 0 -109px;
+}
+
+.details ul li.email {
+  background-position: 0 -53px;
+}
+
+.details ul li.product {
+  background-position: 0 -141px;
+}
+
+.note {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 8px 0 22px 0;
+}
+
+.leftSide .buttons {
+  margin: 25px 0 35px;
+}
+
+.leftSide .buttons em {
+  font-style: italic;
+  font-size: 12px;
+  color: #999;
+}
+
+.leftSide .small_note {
+  font-size: 11px;
+}
+
+.rightSide {
+  background: #f9f9f9;
+  min-height: 500px;
+  margin-left: 21px;
+}
+
+.videoList {
+  margin-bottom: 18px;
+}
+
+.videoList  li {
+  float: left;
+  margin: 15px 15px 0 0;
+}
+
+.videoList  li p {
+  margin-top: 2px;
+}
+
+/*--------------------------------From CW desktop css-------------------------------------------*/
+h1, h2, h3, h4, h5, h6, .hd1 a {
+  color: #5b5b5b;
+}
+
+input.buttons-gray, a.buttons-gray {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/m/grey-btn-bg.jpg") repeat-x scroll center bottom #494949;
+  color: #fff;
+  display: inline-block;
+}
+
+a, a:link, a:visited {
+  font-weight: normal;
+  outline: medium none;
+  text-decoration: none;
+}
+
+input[type="submit"], input[type="reser"], input[type="button"], a.action-button, a.buttons, input.buttons, a.buttons-gray, input.buttons-gray {
+  border: 0 none;
+  border-radius: 2px;
+  color: #fff!important;
+  cursor: pointer;
+  display: inline-block;
+  margin-bottom: 4px;
+  padding: 6px 10px;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.red-btn, input.red-btn {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/m/red-btn-bg.jpg") repeat-x scroll center bottom #d70000 !important;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 1024px) {
+  .pageNew .leftSide.grid_6, .pageNew .rightSide.grid_6 {
+    width: 48%;
+  }
+
+  .row {
+    width: 100%;
+  }
+
+  .videoList {
+    text-align: center;
+  }
+
+  .videoList li {
+    display: inline-block;
+    float: none;
+  }
+}
+
+@media only screen and (max-width: 980px) {
+  .details ul li {
+    float: none;
+    width: auto;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .pageNew .leftSide.grid_6, .pageNew .rightSide.grid_6 {
+    width: auto;
+    float: none;
+    clear: both;
+    display: block;
+    margin: 0;
+  }
+
+  .pageNew .rightSide.grid_6 {
+    margin-top: 30px;
+  }
+
+  .details ul li.pin, .details ul li.ques, .details ul li.product {
+    display: none;
+  }
+
+  .leftSide .buttons em {
+    display: block;
+    margin-top: 5px;
+  }
+}

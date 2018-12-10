@@ -1,0 +1,119 @@
+﻿@using Carwale.Entity.Enum;
+@model Tuple<List<Carwale.Entity.CMS.Video>, ContentPages>
+
+@using System.Configuration;
+@using Carwale.Utility;
+@using Carwale.BL.CMS;
+@using Carwale.Entity.CMS;
+
+@{ 
+    string cdnHostUrl = ConfigurationManager.AppSettings["CDNHostURL"].ToString();
+    string carName = string.Empty;
+    List<Video> modelVideos = Model.Item1;
+
+    string videoTrackAction = string.Empty;
+    string linkTrackAction = string.Empty;
+    string trackCategory = "msite_video_linkages";
+    string makeUrl = string.Empty;
+
+    switch (Model.Item2) {
+        case ContentPages.ModelPage:
+            videoTrackAction = "Model-Page-Video-Click";
+            linkTrackAction = "Model-Page-Video-Link-Click";
+            trackCategory = "contentcons";
+            break;
+        case ContentPages.MakePage:
+            videoTrackAction = "Make-Page-Video-Click";
+            linkTrackAction = "Make-Page-Video-Link-Click";
+            break;
+        case ContentPages.GalleryPage:
+            videoTrackAction = "video_carousel_gallery";
+            linkTrackAction = "video_carousel_gallery_link";
+            break;
+        case ContentPages.ExpertReviewPage:
+            videoTrackAction = "expert_review_carousel";
+            break;
+        default:
+            videoTrackAction = "user_reviews_carousel";
+            linkTrackAction = "user_reviews_carousel_link";
+            break;
+    }
+    Layout = null;
+}
+
+@if (modelVideos != null && modelVideos.Count > 0)
+{
+    if (Model.Item2 == ContentPages.MakePage)
+    {
+        makeUrl = string.Format("{0}videos/", ManageCarUrl.CreateMakeUrl(modelVideos[0].MakeName, true));
+        carName = modelVideos[0].MakeName;
+    }
+    else
+    {
+        carName = modelVideos[0].MakeName + " " + modelVideos[0].ModelName;
+    }
+    <section class="videos-swiper-container">
+        @if(Model.Item2 != ContentPages.ExpertReviewPage){
+    	    <h2 class="videos-swiper__heading m-special-skin-text text-bold">@carName @(modelVideos.Count > 1 ? "Videos" : "Video")</h2>
+        }
+        else{
+            <h2 class="videos-swiper__heading m-special-skin-text text-bold">Related @(modelVideos.Count > 1 ? "Videos" : "Video")</h2>
+        }
+    	<div class="swiper-container">
+    		<ul class="swiper-wrapper">
+    			@foreach (var video in modelVideos)
+    			{
+    				<li class="swiper-slide model-video__card">
+    					<article>
+                            <a href="@CMSCommon.GetVideoUrl(video.MakeName, video.MaskingName, video.SubCatName, video.BasicId, true)" class="model-video__link" data-role="click-tracking" data-event="CWInteractive" data-cat="@trackCategory" data-action="@videoTrackAction" data-label="@(Model.Item2 == ContentPages.MakePage ? string.Format("{0}_{1}",carName,video.VideoTitle) : carName)">
+                                <div class="model-video__card-structure">
+                                    <div class="model-video__content-wrapper">
+                                        <div class="model-video__image swiper-image-loader">
+                                            <img class="swiper-lazy" src="@(cdnHostUrl + ImageSizes._0X0 + "/statics/grey.gif")" data-src="@("https://img.youtube.com/vi/" + video.VideoId + "/mqdefault.jpg")" border="0"
+                                                 title="@video.VideoTitle" alt="@video.VideoTitle" width="278" height="156" />
+                                            @*<div class="video-sprite play-btn"></div>*@
+                                            <span class="model-video__youtube-icon"></span>
+                                        </div>
+                                        <div class="model-video__video-info">
+                                            <header class="videos-info__head">
+                                                <h3 class="carTitle model-video__title">@video.VideoTitle</h3>
+                                                <div class="model-video__upload-date">
+                                                    @((video.DisplayDate!= null? video.DisplayDate.ToString("dd MMM yyyy"):string.Empty))
+                                                </div>
+                                            </header>
+                                            <footer>
+                                                
+                                                
+                                                <div class="model-video-info__wrapper">
+                                                    <div class="model-video__likes">
+                                                        <span class="video-likes-icon"></span> @video.Likes Likes
+                                                    </div>
+                                                    <div class="model-video__views">
+                                                        <span class="video-views-icon"></span> @video.Views Views
+                                                    </div>
+                                                </div>
+                                            </footer>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+    					</article>
+    				</li>
+    			}
+    		</ul>
+    		<div class="clear"></div>
+    		<!-- Add Pagination -->
+            @if (Model.Item2 != ContentPages.MakePage)
+            {
+                <div class="swiper-pagination swiper-pagination-white"></div> 
+            }
+    		
+    	</div>
+        @if (Model.Item2 != ContentPages.ExpertReviewPage)
+        {
+            <div class="view-all-video">
+                <a class="view-all-video__link" href="@(Model.Item2 == ContentPages.MakePage ? makeUrl : CMSCommon.GetVideoUrl(modelVideos[0].MakeName, modelVideos[0].MaskingName, null, 0, true))" data-role="click-tracking" data-event="CWInteractive" data-cat="@trackCategory" data-action="@linkTrackAction" data-label="@carName">All @carName Videos</a>
+            </div>
+        }
+    </section>
+}

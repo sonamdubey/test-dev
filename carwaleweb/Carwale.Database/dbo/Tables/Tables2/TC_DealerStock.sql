@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[TC_DealerStock] (
+    [TCDealerStock_Id]                       BIGINT IDENTITY (1, 1) NOT NULL,
+    [DealerId]                               INT    NOT NULL,
+    [Entrydate]                              DATE   NOT NULL,
+    [StockCount]                             INT    NULL,
+    [CWStockCount]                           INT    NULL,
+    [Response]                               INT    NULL,
+    [Stock_Without_Photo]                    INT    NULL,
+    [Response_On_Stock_Without_Photo]        INT    NULL,
+    [Stock_Without_Desc]                     INT    NULL,
+    [Response_On_Stock_Without_Desc]         INT    NULL,
+    [Stock_Without_PhotoandDesc]             INT    NULL,
+    [Response_On_Stock_Without_PhotoAndDesc] INT    NULL,
+    [Stock_With_High_Age]                    INT    NULL,
+    [Response_On_Stock_With_High_Age]        INT    NULL,
+    [Stock_With_High_Km]                     INT    NULL,
+    [Response_On_Stock_With_High_Km]         INT    NULL,
+    [Stock_With_High_OnRoadPrc]              INT    NULL,
+    [Response_On_Stock_With_High_OnRoadPrc]  INT    NULL,
+    [Stock_With_PhotoAndDesc]                INT    NULL,
+    [Response_On_Stock_With_PhotoAndDesc]    INT    NULL,
+    [StandardStock]                          INT    NULL,
+    [Response_On_StandardStock]              INT    NULL,
+    CONSTRAINT [PK_TC_DealerStock] PRIMARY KEY CLUSTERED ([DealerId] ASC, [Entrydate] ASC)
+);
+

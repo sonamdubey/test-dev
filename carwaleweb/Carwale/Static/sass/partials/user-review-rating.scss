@@ -1,0 +1,6 @@
+﻿@import "../mixins/_utils.scss";
+@import "../mixins/_variables.scss";
+@import "../mixins/_vendor-prefix.scss";
+@import "../mixins/_loader.scss";
+
+@include speedometer-loader;

@@ -1,0 +1,62 @@
+﻿@import '../mixins/_variables.scss';
+@import '../mixins/_vendor-utils.scss';
+@import '../partials/read-more-collapse.scss';
+
+.model-review-container {
+	padding: 10px 15px;
+	color: map-get($color-map, 'white');
+    padding-bottom: 20px;
+	position: relative;
+}
+
+.model-review-container__title {
+	font-size: 16px;
+	color: map-get($color-map, 'white');
+	margin-bottom: 5px;
+	font-weight: $font-bold;
+    border-top: 1px solid map-get($color-map, 'dim-grey');
+    padding-top: 20px;
+}
+
+.model-review-container__subtitle {
+	font-size: 16px;
+	color: map-get($color-map, 'white');
+	margin-bottom: 5px;
+	font-weight: $font-bold;
+}
+
+
+.model-review__wrapper {
+	color: map-get($color-map, 'snow');
+	font-size: 14px;
+	line-height: 23px;
+
+	.read-more-collapse-button {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+	}
+}
+
+.model-review__wrapper  {
+	.read-more-collapse-final-text {
+		* {
+			
+			font-size: 14px !important;
+		}
+
+		p {
+			margin-bottom: 10px;
+		}
+	}
+}
+
+.full-review-btn-wrapper {
+	height: 23px;
+} 
+
+#model-review-container {
+	a {
+		color: map-get($color-map, 'summer-sky');
+	}
+}

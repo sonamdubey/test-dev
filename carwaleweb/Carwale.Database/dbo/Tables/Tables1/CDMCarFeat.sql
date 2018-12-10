@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[CDMCarFeat] (
+    [CarVersionId] NUMERIC (18) NOT NULL,
+    [81]           CHAR (1)     NOT NULL,
+    [72]           CHAR (1)     NOT NULL,
+    [61]           CHAR (1)     NOT NULL,
+    [260]          CHAR (1)     NOT NULL,
+    [74]           CHAR (1)     NOT NULL,
+    [150]          CHAR (1)     NOT NULL,
+    [129]          CHAR (1)     NOT NULL,
+    [83]           CHAR (1)     NOT NULL,
+    [176]          CHAR (1)     NOT NULL,
+    [207]          CHAR (1)     NOT NULL,
+    [97]           CHAR (1)     NOT NULL,
+    [89]           CHAR (1)     NOT NULL,
+    [113]          CHAR (1)     NOT NULL,
+    [59]           CHAR (1)     NOT NULL,
+    [151]          CHAR (1)     NOT NULL,
+    [155]          CHAR (1)     NOT NULL,
+    [199]          CHAR (1)     NOT NULL,
+    [172]          CHAR (1)     NOT NULL,
+    [84]           CHAR (1)     NOT NULL,
+    [149]          CHAR (1)     NOT NULL,
+    [201]          CHAR (1)     NOT NULL,
+    [203]          CHAR (1)     NOT NULL
+);
+

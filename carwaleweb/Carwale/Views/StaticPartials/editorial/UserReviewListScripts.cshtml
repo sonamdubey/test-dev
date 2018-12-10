@@ -1,0 +1,87 @@
+﻿<script>
+    var newCar = null;
+    var IsOverviewPage = false;
+    var PageId = 43;
+    var shortUrl = '@(ViewBag.ShortUrl)';
+    var makeName = '@Model.ModelDetails.MakeName';
+    var maskingName = '@Model.ModelDetails.MaskingName';
+    var modelId = '@Model.ModelDetails.ModelId';
+    var versionId = @ViewBag.UserReviewInput.VersionId;
+    var currentPage = @ViewBag.Page;
+    var pageNumber = @Model.PageNumber;
+    var reviewCount = @Model.ModelDetails.ReviewCount;
+    var isMobile = '@ViewBag.IsMobile' === 'True';
+    var intialPage = @ViewBag.IntialPage;
+    var CityId = '@Carwale.UI.Common.CookiesCustomers.MasterCityId';
+	  var CityName = '@Carwale.UI.Common.CookiesCustomers.MasterCity';
+</script>
+<script  type="text/javascript"  src="/static/js/userreviewlist.js" defer></script>
+@if (!ViewBag.IsMobile)
+{
+    <script  type="text/javascript"  src="/static/src/dropdown-menu.min.js" defer></script>
+    <script  type="text/javascript"  src="/static/js/model-version-common.js" defer></script>
+    <script type="text/javascript" src="~/static/js/editorial-common.js" defer></script>
+}
+
+<script type="text/html" id="user-review-list">
+    <!-- ko if: ($index() % 10 == 9) -->
+    <span class='next-page-trigger' data-bind="attr:{pagetag: ($parent.nextPage) == $parent.pageNumber() ? -1 : ($parent.nextPage + 1) }"></span>
+    <!-- /ko -->
+    <div style="margin-top: 20px;">
+        <a style="font-size: 14px; font-weight: bold;" data-bind="attr:{href:(isMobile?'/m':'') + '/' +Common.utils.formatSpecial($parent.makeName) + '-cars/' + $parent.maskingName + '/userreviews/' +reviewId+'/' },text : title"></a><br />
+        <p class="text-grey" style="margin-top: 3px;">
+            <span data-bind="html : getRateSpan(reviewRate) + ' by ' "></span>
+            <!-- ko if: (handleName != null && handleName != '') -->
+            <a data-bind="attr:{href : (isMobile?'/m':'')+'/community/members/' + handleName + '.html'},text :  handleName"></a>
+            <span data-bind="text:', ' + reviewDate"></span>
+            <!-- /ko -->
+            <!-- ko if: (handleName == null ||  handleName == '') -->
+            <span data-bind="text:author + ', ' + reviewDate"></span>
+            <!-- /ko -->
+            <!-- ko if: (comments > 0) -->
+            <span data-bind="text:', '"></span>
+            <a class='f-small' data-bind="attr:{href : '/forums/viewthread-' + threadId + '.html'},text : comments+' Comments' "></a>
+            <!-- /ko -->
+            <!-- ko if: (comments <= 0) -->
+            <span data-bind="text:', ' + comments+' Comments'"></span>
+            <!-- /ko -->
+        </p>
+        <!-- ko if: ($index() % 10 == 0) -->
+        <span class='first-page-start' data-bind="attr:{pagetag: $parent.nextPage }"></span>
+        <!-- /ko -->
+        <!-- ko  if : goods != '' -->
+		<span data-bind="visible: isValidProsCons(goods)">
+        <br /><strong>Good: </strong>
+        <span data-bind="text : goods"></span>
+		</span>
+        <!-- /ko -->
+        <!-- ko  if : bads != '' -->
+		<span data-bind="visible: isValidProsCons(bads)">
+			<br /><strong>Bad: </strong>
+			<span data-bind="text : bads"></span>
+		</span>
+        <!-- /ko -->
+        <p style="margin-top: 10px;">
+            <span id="spnComments" data-bind=" html : removeHtml(description)"></span>
+            <a data-bind="attr:{href: (isMobile ? '/m' : '') + '/' + Common.utils.formatSpecial($parent.makeName) + '-cars/' + $parent.maskingName + '/userreviews/' +reviewId+'/' }">read complete review</a>
+        </p>
+    </div>
+    <div class="hr-dotted"></div>
+</script>
+
+<script type="text/html" id="paginationTemplate">
+    <li>
+        <!-- ko if: ($index() == 0 && $data > 0) -->
+        <a data-bind="attr :{href : $parent.shortUrl + '-p'+ $data + $parent.versionUrl },text : 'Previous'"></a>
+        <!-- /ko -->
+        <!-- ko if: ($data < 0 && $parent.pageNumber() > $parent.currentPage()) -->
+        <a data-bind="attr :{href : $parent.shortUrl + '-p'+ ($parent.currentPage() + 1) + $parent.versionUrl },text : 'Next'"></a>
+        <!-- /ko -->
+        <!-- ko if: (($index() == 0 && $data <= 0) || ($data < 0 && $parent.pageNumber() <= $parent.currentPage())) -->
+        <a data-bind="text : ($data < 0 ? 'Next' : 'Previous') "></a>   
+        <!-- /ko -->
+        <!-- ko if: (($index() > 0) && ($data > 0)) -->
+        <a data-bind="attr :{href : $parent.shortUrl + '-p'+ $data + $parent.versionUrl ,class : ($data == $parent.currentPage() ? 'active' : '')},text : $data"></a>
+        <!-- /ko -->
+    </li>    
+</script>

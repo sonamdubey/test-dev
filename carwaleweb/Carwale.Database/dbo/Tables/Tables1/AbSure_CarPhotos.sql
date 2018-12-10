@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[AbSure_CarPhotos] (
+    [AbSure_CarPhotosId]  INT            IDENTITY (1, 1) NOT NULL,
+    [AbSure_CarDetailsId] INT            NOT NULL,
+    [ImageUrlOriginal]    VARCHAR (250)  NULL,
+    [ImageUrlLarge]       VARCHAR (250)  NULL,
+    [ImageUrlThumb]       VARCHAR (250)  NULL,
+    [ImageUrlSmall]       VARCHAR (250)  NULL,
+    [DirectoryPath]       VARCHAR (200)  NULL,
+    [ImageCaption]        VARCHAR (1000) NULL,
+    [IsMain]              BIT            CONSTRAINT [DF_AbSure_CarPhotos_IsMain] DEFAULT ((0)) NOT NULL,
+    [IsActive]            BIT            CONSTRAINT [DF_AbSure_CarPhotos_IsActive] DEFAULT ((1)) NOT NULL,
+    [IsChassisImage]      BIT            CONSTRAINT [DF_AbSure_CarPhotos_IsChassisImage] DEFAULT ((0)) NULL,
+    [HostUrl]             VARCHAR (100)  NULL,
+    [IsReplicated]        BIT            CONSTRAINT [DF_AbSure_CarPhotos_IsReplicated] DEFAULT ((0)) NULL,
+    [StatusId]            INT            NULL,
+    [EntryDate]           DATETIME       CONSTRAINT [DF_AbSure_CarPhotos_EntryDate] DEFAULT (getdate()) NULL,
+    [ModifiedDate]        DATETIME       NULL,
+    [ModifiedBy]          INT            NULL,
+    [TC_UserId]           INT            NULL,
+    [ImageUrlExtraLarge]  VARCHAR (250)  NULL,
+    [ImageTagType]        INT            NULL,
+    [ImageTagId]          INT            NULL,
+    [Timestamp]           DATETIME       NULL,
+    [OriginalImgPath]     VARCHAR (250)  NULL,
+    [AspectRatio]         FLOAT (53)     NULL,
+    CONSTRAINT [PK_AbSure_CarPhotos] PRIMARY KEY CLUSTERED ([AbSure_CarPhotosId] ASC)
+);
+

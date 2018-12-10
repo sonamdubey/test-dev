@@ -1,0 +1,115 @@
+﻿@import "../mixins/_variables.scss";
+@import "../mixins/_margin.scss";
+@import "../mixins/_padding.scss";
+@import "../mixins/_utils.scss";
+@import "../mixins/_sprites.scss";
+@import "../mixins/_vendor-utils.scss";
+
+
+.floating-cta {
+	display:block;
+	position: fixed;
+	top: -67px;
+	right: 0;
+	left: 0;
+	z-index: 4;
+	height: 61px;
+	@include get-vendor-prefixed('transition','transform .5s linear');
+	background: map-get($color-map, "white-bg");
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.floating-cta__hide-header {
+	@include get-vendor-prefixed('transform','translateY(-51px)');
+	@include get-vendor-prefixed('transition','transform .5s linear');
+}
+.floating-cta__show-header {
+	@include get-vendor-prefixed('transition','transform .5s linear');
+}
+.floating-cta__show-cta {
+	@include get-vendor-prefixed('transform','translateY(65px)');
+}
+.floating-cta__list li { 
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	height: 61px;
+
+	&:after {
+		display: inline-block;
+		height: 61px;
+		width: 1px;
+		content:'';
+		position: absolute;
+		bottom:0;
+		left:0;
+		background: map-get($color-map, "light-grey-bg");
+		background: linear-gradient(map-get($color-map, "white"), map-get($color-map, "light-grey-bg"), map-get($color-map, "white"));
+	}
+	&:first-child:after {
+		background:none;
+	}
+}
+.floating-cta__image {
+	display: inline-block;
+	width: 102px;
+	height: 57px;
+	vertical-align: middle;
+	 img {
+		    width: 80%;
+            margin-top: 8px;
+		 }
+}
+.floating-cta__model-block {
+	display: inline-block;
+	vertical-align: middle;
+}
+.floating-cta__model-details {
+	display: inline-block;
+	font-size: 12px;
+	padding-right: 49px;
+}
+.floating-cta__model-name {
+	display: block;
+	font-size: 16px;
+	font-weight: 600;
+}
+.floating-cta__version-block,
+.floating-cta__city-block {
+	padding: 11px 14px;
+}
+.floating-cta__version-heading,
+.floating-cta__city-heading {
+	display: block;
+	color: map-get($color-map, "lighter-grey");
+	font-size: 13px;
+}
+.floating-cta__version-details,
+.floating-cta__city-details {
+	font-size: 13px;
+	font-weight: 700;
+}
+.floating-cta__get-offers-block {
+	padding-top: 9px;
+	padding-left: 20px;
+}
+.floating-cta__get-offers-btn {
+	font-size: 13px;
+	font-weight: 600;
+	padding: 12px 13px;
+}
+@media screen and (max-width:1024px){
+	.floating-cta__model-details {
+		padding-right: 20px;
+	}
+}
+@media screen and (max-width:900px){
+	.floating-cta__model-details {
+		padding-right: 0px;
+	}
+	.floating-cta__model-details {
+		max-width: 215px;
+		white-space: nowrap; 
+		overflow: hidden;
+		text-overflow: ellipsis; 
+	}
+}

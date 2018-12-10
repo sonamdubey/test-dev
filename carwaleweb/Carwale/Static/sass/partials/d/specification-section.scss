@@ -1,0 +1,92 @@
+@import '../../mixins/_variables.scss';
+@import '../../mixins/_sprites.scss';
+
+.specification-container {
+	margin-top: 20px;
+}
+
+.specification-container__heading {
+	margin-bottom: 10px;
+}
+
+.specs-accordion-container {
+	background-color: map-get($color-map, 'white');
+	border: 1px solid map-get($color-map, 'gainsboro');
+    box-shadow: 0 1px 2px map-get($color-map, 'whisper');
+	padding: 10px;
+}
+
+.specs-accordion__heading {
+	padding: 5px;	
+}
+
+.specs-accordion-list {
+	width: 100%;
+}
+
+.specs-accordion__list-item {
+    background-color: map-get($color-map, 'white-smoke');
+	border: 1px solid map-get($color-map, 'gainsboro');
+    font-weight: $font-bold;
+    color: map-get($color-map, 'matterhorn');
+    text-align: left;
+}
+
+.model-feature-list {
+	background-color: map-get($color-map, 'white');
+	font-size: 0;
+
+	li {
+		font-size: 13px;
+		font-weight: $font-normal;
+		padding: 5px;
+		border-bottom: 1px solid map-get($color-map, 'grey-bg');
+		width: 50%;
+		display: inline-block;
+	}
+}
+
+.accordion-open-icon {
+	width: 14px;
+    height: 14px;
+    vertical-align: sub;
+    display: inline-block;
+    margin-right: 5px;
+    position: relative;
+    background: map-get($color-map, 'grey-btn-text');
+    border-radius: 3px;
+
+	&:before {
+		content: "";
+		position: absolute;
+		bottom: 6px;
+		right: 3px;
+		font-size: 15px;
+		color: #fff;
+		font-weight: 400;
+		width: 8px;
+		height: 2px;
+		background: map-get($color-map, 'white');
+	}
+
+	&:after {
+		content: "";
+		width: 8px;
+		height: 2px;
+		background: map-get($color-map, 'white');
+		position: absolute;
+		top: 6px;
+		right: 3px;
+		transform: rotate(90deg);
+	}
+}
+
+.accordion--close {
+	&.accordion-open-icon {
+		&:after {
+			content: none;
+		}	
+	}
+}
+
+    

@@ -1,0 +1,37 @@
+def externalMethod
+def details = ""
+node ('master'){
+	details = "${env.JOB_NAME}".split("/")
+	if(details[0] == 'CarwaleProductionPipeline'){
+		externalMethod = load("${CarwaleCI}" + "\\Production\\Production.groovy")
+	}
+	else if(details[0]=='CarwaleStagingPipeline'){
+		externalMethod = load( "${CarwaleCI}" +  "\\Staging\\Staging.groovy")
+	}
+	else if(details[0]=='CarwaleFeatureTestingPipeline'){
+		externalMethod = load("D:\\JenkinsUtilities\\Feature_Testing\\Feature-Testing.groovy")
+	}
+	else if(details[0]=='CarwaleProductionTesting'){
+		externalMethod = load("${CarwaleCI}" + "\\ProductionTesting\\ProductionTesting.groovy")
+	}
+	else if(details[0]=='CarwaleSonarQubeAnalysis'){
+		externalMethod = load("${CarwaleCI}" + "\\SonarQube\\SonarQube.groovy")	
+	}
+    
+	//Call the method we defined in externalMethod.
+}
+if(details[0] == 'CarwaleProductionPipeline'){
+	externalMethod.Production()
+}
+else if(details[0]=='CarwaleStagingPipeline'){
+	externalMethod.Staging()
+}
+else if(details[0]=='CarwaleFeatureTestingPipeline'){
+	externalMethod.Testing()
+}
+else if(details[0]=='CarwaleProductionTesting'){
+	externalMethod.ProductionTesting()
+}
+else if(details[0]=='CarwaleSonarQubeAnalysis'){
+	externalMethod.RunAnalysis() 	
+}

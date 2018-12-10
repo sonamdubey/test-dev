@@ -1,0 +1,23 @@
+﻿@model Carwale.Entity.Dealers.SponsoredDealer
+@using Carwale.Entity.Enum
+@if (Model != null && Model.DealerId > 0 && !string.IsNullOrEmpty(Model.TemplateHtml))
+{
+    <div class="content-box-shadow content-inner-block-5 margin-bottom20 sponsored-dealer-ad" style="display:none">
+        @(new HtmlString(Model.TemplateHtml))
+    </div>
+    <script>
+
+    var sponsoredDealerAd = document.querySelector(".sponsored-dealer-ad #btnDealerOffer");
+    sponsoredDealerAd.removeAttribute('onclick');
+    sponsoredDealerAd.setAttribute('pageid', @ViewBag.PageId);
+    sponsoredDealerAd.setAttribute('dealerexistance', 'false');
+    sponsoredDealerAd.setAttribute('emiadavailable', 'true');
+    sponsoredDealerAd.setAttribute('leadclicksource', @(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "ButtonPQAd", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleDesktop))));
+    sponsoredDealerAd.setAttribute('recoleadsource', @(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "RecoButtonPQAd", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleDesktop))));
+    sponsoredDealerAd.setAttribute('inquirysourceid', @(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "ButtonPQAd", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleDesktop))));
+    sponsoredDealerAd.setAttribute('recoinquirysource', @(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "RecoButtonPQAd", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleDesktop))));
+    sponsoredDealerAd.setAttribute('data-predictionScore',@Model.PredictionData.Score);
+    sponsoredDealerAd.setAttribute('data-predictionLabel',"@Model.PredictionData.Label");
+    </script>
+
+}

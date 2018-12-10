@@ -1,0 +1,139 @@
+﻿@model IEnumerable<Carwale.DTOs.CarData.CarModelSummaryDTOV2>
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using System.Globalization;
+@using System.Configuration;
+@using Carwale.Entity.Enum;
+    <ul id="divModels" class="content-box-shadow">
+        @foreach (var carModel in Model)
+        {
+            if (carModel != null)
+            {
+            <li class="list-seperator">
+				@if (!carModel.New)
+				{
+					<div class="upcoming-label">
+						<span  class="modelType">Upcoming</span>
+					</div>
+				}
+                <div class="grid-5 alpha">
+                    @if (carModel.ShowDate)
+					{
+                        <div class="just-launched-section">
+							<div class="launch-title">
+								@if (carModel.New)
+								{
+									@Html.Raw("LAUNCHED ON");
+								}
+								else
+								{
+									@Html.Raw("EXPECTED TO LAUNCH ON");
+								}
+							</div>
+                            <div class="launch-date-unit">
+                                <span class="launch-date">@carModel.LaunchDate.Day<span class="lauch-date-unit">@Format.GetNumberSuffix(carModel.LaunchDate.Day)</span></span><br>
+                                <span class="launch-month">@carModel.LaunchDate.ToString("MMM", CultureInfo.InvariantCulture).ToUpper()</span>
+                            </div>
+                            
+                        </div>
+					}
+
+                    <a href='@ManageCarUrl.CreateModelUrl(ViewBag.MakeName, carModel.MaskingName)'>
+                        <img data-role="click-tracking" data-event="CWInteractive" data-cat="MakePage" data-action="Image-click" data-label="@carModel.ModelName" width="227" height="128" title="@carModel.ModelName" border="0" class="lazy" src="https://imgd.aeplcdn.com/227X128/cw/cars/no-cars.jpg"
+                             data-original='@Carwale.Utility.ImageSizes.CreateImageUrl(carModel.HostUrl, Carwale.Utility.ImageSizes._227X128, carModel.OriginalImage)'
+                             alt='@ViewBag.MakeName @carModel.ModelName' />
+                    </a>
+                </div>
+                <div class="grid-7 omega">
+                    <a data-role="click-tracking" data-event="CWInteractive" data-cat="MakePage" data-action="Title-click" data-label="@carModel.ModelName" class="font18" title="@ViewBag.MakeName @carModel.ModelName" href='@ManageCarUrl.CreateModelUrl(ViewBag.MakeName, carModel.MaskingName)'><strong class="text-unbold">@carModel.ModelName</strong></a>
+                    @if (carModel.CarPriceOverview != null)
+                    {
+                    <div class="font20 margin-top15">
+						<span class="font14 ">@Html.Raw(carModel.CarPriceOverview.PricePrefix + " ")</span> @carModel.CarPriceOverview.Price
+						<span class="font14 ">@carModel.CarPriceOverview.PriceSuffix</span>
+
+                        <div class='margin-bottom15 font14 @carModel.CarPriceOverview.LabelColor'>
+                            @Html.Raw(carModel.CarPriceOverview.PriceLabel ?? "")@Html.Raw(carModel.CarPriceOverview.City != null && !string.IsNullOrEmpty(carModel.CarPriceOverview.City.Name) ? ", " + carModel.CarPriceOverview.City.Name : string.Empty)
+                            <span>@(carModel.CarPriceOverview.PriceStatus > (int)Carwale.Entity.PriceBucket.HaveUserCity ? Html.Raw("<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon desk-deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + carModel.CarPriceOverview.ReasonText + "</p></div>") : Html.Raw(""))</span>
+							@if (!carModel.New && !carModel.ShowDate)
+							{
+								@Html.Raw(ConfigurationManager.AppSettings["MakePageUpcomingMonthText"] + " <span class='text-bold'>" + carModel.LaunchDate.ToString("MMMM yyyy") + "</span>");	
+							}
+
+                            </div>
+
+                        </div>
+                    }
+                    <div>
+                        @if (carModel.New)
+						{
+							if (carModel.ReviewCount > 0)
+							{
+								@Html.Raw(CommonOpn.GetRateImage(Convert.ToDouble(carModel.ModelRating)));
+								<a title='User Review of @ViewBag.MakeName @carModel.ModelName' class='href-grey' href='@ManageCarUrl.CreateUserReviewUrl(ViewBag.MakeName, carModel.MaskingName)'>@carModel.ReviewCount User Reviews</a>
+							}
+							else
+							{
+								<span>Not rated yet&nbsp;</span>
+								<span class="text-link" onclick="window.location.href = '@ManageCarUrl.CreateRatingPageUrl(carModel.ModelId)'" data-cwtccat="RatingLinkage" data-cwtcact="@($"{CwPages.MakeDesktop}LinkClick")" data-cwtclbl="model=@carModel.ModelId">Be the first one to write a review</span>
+							}
+						}
+                    </div>
+                    @if(carModel.New)
+                    {
+                    <div class="margin-top10">
+                        @if (carModel.CarPriceOverview.PriceForSorting > 0)
+                        {
+                            if (CookiesCustomers.MasterCityId <= 0)
+                            {
+                                <a class="btn btn-orange btn-xs btnShowOnRoadPrice" data-modelmaskingname="@carModel.MaskingName"
+                                   data-makemaskingname="@UrlRewrite.FormatSpecial(ViewBag.MakeName)" title='@ViewBag.MakeName @carModel.ModelName @CWConfiguration.orpText'
+                                   data-role="click-inview-imp" data-cat="Desktop_MakePage_ModelCard" data-action="showpriceinmycity" data-label="@carModel.ModelName">@CWConfiguration.orpText</a>
+                            }
+                            else if (carModel.CarPriceOverview.PriceStatus == (int)Carwale.Entity.PriceBucket.HaveUserCity)
+                            {
+                                <a class="btn btn-orange btn-xs btnViewPriceBreakup" data-model="@carModel.ModelId" data-pageid="9"
+                                   title='@ViewBag.MakeName @carModel.ModelName @CWConfiguration.ViewPriceBreakupText'
+                                   data-role="click-inview-imp" data-cat="Desktop_MakePage_ModelCard" data-action="viewpricebreakup"
+                                   data-label="@(string.Format("{0}_{1}", carModel.ModelName, carModel.CarPriceOverview.City.Name))">@CWConfiguration.ViewPriceBreakupText</a>
+                            }
+                        }
+                        @if (carModel.New && carModel.CarPriceOverview.PriceForSorting > 0 && carModel.DiscountSummary != null)
+                        {
+                            <div class="inline-block advantage">
+                                @if (CookiesCustomers.MasterCityId > 0)
+                                {
+                                    <a class="advantage-link" href="@ManageCarUrl.CreateAdvantageUrl(ViewBag.MakeName, carModel.MaskingName, "d03", carModel.DiscountSummary.City?.CityId ?? 0)">
+                                        <span class="btn btn-xs btn-white margin-left10 @(carModel.DiscountSummary.Savings > 0 ? " " : " hide")">
+                                            Save ₹ @Carwale.Utility.Format.FormatNumericCommaSep(carModel.DiscountSummary.Savings.ToString())
+                                        </span>
+                                        <span class="btn btn-xs btn-white margin-left10 @(carModel.DiscountSummary.Savings == 0 ? " " : " hide")">  Offer Available </span>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="advantage-link" href="javascript:void(0)"
+                                       data-adv-popup="showAdvantageCityPopup" data-model="@carModel.DiscountSummary.Model?.ModelId" data-url="@ManageCarUrl.CreateAdvantageUrl(ViewBag.MakeName, carModel.MaskingName, "d04")">
+                                        <span class="btn btn-xs btn-white margin-left10">  Offer Available </span>
+                                    </a>
+                                }
+                            </div>
+                        }
+                        else if (carModel.CarPriceOverview != null)
+                        {
+                            <div class="inline-block electric-cars @(carModel.ModelId == 420 || carModel.ModelId == 324 ? "" :"hide" )" modelname="@carModel.ModelName">
+                                <a class="advantage-link" href="/electriccars/" data-role='click-tracking' data-event='CWInteractive' data-action='ElectricSectionLinks' data-cat='CWSpecials' data-label='Click_MakePage_@carModel.ModelName'>
+                                    <span class="btn btn-xs btn-white margin-left10 @(carModel.ModelId == 420 || carModel.ModelId == 324 ? " " : " hide")">
+                                        All About Electric
+                                    </span>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                    }
+                </div>
+                <div class="clear"></div>
+            </li>    
+            }
+        }
+    </ul>

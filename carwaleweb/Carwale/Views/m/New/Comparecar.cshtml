@@ -1,0 +1,216 @@
+﻿@model Carwale.Entity.ViewModels.CompareCarsModel
+@using Carwale.UI.Common;
+@{
+    ViewBag.Title = "Compare Cars | New Car Comparisons in India - CarWale";
+    ViewBag.Description = "Comparing Indian cars was never this easy. CarWale presents you the easiest way of comparing cars. Choose two or more cars to compare them head-to-head.";
+    ViewBag.Canonical = "https://www.carwale.com/comparecars/";
+    Layout = "~/views/shared/m/_MLayoutV2.cshtml";
+    ViewBag.AdPath = System.Configuration.ConfigurationManager.AppSettings["adPathMobile"];
+    ViewBag.AdId = "1419227721763";
+    ViewBag.CustomJS = "~/Views/StaticPartials/m/MCompareCarPageScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MCompareCarPageCss.cshtml";
+    ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+        googletag.cmd.push(function () {
+            googletag.defineSlot('/1017752/" + Model.ExperimentAdSlot.Name + "'," + Model.ExperimentAdSlot.Size + "," +@"'div-gpt-ad-1534140777681-0').addService(googletag.pubads());
+             googletag.defineSlot('/1017752/" + ViewBag.AdPath + @"CarWale_Mobile_Comparecar_330x130', [[330, 130], [320, 150]], 'div-gpt-ad-1422362815725-1').addService(googletag.pubads());
+             googletag.defineSlot('/1017752/" + ViewBag.AdPath + @"CarWale_Mobile_Comparecar_SecondSlot_330x130', [[320, 150], [330, 130]], 'div-gpt-ad-1462440973969-0').addService(googletag.pubads());
+             googletag.defineSlot('/1017752/" + ViewBag.AdPath + @"CarWale_Mobile_ROS_300x250', [300, 250], 'div-gpt-ad-1435297201507-0').addService(googletag.pubads());
+             googletag.pubads().setTargeting('City', '" + MobileWeb.Common.CookiesCustomers.MasterCity.ToString() + @"');
+             googletag.pubads().setTargeting('Section', 'CompareCarHome');
+             googletag.pubads().collapseEmptyDivs();
+             googletag.pubads().enableSingleRequest();
+             googletag.enableServices();
+        });
+    </script>";
+}
+<section>
+    <div id="divAdBar">
+        @Carwale.UI.HtmlHelpers.Helpers.GetAdBar("1534140777681", 320, 0, 20, 10)
+    </div>
+    </div>
+    <div data-role="page">
+        <div id="main-container">
+            <input type="hidden" id="hdnMake1" />
+            <input type="hidden" id="hdnMake2" />
+            <input type="hidden" id="hdnModel1" />
+            <input type="hidden" id="hdnModel2" />
+            <input type="hidden" id="hdnCarName1" />
+            <input type="hidden" id="hdnCarName2" />
+            <input type="hidden" id="hdnVersionId1" value="-1" />
+            <input type="hidden" id="hdnVersionId2" value="-1" />
+            <div style="position:relative; margin:5px;">
+                <div class="pgsubhead m-special-skin-text">Compare Cars</div>
+            </div>
+            <div class="box new-line5">
+                <div class="compareCarContainer" onclick="CompareCarJs.carBinding.openPopup(this,0)" style="position: relative;">
+                    <div class="compareCarBox colorborderRt">
+                        <div class="divImage">
+                            @if (Model.VersionsDetails.Count > 0)
+                            {
+                            <img src="@Carwale.Utility.ImageSizes.CreateImageUrl(Model.VersionsDetails[0].HostURL, Carwale.Utility.ImageSizes._110X61, Model.VersionsDetails[0].OriginalImgPath )">}
+                            else
+                            {
+                            <img src="https://imgd.aeplcdn.com/110x61/cw/cars/no-cars.jpg">}
+                        </div>
+                        <div>
+                            <div class="new-line5 text-link text-bold model-select">
+                                @Html.Raw(Model.VersionsDetails.Count > 0 ? string.Format("{0} {1}", Model.VersionsDetails[0].MakeName,Model.VersionsDetails[0].ModelName) : "Select Car")
+                            </div>
+                            @if(Model.VersionsDetails.Count > 0) { 
+                            <div class="version-select padding-right10" id="@Model.VersionsDetails[0].VersionId" type="1" maskingname="@Model.VersionsDetails[0].MaskingName" style="position: relative;">@Model.VersionsDetails[0].VersionName<span class="cw-m-sprite select-arrow-down"></span></div>}
+                            else
+                            {
+                            <div class="version-select padding-right10 hide" id="" type="1" maskingname="" style="position: relative;" ><span class="cw-m-sprite select-arrow-down"></span></div>}
+                        </div>
+                        @*<div class="new-line5">
+                                <span>₹ 3.95 Lakhs</span>
+                                <div class="font13 ">
+                                    On-Road Price, Jammu
+                                    <span></span>
+                                </div>
+                            </div>*@
+                    </div>
+                    <div style="width:23px;height:24px;position:absolute;top:55px;z-index:1;right:-10px;background: url('/m/images/icons-sheet.png?v=5.2') no-repeat scroll 0 0 transparent;background-position: 0 -1148px;"></div>
+                </div>
+                <div class="compareCarContainer" onclick="CompareCarJs.carBinding.openPopup(this,1)">
+                    <div class="compareCarBox">
+                        <div class="divImage">
+                            @if (Model.VersionsDetails.Count > 1)
+                            {
+                            <img src="@Carwale.Utility.ImageSizes.CreateImageUrl(Model.VersionsDetails[1].HostURL, Carwale.Utility.ImageSizes._110X61, Model.VersionsDetails[1].OriginalImgPath )">}
+                            else
+                            {
+                            <img src="https://imgd.aeplcdn.com/110x61/cw/cars/no-cars.jpg">}
+                        </div>
+                        <div>
+                            <div class="new-line5 text-link text-bold model-select">
+                                @Html.Raw(Model.VersionsDetails.Count > 1 ? string.Format("{0} {1}", Model.VersionsDetails[1].MakeName, Model.VersionsDetails[1].ModelName) : "Select Car")
+                            </div>
+                            @if (Model.VersionsDetails.Count > 1)
+                            {
+                            <div class="version-select padding-right10" id="@Model.VersionsDetails[1].VersionId" type="1" maskingname="@Model.VersionsDetails[1].MaskingName" style="position: relative;">@Model.VersionsDetails[1].VersionName<span class="cw-m-sprite select-arrow-down"></span></div>}
+                            else
+                            {
+                            <div class="version-select padding-right10 hide" id="" type="2" maskingname="" style="position: relative;" ><span class="cw-m-sprite select-arrow-down"></span></div>}
+                        </div>
+                        @*<div class="new-line5">
+                                    <span>₹ 4.12 Lakhs</span>
+                                    <div class="font13 ">
+                                        On-Road Price, Jammu
+                                        <span></span>
+                                    </div>
+                            </div>*@
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div id="divListContainer" style="display:none;">
+                <div class="divMake">
+                    <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete">
+                        <div class="filterBackArrow" onclick="CompareCarJs.carBinding.closeWindow(this)">
+                            <span class="cwmsprite back-long-arrow-left-white"></span>
+                        </div>
+
+                        <div class="filterTitle">Select Make</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="popup_content">
+                        <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+                            <ul data-role="listview" id="ddlMake1">
+
+                                @if (Model.Makes != null && Model.Makes.Count > 0)
+                                {
+                                    for (int i = 0; i < Model.Makes.Count; i++)
+                                    {
+                                    <li>
+                                        <a id="@Model.Makes[i].MakeId" onclick="CompareCarJs.carBinding.showModel(this)" type="1">@Model.Makes[i].MakeName</a>
+                                    </li>}
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="divModel">
+                    <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete">
+                        <div class="filterBackArrow" onclick="CompareCarJs.carBinding.closeWindow(this)">
+                            <span class="cwmsprite back-long-arrow-left-white"></span>
+                        </div>
+
+                        <div class="filterTitle">Select Model</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="popup_content">
+                        <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+                            <ul data-role="listview" id="ddlModel1"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="divVersion">
+
+                    <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete">
+                        <div class="filterBackArrow" onclick="CompareCarJs.carBinding.closeWindow(this)">
+                            <span class="cwmsprite back-long-arrow-left-white"></span>
+                        </div>
+
+                        <div class="filterTitle">Select Version</div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="popup_content">
+                        <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+                            <ul data-role="listview" id="ddlVersion1"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="new-line10 box comparecar"><div class="btn btn-orange btn-full-width" onclick="CompareCarJs.validation.verifyVersion(@((int)Carwale.Entity.Enum.WidgetSource.CompareCarLandingSelectionWidgetMobile));">&nbsp;&nbsp;Compare&nbsp;&nbsp;</div></div>
+        <div id='div-gpt-ad-1422362815725-1' class='content-box-shadow rounded-corner2 margin-bottom10 padding-top10 padding-bottom10 margin-top10 divAdContainer'>
+            <script type='text/javascript'>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1422362815725-1'); });
+            </script>
+        </div>
+        <div id='div-gpt-ad-1462440973969-0' class='content-box-shadow rounded-corner2 margin-bottom10 padding-top10 padding-bottom10 margin-top10 divAdContainer'>
+            <script type='text/javascript'>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1462440973969-0'); });
+            </script>
+        </div>
+        <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false" class="popup rounded-corner2 content-box-shadow hide">
+            <div data-role="header" data-theme="a" class="ui-corner-top content-inner-block-10">
+                <h1>Error !!</h1>
+            </div>
+            <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content margin-top20 margin-left20 margin-right20 margin-bottom20">
+                <span id="spnError" class="error"></span>
+                <a href="#" class="btn btn-xs btn-white btn-full-width margin-top15" id="popupOkBtn" data-role="button" data-rel="back" data-theme="c" data-mini="true">OK</a>
+            </div>
+        </div>
+        @if (Model.HotComparisons != null && Model.HotComparisons.Count > 0)
+        {
+        @Html.Partial("~/Views/Shared/m/_CompareCarList.cshtml", Model.HotComparisons);
+        }
+        <a href="/m/comparecars/all/" class="normal">
+            <div class="box">
+                <table class="table" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <div class="head-big">More Comparisons</div>
+                        </td>
+                        <td class="aro-par">&raquo;</td>
+                    </tr>
+                </table>
+            </div>
+        </a>
+    </div>
+    <div id="divForPopup" class=" hide"></div>
+    <div id="divBottomAdBar" class="ad-div">
+        <!-- /1017752/CarWale_Mobile_ROS_300x250 -->
+        <div id='div-gpt-ad-1435297201507-0' class="text-center margin-top10 margin-bottom20">
+            <script type='text/javascript'>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1435297201507-0'); });
+            </script>
+        </div>
+    </div>
+	<div id="br-cr" class="font14"><a href="/m/" class="normal m-special-skin-text">Home</a><span class="lightgray m-special-skin-text  "> &rsaquo; Compare Cars</span></div>
+</section>

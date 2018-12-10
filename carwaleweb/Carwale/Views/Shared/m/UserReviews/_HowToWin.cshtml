@@ -1,0 +1,25 @@
+﻿@model Carwale.Entity.UserReview.SectionDetails
+<div class="how-to-win-container review-block  data-tab" data-id="how-to-win">
+    <div class="how-to-win__header"></div>
+    <div class="content-body">
+        <h2 class="content__title">@Model.Title</h2>
+        <ul class="content-list">
+            @for(int i = 0; i < 3 && i < Model.Description.Count; i++)
+            { 
+                <li class="content-list-item">@Model.Description[i]</li>
+            }
+        </ul>
+        <span class="content__read-more" data-hash="#howtowin" data-cwtccat="MobileReviewsLandingPage" data-cwtcact="HowtowinReadMore" data-cwtclbl="na">Read More</span>
+    </div>
+    <div class="popupContainer how-to-win-popup js-how-to-win-popup">
+        <div class="popup__header">@Model.Title<span class="popup__back" data-cwtccat="MobileReviewsLandingPage" data-cwtcact="HowtowinBackClicked" data-cwtclbl="na"></span></div>
+        <div class="popup__body">
+            <ul class="content-list">
+                @foreach (var desc in Model.Description) 
+                { 
+                    <li class="content-list-item">@desc</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

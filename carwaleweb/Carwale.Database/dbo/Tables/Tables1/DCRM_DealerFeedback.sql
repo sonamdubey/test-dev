@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[DCRM_DealerFeedback] (
+    [Id]                 NUMERIC (18)   IDENTITY (1, 1) NOT NULL,
+    [IsReceivedWC]       BIT            NULL,
+    [IsCTAccessible]     BIT            NULL,
+    [IsStockUpdated]     BIT            NULL,
+    [ReaNoTime]          VARCHAR (50)   NULL,
+    [ReaNoInfo]          VARCHAR (50)   NULL,
+    [ReaTechProb]        VARCHAR (50)   NULL,
+    [ReaOther]           VARCHAR (1000) NULL,
+    [IsCRVisit]          BIT            NULL,
+    [LeadReceived]       SMALLINT       NULL,
+    [LeadQuality]        SMALLINT       NULL,
+    [LeadConversion]     SMALLINT       NULL,
+    [CWExInteraction]    SMALLINT       NULL,
+    [ReminderService]    SMALLINT       NULL,
+    [FieldExInteraction] SMALLINT       NULL,
+    [Feedback]           VARCHAR (1000) NULL,
+    [FeedbackBy]         SMALLINT       NOT NULL,
+    [FeedbackOn]         DATETIME       NOT NULL,
+    [Name]               VARCHAR (250)  NULL,
+    [EmailId]            VARCHAR (100)  NULL,
+    [MobileNo]           VARCHAR (15)   NULL,
+    CONSTRAINT [PK_DCRM_DealerFeedback] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

@@ -1,0 +1,97 @@
+.customer-info-form-wrapper {
+  padding: 40px 20px 20px;
+}
+
+.dealer-detail {
+  margin-bottom: 20px;
+}
+
+.dealer-detail__heading {
+  @include font-weight(700);
+  font-size: 21px;
+  color: map-get($color-map, "charcoal");
+}
+
+.dealer-detail__subheading {
+  font-size: 12px;
+  color: map-get($color-map, "charcoal");
+}
+
+.text-unbold {
+  font-weight: normal;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.pq-m-car-img {
+  margin: 0 auto;
+  display: block;
+}
+
+.car-img-fold {
+  margin-top: 10px;
+}
+
+.pq-m-car-name {
+  margin-top: 10px;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.lead-popup-form {
+  .oxygen-input {
+    display: block;
+  }
+
+  .oxygen-select {
+    display: block;
+  }
+
+  .oxygen-form-item {
+    &:last-of-type {
+      .oxygen-form-item-control {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 780px) {
+  .customer-info-form-wrapper {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+}
+
+.book-test-drive .oxygen-checkbox-content {
+  color: #05b249;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.book-test-drive-disclaimer {
+  font-size: 12px;
+  margin-left: 30px;
+}
+
+.lead-popup-form input[type="tel"] {
+  font-weight: 400;
+}
+
+@media only screen and (max-width: 320px) {
+  .book-test-drive {
+    .oxygen-checkbox-content {
+      font-size: 13px;
+    }
+  }
+}
+
+.whatsapp-icon {
+  height: 20px;
+  width: 20px;
+  margin-right: 7px;
+  vertical-align: bottom;
+}

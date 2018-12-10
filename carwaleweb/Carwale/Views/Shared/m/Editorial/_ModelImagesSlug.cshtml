@@ -1,0 +1,68 @@
+﻿@model Tuple<List<ModelImage>, CarModelDetails, bool>
+@using Carwale.Entity.CarData;
+@using Carwale.Entity.CMS.Photos;
+@using Carwale.BL.CMS;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Utility
+@using Carwale.DTOs.CMS.ThreeSixtyView
+
+@if (Model.Item1 != null && Model.Item1.Count > 4)
+{
+    List<ModelImage> images = Model.Item1;
+    string makeName = MobileWeb.Common.CommonOpn.FormatSpecial(images[0].MakeBase.MakeName);
+    string carName = string.Format("{0} {1}",images[0].MakeBase.MakeName, images[0].ModelBase.ModelName);
+    string maskingName = images[0].ModelBase.MaskingName;
+    string modelPageUrl = "/m/" + makeName + "-cars/" + maskingName;
+    string galleryUrl = modelPageUrl + "/images/";
+    bool is360Available = CMSCommon.IsThreeSixtyViewAvailable(Model.Item2);
+<section>
+    <div data-role="impression" data-event="CWNonInteractive" data-cat="contentcons" data-action="Image-Module-Viewed" data-label="@modelPageUrl" class="model-image-gallery margin-top15 clearfix">
+        <h2 class="margin-left10 m-special-skin-text">@ViewBag.ModelName Images</h2>
+        <ul class="photos-grid-list margin-top10">
+            <li>
+                <a data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-action="Image-Module-Clicked" data-label="@("2-" + modelPageUrl)" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(makeName, maskingName, images[1].ImageName, images[1].ImageId, true)">
+                    <img class="lazy" data-original="@ImageSizes.CreateImageUrl(images[1].HostUrl, ImageSizes._476X268, images[1].OriginalImgPath)" alt="@images[1].ImageName" title="@(images[1].ImageName?.Replace("-", " "))">
+                </a>
+            </li>
+            <li>
+                <a data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-action="Image-Module-Clicked" data-label="@("3-" + modelPageUrl)" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(makeName, maskingName, images[2].ImageName, images[2].ImageId, true)">
+                    <img class="lazy" data-original="@ImageSizes.CreateImageUrl(images[2].HostUrl, ImageSizes._476X268, images[2].OriginalImgPath)" alt="@images[2].ImageName" title="@(images[2].ImageName?.Replace("-", " "))">
+                </a>
+            </li>
+            <li>
+                <a data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-action="Image-Module-Clicked" data-label="@("4-" + modelPageUrl)" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(makeName, maskingName, images[3].ImageName, images[3].ImageId, true)">
+                    <img class="lazy" data-original="@ImageSizes.CreateImageUrl(images[3].HostUrl, ImageSizes._476X268, images[3].OriginalImgPath)" alt="@images[3].ImageName" title="@(images[3].ImageName?.Replace("-", " "))">
+                </a>
+            </li>
+            <li>
+                <a data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-action="Image-Module-Clicked" data-label="@("1-" + modelPageUrl)" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(makeName, maskingName, images[0].ImageName, images[0].ImageId, true)">
+                    <img class="lazy" data-original="@ImageSizes.CreateImageUrl(images[0].HostUrl, ImageSizes._476X268, images[0].OriginalImgPath)" alt="@images[0].ImageName" title="@(images[0].ImageName?.Replace("-", " "))">
+                </a>
+            </li>
+            @if (Model.Item3 && is360Available)
+            {
+                <li>
+                    <a data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_linkages" data-action="image_slug" data-label="@carName" href="@EditorialContent.Get360PageUrl(Model.Item2.MakeName, Model.Item2.MaskingName, CMSCommon.Get360DefaultCategory(AutoMapper.Mapper.Map<ThreeSixtyAvailabilityDTO>(Model.Item2)), true)">
+                        <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/cw/static/image-module.jpg" data-role="inview-imp" data-cat="msite_360_linkages" data-label="@carName" data-action="image_slug_impression" alt="@ViewBag.ModelName 360" title="@ViewBag.ModelName 360">
+                        <span class="gallery-image-count" style="background:none">View 360° of the car</span>
+                    </a>
+                </li>
+            }
+            else
+            {
+            <li>
+                <a data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-action="Image-Module-Clicked" data-label="@("5-" + modelPageUrl)" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(makeName, maskingName, images[4].ImageName, images[4].ImageId, true)">
+                    <img class="lazy" data-original="@ImageSizes.CreateImageUrl(images[4].HostUrl, ImageSizes._476X268, images[4].OriginalImgPath)" alt="@images[4].ImageName" title="@(images[4].ImageName?.Replace("-", " "))">
+                </a>
+            </li>
+            }
+            <li>
+                <a data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-action="Image-Module-Clicked" data-label="@("6-" + modelPageUrl)" href="@(galleryUrl)">
+                    <img class="lazy" data-original="https://imgd.aeplcdn.com/0x0/cw/static/image-module.jpg" alt="@ViewBag.ModelName Images" title="@ViewBag.ModelName Images">
+                    <span class="gallery-image-count">View All Images (@ViewBag.PhotoCount)</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
+}

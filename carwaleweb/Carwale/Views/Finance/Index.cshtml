@@ -1,0 +1,910 @@
+﻿@model Carwale.DTOs.Finance.FinancePageDTO
+@{
+    ViewBag.DeeplinkAlternatives = "/finance/";
+    ViewBag.Title = "Finance";
+    ViewBag.Description = "CarWale";
+    ViewBag.Keywords = "";
+    ViewBag.CustomJS = "~/Views/StaticPartials/Finance/HdfcLoanPageScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/Finance/HdfcLoanPageCss.cshtml";
+    ViewBag.Canonical = "https://www.carwale.com/finance";
+    Layout = ViewBag.hideNav ? "~/views/shared/m/_MLayoutApp.cshtml" : (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayout.cshtml" : "~/views/shared/_Layout.cshtml");
+    ViewBag.BodyClass = (ViewBag.isMobile != null && ViewBag.isMobile ? "cwm-body" : "cw-body");
+}
+
+
+@if (ViewBag.isMobile == true)
+{
+    <div id="cwmLoadingIcon" class="hide">
+        <div class="m-loading-popup">
+            <span class="m-loading-icon"></span>
+        </div>
+    </div>
+}
+
+@if (ViewBag.isMobile != true)
+{
+    <div id="loadingCarImg" class="hide">
+        <div class="loading-popup">
+            <span class="loading-icon"></span>
+        </div>
+    </div>
+    <header class="hdfc-loan-top-banner">
+        <div class="container">
+            <div class="welcome-box">
+                <h1 class="text-uppercase margin-bottom10">car loan</h1>
+            </div>
+        </div>
+    </header>
+    <h2 id="loanQuote" class="text-center margin-top50 margin-bottom30 padding-left10 padding-right10">Please fill in a few details to check your loan eligibility</h2>
+}
+
+<section class="container bg-white loan-section">
+    @if (ViewBag.isMobile != true)
+    {
+        <h3 id="pageTitle" class="container-title hide">Car Type</h3>
+    }
+
+    <!-- residence type code start -->
+    <div id="residenceType" class="page">
+        <div class="grid-12 text-center">
+            <h2 class="text-black margin-top25 margin-bottom20">What is your residence type?</h2>
+            <div class="img-residence-type margin-bottom30"></div>
+            <div class="residence-box clear margin-bottom20 position-rel">
+                <div class="grid-4 alpha padding-right5 margin-bottom10">
+                    <a href="javascript:void(0)" class="pill-box font14 resiType">Owned</a>
+                    <div class="sub-type-wrap position-abt pos-left0 pos-right0 pos-top60 hide">
+                        <span class="font14 padding-left10 padding-bottom10 leftfloat">SubType:</span>
+                        <div class="clear"></div>
+                        <div class="grid-6 padding-right5 margin-bottom15">
+                            <a href="javascript:void(0)" class="pill-box font14">Self / Spouse</a>
+                        </div>
+                        <div class="grid-6 padding-left5 margin-bottom15">
+                            <a href="javascript:void(0)" class="pill-box font14">Family / Sibling</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-4 padding-left5 omega margin-bottom10">
+                    <a href="javascript:void(0)" class="pill-box font14 resiType">Rented</a>
+                    <div class="sub-type-wrap position-abt pos-left0 pos-right0 pos-top60 hide">
+                        <span class="font14 padding-left10 padding-bottom10 leftfloat">SubType:</span>
+                        <div class="clear"></div>
+                        <div class="grid-4 padding-right5 margin-bottom15">
+                            <a href="javascript:void(0)" class="pill-box font14">Family</a>
+                        </div>
+                        <div class="grid-4 padding-left5 margin-bottom15">
+                            <a href="javascript:void(0)" class="pill-box font14">Friends</a>
+                        </div>
+                        <div class="grid-4 alpha margin-bottom15">
+                            <a href="javascript:void(0)" class="pill-box font14">Staying alone</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-4 omega margin-bottom10">
+                    <a href="javascript:void(0)" class="pill-box font14 resiType">Others</a>
+                    <div class="sub-type-wrap position-abt pos-left0 pos-right0 pos-top60 hide">
+                        <span class="font14 padding-left10 padding-bottom10 leftfloat">SubType:</span>
+                        <div class="clear"></div>
+                        <div class="grid-6 padding-right5 margin-bottom15">
+                            <a href="javascript:void(0)" class="pill-box font14">Paying Guest</a>
+                        </div>
+                        <div class="grid-6 padding-left5 margin-bottom15">
+                            <a href="javascript:void(0)" class="pill-box font14">Hostel</a>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="grid-6 padding-right5 margin-bottom15">
+                            <a href="javascript:void(0)" class="pill-box font14">Company provided</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- residence type code end -->
+    <!-- shift to residence code start -->
+    <div id="shiftToResidence" class="page hide">
+        <div class="grid-12 text-center">
+            <h2 class="text-black margin-top25 margin-bottom20">When did you shift to current residence?</h2>
+            <div class="img-shift-to-residence margin-bottom30"></div>
+        </div>
+        <div class="clear margin-bottom20">
+            <div id="selectYear" class="accordion border-solid-top border-solid-bottom open">
+                <h3 class="strip">Select Year <span class="icon arrow position-abt pos-right10 font16"><span class="fa fa-angle-up"></span></span></h3>
+                <div class="text-center">
+                    <!-- ko template: { name: 'years' , foreach: SelectYears } --><!-- /ko -->
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div id="selectMonth" class="accordion border-solid-bottom">
+                <h3 class="strip">Select Month <span class="icon arrow position-abt pos-right10 font16"><span class="fa fa-angle-down"></span></span></h3>
+                <div class="hide text-center">
+                    <div class="grid-3 padding-right5 margin-bottom10">
+                        <a href="javascript:void(0)" data-value="1" class="pill-box font14">Jan</a>
+                    </div>
+                    <div class="grid-3 padding-left5 padding-right5 margin-bottom10">
+                        <a href="javascript:void(0)" data-value="2" class="pill-box font14">Feb</a>
+                    </div>
+                    <div class="grid-3 padding-left5 padding-right5 margin-bottom10">
+                        <a href="javascript:void(0)" data-value="3" class="pill-box font14">Mar</a>
+                    </div>
+                    <div class="grid-3 padding-left5 margin-bottom10">
+                        <a href="javascript:void(0)" data-value="4" class="pill-box font14">Apr</a>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="grid-3 padding-right5 margin-bottom10">
+                        <a href="javascript:void(0)" data-value="5" class="pill-box font14">May</a>
+                    </div>
+                    <div class="grid-3 padding-left5 padding-right5 margin-bottom10">
+                        <a href="javascript:void(0)" data-value="6" class="pill-box font14">Jun</a>
+                    </div>
+                    <div class="grid-3 padding-left5 padding-right5 margin-bottom10">
+                        <a href="javascript:void(0)" data-value="7" class="pill-box font14">Jul</a>
+                    </div>
+                    <div class="grid-3 padding-left5 margin-bottom10">
+                        <a href="javascript:void(0)" data-value="8" class="pill-box font14">Aug</a>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="grid-3 padding-right5 margin-bottom10">
+                        <a href="javascript:void(0)" data-value="9" class="pill-box font14">Sep</a>
+                    </div>
+                    <div class="grid-3 padding-left5 padding-right5 margin-bottom10">
+                        <a href="javascript:void(0)" data-value="10" class="pill-box font14">Oct</a>
+                    </div>
+                    <div class="grid-3 padding-left5 padding-right5 margin-bottom10">
+                        <a href="javascript:void(0)" data-value="11" class="pill-box font14">Nov</a>
+                    </div>
+                    <div class="grid-3 padding-left5 margin-bottom10">
+                        <a href="javascript:void(0)" data-value="12" class="pill-box font14">Dec</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- shift to residence code end -->
+    <!-- type of employment code start -->
+    <div id="employmentType" class="page hide">
+        <div class="grid-12 text-center">
+            <h2 class="text-black margin-top25 margin-bottom20">Select your type of employment</h2>
+            <div class="img-professional"></div>
+            <div class="img-salaried"></div>
+            <div class="clear"></div>
+            <div class="grid-12 alpha omega margin-top25 margin-bottom10">
+                <a href="javascript:void(0)" id="optSalaried" class="pill-box font18 position-rel">
+                    <span class="font14">Salaried</span> <span class="fa fa-angle-right position-abt pos-right15 pos-top15"></span>
+                </a>
+            </div>
+            <div class="grid-12 alpha omega margin-bottom10">
+                <a href="javascript:void(0)" id="optSelfEmpBusiness" class="pill-box font18 position-rel">
+                    <span class="font14">Business</span> <span class="fa fa-angle-right position-abt pos-right15 pos-top15"></span>
+                </a>
+            </div>
+            <div class="grid-12 alpha omega margin-bottom10">
+                <a href="javascript:void(0)" id="optSelfEmp" class="pill-box font18 position-rel">
+                    <span class="font14">Professional (Doctor, Lawyer, CA, etc.)</span> <span class="fa fa-angle-right position-abt pos-right15 pos-top15"></span>
+                </a>
+            </div>
+            <div class="grid-12 alpha omega margin-bottom10">
+                <a href="javascript:void(0)" class="pill-box font18 position-rel" id="optOthers">
+                    <span class="font14">Student/Retired/Homemaker</span> <span class="fa fa-angle-right position-abt pos-right15 pos-top15"></span>
+                </a>
+            </div>
+            <div class="grid-12 alpha omega margin-bottom10">
+                <a href="javascript:void(0)" class="pill-box font18 position-rel" id="optOthers1">
+                    <span class="font14">Others</span> <span class="fa fa-angle-right position-abt pos-right15 pos-top15"></span>
+                </a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- type of employment code end -->
+    <!-- empSubType code start -->
+    <div id="empSubType" class="page hide">
+        <!-- Salaried code start -->
+        <div id="Salaried" class="page form hide">
+            <div class="grid-12">
+                <h2 class="text-black margin-top25 margin-bottom20 text-center">Salaried</h2>
+                <fieldset class="position-rel margin-bottom25 font16 company-chosen-box">
+                    <span class="fa fa-building-o position-abt pos-left5 pos-top5"></span>
+                    @if (ViewBag.isMobile != true && Model.CompanyList != null)
+                    {
+                        @Html.DropDownList("txtCompany", new SelectList(Model.CompanyList, "Id", "Name"), "--Select your Company--", new { @class = "chosen-select form-control" })
+                    }
+                    else
+                    {
+                        <div class="select-box position-rel font14 padding-left30" id="loanCompany" data-val="">Company Name</div>
+                                <!--List box for Make, Model & Version starts here-->
+                        <div class="companyDiv fixedSearchPopup hide">
+                            <div class="ui-corner-top">
+                                <div class="filterBackArrow padding-right30">
+                                    <span class="cwmsprite back-long-arrow-left-white"></span>
+                                </div>
+                                <a href="javascript:void(0)" onclick="loanHdfc.employmentDetail.CloseCompanyPopup()"></a>
+                                <div class="filterTitle">Select Company</div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="search-box cross-box-wrap">
+                                <span class="cross-box hide" id="search-cross" onclick="clearSearchText(this)">
+                                    <span class="cwmsprite cross-md-dark-grey"></span>
+                                </span>
+                                <input type="text" id="txtCompany" class="form-control rounded-corner0 txtSearchBar" placeholder="Type Slowly For Autofill" />
+                            </div>
+                            <div class="popup_content">
+                                <div class="ui-content">
+                                    <ul id="drpCompany">
+                                        @foreach (var company in Model.CompanyList)
+                                        {
+                                            <li onclick="loanHdfc.employmentDetail.companyChanged(this)" value="@company.Id" text="@company.Name">
+                                                <a href="javascript:void(0)">@company.Name</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div id="spntxtCompany" class="error font13 margin-top5 hide">Please enter your company name.</div>
+                </fieldset>
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <span class="fa fa-calendar position-abt pos-left5 pos-top5"></span>
+                    <select id="drpExp" class="select-box padding-left30 font14">
+                        <option value="-1">Experience in above organisation</option>
+                        <option value="0">Less than 1 year</option>
+                        <option value="1">1 to 5 years</option>
+                        <option value="5">More than 5 years</option>
+                    </select>
+                    <div id="spndrpExp" class="error font13 margin-top5 hide">Please select total experience.</div>
+                </fieldset>
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <span class="position-abt pos-left10 pos-top5">₹</span>
+                    <input type="text" id="txtIncome" class="input-txt padding-left30 font14" placeholder="Gross monthly income (in rupees)" />
+                    <div id="spntxtIncome" class="error font13 margin-top5 hide">Please enter your monthly income.</div>
+                </fieldset>
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <span class="position-abt pos-left10 pos-top5">₹</span>
+                    <input type="text" id="txtEmi" class="input-txt padding-left30 font14" placeholder="Total EMIs if any (Optional)" />
+                    <div id="spntxtEmi" class="error font13 margin-top5 hide">Please enter numeric data only.</div>
+                </fieldset>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- Salaried code end -->
+        <!-- Self employed profession code start -->
+        <div id="employedProfession" class="page form hide">
+            <div class="grid-12">
+                <h2 class="text-black margin-top25 margin-bottom20 text-center">Self employed professional</h2>
+                <div class="grid-12 alpha omega text-left">
+                    <label class="font14 padding-bottom10 block">When did you start your profession?</label>
+                    <div class="grid-6 alpha">
+                        <fieldset class="position-rel margin-bottom25 font16">
+                            <span class="fa fa-calendar position-abt pos-left5 pos-top5"></span>
+                            <select id="drpYear" class="select-box padding-left30 font14" data-bind="options: SelectYears, optionsCaption: 'Select year', optionsText: $data, value:$data">                                
+                            </select>
+                            <div id="spndrpYear" class="error font13 margin-top5 hide">Please select year.</div>
+                        </fieldset>
+                    </div>
+                    <div class="grid-6 alpha omega">
+                        <fieldset class="position-rel margin-bottom25 font16">
+                            <span class="fa fa-calendar position-abt pos-left5 pos-top5"></span>
+                            <select id="drpMonth" class="select-box padding-left30 font14">
+                                <option value="-1">Select month</option>
+                                <option value="Jan">Jan</option>
+                                <option value="Feb">Feb</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="Aug">Aug</option>
+                                <option value="Sep">Sep</option>
+                                <option value="Oct">Oct</option>
+                                <option value="Nov">Nov</option>
+                                <option value="Dec">Dec</option>
+                            </select>
+                            <div id="spndrpMonth" class="error font13 margin-top5 hide">Please select month.</div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <span class="fa fa-user position-abt pos-left5 pos-top5"></span>
+                    <select id="drpProfession" class="select-box padding-left30 font14">
+                        <option value="-1">Select your profession</option>
+                        <option value="Architect">Architect</option>
+                        <option value="Consultant">Consultant</option>
+                        <option value="Accountant">Cost Accountant</option>
+                        <option value="Chartered Accountant">Chartered Accountant</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Engineer">Engineer</option>
+                        <option value="Dentist">Dentist</option>
+                        <option value="Company Secretary">Company Secretary</option>
+                        <option value="Lawyer">Lawyer</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <div id="spndrpProfession" class="error font13 margin-top5 hide">Please select profession.</div>
+                </fieldset>
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <span class="position-abt pos-left10 pos-top5">₹</span>
+                    <input type="text" id="txtProfit" class="input-txt padding-left30 font14" placeholder="Gross monthly income (in rupees)" />
+                    <div id="spntxtProfit" class="error font13 margin-top5 hide">Please enter your monthly income.</div>
+                </fieldset>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- Self employed profession code end -->
+        <!-- Self-employed Business code start -->
+        <div id="employedBusiness" class="page form hide">
+            <div class="grid-12">
+                <h2 class="text-black margin-top25 margin-bottom20 text-center">Self employed Business</h2>
+                <div class="grid-12 alpha omega text-left">
+                    <label class="font14 padding-bottom10 block">When did you start your business?</label>
+                    <div class="grid-6 alpha">
+                        <fieldset class="position-rel margin-bottom25 font16">
+                            <span class="fa fa-calendar position-abt pos-left5 pos-top5"></span>
+                            <select id="drpYearProf" class="select-box padding-left30 font14" data-bind="options: SelectYears, optionsCaption: 'Select year', optionsText: $data, value:$data"></select>                       
+                            <div id="spndrpYearProf" class="error font13 margin-top5 hide">Please select year.</div>
+                        </fieldset>
+                    </div>
+                    <div class="grid-6 alpha omega">
+                        <fieldset class="position-rel margin-bottom25 font16">
+                            <span class="fa fa-calendar position-abt pos-left5 pos-top5"></span>
+                            <select id="drpMonthProf" class="select-box padding-left30 font14">
+                                <option value="-1">Select month</option>
+                                <option value="Jan">Jan</option>
+                                <option value="Feb">Feb</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="Aug">Aug</option>
+                                <option value="Sep">Sep</option>
+                                <option value="Oct">Oct</option>
+                                <option value="Nov">Nov</option>
+                                <option value="Dec">Dec</option>
+                            </select>
+                            <div id="spndrpMonthProf" class="error font13 margin-top5 hide">Please select month.</div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <span class="fa fa-user position-abt pos-left5 pos-top5"></span>
+                    <select id="drpApplicantProf" class="select-box padding-left30 font14">
+                        <option value="-1">Applicant is</option>
+                        <option value="Director applying as individual">Director applying as individual</option>
+                        <option value="Proprietor">Proprietor</option>
+                        <option value="Partner applying as individual">Partner applying as individual</option>
+                        <option value="Partnership firm">Partnership firm</option>
+                        <option value="Private limited firm">Private limited firm</option>
+                    </select>
+                    <div id="spndrpApplicantProf" class="error font13 margin-top5 hide">Please select applicant.</div>
+                </fieldset>
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <span class="position-abt pos-left10 pos-top5">₹</span>
+                    <input type="text" id="txtProfitProf" class="input-txt padding-left30 font14" placeholder="Gross monthly income (in rupees)" />
+                    <div id="spntxtProfitProf" class="error font13 margin-top5 hide">Please enter your monthly income.</div>
+                </fieldset>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- Self-employed Business code end -->
+        @if (ViewBag.isMobile != true)
+        {
+            <div class="text-center margin-bottom15">
+                <a href="javascript:void(0)" class="btn btn-orange form-cont-btn">Continue</a>
+            </div>
+        }
+    </div>
+    <!-- empSubType code end -->
+    <!-- dob and isexistingCust detail code start -->
+    <div id="dob-iscust" class="page form hide">
+        <h2 class="text-black margin-top25 margin-bottom20 padding-left10 padding-right10 text-center">Date of Birth</h2>
+        <div class="grid-12">
+            <fieldset class="position-rel margin-bottom25 font16">
+                <span class="fa fa-calendar position-abt pos-left5 pos-top5"></span>
+                <input type="text" name="txtDob" id="txtDobdate" data-inline="true" class="input-txt padding-left30 font14" placeholder="Date of Birth" />
+                <div id="spntxtDobdate" class="error font13 margin-top5 hide">Please enter date of birth.</div>
+            </fieldset>            
+            @if (ViewBag.isMobile != true)
+            {
+                <div class="text-center margin-top15 margin-bottom15">
+                    <a href="javascript:void(0)" class="btn btn-orange form-cont-btn">Next</a>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- dob and isexistingCust end -->
+    <!-- Select car code start -->
+    <div id="selectCar" class="page form hide">
+        <div class="grid-12">
+            <h2 class="text-black margin-top25 margin-bottom20 text-center">Select car</h2>
+            @if (ViewBag.isMobile == true)
+            {
+                <div class="select-box position-rel font14" id="loanCarMake" data-val="">Make</div>
+                <div id="spnloanCarMake" class="error font13 margin-top5 hide">Please enter make.</div>
+                <div class="select-box position-rel margin-top25 font14" id="loanCarModel" data-val="">Model</div>
+                <div id="spnloanCarModel" class="error font13 margin-top5 hide">Please enter model.</div>
+                <div class="select-box position-rel margin-top25 font14" id="loanCarVersion" data-val="">Version</div>
+                <div id="spnloanCarVersion" class="error font13 margin-top5 hide">Please enter version.</div>
+                        <!-- List box for Make, Model & Version starts here -->
+                <div id="carPopupContainer">
+                    <div class="MakeDiv fixedSearchPopup hide">
+                        <div class="ui-corner-top">
+                            <div class="filterBackArrow padding-right30" onclick="loanHdfc.selectCar.hidepopup(this,'loanCarMake')">
+                                <span class="cwmsprite back-long-arrow-left-white"></span>
+                            </div>
+                            <a href="javascript:void(0)" onclick="loanHdfc.selectCar.CloseWindow()"></a>
+                            <div class="filterTitle">Select Make</div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="m-loading-popup">
+                            <span class="m-defaultAlert-window"></span>
+                            <span class="m-loading-icon"></span>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="search-box cross-box-wrap">
+                            <span class="cross-box hide" id="search-cross" onclick="clearSearchText(this)">
+                                <span class="cwmsprite cross-md-dark-grey"></span>
+                            </span>
+                            <input type="text" id="txtMake" class="form-control rounded-corner0 txtSearchBar" placeholder="Filter makes here..." />
+                        </div>
+                        <div class="popup_content">
+                            <div class="ui-content">
+                                <ul id="drpMake" data-bind="template: { name: 'car-make-template', foreach: CarMakes }"></ul>
+                                <script type="text/html" id="car-make-template">
+                                    <li onclick="loanHdfc.selectCar.makeChanged(this);" data-bind='attr: { value: makeId, text: makeName }'>
+                                        <a href="javascript:void(0)"><span data-bind="text: makeName"></span></a>
+                                    </li>
+                                </script>
+                                <input id="hdn_Make" type="hidden" value="" />
+                            </div>
+                        </div>
+                        <input type="hidden" id="hdn_MakeId" />
+                    </div>
+                    <!--List box for Make ends here-->
+                    <!--List box for Model starts here-->
+                    <div class="modelDiv fixedSearchPopup hide">
+                        <div class="ui-corner-top">
+                            <div class="filterBackArrow padding-right30" onclick="loanHdfc.selectCar.hidepopup(this, '')">
+                                <span class="cwmsprite back-long-arrow-left-white"></span>
+                            </div>
+                            <a href="javascript:void(0)" onclick="loanHdfc.selectCar.CloseWindow()"></a>
+                            <div class="filterTitle">Select Model</div>
+                            <div class="clear"></div>
+                        </div>
+                        <div>
+                            <div class="m-loading-popup">
+                                <span class="m-defaultAlert-window"></span>
+                                <span class="m-loading-icon"></span>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="search-box cross-box-wrap">
+                                <span class="cross-box hide" id="search-cross" onclick="clearSearchText(this)">
+                                    <span class="cwmsprite cross-md-dark-grey"></span>
+                                </span>
+                                <input type="text" id="txtModel" class="form-control rounded-corner0 txtSearchBar" placeholder="Filter models here..." />
+                            </div>
+                            <div class="popup_content hide">
+                                <div class="ui-content">
+                                    <ul id="model" data-bind="template: { name: 'car-model-template', foreach: CarModels }"></ul>
+                                    <script type="text/html" id="car-model-template">
+                                        <li onclick="loanHdfc.selectCar.modelChanged(this);" data-bind='    attr: { value: ModelId, text: ModelName }'>
+                                            <a href="javascript:void(0)"><span data-bind="text: ModelName"></span></a>
+                                        </li>
+                                    </script>
+                                    <input id="hdn_Model" type="hidden" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="hdn_ModelId" />
+                    </div>
+                    <!--List box for Model ends here-->
+                    <!--List box for Version starts here-->
+                    <div class="versionDiv fixedSearchPopup hide">
+                        <div class="ui-corner-top">
+                            <div class="filterBackArrow padding-right30" onclick="loanHdfc.selectCar.hidepopup(this, '')">
+                                <span class="cwmsprite back-long-arrow-left-white"></span>
+                            </div>
+                            <a href="javascript:void(0)" onclick="loanHdfc.selectCar.CloseWindow()"></a>
+                            <div class="filterTitle">Select Version</div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="m-loading-popup">
+                            <span class="m-defaultAlert-window"></span>
+                            <span class="m-loading-icon"></span>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="search-box cross-box-wrap">
+                            <span class="cross-box hide" id="search-cross" onclick="clearSearchText(this)">
+                                <span class="cwmsprite cross-md-dark-grey"></span>
+                            </span>
+                            <input type="text" id="txtVersion" class="form-control rounded-corner0 txtSearchBar" placeholder="Filter versions here..." />
+                        </div>
+                        <div class="popup_content hide">
+                            <div class="ui-content">
+                                <ul id="version" data-bind="template: { name: 'car-version-template', foreach: CarVersions }"></ul>
+                                <script type="text/html" id="car-version-template">
+                                    <li onclick="loanHdfc.selectCar.versionChanged(this);" data-bind='    attr: { value: ID, text: Name }'>
+                                        <a href="javascript:void(0)"><span data-bind="text: Name"></span></a>
+                                    </li>
+                                </script>
+                                <input id="hdn_VersionId" type="hidden" value="" />
+                                <input id="hdn_Version" type="hidden" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <!--List box for Version ends here-->
+                </div>
+            }
+            else
+            {
+                <div class="grid-12 alpha omega margin-bottom30">
+                    <select class="select-box position-rel font14" id="drpMake" data-bind='options:CarMakes, optionsText: "makeName", optionsValue: "makeId",optionsCaption: " Select Make ", optionsDisableDefault: true'></select>
+                    <div id="spnloanCarMake" class="error font13 margin-top5 hide">Please enter make.</div>
+                </div>
+                <div class="grid-12 alpha omega margin-bottom30">
+                    <select class="select-box position-rel font14" id="model" disabled="disabled" data-bind='options:CarModels, optionsText: "ModelName", optionsValue: "ModelId",optionsCaption: " Select Model ", optionsDisableDefault: true'>
+                        <option value="">Model</option>
+                    </select>
+                    <div id="spnloanCarModel" class="error font13 margin-top5 hide">Please enter model.</div>
+                </div>
+                <div class="grid-12 alpha omega">
+                    <select class="select-box position-rel font14" id="version" disabled="disabled" data-bind='options:CarVersions, optionsText: "Name", optionsValue: "ID",optionsCaption: " Select Version ", optionsDisableDefault: true'>
+                        <option value="">Version</option>
+                    </select>
+                    <div id="spnloanCarVersion" class="error font13 margin-top5 hide">Please enter version.</div>
+                </div>
+                <div class="clear"></div>
+                <div class="text-center margin-top30 margin-bottom15">
+                    <a href="javascript:void(0)" class="btn btn-orange form-cont-btn">Continue</a>
+                </div>
+            }
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- Select car code end -->
+    <!-- car booking time code start -->
+    <div id="bookingTime" class="page hide">
+        <div class="grid-12 text-center">
+            <h2 class="text-black margin-top25 margin-bottom20">When do you intend to buy car?</h2>
+            <div class="img-calendar margin-bottom50"></div>
+            <div class="clear"></div>
+            <div class="grid-6 alpha margin-bottom10">
+                <a href="javascript:void(0)" class="pill-box font14">Already Booked</a>
+            </div>
+            <div class="grid-6 omega margin-bottom10">
+                <a href="javascript:void(0)" class="pill-box font14">In 2 weeks</a>
+            </div>
+            <div class="clear"></div>
+            <div class="grid-6 alpha margin-bottom10">
+                <a href="javascript:void(0)" class="pill-box font14">In a month</a>
+            </div>
+            <div class="grid-6 omega margin-bottom10">
+                <a href="javascript:void(0)" class="pill-box font14">After a month</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- car booking time code end -->
+    <!-- select city code start -->
+    <div id="selectCity" class="page hide">
+        <div class="grid-12 text-center">
+            <h2 class="text-black margin-top25 margin-bottom20">Which city are you staying in?</h2>
+            <div class="img-city margin-bottom30"></div>
+            <div class="clear margin-bottom25 position-rel text-left hide">
+                <span class="cwmsprite search-icon-grey position-abt pos-right5 pos-top5"></span>
+                <input type="text" id="otherCities" class="input-txt padding-right30" placeholder="Type to select city" />
+                <div id="otherCityError" class="error font13 margin-top5 hide">Sorry! No matching results found. Try again.</div>
+            </div>
+            <div class="clear margin-bottom20">
+                <div class="grid-4 alpha padding-right5 margin-bottom10">
+                    <a href="javascript:void(0)" data-value="1" class="pill-box font14">Mumbai</a>
+                </div>
+                <div class="grid-4 padding-left5 omega margin-bottom10">
+                    <a href="javascript:void(0)" data-value="2" class="pill-box font14">Bangalore</a>
+                </div>
+                <div class="grid-4 omega margin-bottom10">
+                    <a href="javascript:void(0)" data-value="220" class="pill-box font14">Lucknow</a>
+                </div>
+                <div class="clear"></div>
+                <div class="grid-12 alpha padding-right5 margin-bottom10 otherCity" id="otherCity"">
+                    <a href="javascript:void(0)" data-value="0" class="pill-box font14">I dont belong to any of the above cities.</a>
+                </div>
+                <div class="grid-4 alpha padding-right5 margin-bottom10 hide">
+                    <a href="javascript:void(0)" data-value="176" class="pill-box font14">Chennai</a>
+                </div>
+                <div class="grid-4 padding-left5 omega margin-bottom10 hide">
+                    <a href="javascript:void(0)" data-value="12" class="pill-box font14">Pune</a>
+                </div>
+                <div class="grid-4 omega margin-bottom10 hide">
+                    <a href="javascript:void(0)" data-value="198" class="pill-box font14">Kolkata</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- select city code end -->
+    <!-- Personal detail code start -->
+    <div id="personalDetail" class="page personalDetail form hide">
+        <h2 class="text-black margin-top25 margin-bottom20 padding-left10 padding-right10 text-center">Personal detail</h2>
+        <div class="grid-12">
+            <fieldset class="position-rel margin-bottom25 font16">
+                <span class="fa fa-user position-abt pos-left5 pos-top5"></span>
+                <input type="text" id="txtFirstName" prefill="name" class="input-txt padding-left30 font14" placeholder="First Name" maxlength="50" />
+                <div id="spntxtFirstName" class="error font13 margin-top5 hide">Please enter name.</div>
+            </fieldset>
+            <fieldset class="position-rel margin-bottom25 font16">
+                <span class="fa fa-user position-abt pos-left5 pos-top5"></span>
+                <input type="text" id="txtLastName" prefill="name" class="input-txt padding-left30 font14" placeholder="Last Name" maxlength="50" />
+                <div id="spntxtLastName" class="error font13 margin-top5 hide">Please enter name.</div>
+            </fieldset>
+            <fieldset class="position-rel margin-bottom25 font16">
+                <span class="fa fa-envelope-o position-abt pos-left5 pos-top5"></span>
+                <input type="email" id="txtEmail" prefill="email" class="input-txt padding-left30 font14" placeholder="Email" maxlength="50" />
+                <div id="spntxtEmail" class="error font13 margin-top5 hide">Please enter email.</div>
+            </fieldset>
+            <fieldset class="position-rel margin-bottom25 font16">
+                <span class="fa fa-phone position-abt pos-left5 pos-top5"></span>
+                <input type="tel" maxlength="10" id="txtMobile" prefill="mobile" class="input-txt padding-left30 font14" placeholder="Mobile Number" />
+                <div id="spntxtMobile" class="error font13 margin-top5 hide">Please enter mobile number.</div>
+            </fieldset>
+            <fieldset class="position-rel margin-bottom25 font16">
+                <img src="https://imgd.aeplcdn.com/0x0/cw/static/png/pancard.png" class="position-abt pos-top5 pos-left5 pan-img">
+                <input type="tel" maxlength="10" id="txtPanNo" class="input-txt padding-left30 font14" placeholder="PAN" />
+                <div id="spntxtPanNo" class="error font13 margin-top5 hide">Please enter pan number.</div>
+            </fieldset>
+            @if (ViewBag.isMobile != true)
+            {
+                <div class="text-center margin-top15 margin-bottom15">
+                    <a href="javascript:void(0)" class="btn btn-orange form-cont-btn">Submit</a>
+                </div>
+            }
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!-- Personal detail code end -->
+    <!-- float-button code start -->
+    @if (ViewBag.isMobile == true)
+    {
+        <div id="hideBackNext">
+            <div class="float-container text-uppercase alpha omega text-center padding-top10 padding-bottom10 margin-bottom10 floater-finance-part">
+                <div class="grid-4 omega"><a id="back" href="javascript:void(0)" class="btn btn-white btn-full-width btn-xs btn-disable">back</a></div>
+                <div class="grid-8"><a id="next" href="javascript:void(0)" class="btn btn-orange btn-full-width btn-disable">next</a></div>
+                @*<div class="clear"></div>*@
+            </div>
+            @*<div class="clear"></div>*@
+            <div class="extraDivHt hide"></div>
+            <div class="clear margin-bottom10"></div>
+        </div>
+    }
+    else
+    {
+        <a id="back" href="javascript:void(0)" class="cwsprite back-btn btn-disable"></a>
+        <a id="next" href="javascript:void(0)" class="cwsprite next-btn btn-disable"></a>
+    }
+    <!-- float-button code end -->
+</section>
+
+@if (ViewBag.isMobile != true)
+{
+    <h2 class="text-center margin-top50 margin-bottom30 padding-left10 padding-right10">FAQs</h2>
+    <section class="container bg-white">
+        <!-- Faqs code start -->
+        <div class="faqs content-box-shadow content-inner-block-10 margin-bottom25">
+            <div class="accordion">
+                <p class="font16 text-default-color text-bold strip position-rel">
+                    What is the process for applying for a car loan?
+                    <span class="icon plus-minus position-abt pos-right10 pos-top15"><span class="fa fa-plus"></span></span>
+                </p>
+                <div class="font14 text-default-color margin-top10 hide">
+                    Step 1 : Apply Online by filling in above form <br />
+                    Step 2 : Enquiry call from bank for details <br />
+                    Step 3 : Document collection by your bank <br />
+                    Step 4 : Verification visit by bank representative <br />
+                    Step 5 : Loan Approval <br />
+                    Step 6 : Loan disbursement
+                </div>
+            </div>
+            <div class="accordion">
+                <p class="font16 text-default-color text-bold strip position-rel">
+                    What are the tenure options available?
+                    <span class="icon plus-minus position-abt pos-right10 pos-top15"><span class="fa fa-plus"></span></span>
+                </p>
+                <div class="font14 text-default-color margin-top10 hide">
+                    You can choose any repayment option from 12 to 84 months all specially designed to suit your requirements.
+                </div>
+            </div>
+            <div class="accordion">
+                <p class="font16 text-default-color text-bold strip position-rel">
+                    Who can avail of Car Loans?
+                    <span class="icon plus-minus position-abt pos-right10 pos-top15"><span class="fa fa-plus"></span></span>
+                </p>
+                <div class="font14 text-default-color margin-top10 hide">
+                    1. Salaried individuals in the age group of 21 to 60 years (at the end of the tenure) <br />
+                    2. Self-employed individuals in the age group of 21 to 65 years (at the end of the tenure) <br />
+                    3. Partnership Firms <br />
+                    4. Public & Private Ltd. Companies <br />
+                    5. HUFs and Trusts
+                </div>
+            </div>
+            <div class="accordion">
+                <p class="font16 text-default-color text-bold strip position-rel">
+                    Do I have the option to pre-pay the entire loan amount?
+                    <span class="icon plus-minus position-abt pos-right10 pos-top15"><span class="fa fa-plus"></span></span>
+                </p>
+                <div class="font14 text-default-color margin-top10 hide">
+                    Yes, You can pre-pay the loan any time after 6 months of availing of the loan. You just have to pay a small pre-payment fee on the outstanding loan amount.
+                </div>
+            </div>
+            <div class="accordion">
+                <p class="font16 text-default-color text-bold strip position-rel">
+                    Do I need a guarantor?
+                    <span class="icon plus-minus position-abt pos-right10 pos-top15"><span class="fa fa-plus"></span></span>
+                </p>
+                <div class="font14 text-default-color margin-top10 hide">
+                    No, but if your income does not meet our credit criteria then you may be required to have a Guarantor/co-applicant. To stand surety for your loan.
+                </div>
+            </div>
+            <div class="accordion">
+                <p class="font16 text-default-color text-bold strip position-rel">
+                    How much finance can I avail?
+                    <span class="icon plus-minus position-abt pos-right10 pos-top15"><span class="fa fa-plus"></span></span>
+                </p>
+                <div class="font14 text-default-color margin-top10 hide">
+                    You can borrow up to 85% of ex-showroom price for a new car and 85% of the car valuation for used cars.
+                </div>
+            </div>
+            <div class="accordion">
+                <p class="font16 text-default-color text-bold strip position-rel">
+                    What are the documents needed for processing car loan?
+                    <span class="icon plus-minus position-abt pos-right10 pos-top15"><span class="fa fa-plus"></span></span>
+                </p>
+                <div class="font14 text-default-color margin-top10 hide">
+                    <ul>
+                        <li>
+                            <strong>For Salaried Individuals</strong>
+                            <ul>
+                                <li>Proof of Identity</li>
+                                <li>Income Proof - Latest salary slip with Form 16</li>
+                                <li>Address Proof</li>
+                                <li>Signature Verification proof</li>
+                                <li>Salary Bank Statement</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="margin-top15">
+                        <li>
+                            <strong>For Self Employed Professionals/Businessmen</strong>
+                            <ul>
+                                <li>Proof of Identity</li>
+                                <li>Income Proof - Latest ITR</li>
+                                <li>Address Proof</li>
+                                <li>Signature Verification proof</li>
+                                <li>Business Bank Statement</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Faqs code end -->
+    </section>
+}
+
+<!-- mobile otp popup code start -->
+<div id="m-blackOut-window" class="hide"></div>
+<div id="buyerForm" class="buyerProcess padding-top10 text-center hide">
+    <span id="otp-close" class="cur-pointer cwmsprite cross-lg-dark-grey otp-close"></span>
+    <div class="screen2 hide">
+        <div class="upeer-box">
+            <h2 class="text-black text-bold">Enter OTP here</h2>
+            <p class="font12 text-light-grey padding-bottom10">(you will receive OTP within 5 sec.)</p>
+            <div class="position-rel">
+                <input type="tel" class="input-txt padding-right60" placeholder="Enter 5 digit OTP" id="txtOTP" maxlength="5">
+                <a class="font14 text-uppercase text-link padding-top5 position-abt pos-right0 pos-top0" id="btnVerify">verify</a>
+                <img id="imgLoadingBtnVerify" class="position-abt hide" src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" width="16" height="16">
+            </div>
+            <div class="error hide padding-top5 padding-bottom5" id="otpError">Please enter 5 digit OTP</div>
+        </div>
+        <div class="otp-call">
+            <div class="buyer-or-text">
+                <div><span>or</span></div>
+            </div>
+            <p class="font14 padding-bottom10">Give a missed call for verification</p>
+            <a id="btnMissCallAnchorTag" data-bind="attr: { 'href' : 'tel:' + $data.tollFreeNumber()}" class="btn btn-green font24 buyer-call-btn">
+                <span class="fa fa-phone margin-right10 position-rel pos-top3">
+                </span><span id="btnMissCall" class="font18" data-bind="text:$data.tollFreeNumber"></span>
+            </a>
+            <img id="imgLoadingBtnMissCall" src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" class="position-rel pos-top5 pos-left5 hide" width="16" height="16">
+        </div>
+    </div>
+</div>
+<!-- mobile otp popup code end -->
+
+<div id="final-submit-thank-you" class="thank-you-popup page hide">
+    <div class="padding-left10 padding-right10 text-center">
+        <img src="https://imgd.aeplcdn.com/0x0/cw/static/png/loan-success-icon.png" class="position-rel pos-top5">
+        <p class="font20 margin-top40 margin-bottom20 text-capitalize text-bold">Thank you!</p>
+        <p class="font13 margin-top10 text-black">You'll soon receive a call from <br /> our partner Bank to help you with your query.</p>
+        <p class="text-black font13 padding-left20 padding-right20 margin-top20"><span class="return-form-link" id="returnToForm">Go to home page</span></p>
+    </div>
+</div>
+
+<!-- thank you popup code start -->
+<div id="thank-you-popup" class="thank-you-popup page hide">
+    <div class="padding-left10 padding-right10 text-center">
+        <h3 id="car-title" class="font16 margin-bottom20 padding-top15 text-capitalize text-black">EMI Quote for [Car Model] in [city] from HDFC Bank</h3>
+        <p class="text-light-grey font13 padding-left20 padding-right20 margin-top10">Thank you, you’ll soon receive a call from our partner HDFC Bank to help you with your query. Following is the tentative EMI quote.</p>
+        <p class="text-grey font16 padding-left20 padding-right20 margin-top40">
+            Indicative EMI <span class="margin-left5">₹ </span><span class="text-black text-bold font18 margin-right5">
+                <span data-bind="text: emi"></span> p.m.
+            </span>
+        </p>
+        <div class="emi-breakup">
+            <ul>
+                <li data-bind="if: showProcessingFess" id="processingFees"><span class="text-light-grey">Processing fees:</span> <span class="margin-left5">₹ </span><strong><span data-bind="text: Common.utils.formatNumeric(LoanParams().processingFees)"></span></strong></li>
+                <li><span class="text-light-grey">Rate of interest:</span> <strong><span data-bind="text: LoanParams().roi" class="margin-left5"></span>%</strong></li>
+                <li><span class="text-light-grey">Down payment:</span> <span class="margin-left5">₹ </span><strong><span data-bind="text: DownPayment"></span></strong></li>
+                <!-- ko if : LoanParams().exShowroomPrice -->
+                <li><span class="text-light-grey">Ex-Showroom Price:</span> <span class="margin-left5">₹ </span><strong><span data-bind="text: Common.utils.formatNumeric(LoanParams().exShowroomPrice)"></span></strong></li>
+                <!-- /ko -->
+            </ul>
+        </div>
+        <div class="hdfc-slider-container emi-slider-box">
+            <div class="tenure-box">
+                <p class="leftfloat">Tenure</p>
+                <p class="rightfloat text-bold text-black">
+                    <span id="yearTxt"></span> years
+                </p>
+                <div class="clear"></div>
+                <div id="tenureRange" class="cwm-sliders"></div>
+                <p class="leftfloat text-lighter-grey font11">Min (1 year)</p>
+                <p class="rightfloat text-lighter-grey font11">Max <span data-bind="text: LoanParams().maxTenor"></span> years</p>
+                <div class="clear"></div>
+            </div>
+            <div class="loan-amount-box">
+                <p class="leftfloat">Loan amount</p>
+                <p class="rightfloat text-bold text-black">
+                    <span class="margin-left5">₹ </span><span id="loanAmountTxt"></span>
+                </p>
+                <div class="clear"></div>
+                <div id="loanAmountRange" class="cwm-sliders"></div>
+                <p class="leftfloat text-lighter-grey font11">Min (1 lakh)</p>
+                <!-- ko if : LoanParams().loanAmount -->
+                <p class="rightfloat text-lighter-grey font11">Max eligible (<span class="text-light-grey"><span class="margin-left5">₹ </span><span data-bind="text: Common.utils.formatNumeric(LoanParams().loanAmount)"></span></span>)</p>
+                <!-- /ko -->
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div id="userDetails" class="text-center margin-top30 hide">
+            <a href="javascript:void(0)" class="btn btn-orange">Apply Now</a>
+        </div>
+    </div>
+</div>
+<!-- thank you popup code end -->
+<!-- api failure thank you page -->
+<div id="api-failure-thank-you-popup" class="thank-you-popup page hide">
+    <div class="padding-left10 padding-right10 text-center">
+        <h3 class="font16 margin-top40 margin-bottom20 text-capitalize text-black padding-top15">Oops....Sorry !</h3>
+        <p class="font13 margin-top10 text-black">Based on the information you’ve provided, we are unable to find a suitable EMI quote with our banking partner.</p>
+        <p class="text-black font13 padding-left20 padding-right20 margin-top20 padding-bottom20">If you wish to try again, you may <span class="return-form-link" id="apiFailReturnToForm">return to the form</span>.</p>
+    </div>
+</div>
+<div id="bankbazaar-popup" class="thank-you-popup page padding-top70 hide">
+    <div class="padding-left10 padding-right10 text-center">
+        <p class="font14 text-black">You will now be directed to our banking partner Bankbazaar for attractive car loan offers</p>
+        <div class="text-center margin-top30">
+            <a href="https://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|form_page_oops&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide&variantOptions=mobileRequired" target="_blank" class="btn btn-orange" rel="nofollow">Continue</a>
+        </div>
+        <p class="text-black font13 padding-left20 padding-right20 margin-top20"><span class="return-form-link" id="returnToFormBBLink">Go to home page</span></p>
+    </div>
+</div>
+
+<script type="text/html" id="years">
+    <div class="grid-4 padding-right5 margin-bottom10">
+        <a href="javascript:void(0)" class="pill-box font14"><span data-bind="text: $data"></span></a>
+    </div>
+</script>

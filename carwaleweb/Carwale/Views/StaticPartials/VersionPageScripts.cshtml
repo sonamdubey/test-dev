@@ -1,0 +1,59 @@
+﻿@model Carwale.DTOs.NewCars.VersionPageDTO_Desktop
+<script type="text/javascript">
+    window.ISVERSIONPAGE = true;
+    var dealerPopupSourceId = 5, leadsSubmitted = 0;
+    var LeadClickSource = 103, InquirySourceId = 99;
+    var isHashHaveModel = false;
+    var modelId = '@Model.ModelDetails.ModelId';
+    var makeId = '@Model.ModelDetails.MakeId';
+    var IsOverviewPage = false;
+    var PageId = 38;
+    var priceQuoteClicked = false;
+    var modelName = '@Model.ModelDetails.ModelName';
+    var subscriptionCategory = 1;
+    var subscriptionType = @Model.ModelDetails.ModelId;
+    var makename = '@Model.ModelDetails.MakeName';
+    var VersionId = '@(Model.VersionDetails.VersionId)';
+    var VersionName = '@(Model.VersionDetails.VersionName)';
+    var videoSlider = 1;
+    var CityId = '@ViewBag.CityId' ;
+    var CityName = '@ViewBag.CityName';
+    var isCityPage = @(ViewBag.IsCityPage ? "true" : "false");
+    var SubSegmentId = @Model.ModelDetails.SubSegmentId;
+    var newCarString = '@Model.ModelDetails.New'.toLowerCase();
+    var newCar = (newCarString === "true")
+    var maskingName = '@Model.ModelDetails.MaskingName';    
+    var zoneNameForModelVersion = '@ViewBag.CityZone';
+    var carModelName = '@ViewBag.carModelName';
+    var isPriceShown = '@ViewBag.IsPriceShown';
+    var USERIP  = "@Carwale.Utility.UserTracker.GetUserIp()";
+</script>
+<script type="text/javascript" src="https://www.youtube.com/iframe_api" defer></script>
+<script  type="text/javascript"  src="/static/src/pq-common.js" defer></script>
+<script  type="text/javascript"  src="/static/src/dropdown-menu.min.js" defer></script>
+<script type="text/javascript" src="/static/js/utils/dropdown.js" defer></script>
+<script  type="text/javascript"  src="/static/js/newcarsversion.js" defer></script>
+<script  type="text/javascript"  src="/static/js/model-version-common.js" defer></script>
+<script type="text/javascript" src="~/static/js/editorial-common.js" defer></script>
+<script type="text/javascript" src="/static/js/lead-form-support.js" defer></script>
+<script src="https://rtbcdn.andbeyond.media/prodprebidheader-324836.js" async></script>
+<script src="https://rtbcdn.andbeyond.media/prod-global-324975.js"></script>
+<script>
+    function trackLogTd(){
+        var dealerId="@Model.SponsoredDealerAd.DealerId";
+        var cityId = $.cookie('_CustCityIdMaster'),zoneId=$.cookie('_CustZoneIdMaster');
+        Tracking.versionPage.inBodyTestDriveSlug();
+    }
+</script>
+@if (Model.IsRenaultLeadCampaign && ViewBag.CityId > 0 && Model.VersionDetails.New > 0 && Model.SponsoredDealerAd.ActualDealerId > 0)
+{
+    <script type="text/javascript" src="/static/js/renaultform.js" defer></script>
+}
+
+@if (Model.ShowEmiCalculator)
+{
+    <script type="text/javascript" src="/static/m/js/utils/emi-slug.js" defer></script>
+    <script type="text/javascript" src="/static/js/utils/scroll-lock.js" defer></script>
+    <script type="text/javascript" src="/static/js/utils/popup.js" defer></script>
+    { Html.RenderPartial("~/Views/Shared/m/_EmiCalculator.cshtml"); }
+}

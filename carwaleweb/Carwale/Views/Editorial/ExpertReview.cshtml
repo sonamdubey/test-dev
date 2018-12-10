@@ -1,0 +1,246 @@
+﻿@model Carwale.DTOs.CMS.ContentDetailPagesDTO
+@using Carwale.Utility
+@using Carwale.UI.Common
+@using Carwale.Entity.CarData
+@using Carwale.UI.HtmlHelpers
+@{
+    ViewBag.BodyClass = "bg-white header-fixed-inner";
+    ViewBag.CustomJS = "~/Views/StaticPartials/editorial/ExpertReviewScripts.cshtml";
+    ViewBag.CustomCSS = "~/Views/StaticPartials/editorial/ExpertReviewCss.cshtml";
+    ViewBag.Title = Model.ArticlePages.Title;
+    ViewBag.PageDetails = Model.ArticlePages; 
+    ViewBag.PageId = 11;
+    ViewBag.Revisit = "15";
+    ViewBag.DocumentState = "Static";
+    ViewBag.Url = Model.ArticlePages.ArticleUrl;
+    ViewBag.Canonical = "https://www.carwale.com" + Model.ArticlePages.ArticleUrl;
+    ViewBag.Alternate = "https://www.carwale.com/m" + Model.ArticlePages.ArticleUrl;
+    ViewBag.AdId = "1396440399649";
+    ViewBag.AdPath = "/1017752/RoadTest_";
+    ViewBag.IsCityPage = false;
+     ViewBag.DefineAdSlots =
+        @"<script type='text/javascript'>
+        var AdSlots = {};
+        googletag.cmd.push(function () {
+        googletag.defineSlot('" + ViewBag.AdPath + @"300x250', [300, 250], 'div-gpt-ad-" + ViewBag.AdId + @"-0').addService(googletag.pubads());        
+        googletag.defineSlot('" + ViewBag.AdPath + @"970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90]], 'div-gpt-ad-" + ViewBag.AdId + @"-2').addService(googletag.pubads());
+        AdSlots['div-gpt-ad-1514458400839-0'] = googletag.defineSlot('/1017752/Carwale_News_Desktop_300x250', [[300, 250], [300, 600]], 'div-gpt-ad-1514458400839-0').addService(googletag.pubads());
+        googletag.pubads().setTargeting('Models', '" + ViewBag.TaggedModels + @"');
+        googletag.pubads().setTargeting('City', '"+ CookiesCustomers.MasterCity + @"');
+        googletag.pubads().setTargeting('UserModelHistory', '"+ CookiesCustomers.UserModelHistory.Replace('~', ',')+@"');
+        googletag.pubads().collapseEmptyDivs();
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+        });</script>";
+}
+<section class="container">
+    <div class="grid-12">
+        <div class="padding-bottom15 text-center ad-slot">
+            @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_728x90.cshtml"); }
+        </div>
+    </div>
+</section>
+<div class="clear"></div>
+<section class="bg-light-grey padding-top10 padding-bottom20 no-bg-color overall-container">
+    <div class="container">
+        <div class="grid-12">
+            <!-- breadcrumb code starts here -->
+            @{ Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist); }
+            <h1 class="font30 text-black special-skin-text">@ViewBag.Title</h1>
+            <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="grid-8">
+            <div class="content-details" id="@Model.ArticlePages.BasicId" categoryid="@Model.ArticlePages.CategoryId" categoryname="@Model.ArticlePages.CategoryMaskingName">
+                <div class="content-box-shadow content-inner-block-10 margin-bottom20">
+                    <div class="navExpert">
+                        @{Html.RenderPartial("~/Views/Shared/NewCars/_QuickMenu.cshtml", Model.SubNavigation);}
+                    </div>
+                    <!--Below code for expert Review Subnavigation ends here-->
+                    <div class="margin-top10">
+                        <div class="leftfloat">
+                            @Html.Raw(Model.ArticlePages.DisplayDate.ToString("MMMM dd, yyyy, hh:mm tt") + " IST by " + (!string.IsNullOrEmpty(Model.ArticlePages.AuthorMaskingName)
+ ? "<a href='/authors/" + Model.ArticlePages.AuthorMaskingName + "/'>" + Model.ArticlePages.AuthorName + "</a>" : Model.ArticlePages.AuthorName))
+                            </div>
+                        <div class="rightfloat">
+                            <span class="view-icon margin-right5"></span>@Model.ArticlePages.Views @(Model.ArticlePages.Views > 1 ? "Views" : "View")
+                        </div>
+                        <div class="clear"></div>
+                        <div class="leftfloat">
+                            @if (Model.ArticlePages.CategoryId.Equals(8))
+                            {
+                                string versionLinks = string.Empty;
+                                string modelLinks = string.Empty;
+                                Dictionary<int, bool> dict = new Dictionary<int, bool>();
+                                foreach (var item in Model.ArticlePages.VehiclTagsList)
+                                {
+                                    string modelUrl = Carwale.Utility.ManageCarUrl.CreateModelUrl(item.MakeBase.MakeName, item.ModelBase.MaskingName);
+                                    if (!dict.ContainsKey(item.ModelBase.ModelId))
+                                    {
+                                        dict.Add(item.ModelBase.ModelId, true);
+                                        modelLinks += string.Format("{3}<a title='{0} {1}' href='{2}'>{1}</a>", item.MakeBase.MakeName, item.ModelBase.ModelName, modelUrl, modelLinks == string.Empty ? string.Empty : ", ");
+                                    }
+                                    if (item.VersionBase != null && item.VersionBase.ID > 0)
+                                    {
+                                        versionLinks += string.Format("{3}<a href='{0}{1}/'>{2}</a>", modelUrl, item.VersionBase.MaskingName, item.VersionBase.Name, versionLinks == string.Empty ? string.Empty : ", ");
+                                    }
+                                }
+                                <span>Car Tested: </span>@Html.Raw(modelLinks);
+                                                                              if (versionLinks != string.Empty)
+                                                                              {
+                                                                                <span>, Version: </span>@Html.Raw(versionLinks)
+                                                                              }
+                            }
+                            else
+                            {
+                                <span> A comparison road test of :</span>
+                                for (var i = 0; i < Model.ArticlePages.VehiclTagsList.Count; i++)
+                                {
+                                    <a title="@Model.ArticlePages.VehiclTagsList[i].MakeBase.MakeName @Model.ArticlePages.VehiclTagsList[i].ModelBase.ModelName Cars" href="/@UrlRewrite.FormatSpecial(Model.ArticlePages.VehiclTagsList[i].MakeBase.MakeName)-cars/@Model.ArticlePages.VehiclTagsList[i].ModelBase.MaskingName/">@Model.ArticlePages.VehiclTagsList[i].MakeBase.MakeName @Model.ArticlePages.VehiclTagsList[i].ModelBase.ModelName @Model.ArticlePages.VehiclTagsList[i].VersionBase.Name</a>
+                                    if (i != (Model.ArticlePages.VehiclTagsList.Count - 1))
+                                    {
+                                        <span> and </span>
+                                    }
+                                }
+                            }
+                        </div>
+                        <div class="clear"></div>
+                        <ul class="social margin-top15">
+                            <li style="float: left; width: 90px; height: 20px;">
+                                <iframe src="https://www.facebook.com/plugins/like.php?layout=button_count&show_faces=false&action=like&font&colorscheme=light&width=100&height=25&href=https://www.carwale.com@(ViewBag.Url)" scrolling="no" frameborder="0" style="border: none; overflow: hidden; width: 100px; height: 25px;" allowtransparency="true"></iframe>
+                            </li>
+                            <li style="float: left; width: 90px; height: 20px;">
+                                <iframe allowtransparency="true" frameborder="0" scrolling="no" src='https://platform.twitter.com/widgets/tweet_button.html?text=@ViewBag.TaggedMakes @ViewBag.TaggedModels Road Test&via=CarWale&url=https://www.carwale.com@(ViewBag.Url)&counturl=https://www.carwale.com@(ViewBag.Url)' style="width: 110px; height: 40px;"></iframe>
+                            </li>
+                            <li style="float: left; width: 90px; height: 20px;">
+                                <div class="g_plus">
+                                    <!-- Place this tag where you want the +1 button to render -->
+                                    <g:plusone size="medium" href="https://www.carwale.com@(ViewBag.Url)" callback="googlePlusCallBack" count="true"></g:plusone>
+                                    <!-- Place this tag after the last plusone tag -->
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div id="expert-review">
+                    @{
+                        int pageCounter = 0;
+                    }
+                    @foreach (var page in Model.ArticlePages.PageList)
+                    {
+                        pageCounter++;
+
+                        <div id="@Format.RemoveSpecialCharacters(page.PageName)-@Model.ArticlePages.BasicId" class="content-box-shadow content-inner-block-10 margin-bottom20">
+                            @if (pageCounter == 1 && Model.Videos != null && Model.Videos.Count > 0)
+                            {
+                                var video = Model.Videos.First();
+                                var vehicleList = Model.ArticlePages.VehiclTagsList;
+                                string carName = (vehicleList != null && vehicleList.Count > 0) ? string.Format("{0} {1}", vehicleList[0].MakeBase.MakeName, vehicleList[0].ModelBase.ModelName) : string.Empty;
+                                <iframe data-role="inview-imp" data-event="CWNonInteractive" data-action="video_impression" data-cat="desktop_expert_review_detail" data-label="@carName" data-video-url="@(video.VideoTitleUrl)" data-car-name="@carName" webkitallowfullscreen mozallowfullscreen allowfullscreen width="100%" height="360px" id="videoIframe" src="https://www.youtube.com/embed/@video.VideoId?rel=0&fs=1&enablejsapi=1&modestbranding=0&autoplay=true"></iframe>
+                            }
+                            @Html.Raw(page.Priority == 1 ? "<span class='first-page-start' basic='" + Model.ArticlePages.BasicId + "' idx='-1'></span>" : "")
+                            @Html.Raw(page.Priority == Model.ArticlePages.PageList.Count() ? "<span class='next-page-trigger' basic='" + Model.ArticlePages.BasicId + "'></span>" : "")
+                            <h2 class="font16">@page.PageName</h2>
+                            <div class="text-area-right font13 content-font">@Html.Raw(page.Content)</div>
+                        </div>
+                        @Html.Raw(page.Priority == Model.ArticlePages.PageList.Count() ? "<span class='last-page-end' basic='" + Model.ArticlePages.BasicId + "' idx='-1'></span>" : "")
+                    }
+                    <!--for photos code starts here-->
+                    <div id="photos-@Model.ArticlePages.BasicId" class="next-page-trigger @(Model.ArticlePages.ShowGallery?"":"hide")" basic="@Model.ArticlePages.BasicId">
+                        <div class="content-box-shadow content-inner-block-10 rounded-corner2 margin-top20">
+                            @*<a href='javascript:void(0)' class='font16 text-bold' id="photos-toggle-@Model.ArticlePages.BasicId" ><span>Show Photos</span><span class="hide">Hide Photos</span></a>*@
+                            <div id="article-photos-@Model.ArticlePages.BasicId" class="photos-slug" idx='-1'>
+                                <h2 class="font16 margin-bottom20">Photos<span class="fa fa-spinner fa-spin margin-left10"></span></h2>
+                                <div style="display:inline-block;">
+                                    <div data-bind="template: { name: 'article-photos', foreach: images,afterRender: galleryHandler }"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="related-articles" data-bind="template: { name: 'related-expert-review', foreach: articles, afterRender : loadgplus }"></div>
+        </div>
+        <div class="grid-4">
+            <div class="content-block-white">
+                @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_ATF_300x250.cshtml"); }
+            </div>
+            @if (Model.ArticlePages.VehiclTagsList.IsNotNullOrEmpty())
+            {
+                Html.RenderAction("PriceInOtherCities", "CarWidgets", new
+                {
+                    cityId = CookiesCustomers.MasterCityId,
+                    modelDetails = new CarModelDetails(),
+                    modelId = Model.ArticlePages.VehiclTagsList[0].ModelBase.ModelId
+                });
+            }
+
+            @if (Model.CarWidgetModel != null && Model.CarWidgetModel.UpcomingCars != null && Model.CarWidgetModel.UpcomingCars.Count > 0)
+            {
+                <div class="content-box-shadow margin-bottom20">
+                    @{ Html.RenderPartial("~/Views/Shared/FRQ/_PopularCarWidget.cshtml", Model.CarWidgetModel); }
+                </div>
+            }
+
+            <div class="content-box-shadow content-inner-block-10">
+                @{ Html.RenderPartial("~/Views/Shared/FRQ/_TipsAndAdvices.cshtml"); }
+            </div>
+            <aside>
+                <div class="ad-container ad-slot">
+                    <div id="floating-ad" class="content-box-shadow content-inner-block-5 margin-top20 ad-slot" style="min-width: 312px; display: block !important; ">
+                        <div class="text-right font11 text-medium-grey">Ad</div>
+                        @Helpers.GetAdBar("1514458400839", 300, 0, 0, 0, false, 0)
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+<div class="clear"></div>
+@section Styles{
+    <script type="application/ld+json">
+        {
+        "@@context":"http://schema.org",
+        "@@type":"Review",
+        "inLanguage":"English",
+        "headline":"@Model.ArticlePages.Title",
+        "description":"@Model.ArticlePages.Description",
+        @if (Model.ArticlePages.VehiclTagsList.Count > 0 && Model.ArticlePages.VehiclTagsList[0].MakeBase != null)
+        {
+            <text>
+            "itemReviewed":{
+            "@@type":"Thing",
+            "name":"@Model.ArticlePages.VehiclTagsList[0].MakeBase.MakeName @Model.ArticlePages.VehiclTagsList[0].ModelBase.ModelName"
+             },</text>
+        }
+        "datePublished":"@Model.ArticlePages.DisplayDate.ToString("MM/dd/yyyy")",
+        "dateModified":"@Model.ArticlePages.DisplayDate.ToString("MM/dd/yyyy")",
+        "url":"@string.Format("https://www.carwale.com{0}", Model.ArticlePages.ArticleUrl)",
+        "publisher":{
+        "@@type":"Organization",
+        "name":"CarWale",
+        "url":"https://www.carwale.com/",
+        "logo":{
+        "@@type":"ImageObject",
+        "url":"https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/cw-logo-v1.png",
+        "height":"60",
+        "width":"294"
+        }
+        },
+        "author":{
+        "@@type":"Person",
+        "name":"@Model.ArticlePages.AuthorName"
+        },
+        "image":{
+        "@@type":"ImageObject",
+        "url":"@string.Format("https://imgd.aeplcdn.com/{0}", Model.ArticlePages.LargePicUrl)",
+        "height":"361",
+        "width":"642"
+        }
+        }
+    </script>
+}
+
+

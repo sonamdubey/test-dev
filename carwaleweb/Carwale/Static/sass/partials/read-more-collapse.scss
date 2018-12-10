@@ -1,0 +1,48 @@
+﻿@import '../mixins/_variables.scss';
+
+.read-more-collapse-container {
+    position: relative;
+}
+
+.read-more-collapse-initial-text,
+.ellipsis-text,
+.read-more-collapse-button {
+    display: inline;
+    * {
+        display: inline;
+    }
+}
+
+.read-more-collapse-final-text {
+    display: none;
+}
+
+.read-more-collapse-link {
+    color: map-get($color-map, 'sky-blue');
+    cursor: pointer;
+	float: right;
+}
+
+.text-expanded {
+    .ellipsis-text {
+        display: none;
+    }
+    .read-more-collapse-initial-text {
+        display: inline;
+    }
+    .read-more-collapse-final-text {
+        display: inline;
+    }
+}
+
+.text-initial-hide {
+    .ellipsis-text {
+        display: none;
+    }
+    .read-more-collapse-initial-text {
+        display: none;
+    }
+    .read-more-collapse-final-text {
+        display: inline;
+    }
+}

@@ -1,0 +1,216 @@
+﻿@model Carwale.DTOs.Finance.FinancePageDTO
+@{
+    ViewBag.DeeplinkAlternatives = "/axis/";
+    ViewBag.Title = "Finance";
+    ViewBag.Description = "CarWale";
+    ViewBag.Keywords = "";
+    ViewBag.CustomJS = "~/Views/StaticPartials/Finance/AxisPageScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/Finance/AxisPageCss.cshtml";
+    ViewBag.Canonical = "https://www.carwale.com/finance";
+    Layout = ViewBag.hideNav ? "~/views/shared/m/_MLayoutApp.cshtml" : (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayout.cshtml" : "~/views/shared/_Layout.cshtml");
+    ViewBag.BodyClass = (ViewBag.isMobile != null && ViewBag.isMobile ? "cwm-body" : "cw-body");
+}
+
+
+@if (ViewBag.isMobile == true)
+{
+    <div id="cwmLoadingIcon" class="hide">
+        <div class="m-loading-popup">
+            <span class="m-loading-icon"></span>
+        </div>
+    </div>
+}
+
+@if (ViewBag.isMobile != true)
+{
+    <div id="loadingCarImg" class="hide">
+        <div class="loading-popup">
+            <span class="loading-icon"></span>
+        </div>
+    </div>
+
+
+}
+<section class="container loan-section">
+    <div class="page-title">
+        <h2>Please fill in a few details to check your loan eligibility</h2>
+    </div>
+
+    <div class="page-title form-page-title hide">
+        <h2>Apply for a Axis Bank Car Loan</h2>
+        <p>Get upto 80% of vehicle’s value as loan! Fill in your details and our finance partner will get in touch with you for processing your loan.</p>
+    </div>
+    <div class="page-wrap">
+        <!-- type of employment code start -->
+        <div id="employmentType" class="page">
+            <div class="grid-12 alpha omega text-center">
+                <h2 class="text-black margin-bottom20 question-title">What is your profession type?</h2>
+                <div class="clear"></div>
+                <div class="mcq-container">
+                    <p class="optional-unit">
+                        <input type="radio" id="salaried" name="profession-group" value="Salaried">
+                        <label for="salaried">Salaried</label>
+                    </p>
+                    <p class="optional-unit margin-bottom40">
+                        <input type="radio" id="self-employed" name="profession-group" value="Self Employed">
+                        <label for="self-employed">Self Employed</label>
+                    </p>
+                    <div class="error font13 margin-top5 hide error-text-position"></div>
+                    <div class="btn-unit next-button" id="profession-btn">
+                        <a class="btn btn-orange">Next</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- type of employment code end -->
+        <!-- monthly salary code start -->
+        <div id="salaryRangeType" class="page hide">
+            <div class="grid-12 alpha omega text-center">
+                <h2 class="text-black margin-top25 margin-bottom20 question-title">My monthly salary is?</h2>
+                <div class="clear"></div>
+                <div class="mcq-container">
+                    <p class="optional-unit">
+                        <input type="radio" id="below" name="sal-group">
+                        <label for="below">&lt; 50,000 p.m.</label>
+                    </p>
+                    <p class="optional-unit">
+                        <input type="radio" id="average" name="sal-group">
+                        <label for="average">50,000 - 1,00,000 p.m.</label>
+                    </p>
+                    <p class="optional-unit  margin-bottom40">
+                        <input type="radio" id="above" name="sal-group">
+                        <label for="above">&gt; 1,00,000 p.m.</label>
+                    </p>
+                    <div class="error font13 margin-top5 hide error-text-position"></div>
+                    <div class="btn-unit next-button" id="monthly-sal-btn">
+                        <a class="btn btn-orange">Next</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- monthly salary code end -->
+        <!-- Personal detail code start -->
+        <div id="personalDetail" class="page form hide">
+            <h2 class="text-black margin-top25 margin-bottom20 question-title">Provide basic details</h2>
+            <div class="grid-12 alpha omega">
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <div class="palceholder">
+                        <label for="name">Name</label>
+                        <span class="star">*</span>
+                    </div>
+                    <input type="text" id="txtFirstName" class="input-txt padding-left30 font14" maxlength="50" />
+                    <div id="spntxtFirstName" class="error font13 margin-top5 hide">Please enter name.</div>
+                </fieldset>
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <div class="palceholder">
+                        <label for="name">Mobile Number</label>
+                        <span class="star">*</span>
+                    </div>
+                    <input type="tel" maxlength="10" id="txtMobile" class="input-txt padding-left30 font14" />
+                    <div id="spntxtMobile" class="error font13 margin-top5 hide">Please enter mobile number.</div>
+                </fieldset>
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <div class="palceholder">
+                        <label for="name">Email</label>
+                        <span class="star">*</span>
+                    </div>
+                    <input type="email" id="txtEmail" class="input-txt padding-left30 font14" maxlength="50" />
+                    <div id="spntxtEmail" class="error font13 margin-top5 hide">Please enter email.</div>
+                </fieldset>
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <div class="palceholder city-placeholder">
+                        <label for="name">City</label>
+                        <span class="star">*</span>
+                    </div>
+                    <input type="text" id="personCity" class="input-txt padding-left30 font14" maxlength="50" />
+                    <div id="spntxtCity" class="font13 margin-top5 error hide">Please enter city.</div>
+                </fieldset>
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <select id="drpMake" class="select-box">
+                    </select>
+                    <div id="spnDrpMake" class="error font13 margin-top5 hide">Please select Make.</div>
+                </fieldset>
+                <fieldset class="position-rel margin-bottom25 font16">
+                    <select id="drpModel" class="select-box">
+                        <option value="-1" class="text-medium-grey">Model</option>
+                    </select>
+                    <div id="spnDrpModel" class="error font13 margin-top5 hide">Please select Model.</div>
+                </fieldset>
+
+                <div class="btn-unit" id="form-submit">
+                    <a href="javascript:void(0)" class="btn btn-orange form-cont-btn">Submit</a>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- Personal detail code end -->
+
+        <div id="bankbazaar" class="page text-center text-bold hide">
+            <p class="popup-text">
+                <img src="https://imgd.aeplcdn.com/0x0/cw/es/specials/axis/bankbazaar-logo.svg" alt="Bank Bazaar" title="Bank Bazaar">
+                Sorry, you don't seem to be eligible for the loan. Redirecting to our finance partner Bankbazaar in 5 seconds.
+            </p>
+            <div class="cw-page-link"><a href="/">Go to CarWale Homepage</a></div>
+        </div>
+    </div>
+    <!-- float-button code start -->
+    @if (ViewBag.isMobile != true)
+    {
+        <a id="back" href="javascript:void(0)" class="cwsprite back-btn btn-disable"></a>
+        <a id="next" href="javascript:void(0)" class ="cwsprite next-btn btn-disable"></a>
+    }
+    <!-- float-button code end -->
+</section>
+
+<section class="container how-it-works-section hide">
+    <!-- How it works code start -->
+    <section class="margin-top15 margin-bottom30">
+        <div class="container">
+            <div class="grid-12 alpha omega how-works-container">
+                <div class="content-box-shadow">
+                    <h2 class="page-subtitle">How it works</h2>
+                    <ul>
+                        <li class="how-works-container__li">
+                            <span class="how-works__image-unit loan-form-icon round-border"></span>
+                            <div class="how-works__content">
+                                <h3 class="margin-bottom10 margin-top20">Provide your details</h3>
+                                <p>Just fill in your basic details online</p>
+                            </div>
+                        </li>
+                        <li class="how-works-container__li">
+                            <span class="how-works__image-unit loan-contact-icon round-border"></span>
+                            <div class="how-works__content">
+                                <h3 class="margin-bottom10 margin-top20">Contact our partner</h3>
+                                <p>Contact our finance partner to submit documents and process your loan</p>
+                            </div>
+                        </li>
+                        <li class="how-works-container__li">
+                            <span class="how-works__image-unit loan-approval-icon round-border"></span>
+                            <div class="how-works__content">
+                                <h3 class="margin-bottom10 margin-top20">Get your loan</h3>
+                                <p>Our finance partner will process the loan and provide a loan based on your eligibility</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <!-- How it works code end -->
+</section>
+<div id="blackOut-window" class="hide"></div>
+<section class="popup-container hide">
+    <span class="cross-lg-dark-grey"></span>
+    <div class="popup_content">
+        <p class="popup-text">Thank you for showing your interest in Axis Bank Car Loan. Our executive will soon connect with you.</p>
+        <div class="cw-page-link" id="popup-btn">
+           <a href="/">Go to CarWale Homepage</a>
+        </div>
+    </div>
+</section>

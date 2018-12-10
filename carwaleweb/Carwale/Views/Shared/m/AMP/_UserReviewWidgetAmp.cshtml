@@ -1,0 +1,39 @@
+﻿@model List<Carwale.Entity.CMS.UserReviews.UserReviewEntity>
+@using Carwale.Utility;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.UI.Common;
+@if (Model != null && Model.Count > 0)
+{
+<h2 class="section-heading">@ViewBag.ModelName User Reviews</h2>
+<ul>
+    @foreach (var userReview in Model)
+    {
+    <li>
+        <article>
+            <a title="User Review of @userReview.MakeName @userReview.ModelName-@userReview.Title"
+               class="content-box-shadow user-review-box" href="/m/@UrlRewrite.FormatSpecial(userReview.MakeName)-cars/@userReview.MaskingName/userreviews/@userReview.ReviewId/">
+                <header class="margin-bottom5">
+                    <h3 class="text-bold font13">@userReview.Title</h3>
+                </header>
+                <div class="margin-bottom5">@userReview.ReviewDate.ConvertDateToDays() | @(string.IsNullOrEmpty(userReview.HandleName) ? userReview.CustomerName : userReview.HandleName)</div>
+                  @if (!string.IsNullOrWhiteSpace(userReview.ReviewRate))
+                  {
+                  <span class="rating-sprite @MobileWeb.Common.CommonOpn.GetRateImage(Convert.ToDouble(userReview.ReviewRate))"></span>
+                  }
+                  <span class="inline-block">@userReview.Comments Comments</span>
+            </a>
+        </article>
+    </li>
+    }    
+</ul>
+<a class="big-red-button" href="@ManageCarUrl.CreateRatingPageUrl(ViewBag.ModelId,ViewBag.VersionId != null ? ViewBag.VersionId : -1)">
+    <span class="font14 text-bold">Write Review</span>
+</a>
+if (!ViewBag.IsVersionPage)
+{
+<a class="block text-center margin-bottom10" href="/m/@UrlRewrite.FormatSpecial(Model.First().MakeName)-cars/@Model.First().MaskingName/userreviews/">
+    <span class="margin-top5 inline-block text-bold">View All @ViewBag.ModelName User Reviews</span>&nbsp;
+    <span class="text-red font20">»</span>
+</a>
+}
+}

@@ -1,0 +1,209 @@
+#navDrawer {
+	@include vendor-prefix('transform', translate(-260px, 0));
+	@include vendor-prefix('transition', transform .4s ease);
+	width: 260px;
+	background-color: color('white');
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	overflow-y: scroll;
+	z-index: 5;
+	will-change: transform;
+}
+
+.nav-blackout-window {
+	@include blackout-window;
+}
+
+.nav__list {
+	padding-top: 20px;
+}
+
+.nav-list-item__target,
+.nav__nested-list a {
+	color: #1a1a1a;
+	font-size: 14px;
+	display: block;
+	min-height: 48px;
+	padding-top: 6px;
+	padding-left: 15px;
+	position: relative;
+}
+
+.nav__nested-list {
+	display: none;
+	border-top: 1px solid #ebecec;
+	border-bottom: 1px solid #ebecec;
+	background: #f6f7f7;
+
+	a {
+		padding-top: 13px;
+		padding-left: 50px;
+	}
+}
+
+%menu-icons {
+	width: 26px;
+	height: 26px;
+	display: inline-block;
+	margin-right: 10px;
+	top: 5px;
+	position: relative;
+}
+
+.home-icon {
+	@extend %menu-icons;
+	@include home-icon;
+}
+
+.newCars-icon {
+	@extend %menu-icons;
+	@include newCars-icon;
+}
+
+.usedCars-icon {
+	@extend %menu-icons;
+	@include usedCars-icon;
+}
+
+.sellCars-icon {
+	@extend %menu-icons;
+	@include sellCars-icon;
+}
+
+.reviews-icon {
+	@extend %menu-icons;
+	@include reviews-icon;
+}
+
+.insurance-icon {
+	@extend %menu-icons;
+	@include insurance-icon;
+}
+
+.nav-loan-icon {
+	@extend %menu-icons;
+	@include nav-loan-icon;
+}
+
+.specials-icon {
+	@extend %menu-icons;
+	@include specials-icon;
+}
+
+.new-red-tag-icon {
+	width: 36px;
+	height: 16px;
+	display: inline-block;
+	@include new-tag-icon;
+	position: relative;
+	top: 2px;
+}
+
+.nav-list-item__target {
+	.nav-loan-icon {
+		opacity: .6;
+	}
+}
+
+.sponsored-superscript-text {
+	font-size: 9px;
+	padding: 1px 3px;
+	background: #b9c1c4;
+	@include vendor-prefix('border-radius', 3px);
+	margin-left: 2px;
+	color: color('white');
+	position: relative;
+	top: -3px;
+}
+
+.nav-list__item {
+	.new-red-tag-icon {
+		margin-left: 5px;
+	}
+}
+
+.app-menu--nav-drawer {
+	&.app-download__content {
+		border-top: 1px solid #ccc;
+		padding: 10px 0 15px 15px;
+		background: #f5f5f5;
+	}
+
+	.app-content__title {
+		color: $base-color;
+	}
+}
+
+// navigation contact
+.list-item__contact {
+	padding-bottom: 10px;
+}
+
+.nav-content__content {
+	padding-left: 10px;
+	display: inline-block;
+	vertical-align: top;
+	line-height: 1.43;
+}
+
+.contact-item__number-label {
+	font-size: 12px;
+	color: #666;
+	padding-left: 5px;
+}
+
+.contact-item__timing {
+	font-size: 12px;
+}
+
+.nav-contact-icon {
+	width: 12px;
+	height: 12px;
+	@include call-sm-black;
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	top: 2px;
+}
+
+.nav-arrow-icon {
+	@include arrow-down-icon;
+	@include vendor-prefix('transition', all .2s linear);
+	width: 14px;
+	height: 8px;
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	will-change: transform;
+}
+
+
+// active state
+.nav--active {
+	.nav-blackout-window {
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	#navDrawer {
+		@include vendor-prefix('transform', translate(0, 0));
+	}
+}
+
+// navigation active state
+.item--active {
+	.nav-item__title {
+		font-weight: $font-bold;
+	}
+
+	.nav__nested-list {
+		display: block;
+	}
+
+	.nav-arrow-icon {
+		@include vendor-prefix('transform', rotate(180deg));
+	}
+}

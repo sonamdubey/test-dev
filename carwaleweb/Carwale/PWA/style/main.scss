@@ -1,0 +1,50 @@
+// Core variables and mixins
+@import "scss/partials/utils";
+@import "scss/partials/mixins";
+@import "scss/partials/variables";
+@import "scss/partials/typography";
+@import "scss/partials/button";
+@import "scss/partials/input";
+
+// Reset and dependencies
+@import "scss/normalize";
+
+// Core CSS
+@import 'scss/base';
+
+$isMobile: true;
+
+@import 'scss/header';
+
+// Components
+@import "scss/ripple";
+@include toast-box();
+
+// location
+@import 'location';
+
+// budget
+@import 'scss/budget';
+@import 'scss/rheostat';
+
+@import 'scss/find-car-filter-footer';
+
+// body type
+@import 'scss/body-type';
+@import 'scss/body-type-know-more';
+
+// fuel type
+@import 'scss/fuel-type';
+
+// make type
+@import 'scss/make';
+
+// listing
+
+// toolbar
+@import 'scss/listing';
+@import 'scss/filter';
+@import 'scss/refine-result';
+
+@import 'scss/navigation-drawer';
+@import 'scss/footer';

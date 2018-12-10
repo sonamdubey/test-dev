@@ -1,0 +1,14 @@
+/**
+ *
+ * @parameters:
+ * $class-name: Default name
+ * $class-prefix: Class prefix
+ */
+@function classNameGeneration($class-name,$class-prefix: '') {
+    @if ($class-prefix != ''){
+            @return $class-prefix+ '-' + $class-name;
+    }
+    @else {
+        @return $class-name;
+    }
+}

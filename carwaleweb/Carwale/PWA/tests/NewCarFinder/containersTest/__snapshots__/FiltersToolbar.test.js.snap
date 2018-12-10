@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for FiltersToolbar component should render snapshot 1`] = `
+<div
+  className="filters__toolbar-placeholder"
+>
+  <div
+    className="filters-toolbar__content"
+  >
+    <div
+      className="toolbar--relative"
+    >
+      <div
+        className="filters-toolbar-list__content"
+      >
+        <ul
+          className="filter-toolbar__list"
+        >
+          <li
+            className="filter-toolbar-list__item"
+            key="Budget"
+          >
+            <div
+              className="btn-tab"
+              data-filter-type="Budget"
+              onClick={[Function]}
+            >
+              <span
+                className="tab__key"
+              >
+                Budget
+              </span>
+              <span
+                className="tab__value"
+              >
+                ₹ 5 lakh
+              </span>
+            </div>
+          </li>
+          <li
+            className="filter-toolbar-list__item"
+            key="Body Type"
+          >
+            <div
+              className="btn-tab"
+              data-filter-type="Body Type"
+              onClick={[Function]}
+            >
+              <span
+                className="tab__key"
+              >
+                Body Type
+              </span>
+              <span
+                className="tab__value"
+              >
+                Sedan, Coupe
+              </span>
+            </div>
+          </li>
+          <li
+            className="filter-toolbar-list__item"
+            key="Fuel Type"
+          >
+            <div
+              className="btn-tab"
+              data-filter-type="Fuel Type"
+              onClick={[Function]}
+            >
+              <span
+                className="tab__key"
+              >
+                Fuel Type
+              </span>
+              <span
+                className="tab__value"
+              >
+                Diesel, Petrol
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div
+        className="filter__edit"
+        onClick={[Function]}
+      >
+        Edit
+      </div>
+    </div>
+  </div>
+</div>
+`;

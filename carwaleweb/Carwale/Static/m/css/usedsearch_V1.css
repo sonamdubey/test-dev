@@ -1,0 +1,1382 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.filter-sort-div {
+    display: table;
+    width: 100%;
+    border-top: solid 1px #d9d9d9;
+    border-bottom: solid 1px #d9d9d9;
+    background: #fff;
+}
+
+.margin-bottom90 {
+    margin-bottom: 90px;
+}
+
+.margin-top-minus-3 {
+    margin-top: -3px;
+}
+
+.block {
+    display: block;
+}
+
+.table {
+    display: table;
+    width: 100%;
+}
+
+.table-cell {
+    display: table-cell;
+    vertical-align: top;
+}
+
+a.text-default {
+    color: #565a5c;
+    text-decoration: none;
+    position: relative;
+}
+
+.search-list li .dealer-name {
+    width: 140px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.search-list li.adslotUsedMsiteSearch {
+    background: none;
+    box-shadow: none;
+    width: 100%;
+}
+
+.search-list h2 a {
+    color: #444444;
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    max-width: 768px;
+    text-decoration: none;
+}
+
+.search-call-ic {
+    font-size: 18px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+.popup-suggestion-box li .callBtn {
+    padding-left: 30px;
+}
+
+.popup-suggestion-box li .search-call-ic {
+    top: 7px;
+}
+
+.seller-form li {
+    font-size: 14px;
+    padding: 10px 0;
+    border-top: 1px solid #ccc;
+}
+
+    .seller-form li:first-child {
+        border-top: none;
+    }
+
+.search-list li:first-child .recommendedCarsPopupBtn .fa-angle-double-right, .search-list li:last-child .recommendedCarsPopupBtn .fa-angle-double-right {
+    position: relative;
+    left: 0;
+    animation-name: similarCarsArrow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes similarCarsArrow {
+    50% {
+        left: 10px;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+
+/* get seller details popup css */
+.get-seller-details {
+    background: #ffffff none repeat scroll 0 0;
+    bottom: 0;
+    left: 0;
+    max-height: 85%;
+    overflow-y: scroll;
+    padding: 10px;
+    position: fixed;
+    right: 0;
+    z-index: 999999;
+    display: none;
+}
+
+.heading {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 80%;
+}
+
+.coachmark .btn-green-sm {
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    padding: 2px 12px;
+    width: 100%;
+}
+
+.sort-filter-div a.noMoreTips {
+    text-align: left;
+    color: #0288d1;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.width30 {
+    width: 30%;
+}
+
+.width25 {
+    width: 25%;
+}
+
+.width15 {
+    width: 15%;
+}
+
+.back-long-arrow-detail {
+    background-position: -149px -96px;
+    width: 30px;
+    height: 29px;
+}
+
+#simillarCarsPopupBackArrow {
+    display: inline;
+}
+/* fliter, email alert, sort and shortlist classes */
+#sort-div, #shortlist-div, #alert-div, #carDetails, #showSimilarCar, #financeIframe {
+    background: #f5f5f5;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 5;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+.top-corner {
+    background: #565a5c;
+    color: #fff;
+    font-size: 18px;
+    padding: 3px 7px 7px 0;
+}
+
+    .top-corner .back-long-arrow-left-white {
+        position: relative;
+        top: 3px;
+    }
+
+.similarCarsHeader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 6;
+    min-height: 36px;
+}
+
+.sort-list li {
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/radio-unchecked.png') no-repeat 12px 17px;
+    color: #333;
+    font-size: 14px;
+    padding: 15px 15px 15px 50px;
+    border-bottom: 1px solid #ccc;
+}
+
+.sort-list li.active {
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/radio-checked.png') no-repeat 12px 17px;
+}
+
+.apply-filters, .set-alert-form {
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10000;
+}
+
+.set-alert-form {
+    background: #ccc;
+}
+
+.city-car-filter li {
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    padding: 15px 10px;
+    color: #333333;
+}
+
+    .city-car-filter li:hover, .version-selection li:hover {
+        background: #ededed;
+    }
+
+.version-selection li a {
+    display: block;
+    text-decoration: none;
+    background: url('https://imgd.aeplcdn.com/0x0/cw/design15/m/inputUnchecked.png') no-repeat 12px 17px;
+    padding: 15px 10px 15px 40px;
+    color: #333;
+    border-bottom: 1px solid #ccc;
+}
+
+.version-selection li a.active {
+    background: url('https://imgd.aeplcdn.com/0x0/cw/design15/m/inputChecked.png') no-repeat 12px 17px;
+}
+
+#saved-alerts li {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+.alert-duration li {
+    display: inline-block;
+    font-size: 14px;
+    padding: 10px 10px 10px 25px;
+}
+
+.search-loading-pic {
+    position: fixed;
+    top: 50%;
+    left: 45%;
+    z-index: 1;
+}
+
+.cardetailsPosition {
+    z-index: 1 !important;
+}
+/* shortlist css starts here */
+.used-shortlist-main li {
+    background: #fff;
+    padding: 10px 20px 10px 10px;
+    position: relative;
+    margin-bottom: 15px;
+    -moz-box-shadow: 0 4px 4px #e5e5e5;
+    -webkit-box-shadow: 0 4px 4px #e5e5e5;
+    -o-box-shadow: 0 4px 4px #e5e5e5;
+    -ms-box-shadow: 0 4px 4px #e5e5e5;
+    box-shadow: 0 4px 4px #e5e5e5;
+}
+
+.shortlist-thumb, .shortlist-details {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.shortlist-thumb {
+    width: 144px;
+    height: 80px;
+    overflow: hidden;
+}
+
+    .shortlist-thumb img {
+        width: 144px;
+        overflow: hidden;
+    }
+
+.non-clickable-area {
+    width: 50px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* or text css */
+.or-text:before {
+    border-top: 1px solid #ccc;
+    content: "";
+    left: 0;
+    position: absolute;
+    top: 15px;
+    width: 100%;
+}
+
+.or-text div {
+    background: #fff none repeat scroll 0 0;
+    display: inline-block;
+    position: relative;
+    top: 6px;
+    padding: 0 4px;
+}
+
+.or-text {
+    position: relative;
+    margin: 0 auto 10px;
+    background-color: #fff;
+    font-size: 11px;
+    padding: 3px;
+    text-align: center;
+    top: 7px;
+    z-index: 2;
+    line-height: 1.1;
+}
+
+    .or-text span {
+        height: 20px;
+        width: 20px;
+        margin: 0 auto;
+        font-size: 14px;
+        color: #999;
+        position: relative;
+    }
+
+/* used search near by cities tabs */
+.usedsearch-tabs {
+    display: inline-block;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0 0 10px;
+}
+
+.usedsearch-tabs li {
+    display: block;
+    float: left;
+    width: auto;
+    color: #666;
+    padding: 0 2px;
+    border-left: 1px solid #ccc;
+}
+
+.usedsearch-tabs li a {
+    display: block;
+    padding: 0px 5px;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.usedsearch-tabs li:first-child {
+    border-left: 0 none;
+}
+
+.usedsearch-tabs li a.active-nav {
+    border-bottom: 3px solid #ef3f30;
+    color: #333;
+    text-decoration: none;
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px auto 20px;
+    width: 152px;
+}
+
+.pagination .pagiLink {
+    font-size: 14px;
+    padding: 7px 20px;
+    background: url("https://imgd.aeplcdn.com/0x0/cw/design15/m/pagination-bg.jpg") repeat-x scroll 0px 0px #F5F1F2;
+    border: 1px solid #E2E2E2;
+    border-radius: 5px;
+    color: #333;
+    margin: 0px 1px 0;
+}
+/* used search sprite */
+.cwm-usedcar {
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/cwm-usedcar.png?201611251040004223') no-repeat 0px 0px;
+    display: inline-block;
+}
+
+.sort-icon {
+    background-position: -23px 0;
+    height: 12px;
+    width: 10px;
+    margin-right: 5px;
+}
+
+.filter-icon {
+    background-position: 0 0;
+    height: 16px;
+    width: 14px;
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
+}
+
+.featured-icon {
+    background-position: -96px -26px;
+    height: 20px;
+    width: 72px;
+}
+
+.guarantee-icon {
+    background-position: 0px -26px;
+    height: 25px;
+    width: 86px;
+}
+
+.shortlist-icon {
+    background-position: 1px -176px;
+    height: 20px;
+    width: 26px;
+    z-index: 1;
+}
+
+.shortlist-icon.active, .shortlist-icon:hover {
+    background-position: -36px -177px;
+    height: 20px;
+    width: 24px;
+}
+
+.alert-icon {
+    background-position: -97px -178px;
+    width: 21px;
+    height: 20px;
+    position: relative;
+    top: 4px;
+}
+
+.alert-icon-lg {
+    background-position: -129px -178px;
+    width: 52px;
+    height: 47px;
+}
+
+.edit-icon {
+    background-position: 0 -209px;
+    width: 14px;
+    height: 16px;
+    position: relative;
+    top: 3px;
+}
+
+.delete-icon {
+    background-position: -24px -209px;
+    width: 15px;
+    height: 16px;
+    position: relative;
+    top: 3px;
+}
+
+.go-top-icon {
+    width: 33px;
+    height: 33px;
+    display: block;
+    background-color: #00afa0;
+    border-radius: 50%;
+}
+
+.go-top-icon:before, .go-top-icon:after {
+  content: '';
+  width: 12px;
+  height: 2px;
+  background-color: white;
+  display: inline-block;
+  position: absolute;
+  border-radius: 30px;
+}
+.go-top-icon:before {
+    top: 25px;
+    right: 24px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.go-top-icon:after {
+    top: 25px;
+    right: 17px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* car location css */
+a.carLocation {
+    display: table;
+    color: #565a5c;
+    text-decoration: none;
+}
+
+.carlocationTxt, a.carLocation .car-location-ic {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.carsinCity {
+    margin: 15px 0 20px;
+    -moz-box-shadow: 0 1px 2px #e0e0e0;
+    -webkit-box-shadow: 0 1px 2px #e0e0e0;
+    -o-box-shadow: 0 1px 2px #e0e0e0;
+    -ms-box-shadow: 0 1px 2px #e0e0e0;
+    box-shadow: 0 1px 2px #e0e0e0;
+}
+
+/*--Ownership--*/
+a .first-gray {
+    background-position: 0 -303px;
+    width: 22px;
+    height: 23px;
+}
+
+.first-gray.active-blue {
+    background-position: 0 -335px;
+}
+
+a .second-gray {
+    background-position: 0 -367px;
+    width: 31px;
+    height: 23px;
+}
+
+.second-gray.active-blue {
+    background-position: 0 -399px;
+}
+
+a .third-gray {
+    background-position: 0 -431px;
+    width: 45px;
+    height: 23px;
+}
+
+.third-gray.active-blue {
+    background-position: 0 -463px;
+}
+
+a .unregistered-gray {
+    background-position: 0 -495px;
+    width: 26px;
+    height: 26px;
+}
+
+.unregistered-gray.active-blue {
+    background-position: 0 -530px;
+}
+/**********************Search page new slug css starts here******************************/
+/************************************************************************/
+.filter-sort-div, .seller-details {
+    position: static;
+}
+
+#sort-by-div, #divForPopup, .popup_layer {
+    position: fixed;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #f5f5f5;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+.btn-green {
+    background: #62a507;
+    text-align: center;
+    margin: 0 auto;
+    padding: 8px 12px;
+}
+
+.cwsprite {
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/cwsprite.png?201609291745154683') no-repeat;
+    display: inline-block;
+}
+
+#verfiyError {
+}
+
+#verfiyError[data-role="popup"] {
+    background: #ffffff;
+}
+
+#verfiyError[data-role="popup"] [data-role="header"] {
+    background: #f5f5f5;
+    color: #121212;
+    font-size: 14px;
+    margin-bottom: 15px;
+    height: auto;
+}
+
+#verfiyError[data-role="popup"] [data-role="header"] .error-image {
+    display: block;
+    margin: 10px auto 0;
+    width: 75px;
+    height: 71px;
+    background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/seller-details-sprite.png?v=281020151119") no-repeat scroll -11px -179px;
+}
+
+#verfiyError[data-role="popup"] [data-role="header"] h3 {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+#verfiyError[data-role="popup"] [data-role="content"] .error {
+    color: #121212;
+}
+
+#verfiyError[data-role="popup"] [data-role="button"] {
+    background: #f04031;
+    color: #ffffff;
+    width: 50%;
+    margin: 20px auto;
+}
+
+
+#cwmLoadingIcon {
+    top: 10%;
+    right: 30%;
+}
+
+.block {
+    display: block;
+}
+
+.z-index2 {
+    z-index: 2;
+}
+
+.soldout-content {
+    font-size: 13px;
+    font-family: 'LatoWeb', sans-serif, Arial;
+    text-align: center;
+    background: #F9F3D3;
+    padding: 10px 0;
+}
+
+#verfiyError .error {
+    font-size: 13px;
+    font-family: 'LatoWeb', sans-serif, Arial;
+}
+
+.usedsearch-car-item a:hover {
+    text-decoration: none;
+}
+
+.backArrowMain {
+    cursor: pointer;
+    padding: 10px;
+}
+
+.detailBackarrow {
+    padding-right: 40px;
+}
+
+.detail-ui-corner-top {
+    background: #0e405b;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    color: #fff;
+    font-size: 18px;
+    min-height: 44px;
+}
+
+.popup-loading-pic {
+    z-index: 0;
+}
+
+#detailPage {
+    position: relative;
+    z-index: 2;
+    margin: 44px 0 0;
+}
+
+/***************************************Search page new buyer process html css ends here*********************************************************/
+#manufacturerSelection, ul.makeSelection li, #btnMakeBack, #btnModelBack, #modelListing li a, #chkAllModels, #carLabel span.close-box, #btnCityBack, #citySelection, #popupCityTextBox, #popupCityList li, #nearbyCitiesTab a, #btnNext, #btnPrev, #btnFilter, #btnSort, #btnMoreFilter, #additional li, #sellerType li, #more-filters-ul a.moreFilterIcons, #sortFilter li, #btnSubmit, #btnSortBack {
+    cursor: pointer;
+}
+
+/***************************************Timeout Popup *************************************************************************************/
+.timeout-popup {
+    background: #fff;
+    position: fixed;
+    left: 5%;
+    right: 5%;
+    top: 30%;
+    bottom: 30%;
+    margin: auto;
+    z-index: 100;
+    overflow-y: scroll;
+    padding: 10px;
+    z-index: 5000;
+}
+
+#modelListing.popup_content {
+    padding-bottom: 69px;
+}
+
+#gotoTop {
+    position: fixed;
+    top: 50px;
+    padding: 10px;
+    z-index: 2;
+}
+/* similar cars css */
+.viewDetailsMain {
+    height: 37px;
+}
+
+    .viewDetailsMain .similarCars-details {
+        position: absolute;
+        font-size: 14px;
+        z-index: 3;
+    }
+
+    .viewDetailsMain .callBtn {
+        position: absolute;
+        left: 190px;
+        top: 0px;
+        font-size: 14px;
+    }
+
+    .viewDetailsMain .callBtnLeft {
+        left: 0;
+    }
+
+.cp-logo-9 {
+    background: white url('https://imgd.aeplcdn.com/0x0/cw/static/used/autovista-logo.png?=v01032018') center no-repeat;
+}
+
+.cp-logo-10 {
+    background: white url('https://imgd.aeplcdn.com/0x0/cw/static/used/classic-motors-logo.png?=v01032018') center no-repeat;
+}
+
+.cp-logo-11 {
+    background: white url('https://imgd.aeplcdn.com/0x0/cw/static/used/mrcar-logo.jpg?=v08032018') center no-repeat;
+}
+
+.cp-logo-12 {
+    background: white url('https://imgd.aeplcdn.com/0x0/cw/static/used/modi-cars.png?=v01032018') center no-repeat;
+}
+
+.semibold {
+    font-weight: 700;
+}
+/* Certification Score css ends here */
+
+.valuation-result-section {
+    background: #f5f5f5;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 10;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+.evaluate-back-text {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.valuationHeader {
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 6;
+    min-height: 36px;
+}
+
+.valuationHeader #evaluateResultPopupBackArrow {
+    display: inline;
+}
+
+.font15 {
+    font-size: 15px;
+}
+
+.usedsearch-car-item .left-side-text-emi a:hover {
+    text-decoration: underline;
+}
+
+.tyre-home-carousel .swiper-slide {
+    height: 345px;
+}
+
+.tyre-tag-type {
+    background: #26536a;
+    display: inline-block;
+    color: #fff;
+    padding: 4px 12px 5px 10px;
+    position: absolute;
+    left: 0;
+    top: 140px;
+    border-radius: 0 15px 15px 0;
+}
+
+/* otp popup start */
+.upper-box__title {
+    font-size: 18px;
+    color: #1a1a1a;
+    padding-bottom: 10px;
+    font-weight: 700;
+}
+
+.otp__error {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 10px;
+    color: red;
+    font-size: 12px;
+}
+
+.resend-otp-label {
+    font-size: 12px;
+    color: #0288d1;
+    text-decoration: underline;
+    margin-top: 10px;
+    float: right;
+    cursor: pointer;
+}
+
+    .resend-otp-label.counter--active,
+    .resend-otp-label.otp-status--done {
+        color: #a8afb3;
+        pointer-events: none;
+    }
+/* otp popup end */
+
+/* get seller details name start */
+.certificationPdfScreen .buyer-pro-btn,
+#getSellerDetailsForm .buyer-pro-btn {
+    position: relative;
+}
+
+#verifyErrorMssg .message-item {
+    display: block;
+}
+
+#verifyErrorMssg .message-item:before {
+    content: '\2022';
+    margin-right: 2px;
+}
+/* get seller details name end */
+.top-rated-seller-tag {
+    top: 0;
+    width: initial;
+    position: relative;
+    color: #565a5c;
+    vertical-align: middle;
+    display: inline-block;
+    cursor: pointer;
+}
+.car-details-div .top-rated-seller-tag {
+    padding-left: 10px;
+}
+.margin-top0 {
+    margin-top: 0;
+}
+.car-details-div {
+    display: table-cell;
+    line-height: 17px;
+}
+.tag-in-table {
+    margin: 0;
+    padding-left: 5px;
+}
+
+.top-seller-wrapper {
+    float: right;
+}
+
+.top-rated-seller-tag:before {
+    content: '';
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/top-rated-seller-tag.svg') no-repeat;
+    width: 20px;
+    height: 24px;
+    background-size: 13px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 3px;
+}
+
+#seller-Name-div .seller-Person {
+    width: 45%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+}
+
+#seller-Name-div .top-rated-seller-tag {
+    padding-left: 30px;
+    position: relative;
+    color: #82888b;
+    top: -15px;
+    width: initial;
+}
+
+@media screen and (min-width: 375px) {
+    .trim-address-line {
+        max-width: 225px;
+    }
+}
+@media screen and (min-width:425px) {
+    .trim-address-line {
+        max-width: 275px;
+    }
+}
+@media screen and (max-width:359px) {
+    #seller-Name-div .top-rated-seller-tag,
+    .top-rated-seller-tag {
+        padding-left: 7px;
+        font-size: 13px;
+    }
+}
+    /*
+    Missed Call CSS
+*/
+.missed-call-wrapper {
+    padding: 20px 10px 0;
+}
+
+.or-divider {
+    position: relative;
+    border-bottom: dotted 1px #e2e2e2;
+}
+
+.or-divider span {
+    top: -12px;
+    position: absolute;
+    padding: 5px;
+    border-radius: 20px;
+    background: #fff;
+}
+
+.missed-call-wrapper .btn-teal-ghost {
+    background-color: #fff;
+    color: #2ebeb2;
+    border: solid 1px #2ebeb2;
+    border-radius: 3px;
+}
+
+.btn-teal-ghost:active,
+.btn-teal-ghost:hover,
+.btn-teal-ghost,
+.missed-call__verify-link {
+    text-decoration: none;
+}
+
+.tel-icon {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/used/tel-icon.svg?=v1') no-repeat;
+    vertical-align: middle;
+    margin-right: 7px;
+}
+
+.missed-call__info-text {
+    font-size: 13px;
+    color: #565a5c;
+}
+
+.missed-call__verify-link {
+    font-size: 15px;
+    color: #23abef;
+    background: none;
+    padding: 5px;
+}
+
+.missed-call__error-msg {
+    font-size: 13px;
+    color: #e53012;
+}
+
+.missed-call__verify-link #missed-call__loading {
+    position: absolute;
+    top: 6px;
+    right: -20px;
+}
+
+/* top rated seller toast message */
+.seller-rating__toast {
+    font-size: 13px;
+    font-weight: normal;
+    display: none;
+    width: 220px;
+    position: absolute;
+    top: 45%;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .9);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 25px 5px 15px;
+    z-index: 1;
+}
+
+.seller-rating-toast__close {
+    width: 30px;
+    height: 30px;
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/cross.svg') no-repeat center;
+    background-size: 10px;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+.seller-rating__toast::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    margin-left: -5px;
+    border: 5px solid transparent;
+}
+
+.top-seller-wrapper .seller-rating__toast::after ,
+.car-details-div .seller-rating__toast::after {
+    top: 100%;
+    border-top-color: black;
+}
+
+.showToastMessage .seller-rating__toast::after,
+.top-seller-wrapper .seller-rating__toast.arrow-bottom::after,
+.seller-rating__toast.arrow-bottom::after {
+    top: -10px;
+    border-bottom-color: black;
+    border-top-color: transparent;
+}
+.padding-bottom0 {
+    padding-bottom: 0;
+}
+.float-right {
+    float: right;
+}
+.top-seller-wrapper:after {
+     content: '';
+    display: table;
+    clear: both;
+}
+.pos-top12 {
+    top: 12px;
+}
+/*coach mark position css*/
+.seller-btn-position.grid-8 .det-new-coachmark {
+	left: auto;
+	right: 0;
+}
+.seller-btn-position.grid-8 .coachmark-arrow-bottom {
+	left: auto;
+	right: 50px;
+}
+.listingpage__coachmark-container--position {
+	left: auto;
+	right: 10px;
+}
+.listingpage__coachmark-container--position .coachmark-arrow-bottom {
+	left: auto;
+	right: 50px;
+}
+/*
+    Search Card Design for Used Cars
+*/
+
+.stockDetailsBlock .chat-btn-container .chat-btn {
+    height: 44px;
+}
+
+
+.suggestion-list .btn-xs {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border-radius: 3px;
+}
+
+.top-rated-seller-tag {
+    top: -5px;
+    width: initial;
+    position: relative;
+    color: #6f6f6f;
+    vertical-align: middle;
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.delivery-text {
+    display: inline-block;
+    width: 100%;
+    color: #aaa;
+}
+
+/* sort filter div css */
+.sort-filter-div a {
+    display: table-cell;
+    text-align: center;
+    font-size: 16px;
+    padding: 7px 0;
+    color: #565a5c;
+}
+
+.sort-filter-div a:hover {
+    text-decoration: none;
+}
+
+.sort-filter-div a.btn-green-sm {
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    padding: 2px 12px;
+    width: 100%;
+}
+
+#btnSortFilter .sort-btn, #btnSortFilter .filter-btn {
+    display: inline-block;
+    padding: 10px 30px;
+    position: relative;
+    padding-left: 40px;
+    padding-right: 20px;
+}
+
+#btnSortFilter .sort-btn:before, 
+#btnSortFilter .filter-btn:before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    position: absolute;
+    top: 13px;
+    left: 20px;
+}
+
+#btnSortFilter .sort-btn:before{
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/used/sort.svg') no-repeat;
+}
+
+#btnSortFilter .filter-btn:before{
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/used/filter.svg') no-repeat;
+}
+
+#btnSortFilter .filter-btn {
+    border-left: solid 1px #a6e4de;
+}
+.sort-filter-wrapper {
+    display: inline-block;
+    border: solid 1px #a6e4de;
+    background: #fff;
+    font-size: 14px;
+    color: #757575;
+    border-radius: 38px;
+
+
+    -webkit-box-shadow: 0px 4px 25px 1px rgba(0,0,0,0.32);
+    -moz-box-shadow: 0px 4px 25px 1px rgba(0,0,0,0.32);
+    box-shadow: 0px 4px 25px 1px rgba(0,0,0,0.32);
+}
+
+.sort-filter-div, .sort-filter-div-fixed {
+    position: fixed;
+    bottom: 50px;
+    z-index: 2;
+    background: none;
+    width: 100%;
+}
+.sort-filter-div {
+    -webkit-transform: translateY(100px);
+    transform: translateY(100px);
+    transition: transform .5s linear;
+    will-change: tranform;
+}
+.sort-filter-div.sort-filter--animate {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+.show-similar-cars--grey {
+  color: #757575;
+  text-align: left;
+}
+
+.getSellerDetailsBtn {
+    background-color: #fff;
+}
+
+.filter-count {
+    font-size: 10px;
+    color: #fff;
+    background-color: #e53012;
+    border-radius: 50%;
+    text-align: center;
+    width: 18px;
+    height: 18px;
+    box-shadow: 0 0 4px 0 #000;
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 2px;
+    font-weight: 400;
+}
+
+/*cars near me css start*/
+.near-cars-card {
+    display: block;
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 3px;
+    position: relative;
+}
+.card--inactive {
+    display: none;
+}
+.close-icon {
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/6f6f6f/cross.svg') no-repeat;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    opacity: .4;
+    cursor: pointer;
+    background-size: 11px;
+    background-position: center;
+}
+.card-information {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 43px;
+    padding-right: 25px;
+    font-size: 13px;
+    color: #6f6f6f;
+}
+.card-information:before {
+    content: '';
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/00afa0/ask-location.svg') no-repeat;
+    position: absolute;
+    height: 30px;
+    width: 20px;
+    left: 13px;
+    top: 18px;
+}
+.card-information__heading {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card-btn-container {
+    font-size: 0;
+    padding-bottom: 20px;
+}
+.card-btn {
+    width: 50%;
+    color: #3fbfff;
+    background-color: #fff;
+    font-size: 13px;
+}
+.detect-location-btn {
+    padding-left: 35px;
+    position: relative;
+    text-align: left;
+    cursor: pointer;
+}
+.detect-location-btn:before {
+    content: '';
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/35beff/location-detector.svg') no-repeat;
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    left: 15px;
+}
+.city-area-btn {
+    padding-right: 15px;
+    text-align: right;
+    cursor: pointer;
+}
+.city-near-cars {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 12px;
+    font-size: 13px;
+    text-align: left;
+    background-color: #fff;
+    color: #6f6f6f;
+}
+.area-near-cars {
+    padding: 12px;
+}
+.check-box {
+    display: inline-block;
+}
+.check-box input[type=checkbox] {
+    display: none;
+}
+.check-box__label {
+    color: #aaa;
+    font-size: 13px;
+    display: inline-block;
+    line-height: 13px;
+    vertical-align: middle;
+}
+.check-box__icon {
+    box-sizing: border-box;
+    border-radius: 2px;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #aaa;
+    display: inline-block;
+    background-color: #fff;
+    margin-right: 6px;
+    position: relative;
+    top: -1px;
+}
+.check-box input[type=checkbox]:checked~.check-box__icon {
+    background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/tick.svg') no-repeat 50%;
+    border-color: #00afa0;
+    background-color: #00afa0;
+}
+.near-by-city {
+    color: #484848;
+    text-transform: capitalize;
+}
+.change-area-btn {
+    float: right;
+    padding-left: 0;
+    padding-right: 8px;
+    color: #3fbfff;
+    background-color: transparent;
+    font-size: 13px;
+    position: relative;
+    cursor: pointer;
+}
+.change-area-btn:after {
+    content: '';
+    background: url('https://imgd.aeplcdn.com/0x0//cw/static/icons/3fbfff/arrow.svg') no-repeat;
+    height: 7px;
+    width: 18px;
+    position: absolute;
+    transform: rotate(90deg);
+    top: 9px;
+    background-size: 12px;
+}
+/*car near me css end */

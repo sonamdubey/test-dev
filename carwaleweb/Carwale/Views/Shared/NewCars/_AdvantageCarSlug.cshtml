@@ -1,0 +1,55 @@
+﻿@model CarOverviewDTO
+@using Carwale.UI.Common;
+@using Carwale.DTOs.CarData;
+@using Carwale.Utility;
+@using Carwale.BL.Experiments;
+  <!--Advantage cars code starts here -->
+@if (Model.AdvantageAdData != null)
+{
+    <div id="advantageAd" class="content-box-shadow content-inner-block-10 margin-bottom20 advt-right-slug position-rel"  data-role="click-tracking" data-event="CWInteractive" data-action="dealsaccess_desktop" data-cat="deals_desktop" data-label='@((Model.IsVersionPage == false) ? "modelpage_sideslugdesk" : "variantpage_sideslugdesk")'>
+        <p class="hd2 text-black font20">@if (!string.IsNullOrWhiteSpace(Model.AdvantageAdData.Offers) && Model.AdvantageAdData.Savings <= 0)
+                               { <span>Offer</span> } else { <span>Discount</span> } on @((Model.IsVersionPage && Model.VersionId == Model.AdvantageAdData.Version.ID && CookiesCustomers.MasterCityId > 0) ? Format.FilterModelName(Model.AdvantageAdData.Model.ModelName) + " " + Model.AdvantageAdData.Version.Name : Model.AdvantageAdData.Make.MakeName + " " + Format.FilterModelName(Model.AdvantageAdData.Model.ModelName))</p>
+        <a data-url='/@UrlRewrite.FormatSpecial(Model.AdvantageAdData.Make.MakeName)-cars/@Model.AdvantageAdData.Model.MaskingName/advantage/?src=d04&cityid=' data-model="@Model.AdvantageAdData.Model.ModelId" 
+           href=@(CookiesCustomers.MasterCityId > 0 ? "/" + UrlRewrite.FormatSpecial(Model.AdvantageAdData.Make.MakeName)+"-cars/" + Model.AdvantageAdData.Model.MaskingName +"/advantage/?src=d04&cityid="+ Model.AdvantageAdData.City.CityId + "&versionId="+ Model.AdvantageAdData.Version.ID : "javascript:void(0)") style="text-decoration:none" data-adv-popup="@(CookiesCustomers.MasterCityId > 0 ? "" : "showAdvantageCityPopup")">
+            <div class="contentWrapper">
+                <div class="imageWrapper">
+                    <img src="@ImageSizes.CreateImageUrl(Model.AdvantageAdData.CarImageDetails.HostUrl,ImageSizes._272X153, Model.AdvantageAdData.CarImageDetails.OriginalImgPath)" alt="@Model.AdvantageAdData.Model.ModelName" title="@Model.AdvantageAdData.Model.ModelName">
+                </div>
+                <div class="margin-top10">
+                    <div class="carTitle text-link font18">
+                        <b>
+                            @((Model.IsVersionPage && Model.VersionId == Model.AdvantageAdData.Version.ID && CookiesCustomers.MasterCityId > 0) ? Format.FilterModelName(Model.AdvantageAdData.Model.ModelName) + " " + @Model.AdvantageAdData.Version.Name : Model.AdvantageAdData.Make.MakeName + " " + Format.FilterModelName(Model.AdvantageAdData.Model.ModelName))
+                        </b>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.AdvantageAdData.Offers) && Model.AdvantageAdData.Savings <= 0)
+                    {
+                        <div>
+                            <span class="text-green">Offer available</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="font13 margin-top5 margin-bottom5">
+                            <span class="reducedTxt position-rel text-black">
+                                ₹ <span class="">@Format.FormatNumericCommaSep(Model.AdvantageAdData.OnRoadPrice.ToString()) </span>
+                            </span>
+                            <span class="text-green margin-left10">(@Format.FormatNumericCommaSep(Model.AdvantageAdData.Savings.ToString()) off)</span>
+                        </div>
+                    }
+                    <div class="font18 text-black">
+                        <span class="text-bold">₹ @Format.FormatNumericCommaSep(Model.AdvantageAdData.OfferPrice.ToString())</span>
+                        <span class="text-grey font13"> On-Road Price @Model.AdvantageAdData.City.CityName</span>
+                    </div>
+                    <div class="block text-center margin-top5"><span id="advAdBtn" class="inline-block padding-left20 padding-right20 click-link btn-orange btn-xs">SHOW OFFER</span></div>
+                </div>
+            </div>
+        </a>
+        <div class="redirect-rt all-offer-link">
+            <div class="text-right">
+                <span class="icon-sheet more-link"></span> <a class="margin-top-10" href="/advantage/?cityid=@Model.AdvantageAdData.City.CityId" data-role="click-tracking" data-event="CWInteractive" data-action="landingPageAccess_Desktop" data-cat="deals_desktop" data-label='@((!Model.IsVersionPage) ? (ViewBag.IsCityPage ? "PriceInCityPageSideSlug" : "ModePageSideSlug") : "VariantPageSideSlug")'>All Offers</a>
+            </div>
+            </div>
+    </div>
+}
+<!--Advantage cars code ends here -->

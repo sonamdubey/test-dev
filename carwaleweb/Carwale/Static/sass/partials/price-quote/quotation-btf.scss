@@ -1,0 +1,544 @@
+@import '../../mixins/_sprites.scss';
+@import '../../mixins/_vendor-utils.scss';
+@import '../../mixins/_check-box.scss';
+@import '../dropdown.scss';
+@import '../_dealer-cta-slug.scss';
+@import '../thankyou-screen.scss';
+@import '../_popup.scss';
+@import '../d/suggested-car-carousel.scss';
+@import '../d/alternate-cars-carousel.scss';
+@import '../../mixins/_buttons.scss';
+@import '../../mixins/_popup.scss';
+
+@include head-background-content
+
+@include close-button($button-color: 'white');
+
+// cust dropdown
+@include custom-dropdown;
+
+.autocomplete__list {
+	z-index: 12;
+}
+
+.model-details__city-selection {
+	cursor: pointer;
+}
+
+.city-selection__label {
+	display: block;
+	font-size: 12px;
+	letter-spacing: 1px;
+	color: map-get($color-map, 'text-grey');
+	margin-bottom: 10px;
+	text-transform: uppercase;
+}
+
+.city-selection__container {
+	display: inline-block;
+}
+
+.city-selection__name {
+	display: block;
+	font-weight: $font-bold;
+	font-size: 14px;
+	letter-spacing: 0;
+	color: map-get($color-map, 'charcoal');
+}
+
+.city-selection__icon {
+	@include location-icon;
+	background-size: contain;
+	height: 22px;
+	width: 15px;
+	display: inline-block;
+}
+
+.quotation-template-wrapper {
+	width: 100%;
+}
+
+//lead form css
+@include thankyou-screen($prefix: 'open-lead-form');
+
+.open-lead-form-thankyou-screen {
+	display: none;
+	margin-top: 0;
+	height: 386px;
+	background-position: right -20px center;
+
+	.thankyou-text {
+		max-width: 523px;
+		left: 5%;
+		bottom: 0;
+		margin-bottom: 20px;
+		font-size: 16px;
+		color: map-get($color-map, 'charcoal');
+	}
+}
+
+.open-lead-form-container {
+	border: 1px solid map-get($color-map, 'gainsboro');
+	background-color: map-get($color-map, 'white');
+	border-radius: 4px;
+
+	&.lead-form--submitted {
+		.open-lead-form-thankyou-screen {
+			display: block;
+		}
+
+		.open-lead-form__content {
+			display: none;
+		}
+	}
+}
+
+.open-lead-form__head {
+	@include flexbox;
+	padding: 25px 20px 30px;
+	position: relative;
+	border-bottom: 1px solid map-get($color-map, 'gainsboro');
+}
+
+.open-lead-form__hands-icon {
+	@include hands-6f6f6f-icon;
+	background-position: center;
+	min-width: 44px;
+	min-height: 35px;
+	display: inline-block;
+	background-size: contain;
+	vertical-align: super;
+	margin-right: 15px;
+	margin-top: 10px;
+}
+
+.open-lead-form__info-wrapper {
+	display: inline-block;
+}
+
+.open-lead-form__heading {
+	font-size: 20px;
+	font-weight: $font-bold;
+	letter-spacing: .3px;
+	color: map-get($color-map, 'charcoal');
+	margin-bottom: 10px;
+}
+
+.dealer-info-container {
+	@include flex-grow(1);
+	min-width: 350px;
+}
+
+.open-lead-form__subheading {
+	@include flexbox;
+	@include flex-wrap;
+	color: map-get($color-map, 'grey-subtitle');
+	font-size: 16px;
+
+	.dealer-info__name {
+		color: map-get($color-map, 'text-grey');
+		font-weight: $font-normal;
+	}
+}
+
+.dealer-info__name {
+	letter-spacing: .2px;
+	margin-right: 23px;
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.dealer-info__location {
+	margin-right: 40px;
+}
+
+.dealer-info__contact {
+	font-size: 14px;
+	font-weight: $font-bold;
+	color: map-get($color-map, 'dim-grey');
+	position: relative;
+	min-width: 165px;
+	padding-left: 20px;
+
+	&::before {
+		@include phone-6f6f6f;
+		background-position: center;
+		content: '';
+		width: 16px;
+		height: 16px;
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+}
+
+.open-lead-form__services-wrapper {
+	padding: 15px 20px 30px 15px;
+	border-right: 1px solid map-get($color-map, 'gainsboro');
+	width: 45%;
+	position: relative;
+
+	&::before {
+		@include get-vendor-prefixed('transform', translate(50%) rotate(45deg));
+		content: '';
+		width: 35px;
+		height: 35px;
+		display: block;
+		position: absolute;
+		border-top-right-radius: 4px;
+		top: 42%;
+		right: 0;
+		border-left: 1px solid transparent;
+		border-top: 1px solid map-get($color-map, 'gainsboro');
+		border-right: 1px solid map-get($color-map, 'gainsboro');
+		background: map-get($color-map, 'white');
+	}
+}
+
+.services-section__heading {
+	font-size: 14px;
+	font-weight: $font-bold;
+	color: map-get($color-map, 'charcoal');
+	margin-left: 15px;
+	text-transform: capitalize;
+}
+
+.services-list__list-item {
+	@include check-box($size: 20, $alignment: 'left',$borderColor: 'text-grey',$fontColor: 'dim-grey');
+
+	.service-list__label {
+		padding: 15px;
+		width: 100%;
+		cursor: pointer;
+	}
+
+	.check-box__icon {
+		position: relative;
+		top: auto;
+		left: auto;
+		vertical-align: middle;
+		display: inline-block;
+	}
+
+	.check-box__label {
+		font-size: 14px;
+		padding-left: 10px;
+		padding-right: 0;
+		vertical-align: middle;
+		text-transform: capitalize;
+	}
+
+	input[type='checkbox'] {
+		&:checked {
+			& ~ .check-box__label {
+				color: map-get($color-map, 'shamrockGreen');
+			}
+		}
+	}
+}
+
+.open-lead-form-wrapper {
+	padding: 15px 30px 30px 50px;
+	width: 55%;
+}
+
+.open-lead-form__title {
+	font-size: 14px;
+	font-weight: $font-bold;
+	color: map-get($color-map, 'charcoal');
+	margin-bottom: 17px;
+	text-transform: capitalize;
+}
+
+.input__error-message {
+	font-size: 12px;
+	color: map-get($color-map, 'tomato-red');
+	display: none;
+	position: absolute;
+}
+
+.input-container {
+	margin-bottom: 20px;
+	position: relative;
+
+	.input-field {
+		border: 1px solid map-get($color-map, 'light-grey-border');
+		border-radius: 3px;
+		padding: 10px;
+		font-size: 15px;
+		width: 260px;
+
+		&::-webkit-input-placeholder {
+			color: map-get($color-map, 'text-grey');
+			font-size: 15px;
+		}
+
+		&::-moz-placeholder {
+			color: map-get($color-map, 'text-grey');
+			font-size: 15px;
+		}
+
+		&:-ms-input-placeholder {
+			color: map-get($color-map, 'text-grey');
+			font-size: 15px;
+		}
+
+		&:focus {
+			border-color: map-get($color-map, 'summer-sky');
+		}
+
+		&.contact-number-field {
+			padding-left: 50px;
+			position: relative;
+		}
+	}
+
+	&.invalid {
+		.input-field {
+			border: 1px solid map-get($color-map, 'tomato-red');
+		}
+
+		.input__error-message {
+			display: block;
+		}
+	}
+}
+
+.country-code {
+	font-size: 15px;
+	color: map-get($color-map, 'charcoal');
+	position: absolute;
+	z-index: 1;
+	top: 34px;
+	left: 15px;
+}
+
+.input__title {
+	font-size: 12px;
+	color: map-get($color-map, 'text-grey');
+	letter-spacing: 1.2px;
+	margin-bottom: 5px;
+	text-transform: uppercase;
+	display: block;
+}
+
+.open-lead-form-submit {
+	font-weight: $font-bold;
+	margin-top: 10px;
+	width: 165px;
+}
+
+.emi-calculator-root {
+	display: none;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 8;
+	height: 100%;
+	overflow: auto;
+	padding-bottom: 50px;
+	background-color: map-get($color-map, 'white');
+}
+
+.lock-browser-scroll {
+	position: fixed;
+	overflow-y: scroll;
+	width: 100%;
+}
+
+//edit model popup
+.popup-container {
+	display: block;
+}
+
+.area-input-box,
+.city-input-box {
+	& > .form-control {
+		padding: 10px 70px 11px 20px;
+		box-shadow: 0 1px 4px 0 rgba(map-get($color-map, 'std-light-gray'), .8);
+		font-size: 16px;
+		border: 1px solid map-get($color-map, 'light-grey-new');
+		color: map-get($color-map, 'charcoal');
+	}
+}
+
+.edit-model-popup {
+	@include close-button($button-color: 'black');
+
+	.popup {
+		@include get-vendor-prefixed('transform', translate(-50%, -50%));
+		width: 856px;
+		height: 536px;
+		top: 50%;
+		left: 50%;
+	}
+
+	.edit-model-popup_head {
+		height: 130px;
+		padding-top: 25px;
+		text-align: center;
+		background-color: map-get($color-map, 'snow');
+		overflow: hidden;
+	}
+
+	.model-search-wrapper {
+		max-width: 408px;
+		margin: 0 auto;
+		position: relative;
+		top: -22px;
+	}
+	
+	.model-search {
+		padding: 10px 70px 11px 20px;
+		box-shadow: 0 1px 4px 0 rgba(map-get($color-map, 'std-light-gray'), .8);
+		font-size: 16px;
+		border: 1px solid map-get($color-map, 'light-grey-new');
+		color: map-get($color-map, 'charcoal');
+
+		&::-webkit-input-placeholder {
+			font-size: 16px;
+		}
+	}
+
+	.clear-field-target {
+		position: absolute;
+		top: 15px;
+		right: 20px;
+		color: map-get($color-map, 'sky-blue');
+		cursor: pointer;
+	}
+}
+
+.show {
+    display: block;
+}
+
+.disclaimer-container {
+	font-size: 14px;
+	line-height: 23px;
+	padding-bottom: 40px;
+}
+
+.disclaimer__title {
+	color: map-get($color-map, 'charcoal');
+}
+
+.disclaimer__content {
+	color: map-get($color-map, 'text-grey');
+}
+
+.disclaimer__link {
+	color: map-get($color-map, 'sky-blue');
+}
+
+.dealer-cta-container {
+	.pq-btn {
+		border-color: transparent;
+	}
+}
+
+.dealer-cta-wrapper {
+	.dealer-info {
+		color: map-get($color-map, 'matterhorn-2');
+		letter-spacing: .2px;
+	}
+
+	.dealer-name {
+		font-size: 18px;
+	}
+
+	.dealer-subtitle {
+		font-size: 14px;
+	}
+}
+
+.edit-model-popup_title {
+	font-weight: $font-bold;
+	font-size: 18px;
+	color: map-get($color-map, 'charcoal');
+}
+
+.edit-model-head__description {
+	color: map-get($color-map, 'text-grey');
+	font-size: 14px;
+}
+
+.ui-autocomplete {
+	border-radius: 4px;
+	overflow: hidden;
+
+	.ui-menu-item {
+		position: relative;
+		font-size: 13px;
+		padding: 12px 20px;
+		text-align: left;
+
+		&::after {
+			content: '';
+			display: block;
+			position: absolute;
+			bottom: 0;
+			left: 20px;
+			right: 20px;
+			border-bottom: 1px solid map-get($color-map, 'white-smoke');
+		}
+
+		> a {
+			color: map-get($color-map, 'charcoal');			
+		}
+	}
+}
+.overall-container {
+	.toast-box,
+	.offers-tool-tip {
+		font-size: 14px;
+		background-color: rgba(map-get($color-map, 'charcoal'), .95);
+		color: map-get($color-map, 'white');
+		padding: 10px 15px;
+		border-radius: 6px;
+		line-height: 21px;
+	}
+}
+
+@include btn-orange;
+
+.emi-header-container {
+	.white-close-icon {
+		@include cross-icon;
+		background-image: none;
+		top: -5px;
+		right: -15px;
+	}
+}
+
+.ui-autocomplete {
+	.additional-info {
+		right: 20px;
+	}
+}
+
+//vwfs css
+.finacial-services-slug  {
+	margin-top: 10px;
+}
+
+.finacial-services-slug__text {
+    font-size: 11px;
+    color: map-get($color-map, 'dim-grey');
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.finacial-services-slug--logo {
+    margin-left: 7px;
+}
+
+.finacial-services-slug--logo__image {
+    max-width: 175px;
+}
+
+.finacial-services-slug-volkswagen__img {
+    vertical-align: middle;
+}

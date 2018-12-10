@@ -1,0 +1,31 @@
+﻿@{
+    string currentHostUrl = Request.Url.GetLeftPart(UriPartial.Authority).Replace("http:", string.Empty).Replace("https:", string.Empty);
+}
+
+<amp-state id="recommendations" src="/api/stockrecommendations/?profileid=D123&rootid=10000&cityid=10000&price=1&recommendationsCount=1" [src]="'@currentHostUrl' + (recoUrl || '/api/stockrecommendations/?rootid=10000&cityid=10000&price=1&recommendationsCount=1')" credentials="include">
+</amp-state>
+
+<amp-state id="openRecommendations">
+    <script type="application/json">
+        []
+    </script>
+</amp-state>
+
+<amp-lightbox layout="nodisplay" id="similarcar-popup" scrollable on="lightboxClose: AMP.setState({ openRecommendations: [] })">
+    <div id="showSimilarCar" class="similar-car-wrapper">
+        <div class="top-corner similarCarsHeader">
+            <a id="simillarCarsPopupBackArrow" on="tap: AMP.setState({recoUrl: ''}), similarcar-popup.close" class="btn content-inner-block-10 padding-right30">
+                <span class="cwmsprite back-long-arrow-left-white"></span>
+            </a>
+            <span class="margin-left10">Similar Cars</span>
+        </div>
+        <div id="recommendedCarsPopup">
+            <div class="popup-suggestion-box">
+                <div class="similarCarsError" [hidden]="recommendations.length > 0" hidden>
+                    Sorry, there are no recommendations available for this car.
+                </div>
+                @{Html.RenderPartial("~/Views/m/Used/SearchAmp/SimilarCarsListAmp.cshtml", 19);}
+            </div>
+        </div>
+    </div>
+</amp-lightbox>

@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [UCAlert]
+    AUTHORIZATION [dbo];
+

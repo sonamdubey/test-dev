@@ -1,0 +1,114 @@
+﻿@model Carwale.DTOs.CarData.CarOverviewDTOV2
+@using MobileWeb.Common;
+@using Carwale.Utility;
+@using Carwale.Entity;
+@using Carwale.Entity.Enum;
+
+@{
+    string orp = Model.CarPriceOverview.PriceForSorting > 0 ? Format.FormatNumericCommaSep(Model.CarPriceOverview.PriceForSorting.ToString()) : "N/A";
+}
+<div class="price-breakup">
+    <div class="price-breakup__head text-center">
+        <p class="font26 text-black text-bold version-orp">&#8377; @orp/-</p>
+        <p class="font12 price-label @Model.CarPriceOverview.LabelColor">
+            <span class="label-text">@Html.Raw(Model.CarPriceOverview.PriceLabel ?? "")@Html.Raw(!string.IsNullOrEmpty(Model.CarPriceOverview.City.Name) ? ", " + Model.CarPriceOverview.City.Name : string.Empty)</span>&nbsp;
+            @if (Model.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity)
+            {
+                <span class="info-icon deals-car-sprite margin-left5" on="tap:price-tooltip.show" role="tab" tabindex="3" data-vars-event-category="reasontooltip">
+                    <span id="price-tooltip" class="cw-tooltip emi-tooltip tooltip-bottom-right" hidden>
+                        <span class="cwmsprite close-sm-icon" data-vars-event-category="reasontooltip-close" on="tap:price-tooltip.hide" role="tab" tabindex="3"></span>
+                           <span class="cw-tooltip-text">@Model.CarPriceOverview.ReasonText</span>
+                    </span>
+                </span>
+            }
+        </p>
+    </div>
+    @{
+        int i = 0;
+    }
+    <table class="price-breakup__table">
+
+        @if (Model.VersionPriceQuote.PricesList != null)
+        {
+            foreach (var pqItem in Model.VersionPriceQuote.PricesList)
+            {
+                i++;
+                if (pqItem.OnRoadPriceInd)
+                {
+                <tr class="break-up @(Model.VersionPriceQuote.PricesList.Count.Equals(i) ? "bottomline" : "" )">
+                    <td>
+                        @pqItem.PQItemName
+                    @if (pqItem.PQItemId.Equals(5))
+                    {
+                        <a href="/m/insurance/?car=@Model.VersionId&cityid=@Model.CarPriceOverview.City.Id&utm=mpicpage" rel="noopener nofollow" class="text-link text-bold">(Buy Policy Now)</a>
+                    }
+                </td>
+                <td class="text-right">&#8377; @Format.FormatNumericCommaSep(pqItem.PQItemValue.ToString())</td>
+            </tr>
+                }
+
+            }
+        }
+        @if (Model.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity)
+        {
+            <tr class="font15 price-total">
+                <td>@Model.ModelName On-Road Price in @Model.CarPriceOverview.City.Name:</td>
+                <td class="text-right"><span class="text-bold version-orp">&#8377; @orp</span></td>
+            </tr>
+        }
+        @if (Model.AdAvailable)
+        {
+            <tr class="price-table__get-offers">
+                <td colspan="2">
+                    <a data-vars-ea="CampaignLink_with_city_click" data-vars-ec="ModelCityPage_Lead_CTA_MSite_PicPQTest" data-vars-el="@(ViewBag.CityName + "," + Model.ModelName)" class="margin-top5"
+                        href="@string.Format("{0}?q=lead&propertyid=1", ManageCarUrl.CreatePriceInCityUrl(Model.MakeName, Model.MaskingName, Model.CarPriceOverview.City.CityMaskingName))">
+                        Get Offers from dealer
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+
+<div class="price-breakup__emi">
+    <span class="emi-starts-text">
+        EMI starts at&nbsp;
+        <span class="text-black text-bold">&#8377; @Model.EMI/-&nbsp;</span>
+        <span class="info-icon deals-car-sprite margin-left5" on="tap:emi-tooltip.show" role="tab" tabindex="3" data-vars-event-category="emitooltip">
+            <span id="emi-tooltip" class="cw-tooltip emi-tooltip tooltip-bottom-right" hidden>
+                <span class="cwmsprite close-sm-icon" data-vars-event-category="emitooltip-close" on="tap:emi-tooltip.hide" role="tab" tabindex="3"></span>
+                @if (Model.AdAvailable)
+                {
+                    <span class="cw-tooltip-text"> Assuming @(CWConfiguration.INTEREST_RATE)% rate of interest and a tenure of @(CWConfiguration.TENURE) months. For exact EMI quotes please get in touch with your 
+                        <a href="@string.Format("{0}?q=lead&propertyid=6", ManageCarUrl.CreatePriceInCityUrl(Model.MakeName, Model.MaskingName, Model.CarPriceOverview.City.CityMaskingName))">Authorized Dealer</a> or check out our 
+                        <a target="_blank" data-vars-ea="@(Model.IsVersionPage ? "Tooltip_variantpage" : "Tooltip_modelpage")" data-vars-ec="BBLinkClicks_mobile" 
+                             data-vars-el="@(MobileWeb.Common.CookiesCustomers.MasterCity + "," + (Model.IsVersionPage ? Model.ModelName + "," + Model.VersionName : Model.ModelName))" 
+                           href="http://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|modelpage_desktop&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide&variantOptions=mobileRequired">Finance Partner</a>
+                    <span class="fa fa-external-link new-window-icon"></span>.</span>
+                }
+                else
+                {
+                    <span class="cw-tooltip-text">Assuming @(CWConfiguration.INTEREST_RATE)% rate of interest and a tenure of @(CWConfiguration.TENURE) months. For exact EMI quotes please check our <a data-vars-ea="Tooltip_modelpage"
+                      data-vars-ec="BBLinkClicks_mobile" data-vars-el="@(CookiesCustomers.MasterCity + "," + Model.ModelName)" target="_blank" href="https://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|modelpagetip_msite&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide&variantOptions=mobileRequired">Finance Partner</a><span class="fa fa-external-link new-window-icon"></span>.</span>
+                }
+
+            </span>
+        </span>
+    </span>
+        @if (Model.AdAvailable && !string.IsNullOrEmpty(Model.LeadCTA))
+    {
+        <a class="price-breakup__emi--get-assistance" href="@string.Format("{0}?q=lead&propertyid=12", ManageCarUrl.CreatePriceInCityUrl(Model.MakeName, Model.MaskingName, Model.CarPriceOverview.City.CityMaskingName))"
+		   data-vars-ea="CampaignLink_with_city_click " data-vars-ec="ModelCityPage_Lead_CTA_MSite" data-vars-el="@(ViewBag.CityName + "," + Model.ModelName)">
+            @Model.LeadCTA
+        </a>
+    }
+</div>
+
+@if (Model.New)
+{
+    <div class="margin-bottom5 text-link margin-top10 position-rel inline-block" id="divCarLoan" >
+        <span class="font10 position-abt text-grey addText">Ad</span>
+        <a class="text-bold font16" href='@Model.TrackingData.LandingUrl' target="_blank" data-vars-ea="@(Model.TrackingData.ClickAction)" data-vars-ec="@Model.TrackingData.ClickCategory" data-vars-el="@Model.TrackingData.ClickLabel" ><u>@Model.TrackingData.Text</u></a>
+    </div>
+}

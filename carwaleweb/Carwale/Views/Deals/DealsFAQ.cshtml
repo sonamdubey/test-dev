@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.PageTag = "A-5";
+    ViewBag.Title = "CarWale Advantage";
+    ViewBag.CustomJs = "~/Views/StaticPartials/Deals/DealsScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/Deals/DealsCss.cshtml";
+    ViewBag.PageId = (int)Carwale.Entity.Enum.CwPages.AdvantageFaqDesktop;
+}
+
+
+
+<div class="container padding-top60">
+    <div class="grid-12">
+        <h2 class="text-center">CARWALE ADVANTAGE</h2>
+        @{Html.RenderPartial("~/Views/Shared/Deals/_DealFaq.cshtml");}
+    </div>
+    <div class="clear"></div>
+</div>
+

@@ -1,0 +1,839 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{02E68020-D0CF-48A8-9059-48B28C3DF144}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Carwale.Entity</RootNamespace>
+    <AssemblyName>Carwale.Entity</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Carwale.Entity.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Carwale.Entity.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Testing|AnyCPU'">
+    <OutputPath>bin\Testing\</OutputPath>
+    <CodeAnalysisRuleSet>Carwale.Entity.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>Carwale.Entity.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\libs\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.WebApi, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\libs\FluentValidation.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\libs\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Http">
+      <HintPath>..\libs\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Absure\AbsureWarrantyPackage.cs" />
+    <Compile Include="Accessories\ItemFeature.cs" />
+    <Compile Include="Accessories\ItemData.cs" />
+    <Compile Include="Accessories\ItemSummary.cs" />
+    <Compile Include="Accessories\Tyres\TyreDetailSummary.cs" />
+    <Compile Include="Accessories\Tyres\TyreList.cs" />
+    <Compile Include="Accessories\Tyres\TyresSearchInput.cs" />
+    <Compile Include="Accessories\Tyres\TyreSummary.cs" />
+    <Compile Include="Accessories\Tyres\VersionTyresList.cs" />
+    <Compile Include="Accessories\Tyres\VersionTyres.cs" />
+    <Compile Include="AdapterModels\VersionAndroidRequest.cs" />
+    <Compile Include="Advertizings\Apps\ESCampaign.cs" />
+    <Compile Include="Advertizings\Apps\SplashScreenData.cs" />
+    <Compile Include="ApiLogData.cs" />
+    <Compile Include="APIResponseEntity.cs" />
+    <Compile Include="AppSiteAssociation\AppSiteAssociationEntity.cs" />
+    <Compile Include="Author\ArticleTitle.cs" />
+    <Compile Include="Author\AuthorEntity.cs" />
+    <Compile Include="Author\AuthorList.cs" />
+    <Compile Include="Author\ExpertReviews.cs" />
+    <Compile Include="Author\NewsEntity.cs" />
+    <Compile Include="AutoComplete\LabelValue.cs" />
+    <Compile Include="AutoComplete\NameValue.cs" />
+    <Compile Include="Blocking\BlockedCommunication.cs" />
+    <Compile Include="Blocking\BlockedCommunicationRequest.cs" />
+    <Compile Include="Blocking\BlockIPInputs.cs" />
+    <Compile Include="Blocking\BlockIPInputsValidator.cs" />
+    <Compile Include="Blocking\Enums\CommuicationModule.cs" />
+    <Compile Include="Blocking\Enums\CommunicationType.cs" />
+    <Compile Include="Blocking\IPAddressValidator.cs" />
+    <Compile Include="C2BStockDetailsV2.cs" />
+    <Compile Include="Campaigns\CampaignInputV2.cs" />
+    <Compile Include="Campaigns\CampaignRecommendation.cs" />
+    <Compile Include="Campaigns\DealerAd.cs" />
+    <Compile Include="Campaigns\ClientCampaignMapping.cs" />
+    <Compile Include="Campaigns\DealerAdRequest.cs" />
+    <Compile Include="Campaigns\DealerLeadFormInput.cs" />
+    <Compile Include="Campaigns\PredictionModel.cs" />
+    <Compile Include="Campaigns\Campaign.cs" />
+    <Compile Include="Campaigns\CampaignDealer.cs" />
+    <Compile Include="Campaigns\CampaignStatus.cs" />
+    <Compile Include="Campaigns\MaskingNumber.cs" />
+    <Compile Include="Campaigns\PageTemplates.cs" />
+    <Compile Include="Campaigns\TollFreeNumber.cs" />
+    <Compile Include="CarData\BudgetBase.cs" />
+    <Compile Include="CarData\CarDataPresentation.cs" />
+    <Compile Include="CarData\CarDataTrackingEntity.cs" />
+    <Compile Include="CarData\CarLaunchDiscontinueYear.cs" />
+    <Compile Include="CarData\CarMakeModelAdEntityBase.cs" />
+    <Compile Include="CarData\CarModelsVersionsList.cs" />
+    <Compile Include="CarData\CarData.cs" />
+    <Compile Include="CarData\CategoryItem.cs" />
+    <Compile Include="CarData\ComparisonData.cs" />
+    <Compile Include="CarData\CwConfidence.cs" />
+    <Compile Include="CarData\EmiBase.cs" />
+    <Compile Include="CarData\EnginePowerBase.cs" />
+    <Compile Include="CarData\FuelTypeBase.cs" />
+    <Compile Include="CarData\FuelTypes.cs" />
+    <Compile Include="CarData\GlobalSearchSponsoredModelEntity.cs" />
+    <Compile Include="CarData\ItemValueData.cs" />
+    <Compile Include="CarData\ModelFeatures.cs" />
+    <Compile Include="CarData\ModelSchema.cs" />
+    <Compile Include="CarData\ModelSummary.cs" />
+    <Compile Include="CarData\SimilarCarRequest.cs" />
+    <Compile Include="CarData\SeatingCapacityBase.cs" />
+    <Compile Include="CarData\SimilarCarVmRequest.cs" />
+    <Compile Include="CarData\SpecsImageDetailRequest.cs" />
+    <Compile Include="CarData\SpecsInfo.cs" />
+    <Compile Include="CarData\TransmissionTypeBase.cs" />
+    <Compile Include="CentralizedCacheRefresh\CacheRefreshWrapper.cs" />
+    <Compile Include="CentralizedCacheRefresh\MakeAttribute.cs" />
+    <Compile Include="CentralizedCacheRefresh\ModelAttribute.cs" />
+    <Compile Include="CentralizedCacheRefresh\ModelRootAttribute.cs" />
+    <Compile Include="CentralizedCacheRefresh\NcfAttribute.cs" />
+    <Compile Include="CentralizedCacheRefresh\VersionAttribute.cs" />
+    <Compile Include="Classification\BodyTypeBase.cs" />
+    <Compile Include="Classified\CertificationProgramsDetails.cs" />
+    <Compile Include="Classified\CertificationProgramsDetailsValidator.cs" />
+    <Compile Include="Classified\Chat\ChatSmsPayload.cs" />
+    <Compile Include="Classified\Chat\ChatSmsPayloadValidator.cs" />
+    <Compile Include="Classified\Chat\DealerChatInfo.cs" />
+    <Compile Include="Classified\Enum\NearbyCarsBucket.cs" />
+    <Compile Include="Classified\Leads\BuyerInfo.cs" />
+    <Compile Include="Classified\Leads\C2BLeadResponse.cs" />
+    <Compile Include="Classified\Leads\C2BLeads.cs" />
+    <Compile Include="Classified\Leads\CarTradeLead.cs" />
+    <Compile Include="Classified\Leads\CarTradeLeadResponse.cs" />
+    <Compile Include="Classified\Leads\LeadTrackingParams.cs" />
+    <Compile Include="Classified\Leads\LeadTrackingParamsValidator.cs" />
+    <Compile Include="Classified\ListingPayment\Receipt.cs" />
+    <Compile Include="Classified\Leads\LeadType.cs" />
+    <Compile Include="Classified\SellCarUsed\StatusValidationType.cs" />
+    <Compile Include="Classified\Slot.cs" />
+    <Compile Include="Classified\StockForFilter.cs" />
+    <Compile Include="CMS\URIs\VideosByIdURI.cs" />
+    <Compile Include="Common\ExperimentAdSlot.cs" />
+    <Compile Include="Dealers\Used\DealerStocksEntity.cs" />
+    <Compile Include="Enum\EmiType.cs" />
+    <Compile Include="OffersV1\OfferAvailabiltyDetails.cs" />
+    <Compile Include="Offers\OfferAvailabilityInput.cs" />
+    <Compile Include="PriceQuote\ThirdPartyEmiDetails.cs" />
+    <Compile Include="Stock\Search\SearchResultBase.cs" />
+    <Compile Include="Stock\Search\SearchResultDesktop.cs" />
+    <Compile Include="Stock\Search\SearchResultMobile.cs" />
+    <Compile Include="UserReview\RatingDetails.cs" />
+    <Compile Include="CMS\UserReviews\UserReviewReplicaEntity.cs" />
+    <Compile Include="Common\MinMax.cs" />
+    <Compile Include="CarData\UpcomingCarsInputParam.cs" />
+    <Compile Include="CarData\MakePageInputParam.cs" />
+    <Compile Include="CarData\ModelDetails.cs" />
+    <Compile Include="CarData\ModelMaskingValidationEntity.cs" />
+    <Compile Include="CarData\PqVersionCitiesEntity.cs" />
+    <Compile Include="CarData\ModelSpecificationsEntity.cs" />
+    <Compile Include="CarData\TopCarsByBodyTypeParams.cs" />
+    <Compile Include="CarData\ModelsByRootAndYear.cs" />
+    <Compile Include="CarData\VersionAveragePrice.cs" />
+    <Compile Include="CarData\CarEntity.cs" />
+    <Compile Include="CarData\CarFuel.cs" />
+    <Compile Include="CarData\CarImageBase.cs" />
+    <Compile Include="CarData\CarMakeDescription.cs" />
+    <Compile Include="CarData\CarMakeEntityBase.cs" />
+    <Compile Include="CarData\CarMakeId.cs" />
+    <Compile Include="CarData\CarMakeLogo.cs" />
+    <Compile Include="CarData\CarMakeModelEntityBase.cs" />
+    <Compile Include="CarData\CarMakesEntity.cs" />
+    <Compile Include="CarData\CarModelDesc.cs" />
+    <Compile Include="CarData\CarModelDetails.cs" />
+    <Compile Include="CarData\CarModelEntity.cs" />
+    <Compile Include="CarData\CarModelEntityBase.cs" />
+    <Compile Include="CarData\CarModelSpecs.cs" />
+    <Compile Include="CarData\CarModelSummary.cs" />
+    <Compile Include="CarData\CarVersionDetails.cs" />
+    <Compile Include="CarData\CarVersionEntity.cs" />
+    <Compile Include="CarData\CarVersionItemValue.cs" />
+    <Compile Include="CarData\CarVersions.cs" />
+    <Compile Include="CarData\CrossSellCampaign.cs" />
+    <Compile Include="CarData\EnumGetCarDataType.cs" />
+    <Compile Include="CarData\FuelUnitEntity.cs" />
+    <Compile Include="CarData\LaunchedCarModel.cs" />
+    <Compile Include="CarData\MakeModelMileageEntity.cs" />
+    <Compile Include="CarData\MileageDataEntity.cs" />
+    <Compile Include="CarData\GoogleKeywords.cs" />
+    <Compile Include="CarData\ModelColors.cs" />
+    <Compile Include="CarData\ModelPriceInOtherCities.cs" />
+    <Compile Include="CarData\ModelReview.cs" />
+    <Compile Include="CarData\CarPrice.cs" />
+    <Compile Include="CarData\RecentLaunchedCarEntity.cs" />
+    <Compile Include="CarData\RecentLaunchObject.cs" />
+    <Compile Include="CarData\PageMetaTags.cs" />
+    <Compile Include="CarData\ReviewEntity.cs" />
+    <Compile Include="CarData\Sponsored_Car.cs" />
+    <Compile Include="CarData\TopSellingCarModel.cs" />
+    <Compile Include="CarData\UserReviews.cs" />
+    <Compile Include="CarData\RootBase.cs" />
+    <Compile Include="CarData\SimilarCarModels.cs" />
+    <Compile Include="CarData\UpcomingCarModel.cs" />
+    <Compile Include="CarData\VersionMaskingNameValidation.cs" />
+    <Compile Include="CarData\VersionMaskingResponse.cs" />
+    <Compile Include="CarData\VersionSubSegment.cs" />
+    <Compile Include="CarData\VizuryVersionData.cs" />
+    <Compile Include="Classified\CarDetails\Finance.cs" />
+    <Compile Include="Classified\CarValuation\ValuationUrlParameters.cs" />
+    <Compile Include="Classified\EmailAlerts\DailyWeeklyEmail.cs" />
+    <Compile Include="Classified\MetaKeywords.cs" />
+    <Compile Include="Classified\Leads\Buyer.cs" />
+    <Compile Include="Classified\Leads\ClassifiedRequest.cs" />
+    <Compile Include="Classified\MyListings\ListingDetailsValidator.cs" />
+    <Compile Include="Classified\Search\AdParams.cs" />
+    <Compile Include="Classified\Search\SearchParams.cs" />
+    <Compile Include="Classified\SellCarUsed\C2BActionType.cs" />
+    <Compile Include="Classified\Search\StockBaseData.cs" />
+    <Compile Include="Classified\Leads\LeadDetail.cs" />
+    <Compile Include="Classified\Leads\LeadNotificationData.cs" />
+    <Compile Include="Classified\Leads\LeadReport.cs" />
+    <Compile Include="Classified\Leads\LeadStatus.cs" />
+    <Compile Include="Classified\Leads\BuyerValidator.cs" />
+    <Compile Include="Classified\Leads\LeadValidator.cs" />
+    <Compile Include="Classified\Leads\Seller.cs" />
+    <Compile Include="Classified\Leads\LeadStockSummary.cs" />
+    <Compile Include="Classified\SellCarUsed\C2BStockApiResponse.cs" />
+    <Compile Include="Classified\SellCarUsed\C2BStockDetails.cs" />
+    <Compile Include="Classified\SellCarUsed\InsuranceType.cs" />
+    <Compile Include="Classified\SellCarUsed\CarImageType.cs" />
+    <Compile Include="Classified\SellCarUsed\Listing.cs" />
+    <Compile Include="Classified\SellCarUsed\ListingStatusValidator.cs" />
+    <Compile Include="Classified\SellCarUsed\ListingValidator.cs" />
+    <Compile Include="Classified\SellCarUsed\ModalPopUp.cs" />
+    <Compile Include="Classified\SellCarUsed\SellCarCustomer.cs" />
+    <Compile Include="Classified\SellCarUsed\SellCarCustomerValidator.cs" />
+    <Compile Include="Classified\SellCarUsed\SellCarInfo.cs" />
+    <Compile Include="Classified\SellCarUsed\SellCarInfoValidator.cs" />
+    <Compile Include="Classified\SellCarUsed\StockConditionValidator.cs" />
+    <Compile Include="Classified\SellCarUsed\TempCustomerSellInquiry.cs" />
+    <Compile Include="CMS\AutoExpoGalleryImage.cs" />
+    <Compile Include="CMS\AutoExpoGallerySubCategory.cs" />
+    <Compile Include="CMS\ThreeSixtyView\HotspotData.cs" />
+    <Compile Include="CMS\ThreeSixtyView\Hotspot.cs" />
+    <Compile Include="CMS\EditorialWidgetSummary.cs" />
+    <Compile Include="CMS\ThreeSixtyView\ThreeSixty.cs" />
+    <Compile Include="CMS\ThreeSixtyView\ThreeSixtyCamera.cs" />
+    <Compile Include="CMS\ThreeSixtyView\ThreeSixtyViewImage.cs" />
+    <Compile Include="CompareCars\CompareCarInputParam.cs" />
+    <Compile Include="Classified\UsedCarOwnerTypes.cs" />
+    <Compile Include="Common\Modules.cs" />
+    <Compile Include="Dealers\UsedCarDealersRating.cs" />
+    <Compile Include="Dealers\UsedCarDealersRatingValidator.cs" />
+    <Compile Include="Enum\CarStatus.cs" />
+    <Compile Include="Enum\ChargeGroup.cs" />
+    <Compile Include="Enum\ClassifiedPackageType.cs" />
+    <Compile Include="Enum\CmsContentCategory.cs" />
+    <Compile Include="Enum\ContentPagesEnum.cs" />
+    <Compile Include="Enum\CarRegistrationType.cs" />
+    <Compile Include="Enum\CwBasePackageId.cs" />
+    <Compile Include="Enum\MakeParameter.cs" />
+    <Compile Include="Enum\ModelParameter.cs" />
+    <Compile Include="Enum\ModelRootParameter.cs" />
+    <Compile Include="Enum\PGAccountIdentifier.cs" />
+    <Compile Include="Enum\ReviewFilter.cs" />
+    <Compile Include="Enum\SearchType.cs" />
+    <Compile Include="Enum\GrpcTimingLogEnum.cs" />
+    <Compile Include="Enum\RuleModule.cs" />
+    <Compile Include="Enum\UserProfileResponseEnum.cs" />
+    <Compile Include="Enum\VersionParameter.cs" />
+    <Compile Include="CustomerVerification\MobileUnverificationInputsValidator.cs" />
+    <Compile Include="Dealers\MulticityDealerCities.cs" />
+    <Compile Include="CustomerVerification\MobileUnverificationInputs.cs" />
+    <Compile Include="ElasticEntities\CarBaseEntity.cs" />
+    <Compile Include="Classified\CarValuation\Valuation.cs" />
+    <Compile Include="Classified\CarValuation\ValuationPrices.cs" />
+    <Compile Include="Classified\CarValuation\ValuationReport.cs" />
+    <Compile Include="CMS\Articles\ContentFeedSummary.cs" />
+    <Compile Include="Classified\EmailAlerts\RecommendationEmailData.cs" />
+    <Compile Include="Classified\EmailAlerts\ImageUploadReminderData.cs" />
+    <Compile Include="CMS\TipsAndAdvice\TipsAndAdvicesEntity.cs" />
+    <Compile Include="Classified\Leads\Lead.cs" />
+    <Compile Include="Classified\Leads\LeadWrapper.cs" />
+    <Compile Include="CMS\UserReviews\CarReviewBaseEntity.cs" />
+    <Compile Include="CompareCars\FeaturedCarDataEntity.cs" />
+    <Compile Include="Enum\CampaignAdType.cs" />
+    <Compile Include="Enum\CarDocumentFields.cs" />
+    <Compile Include="Enum\ChargeGroupType.cs" />
+    <Compile Include="Enum\CwPages.cs" />
+    <Compile Include="Enum\ItemMasterType.cs" />
+    <Compile Include="Enum\PageProperties.cs" />
+    <Compile Include="Enum\Charge.cs" />
+    <Compile Include="Enum\SelectionOption.cs" />
+    <Compile Include="Enum\ListingStatus.cs" />
+    <Compile Include="Enum\SellerType.cs" />
+    <Compile Include="Enum\StockConditionCategory.cs" />
+    <Compile Include="Elastic\VersionCityPricesObj.cs" />
+    <Compile Include="Enum\CampaignCities.cs" />
+    <Compile Include="Enum\ThreeSixtyViewCategory.cs" />
+    <Compile Include="Enum\VersionSummaryFields.cs" />
+    <Compile Include="Enum\PricesCategoryItem.cs" />
+    <Compile Include="Enum\CampaignType.cs" />
+    <Compile Include="Enum\VariantListDescriptionType.cs" />
+    <Compile Include="Enum\EditorialEnum.cs" />
+    <Compile Include="Enum\SuggestionTypeEnum.cs" />
+    <Compile Include="Enum\BuyerProcessResponseCode.cs" />
+    <Compile Include="CMS\CarSynopsisEntity.cs" />
+    <Compile Include="Enum\StarRatings.cs" />
+    <Compile Include="Enum\CategorySection.cs" />
+    <Compile Include="Enum\CarBodyStyle.cs" />
+    <Compile Include="Enum\DeeplinkingEnum.cs" />
+    <Compile Include="Dealers\DealerMicrositeImage.cs" />
+    <Compile Include="Classified\CarDetails\Sortable.cs" />
+    <Compile Include="Enum\LeadPanel.cs" />
+    <Compile Include="Enum\UserReviewsSorting.cs" />
+    <Compile Include="Enum\ModelMenuEnum.cs" />
+    <Compile Include="Enum\UsedLeadPushApiSource.cs" />
+    <Compile Include="Enum\WidgetSource.cs" />
+    <Compile Include="ES\PropertiesEntity.cs" />
+    <Compile Include="ES\Pages.cs" />
+    <Compile Include="ES\EsBookingSummary.cs" />
+    <Compile Include="ES\SponsoredNavigation.cs" />
+    <Compile Include="ES\EsInquiry.cs" />
+    <Compile Include="ES\ESVersionColors.cs" />
+    <Compile Include="ES\InteriorColor.cs" />
+    <Compile Include="ES\ExteriorColor.cs" />
+    <Compile Include="ES\EsLeadFormResponse.cs" />
+    <Compile Include="ES\ESSurveyCampaign.cs" />
+    <Compile Include="Finance\FinanceLead.cs" />
+    <Compile Include="Finance\FinanceLinkData.cs" />
+    <Compile Include="Finance\LoanEligibilityRequestEntity.cs" />
+    <Compile Include="Finance\LoanParams.cs" />
+    <Compile Include="CarModelEntity.cs" />
+    <Compile Include="Classification\BodyType.cs" />
+    <Compile Include="Classification\EnumBodyType.cs" />
+    <Compile Include="Classified\CarDetails\BasicCarInfo.cs" />
+    <Compile Include="Classified\CarDetails\CarCondition.cs" />
+    <Compile Include="Classified\CarDetails\CarDetailsEntity.cs" />
+    <Compile Include="Classified\CarDetails\CarDetailsImageGallery.cs" />
+    <Compile Include="Classified\CarDetails\CustomerDetailsEntity.cs" />
+    <Compile Include="Classified\CarDetails\DealerInfo.cs" />
+    <Compile Include="Classified\CarDetails\Features.cs" />
+    <Compile Include="Classified\CarDetails\ImageUrl.cs" />
+    <Compile Include="Classified\CarDetails\MoreDetails.cs" />
+    <Compile Include="Classified\CarDetails\OwnersComment.cs" />
+    <Compile Include="Classified\CarDetails\ReportListingReasons.cs" />
+    <Compile Include="Classified\CarDetails\Specification.cs" />
+    <Compile Include="Classified\CarDetails\Warranty.cs" />
+    <Compile Include="Classified\CarPhoto.cs" />
+    <Compile Include="Classified\InvoiceDetails.cs" />
+    <Compile Include="Classified\MyPayments.cs" />
+    <Compile Include="Classified\NdUsedCarAlert.cs" />
+    <Compile Include="Classified\SellCarUsed\CustomerSellInquiry.cs" />
+    <Compile Include="Classified\CountData.cs" />
+    <Compile Include="Classified\CountDataMobile.cs" />
+    <Compile Include="Classified\ElasticInputs.cs" />
+    <Compile Include="Classified\FilterByEnum.cs" />
+    <Compile Include="Classified\FilterInputs.cs" />
+    <Compile Include="Classified\ImageGalleryEntity.cs" />
+    <Compile Include="Classified\LiveListingTopEntity.cs" />
+    <Compile Include="Classified\PopularUsedCars\PopularUsedCarModel.cs" />
+    <Compile Include="Classified\CarDetails\RecommendedCarsEntity.cs" />
+    <Compile Include="Classified\SellCarUsed\AreaPinCode.cs" />
+    <Compile Include="Classified\StockBaseMobile.cs" />
+    <Compile Include="Classified\SellCarUsed\ClassifiedCarColors.cs" />
+    <Compile Include="Classified\SellCarUsed\CustomerSellInquiryVehicleData.cs" />
+    <Compile Include="Classified\UsedLeads\DealerLeadsCount.cs" />
+    <Compile Include="Deals\DealsOfferEntity.cs" />
+    <Compile Include="Common\CarRightWidget.cs" />
+    <Compile Include="Common\NewsRightWidget.cs" />
+    <Compile Include="Common\PopularVideoWidget.cs" />
+    <Compile Include="Deals\DealsTestimonialEntity.cs" />
+    <Compile Include="Deals\MakeModelVersionColor.cs" />
+    <Compile Include="Enum\CarTransmissionType.cs" />
+    <Compile Include="Enum\EnumTableType.cs" />
+    <Compile Include="Enum\Gallery.cs" />
+    <Compile Include="Enum\ImagesCategories.cs" />
+    <Compile Include="Forums\UserProfile.cs" />
+    <Compile Include="AdapterModels\CarDataAdapterInputs.cs" />
+    <Compile Include="BreadcrumbEntity.cs" />
+    <Compile Include="Geolocation\AreaCode.cs" />
+    <Compile Include="Geolocation\GroupCity.cs" />
+    <Compile Include="Geolocation\Location.cs" />
+    <Compile Include="ImageUpload\Image.cs" />
+    <Compile Include="ImageUpload\ImageDTO.cs" />
+    <Compile Include="ImageUpload\ImageToken.cs" />
+    <Compile Include="ImageUpload\ImageTokenDTO.cs" />
+    <Compile Include="ImageUpload\Token.cs" />
+    <Compile Include="ImageUpload\TokenInput.cs" />
+    <Compile Include="CustomerVerification\MobileVerification.cs" />
+    <Compile Include="Leads\DealerInquiry.cs" />
+    <Compile Include="Leads\Inquiry.cs" />
+    <Compile Include="Leads\Seller.cs" />
+    <Compile Include="NewCarFinder\NcfMake.cs" />
+    <Compile Include="NewCarFinder\NcfScreen.cs" />
+    <Compile Include="NewCarFinder\NewCarFinderBudget.cs" />
+    <Compile Include="OffersV1\OfferInput.cs" />
+    <Compile Include="OffersV1\Offer.cs" />
+    <Compile Include="OffersV1\OfferCategoryDetails.cs" />
+    <Compile Include="OffersV1\OfferDetails.cs" />
+    <Compile Include="PaymentGateway\Package.cs" />
+    <Compile Include="Classified\SellCarUsed\CustomerSellInquiryData.cs" />
+    <Compile Include="Classified\SellCarUsed\SellCarConditions.cs" />
+    <Compile Include="Classified\SellCarUsed\SellCarEnums.cs" />
+    <Compile Include="Classified\SellCarUsed\SellInquiriesOtherDetails.cs" />
+    <Compile Include="Classified\SellCarUsed\SellCarBasicInfo.cs" />
+    <Compile Include="Classified\StockRecommendationsProfileId.cs" />
+    <Compile Include="Classified\StockSummary.cs" />
+    <Compile Include="Classified\UsedDealers\DealerSellInquiry.cs" />
+    <Compile Include="Classified\UsedDealers\DealersForCity.cs" />
+    <Compile Include="Classified\UsedDealers\DealerShowroomCity.cs" />
+    <Compile Include="Classified\UsedDealers\PremiumDealer.cs" />
+    <Compile Include="Classified\UsedDealers\UsedCarDealerDetails.cs" />
+    <Compile Include="CMS\Articles\CMSSubCategory.cs" />
+    <Compile Include="CMS\Articles\CMSSubCategoryV2.cs" />
+    <Compile Include="CMS\Articles\RelatedArticles.cs" />
+    <Compile Include="CMS\Media\Media.cs" />
+    <Compile Include="CMS\UserReviews\UserReviewDetail.cs" />
+    <Compile Include="CMS\UserReviews\UserReviewEntity.cs" />
+    <Compile Include="CMS\UserReviews\UserReviewUriEntity.cs" />
+    <Compile Include="Enum\UserReviewStatus.cs" />
+    <Compile Include="CMS\VideoListEntity.cs" />
+    <Compile Include="CompareCars\ComparisonCarModel.cs" />
+    <Compile Include="CompareCars\HotCarComparison.cs" />
+    <Compile Include="CrossSell\CrossSellDetail.cs" />
+    <Compile Include="CrossSell\FeaturedVersion.cs" />
+    <Compile Include="ChatManagement\ChatResponse.cs" />
+    <Compile Include="Customers\UserFeedback.cs" />
+    <Compile Include="CustomerVerification\MobileVerificationReponseEntity.cs" />
+    <Compile Include="Dealers\DealerDetails.cs" />
+    <Compile Include="Dealers\DealerShowroomDetails.cs" />
+    <Compile Include="Dealers\DealerSummary.cs" />
+    <Compile Include="Dealers\NewCarDealerCountByMake.cs" />
+    <Compile Include="Dealers\DealerStateEntityModel.cs" />
+    <Compile Include="Dealers\NewCarLead.cs" />
+    <Compile Include="Campaigns\CampaignInputs.cs" />
+    <Compile Include="Dealers\URI\CampaignInputURI.cs" />
+    <Compile Include="Deals\AdvantageSearchResults.cs" />
+    <Compile Include="Deals\DealsDealers.cs" />
+    <Compile Include="Deals\DealsInquiryDetail.cs" />
+    <Compile Include="Deals\DealColorEntity.cs" />
+    <Compile Include="Deals\DealsPriceBreakupEntity.cs" />
+    <Compile Include="Deals\DealsStock.cs" />
+    <Compile Include="Deals\DiscountSummary.cs" />
+    <Compile Include="Deals\DropOffInquiryDetailEntity.cs" />
+    <Compile Include="Deals\FilterCountEntity.cs" />
+    <Compile Include="Deals\Filters.cs" />
+    <Compile Include="Deals\ProductDetails.cs" />
+    <Compile Include="Elastic\ElasticOuptputs.cs" />
+    <Compile Include="Classified\StockBaseEntity.cs" />
+    <Compile Include="Classified\StockMakes.cs" />
+    <Compile Include="Classified\StockParamsCount.cs" />
+    <Compile Include="Classified\CarValuation\CarValuationResults.cs" />
+    <Compile Include="Classified\UsedCarsCount.cs" />
+    <Compile Include="Classified\CarValuation\ValuationBaseValue.cs" />
+    <Compile Include="Classified\CarValuation\ValuationRequest.cs" />
+    <Compile Include="CMS\Articles\ArticleBase.cs" />
+    <Compile Include="CMS\Articles\ArticleDetails.cs" />
+    <Compile Include="CMS\Articles\ArticlePageDetails.cs" />
+    <Compile Include="CMS\Articles\ArticleSummary.cs" />
+    <Compile Include="CMS\Articles\CMSContent.cs" />
+    <Compile Include="CMS\Articles\ContentFilter.cs" />
+    <Compile Include="CMS\Articles\Image.cs" />
+    <Compile Include="CMS\Articles\MakeAndModelDetail.cs" />
+    <Compile Include="CMS\Articles\Page.cs" />
+    <Compile Include="CMS\Articles\VehicleTag.cs" />
+    <Compile Include="CMS\CMSAppId.cs" />
+    <Compile Include="CMS\CMSContentDetails.cs" />
+    <Compile Include="CMS\CMSContentList.cs" />
+    <Compile Include="CMS\CMSContentType.cs" />
+    <Compile Include="CMS\CMSFeatureDetails.cs" />
+    <Compile Include="CMS\CMSFeatureList.cs" />
+    <Compile Include="CMS\CMSFilters.cs" />
+    <Compile Include="CMS\CMSCacheKey.cs" />
+    <Compile Include="CMS\PagerOutputEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CMS\PagerUrlList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CMS\PhotoGallery.cs" />
+    <Compile Include="CMS\Photos\CMSImage.cs" />
+    <Compile Include="CMS\Photos\ModelImage.cs" />
+    <Compile Include="CMS\URIs\ArticleURI.cs" />
+    <Compile Include="CMS\URIs\ImageURI.cs" />
+    <Compile Include="CMS\URIs\MakeModelDetailURI.cs" />
+    <Compile Include="CMS\Video.cs" />
+    <Compile Include="CMS\VideosEntity.cs" />
+    <Compile Include="Common\IdName.cs" />
+    <Compile Include="CompareCars\CompareCarsDetails.cs" />
+    <Compile Include="CompareCars\CCarData.cs" />
+    <Compile Include="CompareCars\MetaTagsEntity.cs" />
+    <Compile Include="Customers\CustomerMinimal.cs" />
+    <Compile Include="Customers\FacebookInfo.cs" />
+    <Compile Include="Customers\GoogleInfo.cs" />
+    <Compile Include="Dealers\AboutUsImageEntity.cs" />
+    <Compile Include="Dealers\DealerCityEntity.cs" />
+    <Compile Include="Dealers\DealerCityStateEntity.cs" />
+    <Compile Include="Dealers\DealerBrandingProperty.cs" />
+    <Compile Include="Dealers\DealerInquiryDetails.cs" />
+    <Compile Include="Dealers\NewCarDealer.cs" />
+    <Compile Include="Dealers\NewCarDealerEntiy.cs" />
+    <Compile Include="Dealers\NewCarDealersList.cs" />
+    <Compile Include="Dealers\NewCarInquiryInfo.cs" />
+    <Compile Include="Dealers\PopularCitiesEntity.cs" />
+    <Compile Include="Dealers\SponsoredDealer.cs" />
+    <Compile Include="DeepLinking\DeepLinkingEntity.cs" />
+    <Compile Include="Elastic\ElasticFiltersCount.cs" />
+    <Compile Include="Elastic\SellCarEntityElastic.cs" />
+    <Compile Include="EnumPriceCategory.cs" />
+    <Compile Include="Enum\CampaignRecommendationType.cs" />
+    <Compile Include="Enum\CampaignRecommendationSource.cs" />
+    <Compile Include="Enum\BikeBooking.cs" />
+    <Compile Include="Enum\BillDeskTransactionStatusCode.cs" />
+    <Compile Include="Enum\CampaignCategory.cs" />
+    <Compile Include="Enum\CarDataEnums.cs" />
+    <Compile Include="Enum\CarFuelType.cs" />
+    <Compile Include="Enum\DealerShowroomBusinessTypeEnum.cs" />
+    <Compile Include="Enum\EnumTemplatesCategory.cs" />
+    <Compile Include="Enum\ImageSizeHash.cs" />
+    <Compile Include="Enum\Clients.cs" />
+    <Compile Include="Enum\LeadPushSource.cs" />
+    <Compile Include="Enum\LeadSource.cs" />
+    <Compile Include="Enum\LeadSourceIdForAutobiz.cs" />
+    <Compile Include="Enum\OfferPackage.cs" />
+    <Compile Include="Enum\Pages.cs" />
+    <Compile Include="Enum\PlatformId.cs" />
+    <Compile Include="Enum\SponsorCarPageId.cs" />
+    <Compile Include="Enum\DealerShowroomPanelEnum.cs" />
+    <Compile Include="Enum\SponsoredDealerPackage.cs" />
+    <Compile Include="Enum\CwAppScreenEnum.cs" />
+    <Compile Include="Enum\EnumVideoCategory.cs" />
+    <Compile Include="Enum\PGTransactionStatusCode.cs" />
+    <Compile Include="Enum\Platform.cs" />
+    <Compile Include="Enum\SMSType.cs" />
+    <Compile Include="Enum\SponsoredCarEnum.cs" />
+    <Compile Include="Enum\ClassifiedStockSource.cs" />
+    <Compile Include="Enum\StatusCodesEnum.cs" />
+    <Compile Include="Enum\UsedLeadType.cs" />
+    <Compile Include="Enum\VideoSortOrderCategory.cs" />
+    <Compile Include="ES\ESSurveyCustomerResponse.cs" />
+    <Compile Include="ES\ESSurvey.cs" />
+    <Compile Include="ES\ESSurveyOptions.cs" />
+    <Compile Include="ES\ESSurveyQuestions.cs" />
+    <Compile Include="Finance\FinanceCity.cs" />
+    <Compile Include="Forums\ThreadBasicInfo.cs" />
+    <Compile Include="Geolocation\Area.cs" />
+    <Compile Include="Geolocation\Cities.cs" />
+    <Compile Include="Geolocation\CityZonesV2.cs" />
+    <Compile Include="Geolocation\PopularCity.cs" />
+    <Compile Include="Geolocation\City.cs" />
+    <Compile Include="Geolocation\CityZones.cs" />
+    <Compile Include="Geolocation\CustLocation.cs" />
+    <Compile Include="Geolocation\LatLongURI\LatLongURI.cs" />
+    <Compile Include="Geolocation\PQGroupCity.cs" />
+    <Compile Include="Geolocation\PQGroupCityV2.cs" />
+    <Compile Include="Geolocation\PuneThaneZones.cs" />
+    <Compile Include="Geolocation\SpecialZones.cs" />
+    <Compile Include="Geolocation\StateAndAllCities.cs" />
+    <Compile Include="Geolocation\States.cs" />
+    <Compile Include="Geolocation\StatesAndPopularCities.cs" />
+    <Compile Include="Geolocation\Zone.cs" />
+    <Compile Include="Geolocation\Zones.cs" />
+    <Compile Include="Insurance\ClientMailEntity.cs" />
+    <Compile Include="Insurance\ApiCredentials.cs" />
+    <Compile Include="Insurance\Coverfox.cs" />
+    <Compile Include="Insurance\InsuranceCity.cs" />
+    <Compile Include="Insurance\InsuranceLead.cs" />
+    <Compile Include="Insurance\InsuranceDiscount.cs" />
+    <Compile Include="IPToLocation\IPToLocationEntity.cs" />
+    <Compile Include="Login\LoginInputs.cs" />
+    <Compile Include="PagedResult.cs" />
+    <Compile Include="LandingPage\LandingPageDetails.cs" />
+    <Compile Include="PriceQuote\ChargeBase.cs" />
+    <Compile Include="PriceQuote\ChargeGroup.cs" />
+    <Compile Include="PriceQuote\Charge.cs" />
+    <Compile Include="PriceQuote\ChargeGroupPrice.cs" />
+    <Compile Include="PriceQuote\ChargePrice.cs" />
+    <Compile Include="PriceQuote\EMIInformation.cs" />
+    <Compile Include="PriceQuote\ModelSimilarPriceDetail.cs" />
+    <Compile Include="PriceQuote\NearByCity.cs" />
+    <Compile Include="PriceQuote\NearByCityDetails.cs" />
+    <Compile Include="PriceQuote\PQItemList.cs" />
+    <Compile Include="PriceQuote\PriceQuote.cs" />
+    <Compile Include="PriceQuote\PriceQuoteInput.cs" />
+    <Compile Include="PriceQuote\VehiclePrice.cs" />
+    <Compile Include="PriceQuote\VersionPrices.cs" />
+    <Compile Include="ProfanityFilter\BadWords.cs" />
+    <Compile Include="ProfanityFilter\BadWordsValidator.cs" />
+    <Compile Include="Blocking\BlockMobileInputs.cs" />
+    <Compile Include="Blocking\BlockMobileInputsValidator.cs" />
+    <Compile Include="Blocking\MobileValidator.cs" />
+    <Compile Include="PageProperty\PageProperty.cs" />
+    <Compile Include="Rules\ModelRule.cs" />
+    <Compile Include="Sponsored\SponsoredHistoryModels.cs" />
+    <Compile Include="Stock\CarCondition.cs" />
+    <Compile Include="Stock\CarConditionParts.cs" />
+    <Compile Include="Stock\Certification\CertificationCarItems.cs" />
+    <Compile Include="Stock\Certification\CertificationStatus.cs" />
+    <Compile Include="Stock\DealerStatusEntity.cs" />
+    <Compile Include="Stock\Certification\StockCertification.cs" />
+    <Compile Include="Stock\Certification\StockCertificationItem.cs" />
+    <Compile Include="Stock\Certification\StockCertificationSubItemDetail.cs" />
+    <Compile Include="Stock\Certification\StockCertificationItemValidator.cs" />
+    <Compile Include="Stock\Certification\StockCertificationSubItem.cs" />
+    <Compile Include="Stock\Certification\StockCertificationSubItemDetailValidator.cs" />
+    <Compile Include="Stock\Certification\StockCertificationSubItemValidator.cs" />
+    <Compile Include="Stock\Certification\StockCertificationValidator.cs" />
+    <Compile Include="Stock\FinanceEligibility.cs" />
+    <Compile Include="Stock\Finance\FinanceUrlParameter.cs" />
+    <Compile Include="Stock\Finance\StockFinanceData.cs" />
+    <Compile Include="Stock\BoostPackResponseStatus.cs" />
+    <Compile Include="Stock\StockAcknowledgement.cs" />
+    <Compile Include="Stock\StockBoostPackageDetails.cs" />
+    <Compile Include="Stock\StockBoostPackagesValidator.cs" />
+    <Compile Include="Stock\StockCity.cs" />
+    <Compile Include="Stock\StockCondition.cs" />
+    <Compile Include="Stock\StockConditionItem.cs" />
+    <Compile Include="Stock\StockDeleteValidator.cs" />
+    <Compile Include="Stock\StockImageAcknowledgement.cs" />
+    <Compile Include="Stock\StockFinance.cs" />
+    <Compile Include="Stock\StockFinanceValidator.cs" />
+    <Compile Include="Stock\StockImageDeleteValidator.cs" />
+    <Compile Include="Stock\StockImageStatus.cs" />
+    <Compile Include="Stock\StockImageStatusList.cs" />
+    <Compile Include="Stock\StockImageStatusListValidator.cs" />
+    <Compile Include="Stock\StockImageStatusValidator.cs" />
+    <Compile Include="Stock\StockImagesValidator.cs" />
+    <Compile Include="Stock\StockImageValidator.cs" />
+    <Compile Include="Stock\StockPackageInfo.cs" />
+    <Compile Include="Stock\StockBoostPackages.cs" />
+    <Compile Include="Stock\StockRecoParams.cs" />
+    <Compile Include="Stock\StockRecoParamsData.cs" />
+    <Compile Include="Stock\StockRecoParamsValidator.cs" />
+    <Compile Include="Stock\StockSortScore.cs" />
+    <Compile Include="Stock\StocksValidator.cs" />
+    <Compile Include="Stock\StockValidator.cs" />
+    <Compile Include="Classified\UsedLeads\UsedCarLeadCount.cs" />
+    <Compile Include="Subscription\SubscriptionContent.cs" />
+    <Compile Include="UsedCarsDealer\DealerCities.cs" />
+    <Compile Include="UsedCarsDealer\DealerInfo.cs" />
+    <Compile Include="UsedCarsDealer\DealerValidator.cs" />
+    <Compile Include="UserProfiling\AdTargetingEntity.cs" />
+    <Compile Include="Dealers\MulticityDealerCitiesValidator.cs" />
+    <Compile Include="UserReview\UserReveiwLandingPageDetails.cs" />
+    <Compile Include="UserReview\RateCarDetails.cs" />
+    <Compile Include="UserReview\PageSectionDetails.cs" />
+    <Compile Include="UserReview\UserReviewCarDetails.cs" />
+    <Compile Include="UserReview\UserReviewDetails.cs" />
+    <Compile Include="UserReview\UserReviewFilter.cs" />
+    <Compile Include="UserReview\UserReviewGuideLines.cs" />
+    <Compile Include="UserReview\NameIdBase.cs" />
+    <Compile Include="UserReview\UserReviewMoreRatings.cs" />
+    <Compile Include="UserReview\UserReviewOption.cs" />
+    <Compile Include="UserReview\UserReviewPageDetails.cs" />
+    <Compile Include="UserReview\UserReviewQuestions.cs" />
+    <Compile Include="UserReview\UserReviewRatingOptions.cs" />
+    <Compile Include="UserReview\UserReviewTitle.cs" />
+    <Compile Include="UserReview\UserReviewUserDetails.cs" />
+    <Compile Include="VehicleData\Items.cs" />
+    <Compile Include="Vernam\RequestData.cs" />
+    <Compile Include="Vernam\SourceModule.cs" />
+    <Compile Include="Vernam\VerificationMedium.cs" />
+    <Compile Include="Vernam\VerificationType.cs" />
+    <Compile Include="VersionPrice.cs" />
+    <Compile Include="PriceQuote\LeadSource.cs" />
+    <Compile Include="PriceQuote\ModelPrices.cs" />
+    <Compile Include="PriceQuote\PQItem.cs" />
+    <Compile Include="PriceQuote\PriceOverview.cs" />
+    <Compile Include="PriceQuote\CarPriceQuote.cs" />
+    <Compile Include="PriceQuote\VersionPriceQuote.cs" />
+    <Compile Include="SearchQuery.cs" />
+    <Compile Include="SEO\Annotations.cs" />
+    <Compile Include="SEO\MetaTagDetails.cs" />
+    <Compile Include="SEO\MetaTags.cs" />
+    <Compile Include="MobileAppAlerts\MobileAppAlert.cs" />
+    <Compile Include="Stock\CarPhotos.cs" />
+    <Compile Include="Stock\SellInquiry.cs" />
+    <Compile Include="Stock\StockDelete.cs" />
+    <Compile Include="Stock\StockIds.cs" />
+    <Compile Include="Stock\StockImageDelete.cs" />
+    <Compile Include="Stock\StockImageList.cs" />
+    <Compile Include="Stock\StockImagesWrapper.cs" />
+    <Compile Include="Stock\StockList.cs" />
+    <Compile Include="Stock\Stock.cs" />
+    <Compile Include="Stock\StockImage.cs" />
+    <Compile Include="Stock\StockWrapper.cs" />
+    <Compile Include="Template\TemplateContent.cs" />
+    <Compile Include="Template\Templates.cs" />
+    <Compile Include="ThirdParty\Leads\ThirdPartyInquiryDetails.cs" />
+    <Compile Include="ViewModels\CarData\MakeImageCarousal.cs" />
+    <Compile Include="ViewModels\CarData\ModelDataSummary.cs" />
+    <Compile Include="ViewModels\CarData\VideosCarousel.cs" />
+    <Compile Include="ViewModels\CarData\OpinionData.cs" />
+    <Compile Include="ViewModels\CompareCarsDetailModel.cs" />
+    <Compile Include="ViewModels\CompareCarsModel.cs" />
+    <Compile Include="ViewModels\DealerListModel.cs" />
+    <Compile Include="ViewModels\DealerOfTheMonthModel.cs" />
+    <Compile Include="ViewModels\HomeModel.cs" />
+    <Compile Include="ViewModels\ModelImageCarousal.cs" />
+    <Compile Include="ViewModels\LocateDealerModel.cs" />
+    <Compile Include="ViewModels\ModelImage.cs" />
+    <Compile Include="ViewModels\NewCarModel.cs" />
+    <Compile Include="ViewModels\TopSellingModel.cs" />
+    <Compile Include="Notifications\OffersSMS.cs" />
+    <Compile Include="Notifications\Email.cs" />
+    <Compile Include="Notifications\SMS.cs" />
+    <Compile Include="Customers\Customer.cs" />
+    <Compile Include="CRMAPI\CarData.cs" />
+    <Compile Include="CRMAPI\CRMApiResponseEntity.cs" />
+    <Compile Include="CRMAPI\CRMData.cs" />
+    <Compile Include="CRMAPI\CustomerData.cs" />
+    <Compile Include="CRMAPI\VerificationData.cs" />
+    <Compile Include="Enum\EnumCMSContentType.cs" />
+    <Compile Include="LeadScore\LeadScoreParams.cs" />
+    <Compile Include="MobileAppAlerts\AlertSubsciptionEntity.cs" />
+    <Compile Include="MobileAppAlerts\data.cs" />
+    <Compile Include="MobileAppAlerts\GCMFormat.cs" />
+    <Compile Include="MobileAppAlerts\MobileAppNotificationBase.cs" />
+    <Compile Include="MobileAppAlerts\MobileAppNotificationRegistration.cs" />
+    <Compile Include="MobileAppAlerts\MobileAppNotifications.cs" />
+    <Compile Include="Offers\OfferBookedCarInfo.cs" />
+    <Compile Include="Offers\OfferDetail.cs" />
+    <Compile Include="Offers\OfferMakeModelCity.cs" />
+    <Compile Include="Offers\OfferCoupon.cs" />
+    <Compile Include="Offers\OfferDealerDetails.cs" />
+    <Compile Include="Offers\OfferInputs.cs" />
+    <Compile Include="Offers\OfferMakes.cs" />
+    <Compile Include="Offers\OfferModels.cs" />
+    <Compile Include="Offers\OfferPGAndroid.cs" />
+    <Compile Include="Offers\OffersEntity.cs" />
+    <Compile Include="Offers\OffersResponseEntity.cs" />
+    <Compile Include="Offers\OfferTnc.cs" />
+    <Compile Include="Offers\OfferPaymentEntity.cs" />
+    <Compile Include="Offers\PQOfferEntity.cs" />
+    <Compile Include="Offers\TC_PaymentInquiryEntity.cs" />
+    <Compile Include="Pagination.cs" />
+    <Compile Include="PagerEntity.cs" />
+    <Compile Include="PaymentGateway\GatewayResponse.cs" />
+    <Compile Include="PaymentGateway\TransactionDetails.cs" />
+    <Compile Include="PriceQuote\PQCarDetailsEntity.cs" />
+    <Compile Include="PriceQuote\PQ.cs" />
+    <Compile Include="PriceQuote\PQInputes.cs" />
+    <Compile Include="PriceQuote\PQUserInfoTrackEntity.cs" />
+    <Compile Include="PriceQuote\PriceQuoteEntity.cs" />
+    <Compile Include="PriceQuote\VersionsPQ.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchResult.cs" />
+    <Compile Include="Security\SecurityEntity.cs" />
+    <Compile Include="SercoEntity.cs" />
+    <Compile Include="Common\TextValue.cs" />
+    <Compile Include="URIs\CarData\GetCarVersionsURI.cs" />
+    <Compile Include="Classified\UsedCarComparisonEntity.cs" />
+    <Compile Include="URIs\RSSURI\RssUri.cs" />
+    <Compile Include="ViewModels\UsedCarModel.cs" />
+    <Compile Include="UsedCarsDealer\ShowroomImage.cs" />
+    <Compile Include="XmlFeed\WebmasterFeed.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CMS\Authors\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Carwale.Entity.ruleset" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Carwale.Utility\Carwale.Utility.csproj">
+      <Project>{7edc7859-19ea-4b79-acc3-0525860b4199}</Project>
+      <Name>Carwale.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="DisableAnalyzersForVisualStudioBuild" BeforeTargets="CoreCompile" Condition="'$(BuildingInsideVisualStudio)' == 'True' And '$(BuildingProject)' == 'True'">
+    <!--
+    Disable analyzers when building a project inside Visual Studio. Note that analyzer behavior for IntelliSense
+    purposes is not altered by this.
+  -->
+    <ItemGroup>
+      <Analyzer Remove="@(Analyzer)" />
+    </ItemGroup>
+  </Target>
+</Project>

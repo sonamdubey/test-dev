@@ -1,0 +1,288 @@
+﻿@import "../mixins/_utils.scss";
+@import "../mixins/_text.scss";
+@import "../mixins/_vendor-utils.scss";
+@import "offers-ribbon.scss";
+@import "offers-footer.scss";
+
+img{max-width:100%; }
+
+.offer-container{
+	background: map-get($color-map, "std-dark-gray");
+	padding: 40px 10px 10px;
+	position: relative;
+	margin-top: 20px;
+	margin-bottom: 20px;    
+}
+
+.offers-icons-section{
+	@include get-vendor-prefixed("border-radius", "30px");
+	position: absolute;
+	background: map-get($color-map, "white-bg");
+	border: 1px solid map-get($color-map, "std-dark-gray");
+	width: 60px;
+	height: 60px;
+	top: 10px;
+	left: 25px;
+	text-align: center;
+	svg{
+		position: absolute;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+	}
+}
+.dealer-icon-unit{
+	svg{
+		top: 13px;
+		width: 35px;
+		height: 35px;
+	}
+}
+.offer-icon-unit{
+	svg{
+		top: 16px;
+		width: 40px;
+		height: 32px;
+	}
+}
+
+.animate{
+
+	.offer-icon-unit {
+		.path1, .path2, .path3, .path4, .path5{
+		@include get-vendor-prefixed("animation","offset 30s linear forwards");
+		}
+	}
+	
+	.dealer-icon-unit {
+		.path1, .path2, .path3, .path4, .path5{
+		  @include get-vendor-prefixed("animation","offset 1.5s linear forwards");
+		}
+	}
+	@-webkit-keyframes offset{
+		to{
+		@include get-vendor-prefixed("stroke-dashoffset","0");
+		}
+	}
+	@-moz-keyframes offset{
+		to{
+		@include get-vendor-prefixed("stroke-dashoffset","0");
+		}
+	}
+	@-o-keyframes offset{
+		to{
+		@include get-vendor-prefixed("stroke-dashoffset","0");
+		}
+	}
+	@keyframes offset{
+		to{
+		@include get-vendor-prefixed("stroke-dashoffset","0");
+		}
+	}
+	
+	.path1{
+	  @include get-vendor-prefixed("stroke-dasharray","310");
+	  @include get-vendor-prefixed("stroke-dashoffset","310");
+	}
+	
+	.path2{
+	 @include get-vendor-prefixed("stroke-dasharray","500");
+	 @include get-vendor-prefixed("stroke-dashoffset","500");
+	 @include get-vendor-prefixed("animation-dealy","1s");
+	}
+	
+	.path3{
+	  @include get-vendor-prefixed("stroke-dasharray","1000");
+	  @include get-vendor-prefixed("stroke-dashoffset","1000");
+	  @include get-vendor-prefixed("animation-dealy","1s");
+	}
+	
+	.path4{
+	  @include get-vendor-prefixed("stroke-dasharray","1200");
+	  @include get-vendor-prefixed("stroke-dashoffset","1200");
+	}
+	
+	.path5{
+	  @include get-vendor-prefixed("stroke-dasharray","500");
+	  @include get-vendor-prefixed("stroke-dashoffset","500");
+	  @include get-vendor-prefixed("animation-dealy","1s");
+	}
+}
+
+.campaign-section{
+	background: map-get($color-map, "white-bg");
+	.campaign__heading{
+		padding: 15px 15px 15px;
+	}
+	.campaign__title{
+		font-size: 18px;
+		font-weight: 600;
+		color: map-get($color-map, "charcoal");
+	}
+	.campaign__sub-title{
+		color: map-get($color-map, "std-dark-gray");
+		display: block;
+		padding-top: 3px;
+	}
+	.dealer-address{
+		display: inline-block;
+		margin-right: 10px;
+	}
+}
+.campaign__call-detail{	
+	display: inline-block;
+	padding-top: 5px;
+	color: map-get($color-map, "charcoal");
+	font-weight: 600;
+	.campaign__call-icon{
+		width: 14px;
+		height: 16px;
+		vertical-align: sub;
+		margin-right: 5px;
+	}
+	.campaign__call-number{
+		color: map-get($color-map, "charcoal");
+	}
+}
+
+.top-offer-section{
+	&.campaign-section{
+		margin-bottom: 1px;
+	}
+	.offers-wrapper{
+		border-top: 1px solid map-get($color-map, "std-light-gray");
+	}
+	.campaign__heading{
+		padding-top: 35px;
+	}
+	.offers__li:first-child{
+		padding-top: 10px;
+	}
+}
+
+.offers__list{
+	padding-bottom: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.offers__li {
+  display: none;
+  padding: 14px 0;
+	
+  &:first-child {
+    display: block;
+    border-bottom: 0;
+	padding-top: 0;
+  }
+}
+
+.open-offers{
+	.offers__li{
+		display: block;
+		border-bottom: 1px solid map-get($color-map, "white-smoke");
+
+		&:last-child {
+			border: none;
+			padding-bottom: 15px;
+		}
+	}
+}
+
+.offers-list__icon{
+    vertical-align: middle;
+    width: 30px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.offers-list__content {
+  color: map-get($color-map, "charcoal");
+  font-size: 13px;
+  line-height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 83%;
+
+  &.truncate-offer {
+    width: auto;
+    max-width: 173px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.open-all-offers {
+  color: map-get($color-map, "std-link");
+  cursor: pointer;
+  vertical-align: baseline;
+}
+
+.dealer-offer__li {
+  display: inline-block;
+  color: map-get($color-map, "mid-gray");
+  width: 50%;
+  padding-bottom: 15px;
+  
+  &:before {
+    display: inline-block;
+    content: '';
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    height: 5px;
+    width: 5px;
+    margin-right: 5px;
+    background-color: #bdbdbd;
+    vertical-align: middle;
+  }
+}
+
+.dealer-template{
+	.campaign__sub-title{
+		color: map-get($color-map, "dim-gray");
+		padding-bottom: 5px;
+	}
+}
+.dealer-offer__list{
+	padding: 0 15px;
+	width: 100%;
+    display: table;
+}
+
+.teal-bg{
+	background: #02d4bb;
+	.offers-icons-section{
+		border: 1px solid map-get($color-map, "teal-bg");
+	}
+}
+
+.deal-link{
+	background: map-get($color-map, "white-bg");
+	padding: 0 15px 15px;
+	.deal-link__tag{
+		font-size: 18px;
+		font-weight: bold;
+		color: map-get($color-map, "std-link");
+		cursor: pointer;
+	}
+}
+
+@media only screen and (min-width: 640px) {
+    .offers__content{
+		width: 90%;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+  .offers-list__content {
+	  &.truncate-offer {  
+		max-width: 148px;
+	  }
+  }
+
+ .js-offer__tnc{
+	width: 35%;
+	float: right;
+ }
+}

@@ -1,0 +1,158 @@
+﻿@using System.Configuration;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.UI.Common;
+@using Carwale.BL.Experiments;
+@{
+    var showAdvantageLink = Advanatge.ShowAdvantageDiscountLink;
+    bool showExperimentalColor = ProductExperiments.IsShowExperimentalColor(CookiesCustomers.AbTest);
+}
+<!doctype html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# @(ViewBag.PageId != null && Convert.ToInt32(ViewBag.PageId) == 68 ? "product:http://ogp.me/ns/product#" : string.Empty)">
+    <!-- you can use "amp" or "AMP" or "⚡" -->    
+        <meta charset="utf-8">
+        <title itemprop="name">@ViewBag.Title - CarWale</title>
+        @if (ViewBag.Description != null)
+        {
+            <meta itemprop="description" name="description" content="@Html.Raw(System.Text.RegularExpressions.Regex.Replace(ViewBag.Description.ToString(), @"<[^>]*>", string.Empty))" />
+        }
+        @if (ViewBag.Keywords != null)
+        {
+            <meta name="keywords" content="@(ViewBag.Keywords ?? string.Empty)" />
+        }
+        @RenderSection("MetaTags", false)
+        @if (!string.IsNullOrEmpty(ViewBag.Canonical))
+        {
+            <link rel="canonical" href="@Html.Raw(ViewBag.Canonical)" />
+        }
+        @if (ViewBag.Amphtml != null && ViewBag.Amphtml != string.Empty)
+        {
+            <link rel="amphtml" href="@ViewBag.Amphtml" />
+        }
+        @if (ViewBag.DeeplinkAlternativesAndroid != null)
+        {
+            <link rel="alternate" href="android-app://com.carwale/carwaleandroid1/www.carwale.com@(ViewBag.DeeplinkAlternativesAndroid)" />
+        }
+        @if (ViewBag.DeeplinkAlternatives != null)
+        {
+            @*<link rel="alternate" href="ios-app://910137745/ioscarwale/www.carwale.com@(ViewBag.DeeplinkAlternatives)" />*@
+        }
+        @if (!String.IsNullOrWhiteSpace(ViewBag.Prev))
+        {
+            <link rel="prev" href="@ViewBag.Prev" />
+        }
+        @if (!String.IsNullOrWhiteSpace(ViewBag.Next))
+        {
+            <link rel="next" href="@ViewBag.Next" />
+        }
+        <meta name="google-site-verification" content="y33JBqCALrAtfZBeI-VVHz7jyLJrZqpOsggckAZlBj8" />
+        <link href="https://www.googletagmanager.com" rel="dns-prefetch">
+        <link href="https://www.googletagservices.com" rel="dns-prefetch">
+        <link href="https://connect.facebook.net" rel="dns-prefetch">
+        <link href="https://s3.amazonaws.com" rel="dns-prefetch">
+        <link href="https://stats.g.doubleclick.net" rel="dns-prefetch">
+        <link href="https://imgd.aeplcdn.com" rel="dns-prefetch">
+        <link href="https://stc.aeplcdn.com" rel="dns-prefetch">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no" />
+        <link rel="SHORTCUT ICON" href="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/carwale.png?v=1.1" />
+        <noscript class="deferred-styles"><link rel="stylesheet" href="/static/m/css/cwm-common-style.css" type="text/css"><link rel="stylesheet" href="/static/sass/m/css/loader.css" type="text/css"><link rel="stylesheet" href="/static/m/css/easy-autocomplete.css" type="text/css"><link rel="stylesheet" href="/static/cwfontawesome/cw-font-awesome.css" type="text/css"></noscript>
+        <style>@@font-face {font-family: 'LatoWeb';src: url('https://stc.aeplcdn.com/fonts/lato-bold-webfont.woff') format('woff');font-weight: 700;font-style: normal;}@@font-face {font-family: 'LatoWeb';src: url('https://stc.aeplcdn.com/fonts/lato-regular-webfont.woff') format('woff');font-weight: 400;font-style: normal;} /*! Font Awesome 4.2.0 by @@davegandy - http://fontawesome.io - @@fontawesome * License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License) */@@font-face {font-family: 'CWFontAwesome';src:  url('https://stc.aeplcdn.com/cwfontawesome/fonts/cwfontawesome.eot?1cyjai');src:  url('https://stc.aeplcdn.com/cwfontawesome/fonts/cwfontawesome.eot?1cyjai#iefix') format('embedded-opentype'),url('https://stc.aeplcdn.com/cwfontawesome/fonts/cwfontawesome.ttf?1cyjai') format('truetype'),url('https://stc.aeplcdn.com/cwfontawesome/fonts/cwfontawesome.woff?1cyjai') format('woff'),url('https://stc.aeplcdn.com/cwfontawesome/fonts/cwfontawesome.svg?1cyjai#CWFontAwesome') format('svg');font-weight: normal;font-style: normal;}
+        </style>
+    @if(showExperimentalColor)
+    {
+        <style>.btn-abtest .btn-orange {background: #e53012;}.btn-abtest .btn-green {background: #00afa0;}.btn-abtest .m-call-slug .btn {border-radius: 6px;font-size: 18px;font-weight: 700;}.btn-abtest .m-call-slug {background: rgba(255, 255, 255, 0.9) none repeat scroll 0 0;bottom: 0;color: #fff;padding: 5px;position: fixed;width: 100%;z-index: 5;box-shadow: #d2d2d2 0 -1px 10px;}</style>
+    }
+        @if (ViewBag.CustomCss != null)
+        {
+            if (ViewBag.CustomCss.IndexOf(".css") > 0)
+            {
+                <link href="@ViewBag.CustomCss" rel="stylesheet" type="text/css">
+            }
+            else
+            {
+                Html.RenderPartial((string)ViewBag.CustomCss);
+            }
+        }
+        @RenderSection("Styles", false)
+        @{
+            Html.RenderPartial("~/Views/Shared/_GoogleTagManagerView.cshtml");
+            Html.RenderPartial("~/Views/Shared/_GoogleTagServicesView.cshtml");
+        }
+        <script type="text/javascript" src="/static/m/js/frameworks.js"></script>
+        @{if (ViewBag.DefineAdSlots != null)
+            {
+                @Html.Raw(ViewBag.DefineAdSlots);
+            }
+        }
+    </head>
+    <body class="@ViewBag.BodyClass bg-light-grey m-special-skin-body m-no-bg-color @(showExperimentalColor ? "btn-abtest" : "")">
+    @{
+        Html.RenderPartial("~/Views/Shared/_GoogleTagManagerNoScript.cshtml");
+    }
+    @RenderBody()
+        <div id="divOverlay" style="display:none;"></div><div id="globalPopupBlackOut" class="blackOut-window"></div>
+        @{ Html.RenderPartial("~/Views/Shared/m/_MLoader.cshtml");}
+        <noscript id="location_popup">
+            <script type="text/html" src="/static/m/ui/location.html">
+            </script>
+        </noscript>
+    <script type="text/javascript">
+        var cwTrackingPath = '@ConfigurationManager.AppSettings["HostUrl"]';
+        var insuranceKeys = {
+            cholaStates: [@System.Configuration.ConfigurationManager.AppSettings["InsuranceStates"]],
+        }
+        var defaultCookieDomain = '@Carwale.UI.Common.CookiesCustomers.CookieDomain';
+        var isEligibleForORP = ('@CookiesCustomers.IsEligibleForORP' === 'True');
+        var abTestKey = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestVersion"])";
+        var abTestKeyMaxValue = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMaxValue"])";
+        var abTestKeyMinValue = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMinValue"])";
+        var askingAreaCityId = [@System.Configuration.ConfigurationManager.AppSettings["AskingAreaCityIds"]];
+        var testDriveCampaignIds = [@System.Configuration.ConfigurationManager.AppSettings["TestDriveCampaignIds"]];
+    </script>
+    @RenderSection("Plugins", false)
+    <script type="text/javascript" src="/static/m/js/plugins/jquery-cookie.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/plugins/lazy-load.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/easy-autocomplete.js" defer></script>
+    <script type="text/javascript" src="/static/js/adsense.js" defer></script>
+    <script type="text/javascript" src="/static/js/v2/app/clientcache.js" defer></script>
+    <script type="text/javascript" src="/static/js/globalSearch.js" defer></script>
+    <script type="text/javascript" src="/static/js/error-logger.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/v2/app/common.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/v2/app/loader.js" defer></script>
+    <script type="text/javascript" src="/static/js/cookie-migration.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/v2/app/new-car-common.js" defer></script>
+    <script type="text/javascript" src="/static/js/v2/app/cwTracking.js" defer></script>
+    <script type="text/javascript" src="/static/js/lazyloadad.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/location.js" defer></script>
+
+    @if (ViewBag.CustomJs != null)
+    {
+        if (ViewBag.CustomJs.IndexOf(".js") > 0)
+        {
+            <script type="text/javascript" src="@ViewBag.CustomJS"></script>}
+        else
+        {
+            Html.RenderPartial((string)ViewBag.CustomJs);
+        }
+    }
+    @RenderSection("Scripts", false)
+    @RenderSection("LoadScript", false)
+    @{
+        Html.RenderPartial("~/Views/Shared/_FacebookScriptView.cshtml");
+        Html.RenderPartial("~/Views/Shared/_OutbrainScriptView.cshtml");
+    }
+    <script>
+        var loadDeferredStyles = function () {
+            var addStylesNode = document.getElementsByClassName("deferred-styles"), replacement = document.createElement("div"), styleLinks = "";
+            var maxStylesNodes = addStylesNode.length;
+            for (var i = 0; i < maxStylesNodes; i++) { styleLinks += addStylesNode[i].textContent; }
+            replacement.innerHTML = styleLinks;
+            document.body.appendChild(replacement)
+        };
+        var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame;
+        if (raf) raf(function () { window.setTimeout(loadDeferredStyles, 0); });
+        else window.addEventListener('load', loadDeferredStyles);
+    </script>
+</body>
+</html>

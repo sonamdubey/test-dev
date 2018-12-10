@@ -1,0 +1,278 @@
+@mixin oxygen-loader($containerHeight: '100px', $loaderHeight: '50px') {
+	.oxygen-loader {
+		@include flexbox;
+		@include align-items(center);
+		@include justify-content(center);
+		width: 100%;
+		height: #{$containerHeight};
+		text-align: center;
+
+		img {
+			height: #{$loaderHeight};
+		}
+	}
+}
+
+/*
+ * Reference:
+ * https: //cloudcannon.com/deconstructions/2014/11/15/facebook-content-placeholder-deconstruction.html
+ */
+
+@mixin loader-background($backgroundColor: #f9f9f9, $loaderColor: #efefef) {
+	@include vendor-prefix('animation', placeholderShimmer 1.25s linear 25 forwards);
+	background: $backgroundColor;
+	background: linear-gradient(to right, $backgroundColor 15%, $loaderColor 20%, $backgroundColor 25%);
+	background-size: 1024px 100%;
+	position: relative;
+}
+
+@-webkit-keyframes placeholderShimmer {
+	0% {
+		background-position: -512px 0;
+	}
+	100% {
+		background-position: 512px 0;
+	}
+}
+
+@keyframes placeholderShimmer {
+	0% {
+		background-position: -512px 0;
+	}
+	100% {
+		background-position: 512px 0;
+	}
+}
+
+// model loader
+$loaderLineHeight: 15px;
+
+@mixin model-loader() {
+	.model-loader__box {
+		@include flexbox;
+		@include align-items(center);
+		padding: 10px;
+		margin-bottom: 5px;
+		text-decoration: none;
+	}
+
+	.model-loader__image {
+		@include loader-background;
+		width: 100px;
+		height: 56px;
+	}
+
+	.model-loader__title {
+		width: 59%;
+		padding-left: 15px;
+	}
+
+	.model-loader__make-name {
+		@include loader-background;
+		width: 45%;
+		height: $loaderLineHeight;
+		margin-bottom: $loaderLineHeight;
+	}
+
+	.model-loader__model-name {
+		@include loader-background;
+		width: 100%;
+		height: $loaderLineHeight;
+	}
+}
+
+// version details box
+@mixin version-loader {
+	.version-loader__box {
+		@include vendor-prefix('border-radius', 3px);
+		padding: 11px 15px 13px;
+		border: 1px solid color('white-smoke');
+		background-color: color('white');
+	}
+
+	.version-loader__name {
+		@include loader-background;
+		width: 59%;
+		height: $loaderLineHeight;
+		margin-bottom: $loaderLineHeight;
+	}
+
+	.version-loader__feature-list {
+		@include loader-background;
+		width: 92%;
+		height: $loaderLineHeight;
+	}
+}
+
+// speedometer-loader
+@mixin speedometer-loader($loaderWidth: 80) {
+	// loader
+	$loaderBorderWidth: 6;
+
+	// needle
+	$needleWidth: 4;
+	$needleHeight: $loaderWidth / 2;
+
+	// animation
+	$animationCommonValue: '1.5s ease-in-out 50';
+
+	.speedometer__container {
+		@include flexbox;
+		@include justify-content(center);
+		@include align-items(center);
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		background: color('black', .7);
+		z-index: 10;
+	}
+
+	.speedometer-loader__content {
+		width: $loaderWidth * 1px;
+		height: ($loaderWidth / 2 + $needleWidth) * 1px;
+		overflow: hidden;
+		margin: 0 auto;
+		text-align: center;
+		position: relative;
+	}
+
+	.speedometer-loader {
+		width: $loaderWidth * 1px;
+		height: ($loaderWidth / 2) * 1px;
+		overflow: hidden;
+		margin: 0 auto;
+		text-align: center;
+		position: relative;
+
+		&:before {
+			@include vendor-prefix('animation', rotateSpeedometer #{$animationCommonValue});
+			@include vendor-prefix('transform', rotate(-225deg));
+			@include vendor-prefix('border-radius', 50%);
+
+			content: '';			
+			width: $loaderWidth * 1px;
+			height: $loaderWidth * 1px;
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			border-width: $loaderBorderWidth * 1px;
+			border-style: solid;
+			border-top-color: color('white');
+			border-right-color: color('white');
+			border-left-color: transparent;
+			border-bottom-color: transparent;
+		}
+
+		&:after {
+			@include vendor-prefix('border-radius', $needleWidth * 1px);
+			content: '';
+			width: $needleWidth * 1px;
+			height: $needleHeight * 1px;
+			background-color: color('white');
+			position: absolute;
+			left: 0;
+			right: 0;
+			margin: 0 auto;
+			text-align: center;
+			bottom: -($needleHeight / 2) * 1px;
+			@include vendor-prefix('animation', rotateNeedle #{$animationCommonValue});
+			@include vendor-prefix('transform', rotate(35deg));
+		}
+	}
+
+	.speedometer-needle-circle {
+		@include vendor-prefix('border-radius', 50%);
+		width: $needleWidth * 2px;
+		height: $needleWidth * 2px;
+		display: block;
+		background-color: color('white');
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		text-align: center;
+		margin: 0 auto;
+	}
+
+	@-webkit-keyframes rotateSpeedometer {
+		10% {
+			-webkit-transform: rotate(-55deg);
+		}
+		30% {
+			-webkit-transform: rotate(-85deg);
+		}
+		50% {
+			-webkit-transform: rotate(-65deg);
+		}
+		70% {
+			-webkit-transform: rotate(-105deg);
+		}
+		80% {
+			border-width: $loaderBorderWidth * 1px;
+		}
+		100% {
+			border-width: ($loaderBorderWidth - 1) * 1px;
+		}
+	}
+
+	@keyframes rotateSpeedometer {
+		10% {
+			transform: rotate(-55deg);
+		}
+		30% {
+			transform: rotate(-85deg);
+		}
+		50% {
+			transform: rotate(-65deg);
+		}
+		70% {
+			transform: rotate(-105deg);
+		}
+		80% {
+			border-width: $loaderBorderWidth * 1px;
+		}
+		100% {
+			border-width: ($loaderBorderWidth - 1) * 1px;
+		}
+	}
+
+	@-webkit-keyframes rotateNeedle {
+		0% {
+			height: $needleHeight;
+		}
+		10% {
+			-webkit-transform: rotate(-55deg);
+		}
+		30% {
+			-webkit-transform: rotate(-25deg);
+		}
+		50% {
+			-webkit-transform: rotate(-45deg);
+		}
+		100% {
+			-webkit-transform: rotate(45deg);
+		}
+	}
+
+	@keyframes rotateNeedle {
+		0% {
+			height: $needleHeight;
+		}
+		10% {
+			transform: rotate(-55deg);
+		}
+		30% {
+			transform: rotate(-25deg);
+		}
+		50% {
+			transform: rotate(-45deg);
+		}
+		100% {
+			transform: rotate(45deg);
+		}
+	}
+}
+

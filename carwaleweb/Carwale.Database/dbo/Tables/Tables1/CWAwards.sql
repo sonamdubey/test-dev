@@ -1,0 +1,51 @@
+﻿CREATE TABLE [dbo].[CWAwards] (
+    [SurveyId]           BIGINT        IDENTITY (1, 1) NOT NULL,
+    [FirstName]          VARCHAR (50)  NULL,
+    [LastName]           VARCHAR (50)  NULL,
+    [Email]              VARCHAR (50)  NULL,
+    [PhoneNo]            VARCHAR (30)  NULL,
+    [CarMakedId]         SMALLINT      NULL,
+    [CarMake]            VARCHAR (50)  NULL,
+    [CarModelId]         SMALLINT      NULL,
+    [CarModel]           VARCHAR (50)  NULL,
+    [CarVersionId]       SMALLINT      NULL,
+    [CarVersion]         VARCHAR (50)  NULL,
+    [CarRegistration]    VARCHAR (50)  NULL,
+    [FamiliarityOfCar]   VARCHAR (500) NULL,
+    [RecommendPoint]     TINYINT       NULL,
+    [Mileage]            TINYINT       NULL,
+    [Economy]            TINYINT       NULL,
+    [Exterior]           TINYINT       NULL,
+    [Comfort]            TINYINT       NULL,
+    [Performance]        TINYINT       NULL,
+    [ValueForMoney]      TINYINT       NULL,
+    [Reliability]        TINYINT       NULL,
+    [Braking]            TINYINT       NULL,
+    [Handling]           TINYINT       NULL,
+    [RideQuality]        TINYINT       NULL,
+    [EaseofDriving]      TINYINT       NULL,
+    [Design]             TINYINT       NULL,
+    [BuildQuality]       TINYINT       NULL,
+    [Interior]           TINYINT       NULL,
+    [SafetyFeature]      TINYINT       NULL,
+    [ServiceCost]        TINYINT       NULL,
+    [QualityofService]   TINYINT       NULL,
+    [TechnicalKnowledge] TINYINT       NULL,
+    [Staff]              TINYINT       NULL,
+    [BuyAgain]           TINYINT       NULL,
+    [IsReplace]          BIT           NULL,
+    [ReplaceDuration]    VARCHAR (50)  NULL,
+    [ReplaceMakedId]     SMALLINT      NULL,
+    [ReplaceMake]        VARCHAR (50)  NULL,
+    [ReplaceModelId]     SMALLINT      NULL,
+    [ReplaceModel]       VARCHAR (50)  NULL,
+    [MailRequired]       BIT           CONSTRAINT [DF_CWAwards_MailRequired] DEFAULT ((0)) NULL,
+    [Source]             SMALLINT      NULL,
+    [EntryDate]          DATETIME      CONSTRAINT [DF__CWAwards__EntryD__43BADBB0] DEFAULT (getdate()) NULL
+);
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [IX_CWAwards]
+    ON [dbo].[CWAwards]([Email] ASC, [CarVersionId] ASC);
+

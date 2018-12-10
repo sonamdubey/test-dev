@@ -1,0 +1,64 @@
+﻿@model Tuple<List<ModelImage>, CarModelDetails>
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Utility
+@using Carwale.Entity.CarData;
+@using Carwale.Entity.CMS.Photos;
+@using Carwale.BL.CMS;
+@using Carwale.DTOs.CMS.ThreeSixtyView;
+
+@if (Model.Item1 != null && Model.Item1.Count > 4)
+{
+    List<ModelImage> images = Model.Item1;
+    bool is360Available = CMSCommon.IsThreeSixtyViewAvailable(Model.Item2);
+    string makeName = MobileWeb.Common.CommonOpn.FormatSpecial(images[0].MakeBase.MakeName);
+    string maskingName = images[0].ModelBase.MaskingName;
+    string galleryUrl = "/m/" + makeName + "-cars/" + maskingName + "/images/";
+<div>
+    <h2 class="section-heading">@ViewBag.ModelName Images</h2>
+    <ul class="photos-grid-list">
+        <li class="float-left">
+            <a data-vars-ec="contentcons" data-vars-ea="Image-Module-Clicked" data-vars-el="2-CANONICAL_PATH" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(makeName, maskingName, images[1].ImageName, images[1].ImageId, true)">
+                <amp-img data-vars-ec="contentcons" data-vars-ea="Image-Module-Viewed_shown" data-vars-el="/mCANONICAL_PATH" src="@ImageSizes.CreateImageUrl(images[1].HostUrl, ImageSizes._476X268, images[1].OriginalImgPath)" width="111px" height="64px" alt="@images[1].ImageName" title="@(images[1].ImageName?.Replace("-", " "))" layout="responsive"></amp-img>
+            </a>
+        </li>
+        <li class="float-left">
+            <a data-vars-ec="contentcons" data-vars-ea="Image-Module-Clicked" data-vars-el="3-CANONICAL_PATH" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(makeName, maskingName, images[2].ImageName, images[2].ImageId, true)">
+                <amp-img src="@ImageSizes.CreateImageUrl(images[2].HostUrl, ImageSizes._476X268, images[2].OriginalImgPath)" width="111px" height="64px" alt="@images[2].ImageName" title="@(images[2].ImageName?.Replace("-", " "))" layout="responsive"></amp-img>
+            </a>
+        </li>
+        <li class="float-left">
+            <a data-vars-ec="contentcons" data-vars-ea="Image-Module-Clicked" data-vars-el="4-CANONICAL_PATH" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(makeName, maskingName, images[3].ImageName, images[3].ImageId, true)">
+                <amp-img src="@ImageSizes.CreateImageUrl(images[3].HostUrl, ImageSizes._476X268, images[3].OriginalImgPath)" width="111px" height="64px" alt="@images[3].ImageName" title="@(images[3].ImageName?.Replace("-", " "))" layout="responsive"></amp-img>
+            </a>
+        </li>
+        <li class="float-left">
+            <a data-vars-ec="contentcons" data-vars-ea="Image-Module-Clicked" data-vars-el="1-CANONICAL_PATH" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(makeName, maskingName, images[0].ImageName, images[0].ImageId, true)">
+                <amp-img src="@ImageSizes.CreateImageUrl(images[0].HostUrl, ImageSizes._476X268, images[0].OriginalImgPath)" width="111px" height="64px" alt="@images[0].ImageName" title="@(images[0].ImageName?.Replace("-", " "))" layout="responsive"></amp-img>
+            </a>
+        </li>
+        @if (is360Available)
+        {
+            <li class="float-right">
+                <a data-vars-ec="msite_360_linkages" data-vars-ea="image_slug" data-vars-el="@Model.Item2.MakeName @Model.Item2.ModelName" href="@(EditorialContent.Get360PageUrl(makeName, maskingName, CMSCommon.Get360DefaultCategory(AutoMapper.Mapper.Map<ThreeSixtyAvailabilityDTO>(Model.Item2)), true))">
+                    <amp-img data-vars-ec="msite_360_linkages" data-vars-ea="image_slug_impression" data-vars-el="@Model.Item2.MakeName @Model.Item2.ModelName" src="https://imgd.aeplcdn.com/0x0/cw/static/image-module.jpg" alt="@ViewBag.ModelName 360" title="@ViewBag.ModelName 360" width="111px" height="64px" layout="responsive"></amp-img>
+                    <span class="gallery-image-count background-none">View 360° of @ViewBag.ModelName</span>
+                </a>
+            </li>
+        }
+        else
+        {
+        <li class="float-left">
+            <a data-vars-ec="contentcons" data-vars-ea="Image-Module-Clicked" data-vars-el="5-CANONICAL_PATH" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(makeName, maskingName, images[4].ImageName, images[4].ImageId, true)">
+                <amp-img src="@ImageSizes.CreateImageUrl(images[4].HostUrl, ImageSizes._476X268, images[4].OriginalImgPath)" width="111px" height="64px" alt="@images[4].ImageName" title="@(images[4].ImageName?.Replace("-", " "))" layout="responsive"></amp-img>
+            </a>
+        </li>
+        }
+        <li class="float-right">
+            <a data-vars-ec="contentcons" data-vars-ea="Image-Module-Clicked" data-vars-el="6-CANONICAL_PATH" href="@(galleryUrl)">
+                <amp-img src="https://imgd.aeplcdn.com/0x0/cw/static/image-module.jpg" alt="@ViewBag.ModelName Images" title="@ViewBag.ModelName Images" width="111px" height="64px" layout="responsive"></amp-img>
+                <span class="gallery-image-count">View All Images (@ViewBag.PhotoCount)</span>
+            </a>
+        </li>
+    </ul>
+</div>
+}

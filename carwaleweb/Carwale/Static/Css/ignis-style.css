@@ -1,0 +1,1625 @@
+﻿/* new classes */
+.list-number li {
+  list-style-type: decimal;
+  padding-left: 10px;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+.about-ignis {
+    display: inline;
+}
+.list-number li:first-child {
+  margin-top: 0;
+}
+.banner-text {
+    font-size: 24px;
+}
+.banner-title{
+    font-size:32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.main-container-image {
+    position: relative;
+}
+.main-container__image-detail {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+}
+.main-container__image-btn {
+    padding: 3px 10px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #39988c;
+    display: inline-block;
+    color: #fff;
+    margin-bottom: 5px;
+}
+.main-cotainer__image-text {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+}
+.banner1 {
+  background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/banner-top.jpg?v29Jan2018') center top;
+  min-height: 345px;
+  position: relative;
+}
+.ignis-banner-content{
+  position: absolute;
+top: 30%;
+right: 30%;
+color: #fff;
+line-height:1.5;
+}
+/*specific*/
+
+.ignis-main {
+  line-height: 1.8;
+  background: #fff;
+}
+
+.ignis-main a {
+  outline: none;
+}
+
+.ignis-main img {
+  vertical-align: middle;
+}
+
+.about-ignis {
+  top: 0;
+  width: 100%;
+  padding: 15px;
+}
+
+.content-inner-block-15nr {
+  padding: 15px 10px 15px 10px;
+}
+
+.content-inner-block-30 {
+  padding: 30px;
+}
+
+.content-inner-block-15lr {
+  padding: 0 15px;
+}
+
+.content-inner-block-30-lr {
+  padding: 0 30px 0 30px;
+}
+
+.content-inner-block-30-lrt {
+  padding: 30px 30px 0 30px;
+}
+
+.lineht-pt8 {
+  line-height: 1.8;
+}
+
+#divAdBar {
+  display: none;
+}
+
+
+.twitter-border {
+  border: solid 1px #e9ebee !important;
+}
+
+.infographic-sprite {
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/cw/es/e2o/infographic-new-sprite.png") no-repeat;
+}
+
+.infographic-car {
+  background-position: 0 -75px;
+  width: 134px;
+  height: 53px;
+}
+
+.carbon {
+  background-position: 0 -172px;
+  width: 86px;
+  height: 86px;
+}
+
+.cost {
+  background-position: 0 -86px;
+  width: 86px;
+  height: 86px;
+}
+
+.sound {
+  background-position: 0 0;
+  width: 86px;
+  height: 86px;
+}
+
+.infographic {
+  color: #565a5c;
+  width: 100%;
+}
+
+.infographic img {
+  max-width: 100%;
+}
+
+.infographic h2 {
+  color: #565a5c;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 22px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.infographic-left, .infographic-right {
+  padding: 10px;
+  min-height: 205px;
+}
+
+.infographic-right {
+  padding-bottom: 0;
+}
+
+.infographic-right ul {
+  line-height: 16px;
+  font-size: 12px;
+}
+
+.infographic-right ul li {
+  margin-bottom: 10px;
+  vertical-align: top;
+  min-height: 60px;
+  display: inline-block;
+  width: 33%;
+  text-align: center;
+}
+
+.infographic-right ul li:last-child {
+  margin-bottom: 0;
+}
+
+.infographic-right ul li h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.infographic-small {
+  line-height: 15px;
+  margin: 20px 0 19px;
+  font-size: 10px;
+}
+
+.history-electric-cars .carousel-box {
+  height: 384px;
+}
+
+.history-electric-cars .article-content {
+  height: 118px;
+}
+
+.responsive-img {
+  max-width: 100%;
+  width: auto;
+  display: block;
+}
+
+.custom-pad {
+  padding: 0 13px;
+}
+
+.state-tabs-container {
+  cursor: pointer;
+}
+
+.navigation-photos .swiper-slide.swiper-slide-active img {
+  border: 1px solid #2a2a2a;
+}
+
+.connected-carousels-photos .photos-next-stage,.connected-carousels-photos .photos-prev-stage {
+  display: block;
+  position: absolute;
+  top: 40%;
+  color: #fff;
+}
+
+.connected-carousels-photos .photos-prev-stage {
+  left: 0;
+}
+
+.connected-carousels-photos .photos-next-stage {
+  right: 0;
+}
+
+.connected-carousels-photos .photos-prev-navigation,.connected-carousels-photos .photos-prev-stage {
+  background-position: -153px -207px;
+}
+
+.connected-carousels-photos .photos-next-navigation,.connected-carousels-photos .photos-next-stage {
+  background-position: -177px -238px;
+}
+
+.connected-carousels-photos .photos-prev-navigation:hover,.connected-carousels-photos .photos-prev-stage:hover {
+  background-position: -153px -238px;
+}
+
+.connected-carousels-photos .photos-next-navigation:hover,.connected-carousels-photos .photos-next-stage:hover {
+  background-position: -177px -238px;
+}
+
+.connected-carousels-photos .photos-next-navigation.inactive,.connected-carousels-photos .photos-next-stage.inactive,.connected-carousels-photos .photos-prev-navigation.inactive,
+.connected-carousels-photos .photos-prev-stage.inactive {
+  background-position: -153px -176px;
+  cursor: not-allowed;
+}
+
+.connected-carousels-photos .photos-next-navigation.inactive,.connected-carousels-photos .photos-next-stage.inactive {
+  background-position: -177px -176px;
+  cursor: not-allowed;
+}
+
+.connected-carousels-photos .photos-prev-navigation {
+  left: 0;
+  top: 3%;
+}
+
+.connected-carousels-photos .photos-next-navigation {
+  right: 0;
+  top: 3%;
+}
+
+
+.swiper-slide img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.swiper-lazy-preloader {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/circle-loader.gif") no-repeat center center;
+}
+
+.swiper-lazy {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/circle-loader.gif") no-repeat center center;
+}
+
+#gallery-blackOut-window {
+  display: none;
+  background: #000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  opacity: .9;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  filter: alpha(opacity=90);
+  -moz-opacity: 0.9;
+  -khtml-opacity: 0.9;
+}
+
+#gallery-close-btn {
+  display: none;
+}
+
+#gallery-blackOut-window {
+  display: none;
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  opacity: .9;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  filter: alpha(opacity=90);
+  -moz-opacity: 0.9;
+  -khtml-opacity: 0.9;
+}
+
+.gallery-active #gallery-blackOut-window {
+  display: block;
+}
+
+.gallery-active .connected-carousels-photos {
+  border: 0;
+  background: transparent;
+  z-index: 10;
+  position: fixed;
+  top: 25%!important;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 550px;
+  padding: 0;
+}
+
+.gallery-active .carousel-navigation-photos .swiper-slide img {
+  border-color: #2a2a2a;
+}
+
+.gallery-active .carousel-navigation-photos .swiper-slide:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 84px;
+  display: block;
+  background: #2a2a2a;
+  opacity: .4;
+}
+
+.gallery-active .swiper-slide.swiper-slide-active img {
+  border-color: #f5f5f5;
+}
+
+.gallery-active .swiper-slide.swiper-slide-active:after {
+  content: none;
+}
+
+.gallery-active #gallery-close-btn {
+  display: block;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.gallery-padding {
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.gallery-parent {
+  border: 1px solid #2a2a2a;
+  padding: 5px;
+}
+
+.drive-sprite {
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/es/e2o/electric-expedition/drive-icon-sprite.png');
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+  opacity: 0.7;
+}
+
+.state-text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.kerala-icon {
+  width: 100px;
+  height: 70px;
+  background-position: 0 0;
+}
+
+.karnatka-icon {
+  width: 58px;
+  height: 70px;
+  background-position: -19px -68px;
+}
+
+.cw-tabs-flex li:hover:not(.disabled) .kerala-icon, .cw-tabs-flex li.active .kerala-icon, .cw-tabs-flex li:hover:not(.disabled) .karnatka-icon, .cw-tabs-flex li.active .karnatka-icon {
+  opacity: 1;
+}
+
+.collage-box img {
+ 
+  max-width: 100%;
+  width: auto;
+  margin-bottom: 5px;
+}
+
+.customize-section__sub-title {
+  margin: 15px auto 20px;
+  max-width: 950px;
+}
+
+.customize-section__image {
+    width: 100%;
+    height: 407px;
+    background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/img-6.jpg?q=85') no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.see-photos {
+  position: relative;
+  top: -3px;
+}
+
+.ignis-read-more-link {
+    color: #0280c0;
+    cursor:pointer;
+    text-decoration: none;   
+    position: relative;
+    padding-left: 22px;
+    margin-left: 5px;
+}
+.ignis-read-more-link:after {
+    content: "+";
+    height: 30px;
+    width: 30px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #0280c0;
+    position: absolute;
+    left: 0;
+    top: -18px;
+}
+.ignis-read-more-link:hover {
+text-decoration: none;
+}
+.collapse--active.ignis-read-more-link:after {
+	content: '-';
+	top: -20px;
+}
+
+.customize-section {
+    background: #dcdcdc;
+}
+.cutomize-section__title {
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    padding-top: 20px;
+}
+.customize-section .btn-orange {
+    font-size: 16px; 
+    text-transform: uppercase;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+
+.gallery-container img {
+	width: 100%;
+}
+.about-ignis {
+    top: 0;
+    width: 100%;
+    padding: 15px;
+    position: relative;
+    font-size: 14px;
+}
+.expanded-about-ignis {
+    display: inline;
+    display: none;
+    top: 0;
+    width: 100%;
+    position: relative;
+    font-size: 14px;
+}
+
+.main-container__title {
+    margin-bottom: 20px;
+    margin-top: 30px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+
+}
+
+.btn-orange-block {
+    text-align: center;
+}
+
+
+.about-ignis-container {
+    padding-top: 15px;
+    padding-bottom: 20px;
+}/***Socail media****/
+
+.gallery__title,.social-media__title {
+	font-weight: bold;
+	font-size: 22px;
+	text-align: center;
+	margin: 20px 0;
+}
+.social-media__container {
+	text-align: center
+}
+.fb-nav-tab,.twitter-nav-tab {
+	display: inline-block;
+	font-size: 16px;
+	color: #fff;
+	padding: 5px;
+	width: 320px;
+	border-radius: 2px;
+	position: relative;
+	pointer-events: none;
+}
+.fb-nav-tab {
+	margin-right: 20px;
+}
+
+.fb-nav-tab {
+	background: #496ea1;
+
+}
+.twitter-nav-tab {
+
+	background: #00beea;
+}
+.fb-nav-tab:before,
+.twitter-nav-tab:before {
+	padding-left: 20px;
+	content: "";
+	position: absolute;
+	top: 10px;
+	left: 25px;
+	height: 15px;
+	width: 15px;
+}
+.fb-nav-tab:before {
+	background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/facebook-white-d.svg') center center no-repeat;
+}
+.twitter-nav-tab:before {
+	background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/twitter-white-d.svg') center center no-repeat;
+}
+.social__facebook-block {
+	
+	margin-right: 30px;
+}
+.social__twitter-block,
+.social__facebook-block {
+	display: inline-block;
+	max-width: 480px;
+	height: 500px;
+	vertical-align: middle;
+}
+.timeline-InformationCircle-widgetParent {
+	display: none;
+}
+.more-articles-section {
+    padding: 0;
+}
+
+.more-articles__title {
+    font-size: 16px;
+    color: #1a1a1a;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+.more-articles-section .swiper-wrapper .swiper-slide {
+    width: 244px;
+    height: 190px;
+    margin-right: 21px;
+}
+/*gallery*/
+
+.gallery-container {
+	max-width: 976px;
+	margin: 0 auto;
+	
+}
+.gallery-carousel {
+	width: 77%;
+    margin: 0 auto;
+	position: relative;
+}
+.gallery__swipper__block {
+	width: 100%;
+	height: 360px;
+}
+.large-image__container {
+	display: inline-block; 
+	vertical-align: middle;
+	width: 60.8%;
+	padding: 10px;
+	cursor: pointer;
+}
+.gallery-image__popup {
+	position: absolute;
+    top: 20px;
+    left: 10px;
+    width: 98%;
+    height: 95%;
+}
+.large-image__block {
+	width: 100%;
+}
+.small-image__container {
+	display: inline-block; 
+	vertical-align: middle;
+	width: 39.2%;
+}
+
+.small-image__block {
+	width: 50%;
+	float: left;
+	padding: 10px;
+	cursor: pointer;
+}
+.gallery-btn-block {
+	width: 100%;
+	margin: 0 auto;
+	position: relative;
+	min-height: 51px;
+}
+.gallery-prev-btn {
+	float: left;
+	font-size: 16px;
+	cursor: pointer;
+}
+.gallery-prev-btn:before {
+	content: '';
+	display: inline-block;
+	cursor: pointer;
+    height: 17px;
+    width: 60px;
+	font-size: 16px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/gallery-prev-arrow.png') center center no-repeat;
+}
+.gallery-next-btn {
+	float: right;
+	font-size: 16px;
+	cursor: pointer;
+}
+.gallery-next-btn:after {
+	content: '';
+	display: inline-block;
+	cursor: pointer;
+    height: 17px;
+    width: 60px;
+	font-size: 16px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/gallery-next-arrow.svg') center center no-repeat;
+}
+
+.gallery-prev-btn:after,
+.gallery-next-btn:after {
+	content:'';
+	clear: both;
+}
+.image__popup__close-btn {
+	position: absolute;
+	cursor: pointer;
+	width: 36px;
+	height: 36px;
+	top: 20px;
+	right: 20px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/close-btn-pop-up.png') center center no-repeat;
+}
+
+
+#YouTubeVideoPlayer {
+	width: 100%;
+	margin: 0 auto;
+	height: 600px;
+}
+
+
+
+.gallery-know-more-btn {
+	width: 151px;
+	position: absolute;
+	right: 0;
+	left: 0;
+	margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+.card-jcarousel .jcarousel {
+  padding: 10px 0 20px;
+}
+@media screen and (max-width:800px){
+.social__twitter-block{
+display: none;
+
+}
+.fb-nav-tab {
+	margin-right: 10px;
+}
+.fb-nav-tab, .twitter-nav-tab {
+	width: 144px;
+	pointer-events: inherit;
+	cursor: pointer;
+}
+.twitter-nav-tab {
+	background: #fff;
+	color: #00beea;
+	border: 1px solid #00beea;
+}
+.twitter-nav-tab::before{
+	background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/twitter-col-d.svg') center center no-repeat;
+}
+.twitter-nav-tab-active {
+	background: #00beea;
+	color: #fff;
+	border: 1px solid #fff;
+}
+.twitter-nav-tab-active::before{
+	background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/twitter-white-d.svg') center center no-repeat;
+}
+.fb-nav-tab::before, .twitter-nav-tab::before {
+	left: 15px;
+}
+
+.fb-nav-tab-inactive {
+	color: #496ea1;
+	background: #fff;
+    border: 1px solid #496ea1;
+}
+.fb-nav-tab-inactive::before{
+	background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/facebook-col-d.svg') center center no-repeat;
+}
+
+
+.social__facebook-block {
+	margin-right: 15px;
+}
+
+.social__twitter-block,
+.social__facebook-block {
+	max-width: 320px;
+	height: 500px;
+	margin: 0 auto;
+	border: 1px solid #cccccc;
+	box-shadow: 0 2px 8px 3px rgba(0,0,0,.12);
+	
+}
+.gallery__swipper__block {
+	height: auto;
+	display: block;
+}
+
+.large-image__container {
+	display: block;
+	width: 100%;
+
+}
+.small-image__container {
+	display: block;
+	width: 100%;
+}
+.small-image__block {
+	width: 25%;
+}
+.gallery-image__popup {
+	width: 99%;
+}
+.gallery-know-more-btn {
+	padding: 5px 8px;
+	font-size: 14px;
+	width: 108px;
+	left: 7%;
+	
+}
+.gallery-prev-btn:before,
+.gallery-next-btn:after {
+	vertical-align: middle;
+	width: 35px;
+}
+.gallery-btn-block {
+	width: 90%;
+}
+.gallery-image__popup img {
+	width: 100%;
+}
+.gallery-prev-btn:before {
+	background:url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/gallery-prev-arrow-m.png') center center no-repeat;
+}
+.gallery-next-btn:after {
+	background:url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/gallery-next-arrow-m.png') center center no-repeat;
+}
+.image__popup__close-btn {
+	top: 5px;
+    right: 10px;
+	background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/close-btn-pop-up-m.png') center center no-repeat;
+}
+#YouTubeVideoPlayer {
+	height: 203px;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.swiper-container .swiper-wrapper .swiper-slide:last-child {
+  margin-right: 0;
+}
+
+
+.more-articles__image-container {
+  overflow: hidden;
+  text-align: center;
+  width: 244px;
+  height: 137px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.more-articles__image-container img {
+    width: 244px;
+    height: 137px;
+}
+
+.inner-full-carousel {
+  width: 100%;
+}
+.more-articles__detail {
+    font-size: 14px;
+    line-height: 20px;
+    color: #333;
+    padding-top: 4px;
+    padding-bottom: 9px;
+    font-weight: 600;
+}
+
+.feature-btn-next,
+.feature-btn-prev {
+    background: grey;
+}
+
+
+.more-articles-section .swiper-button-prev,
+.more-articles-section .swiper-button-next {
+    position: absolute;
+    top: 32%;
+    width: 37px;
+    height: 65px;
+    z-index: 1;
+    text-indent: -9999px;
+    padding: 5px;
+    cursor: pointer;
+	border: none;
+  }
+
+.more-articles-section .swiper-button-prev {
+    background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/left-arrow.png') no-repeat center;
+    left: 0;
+}
+.more-articles-section .swiper-button-next {
+    background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/right-arrow.png') no-repeat center;
+    right: 0;
+}
+.more-articles-section .swiper-button-next.swiper-button-disabled,
+.more-articles-section .swiper-button-prev.swiper-button-disabled {
+    opacity: 0.5;
+}
+.more-articles__target-link {
+    display: block;
+    height: 100%;
+}
+.more-articles__target-link:hover {
+    text-decoration: none;
+}
+
+.more-articles__image-container img[src="https://imgd.aeplcdn.com/0x0/cw/static/circle-loader.gif"] {
+    height: auto;
+    width: auto;
+    margin: 30px auto;
+
+}
+.text-decoration-none {
+	text-decoration: none;
+}
+.text-decoration-none:hover {
+	text-decoration: none;
+}
+@media only screen and (max-width:1000px) {
+  body {
+    min-width: 100%;
+  }
+
+  .mb-margin {
+    margin: 10px 10px 0 10px;
+  }
+
+  .jcarousel-pagination {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .ask-expert {
+    display: none;
+  }
+
+  .container {
+    width: 100% !important;
+    margin: 0 auto 20px auto;
+  }
+
+  .history-electric-cars h2 {
+    margin-top: 40px;
+  }
+
+  .jcarousel-pagination {
+    margin-bottom: 10px;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 235px;
+  }
+
+  .feature-grids .bg-light-grey {
+    padding: 10px;
+  }
+
+  .feature-grids .grid-6 {
+    float: none;
+    width: 100%;
+  }
+
+  .feature-text {
+    width: 98%;
+    float: none;
+  }
+
+  .feature-grids .grid-6.alpha, .feature-grids .grid-6.omega {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+@media only screen and (max-width:980px) {
+  .image-container {
+    width: 290px;
+  }
+
+  .image-container img {
+    width: 100%;
+  }
+
+  .ignis-main {
+    overflow-x: hidden;
+  }
+
+  .infographic-small {
+    margin: 27px 0 19px;
+  }
+}
+
+@media only screen and (max-width:900px) {
+  .image-container {
+    width: 260px;
+    height: auto;
+  }
+
+  .buy-car-btn {
+    display: none;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 120px;
+  }
+
+  .history-electric-cars .article-content {
+    height: 145px;
+  }
+
+  .news-electric-section .grid-1,.news-electric-section .grid-2,.news-electric-section .grid-3,.news-electric-section .grid-4,.news-electric-section .grid-5,.news-electric-section .grid-6,.news-electric-section .grid-7,.news-electric-section .grid-8,.news-electric-section .grid-9,.news-electric-section .grid-10,.news-electric-section .grid-11,.news-electric-section .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .switch-m {
+    display: block;
+  }
+
+  .switch-d {
+    display: none;
+  }
+
+  .news-electric-section img {
+    margin: 10px auto;
+  }
+
+    .more-articles-section {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .more-articles-section .swiper-wrapper .swiper-slide {
+        width: 215px;
+    }
+    .more-articles__image-container,
+    .more-articles__image-container img {
+        width: 215px;
+        height: 121px;
+    }
+
+}
+
+@media only screen and (max-width:800px) {
+  .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .more-articles-section {
+      padding-left: 15px;
+      padding-right: 15px;
+  }
+  .electric-vehicles .lineht-pt8 {
+    height: 125px;
+  }
+
+  .history-electric-cars .article-content {
+    height: 158px;
+  }
+
+
+.ignis-banner-content {
+	right: 5%;
+top: 23%;
+}
+}
+
+@media only screen and (max-width:768px) {
+  .image-container {
+    width: 229px;
+  }
+    .mb-margin {
+        margin-left: 0;
+        margin-right: 0;
+    }
+  .desktop-only-text {
+    display: none;
+  }
+
+  .banner1 {
+        min-height: 250px;
+        background-size: cover;
+  }
+
+  .swiper-container .swiper-wrapper .swiper-slide {
+    margin-right: 10px;
+  }
+
+  .article-slides.cwsprite {
+    background-size: 130px;
+  }
+
+  .more-articles__detail {
+      height: 50px;
+      overflow: hidden;
+      font-size: 12px;
+  }
+  .more-articles-section .swiper-button-prev,
+  .more-articles-section .swiper-button-next {
+      background-color: transparent !important;
+        border: none;
+        width: 30px;
+  }
+  .more-articles-section .swiper-wrapper .swiper-slide {
+      height: 150px;
+      overflow: hidden;
+  }
+}
+
+@media only screen and (max-width:732px) {
+  .card-jcarousel .image-container {
+    width: 280px;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 100px;
+  }
+
+  .history-electric-cars .article-content {
+    height: 130px;
+  }
+}
+
+@media only screen and (max-width:640px) {
+  img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 55px 0;
+  }
+
+  .history-electric-cars img {
+    width: 100%;
+  }
+
+  .grid-1, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .grid-7, .grid-8, .grid-9, .grid-10, .grid-11, .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .more-articles-section {
+      padding-left: 15px;
+      padding-right: 15px;
+  }
+  .video-bg {
+    margin: 0 15px 0 15px;
+  }
+
+  .content-inner-block-30-lr {
+    padding: 0 15px 0 15px;
+  }
+
+  .content-inner-block-30-lrt {
+    padding: 15px 15px 0 15px;
+  }
+
+  .card-jcarousel .image-container {
+    width: 280px;
+  }
+
+  .video-container iframe {
+    height: 306px;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 100px;
+  }
+
+  .twitter-border {
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  .twitter-border iframe {
+    width: 461px !important;
+  }
+
+  .infographic-left, .infographic-right {
+    min-height: 100px;
+  }
+
+  .infographic-right ul li {
+    width: 100%;
+  }
+
+  .custom-pad {
+    padding: 20px;
+  }
+
+  .img-container img {
+    width: 200px;
+    margin-bottom: 5px;
+  }
+
+  .img-container {
+    text-align: center;
+  }
+
+  .content-text p {
+    margin: 5px 15px;
+  }
+
+  .read-story {
+    margin: 10px 0 0 15px;
+  }
+
+  .beauty-shot1, .beauty-shot2, .desktop-only-text {
+    display: none !important;
+  }
+
+  .kerala-icon {
+    width: 53px;
+    height: 50px;
+    background-position: -120px -9px;
+  }
+
+  .karnatka-icon {
+    width: 39px;
+    height: 38px;
+    background-position: -131px -82px;
+  }
+
+  .content-img {
+    padding: 0 15px;
+    margin-bottom: 15px;
+  }
+  .more-articles-section .swiper-button-prev, 
+  .more-articles-section .swiper-button-next {
+      top: 38%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+    .ignis-banner-content {
+        right: 17%;
+    }
+    .banner-text {
+        font-size: 14px;
+    }
+    .banner-title {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+    .ignis-banner-content .btn-orange {
+        font-size: 11px;
+        padding: 5px 20px;
+    }
+
+    .about-ignis,
+	.expanded-about-ignis {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .main-container__title {
+        margin-bottom: 10px;
+        margin-top: 20px;
+    }
+    .main-container {
+        box-sizing: border-box;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .main-container__image-detail {
+        bottom: 5px;
+        left: 10px;
+    }
+    .main-container__image-btn {
+        text-transform: capitalize;
+        padding: 0 7px;
+        margin-bottom: 0;
+    }
+    .main-cotainer__image-text {
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .customize-section__image {
+        height: 382px;
+        background: url('https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/customized.jpg') no-repeat;
+        background-position: center;
+    }
+    .customize-section__sub-title {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .btn-orange-block {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .customize-section .btn-orange {
+        width: 100%;
+
+    }
+    .ignis-read-more-link:after {
+        height: 28px;
+        width: 28px;
+        font-size: 28px;
+        top: -19px;
+    }
+  .ignis-main {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .full-width-carousel {
+    height: auto;
+  }
+
+  .card-jcarousel .image-container {
+    width: 278px;
+  }
+
+  .video-container iframe {
+    height: 222px;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 94px;
+  }
+
+  .infographic-right ul li {
+    min-height: 70px;
+  }
+
+  .infographic-car {
+    background-position: -140px -92px;
+    height: 36px;
+    width: 90px;
+  }
+
+  .banner1 {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/es/spotlight/ignis/m-banner-top.jpg) center top;
+    min-height: 160px;
+  }
+  .more-articles-section {
+      padding-left: 0;
+      padding-right: 0;
+  }
+  .more-articles-section .swiper-wrapper .swiper-slide {
+    width: 120px;
+  }
+  .more-articles__image-container,
+  .more-articles__image-container img {
+      width: 120px;
+      height: 100px;
+  }
+}
+
+@media only screen and (max-width:412px) {
+  .card-jcarousel .image-container {
+    width: 265px;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 125px;
+  }
+}
+
+@media only screen and (max-width:360px) {
+  .card-jcarousel .image-container {
+    width: 265px;
+  }
+
+  .video-container iframe {
+    height: 159px;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 128px;
+  }
+
+  .history-electric-cars .article-content {
+    height: 142px;
+  }
+
+  .img-container img {
+    width: 210px;
+  }
+    .ignis-banner-content {
+        right: 13%;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+  .mb-view img {
+    width: 100%;
+  }
+
+  .video-container iframe {
+    height: 140px;
+  }
+
+  .cw-tabs-flex li {
+    font-size: 15px;
+  }
+
+  .cw-tabs-flex li sub {
+    font-size: 12px;
+  }
+
+  .img-container img {
+    width: 210px;
+  }
+
+}
+
+@media only screen and (max-width: 240px) {
+  .mb-view img {
+    width: 100%;
+  }
+
+  .card-jcarousel .image-container {
+    width: 186px;
+  }
+
+  .video-container iframe {
+    height: 98px;
+  }
+
+  .history-electric-cars .carousel-box {
+    height: 372px;
+  }
+
+  .history-electric-cars .article-content {
+    height: 173px;
+  }
+
+  .history-electric-cars .lineht-pt8 {
+    line-height: 1.5;
+  }
+
+  .article-content .font18 {
+    font-size: 16px;
+  }
+}
+
+/*Only for responsive carousel gallery*/
+
+@media only screen and (min-width:480px) {
+  .gallery-active .connected-carousels-photos {
+    top: 10% !important;
+  }
+}
+
+@media only screen and (min-width:640px) {
+  .gallery-active .connected-carousels-photos {
+    top: 5% !important;
+    height: 550px;
+  }
+}
+
+@media only screen and (min-width:769px) {
+
+/* Swiper 3.3.1 */
+
+  .swiper-container {
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .swiper-container-no-flexbox .swiper-slide {
+    float: left;
+  }
+
+  .swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    -ms-transition-property: -ms-transform;
+    transition-property: transform;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 10px 0 20px;
+  }
+
+  .swiper-container-android .swiper-slide, .swiper-wrapper {
+    -webkit-transform: translate3d(0px, 0, 0);
+    -moz-transform: translate3d(0px, 0, 0);
+    -o-transform: translate(0px, 0px);
+    -ms-transform: translate3d(0px, 0, 0);
+    transform: translate3d(0px, 0, 0);
+  }
+
+  .swiper-slide {
+    -webkit-flex-shrink: 0;
+    -ms-flex: 0 0 auto;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+
+/* IE10 Windows Phone 8 Fixes */
+
+  .swiper-wp8-horizontal {
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+  }
+
+  .swiper-wp8-vertical {
+    -ms-touch-action: pan-x;
+    touch-action: pan-x;
+  }
+
+/* Arrows */
+
+  .swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled {
+    cursor: not-allowed;
+  }
+
+
+/* Preloader */
+
+  .swiper-imgLoader {
+    background: url("https://imgd.aeplcdn.com/0x0/cw/static/circle-loader.gif") no-repeat center center;
+  }
+
+  .swiper-slide {
+    width: 280px;
+    height: 320px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+  }
+
+  .gallery__swipper__block {
+	width: 100%;
+	height: 360px;
+	font-size: 0;
+}
+  .swiper-lazy {
+    display: block;
+    width: 100%;
+    height: 120px;
+  }
+
+/* gallery */
+
+  .connected-carousels-photos {
+    width: 100%;
+    z-index: 1;
+    padding: 5px;
+  }
+
+  .connected-carousels-photos .navigation-photos {
+    max-width: 100%;
+  }
+
+  .navigation-photos .swiper-slide,.navigation-photos .swiper-slide img {
+    width: 150px;
+    height: 84px;
+  }
+
+  .navigation-photos .swiper-slide {
+    padding-left: 0;
+    padding-right: 5px;
+  }
+
+}
+
+@media only screen and (min-width:996px) {
+  .gallery-active .connected-carousels-photos {
+    top: 15% !important;
+  }
+}
+
+@media only screen and (min-width:1024px) {
+  .gallery-active .connected-carousels-photos {
+    top: 15% !important;
+  }
+}
+
+
+
+    
+ 

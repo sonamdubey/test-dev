@@ -1,0 +1,96 @@
+﻿@model Carwale.Entity.Common.CarRightWidget
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+
+@if (Model != null && Model.UpcomingCars != null && Model.UpcomingCars.Count > 0)
+{ 
+<style>
+   .cw-tabs,.uc-ver .lt{margin-bottom:10px}.cw-tabs li,.cw-tabs li h2{display:block;float:left}.cars-thumb{border:none!important;padding:0!important}.data-view li{border-top:none}.uc-ver .lt{width:100%;height:69px;float:left;padding:8px 0}.uc-ver .lt img{float:left;margin-right:5px;background-color:#fff}.cw-tabs li h2{font-size:14px;font-weight:400;border-bottom:1px solid #e2e2e2;cursor:pointer;padding:8px 0 10px;text-align:center;width:147px;border-top:2px solid transparent}.cw-tabs li h2.active{cursor:default;border-top:2px solid #0e3a51;border-bottom:1px solid #fff;margin-bottom:-1px;color:#333;font-weight:700}.cw-tabs li h2.first{border-right:1px solid #e2e2e2}.data-view li{padding:10px 0;display:table}.cars-thumb{width:100px;margin-right:10px;background:#fff;float:left;display:block}.cars-thumb a img{width:100px;display:block}.highlight-points{width:170px;float:left;display:block}.highlight-points a{font-size:14px;font-weight:400;margin-bottom:8px;display:block}.highlight-points p{margin-bottom:3px}
+</style>
+
+<div>
+    <div class="cw-tabs margin-top10 margin-left10" id="cars-tabs">
+        <ul id="head_Car">
+            <li id="upcoming_Car"><h2 class="active first">Upcoming Cars</h2></li>
+            <li id="popular_Car"><h2>Popular Cars</h2></li>
+
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="cars-tabs-data">
+        <div class="data-view content-inner-block-5" id="upcomingCar">
+            <div id="divUpcomingCar" class="uc-ver margin-top10">
+                @foreach (var car in Model.UpcomingCars) { 
+                        <div class="lt margin-bottom10">
+                            <a href="/@UrlRewrite.FormatSpecial(car.MakeName)-cars/@car.MaskingName/">
+                                <img src="@Carwale.Utility.ImageSizes.CreateImageUrl(car.Image.HostUrl,Carwale.Utility.ImageSizes._110X61,car.Image.ImagePath,70)"
+                                     width="100px" height="57px" alt="@(car.MakeName+" "+ car.ModelName)" title="@(car.MakeName+" "+ car.ModelName)" />
+                            </a>
+							<a href="/@UrlRewrite.FormatSpecial(car.MakeName)-cars/@car.MaskingName/" title="@(car.MakeName+" "+ car.ModelName)">@(car.MakeName + " " + car.ModelName)</a>
+                            <p class="font12">@car.ExpectedLaunch</p>
+                            ₹ <span class="font12">@Html.Raw(car.Price.MaxPrice == car.Price.MinPrice ? Format.PriceLacCr(car.Price.MinPrice.ToString("0.")) : Format.PriceLacCr(car.Price.MinPrice.ToString("0.")) + " - ₹ " + Format.PriceLacCr(car.Price.MaxPrice.ToString("0.")))</span>
+                        </div>
+                }
+            </div>
+            <a class="redirect-rt" style="float:right" href="/upcoming-cars/">All Upcoming Cars</a>
+            <div class="clear"></div>
+
+            
+
+        </div>
+    </div>
+    <div class="cars-tabs-data hide">
+        <div class="data-view content-inner-block-5" id="popularCar">
+            <ul>
+               @foreach (var car in Model.PopularModels) { 
+                        <li>
+                            <div class="cars-thumb">
+                                <a href="/@UrlRewrite.FormatSpecial(car.Make.MakeName)-cars/@car.Model.MaskingName/">
+                                    <img class="lazy" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(car.Image.HostUrl,Carwale.Utility.ImageSizes._110X61,car.Image.ImagePath,70)"
+                                         width="100px" height="57px" alt="@(car.Make.MakeName+" "+ car.Model.ModelName)" title="@(car.Make.MakeName+" "+ car.Model.ModelName)" />
+                                </a>
+                            </div>
+                            <div class="highlight-points">
+								<a href="/@UrlRewrite.FormatSpecial(car.Make.MakeName)-cars/@car.Model.MaskingName/" title="@(car.Make.MakeName+" "+ car.Model.ModelName)"> @(car.Make.MakeName + " " + car.Model.ModelName)</a>
+								<p class="font12">₹ <span>@(car.Price != null ? FormatPrice.FormatFullPrice(car.Price.MinPrice.ToString(), car.Price.MaxPrice.ToString()) : string.Empty)</span></p>
+                                <p class="font12">
+                                    <span title="Over All Rating @String.Format("{0:0.##}", car.Review.OverallRating)" class="margin-right10">
+                                        @Html.Raw(CommonOpn.GetRateImage( Convert.ToDouble(car.Review.OverallRating)))
+                                    </span>
+                                    <span class="font11">@car.Review.ReviewCount  Reviews</span>
+                                </p>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                   }
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    //for popular and Upcoming cars tabs
+    $("#cars-tabs li h2").click(function () {
+        $(".cars-tabs-data").hide();
+        $(".cars-tabs-data").eq($(this).parent().index()).show();
+        $("#cars-tabs li h2").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    $("#head_Car li").click(function () {
+        var liValue = $(this).attr("id");
+
+        if (liValue == "popular_Car") {
+            $("#upcomingCar").hide();
+            $("#popularCar").show().find("img.lazy").lazyload();
+        }
+        else {
+            
+            $("#upcomingCar").show();
+            $("#popularCar").hide();
+        }
+    });
+</script>
+}

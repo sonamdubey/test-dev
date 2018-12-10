@@ -1,0 +1,55 @@
+﻿@model Carwale.DTOs.CMS.UserReviews.UserReviewCustomerDto
+@{
+	ViewBag.PageName = ViewData["Action"].Equals("verification") ? "Verify Email" : "Invalid Review";
+	ViewBag.Title = ViewData["Action"].Equals("verification") ? "Verify Email" : "Invalid Review";
+	if ((bool)ViewData["IsMobile"])
+	{
+
+		ViewBag.CustomCss = "~/Views/StaticPartials/m/UserReviews/UserReviewVerifyEmailCss.cshtml";
+
+		Layout = "~/views/shared/m/_MLayoutV2.cshtml";
+	}
+	else
+	{
+		ViewBag.BodyClass = "bg-white header-fixed-inner";
+		ViewBag.landingPage = false;
+		ViewBag.CustomCss = "~/Views/StaticPartials/UserReviews/UserReviewVerifyEmailCss.cshtml";
+
+		Layout = "~/views/shared/_LayoutV2.cshtml";
+	}
+
+}
+
+	<div class="container">
+		<main>
+			<section>
+				<div class="grid-12 verification-result">
+					<div class="verification-content">
+						<div class="padding-top20 padding-bottom20">
+						@if (ViewData["Icon"].Equals("Error"))
+						{
+							<img class="lazy" src="https://imgd.aeplcdn.com/0x0/cw/static/icons/e53012/error.svg" alt="" title="Error">
+    <span data-role="click-inview-imp" data-action="@(ViewData["Action"])_failure" data-cat="reviews_email" data-label="@(Model?.Email??string.Empty)" class="font25 special-skin-text verification-status-text">@ViewData["Icon"]</span>
+						}
+						else if (ViewData["Icon"].Equals("Success"))
+						{
+							<img class="lazy" src="https://imgd.aeplcdn.com/0x0/cw/static/icons/00afa0/success.svg" alt="" title="Success">
+    <span data-role="click-inview-imp" data-action="@(ViewData["Action"])_successful" data-cat="reviews_email" data-label="@(Model?.Email??string.Empty)" class="font25 special-skin-text verification-status-text">@ViewData["Icon"]</span>
+						}
+						else if (ViewData["Icon"].Equals("Failure"))
+						{
+							<img class="lazy" src="https://imgd.aeplcdn.com/0x0/cw/static/icons/e53012/failure.svg" alt="" title="Failed">
+    <span data-role="click-inview-imp" data-action="@(ViewData["Action"])_link_expired" data-cat="reviews_email" data-label="@(Model?.Email??string.Empty)" class="font25 special-skin-text verification-status-text">@ViewData["Icon"]</span>
+						}
+					</div>
+						<p class="font15 text-bold">@ViewData["Message"]</p>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+
+			</section>
+		</main>
+		<div class="clear"></div>
+	</div>
+

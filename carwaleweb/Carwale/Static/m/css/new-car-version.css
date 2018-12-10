@@ -1,0 +1,766 @@
+﻿.position-rel {
+    position: relative;
+}
+.detail-table td {
+  padding-bottom: 15px;
+  line-height: 18px;
+}
+
+.detail-table td:nth-of-type(odd) {
+  color: #666;
+  width: 50%;
+}
+
+.overview-list-field {
+    border-bottom: dotted 1px #6f6f6f;
+    padding-bottom: 3px;
+}
+
+.description_toast_msg {
+    display: none;
+    max-width: 100%;
+    position: absolute;
+    top: 23%;
+    right: 0;
+    left: 0;
+    background-color: #5a5a5a;
+    opacity: .9;
+    color: #fff;
+    text-align: left;
+    border-radius: 3px;
+    z-index: 1;
+    padding: 15px;
+    line-height: 20px;
+    margin: 0 0 0 10px;
+    width: 94%;
+}
+
+
+
+.toast_msg_title {
+    padding-bottom: 4px;
+    font-size: 14px;
+}
+
+.toast_msg_descriptn {
+    font-size: 13px;
+}
+
+.toast_msg_close {
+    width: 30px;
+    height: 30px;
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/cross.svg) no-repeat center;
+    background-size: 10px;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+.overview-list-field {
+	border-bottom: dotted 1px #6f6f6f;
+	padding-bottom: 3px;
+}
+
+.description_toast_msg {
+	display: none;
+	max-width: 100%;
+	position: absolute;
+	top: 23%;
+	right: 0;
+	left: 0;
+	background-color: #5a5a5a;
+	opacity: .9;
+	color: #fff;
+	text-align: left;
+	border-radius: 3px;
+	z-index: 1;
+	padding: 15px;
+	line-height: 20px;
+	margin: 0 0 0 10px;
+	width: 94%;
+}
+.detail-table td div {
+  width: 90%;
+}
+
+.upcoming-label {
+  background-color: #565a5c;
+  color: #000;
+  padding: 3px 10px 3px 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #fff;
+  z-index: 1;
+}
+
+.upcoming-label:before {
+  border: 12px solid #565a5c;
+  border-left-color: transparent;
+  position: absolute;
+  left: -12px;
+  content: '';
+  top: 0;
+}
+
+.tblData {
+  width: 100%;
+}
+
+.tblData td {
+  border-bottom: 1px solid #dedede;
+  padding: 8px 5px;
+}
+
+.left {
+  width: 180px;
+}
+
+.rightTd {
+  width: 180px;
+  color: #333;
+}
+
+.cw-model-tabs li {
+  padding: 10px 5px!important;
+}
+
+.containerBg {
+  text-align: left;
+  padding: 5px 0;
+}
+
+.box li {
+  list-style: none;
+}
+
+.colorBox {
+  border: 1px solid #f2f2f2;
+  height: 40px;
+  margin: auto;
+  width: 40px;
+}
+
+.colorSpan {
+  display: block;
+  width: 100%;
+}
+
+.color-expandable {
+  text-overflow: ellipsis;
+  width: 150px;
+  display: block;
+  margin: 5px auto 0 auto;
+}
+
+.color-truncated {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.m-call-slug {
+  background: rgba(48,48,48,0.7) none repeat scroll 0 0;
+  bottom: 0;
+  color: #fff;
+  padding: 10px 5px 10px 15px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.advantage-logo {
+  background-position: 0 -248px;
+  width: 70px;
+  height: 13px;
+  position: relative;
+  top: 2px;
+}
+
+.book-now-thumb {
+  background-position: -110px -79px;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+}
+
+.book-element-text .btn {
+  padding: 4px 3px 4px 3px;
+  margin: -2px 0 0 2px;
+}
+
+.know-more-text {
+  padding: 3px 3px 3px 3px;
+  border-radius: 3px;
+}
+
+.keep-informed input.form-control {
+  height: auto!important;
+  margin-bottom: 10px;
+}
+
+.keep-informed .new-line10 {
+  color: #555;
+}
+
+.keep-informed .linkButtonBig {
+  background: #f04031;
+  color: #fff;
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 42px;
+  font-size: 16px;
+  height: auto;
+  line-height: 1.42857143;
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  outline: 0;
+  text-decoration: none;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  -webkit-appearance: none;
+}
+
+.keep-informed .linkButtonBig:hover {
+  background: #f85649;
+  text-decoration: none;
+}
+
+.keep-informed .pgsubhead {
+  margin: 10px 0 5px 0;
+}
+
+body .zopim {
+  bottom: 2px!important;
+}
+
+.pq-img-window {
+  background-color: #fff;
+  position: fixed;
+  top: 8%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: -50px 0;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+.full-page-popup {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 20px;
+}
+
+.suggestion-box .listTable li {
+  display: table;
+  width: 100%;
+  padding: 10px;
+  table-layout: fixed;
+  border: 1px solid #e2e2e2;
+  margin-bottom: 7px;
+}
+
+.suggestion-box .listTable .listCell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.suggestion-box .listTable .listCell:first-child {
+  width: 25px;
+}
+
+.suggestion-box .listTable .listCell:nth-child(2) {
+  width: 105px;
+}
+
+.suggestion-box p {
+  line-height: 22px;
+}
+
+.suggestion-box p.font12 {
+  font-size: 12px;
+}
+
+.suggestion-box .listTable .unchecked {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/m/inputUnchecked.png") no-repeat scroll 0 1px;
+  cursor: pointer;
+  height: 20px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+
+.suggestion-box .listTable .checked {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/m/inputChecked.png") no-repeat scroll 0 1px;
+}
+
+.suggestion-box .listTable .empty {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/m/inputEmpty.png") no-repeat scroll 0 1px;
+}
+
+.width100 {
+  width: 100%;
+}
+
+a.req-call-btn,a.call-details-btn {
+  border-radius: 3px;
+  padding: 5px 8px;
+  text-decoration: none;
+  color: #fff!important;
+  font-size: 13px;
+  line-height: 1;
+}
+
+a.req-call-btn {
+  border: 1px solid #f04031;
+  background: #f04031;
+  margin-right: 10px;
+}
+
+a.call-details-btn {
+  background: #038d07;
+  border: 1px solid #038d07;
+}
+
+.nc-pg-sprite {
+  background: rgba(0,0,0,0) url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/dlp-input-icon-sprite.png?300615-v1") no-repeat scroll 0 0;
+  display: inline-block;
+}
+
+.easy-steps-list {
+  margin: 11px 0 0 15%;
+  padding: 0;
+  display: block;
+}
+
+.easy-steps-list li {
+  text-align: left;
+}
+
+.easy-step-container {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.call-detail-icon {
+  background-position: 0 -647px;
+  height: 15px;
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+  width: 15px;
+}
+
+.float-call-slug {
+  padding: 5px 5px 5px 5px;
+}
+
+a.req-call-btn.float-call-btn {
+  float: left;
+  padding: 8px 10px;
+  margin-left: 3%;
+}
+
+/*---- Recommendation Thank you section style-----*/
+.thanks-section {
+  padding-bottom: 70px;
+}
+
+.suggestTitle {
+  width: 80%;
+  background: #fff;
+  margin: 0 auto;
+  padding: 4px 0 6px 0;
+  -webkit-box-shadow: 0 -3px 5px 0 #cccccc;
+  -moz-box-shadow: 0 -3px 5px 0 #cccccc;
+  -o-box-shadow: 0 -3px 5px 0 #cccccc;
+  box-shadow: 0 -3px 5px 0 #cccccc;
+}
+
+#recommedationList {
+  padding: 10px;
+  -webkit-box-shadow: 0px -5px 11px -2px rgba(168,168,168,1);
+  -moz-box-shadow: 0px -5px 11px -2px rgba(168,168,168,1);
+  box-shadow: 0px -5px 11px -2px rgba(168,168,168,1);
+}
+
+.recommendation-section {
+  top: -53px;
+}
+
+.modified-full-popup {
+  padding: 0;
+}
+
+.advt-right-slug a:hover {
+  text-decoration: none;
+}
+
+/* Car suggested for you css starts here */
+.cardSuggestSingle li {
+  width: 100%;
+}
+
+.cardSuggestSingle li .img-max-width {
+  max-width: 100%;
+  width: inherit;
+  height: auto;
+}
+
+.carsuggested .imageWrapper {
+  height: inherit;
+}
+
+.carTitle a, .textOverflow {
+  white-space: nowrap;
+  width: 248px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.carsuggested .swiper-slide {
+  height: 283px;
+}
+/* Car suggested for you css ends here */
+
+.versionmenu-icons {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/us-sprite.png") no-repeat scroll;
+  width: 12px;
+  height: 12px;
+  padding: 0px 11px 0px 6px;
+  vertical-align: sub;
+}
+
+.minus-icon {
+  background-position: -67px -61px;
+}
+
+.plus-icon {
+  background-position: -66px -39px;
+}
+
+.model-image-count {
+  position: absolute;
+  background: #e4e4e4;
+  right: -10px;
+  bottom: 5px;
+  padding: 1px 4px 1px 2px;
+  font-size: 14px;
+}
+
+.model-image-count .car-images-icon {
+  vertical-align: bottom;
+  margin-bottom: 2px;
+}
+
+#model-main-menu {
+  background: #24516a;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  height: 3.15em;
+  font-size: 14px;
+  box-shadow: #888 0 2px 3px;
+  transition: all 1s ease;
+}
+
+#model-section-list {
+  overflow-x: auto;
+  height: 3.7em;
+  white-space: nowrap;
+  list-style-type: none;
+  padding-top: .5em;
+}
+
+
+li.model-section-tab {
+  display: inline-block;
+}
+
+li.model-section-tab a {
+  color: #ccc;
+  text-decoration: none;
+  padding: .7em .86em 1.1em;
+}
+
+li.model-section-active a {
+  color: #fff;
+  border-bottom: 3px solid #fff;
+}
+
+.blank-model-layer {
+  height: 48px;
+  position: relative;
+  z-index: 9999999;
+}
+
+#upComingCars .carTitle a {
+  width: 248px;
+}
+
+/* list-type-pills */
+.list-type-pills {
+  padding-right: 10px;
+  margin-bottom: 10px;
+}
+
+.list-type-pills__item span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.list-type-pills__item {
+  display: inline-block;
+  vertical-align: middle;
+  background: #efefef;
+  border-radius: 13px;
+  line-height: 11px;
+  margin-left: 5px;
+}
+
+.list-type-pills__item:first-child {
+  margin-left: 0;
+}
+
+.list-item__target {
+  display: block;
+}
+
+.list-item__target:hover {
+  text-decoration: none;
+}
+
+.media-image-icon {
+  width: 12px;
+  height: 12px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/media-image-12.png') no-repeat;
+  display: inline-block;
+}
+
+.list-item--icon-space {
+  margin-right: 4px;
+}
+
+.list-item__label {
+  font-size: 11px;
+  color: #565a5c;
+  font-weight: 700;
+}
+
+.item--padding {
+  padding: 7px 9px;
+}
+
+.teal-360-circle {
+  width: 27px;
+  height: 27px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/360icons/360-icon-27.png?1497446997824') no-repeat;
+  display: inline-block;
+}
+
+.other-variants .swiper-slide {
+  height: 130px;
+}
+.other-variants .swiper-slide.collapsed {
+  height: 80px;
+}
+.other-variants .carDescWrapper {
+  padding: 10px;
+  height: 100%;
+}
+
+.carmodel-image-swipper .swiper-slide {
+  width: 100%;
+  height: auto;
+}
+
+.carmodel-image-swipper .imageWrapper {
+  height: 170px;
+}
+
+.arrow-fff-10 {
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/arrow-fff-10x18.png') no-repeat;
+  display: inline-block;
+}
+
+.model-swiper-prev-btn,
+.model-swiper-next-btn {
+  position: absolute;
+  top: 50%;
+  width: 24px;
+  height: 32px;
+  margin-top: -22px;
+  text-indent: -9999px;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+  border: none;
+  cursor: pointer;
+}
+
+.model-swiper-prev-btn {
+  background-position: 6px 7px;
+  left: 0;
+}
+
+.model-swiper-next-btn {
+  background-position: -16px 7px;
+  right: 0;
+}
+
+.carmodel-image-swipper .swiper-wrapper {
+  padding: 0;
+}
+
+.swiper-overlay-bg {
+  background: rgba(44,44,44,0.5);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.swiper-overlay-bg .count-image {
+  color: #fff;
+  position: absolute;
+  font-size: 14px;
+  left: 45%;
+  top: 40%;
+}
+
+.count-image span {
+  font-weight: bold;
+}
+
+.carmodel-image-swipper {
+  margin-bottom: 7px;
+}
+
+.carmodel-image-swipper .imageWrapper img {
+  width: auto;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.carmodel-image-swipper .imageWrapper {
+  max-height: 202px;
+  height: 100%;
+}
+
+@media only screen and (max-width: 320px) {
+  .carmodel-image-swipper .imageWrapper {
+    max-height: 180px;
+    height: 100%;
+  }
+}
+/*360 icon code and new icon code*/
+.swipper-slide__new-icon {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ef3f30/new-tag-43x21.png);
+  width: 43px;
+  height: 21px;
+  display: block;
+  margin-left: 13px;
+}
+
+.swiper-slide__360-icon {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ef3f30/new-tag-43x21.png) center top no-repeat, url(https://imgd.aeplcdn.com/0x0/cw/static/icons/fff/360-68x45.png) center bottom no-repeat;
+  width: 69px;
+  height: 71px;
+  display: inline-block;
+}
+
+.center-container {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.experience-now-button {
+  display: block;
+  color: #fff;
+  border: solid 1px #fff;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-top: 5px;
+  background: #04b4c4;
+}
+
+.icons-container {
+  width: 85px;
+  height: 85px;
+  border: 1px solid #FFFFFF;
+  border-radius: 2px;
+  position: relative;
+  display: inline-block;
+}
+
+.link-container {
+  width: 210px;
+  height: 85px;
+}
+
+.last-slide-icons {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ef3f30/new-tag-36x17.png) center top no-repeat, url(https://imgd.aeplcdn.com/0x0/cw/static/icons/fff/360-43x28.png) center no-repeat;
+  width: 69px;
+  height: 71px;
+  display: inline-block;
+}
+
+.image-link-container__item {
+  width: 100%;
+}
+
+.icons-container__new-icon {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ef3f30/new-tag-30x15.png?1502099988287) no-repeat center top;
+  height: 15px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.icons-container__three-sixty-icon {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/fff/360-43x28.png) no-repeat center;
+  height: 28px;
+  display: block;
+}
+
+.city-price-table {
+  width: 100%;
+}
+
+.city-price-table td {
+  padding: 5px 0;
+  width: 50%;
+}
+
+@media only screen and (max-width: 320px) {
+    .container div.grid-12 .campaign-offer-slug{
+        width: 100%;
+    }
+}
+
+/* fix ad overlapping issue with popups */
+#divAdBar {
+  position: relative;
+  z-index: 0;
+}

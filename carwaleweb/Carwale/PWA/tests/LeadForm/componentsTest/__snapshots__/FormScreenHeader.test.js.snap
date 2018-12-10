@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component FormScreenHeader Snapshot RenderedTree (1) 1`] = `
+<div>
+  <div
+    className="dealer-detail"
+  >
+    <p
+      className="dealer-detail__heading"
+    >
+      <span
+        className="text-unbold"
+      >
+        Get assistance from
+         
+        <span
+          className="text-bold"
+        >
+          Shivam Autozone
+        </span>
+         for
+      </span>
+    </p>
+    <div
+      className="car-img-fold"
+    >
+      <img
+        alt="Maruti Suzuki Dzire"
+        className="pq-m-car-img"
+        src="https://imgd.aeplcdn.com/310x174/cw/ec/26860/Maruti-Suzuki-Dzire-Exterior-118637.jpg?wm=0"
+      />
+      <p
+        className="pq-m-car-name"
+      >
+        Maruti Suzuki Dzire
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Component FormScreenHeader Snapshot RenderedTree (2) 1`] = `
+<div>
+  <div
+    className="dealer-detail"
+  >
+    <p
+      className="dealer-detail__heading"
+    >
+      Shivam Autozone
+    </p>
+    <p
+      className="dealer-detail__subheading"
+    >
+      Provide your contact details for further communication related to Test Drive, EMI options, Offers & Exchange Benefits
+    </p>
+  </div>
+</div>
+`;

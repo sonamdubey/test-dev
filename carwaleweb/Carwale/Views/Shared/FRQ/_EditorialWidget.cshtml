@@ -1,0 +1,7 @@
+﻿@model Carwale.Entity.CMS.EditorialWidgetSummary
+@{ if (Model.TopNews != null && Model.TopNews.Count > 0) { Html.RenderPartial("~/Views/Shared/FRQ/_TopLatestNews.cshtml", Model.TopNews); }
+}
+@{ if (Model.TopReviews != null && Model.TopReviews.Count > 0) { Html.RenderPartial("~/Views/Shared/FRQ/_TopExpertReviews.cshtml", Model.TopReviews); }
+}
+@{ if (Model.TopVideos != null && Model.TopVideos.Count > 0) { Html.RenderPartial("~/Views/Shared/FRQ/_TopVideos.cshtml", Model.TopVideos); }
+}

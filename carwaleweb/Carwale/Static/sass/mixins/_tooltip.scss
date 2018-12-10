@@ -1,0 +1,146 @@
+﻿@import "../mixins/_rounded-corner.scss";
+@import "../mixins/_icons.scss";
+
+@mixin cw-blackbg-tooltip{
+@include rounded-corner(2);
+.cw-blackbg-tooltip { 
+    background: #000; 
+    color: #fff; 
+    font-size: 12px; 
+    padding: 3px 5px; 
+    position: absolute; 
+    right: 0px; 
+    top: 37px; 
+    z-index: 2;
+    @extend .rounded-corner2;
+    &:before { 
+        border-bottom: 5px solid #000; 
+        border-left: 5px solid transparent; 
+        border-right: 5px solid transparent; 
+        content: ""; 
+        position: absolute; 
+        right: 14px; 
+        top: -5px; 
+        z-index: 999;
+    }
+}
+}
+
+@mixin cw-tooltip($bg-color: #fff) {
+	.cw-tooltip {
+		display: none;
+		padding: 10px;
+		position: absolute;
+		border: 1px solid #e2e2e2;
+		background: $bg-color;
+		font-size: 12px;
+		color: map-get($color-map, "black");
+		text-align: center;
+		@include get-vendor-prefixed("box-shadow", "0 2px 2px #e2e2e2");
+		@include get-vendor-prefixed("border-radius", "4px");
+		cursor: pointer;
+		z-index: 1;
+	}
+
+	.cw-tooltip-target {
+		&:hover {
+			.cw-tooltip {
+				display: block;
+			}
+		}
+	}
+}
+
+@mixin tooltip-position-bottom-right() {
+	.tooltip--bottom-right {
+		.cw-tooltip-text {
+			&:before,
+			&:after {
+				content: '';
+				position: absolute;
+				border-top: 8px solid;
+				border-right: 10px solid transparent;
+				border-left: 10px solid transparent;
+				right: 4%;
+			}
+			&:before {
+				border-top-color: #e2e2e2;
+				bottom: -8px;
+			}
+			&:after {
+				border-top-color: map-get($color-map, "white");
+				bottom: -7px;
+			}
+		}
+	}
+}
+
+@mixin tooltip-position-bottom-left() {
+	.tooltip--bottom-left {
+		.cw-tooltip-text {
+			&:before,
+			&:after {
+				content: '';
+				position: absolute;
+				border-top: 8px solid;
+				border-right: 10px solid transparent;
+				border-left: 10px solid transparent;
+				left: 4%;
+			}
+			&:before {
+				border-top-color: #e2e2e2;
+				bottom: -8px;
+			}
+			&:after {
+				border-top-color: map-get($color-map, "white");
+				bottom: -7px;
+			}
+		}
+	}
+}
+
+@mixin instruction-target($size: 16) {
+	.instruction-icon__wrapper {
+		position: relative;
+
+		&:hover {
+			.instruction-tooltip {
+				display: block;
+			}
+		}		
+	}
+
+	@include instruction-icon($vertical-align: top);
+
+	.instruction-target {
+		margin-left: 3px;
+		position: relative;
+		cursor: pointer;
+	}
+}
+
+@mixin instruction-tooltip($width: 276px, $bg-color: 'charcoal', $opacity: .95, $color: 'white', $font-size: 14, $left: 50%, $position: 'bottom') {
+	.instruction-tooltip {
+		@if true {
+			@include vendor-prefix('transform', translateX(-50%));
+		}
+		display: none;
+		position: absolute;
+		font-size: $font-size * 1px;
+		background-color: rgba(map-get($color-map, $bg-color), $opacity);
+		color: map-get($color-map, $color);
+		padding: 10px 15px;
+		width: $width;
+		z-index: 1;
+		border-radius: 6px;
+		left: $left;
+		
+		line-height: 21px;
+		@if $position == 'bottom' {
+			top: 130%;
+		}
+		@else {
+			bottom: 130%;
+		}
+	}
+}

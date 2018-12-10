@@ -1,0 +1,141 @@
+@model Carwale.DTOs.NewCars.PriceInCityPageDTO
+@using Carwale.Entity.Enum;
+@using MobileWeb.Common;
+@using Carwale.Utility;
+@using Carwale.BL.Experiments;
+@{
+	ViewBag.CityId = ViewBag.CityId ?? CookiesCustomers.MasterCityId; // what's need of assigning viewbag at client side
+	ViewBag.CityName = ViewBag.CityName ?? CookiesCustomers.MasterCity;
+}
+<script>
+
+    var isModelCityPage = 'True';
+    var futuristic = false;
+    var newFlag = true;
+    var oemDealers = '@System.Configuration.ConfigurationManager.AppSettings["OEMDealerId"]';
+    var userCityId = @ViewBag.CityId;
+    var sponsorDlrBusType,sponsorDlrName,campaignId,sponsorDlrLeadPanel,showEmail,defaultVerId= "", defaultVerName = "",sponsoredDealerId;
+    var pageId = '@((int)CwPages.PicMsite)';
+    var globalPageObject = {id: parseInt(pageId), name: "PIC"};
+    var globalPlatformObject = {id: @((int)Platform.CarwaleMobile), name: "mobile"};
+    var reEmailUpcomming = /^(([^<>()[\]\\.,;:\s@@\"]+(\.[^<>()[\]\\.,;:\s@@\"]+)*)|(\".+\"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //if dealer is sponsored then get its details
+
+    defaultVerId = "@Model.MobileOverviewDetails.VersionId";
+    defaultVerName ="@Model.MobileOverviewDetails.VersionName";
+    var defaultVersionId = "@Model.MobileOverviewDetails.VersionId";
+    //set compare cars data
+    var compCarVerId1, compCarVerName1,compCarMakeName1, compCarMaskingName1, compCarName1 = "", compCarVerImg1, compCarVerUrl1, compCarVerPrice1,compCarModelId1;
+    var compCarVerId2, compCarVerName2,compCarMakeName2, compCarMaskingName2, compCarName2 = "", compCarVerImg2, compCarVerUrl2, compCarVerPrice2,compCarModelId2;
+    var numberOfCars;//set number of cars selected for comparison
+
+    @if (Model.SelectedVersions != null && Model.SelectedVersions.Count > 0)
+	{
+	<text>
+    numberOfCars = 1;
+    compCarVerId1 = @Model.SelectedVersions[0].VersionId;
+    compCarModelId1 = @Model.SelectedVersions[0].ModelId;
+    compCarVerName1 = "@Model.SelectedVersions[0].VersionName";
+    compCarMakeName1 = "@Model.SelectedVersions[0].MakeName";
+    compCarMaskingName1 = "@Model.SelectedVersions[0].MaskingName";
+    compCarName1 = "@Model.SelectedVersions[0].MakeName" + " " + "@Model.SelectedVersions[0].ModelName" + " " + "@Model.SelectedVersions[0].VersionName";
+    compCarVerUrl1 = "@ManageCarUrl.CreateVersionUrl(Model.SelectedVersions[0].MakeName, Model.SelectedVersions[0].MaskingName, Model.SelectedVersions[0].VersionMasking, true)";
+    compCarVerImg1  = "@(Model.SelectedVersions[0].HostURL + Carwale.Utility.ImageSizes._110X61 + Model.SelectedVersions[0].OriginalImgPath)";
+    compCarVerPrice1 = "@Carwale.UI.Common.FormatPrice.GetFormattedPriceV2(Model.SelectedVersions[0].MinPrice.ToString())";
+    </text>
+	}
+
+    @if (Model.SelectedVersions != null && Model.SelectedVersions.Count > 1)
+	{
+	<text>
+    numberOfCars = 2;
+    compCarVerId2 = @Model.SelectedVersions[1].VersionId;
+    compCarModelId2 = @Model.SelectedVersions[1].ModelId;
+    compCarVerName2 = "@Model.SelectedVersions[1].VersionName";
+    compCarMakeName2 = "@Model.SelectedVersions[1].MakeName";
+    compCarMaskingName2 = "@Model.SelectedVersions[1].MaskingName";
+    compCarName2 = "@Model.SelectedVersions[1].MakeName" + " " + "@Model.SelectedVersions[1].ModelName" + " " + "@Model.SelectedVersions[1].VersionName";
+    compCarVerUrl2 = "@ManageCarUrl.CreateVersionUrl(Model.SelectedVersions[1].MakeName, Model.SelectedVersions[1].MaskingName, Model.SelectedVersions[1].VersionMasking, true)";
+    compCarVerImg2  = "@(Model.SelectedVersions[1].HostURL + Carwale.Utility.ImageSizes._110X61 + Model.SelectedVersions[1].OriginalImgPath)";
+    compCarVerPrice2 = "@Carwale.UI.Common.FormatPrice.GetFormattedPriceV2(Model.SelectedVersions[1].MinPrice.ToString())";
+    </text>
+	}
+
+    var callSlugDisplay = false;
+    var zoneId = "";
+
+    @if (ViewBag.ZoneId > 0)
+	{
+	<text>
+    zoneId = @ViewBag.ZoneId;
+    </text>
+	}
+
+    @if (Model.CallSlugInfo != null && Model.CallSlugInfo.IsAdAvailable)
+	{
+	<text>
+    callSlugDisplay = true;
+    </text>
+	}
+    var campaignId = @(Model.DealerAd != null && Model.DealerAd.Campaign != null ? Model.DealerAd.Campaign.Id : 0);
+    var sponsorDlrLeadPanel = @(Model.DealerAd != null && Model.DealerAd.Campaign != null  ? Model.DealerAd.Campaign.LeadPanel : 0);
+    var sponsorDlrName = '@(Model.DealerAd != null && Model.DealerAd.Campaign != null  ? String.Format("{0}", Model.DealerAd.Campaign.ContactName) : "")';
+    var sponsoredDealerId = @(Model.DealerAd != null && Model.DealerAd.Campaign != null  ? Model.DealerAd.Campaign.DealerId : 0);
+    var PageId=@(ViewBag.PageId ?? "0");
+    var ModelName= '@Model.ModelDetails.ModelName';
+    var CityName='';
+    var IsCity='True';
+    CityName = '@ViewBag.CityName';
+    var isPriceShown = '@ViewBag.IsPriceShown';
+    var imageCarouselCount = @Model.ModelPhotosListCarousel.Count;
+</script><script type="text/javascript">
+	var zoneNameForModelVersion = '@ViewBag.CityZone';
+    var carName =  '@Model.ModelDetails.MakeName' + ' ' + '@Model.ModelDetails.ModelName';
+	var USERIP = '@(Carwale.Utility.UserTracker.GetUserIp())';
+	var toReloadOnLocationChange = false;
+	var toTriggermanualChangeEvent=true;
+	var CarDetails =
+    {
+        carMakeId : @Model.ModelDetails.MakeId,
+        carMakeName : "@Model.ModelDetails.MakeName" ,
+        carMaskingName : "@Model.ModelDetails.MaskingName",
+        carModelName : "@Model.ModelDetails.ModelName",
+        carModelId : @Model.ModelDetails.ModelId
+        };
+    var globalPageObject = {id: @((int)CwPages.PicMsite), name: "PicMsite"};
+    var globalPlatformObject = {id: @((int)Platform.CarwaleMobile), name: "mobile"};
+</script>
+<script  type="text/javascript"  src="/static/m/js/component-model.js"  defer></script>
+<script  type="text/javascript"  src="/static/m/js/new-car-model.js"  defer></script>
+<script type="text/javascript" src="/static/m/js/upcoming-form.js" defer></script>
+<script type="text/javascript" src="/static/js/utils/popup.js" defer></script>
+@if (ProductExperiments.IsPicPqMerger(Model.MobileOverviewDetails.MakeId))
+{
+<script type="text/javascript" src="/static/m/js/model-main-menu.js" defer></script>
+}
+<script  type="text/javascript"  src="/static/m/js/call-slug-number.js"  defer></script>
+<script>
+	@if (Model.MobileOverviewDetails != null && Model.MobileOverviewDetails.CarPriceOverview != null && Model.MobileOverviewDetails.CarPriceOverview.PriceForSorting > 0 && !Model.MobileOverviewDetails.AdAvailable)
+	{
+		<text>
+			var ncfBudget = @Model.MobileOverviewDetails.CarPriceOverview.PriceForSorting;
+		</text>
+	}
+    else
+    {
+        <text>
+            var ncfBudget = 0;
+        </text>
+    }
+</script>
+@if (!Model.MobileOverviewDetails.AdAvailable)
+{
+	<script type="text/javascript" src="~/Static/m/js/ncfPopup.js" defer></script>
+}
+
+@if (!Model.ModelDetails.Futuristic && Model.ModelDetails.New)
+{
+    <script type="text/javascript" src="/static/m/js/offers.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/utils/emi-slug.js" defer></script>
+    { Html.RenderPartial("~/Views/Shared/m/_EmiCalculator.cshtml"); }
+}

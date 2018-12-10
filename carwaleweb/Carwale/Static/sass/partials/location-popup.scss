@@ -1,0 +1,188 @@
+﻿@import '../mixins/_variables.scss';
+@import '../mixins/_sprites.scss';
+@import '../mixins/_vendor-utils.scss';
+
+.location-popup-container {
+    background: map-get($color-map, 'white');
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+    z-index: 11;
+    display: none;
+}
+
+.location-popup--active{
+    &.location-popup-container {
+        display: block;
+    }
+} 
+
+.location-popup-wrapper {
+    padding: 30px 40px 5px;
+}
+
+.location-popup__close-button {
+    @include cross-default-15x16;
+    background-position: center;
+    background-size: 15px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    z-index: 20;
+    position: absolute;
+    right: 0;
+    box-sizing: content-box;
+    padding: 15px;
+    top: 0;
+}
+
+.location-popup__city-container {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.location-popup__location-icon-wrapper,
+.location-popup__sorry-icon-wrapper {
+    background: map-get($color-map, 'gainsboro');
+    width: 70px;
+    height: 70px;
+    line-height: 2;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 50%;
+}
+
+.location-popup-icon {
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin: 15px;
+}
+
+.location-popup__location-icon {
+    @include global-location-icon;  
+}
+
+.location-popup__sorry-icon {
+    @include location-error-icon;
+}
+
+.location-popup__title {
+    color: map-get($color-map, 'black');
+    font-size: 25px;
+}
+
+.location-popup__subtitle {
+    font-size: 14px;
+}
+
+.material-form{
+    .divCustForm {
+        width: auto;
+    }
+} 
+
+.material-form {
+    .leadForm {
+        .nc-pg-fields {
+            margin-bottom: 15px;
+        }
+    }
+
+    .nc-pg-fields-input-text {
+        display: block;
+        width: 100%;
+        position: relative;
+
+        &:before {
+            left: -1px;
+            border-left: 1px solid map-get($color-map, 'grey-btn-border');
+        }
+
+        &:after {
+            right: 6px;
+            border-left: 1px solid map-get($color-map, 'grey-btn-border');
+        }
+
+        &:before, 
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            height: 7px;
+            width: 1px;
+            display: block;
+            right: 0;
+        }
+    }
+
+    .nc-pg-fields {
+        input[type='text'] {
+            display: block;
+            width: 100%;
+            padding: 5px 10px;
+            line-height: 1.42857143;
+            background-color: map-get($color-map, 'white');
+            border-bottom: 1px solid map-get($color-map, 'grey-btn-border');
+            position: relative;
+            border-radius: 0;
+        }
+    }
+
+    .btnSubmit {
+        margin-top: 30px;
+        min-height: 37px;
+        min-width: 220px;
+    }
+
+    .divDone {
+        min-width: 220px;
+    }
+
+    input[type='button'] {
+        padding: 6px 25px;
+        -webkit-appearance: none;
+    }
+    
+} 
+
+.globalcity-input-box {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.form-control-box {
+    position: relative;
+}
+
+.error-icon {
+    @include error-icon-red;
+}
+
+@media only screen and (min-width: 780px) {
+    .location-popup-container {
+        @include get-vendor-prefixed('transition','transform .5s');
+        @include get-vendor-prefixed('transform','translateX(110%)');
+        width: 440px;
+        right: 0;
+        left: inherit;
+        display: block;
+    }
+
+    .location-popup--active {
+        &.location-popup-container {
+            @include get-vendor-prefixed('transform','translateX(0)');
+        }        
+    }
+
+    .location-popup__close-button {
+        right: initial;
+        left: 0;
+    }
+}

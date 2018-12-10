@@ -1,0 +1,12 @@
+﻿@using Carwale.Utility;
+<div class="speedometer__container hide">
+    <div class="speedometer-loader__content">
+        <div class="speedometer-loader"></div><div class="speedometer-needle-circle">
+        </div>
+    </div>
+</div>
+<div class="oxygenLoaderContainer__js hide">
+    <div class="oxygen-loader hide">
+        <img class="oxygen-loader-img" src="@ImageSizes.CreateImageUrl(System.Configuration.ConfigurationManager.AppSettings["CDNHostURL"].ToString(), ImageSizes._0X0, "/cw/static/icons/oxygen-loader.gif")" alt="Loading" />
+    </div>
+</div>

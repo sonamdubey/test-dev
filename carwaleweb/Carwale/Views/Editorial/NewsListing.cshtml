@@ -1,0 +1,562 @@
+﻿@model Carwale.DTOs.CMS.NewsListingDTO
+@using Carwale.Utility
+@using Carwale.UI.Common
+@using Carwale.UI.PresentationLogic
+@using Carwale.BL.CMS
+@{
+    ViewBag.isMobile = ViewBag.isMobile ?? false;
+    ViewBag.BodyClass = "bg-light-grey " + (ViewBag.isMobile != null && ViewBag.isMobile ? string.Empty : "header-fixed-inner");
+    ViewBag.Keywords = "";
+    ViewBag.landingPage = false;
+    ViewBag.Responsive = true;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.DeeplinkAlternativesAndroid = ViewBag.DeeplinkAlternatives;
+    ViewBag.Canonical = "https://www.carwale.com" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString().Replace("/m/", "/");
+    ViewBag.Alternate = "https://www.carwale.com/m" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString().Replace("/m/", "/");
+    ViewBag.CustomJS = "~/Views/StaticPartials/editorial/newslistingjs.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/editorial/newslistingcss.cshtml";
+    ViewBag.Next = Model.HasNextPage ? "https://www.carwale.com" + EditorialContent.GetListingPaginationUrl(Model.pageNumber + 1, ViewBag.isMobile, Model) : string.Empty;
+    ViewBag.Prev = Model.HasPrevPage ? "https://www.carwale.com" + EditorialContent.GetListingPaginationUrl(Model.pageNumber - 1, ViewBag.isMobile, Model) : string.Empty;
+    Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayoutV2.cshtml" : "~/views/shared/_LayoutV2.cshtml");
+    ViewBag.AdId = "1396440332273";
+    if (ViewBag.isMobile)
+    {
+        ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+            googletag.cmd.push(function () {
+                googletag.defineSlot('/1017752/" + ViewBag.adPath + @"CarWale_Mobile_ROS_320x50', [320, 50], 'div-gpt-ad-1419227721763-0').addService(googletag.pubads());
+
+                //Ad for quatation page bottom Ad
+                googletag.defineSlot('/1017752/" + ViewBag.adPath + @"CarWale_Mobile_ROS_300x250', [300, 250], 'div-gpt-ad-1435297201507-0').addService(googletag.pubads());
+
+                googletag.pubads().setTargeting('Section', ['']);
+                googletag.pubads().setTargeting('City', '" + MobileWeb.Common.CookiesCustomers.MasterCity.ToString() + @"');
+                googletag.pubads().setTargeting('Section', '');
+                googletag.pubads().collapseEmptyDivs();
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+            });
+        </script>";
+    }
+    else
+    {
+        ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+        googletag.cmd.push(function () {
+            googletag.defineSlot('/1017752/ReviewsNews_970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90]], 'div-gpt-ad-1396440332273-2').addService(googletag.pubads());
+            googletag.pubads().setTargeting('City', '" + Carwale.UI.Common.CookiesCustomers.MasterCity.ToString() + @"');
+            googletag.pubads().setTargeting('UserModelHistory', '" + Carwale.UI.Common.CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+            googletag.pubads().collapseEmptyDivs();
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+});
+    </script>";
+    }
+}
+@if (ViewBag.isMobile)
+{
+    <div id="m-blackOut-window" class="hide" style="display:block;"></div>
+    <div id="cwmLoadingIcon" class="m-loading-popup hide" style="display:block;">
+        <span class="m-loading-icon"></span>
+        <div class="clear"></div>
+    </div>
+}
+else
+{
+    <div id="loadingCarImg" class="show">
+        <div class="loading-popup">
+            <span class="loading-icon"></span>
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+
+    <div id="fixedMenu" class="filter-tab-wrap leftfloat bg-white fixed-tabs @(ViewBag.isMobile ? "fixed-tabs-mobile" : "fixed-tabs-desktop") hide">
+    <div class="cw-tabs-panel filter-tab">
+        <div class="cw-tabs cw-tabs-flex category-tabs">
+            <ul class="tabUL scrollmenu" id="datatabstop">
+                <li data-bind="css:{'active':currentTab()=='all','disabled':allCount()<1}" data-tabs="all">News <span data-bind="text:allCount,css:{'hide': !filterApplied()}" class="filter-news-count hide">0</span></li>
+                <li data-bind="css:{'active':currentTab()=='expert-reviews','disabled':expertReviewsCount()<1}" data-tabs="expert-reviews">Reviews<span data-bind="text:expertReviewsCount,css:{'hide': !filterApplied()}" class="filter-news-count hide">0</span></li>
+                <li data-bind="css:{'active':currentTab()=='features','disabled':featuresCount()<1}" data-tabs="features">Special Reports <span data-bind=" text:featuresCount,css:{'hide': !filterApplied()}" class="filter-news-count hide">0</span></li>
+                <li data-bind="css:{'active':currentTab()=='images','disabled':photosCount()<1}" data-tabs="images">Images<span data-bind=" text:photosCount,css:{'hide': !filterApplied()}" class="filter-news-count hide">0</span></li>
+                <li data-bind="css:{'active':currentTab()=='videos','disabled':videosCount()<1}" data-tabs="videos">Videos<span data-bind=" text:videosCount,css:{'hide': !filterApplied()}" class="filter-news-count hide">0</span></li>
+            </ul>
+            <hr class="tabHr tran-ease-out-all" />
+        </div>
+    </div>
+</div>
+<section class="container">
+    @if (ViewBag.isMobile)
+    {
+        <div id="divAdBar">
+            <div id='div-gpt-ad-1419227721763-0' style='width:320px; height:50px; margin:10px auto 0 auto;'>
+                <script type='text/javascript'>
+                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1419227721763-0'); });
+                </script>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="grid-12">
+            <div class="padding-bottom15 text-center">
+                @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_728x90.cshtml"); }
+            </div>
+        </div>
+                    }
+</section>
+<div class="clear"></div>
+
+<section class="padding-top10 padding-bottom20">
+    <div class="container">
+        <div class="grid-12">
+            <div class="breadcrumb">
+                <!-- breadcrumb code starts here -->
+                <ul id="liCrumb" class="special-skin-text m-special-skin-text">
+                    <li><a href="/">Home</a></li>
+                    <!-- ko template: { name: 'makeBreadCrumb' ,data : make} -->
+
+                    @if (Model.make != null)
+                    {
+                        <li><span class="fa fa-angle-right margin-right10"></span><a href="@(ViewBag.isMobile?"/m/":"/")@UrlRewrite.FormatSpecial(Model.make.name)-cars/"><span>@Model.make.displayName</span></a></li>
+                    }
+
+                    <!-- /ko -->
+                    <!-- ko template: { name: 'modelBreadCrumb', data: model} -->
+
+                    @if (Model.model != null)
+                    {
+                        <li><span class="fa fa-angle-right margin-right10"></span><a href="@ManageCarUrl.CreateModelUrl(Model.make.name,Model.model.name)"><span>@Model.model.displayName</span></a></li>
+                    }
+
+                    <!-- /ko -->
+
+
+                    <li><span class="fa fa-angle-right margin-right10"></span><span data-bind="html:h1Tag" class="m-special-skin-text">@Html.Raw(ViewBag.H1 ?? "Car News")</span></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <h1 id="h1Tag" data-bind="html:h1Tag" class="font25 text-black margin-bottom15 special-skin-text m-special-skin-text">@Html.Raw(ViewBag.H1 ?? "Car News")</h1>
+            <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+        </div>
+        <div class="clear"></div>
+        @if (ViewBag.isMobile)
+        {
+        <!-- M-SITE New M-site content-search -->
+
+        <div class="content-search" id="msiteNewsFilterContainer">
+            <span class="filter-selected-text hide">
+                <span id="postFilterSelection" class="padding-left5 margin-left10 text-bold text-black m-filter-result filter-car-label hide"></span>
+                <span id="clearFilter" class="m-clear-filter margin-left15 text-bold text-link font14 hide">Clear</span>
+            </span>
+
+            <div id="mSearchContainer">
+                <input type="text"
+                       class="content-search--input ui-autocomplete-input"
+                       placeholder="Type to select car name..."
+                       autocomplete="off"
+                       name="newsFilter"
+                       id="newsFilter" />
+                <span style="display:none;right:15px;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black"></span>
+
+                <span class="cw-nc-pg-sprite cw-nc-error-red-icon error-city-icon" style="display:none;"></span>
+                <div id="newsFilterNoMatch" class="city-error-msg hide">Sorry, we could not find any articles.</div>
+            </div>
+
+        </div>
+        <!-- M-SITE New Search Msite ends -->
+        <!-- M-SITE New Msite Filter Tabs -->
+        <div id="floatMenuAnchor"></div>
+        <div class="filter-tab-wrap leftfloat bg-white content-filter-tabs" id="floatMenu">
+            <div class="cw-tabs-panel filter-tab">
+                <div class="cw-tabs cw-tabs-flex content-nav-tabs">
+
+                    <ul class="content-primary-nav-list" data-role="inview-imp" data-event="CWNonInteractive" data-cat="msite_content_landing" data-action="gallery" data-label="gallery_impression">
+                        <li data-role="click-tracking" data-event="CWInteractive" data-action="news_reviews" data-cat="msite_content_landing" data-label="news_reviews" class="tablinks @(Model.IsGallery ? string.Empty : "activeBtn")" onclick="news.showContentTabs(event, 'contentNews')">NEWS & REVIEWS</li>
+                        <li data-role="click-tracking" data-event="CWInteractive" data-action="gallery" data-cat="msite_content_landing" data-label="gallery" class="tablinks @(Model.IsGallery ? "activeBtn" : string.Empty)" onclick="news.showContentTabs(event, 'contentGallery')">IMAGES & VIDEOS</li>
+                    </ul>
+                    <div id="datatabs" class="category-tabs">
+                        <ul class="tabUL scrollmenu content-secondary-nav-list @(Model.IsGallery ? "hide-important" : string.Empty)" id="contentNews">
+                            <li data-bind="css:{'active':currentTab()=='all','disabled':allCount()<1}" data-tabs="all">
+                                <h3>
+                                    <a data-bind="attr:{href:(window.isMobile? '/m/':'/')+(make()!=null?make().name+'-cars/':'')+(model()!=null?model().name+'/':'')+'news/'},event:{click:function(){return false;}}">
+                                        News <span data-bind="text: '(' + allCount() + ')',css:{'hide': !filterApplied()}">0</span>
+                                    </a>
+                                </h3>
+                            </li>
+                            <li data-bind="css:{'active':currentTab()=='expert-reviews','disabled':expertReviewsCount()<1}" data-tabs="expert-reviews">
+                                <h3>
+                                    <a data-bind="attr:{href:(window.isMobile? '/m/':'/')+(make()!=null?make().name+'-cars/':'')+(model()!=null?model().name+'/':'')+'expert-reviews/'},event:{click:function(){return false;}}">Reviews <span data-bind="text:'(' + expertReviewsCount() + ')',css:{'hide': !filterApplied()}">0</span></a>
+                                </h3>
+                            </li>
+                            <li data-bind="css:{'active':currentTab()=='features','disabled':featuresCount()<1}" data-tabs="features">
+                                <h3>
+                                    <a data-bind="attr:{href:(window.isMobile? '/m/':'/')+(make()!=null?make().name+'-cars/':'')+(model()!=null?model().name+'/':'')+'features/'},event:{click:function(){return false;}}">Special Reports <span data-bind="text:'(' + featuresCount() + ')',css:{'hide': !filterApplied()}">0</span></a>
+                                </h3>
+                            </li>
+                        </ul>
+
+                        <ul class="tabUL scrollmenu content-secondary-nav-list @(Model.IsGallery ? string.Empty : "hide-important")" id="contentGallery">
+                            <li data-bind="css:{'active':currentTab()=='images','disabled':photosCount()<1}" data-tabs="images">
+                                <h3>
+                                    <a data-bind="attr:{href:(window.isMobile? '/m/':'/')+(make()!=null?make().name+'-cars/':'')+(model()!=null?model().name+'/':'')+'images/'},event:{click:function(){return false;}}">Images <span data-bind="text:'(' + photosCount() + ')',css:{'hide': !filterApplied()}">0</span></a>
+                                </h3>
+                            </li>
+                            <li data-bind="css:{'active':currentTab()=='videos','disabled':videosCount()<1}" data-tabs="videos">
+                                <h3>
+                                    <a data-bind="attr:{href:(window.isMobile? '/m/':'/')+(videosCount()>0 ? ((make()!=null?make().name+'-cars/':'')+(model()!=null?model().name+'/':'')):'')+'videos/'},event:{click:function(){return false;}}">Videos <span data-bind="text:'(' + videosCount() + ')',css:{'hide': !filterApplied()}">0</span></a>
+                                </h3>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- M-SITE Content Filter Tab Ends -->
+
+        }
+        else
+        {
+        <!-- Desktop Content Search and Filter Tabs Starts -->
+        <div class="grid-12 margin-bottom20">
+            <div class="border-solid">
+                <div class="bg-white news-car-filter-container">
+                    <span class="text-bold text-black font14">Filter By: </span>
+                    <div class="inline-block news-car-search margin-left10" id="newsFilterContainer">
+                        <div class="global-search-wrapper position-rel material-form">
+                            <div class="news-filter-text">
+                                <div>
+                                    <input type="text" placeholder="Type to select car name" class="ui-autocomplete-input" autocomplete="off" name="newsFilter" id="newsFilter">
+                                    <span style="display:none;right:15px;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black"></span>
+                                </div>
+                                <span class="cw-nc-pg-sprite cw-nc-error-red-icon error-city-icon" style="display:none;"></span>
+                                <div id="newsFilterNoMatch" class="city-error-msg hide">Sorry, we could not find any articles.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inline-block news-car-search margin-left10 hide">
+                        <span id="postFilterSelection" class="padding-left5 margin-left10 text-bold text-black filter-car-label hide"></span>
+                        <span id="clearFilter" class="margin-left15 text-bold text-link font14 hide">Clear</span>
+                    </div>
+                </div>
+                <div class="filter-tab-wrap leftfloat bg-white" id="floatMenu">
+                    <div class="cw-tabs-panel filter-tab">
+                        <div class="cw-tabs cw-tabs-flex category-tabs">
+                            <ul class="tabUL scrollmenu" id="datatabs">
+                                <li data-bind="css:{'active':currentTab()=='all','disabled':allCount()<1}" data-tabs="all"><h3><a data-bind="attr:{href:(window.isMobile? '/m/':'/')+(make()!=null?make().name+'-cars/':'')+(model()!=null?model().name+'/':'')+'news/'},event:{click:function(){return false;}}">News</a></h3> <span data-bind="text:allCount,css:{'hide': !filterApplied()}" class="filter-news-count hide">0</span></li>
+                                <li data-bind="css:{'active':currentTab()=='expert-reviews','disabled':expertReviewsCount()<1}" data-tabs="expert-reviews"><h3><a data-bind="attr:{href:(window.isMobile? '/m/':'/')+(make()!=null?make().name+'-cars/':'')+(model()!=null?model().name+'/':'')+'expert-reviews/'},event:{click:function(){return false;}}">Reviews</a></h3> <span data-bind="text:expertReviewsCount,css:{'hide': !filterApplied()}" class="filter-news-count hide">0</span></li>
+                                <li data-bind="css:{'active':currentTab()=='features','disabled':featuresCount()<1}" data-tabs="features"><h3><a data-bind="attr:{href:(window.isMobile? '/m/':'/')+(make()!=null?make().name+'-cars/':'')+(model()!=null?model().name+'/':'')+'features/'},event:{click:function(){return false;}}">Special Reports</a></h3> <span data-bind=" text:featuresCount,css:{'hide': !filterApplied()}" class="filter-news-count hide">0</span></li>
+                                <li data-bind="css:{'active':currentTab()=='images','disabled':photosCount()<1}" data-tabs="images"><h3><a data-bind="attr:{href:(window.isMobile? '/m/':'/')+(make()!=null?make().name+'-cars/':'')+(model()!=null?model().name+'/':'')+'images/'},event:{click:function(){return false;}}">Images</a></h3> <span data-bind=" text:photosCount,css:{'hide': !filterApplied()}" class="filter-news-count hide">0</span></li>
+                                <li data-bind="css:{'active':currentTab()=='videos','disabled':videosCount()<1}" data-tabs="videos"> <h3><a data-bind="attr:{href:(window.isMobile? '/m/':'/')+(videosCount()>0 ?((make()!=null?make().name+'-cars/':'')+(model()!=null?model().name+'/':'')):'')+'videos/'},event:{click:function(){return false;}}">Videos</a></h3> <span data-bind=" text:videosCount,css:{'hide': !filterApplied()}" class="filter-news-count hide">0</span></li>
+                            </ul>
+                            <hr class="tabHr tran-ease-out-all" />
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        <!-- Desktop Content Search and Filter Tabs ENDS -->
+        }
+    </div>
+
+    <div class="container">
+        <div id="newsContainer" class="grid-12 alpha omega gridView">
+            <!-- Left container code starts here-->
+            <div class="grid-8 left-container alpha omega">
+                <ul id="viewUl" data-bind="template:{name:'liTemplate',foreach:current()}" class="main-frame leftfloat position-rel">
+                    @if (Model.Page1 != null)
+                    {
+                        var index = 0;
+                        foreach (var item in Model.Page1.Articles)
+                        {
+                            <li class="news-box" data-id="@(Model.ExpertCategories.Contains(item.CategoryId)?"expert-reviews":(Model.FeatureCategories.Contains(item.CategoryId)?"features":"news"))">
+                                <div class="news-inner-wrap position-rel">
+                                    <div class="news-inner-box">
+                                        <div style="@(index++ < 2 ? string.Format("background-image:url('{0}');background-repeat:NO-REPEAT;background-size:cover;", Carwale.Utility.ImageSizes.CreateImageUrl(item.HostUrl,"310x174",item.OriginalImgUrl)) : string.Empty)" class="img-wrap min-height-170">
+                                            <a class="news-title text-black" href="@item.ArticleUrl" rel="bookmark">
+                                                <img class="lazy min-height-170" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(item.HostUrl,"310x174",item.OriginalImgUrl)" />
+                                            </a>
+                                        </div>
+                                        <div class="desc-wrap content-inner-block-10">
+                                            <span class="ed-tag font12 text-uppercase text-white text-center">@item.CategoryMaskingName</span>
+                                            <h2 class="font16 news-title">
+                                                <a class="news-title text-black" href="@item.ArticleUrl" rel="bookmark">@item.Title</a>
+                                            </h2>
+                                            <div class="font12 margin-top10 margin-bottom5">
+                                                <time datetime="@item.FormattedDisplayDate" itemprop="datePublished"></time>
+                                                <abbr>@item.FormattedDisplayDate</abbr>&nbsp;by&nbsp;
+                                                @if (string.IsNullOrWhiteSpace(item.AuthorMaskingName))
+                                                {
+                                                    <span itemprop="author">@item.AuthorName</span>
+                                                }
+                                                else
+                                                {
+                                                    <a href="/authors/@item.AuthorMaskingName/"><span itemprop="author">@item.AuthorName</span></a>
+                                                }
+                                            </div>
+                                            <div class="desc-content hide">
+                                                @Html.Raw(item.Description)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="postmetadata padding-right10 padding-bottom10 text-right text-default font14 hide">
+                                        <span class="fa fa-eye"></span> <span class="font12">@item.Views views</span>
+                                        <meta content="UserPageVisits:@item.Views" itemprop="interactionCount" />
+                                    </p>
+                                </div>
+                            </li>
+                        }
+                    }
+                    else if (Model.MediaPage1 != null)
+                    {
+                        var index = 0;
+                        if (Model.MediaPage1.Photos != null)
+                        {
+                            foreach (var item in Model.MediaPage1.Photos.PhotosList)
+                            {
+                                <li class="news-box news-view-box news-hover-list" data-id="photos">
+                                    <div class="news-inner-wrap position-rel">
+                                        <div class="news-inner-box">
+                                            <div class="img-wrap">
+
+                                                @if (ViewBag.isMobile)
+                                                {
+                                                    <div style="@(index++ < 2 ? string.Format("background-image:url('{0}');background-repeat:NO-REPEAT;background-size:cover;", Carwale.Utility.ImageSizes.CreateImageUrl(item.HostURL,"310x174",item.OriginalImgPath)) : string.Empty)" class="min-height-170">
+                                                        <a class="news-title text-black" href="/m/@UrlRewrite.FormatSpecial(item.MakeName)-cars/@item.ModelMaskingName/images/">
+                                                            <img class="lazy min-height-170" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/grey.gif" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(item.HostURL,"310x174",item.OriginalImgPath)" />
+                                                        </a>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <a class="news-title text-black" href="@("/" + UrlRewrite.FormatSpecial(item.MakeName) + "-cars/" + item.ModelMaskingName + "/images/")">
+                                                        <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/grey.gif" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(item.HostURL,"310x174",item.OriginalImgPath)" />
+                                                    </a>
+                                                }
+
+                                            </div>
+                                            <div class="view-wrap content-inner-block-10">
+                                                <span class="image-tag font14 text-uppercase text-white text-center"><span class="fa fa-camera"></span>@item.ImageCount</span>
+                                                <h2 class="font16 news-title margin-top15">
+                                                    @if (ViewBag.isMobile)
+                                                    {
+                                                        <a class="news-title text-black" href="/m/@UrlRewrite.FormatSpecial(item.MakeName)-cars/@item.ModelMaskingName/images/" rel="bookmark">@item.MakeName @item.ModelName</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="news-title text-black" href="@("/" + UrlRewrite.FormatSpecial(item.MakeName) + "-cars/" + item.ModelMaskingName + "/images/")" rel="bookmark">@item.MakeName @item.ModelName</a>
+                                                    }
+                                                </h2>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            }
+                        }
+                        else if (Model.MediaPage1.Videos != null)
+                        {
+
+                            foreach (var item in Model.MediaPage1.Videos.VideosList)
+                            {
+                                var videoUrl = CMSCommon.GetVideoUrl(item.MakeName, item.ModelMaskingName, item.Title, item.BasicId, ViewBag.isMobile);
+                                
+                                <li class="news-box news-view-box news-hover-list" data-id="videos">
+                                    <div class="news-inner-wrap position-rel">
+                                        <div class="news-inner-box">
+                                            <div class="img-wrap position-rel">
+
+                                                @if (ViewBag.isMobile)
+                                                {
+                                                    <div style="@(index++ < 2 ? string.Format("background-image:url('https://img.youtube.com/vi/{0}/mqdefault.jpg');background-repeat:NO-REPEAT;background-size:cover;", item.VideoId) : string.Empty)" class="min-height-170">
+                                                        <a class="news-title text-black" href="@videoUrl">
+                                                            <img class="lazy min-height-170" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/grey.gif" data-original="https://img.youtube.com/vi/@item.VideoId/mqdefault.jpg" />
+                                                        </a>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <a class="news-title text-black" href="@videoUrl">
+                                                        <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/grey.gif" data-original="https://img.youtube.com/vi/@item.VideoId/mqdefault.jpg" />
+                                                        <div class="center-container hide"><span class="carousel-youtube-video-icon"></span></div>
+                                                        <div class="swiper-overlay-bg hide"></div>
+                                                    </a>
+                                                }
+
+                                            </div>
+                                            <div class="view-wrap content-inner-block-10">
+                                                
+                                                <h2 class="font16 news-title margin-top15">
+                                                    @if (ViewBag.isMobile)
+                                                    {
+                                                        <a class="news-title text-black" href="@videoUrl" rel="bookmark">@item.Title</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="news-title text-black" href="@videoUrl" rel="bookmark">@item.Title</a>
+                                                    }
+                                                </h2>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            }
+
+
+                        }
+                    }
+                </ul>
+
+                <script type="text/html" id="liTemplate">
+                    <!-- ko if : $parent.currentTabNonComputed!= "images" && $parent.currentTabNonComputed!= "videos"-->
+                    <li class="news-box" data-bind="attr:{'data-id':$parent.getCategory(CategoryId)}">
+                        <div class="" data-bind="attr:{'class':'news-inner-wrap position-rel article-read-'+BasicId}">
+                            <div class="news-inner-box">
+                                <div class="img-wrap">
+                                    <a class="text-black" rel="bookmark" data-bind='attr:{"href":(window.isMobile?"/m":"")+ArticleUrl}'>
+                                        <img class="lazy min-height-170" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/grey.gif" data-bind="attr:{'data-original': HostUrl+'310x174'+ (OriginalImgUrl.indexOf('?')>0?OriginalImgUrl.replace('?','?q=85&'):OriginalImgUrl+'?q=85')}" />
+                                    </a>
+                                </div>
+                                <div class="desc-wrap content-inner-block-10">
+                                    <span class="ed-tag font12 text-uppercase text-white text-center" data-bind="text:(CategoryMaskingName.toLowerCase()=='features'?'Special Report':CategoryMaskingName),style:{visibility:$parent.getVisibility($data)}"></span>
+                                    <h2 class="font16 news-title">
+                                        <a class="text-black" rel="bookmark" data-bind='text:Title,attr:{"href":(window.isMobile?"/m":"")+ArticleUrl}'></a>
+                                    </h2>
+                                    <div class="font12 margin-top10 margin-bottom5 author-data">
+                                        <abbr data-bind='text:FormattedDisplayDate'></abbr>&nbsp;by&nbsp;
+                                        <!-- ko if : $.trim(AuthorMaskingName) != ""-->
+                                        <a data-bind="attr:{'href':(window.isMobile?'/m':'')+'/authors/'+ AuthorMaskingName + '/'}"><span itemprop="author" data-bind="text:AuthorName"></span></a>
+                                        <!-- /ko -->
+                                        <!-- ko if : $.trim(AuthorMaskingName) == ""-->
+                                        <span itemprop="author" data-bind="text:AuthorName"></span>
+                                        <!-- /ko -->
+                                    </div>
+                                    <div class="untrimmed"><p class="desc-content hide" data-bind="html:Description"></p></div>
+                                    <div class="trimmed"><p class="desc-content hide" data-bind="html:Description"></p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                    <!-- ko if : $parent.currentTabNonComputed == "images" -->
+                    <li class="news-box news-view-box news-hover-list">
+                        <div class="news-inner-wrap position-rel">
+                            <div class="news-inner-box">
+                                <div class="img-wrap">
+                                    <!-- ko ifnot : window.isMobile -->
+                                    <a class="news-title text-black" data-bind="attr: {'href': $parent.imageUrl($data)}">
+                                        <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/grey.gif" data-bind="attr:{'data-original': hostUrl+'310x174'+ originalImgPath,'alt':makeName+' '+modelName +' Pictures','title':makeName+' '+modelName+' Images'}" onerror="this.onerror=null;this.src='@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/cars/no-cars.jpg';" />
+                                    </a>
+                                    <!-- /ko -->
+                                    <!-- ko if : window.isMobile -->
+                                    <a class="news-title text-black" data-bind="attr:{'href': $parent.imageUrl($data)}">
+                                        <img class="lazy min-height-170" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/grey.gif" data-bind="attr:{'data-original': hostUrl+'310x174'+ (originalImgPath.indexOf('?')>0?originalImgPath.replace('?','?q=85&'):originalImgPath+'?q=85'),'alt':makeName+' '+modelName +' Pictures','title':makeName+' '+modelName+' Images'}" onerror="this.onerror=null;this.src='@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/cars/no-cars.jpg';" />
+                                    </a>
+                                    <!-- /ko -->
+                                </div>
+                                <div class="view-wrap content-inner-block-10">
+                                    <!-- ko if : is360ExteriorAvailable || is360InteriorAvailable || is360OpenAvailable --><a data-role="click-tracking" data-event="CWInteractive" data-action="content_landing" data-bind="attr:{'href':$parent.get360Url($data),'data-cat':(window.isMobile?'msite_360_linkages':'desktop_360_linkages'),'data-label':(makeName+' '+modelName)}"><span data-role="inview-imp" data-action="content_landing" data-bind="attr:{'data-cat':(window.isMobile?'msite_360_linkages_impression':'desktop_360_linkages_impression'),'data-label':(makeName+' '+modelName)}" class="three60-tag font14 text-uppercase text-white text-center">360° VIEW</span></a><!-- /ko -->
+                                    <a data-bind="attr:{'href': $parent.imageUrl($data)}"><span class="image-tag font14 text-uppercase text-white text-center"><span class="fa fa-camera"></span><span data-bind="text: imageCount"></span></span></a>
+                                    <h2 class="font16 news-title margin-top15">
+                                        <!-- ko ifnot : window.isMobile -->
+                                        <a class="news-title text-black" data-bind="attr: {'href': $parent.imageUrl($data)}, text: makeName + ' ' + modelName" rel="bookmark"></a>
+                                        <!-- /ko -->
+                                        <!-- ko if : window.isMobile -->
+                                        <a class="news-title text-black" data-bind="attr:{'href':$parent.imageUrl($data)},text: makeName+' '+modelName" rel="bookmark"></a>
+                                        <!-- /ko -->
+                                    </h2>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                    <!-- ko if : $parent.currentTabNonComputed == "videos" -->
+                    <li class="news-box news-view-box news-hover-list">
+                        <div class="news-inner-wrap position-rel">
+                            <div class="news-inner-box">
+                                <div class="img-wrap position-rel">
+                                    <!-- ko ifnot : window.isMobile -->
+                                    <a class="news-title text-black" data-bind="attr:{'href': $parent.videoUrl($data) ,'data-role': 'click-tracking' ,'data-event': 'CWInteractive' ,'data-cat': 'desktop_video_linkages' ,'data-label': makeName + ' ' + modelName ,'data-action': 'content_landing'}">
+                                        <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/grey.gif" data-bind="attr:{'data-original': 'https://img.youtube.com/vi/'+videoId+'/mqdefault.jpg','alt':makeName+' '+modelName +' Videos','title':makeName+' '+modelName+' Videos'}" onerror="this.onerror=null;this.src='@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/cars/no-cars.jpg';" />
+                                        <div class="center-container hide"><span class="carousel-youtube-video-icon"></span></div>
+                                        <div class="swiper-overlay-bg hide"></div>
+                                    </a>
+                                    <!-- /ko -->
+                                    <!-- ko if : window.isMobile -->
+                                    <a data-role="click-tracking" data-event="CWInteractive" data-action="video_card" data-cat="msite_content_landing" class="news-title text-black" data-bind="attr:{'data-label' : makeName+' '+modelName, 'href': $parent.videoUrl($data)}">
+                                        <img class="lazy min-height-170" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/grey.gif" data-bind="attr:{'data-original': 'https://img.youtube.com/vi/'+videoId+'/mqdefault.jpg','alt':makeName+' '+modelName +' Videos','title':makeName+' '+modelName+' Videos'}" onerror="this.onerror=null;this.src='@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/cars/no-cars.jpg';" />
+                                        
+                                    </a>
+                                    <!-- /ko -->
+                                </div>
+                                <div class="view-wrap content-inner-block-10">
+                                    
+                                    <h2 class="font16 news-title margin-top15">
+                                        <!-- ko ifnot : window.isMobile -->
+                                        <a class="news-title text-black" rel="bookmark" data-bind="text: title,attr:{'href': $parent.videoUrl($data),'data-role': 'click-tracking' ,'data-event': 'CWInteractive' ,'data-cat': 'desktop_video_linkages' ,'data-label': makeName + ' ' + modelName ,'data-action': 'content_landing'}"></a>
+                                        <!-- /ko -->
+                                        <!-- ko if : window.isMobile -->
+                                        <a data-role="click-tracking" data-event="CWInteractive" data-action="video_card" data-cat="msite_content_landing" class="news-title text-black" rel="bookmark" data-bind="text: title,attr:{'data-label' : makeName+' '+modelName, 'href': $parent.videoUrl($data)}"></a>
+                                        <!-- /ko -->
+                                    </h2>
+                                </div>
+                            </div>
+
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </script>
+
+                <script type="text/html" id="makeBreadCrumb">
+                    <!-- ko if : $parent.make() != null -->
+                    <li><span class="fa fa-angle-right margin-right10"></span><a data-bind="attr:{href: (window.isMobile? '/m/':'/')+name+'-cars/'},text:displayName"></a></li>
+                    <!-- /ko -->
+                </script>
+                <script type="text/html" id="modelBreadCrumb">
+                    <!-- ko if : $parent.model() != null -->
+                    <li><span class="fa fa-angle-right margin-right10"></span><a data-bind="attr:{href:'/'+$parent.make().name+'-cars/'+name+'/'},text:displayName"></a></li>
+                    <!-- /ko -->
+                </script>
+                <div class="clear"></div>
+            </div>
+            <!-- Left container code ends here-->
+
+        </div>
+
+
+        <div class="clear"></div>
+        <script type="text/html" id="paginationTemplate">
+            <!--ko if :$data>0 && $parent.uiPageNumber()-1>0-->
+            <li><a data-bind="attr: {'href': ($parent.model() != null ? '/' + $parent.make().name + '-cars' + '/' + $parent.model().name : $parent.make() != null ? '/' + $parent.make().name + '-cars' : '') + ('/'+($parent.currentTab() == 'all' ? 'news' : $parent.currentTab()) +'/page/' +($parent.uiPageNumber()-1)+'/' )}">Prev</a></li>
+            <!--/ko-->
+            <!--ko if :$data!=0 && $data!=-2-->
+            <li><a data-bind="text:$data,attr: {'href': ($parent.model() != null ? '/' + $parent.make().name + '-cars' + '/' + $parent.model().name : $parent.make() != null ? '/' + $parent.make().name + '-cars' : '') + '/'+($parent.currentTab() == 'all' ? 'news' : $parent.currentTab())+'/' +($data==1? '' : ('page/'+$data+'/')) ,'class':($parent.uiPageNumber()==$data?'active':'')}"></a></li>
+            <!--/ko-->
+            <!--ko if :$data==-2-->
+            <li><a data-bind="attr: {'href': ($parent.model() != null ? '/' + $parent.make().name + '-cars' + '/' + $parent.model().name : $parent.make() != null ? '/' + $parent.make().name + '-cars' : '') + ('/'+($parent.currentTab() == 'all' ? 'news' : $parent.currentTab())+'/page/' +($parent.uiPageNumber()+1)+'/' )}">Next</a></li>
+            <!--/ko-->
+        </script>
+        <div class="footerStrip" id="divStrip">
+            <div class="text-center padding-top15 margin-auto block news-pagination hide">
+                <ul class="pagination bg-white" data-bind="template:{name:'paginationTemplate',foreach:pagination}">
+                    @if (Model.HasPrevPage)
+                    {
+                        <li><a href="@(EditorialContent.GetListingPaginationUrl(Model.pageNumber - 1, ViewBag.IsMobile, Model))">Prev</a></li>
+                    }
+                    @foreach (var i in Model.Pages)
+                    {
+                        <li><a href="@(EditorialContent.GetListingPaginationUrl(i, ViewBag.IsMobile, Model))" @Html.Raw(Model.pageNumber == i ? "class=\"active\"" : string.Empty)>@i</a></li>
+                    }
+                    @if (Model.HasNextPage)
+                    {
+                        <li><a href="@(EditorialContent.GetListingPaginationUrl(Model.pageNumber + 1, ViewBag.IsMobile, Model))">Next</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="cwmsprite scrollToTop scroll-top cd-top cur-pointer" id="back-to-top"></div>
+</section>

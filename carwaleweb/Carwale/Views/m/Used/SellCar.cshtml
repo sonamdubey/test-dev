@@ -1,0 +1,304 @@
+﻿@model Carwale.UI.ViewModels.Used.SellCar.SellCarViewModel
+@using Carwale.Entity.Enum;
+@{
+    Layout = Model.Source == Platform.CarwaleMobile ? "~/views/shared/m/_MLayoutV3.cshtml" : "~/views/shared/m/_MLayoutAppV3.cshtml";
+}
+
+@section Plugins{
+    <script type="text/javascript" src="/static/m/js/plugins/chosen-mobile.js" defer></script>
+	<script type="text/javascript" src="/static/m/js/plugins/beauty-tooltips.js" defer></script>
+}
+@section atfcss{
+    <link rel="stylesheet" href="/static/sass/m/css/sell-car-atf.css" type="text/css" inline>
+}
+@section btfcss{
+	<link rel="stylesheet" href="/static/sass/m/css/sell-car-btf.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/dropzone.css">
+    <link rel="stylesheet" href="/static/sass/m/css/globalcitypopup.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/globalcarsearch.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/nav.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/footer.css" type="text/css">
+}
+
+@section MetaData{
+    @{Html.RenderAction("MetaData", "ModelComponent", Model.MetaData);}
+}
+
+@section Scripts{
+    <script type="text/javascript" src="/static/js/customEvents.js" defer></script>
+    <script type="text/javascript" src="/static/js/used/sellcar/utilities.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/sellcar/common.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/sellcar/contactDetails.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/sellcar/carDetails.js" defer></script>
+	<script type="text/javascript" src="/static/m/js/used/sellcar/carImages.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/sellcar/carCondition.js" defer></script>
+    <script type="text/javascript" src="/static/js/buyingIndex.js" defer></script>
+    <script type="text/javascript" src="/static/js/dropzone.js" defer></script>
+    <script type="text/javascript" src="/static/js/imageUpload.js" defer></script>
+    <script type="text/javascript" src="/static/js/used/sellcar/sellCarTracking.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/sellcar/validation.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/form-misc.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/sellcar/otpCondition.js" defer></script>
+    <script type="text/javascript" src="/static/js/resendotpsellcar.js" defer></script>
+}
+
+<div id="introContainer" class="container bg-white" data-sourceid="@Model.Source.ToString("D")">
+
+	<div id="sellCarBanner">
+		<div class="banner-box">
+			<h1 class="banner__title">Sell your car for free</h1>
+			<ul>
+				<li class="benefit-list__item">
+					<span class="benefit-home-icon"></span>
+					<p class="benefit-list__label">Sell from your doorstep</p>
+				</li>
+				<li class="benefit-list__item">
+					<span class="verified-buyer-icon"></span>
+					<p class="benefit-list__label">Verified <br> buyers</p>
+				</li>
+				<li class="benefit-list__item">
+					<span class="best-price-icon"></span>
+					<p class="benefit-list__label">Best price for your car</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- city screen start -->
+	<div id="formCity" class="form-screen">
+		<div class="screen__head">
+			<p class="screen-head__title">Select City to Sell Your Car</p>
+		</div>
+		<div class="screen__body">
+            
+
+			<div id="bodyCitySelect">
+				<div id="cityInputBox" class="input-box field-box form-control-box">
+					<input type="text" id="getCity" autocomplete="off">
+					<label for="getCity">City</label>
+					<span class="boundary"></span>
+					<span class="error-text"></span>
+					<span class="fa fa-spinner fa-spin hide"></span>
+				</div>
+
+				<ul id="popularCityList" class="option-list">
+                    @foreach (var city in Model.PopularCities)
+                    {
+                        <li class="option-list__item">
+                            <input type="radio" id="city@(city.CityId)" name="citySelect" value="@city.CityId">
+                            <label for="city@(city.CityId)">
+                                <span class="city-icon-@city.CityId"></span>
+                                <span class="list-item__label">@city.CityName</span>
+                            </label>
+                        </li>
+                    }
+				</ul>
+			</div>
+
+			<div id="bodyPincodeSelect">
+				<div id="cityTagList" class="margin-bottom15">
+					<p class="pill-list__label">You have selected</p>
+				</div>
+
+				<div id="pincodeInputBox" class="select-box field-box no-dropdown-icon" data-pincode="" data-areaid="-1">
+					<select id="getPincode" class="chosen-select input-type-number">
+						<option value="0"></option>
+					</select>
+					<p class="select-label">Pin Code<sup>*</sup></p>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+				</div>
+
+				<input type="button" id="submitCityBtn" class="btn btn-orange btn-fullwidth-48 margin-bottom15" value="Next">
+
+				<p class="font12">By clicking Next, you agree to our <a href="/m/used/sellterms.aspx" target="_blank">Terms &amp; Conditions</a>&nbsp;,<a href="/m/used/visitoragreement.aspx" target="_blank">Visitor Agreement</a> and <a href="/m/used/privacypolicy.aspx" target="_blank">Privacy Policy</a>.</p>
+			</div>
+		</div>
+
+
+	</div>
+	<!-- city screen end -->
+
+	<div class="sell-car-body">
+		<h2 class="sell-car__tip-title">The best way to sell your car</h2>
+		<p class="sell-car__tip-desc">Sell your car with CarWale for absolutely free in New Delhi, Mumbai, Chennai, Hyderabad, Bangalore, Pune, Kolkata, Ahmedabad and all other cities in India. We will help you sell your car at the convenience of your doorsteps.</p>
+
+		<div id="sellCarTabs" class="cw-tabs-panel">
+			<div class="cw-tabs--overflow">
+				<ul class="cw-tabs cw-tabs--auto cw-tabs--inline">
+					<li class="cw-tabs__item active" data-tabs="tipsAndAdvice">Tips &amp; Advice</li>
+					<li class="cw-tabs__item" data-tabs="sellCarFaqs">FAQs</li>
+				</ul>
+			</div>
+			<div id="tipsAndAdvice" class="cw-tabs-data">
+				<ul id="tipsAdviceList">
+					<li>Know car's worth and set the right asking price</li>
+					<li>Shoot clear pictures of your car and upload as many as possible</li>
+					<li>Put your location and contact details accurately</li>
+					<li>Provide as much information about your car as possible. This will help buyers decide quickly</li>
+				</ul>
+			</div>
+            <div id="sellCarFaqs" class="cw-tabs-data hide collapsible-content">
+                <ul class="faq-list main-content">
+                    <li>
+                        <p class="faq__title">How do I sell my car on CarWale?</p>
+                        <p>You just need to fill the basic information about your vehicle, upload a few pictures and your Ad is good to go live.</p>
+                    </li>
+                    <li>
+                        <p class="faq__title">Do I have to register to sell my car at CarWale?</p>
+                        <p>You don't need to register on the website. Just list your car and it will automatically create an account for you.</p>
+                    </li>
+                    <li>
+                        <p class="faq__title">I have listed my car Ad but I don't have pictures ready, how can I add them later?</p>
+                        <p>Yes, if you haven't added any images initially, you have the option to add images at a later stage too.</p>
+                    </li>
+                </ul>
+				<ul id="faqMoreList" class="faq-list more-content">
+                    @{var myListingUrl = "<a href='/used/mylistings/search' target='blank'>Edit Ad</a>";}
+					<li>
+						<p class="faq__title">Will I be charged to list my used car Ad at CarWale?</p>
+						<p>You do not need to pay anything to list your Ad on CarWale.com</p>
+					</li>
+					<li>
+						<p class="faq__title">How can I make a change/addition to my used car Ad?</p>
+						<p>As your account is created automatically, you just need to go to @Html.Raw(myListingUrl) and search your Ad by using profile id or mobile number. From there you can edit data and images as per the changes you want to make.</p>
+					</li>
+					<li>
+						<p class="faq__title">I have sold my car, how do I delete the used car Ad?</p>
+						<p>There is an option in @Html.Raw(myListingUrl) section to delete the listing at any point of time. You can delete the Ad whenever car is sold or you do not wish to keep the Ad anymore.  </p>
+					</li>
+				</ul>
+				<div class="collapsible-target gradient--top-bottom">Read more</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div id="formContainer" class="container bg-white form-wrapper hide">
+	<ul id="formNavigation" class="breadcrumb-list drop-shadow">
+        <li class="breadcrumb-list__item active" data-isenabled="false" data-tab="formContact">Contact details</li>
+        <li class="breadcrumb-list__item" data-isenabled="false" data-tab="formCarDetail">Car details</li>
+        <li class="breadcrumb-list__item" data-isenabled="false" data-tab="formCarImage">Car images</li>
+        <li class="breadcrumb-list__item" data-isenabled="false" data-tab="formCarCondition">Car condition</li>
+    </ul>
+
+	<div id="summaryToolbar">
+		<div id="detailedSummaryTarget" class="toolbar__content">
+			<p class="toolbar__label"></p>
+			<span class="toolbar__target">
+				Summary<span class="summary-arrow"></span>
+			</span>
+		</div>
+		<div id="summaryDetailed"></div>
+	</div>
+	<div id="summaryModalBg"></div>
+
+	<div id="formClose" class="cross-default-15x16 active"></div>
+
+	<div id="formContact" class="form-screen" data-form-title="Contact details">
+		<div class="screen__head">
+			<p class="screen-head__title">Contact Details</p>
+			<div class="screen-head__banner">
+				<span class="screen-head__icon contact-form-icon"></span>
+			</div>
+		</div>
+		<div class="screen__body">
+			<div id="nameInputBox" class="input-box field-box margin-bottom25" data-title="Name">
+				<input type="text" id="getName" autocomplete="off">
+				<label for="getName">Name<sup>*</sup></label>
+				<span class="boundary"></span>
+				<span class="error-text"></span>
+			</div>
+			<div id="mobileInputBox" class="input-box field-box margin-bottom25" data-title="Mobile">
+				<input type="tel" id="getMobile" maxlength="10" autocomplete="off">
+				<label for="getMobile">Mobile<sup>*</sup></label>
+				<span class="boundary"></span>
+				<span class="error-text"></span>
+			</div>
+			<div id="emailInputBox" class="input-box field-box" data-title="Email">
+				<input type="email" id="getEmail" autocomplete="off">
+				<label for="getEmail">Email<sup>*</sup></label>
+				<span class="boundary"></span>
+				<span class="error-text"></span>
+			</div>
+			<div class="check-box">
+				<input type="checkbox" id="ctAdChecbox" name="shareToCt" checked>
+				<label for="ctAdChecbox">Show my Ad on CarTrade.com as well</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="partialCarDetails" data-url="contactdetails/"></div>
+
+    <div class="partialCarImages" data-url="cardetails/"></div>
+
+	<div class="partialCarCondition" data-url="carimages/">
+
+    </div>
+
+    <div class="partialCongrats" data-url="carcondition/"></div>
+
+	<div id="screenError" class="screen-body__error">
+		<span class="error-text"></span>
+	</div>
+
+	<div id="floatButton" class="form-float-buttons">
+		<input type="button" id="prevBtn" value="Prev" class="btn btn-white">
+		<input type="button" id="nextBtn" value="Next" class="btn btn-orange">
+	</div>
+</div>
+
+<div id="loadingScreen" class="loader-bg">
+	<span class="loader__spin loader--fixed"></span>
+</div>
+
+<div id="modalPopUp" class="modal-box" data-current="">
+   
+</div>
+<section class="popup-box-container hide">
+    <div class="otp-popup-container">
+        <div class="cross-default-15x16 cross-lg-dark-grey rightfloat close-icon"></div>
+        <div class="clear"></div>
+        <h2 class="otp-title">Mobile Verification (One Time)</h2>
+        <div id="formOtp" class="form-screen">
+            <div class="form__field-box">
+                <div id="mobileInputBox" class="otp-mobile-field">
+                    <div class="form__field-box margin-bottom40">
+                        <div id="otpInputBox" class="input-box field-box labeled-mob-no">
+                            <input type='tel' class='otp-mob-no noScrollToTop' maxlength='10' autocomplete='off' tabindex="1" style="font-weight:700;">
+                            <label class="active" for="getMobile">Mobile</label>
+                            <span class="editable-icon" id="edit"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/edit-icon-14x14.png" alt="" title=""></span>
+                            <span class="boundary"></span>
+                            <span class="error-text error-text-position"></span>
+                            <span class="text-message error-text-green"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form__field-box otp-no-field">
+                <div id="otpInputBox" class="input-box field-box margin-bottom20">
+                    <input type="tel" class="get-otp noScrollToTop" maxlength="5" autocomplete="off" tabindex="2">
+                    <label for="getMobile">Please enter OTP</label>
+                    <span class="boundary"></span>
+                    <span class="error-text error-text-position error-text-width"></span>
+                    <div class="resend-text text-right">
+                        <a href="javascript:void(0)" tabindex="3">Resend OTP<span class="counter-text"> in <span class="timeBox">30</span>s</span></a>
+                        <span class="resend-prevent-text hide">OTP sent to mobile</span>
+                    </div>
+                    
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+
+            <div class="text-center btn-section">
+                <div class="sell-car-loader hide"><img src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" alt="" title=""></div>
+                <input type="button" id="verify-otp" value="VERIFY" class="btn btn-orange btn-full-width otp-btn" tabindex="4">
+                <input type="button" id="req-otp" value="REQUEST OTP" class="btn btn-orange btn-full-width otp-btn hide" tabindex="5">
+            </div>
+        </div>
+    </div>
+</section>
+    <div id="modalBg"></div>
+    <div id="planScreen"></div>

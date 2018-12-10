@@ -1,0 +1,206 @@
+﻿@model Carwale.DTOs.CMS.UserReviewDetailDesktopDto
+@using Carwale.Utility;
+@using Carwale.UI.Common;
+@using Carwale.Entity.Enum;
+@{
+    ViewBag.Title = Model.Title + " - A Review on " + Model.Make + " " + Model.Model + " by " + Model.Author;
+    ViewBag.Description = "Write a Review for:  " + Model.Make + " " + Model.Model + " " + Model.Version;
+    ViewBag.isMobile = ViewBag.isMobile ?? false;
+    ViewBag.BodyClass = "bg-light-grey " + (ViewBag.isMobile != null && ViewBag.isMobile ? string.Empty : "header-fixed-inner");
+    ViewBag.landingPage = false;
+    ViewBag.Responsive = true;
+    ViewBag.Keywords = Model.Make + " " + Model.Model + " review, " + Model.Make + " " + Model.Model + " user review, car review, owner feedback, consumer review";
+    ViewBag.Canonical = "https://www.carwale.com" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString().Replace("/m/", "/");
+    ViewBag.DeeplinkAlternativesAndroid = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/UserReviews/MUserReviewDetailPageCss.cshtml";
+    ViewBag.CustomJs = "~/Views/StaticPartials/m/UserReviews/MUserReviewDetailPageScript.cshtml";
+    Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayoutV2.cshtml" : "~/views/shared/_LayoutV2.cshtml");
+    string formattedMakeName = Format.FormatSpecial(Model.Make);
+}
+
+@section Plugins{
+    <script type="text/javascript" src="/static/m/js/plugins/swiper.js" defer></script>
+}
+
+<div data-role="page" class="container">
+    <div class="user-review">
+        <div class="review-wrapper margin-bottom20">
+            <section class="write-review padding-top20 hide">
+                <div id="thankyou-card" class="review-header content-box-shadow padding-15-20 card-bottom-margin">
+                    <div class="thankyou-card__icon"></div>
+                    <div class="model-image-grid inline-block valign-middle">
+                        <div class="icon-outer-container rounded-corner50percent">
+                            <div class="icon-inner-container rounded-corner50percent text-center">
+                                <span class="thankyou-icon margin-top15"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="model-details-grid inline-block valign-middle">
+                        <p class="font18 text-black text-bold margin-bottom5">@("Thank you" + ((!string.IsNullOrEmpty(Model.Author)) ? Model.Author + " !" : ""))</p>
+                        <p class="font13 text-light-grey">Your review has been recorded. It will be published soon.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="">
+                <!--Main container starts here-->
+                <div id="main-container">
+                    <div class="grid-12">
+                        <div id="br-cr" class="margin-top10 m-special-skin-text review-details__content-wrapper"><a href="/m/new/" class="normal m-special-skin-text">New Cars</a> &rsaquo; <a href='/m/@formattedMakeName-cars/' class="normal m-special-skin-text">@Model.Make</a> &rsaquo; <a href='/m/@formattedMakeName-cars/@Model.MaskingName/' class="normal m-special-skin-text">@Model.Model </a> &rsaquo; <a href='/m/@formattedMakeName-cars/@Model.MaskingName/userreviews/' class="normal m-special-skin-text">@Model.Model Reviews</a></div>
+                        <div class="pgsubhead content review-details__content-wrapper">
+                            <h2 class="m-special-skin-text">@Model.Title</h2>
+                        </div>
+                        <div class="review-details__content-wrapper margin-bottom10 margin-top10 m-special-skin-text">@(Model.ReviewDate + ((!string.IsNullOrEmpty(Model.Author)) ? " | " + Model.Author : ""))</div>
+                        <div id="divModel" class="box new-line5 content-box-shadow content-inner-block-10 margin-bottom10 rounded-corner2 review-result-wrapper">
+                            <div style="text-decoration:none;">
+                                <div class="review-car-container">
+                                    <a href="@Model.ImageGalleryUrl" data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-action="msite_user_review_detail_model_image" data-label="@(Model.Make + "  " + Model.Model)">
+                                        <img class="review-car-image" style="width:100%;" title="@Model.Title" alt="@Model.Title" src="@Model.SmallPicUrl">
+                                        <ul class="list-type-pills text-center">
+                                            @if (Model.ImageCount > 0 && Model.OriginalImgPath != null)
+                                            {
+                                                <li class="list-type-pills__item">
+                                                    <div class="item--padding">
+                                                        <span class="media-image-icon item--icon-right-margin"></span>
+                                                        <span class="list-item__label">Images (@Model.ImageCount)</span>
+                                                    </div>
+                                                </li>
+                                            }
+                                            @if (Model.VideoCount > 0)
+                                            {
+                                                <li class="list-type-pills__item">
+                                                    <div class="item--padding" data-role="click" data-event="CWInteractive" data-cat="msite_video_linkages" data-action="user_review_detail" data-label="@Model.Make @Model.Model">
+                                                        <a href="@Carwale.BL.CMS.CMSCommon.GetVideoUrl(Model.Make,Model.MaskingName,null,0,true)" data-role="inview-imp" data-cat="msite_video_linkages" data-action="user_review_detail_impression" data-label="@Model.Make @Model.Model">
+                                                            <span class="media-video-icon"></span>
+                                                            <span class="list-item__label margin-left5">Videos (@Model.VideoCount)</span>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </a>
+                                    @if (!string.IsNullOrWhiteSpace(Model.StartPrice))
+                                    {<div class="darkgray">Starts at <span class="font20">@(Model.StartPrice)</span></div>}
+                                </div>
+                               
+                                <table style="width:100%;" class="margin-top5 review-results">
+                                    <tbody>
+                                        @if (!string.IsNullOrEmpty(Model.Author))
+                                        {
+                                            <tr>
+                                                <td class="darkgray" colspan="2;"><b>@(Model.Author + "'s Ratings")</b></td>
+                                            </tr>
+                                        }
+                                        <tr class="darkgray">
+                                            <td style="width:110px;"><span style="position:relative;top:2px;">Overall Average</span></td>
+                                            <td>@Html.Raw(CommonOpn.GetRateImage(Convert.ToDouble(Model.OverallR)))</td>
+                                        </tr>
+                                        <tr class="darkgray new-line5">
+                                            <td><span style="position:relative;top:2px;">Looks</span></td>
+                                            <td>@Html.Raw(CommonOpn.GetRateImage(Convert.ToDouble(Model.StyleR)))</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span style="position:relative;top:2px;">Performance</span></td>
+                                            <td>@Html.Raw(CommonOpn.GetRateImage(Convert.ToDouble(Model.PerformanceR)))</td>
+                                        </tr>
+                                        <tr class="darkgray new-line">
+                                            <td style="width:110px;"><span style="position:relative;top:2px;">Space/Comfort</span></td>
+                                            <td>@Html.Raw(CommonOpn.GetRateImage(Convert.ToDouble(Model.ComfortR)))</td>
+                                        </tr>
+                                        <tr class="darkgray new-line">
+                                            <td><span style="position:relative;top:2px;">Fuel Economy</span></td>
+                                            <td>@Html.Raw(CommonOpn.GetRateImage(Convert.ToDouble(Model.FuelEconomyR)))</td>
+                                        </tr>
+                                        <tr class="darkgray new-line">
+                                            <td><span style="position:relative;top:2px;">Value For Money</span></td>
+                                            <td>@Html.Raw(CommonOpn.GetRateImage(Convert.ToDouble(Model.ValueR)))</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>                        
+							@if (!string.IsNullOrEmpty(Model.PurchasedAs) || !string.IsNullOrEmpty(Model.Familiarity) || Validations.IsValidProsCons(Model.Pros) || Validations.IsValidProsCons(Model.Cons))
+							{
+                                <div class="box new-line5 content-box-shadow content-inner-block-10 margin-bottom10 rounded-corner2 review-result-wrapper">
+								<div class="container10" style="text-decoration:none;">
+									<table style=" width:100%;">
+										@if (!string.IsNullOrEmpty(Model.PurchasedAs))
+										{
+											<tr class="darkgray new-line5">
+												<td style="width:110px;">Purchased As</td>
+												<td>@Model.PurchasedAs</td>
+											</tr>
+										}
+										@if (!string.IsNullOrEmpty(Model.Familiarity))
+										{
+											<tr class="darkgray new-line">
+												<td>Familarity</td>
+												<td>@Model.Familiarity</td>
+											</tr>
+										}
+										@if (!(string.IsNullOrWhiteSpace(Model.FuelEconomy) || Model.FuelEconomy.Equals("0")))
+										{
+											<tr class="darkgray new-line">
+												<td>Fuel Economy</td>
+												<td>@Model.FuelEconomy</td>
+											</tr>
+										}
+										@if (Validations.IsValidProsCons(Model.Pros))
+										{
+											<tr class="darkgray new-line">
+												<td>Good  </td>
+												<td>@Model.Pros</td>
+											</tr>
+										}
+										@if (Validations.IsValidProsCons(Model.Cons))
+										{
+											<tr class="darkgray new-line">
+												<td>Bad  </td>
+												<td>@Model.Cons</td>
+											</tr>
+										}
+									</table>
+								</div>
+                                </div>
+							}                        
+                        <div class="pgsubhead margin-top20 margin-bottom10 review-details__content-wrapper">
+                            <h2 class="m-special-skin-text">Full Review <span class="review-edit-icon"></span></h2>
+                        </div>
+                        <div id="divFullReview" class="box new-line5 content-box-shadow content-inner-block-10 rounded-corner2 review-result-wrapper">
+                            <div>@Html.Raw(Model.Comments)</div>
+                        </div>
+                        <div id="floating-btn-wrapper" class="hide padding-top10 padding-bottom10 review-submit">
+                            <div id="floating-btn" class="floating-btn bg-grey-transparent">
+                                <div class="grid-12 alpha omega ">
+                                    <a href="/m/userreviews/" class="btn btn-orange btn-full-width">Done</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="margin-bottom10">
+                            @if (Model.PrevId != "")
+                            {
+                                <a href=@("/m/" + formattedMakeName + "-cars/" + Model.MaskingName + "/userreviews/" + Model.PrevId + "/") class="normal">
+                                    <div class="prev m-special-skin-text"><span class="arr-big">&laquo;</span>&nbsp;Prev</div>
+                                </a>
+                            }
+                            @if (Model.NextId != "")
+                            {
+                                <a href=@("/m/" + formattedMakeName + "-cars/" + Model.MaskingName + "/userreviews/" + Model.NextId + "/") class="normal">
+                                    <div class="next m-special-skin-text">Next<span class="arr-big">&nbsp;&raquo;</span></div>
+                                </a>
+                            }
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div data-role="inview-imp" data-event="CWNonInteractive" data-cat="msite_video_linkages" data-action="user_reviews_carousel_impression" data-label="@(Model.Make + " " + Model.Model)">
+                            @{ Html.RenderAction("ModelVideos", "ModelComponent", new { modelId = Model.ModelId, page = ContentPages.UserReviewDetailsPage }); }
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <!--Main container ends here-->
+</div>

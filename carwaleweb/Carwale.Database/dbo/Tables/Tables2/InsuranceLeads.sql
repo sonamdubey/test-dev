@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[InsuranceLeads] (
+    [Id]               NUMERIC (18)   IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [VersionId]        NUMERIC (18)   NOT NULL,
+    [CustomerId]       NUMERIC (18)   NOT NULL,
+    [UsedCarProfileId] VARCHAR (50)   NULL,
+    [isUsed]           BIT            CONSTRAINT [DF_InsuranceLeads_isUsed] DEFAULT (1) NOT NULL,
+    [FirstName]        VARCHAR (50)   NOT NULL,
+    [LastName]         VARCHAR (50)   NOT NULL,
+    [Email]            VARCHAR (100)  NOT NULL,
+    [Phone1]           VARCHAR (50)   NULL,
+    [Mobile]           VARCHAR (50)   NULL,
+    [CityId]           NUMERIC (18)   NOT NULL,
+    [Comments]         VARCHAR (1000) NULL,
+    [EntryDate]        DATETIME       NOT NULL,
+    [isApproved]       BIT            CONSTRAINT [DF_InsuranceLeads_isApproved] DEFAULT (0) NOT NULL,
+    [IsFake]           BIT            CONSTRAINT [DF_InsuranceLeads_IsFake] DEFAULT (0) NOT NULL,
+    [IsForwarded]      BIT            CONSTRAINT [DF_InsuranceLeads_IsForwarded] DEFAULT (0) NOT NULL,
+    [IsRejected]       BIT            CONSTRAINT [DF_InsuranceLeads_IsRejected] DEFAULT (0) NOT NULL,
+    [IsMialSend]       BIT            CONSTRAINT [DF_InsuranceLeads_IsMialSend] DEFAULT (0) NOT NULL,
+    [IsViewed]         BIT            CONSTRAINT [DF_InsuranceLeads_IsViewed] DEFAULT (0) NOT NULL,
+    [SourceId]         SMALLINT       CONSTRAINT [DF_InsuranceLeads_SourceId] DEFAULT (1) NOT NULL,
+    [DOB]              DATETIME       NULL,
+    [IsRenewal]        BIT            NULL,
+    [ExpiryDate]       DATETIME       NULL,
+    CONSTRAINT [PK_InsuranceLeads] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

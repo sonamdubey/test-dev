@@ -1,0 +1,48 @@
+.refresh_button__container {
+    display: none;
+    min-width: 100%;
+    background-color: #00afa0;
+    color: #fff;
+    padding: 12px;
+    position: fixed;
+    z-index: 3;
+    font-size: 16px;
+    }
+	#refresh-btn
+	{
+		color: #ffff00;
+		float: right;
+	}
+	.refresh_button__container.show-when-header {
+        top: 51px;
+		display: block;
+		-webkit-animation: fadein 0.5s;
+		animation: fadein 0.5s;
+    }
+    .refresh_button__container.show-when-no-header {
+        top: 0;
+		display: block;
+		-webkit-animation: fadein-no-header 0.5s;
+		animation: fadein-no-header 0.5s;
+	}
+
+	@-webkit-keyframes fadein {
+		from {top: 0px; opacity: 0;} 
+		to {top: 51px; opacity: 1;}
+	}
+
+	@keyframes fadein {
+		from {top: 0px; opacity: 0;}
+		to {top: 51px; opacity: 1;}
+    }
+
+    @-webkit-keyframes fadein-no-header {
+		from {top: -43px; opacity: 0;} 
+		to {top: 0; opacity: 1;}
+	}
+
+	@keyframes fadein-no-header {
+		from {top: -43px; opacity: 0;}
+		to {top: 0; opacity: 1;}
+    }
+    

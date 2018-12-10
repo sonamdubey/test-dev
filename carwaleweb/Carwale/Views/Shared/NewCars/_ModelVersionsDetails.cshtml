@@ -1,0 +1,216 @@
+﻿@model Carwale.DTOs.NewCars.ModelPageDTO_Desktop
+@using Carwale.Utility;
+@using Carwale.UI.Common;
+@using Carwale.Entity;
+@using Carwale.Entity.Enum;
+
+<section class="model__variants" id="versions">
+    <header class="margin-top15 margin-bottom15">
+        <h2 class="special-skin-text">@(string.Format("{0} Price List", (Model.ModelDetails.ModelName)))</h2>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Summary))
+        {
+            <p class="text-grey margin-top10 margin-bottom10 special-skin-text">@Html.Raw(Model.Summary)</p>
+        }
+    </header>
+    <div class="variant-list">   
+        @if (Model.FuelTypes.Count > 1 || Model.TransmissionTypes.Count > 1) { 
+        <div class="filter">
+                <span class="filter__title">Filter By <span class="filter__types">Fuel type & Transmission</span></span>
+                <input id="filter__toggle" type="checkbox" class="filter__toggle" checked>
+                <label class="filter__disclosure" for="filter__toggle"></label>
+                <div class="filter__options">
+                    <p class="filter__help">Select Tags to filter variants</p>
+                    @if (Model.FuelTypes != null && Model.FuelTypes.Count > 1)
+                    {
+                        foreach (var fuelType in Model.FuelTypes)
+                        {
+                            if (!string.IsNullOrEmpty(fuelType))
+                            {
+                                @Html.Raw(string.Format("<input type='checkbox' value='{0}' id='ft__{1}' class='filter__option'><label for='ft__{1}' class='filter__label'>{0}</label>", fuelType, fuelType.ToLower()));
+                            }
+                        }
+                        if(Model.TransmissionTypes != null && Model.TransmissionTypes.Count > 1){<span class="filter__pipe">&nbsp;</span>}
+                    }
+                    @if(Model.TransmissionTypes != null && Model.TransmissionTypes.Count > 1){
+                        foreach (var transmissionType in Model.TransmissionTypes)
+                        {
+                            if (!string.IsNullOrEmpty(transmissionType))
+                            {
+                                @Html.Raw(string.Format("<input type='checkbox' value='{0}' id='tr__{1}' class='filter__option'><label for='tr__{1}' class='filter__label'>{0}</label>", transmissionType, transmissionType.ToLower()));
+                            }
+                        }
+                    }
+                </div>
+        </div>
+        }
+        
+        <div class="price-title">
+            <span class="price-title__icon">₹</span><span class="price-title__text"> Prices are @(Model.OverviewDetails?.CarPriceOverview?.PriceLabel)@(Model.OverviewDetails?.CarPriceOverview?.PriceStatus == (int)PriceBucket.HaveUserCity ? ", " + Model.OverviewDetails?.CarPriceOverview?.City?.CityName : "")</span>
+        </div>       
+            
+        <ul class="variant-table-data">
+            <li class="variant-col60">
+                <table class="variant-table">
+                    <thead class="variant-table__head">
+                        <tr>
+                            <th class="variant-table__col-heading">Variant name</th>
+                            <th class="variant-table__col-heading">Price</th>
+                        </tr>
+                    </thead>
+                    @if (Model.NewCarVersions != null)
+                    {
+                        <tbody>
+                        @foreach (var version in Model.NewCarVersions)
+                        {
+                            if (version != null)
+                            {
+                                bool isJustLaunch = DateTimeUtility.ShowJustLaunchedLabel(version.LaunchDate, DateTime.Now);
+                                <tr fuel-type="@version.CarFuelType" transmission-type="@version.TransmissionType" class="variant">
+                                    <td class="variant__name-cell">
+                                        <div class="variant__name">
+                                            <a title="@Model.ModelDetails.ModelName @version.Version:@(!string.IsNullOrWhiteSpace(version.CarFuelType) ? version.CarFuelType+", " : string.Empty)@version.TransmissionType" href='@ManageCarUrl.CreateVersionUrl(Model.ModelDetails.MakeName, version.MaskingName, version.VersionMaskingName)'>@(version.Version.Length > 15 && isJustLaunch ? version.Version.Substring(0, 15) + "..." : version.Version) </a>
+                                            @if (isJustLaunch)
+                                            {
+                                                <div class="label">
+                                                    <div class="front-side">
+                                                        <span>Just Launched</span>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <span class="variant__specs">@version.SpecsSummary</span>
+                                    </td>
+                                    <td class="variant__price-cell">
+                                        <span class="variant__price">₹ @FormatPrice.GetFormattedPriceV2(version.CarPriceOverview.Price.ToString())</span>
+                                        @if (version.CarPriceOverview != null && (version.CarPriceOverview.PriceStatus == 2 || version.CarPriceOverview.PriceStatus == 3))
+                                        {
+                                            <span class='@(version.CarPriceOverview.PriceStatus == (int)PriceBucket.PriceNotAvailable ? "oliveText" : version.CarPriceOverview.PriceStatus == (int)PriceBucket.CarNotSold ? "redText" : "") variant__price-help block'>
+                                                @version.CarPriceOverview.PriceLabel@(version.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity ? ", " + version.CarPriceOverview.City?.CityName : "")
+                                                @(version.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<span class='average-info-tooltip class-ad-tooltip tooltip-icon inline-block'>i</span><span class='average-info-content hide'>" + version.CarPriceOverview.ReasonText + "</span>") : Html.Raw(""))
+                                            </span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        </tbody>
+                    }
+                    
+                </table>
+            </li>
+            <li class="variant-col40">
+                <h3 class="compare-title">
+                    <span>Compare</span>
+                </h3>
+                @{bool showBBLink = true;}
+                @if (Model.NewCarVersions != null)
+                {
+                    <ul class="variant-table-list">
+                    @foreach (var version in Model.NewCarVersions)
+                    {
+                        if (version != null)
+                        {
+                            bool prependSeparator = (CookiesCustomers.MasterCityId < 1 || version.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity);
+                            var hideShowSeparator = prependSeparator ? "" : "hide";
+                    
+                            <li fuel-type="@version.CarFuelType" transmission-type="@version.TransmissionType" class="variant">
+                                <span class="variant__ctas">
+                                    @if (version.CarPriceOverview.Price > 0)
+                                    {
+                                        if (CookiesCustomers.MasterCityId < 1)
+                                        {
+                                            <a class="version-Price-list" data-versionid="@version.Id" data-pageid="37"
+                                               data-role="click-inview-imp" data-cat="Desktop_ModelPage_VersionsTable" data-action="showpriceinmycity" data-label="@(string.Format("{0}_{1}", Model.ModelDetails.ModelName, version.Version))">
+                                                @(CWConfiguration.orpText)
+                                            </a>
+                                        }
+                                        else if (version.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity)
+                                        {
+                                            <a class="version-Price-list" data-versionid="@version.Id" data-pageid="37"
+                                               data-role="click-inview-imp" data-cat="Desktop_ModelPage_VersionsTable" data-action="viewpricebreakup" data-label="@(string.Format("{0}_{1}_{2}", Model.ModelDetails.ModelName, version.Version, (Model.OverviewDetails.CarPriceOverview!=null && Model.OverviewDetails.CarPriceOverview.City!=null)?Model.OverviewDetails.CarPriceOverview.City.CityName:string.Empty))">
+                                                @(CWConfiguration.ViewPriceBreakupText)
+                                            </a>
+                                        }
+
+                                        if (Model.OverviewDetails.AdAvailable)
+                                        {
+                                            <span class="@hideShowSeparator">|&nbsp;</span>
+                                                            <a class="getOffersLink"
+                                                               data-cwtccat="ModelPage" data-cwtcact="GetOffersClick" data-cwtclbl="@string.Join(string.Empty,"make:", Model.OverviewDetails.MakeName, "|model:", Model.OverviewDetails.ModelName, "|version:", version.Version, "|city:", ViewBag.CityZone, "|versionId:", version.Id)" data-versionid="@version.Id" leadclicksource="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "VersionListLinkAdAvailable", (short)LeadSources.Model, (short)Platform.CarwaleDesktop)))" inquirysourceid="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "VersionListLinkAdAvailable", (short)LeadSources.Model, (short)Platform.CarwaleDesktop)))" emiadavailable="true" data-role="click" data-event="CWNonInteractive" data-action="Link" data-cat="Desktop-ModelPage-VersionList_CampaignLink" data-label="@(ViewBag.GetOffersLinkLabel)" data-predictionScore="@(Model.SponsoredDealerAd?.PredictionData != null ? Model.SponsoredDealerAd.PredictionData.Score: 0)" data-predictionLabel="@(Model.SponsoredDealerAd?.PredictionData != null ? Model.SponsoredDealerAd.PredictionData.Label :"")">
+                                                                <span>Get Offers</span>
+                                                            </a>
+                                        }
+                                        else if (CookiesCustomers.MasterCityId < 1 || Model.ShowCampaignLink)
+                                        {
+                                            <span class="@hideShowSeparator">|&nbsp;</span>
+                                                            <a class="getLeadAssistance" href="javascript:void(0)"
+                                                               data-cwtccat="ModelPage" data-cwtcact="GetOffersClick" data-cwtclbl="@string.Join(string.Empty,"make:", Model.OverviewDetails.MakeName, "|model:", Model.OverviewDetails.ModelName, "|version:", version.Version)" data-versionid="@version.Id" leadclicksource="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "VersionListLink", (short)LeadSources.Model, (short)Platform.CarwaleDesktop)))" inquirysourceid="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "VersionListLink", (short)LeadSources.Model, (short)Platform.CarwaleDesktop)))" emiadavailable="false" data-role="click" data-event="CWNonInteractive" data-action="Link" data-cat="Desktop-ModelPage-VersionList_CampaignLink" data-label="@(ViewBag.GetOffersLinkLabel)" data-predictionScore="@(Model.SponsoredDealerAd?.PredictionData != null ? Model.SponsoredDealerAd.PredictionData.Score: 0)" data-predictionLabel="@(Model.SponsoredDealerAd?.PredictionData != null ? Model.SponsoredDealerAd.PredictionData.Label :"")">
+                                                                <span>Get Offers</span>
+                                                            </a>
+
+                                        }
+                                        else if (version.DiscountSummary != null)
+                                        {
+                                            bool advantageValueAvailable = version.DiscountSummary.MaxDiscount > 0;
+                                            bool advantageValueNotAvailable = version.DiscountSummary.MaxDiscount == 0 && !string.IsNullOrEmpty(version.DiscountSummary.Offers);
+                                    
+                                            <span class="@hideShowSeparator">|&nbsp;</span>
+                                            if (CookiesCustomers.MasterCityId > 0)
+                                            {
+                                                <a class="trackVersion" href="/@Format.RemoveSpecialCharacters(Model.ModelDetails.MakeName)-cars/@version.DiscountSummary.MaskingName.ToString()/advantage/?src=d05&cityId=@version.DiscountSummary.CityId&versionId=@version.DiscountSummary.VersionId" 
+                                                   data-variant="@version.DiscountSummary.VersionId" data-savings="@version.DiscountSummary.MaxDiscount">
+
+                                                    @Html.Raw(advantageValueAvailable ? "Save ₹ " + Format.FormatNumericCommaSep(version.DiscountSummary.MaxDiscount.ToString())
+                                                    : (advantageValueNotAvailable ? "Offers Available" : "")))
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="trackVersion" data-adv-popup="showAdvantageCityPopup" href="javascript:void(0)" 
+                                                   data-url="/@Format.RemoveSpecialCharacters(Model.ModelDetails.MakeName)-cars/@version.DiscountSummary.MaskingName.ToString()/advantage/?src=d05&versionId=@version.DiscountSummary.VersionId&cityId=" 
+                                                   data-vid="&versionId=@version.DiscountSummary.VersionId" 
+                                                   data-variant="@version.DiscountSummary.VersionId" 
+                                                   data-savings="@version.DiscountSummary.MaxDiscount">
+
+                                                   @( advantageValueAvailable ? "Save BIG" : (advantageValueNotAvailable ? "Offers Available" : ""))
+                                                </a>
+                                            }
+                                        }
+                                        else if (version.Id == 4771 || version.Id == 4772 || version.Id == 4773)
+                                        {
+                                            <span data-role="impression" data-event="CWNonInteractive" data-action="ElectricSectionLinks" data-cat="CWSpecials" data-label='Impression_ModelPage_VersionListSection_@ViewBag.ModelName_@version.Version'></span><span class="@hideShowSeparator">|&nbsp;</span>
+                                                            <a href="/electriccars/" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-action="ElectricSectionLinks" data-cat="CWSpecials" data-label='Click_ModelPage_VersionListSection_@ViewBag.ModelName_@version.Version'>All About Electric</a>
+                                        }
+                                        else if (showBBLink && Model.OverviewDetails.CampaignTemplates != null && Model.OverviewDetails.CampaignTemplates.ContainsKey((short)PageProperties.VersionList))
+                                        {
+                                            showBBLink = false;
+                                            <span class="@hideShowSeparator">|&nbsp;</span>
+            <span data-event="CWNonInteractive" data-role="impression" data-action="ModelPage_VersionList_d" data-cat="SponsoredLink_Shown" data-label='campaign_@String.Format("{0}",Model.OverviewDetails.CampaignTemplates[(short)PageProperties.VersionList].Id)'>
+                <span data-event="CWInteractive" data-role="click-tracking" data-action="ModelPage_VersionList_d" data-cat="SponsoredLink_Click" data-label='campaign_@String.Format("{0}",Model.OverviewDetails.CampaignTemplates[(short)PageProperties.VersionList].Id)'>
+                    @Html.Raw(Model.OverviewDetails.CampaignTemplates[(short)PageProperties.VersionList].Name)
+                </span>
+            </span>
+                                        }
+                                    }
+                                </span>
+                                <span>
+                                    <input class="chkCompare compare-cta__chkbox" id="compare-@version.Id" data-version__name="@version.Version" value="@version.Id" type="checkbox" @(version.IsSpecsExist && Model.VersionCountWithSpecs > 1 ? string.Empty : "disabled") />
+                                </span>
+                            </li>
+                        }
+                    }                                     
+                    </ul>
+                }
+            </li>
+        </ul>
+        <p class='filter__no-result'>Sorry, no matching variants found.</p>
+    </div>
+    @if (Model.VersionCountWithSpecs > 1)
+    {
+    <div class="margin-top10 margin-bottom10 text-right">
+        <span class="text-grey special-skin-text">Select upto @(Model.VersionCountWithSpecs > 4 ? 4 : Model.VersionCountWithSpecs) @ViewBag.ModelName variants to compare.</span>
+        <input id="btnCompBottom" type="button" class="btn btn-white text-uppercase" value="Compare" onclick="CompareCars(@((int)WidgetSource.ModelPageVariantListCompareCarLinkDesktop));" />
+    </div>
+    }
+</section>

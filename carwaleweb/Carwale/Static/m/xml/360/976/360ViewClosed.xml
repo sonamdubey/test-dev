@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <settings>
+    <preloader image="1.jpg?q=20&amp;wm=1" />
+    <userInterface showZoomButtons="true" showToolTips="true" showHotspotsButton="true" showFullScreenButton="true" showTogglePlayButton="true" showArrows="true" toolbarAlign="center" toolbarBackColor="#0A0101" toolbarHoverColor="#808285" toolbarForeColor="#A7A9AE" toolbarBackAlpha="1" toolbarAlpha="1" showProgressNumbers="true" showFullScreenToolbar="false" fullScreenBackColor="#FFFFFF" />
+    <control dragSpeed="0.6" doubleClickZooms="false" disableMouseControl="false" showHighresOnFullScreen="true" mouseHoverDrag="false" hideHotspotsOnLoad="false" hideHotspotsOnZoom="false" rowSensitivity="15" dragSensitivity="100" inBrowserFullScreen="false" doubleClickFullscreen="false" />
+    <rotation firstImage="0" rotatePeriod="4" bounce="false" rotateDirection="-1" forceDirection="false" inertiaRelToDragSpeed="true" inertiaTimeToStop="200" inertiaMaxInterval="120" useInertia="true" flipHorizontalInput="false" bounceRows="true" />
+  </settings>
+  <hotspots />
+  <images rows="1">
+    <image src="1.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="2.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="3.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="4.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="5.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="6.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="7.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="8.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="9.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="10.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="11.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="12.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="13.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="14.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="15.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="16.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="17.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="18.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="19.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="20.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="21.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="22.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="23.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="24.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="25.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="26.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="27.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="28.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="29.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="30.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="31.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="32.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="33.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="34.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="35.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="36.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="37.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="38.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="39.jpg?q=65&amp;wm=1&amp;v=1" />
+    <image src="40.jpg?q=65&amp;wm=1&amp;v=1" />
+  </images>
+</config>

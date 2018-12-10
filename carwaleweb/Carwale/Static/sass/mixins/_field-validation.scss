@@ -1,0 +1,47 @@
+@import "_variables";
+
+/* boundary */
+.boundary {
+    position: relative;
+    width: 100%;
+	display: block;
+	
+	&:before,
+	&:after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		width: 0;
+		height: 2px;
+		background-color: map-get($color-map, "shamrockGreen");
+		@include get-vendor-prefixed("transition","0.2s ease all");
+	}
+
+	&:before {
+		left: 50%;
+	}
+
+	&:after {
+		right: 50%;
+	}
+}
+
+/* error text */
+.error-text {
+    font-size: 12px;
+    position: relative;
+    top: 4px;
+    left: 0;
+    color: map-get($color-map, "red");
+}
+
+/* invalid */
+.invalid {
+	.boundary {
+		&:before,
+		&:after {
+			background-color: map-get($color-map, "red");
+			width: 50%;
+		}
+	}
+}

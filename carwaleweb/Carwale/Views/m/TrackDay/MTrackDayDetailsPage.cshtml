@@ -1,0 +1,113 @@
+﻿@model Carwale.DTOs.CMS.ContentDetailDTO
+@using Carwale.Utility;
+@{
+    ViewBag.Description = "";
+    ViewBag.Keywords = "";
+    Layout = @ViewBag.IsApp ? "~/views/shared/m/_MLayoutApp.cshtml" : "~/views/shared/m/_MLayout.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/TrackDay/MTrackDayCss.cshtml";
+    ViewBag.CustomJS = "~/Views/StaticPartials/m/TrackDay/MTrackDayScript.cshtml";
+    ViewBag.Title = @Model.Article.Title;
+    ViewBag.Canonical = "https://www.carwale.com/";
+}
+
+<section>
+    <div class="grid-12">
+        <div class="intro-box content-box-shadow margin-top10 bg-white margin-bottom20">
+            <div class="trackday-logo">
+                <span></span>
+            </div>
+            @if (Model.Article.OriginalImgUrl != "")
+            {
+                <div class="trackday-img">
+                    <img title="@Model.Article.Title" alt="@Model.Article.Title" src="@Carwale.Utility.ImageSizes.CreateImageUrl(@Model.Article.HostUrl,Carwale.Utility.ImageSizes._566X318,@Model.Article.OriginalImgUrl)">
+                </div>
+            }
+            
+            <h1 class="margin-top20 text-center article-heading position-rel padding-bottom15">@Model.Article.Title</h1>
+
+            <div class="author-name">
+                <p class="text-link margin-bottom5 text-italic font13">@Model.Article.AuthorName</p>
+                <span class="font12 text-light-grey">@Model.Article.DisplayDate.ToString("MMM dd yyyy")</span>
+            </div>
+
+            @Html.Raw(Model.Article.Content.Replace("@Viewbag.IsApp",@ViewBag.IsApp.ToString().ToLower()))
+
+           
+                @if (ViewBag.ArticleImages != null && ViewBag.ArticleImages.Count > 0)
+                {
+                    <div class="connected-carousels-photos">
+                        <div class="stage-photos">
+                            <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
+                                <div class="swiper-wrapper">
+                                    @foreach (var modelImage in ViewBag.ArticleImages)
+                                    {
+                                        <div class="swiper-slide">
+                                            <img class="swiper-lazy" data-src="@(modelImage.HostUrl + "762x429" + modelImage.OriginalImgPath)" alt="CarWale Track Day 2016 An introduction" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="cwmsprite swiper-button-next"></div>
+                            <div class="cwmsprite swiper-button-prev"></div>
+                        </div>
+
+                        <div class="navigation-photos">
+                            <div class="swiper-container carousel-navigation-photos">
+                                <div class="swiper-wrapper">
+                                    @foreach (var modelImage in ViewBag.ArticleImages)
+                                    {
+                                        <div class="swiper-slide">
+                                            <img class="swiper-lazy" data-src="@(modelImage.HostUrl + "174x98" + modelImage.OriginalImgPath)" alt="CarWale Track Day 2016 An introduction" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                }
+                <div id="gallery-close-btn" class="cwmsprite cross-lg-white"></div>
+                <div id="gallery-blackOut-window"></div>
+            
+
+
+            @if (ViewBag.RelatedArticles != null && ViewBag.RelatedArticles.Articles.Count > 0)
+            {
+                <div class="content-inner-block-10 margin-top10">
+                    <h2>More Carwale Track Day Articles</h2>
+                    <ul class="related-articles-list">
+                        @foreach (var relatedArticle in ViewBag.RelatedArticles.Articles)
+                        {
+                            if (relatedArticle.BasicId != Model.Article.BasicId)
+                            {
+                                <li><a data-role="click-tracking" data-event="CWInteractive" data-cat="Trackday_m" data-action="links_click" data-label="@(relatedArticle.BasicId)_click_m" href="/m@(relatedArticle.ArticleUrl)" title="@relatedArticle.Title">@relatedArticle.Title</a></li> 
+                            }
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+
+@if (ViewBag.Isapp)
+{
+    <script>
+        $(document).ready(function () {
+            $("a[href^='/m/trackday2016/']")
+              .each(function () {
+                  this.href = this.href + "?isapp=true";
+              });
+        });
+       
+    </script>
+}
+else
+{
+    <script type="text/javascript">
+        $('#global-location').hide();
+    </script>
+}

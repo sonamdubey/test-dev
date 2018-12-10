@@ -1,0 +1,25 @@
+.model-loader-list__content {
+	margin-top: 10px;
+}
+
+.model-loader-list__item {
+	background: color('white');
+	margin-top: 10px;
+	padding: 5px 10px 15px;
+
+	&:first-child {
+		margin-top: 0;
+	}
+}
+
+@include model-loader;
+
+// version
+.version-loader__content {
+	@include vendor-prefix('border-radius', 4px);
+	padding: 20px 8px;
+	background: #f9f9f9; // todo: Add this color code in color-map
+	margin-top: 10px;
+}
+
+@include version-loader;

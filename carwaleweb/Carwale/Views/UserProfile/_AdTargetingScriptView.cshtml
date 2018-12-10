@@ -1,0 +1,16 @@
+﻿@model Carwale.DTOs.ES.UserProfilingDto
+@using System.Text
+@{
+    StringBuilder gtagHtml = new StringBuilder("gtag('event', 'page_view', {'send_to': 'AW-999894061'");
+}
+<script type='text/javascript'>
+        @foreach (var item in Model.AdTargetingData)
+        {
+            gtagHtml.AppendFormat(",'{0}': '{1}'", item.Label, item.Value);
+            @Html.Raw("googletag.cmd.push(function () {googletag.pubads().setTargeting('" + item.Label + "', '" + item.Value + "');});")
+        }
+        @{
+           gtagHtml.Append("});");
+        }
+        @Html.Raw(gtagHtml.ToString())      
+</script>

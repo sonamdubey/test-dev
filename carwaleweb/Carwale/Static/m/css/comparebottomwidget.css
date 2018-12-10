@@ -1,0 +1,153 @@
+﻿.compareCarPopUpBtn {
+  position: relative;
+  margin: auto;
+  top: 3px;
+  width: 120px;
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=9.1');
+  background-position: 0 -1395px;
+  background-repeat: no-repeat;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.compareCarContainer {
+  float: left;
+  width: 50%;
+}
+
+.expandCompareCar {
+  position: relative;
+  margin: auto;
+  top: 3px;
+  width: 150px;
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi');
+  background-position: 0 -1395px;
+  background-repeat: no-repeat;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.collapsCompareCar {
+  position: relative;
+  margin: auto;
+  top: 3px;
+  width: 150px;
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi');
+  background-position: 0 -1395px;
+  background-repeat: no-repeat;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.arrowDownGray {
+  margin-left: 2px;
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi');
+  background-position: 3px -1437px;
+  background-repeat: no-repeat;
+  padding: 8px;
+}
+
+.arrowUpGray {
+  margin-left: 2px;
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi');
+  background-position: 3px -1353px;
+  background-repeat: no-repeat;
+  padding: 8px;
+}
+
+.popupDialog {
+  max-width: 1336px;
+  top: 493.5px;
+  left: 382.5px;
+}
+
+.vsDiv {
+  width: 25px;
+  height: 24px;
+  position: absolute;
+  z-index: 1;
+  right: -12px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi') no-repeat scroll 0 0 transparent;
+  background-position: 0 -1148px;
+}
+
+.closeBtnLeft {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  height: 25px;
+  width: 30px;
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi');
+  background-position: 3px -1580px;
+}
+
+.closeBtnRight {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  height: 25px;
+  width: 30px;
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi');
+  background-position: 3px -1580px;
+}
+
+.compareCarBox {
+  padding: 10px;
+  margin: 0 auto;
+}
+
+.colorborderLt {
+  border-left: 1px solid #bbb;
+}
+
+.colorborderRt {
+  border-right: 1px solid #bbb;
+}
+
+.leftPlus {
+  width: 18px;
+  height: 18px;
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi');
+  background-position: -2px -248px;
+  float: left;
+  margin-right: 10px;
+}
+
+.addAnotherBtn {
+  width: 45px;
+  height: 40px;
+  position: absolute;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=cwkghjfyfbnstyuitgktiutggbkyoi') no-repeat scroll 0 0 transparent;
+  background-position: 0 -1480px;
+}
+
+.compare-widget {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 10;
+}
+
+#divComparePopUp {
+  box-shadow: 0px -5px 4px #BABABA  inset;
+  background: none !important;
+}
+
+#divCompareCarContainer {
+  padding: 5px;
+  background-color: #fff;
+}
+
+#divCarHeader {
+  border: 1px solid #b3b4c6;
+}
+
+.divCompareImage a {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}

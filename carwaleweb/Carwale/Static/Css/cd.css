@@ -1,0 +1,141 @@
+﻿/* research car details */
+.specs {
+  background-color: #fff;
+  border: 1px solid #DFDFDF;
+}
+
+.specs .darkBg,.specs th {
+  background-color: #F6F6F6;
+  padding: 5px;
+  font-weight: bold;
+  color: #555;
+  text-align: left;
+}
+
+.specs td {
+  padding: 5px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.specs .sub_head {
+  border-bottom: 1px solid gray;
+  padding: 5px 0 5px 5px;
+}
+
+.leftHead {
+  background-image: url(https://img.carwale.com/images/New/specs/itemDark.gif);
+}
+
+.itemDark {
+  background-color: #F9F9F9;
+}
+
+#features {
+  padding: 5px;
+}
+
+#features div {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #6E8193;
+  border-bottom: 1px solid #d1d8e0;
+}
+
+#features li {
+  list-style-image: url(https://imgd.aeplcdn.com/0x0/cw/design15/feature.gif?v1=04032016);
+}
+
+#dlColors table td {
+  text-align: center;
+}
+
+#carNav {
+  background-color: #444;
+  color: #fff;
+  font-weight: bold;
+}
+
+#carNav td {
+  padding: 2px 4px 2px 4px;
+}
+
+#carNav a:link, #carNav a:visited, #carNav a:active {
+  color: white;
+  text-decoration: underline;
+}
+
+#carNav a:hover {
+  color: #FFFF77;
+  text-decoration: none;
+}
+
+#caps {
+  text-transform: capitalize;
+}
+
+#help {
+  visibility: hidden;
+  position: absolute;
+  background-color: #FFFFCC;
+  border: 1px solid #666;
+  left: 0px;
+  top: 0px;
+}
+
+.getStarted {
+  margin-left: 5px;
+}
+
+.newHead {
+  padding: 0px 5px 5px 0px;
+  color: #1d4b62;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.getStarted td {
+  border-bottom: 1px solid #d1d8e0;
+}
+
+.mainHead {
+  background-color: #f3f3f3;
+  padding: 3px;
+}
+
+.mainHead {
+  padding: 0px 5px;
+  color: #000;
+  font-size: 12px;
+}
+
+.mainHead span, h1 {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.mainHead span span {
+  color: #cc0000;
+}
+
+.mainHead a {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+h1 {
+  padding: 0px;
+  margin: 0px;
+}
+
+.containertabs {
+  width: 640px;
+}
+
+.containertabs_info {
+  width: 620px;
+}
+
+.hideAd {
+  display: none;
+}

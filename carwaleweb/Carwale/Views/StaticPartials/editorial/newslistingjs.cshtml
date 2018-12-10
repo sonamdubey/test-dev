@@ -1,0 +1,35 @@
+﻿@model Carwale.DTOs.CMS.NewsListingDTO
+<script type="text/javascript" src="https://www.youtube.com/iframe_api" defer></script>
+<script>
+    var currentPageNumber =  @Model.pageNumber;
+    window.isMobile = @Convert.ToString(ViewBag.isMobile).ToLower();
+    window.toLockPopUp = false;
+    var newsListingData =@if(Model.Page1 != null) {@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Page1))}else{@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.MediaPage1))};
+    var segmentData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Segments));
+    var expertCategory = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ExpertCategories)) ;
+    var newsCategory = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.NewsCategories)) ;
+    window.Car = function (){this.make=null;this.model=null;}
+    window.car = new window.Car();
+    window.category = "@Html.Raw(Model.category=="news"?"all":Model.category)";
+    var upComingModelList = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(System.Configuration.ConfigurationManager.AppSettings["UpcomingModelId"]));
+    @if (Model.make != null)
+    {
+        <text>car.make = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.make));</text>
+    }
+    @if (Model.model != null)
+    {
+        <text>car.model = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.model));</text>
+    }
+    var pageInquirySourceId="184";
+    var pageLeadClickSource ="225";
+</script>
+<script  type="text/javascript"  src="/static/js/news-common.js" defer></script>
+<script type="text/javascript" src="~/static/js/editorial-common.js" defer></script>
+<script>
+    try{
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+    }catch(e){}
+
+</script>

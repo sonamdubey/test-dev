@@ -1,0 +1,18 @@
+﻿@mixin scrollbar($width: 6, $bg-color: 'smoke-white', $thumb-color: 'text-grey') {
+	&::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 6px rgba(map-get($color-map, 'dark-black'), .3);
+		border-radius: 10px;
+		background-color: map-get($color-map, $bg-color);
+	}
+
+	&::-webkit-scrollbar {
+		width: $width * 1px;
+		background-color: map-get($color-map, $bg-color);
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		box-shadow: inset 0 0 6px rgba(map-get($color-map, $thumb-color),.3);
+		background-color: map-get($color-map, $thumb-color);
+	}
+}

@@ -1,0 +1,31 @@
+﻿@model Carwale.DTOs.OffersV1.OfferLinkDto
+@{
+    var trackingLabel = Model.MakeName + "_" + Model.ModelName;
+    var pageName = Model.PageName;
+ }
+
+<div class="available-offers">
+    <span data-role="inview-imp"
+          data-event="CWNonInteractive"
+          data-action="MSite_@(pageName)_AlternativeCarousalOffers_shown"
+          data-cat="MSite_@(pageName)_AlternativeCarousalOffers"
+          data-label="@trackingLabel"></span>
+
+    <span class="text-link available-offers__link offerupfront__js"
+          data-offerupfronturl="@Model.Url?showOfferUpfront=true"
+          data-role="click"
+          data-event="CWInteractive"
+          data-action="MSite_@(pageName)_AlternativeCarousalOffers"
+          data-cat="MSite_@(pageName)_AlternativeCarousalOffers"
+          data-label="@trackingLabel">
+
+        <span class="available-offers__logo">
+            <img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/00afa0/offers.svg" width="20" height="20" alt="offer" />
+        </span>
+        <span class="available-offers__text">
+            Offers Available
+        </span>
+        <span class="inline-block available-offers__arrow">
+        </span>
+    </span>
+</div>

@@ -1,0 +1,79 @@
+@using Carwale.Entity.Enum
+@model Carwale.UI.ViewModels.Used.MyListings.InquiriesViewModel
+@{int allCount = 0, carWaleCount = 0, carTradeCount = 0;}
+    <div class="inquiries-ad-popup">
+        <div class="cross-default-15x16 cross-lg-dark-grey rightfloat" id="ad-inq-close"></div>
+        <div class="clear"></div>
+        <div class="screen-head__title margin-bottom15 text-center">Inquiries Received</div>
+        <div class="cw-tabs-panel button-tab">
+            <div class="cw-tabs-flex cw-tabs-inner-margin10 cw-model-tabs">
+                <ul class="filter-types">
+                    <li id="tabAllInquiries" class="active tabHeader" data-lead="allInquiries">
+                        <span class="font14">All <span class="ad-count"></span></span>
+                    </li>
+                    <li id="tabCarWaleInquiries" class="tabHeader" data-lead="carWaleInquiries">
+                        <span class="font14">CarWale <span class="ad-count"></span></span>
+                    </li>
+                    <li id="tabCarTradeInquiries" class="tabHeader" data-lead="carTradeInquiries">
+                        <span class="font14">CarTrade <span class="ad-count"></span></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="cw-tabs-data content-inner-block-10" id="allInquiries">
+                <ul class="ad-seller-details"></ul>
+            </div>
+            <div class="cw-tabs-data content-inner-block-10 hide" id="carWaleInquiries">
+                <ul class="ad-seller-details"></ul>
+            </div>
+            <div class="cw-tabs-data content-inner-block-10 hide" id="carTradeInquiries">
+                <ul class="ad-seller-details"></ul>
+            </div>
+
+            <script>
+                var allInquiries = $("#allInquiries ul"),
+                    carWaleInquiries = $("#carWaleInquiries ul"),
+                    carTradeInquiries = $("#carTradeInquiries ul"),
+                    tabAllInquiries =  $("#tabAllInquiries"),
+                    tabCarWaleInquiries =  $("#tabCarWaleInquiries"),
+                    tabCarTradeInquiries = $("#tabCarTradeInquiries")
+
+
+    @if (Model != null && Model.Inquiries != null)
+                {
+                     foreach (var lead in Model.Inquiries)
+                     {
+                        @:allInquiries.append('<li><div class="ad-seller-info ad-seller-name"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/usedcar/editcar/sellcar-user.svg" alt="" title="">@if(string.IsNullOrWhiteSpace(lead.CustomerName)) {<i>Not Available</i> } else { @lead.CustomerName }</div><div class="ad-seller-info ad-seller-mob"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/usedcar/editcar/sellcar-mobile.svg" alt="" title=""><a href="tel:@lead.CustomerMobile">@lead.CustomerMobile</a></div><div class="ad-seller-info ad-seller-time"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/usedcar/editcar/sellcar-calendar.svg" alt="" title="">@lead.RequestDateTime.ToString("dd/MM/yyyy hh:mm tt")</div></li>');
+                          if (lead.SourceIdentifier.Equals("carwale"))
+                         {
+                              @:carWaleInquiries.append('<li><div class="ad-seller-info ad-seller-name"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/usedcar/editcar/sellcar-user.svg" alt="" title="">@if(string.IsNullOrWhiteSpace(lead.CustomerName)) {<i>Not Available</i> } else { @lead.CustomerName }</div><div class="ad-seller-info ad-seller-mob"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/usedcar/editcar/sellcar-mobile.svg" alt="" title=""><a href="tel:@lead.CustomerMobile">@lead.CustomerMobile</a></div><div class="ad-seller-info ad-seller-time"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/usedcar/editcar/sellcar-calendar.svg" alt="" title="">@lead.RequestDateTime.ToString("dd/MM/yyyy hh:mm tt")</div></li>');
+                                       carWaleCount++;
+                            }
+                         else
+                         {
+                             @:carTradeInquiries.append('<li><div class="ad-seller-info ad-seller-name"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/usedcar/editcar/sellcar-user.svg" alt="" title="">@if(string.IsNullOrWhiteSpace(lead.CustomerName)) {<i>Not Available</i> } else { @lead.CustomerName }</div><div class="ad-seller-info ad-seller-mob"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/usedcar/editcar/sellcar-mobile.svg" alt="" title=""><a href="tel:@lead.CustomerMobile">@lead.CustomerMobile</a></div><div class="ad-seller-info ad-seller-time"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/usedcar/editcar/sellcar-calendar.svg" alt="" title="">@lead.RequestDateTime.ToString("dd/MM/yyyy hh:mm tt")</div></li>');
+                                 carTradeCount++;
+                                             }
+                         allCount++;
+                     }
+                }
+     @if (carWaleCount==0)
+     {
+         @:carWaleInquiries.append('<p class="ad-text-error">No Purchase Requests Arrived.</p>');
+     }
+     @if (carTradeCount == 0)
+     {
+         @:carTradeInquiries.append('<p class="ad-text-error">No Purchase Requests Arrived.</p>');
+     }
+    $("#tabAllInquiries > span > span").text('(' + @allCount + ')');
+    $("#tabCarWaleInquiries > span > span").text('(' + @carWaleCount + ')');
+    $("#tabCarTradeInquiries > span > span").text('(' + @carTradeCount + ')');
+            </script>
+
+            <script>
+                $(".tabHeader").on("click", function () {
+                    $(".filter-types > li").removeClass('active');
+                    $(".cw-tabs-data").hide();
+                    $(this).addClass('active');
+                    $('#' + $(this).attr("data-lead")).show();
+                });               
+            </script>

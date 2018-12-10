@@ -1,0 +1,624 @@
+﻿table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.red-btn {
+  background: #d70000 url(https://img.carwale.com/compare/red-btn-bg.jpg) bottom repeat-x;
+  display: inline-block;
+}
+
+a.action-button {
+  padding: 3px 10px;
+  font-size: 11px;
+  *padding: 5px 10px!important;
+  font-weight: bold;
+}
+
+input.action-button {
+  padding: 3px 10px;
+  font-size: 11px;
+  *padding: 5px 10px!important;
+  font-weight: bold;
+}
+
+.filter {
+  padding: 2px 0 2px 27px!important;
+}
+
+.cc-bottom-border {
+  border-bottom: 5px solid #ca0001;
+}
+
+.cc-container {
+  width: 988px;
+  margin: 0 auto;
+}
+
+.cc-area {
+  background: #ffffff url(https://imgd.aeplcdn.com/0x0/cw/design15/cars-bg.jpg?v1=04032016) repeat-x bottom center;
+  border-left: 1px solid #e3e3e3;
+  border-top: 1px solid #e3e3e3;
+  border-right: 1px solid #e3e3e3;
+}
+
+.cc-sponsored {
+  background-color: #fffae8;
+}
+
+.cc-spsd-colm {
+  background-color: #fffae8;
+}
+
+#data-table-top {
+  text-align: center;
+}
+
+#data-table-top table {
+  text-align: center;
+}
+
+#data-table-top table td.cars {
+  min-height: 160px;
+}
+
+#data-table-top table .cars td {
+  padding: 3px 5px;
+}
+
+#data-table-top table .cars td.img-div {
+  height: 80px;
+}
+
+.grey-bg-top {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/v-shadow.png?v1=04032016) repeat-y top right;
+  padding: 0 5px;
+}
+
+.grey-bg-shadow {
+  background-color: #dfdede;
+  padding: 6px 0 5px 0;
+  border-left: 1px solid #e3e3e3;
+  border-right: 1px solid #e3e3e3;
+}
+
+.bankbazarAd {
+  top: -8px;
+  right: -10px;
+  font-size: 9px;
+  font-weight: normal;
+}
+
+.tabs-container {
+  border: 1px solid #bfbfbf;
+  background: #F5F1F2 url("https://imgd.aeplcdn.com/0x0/cw/design15/tab-bg.jpg?v1=04032016") repeat-x scroll 0 0;
+  line-height: 17px;
+  padding: 10px 0px;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.tabs-container li {
+  display: inline;
+  font-weight: bold;
+  margin-left: -4px;
+}
+
+.tabs-container li.last {
+  border-right: 0;
+}
+
+.tabs-container li a {
+  color: #5e5e5e;
+  border-right: 1px solid #e2e2e2;
+  color: #5e5e5e;
+  padding: 9px 18px;
+  cursor: pointer;
+}
+
+.tabs-container li a:hover {
+  color: #898585;
+  text-decoration: none;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/tab-bg-active.jpg?v1=04032016);
+}
+
+.tabs-container li a.active-tab {
+  color: #898585;
+  text-decoration: none;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/tab-bg-active.jpg?v1=04032016);
+}
+
+.tabs-container li a.last {
+  border-right: 0;
+}
+
+.accordion-container {
+  background: #fff url(https://imgd.aeplcdn.com/0x0/cw/design15/h-shadow.png?v1=04032016) repeat-x top center;
+  padding-top: 2px;
+  border-left: 1px solid #e3e3e3;
+  border-right: 1px solid #e3e3e3;
+}
+
+.accordion-container table td {
+  border-right: 1px solid #d3d3d3;
+  padding: 10px;
+}
+
+.accordion-container table td.last {
+  border-right: 0px;
+}
+
+.accordion-tabs, .accordion-data {
+  border-bottom: 2px solid #eae8e8;
+}
+
+.SubCategoryTable td {
+  border-bottom: 1px dotted #eae8e8;
+  text-align: center;
+  color: #333;
+}
+
+.SubCategoryTable tr:last-child td {
+  border-bottom: 0px;
+}
+
+.SubCategoryTable td:last-child {
+  border-right: 0px;
+}
+
+.SubCategoryTable td.left {
+  text-align: left;
+}
+
+.SubCategoryTable td span {
+  text-align: center;
+}
+
+.v-shadow {
+  background: #fefefe url(https://imgd.aeplcdn.com/0x0/cw/design15/v-shadow.png?v1=04032016) repeat-y top right;
+}
+
+.dotted-line {
+  border-bottom: 1px dotted #c1bfbf;
+  margin: 5px 0 0 0;
+}
+
+.left-right-border {
+  border-left: 1px solid #D3D3D3;
+  border-right: 1px solid #D3D3D3;
+}
+
+.top-border {
+  border-top: 1px solid #D3D3D3;
+}
+
+.bottom-border {
+  border-bottom: 1px solid #D3D3D3;
+}
+
+.white-bg {
+  background-color: #FFF;
+}
+
+#floating-box td {
+  border-right: 1px solid #D3D3D3;
+}
+
+#floating-box td.last {
+  border-right: 0;
+}
+/**********CC sprite***********/
+.cc-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cc-sprite.png?v1=04032016) no-repeat;
+  display: inline-block;
+}
+
+span.close-btn {
+  background-position: 0 -223px;
+  width: 15px;
+  height: 15px;
+  margin-top: 2px;
+  float: right;
+}
+
+span.close-btn:hover {
+  background-position: 0 -257px;
+}
+
+.rupee-icon {
+  background-position: 0 -291px;
+  width: 9px;
+  height: 10px;
+}
+
+a.cc-down-arrow, a.cc-up-arrow {
+  height: 18px !important;
+  font-size: 14px !important;
+  color: #272727 !important;
+  font-weight: bold !important;
+  text-transform: uppercase;
+  padding-left: 25px !important;
+}
+
+a.cc-down-arrow {
+  background-position: 0 0;
+}
+
+a.cc-up-arrow {
+  background-position: 0 -35px;
+}
+
+.grey-tick {
+  background-position: 0 -320px;
+  width: 24px;
+  height: 20px;
+}
+
+.grey-cross {
+  background-position: 0 -357px;
+  width: 16px;
+  height: 16px;
+}
+
+.grey-none {
+  background-position: 0 -400px;
+  width: 17px;
+  height: 3px;
+}
+
+.red-tick {
+  background-position: 0 -422px;
+  width: 24px;
+  height: 20px;
+}
+
+.red-cross {
+  background-position: 0 -459px;
+  width: 20px;
+  height: 20px;
+}
+
+.green-tick {
+  background-position: 0 -499px;
+  width: 24px;
+  height: 20px;
+}
+
+a.chk-box {
+  background-position: 0 -151px;
+  height: 20px;
+  padding-left: 20px;
+}
+
+a.chk-box-tick {
+  background-position: 0 -187px;
+  height: 20px;
+  padding-left: 20px;
+}
+
+#FloatHeader .cars td {
+  padding: 1px 5px;
+}
+
+.padding-left5 {
+  padding-left: 5px!important;
+}
+
+.padding-left10 {
+  padding-left: 10px!important;
+}
+
+.padding-left15 {
+  padding-left: 15px!important;
+}
+
+.padding-left20 {
+  padding-left: 20px!important;
+}
+
+.padding-top5 {
+  padding-top: 5px !important;
+}
+
+.padding-top10 {
+  padding-top: 10px !important;
+}
+
+.padding-top15 {
+  padding-top: 15px !important;
+}
+
+.padding-top20 {
+  padding-top: 20px !important;
+}
+
+.padding-right5 {
+  padding-right: 5px!important;
+}
+
+.padding-right10 {
+  padding-right: 10px!important;
+}
+
+.padding-bottom5 {
+  padding-bottom: 5px!important;
+}
+
+.padding-bottom10 {
+  padding-bottom: 10px!important;
+}
+
+.padding-bottom15 {
+  padding-bottom: 15px!important;
+}
+
+.padding-bottom20 {
+  padding-bottom: 20px!important;
+}
+
+.margin-top23 {
+  margin-top: 23px;
+}
+
+.FloatContainer {
+  overflow: hidden;
+  padding-bottom: 4px;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/h-shadow.png?v1=04032016) 50% 100% repeat-x;
+  z-index: 2;
+  top: 50px;
+  width: 976px;
+  display: none;
+  position: fixed;
+}
+
+.CarHeaderFilter {
+  width: 186px;
+}
+
+.CarHeaderSelectedCars {
+  float: left;
+}
+
+.CarHeaderAddCar {
+  text-align: center;
+}
+
+.last {
+  background-color: #fff7ad;
+}
+
+.SubCategoryTable {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.SubCategoryTable td {
+  text-align: center;
+}
+
+.SubCategoryTable td:first-child {
+  width: 176px;
+  text-align: left;
+  color: #313131;
+  border-right: 0px;
+}
+
+.SubCategoryName {
+  height: 35px;
+  background-color: #bde7f7;
+}
+
+.line {
+  background-color: #949494;
+  height: 2px;
+  display: block;
+}
+
+#tblCVCHeader, #tblFloatHeader {
+  table-layout: fixed;
+}
+
+#tblCVCHeader td, #tblFloatHeader td {
+  border-right: 1px solid #dedede;
+  text-align: center;
+}
+
+#tblCVCHeader td:nth-child(5), #tblFloatHeader td:nth-child(5) {
+  border-right: 0px;
+}
+
+.Close {
+  margin-right: 5px;
+}
+
+.CarHeaderFilterFloat {
+  width: 178px;
+  text-align: left;
+  float: left;
+}
+
+.CarHeaderSelectedCarsFloat {
+  float: left;
+}
+
+.CarHeaderAddCarFloat {
+  text-align: center;
+}
+
+.verticalAlign {
+  vertical-align: top;
+}
+
+.colorBg {
+  border: 1px solid #dddddd;
+  width: 50px;
+  height: 45px;
+  margin: auto;
+}
+
+.colorName {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.selectCar {
+  width: 147px;
+}
+
+.cc-a-static {
+  color: #272727!important;
+}
+
+.cc-a-static:hover {
+  text-decoration: none!important;
+}
+
+.float-button {
+  margin-bottom: 0px!important;
+  padding: 2px 4px!important;
+  float: right;
+}
+
+.UsedCars {
+  width: 100%;
+  table-layout: fixed;
+  margin-top: 14px;
+}
+
+.UsedCars td {
+  text-align: center;
+  padding: 10px;
+  color: #313131;
+  border-left: 1px solid white;
+  background-color: #efeeee;
+}
+
+.UsedCars td:first-child {
+  width: 176px;
+  text-align: left;
+  border-left: none;
+  vertical-align: middle;
+}
+
+.ulSelect {
+  display: none;
+  position: relative;
+  border: 1px solid #A8A8A8;
+  border-right: 1px solid #A8A8A8;
+  z-index: 1;
+}
+
+.liSelect {
+  background-color: #3399ff!important;
+  color: white;
+}
+
+.ulSelect li {
+  background-color: white;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.vName {
+  outline: 0;
+  cursor: pointer;
+  margin-left: 7%;
+  width: 86%;
+}
+
+.dwnArrow {
+  height: 16px;
+  width: 11px;
+  background-position: -166px -751px;
+  float: right;
+  margin-right: -7%;
+}
+
+.SubCategoryTable > tbody > tr > td:first-child, .UsedCars > tbody > tr > td:first-child {
+  width: 186px;
+}
+
+.SubCategoryTable .innerTableWrap, .UsedCars .innerTableWrap {
+  padding: 0;
+}
+
+.SubCategoryTable .innerTableWrap td, .UsedCars .innerTableWrap td {
+  width: auto;
+  border-right: 1px solid #d3d3d3;
+  text-align: center;
+}
+
+.UsedCars .innerTableWrap td {
+  border-left: 1px solid #fff;
+  border-right: 0;
+}
+
+.UsedCars .innerTableWrap td:first-child {
+  border-left: 0;
+}
+
+.SubCategoryTable .innerTableWrap td:last-child, .UsedCars .innerTableWrap td:last-child {
+  border-right: 0;
+}
+
+.SubCategoryTable .innerTableWrap.count5 td, .UsedCars .innerTableWrap.count5 td {
+  width: 20%;
+}
+
+.SubCategoryTable .innerTableWrap.count4 td, .UsedCars .innerTableWrap.count4 td {
+  width: 25%;
+}
+
+.SubCategoryTable .innerTableWrap.count3 td, .UsedCars .innerTableWrap.count3 td {
+  width: 33.333%;
+}
+
+.SubCategoryTable .innerTableWrap.count2 td, .UsedCars .innerTableWrap.count2 td {
+  width: 50%;
+}
+
+.tabs-container {
+  height: 38px;
+  margin-top: 4px;
+}
+
+.tabs-container li a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.btn.xs {
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+.qr-ver {
+  list-style: none;
+}
+
+.qr-ver li {
+  padding: 2px 0;
+}
+
+.selVersions {
+  height: 0px;
+  overflow: visible;
+  float: left;
+  width: 100%;
+}
+
+#smc {
+  background-color: #efeeee!important;
+  margin-top: 15px;
+  padding: 10px;
+}
+
+#smc table {
+  margin-top: 10px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#smc td {
+  padding: 5px;
+}

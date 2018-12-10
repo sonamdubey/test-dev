@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for BodyTypeItem component when item is not selected should match snapshot 1`] = `
+<div>
+  <div
+    className="item__icon-content"
+  >
+    <img
+      alt="SUV/MUV"
+      className="item__icon"
+      src="https://imgd.aeplcdn.com//0x0/cw/body/svg/suv_clr.svg"
+    />
+  </div>
+  <p
+    className="item__heading"
+  >
+    SUV/MUV
+     (8)
+  </p>
+</div>
+`;
+
+exports[`Tests for BodyTypeItem component when item is selected should match snapshot 1`] = `
+<div>
+  <div
+    className="item__icon-content"
+  >
+    <img
+      alt="SUV/MUV"
+      className="item__icon"
+      src="https://imgd.aeplcdn.com//0x0/cw/body/svg/suv_clr.svg"
+    />
+  </div>
+  <p
+    className="item__heading"
+  >
+    SUV/MUV
+     (8)
+  </p>
+</div>
+`;

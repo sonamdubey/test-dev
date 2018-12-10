@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<panorama id="node1" appversion="5.1" apprev="15722">
+  <input tile0url="1.jpg?v=20170801090223&amp;ao=1" prev0url="1_preview.jpg?v=20170801085323&amp;ao=1" tile1url="2.jpg?v=20170801085323&amp;ao=1" prev1url="2_preview.jpg?v=20170801085323&amp;ao=1" tile2url="3.jpg?v=20170801085323&amp;ao=1" prev2url="3_preview.jpg?v=20170801085323&amp;ao=1" tile3url="4.jpg?v=20170801085323&amp;ao=1" prev3url="4_preview.jpg?v=20170801085323&amp;ao=1" tile4url="5.jpg?v=20170801090223&amp;ao=1" prev4url="5_preview.jpg?v=20170801090223&amp;ao=1" tile5url="6.jpg?v=20170801090223&amp;ao=1" prev5url="6_preview.jpg?v=20170801090223&amp;ao=1" tilesize="7500" tilescale="1.005333" levelingroll="0" levelingpitch="0">
+    <preview color="0x808080"/>
+  </input>
+  <view pannorth="0" fovmode="0">
+    <start projection="4" fov="70" pan="0" tilt="0"/>
+    <flyin projection="9" fov="170" pan="0" tilt="-90"/>
+    <min fov="5" pan="0" tilt="-90"/>
+    <max fovstereographic="270" scaletofit="1" fov="80" fovfisheye="360" pan="360" tilt="90"/>
+  </view>
+  <userdata title="" latitude="" copyright="" datetime="29/04/17 11:40 AM" customnodeid="" tags="" author="" comment="" description="" source="" info="" longitude=""/>
+  <hotspots width="180" height="20" wordwrap="1">
+    <label bordercolor="0x000000" textalpha="1" borderradius="1" enabled="1" backgroundcolor="0xffffff" textcolor="0x000000" border="1" width="180" height="20" borderalpha="1" wordwrap="1" background="1" backgroundalpha="1"/>
+    <polystyle handcursor="1" bordercolor="0x0000ff" backgroundcolor="0x0000ff" borderalpha="1" mode="0" backgroundalpha="0.2509803921568627"/>
+  </hotspots>
+  <media/>
+  <transition zoomspeed="5" zoomin="0" zoomoutpause="1" zoomout="0" enabled="0" blendcolor="0x000000" zoomfov="20" blendtime="1" type="crossdissolve" softedge="0"/>
+  <control lockedmouse="0" hideabout="0" invertwheel="1" simulatemass="1" lockedwheel="0" contextprojections="0" lockedkeyboardzoom="1" dblclickfullscreen="0" lockedkeyboard="1" contextfullscreen="0" invertcontrol="1" rubberband="0" sensitivity="8" speedwheel="2"/>
+</panorama>

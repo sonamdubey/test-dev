@@ -1,0 +1,32 @@
+﻿@model Carwale.DTOs.LeadForm.LeadFormModelData
+
+<script>
+    @{
+            <text>
+    Object.keys(sessionStorage).map(function(elem){ 
+        if(elem.search("LEADFORM_") >= 0){ 
+            sessionStorage.removeItem(elem);
+        }   
+    });
+            </text>
+        if(Model != null && Model.DealerAd != null)
+        {
+            foreach (var campaignDetail in Model.DealerAd)
+            {
+            <text>
+    var key = "@String.Format("LEADFORM_{0}_{1}", campaignDetail.Campaign.Id, campaignDetail.Campaign.DealerId)";
+    var value ="@Html.Raw(HttpUtility.JavaScriptStringEncode(Newtonsoft.Json.JsonConvert.SerializeObject(campaignDetail)))";
+        sessionStorage.setItem(key,value);
+    </text>
+            }
+        }
+
+        }
+
+
+</script>
+
+<div id="LeadForm"></div>
+<script src="/static/js/lead-conversion-tracking.js" defer></script>
+<script src="/static/js/PlatformPageDetails.js" defer></script>
+@{ Html.RenderPartial("~/Views/StaticPartials/LeadformBuild.cshtml"); }

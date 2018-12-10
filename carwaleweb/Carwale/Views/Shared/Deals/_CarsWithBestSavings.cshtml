@@ -1,0 +1,96 @@
+﻿@using System.Configuration;
+@using Carwale.Utility;
+@model IEnumerable<Carwale.Entity.Deals.DealsStock>
+@{int carCount = Convert.ToInt32(ConfigurationManager.AppSettings["CarCount"]) < Model.Count() ? Convert.ToInt32(ConfigurationManager.AppSettings["CarCount"]) : Model.Count();}
+<div class="cw-tabs-data advt-best-savings" id="advt-best-saving">
+    <div class="jcarousel-wrapper best-saving-car margin-top10">
+        <div class="jcarousel">
+            <ul>
+                @for (int i = 0; i < carCount; i++)
+                {
+                    var car = Model.ElementAt(i);
+                    <li class="border-solid advantagelinks">
+                        <a href='javascript:void()'>
+                            <div class="contentWrapper" data-tracking="carsWithSavings" data-savings="@car.Savings" data-model="@car.Model.ModelName" data-city="@car.City.CityName"
+                                 data-url="@("/" + Format.FormatURL(car.Make.MakeName) + "-cars/" + (car.Model.MaskingName) + "/advantage/?cityid=" + car.City.CityId)">
+                                <div class="imageWrapper">
+                                    <img width="296" height="166" class="lazy" src='@(car.CarImageDetails.HostUrl + "310x174" + car.CarImageDetails.ImagePath)' alt="" title="">
+                                </div>
+                                @if (!string.IsNullOrWhiteSpace(car.Offers))
+                                {
+                                    <div class="position-abt pos-left0 pos-top0">
+                                        <div class="offers-title text-white font11 text-uppercase">
+                                            <span class="offers-top-shadow"></span>
+                                            <span class="offers-text">Offer</span>
+                                            <span class="offers-right-ribbon">
+                                                <span class="ribbon top"></span>
+                                                <span class="ribbon bottom"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="carDescWrapper">
+                                    <div class="carTitle margin-top10 text-bold text-black font18">
+                                        @car.Make.MakeName @Format.FilterModelName(car.Model.ModelName)
+                                    </div>
+                                    @if (car.Savings > 0)
+                                    {
+                                        <div class="font13 margin-top15 margin-bottom5">
+                                            <span class="reducedTxt position-rel text-black">
+                                                ₹<span> @Format.FormatNumericCommaSep(car.OnRoadPrice.ToString())</span>
+                                            </span>
+                                            <span class="text-green margin-left10">(@Format.FormatNumericCommaSep(car.Savings.ToString()) off)</span>
+                                            @if (car.StockCount == 1)
+                                            {
+                                                <span class="text-red margin-left5">@car.StockCount car left</span>
+                                            }
+                                            else if (car.StockCount > 1 && car.StockCount <= 3)
+                                            {
+                                                <span class="text-red margin-left5">@car.StockCount cars left</span>
+                                            }
+                                        </div>
+                                    }
+                                    else if (car.OfferValue > 0)
+                                    {
+                                        <div class="font13 margin-top15 margin-bottom5">
+                                            <span class="text-green">Offers worth <span class="margin-left5">₹ </span>@Format.FormatNumericCommaSep(car.OfferValue.ToString())</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="font13 margin-top15 margin-bottom5">
+                                            <span class="text-green">Offer available</span>
+                                        </div>
+                                    }
+                                    <div class="font18 text-black">
+                                        <span class="text-bold">₹ @Format.FormatNumericCommaSep(car.OfferPrice.ToString())</span>
+                                        <span class="text-grey font13"> On-Road Price @car.City.CityName</span>
+                                    </div>
+                                    <div class="font13 margin-top5">
+                                        <span class='text-green extra-offer-link @(car.OfferValue > 0 && car.Savings > 0 ? "" : "no-offer-link")'>Extra offers worth <span class="margin-left5">₹ </span><span class="extra-offer-amount">@Format.FormatNumericCommaSep(car.OfferValue.ToString())</span></span>
+                                    </div>
+                                    <span class="margin-top10 inline-block click-link"> Show Complete Details</span>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </a>
+                    </li>
+                }
+                @if (Model.Count() > carCount)
+                {
+                    <li class="border-solid text-center padding-left10 padding-right10 padding-top40">
+                        <div class="margin-top70">
+                            <span class="desk-deals-car-sprite book-now-thumb"></span><span class="desk-deals-car-sprite advantage-red-logo"></span>
+                        </div>
+                        <p class="text-black margin-bottom10 margin-top30 font18 text-bold">More Cars are available in @Model.FirstOrDefault().City.CityName</p>
+                        <a href="/advantage/?cityid=@Model.FirstOrDefault().City.CityId" data-role="click-tracking" data-event="CWInteractive" data-action="landingPageAccess_Desktop" data-cat="deals_desktop" data-label="@(ViewBag.PageId == 1 ? "homepagecarousalend_Desktop" : "newcarpagecarousalend_Desktop")" class="font14">View all cars</a>
+                    </li>
+                }
+            </ul>
+            
+        </div>
+        <span class="jcarousel-control-left"><span class="cwsprite jcarousel-control-prev"></span></span>
+        <span class="jcarousel-control-right"><span class="cwsprite jcarousel-control-next"></span></span>
+    </div>
+
+</div>

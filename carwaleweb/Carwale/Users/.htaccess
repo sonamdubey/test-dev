@@ -1,0 +1,8 @@
+RewriteEngine On
+
+RewriteRule ^Profile-([\d]+)\.html$			/community/members/profile.aspx?uid=$1	[R=301,NC,L]
+
+
+
+
+

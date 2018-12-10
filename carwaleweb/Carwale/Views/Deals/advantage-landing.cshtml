@@ -1,0 +1,443 @@
+﻿@model Carwale.DTOs.Deals.AdvantageDesktop_DTO
+@{
+    ViewData["PageTag"] = "A-4";
+    ViewData["Title"] = "CarWale Advantage";
+    ViewData["landingPage"] = true;
+    ViewData["Description"] = "CarWale is India's most authoritative source of new car pricing. Focused around car buyers, CarWale promises to help you buy the right car at the right price.";
+    ViewData["Keywords"] = "";
+    ViewData["BodyClass"] = "bg-white header-fixed-inner";
+    ViewData["Canonical"] = "";
+    ViewData["Alternate"] = "";
+    ViewData["BodyClass"] = "bg-grey";
+    ViewData["CustomCss"] = "~/Views/StaticPartials/Deals/DealsCss.cshtml";
+    ViewData["CustomJs"] = "~/Views/StaticPartials/Deals/DealsScript.cshtml";
+}
+
+<header class="advantage-landing-banner">
+    <div class="container">
+        <div class="welcome-box">
+            <h1 class="text-uppercase">Carwale Advantage</h1>
+            <p class="font14">Exclusive savings on brand new cars</p>
+        </div>
+    </div>
+</header>
+
+<div class="container margin-bottom20">
+    <div class="grid-12">
+        <div class="cw-tabs-panel advt-tab-wrapper content-box-shadow margin-minus50 border-solid">
+            <div class="cw-tabs cw-tabs-flex">
+                <ul class="advt-tab-UL">
+                    <li data-tabs="advantage-tab" class="">CarWale Advantage</li>
+                    <li data-tabs="advt-best-saving" class="active">Cars with best offers</li>
+                </ul>
+            </div>
+            <div class="cw-tabs-data hide" id="advantage-tab">
+                <div class="banner-img margin-left10">
+                    <img src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/advantage/advt-banner-car-image.jpg" alt="CarWale Advantage" title="CarWale Advantage" />
+                </div>
+                <div class="advantage-tab-details margin-top30 margin-left10 margin-bottom40">
+                    <div class="font20 text-grey margin-bottom10">Introducing CarWale Advantage. </div>
+                    <div class="font20 text-grey margin-bottom10">Get exclusive savings on brand new cars.</div>
+                    <ul class="margin-bottom20">
+                        <li class="inline-block margin-right15 font14"><span class="fa fa-circle margin-right5"></span> Authorized dealers</li>
+                        <li class="inline-block font14"><span class="fa fa-circle margin-right5"></span> Immediate availability </li>
+                    </ul>
+                    @*<button id="findCar" class="budget-price-next-btn btn btn-md btn-orange text-uppercase margin-bottom30">FIND YOUR CAR</button>*@
+                </div>
+                <h2 class="font25 margin-bottom10 margin-top20 text-center text-uppercase">Find Your Car With Great Discounts</h2>
+            </div>
+            <div class="cw-tabs-data" id="advt-best-saving">
+                <div class="best-saving-car margin-top10 margin-left10">
+                    <div>
+                        <ul>
+                            @foreach (var car in Model.CarsWithBestSavings)
+                            {
+                                <li class="border-solid margin-top10 margin-bottom10" style="float:left;">
+                                    <a href='@("/" + Carwale.Utility.Format.FormatURL(car.Make.MakeName) + "-cars/" + (car.Model.MaskingName) + "/advantage/?src=d01&cityid=" + car.City.CityId)'>
+                                        <div class="contentWrapper" data-tracking="carsWithSavings" data-savings="@car.Savings" data-model="@car.Model.ModelName" data-city="@car.City.CityName">
+                                            <div class="imageWrapper">
+                                                <img width="296" height="166" class="lazy" src='@car.CarImageDetails.OriginalImgPath == null ? (car.CarImageDetails.HostUrl + "310x174" + car.CarImageDetails.OriginalImgPath)' alt="" title="">
+                                            </div>
+                                            <div class="carDescWrapper">
+                                                <div class="carTitle margin-top10 text-black">
+                                                    <h3>@car.Make.MakeName @Carwale.Utility.Format.FilterModelName(car.Model.ModelName)</h3>
+                                                </div>
+                                                <div class="font13 margin-top15 margin-bottom5">
+                                                    <span class="reducedTxt position-rel text-black">
+                                                        ₹ <span>@Carwale.Utility.Format.FormatNumericCommaSep(car.OnRoadPrice.ToString())</span>
+                                                    </span>
+                                                    <span class="text-green margin-left10">(@Carwale.Utility.Format.FormatNumericCommaSep(car.Savings.ToString()) off)</span>
+                                                    @if (car.StockCount == 1)
+                                                    {
+                                                        <span class="text-red margin-left5">@car.StockCount car left</span>
+                                                    }
+                                                    else if (car.StockCount > 1 && car.StockCount < 6)
+                                                    {
+                                                        <span class="text-red margin-left5">@car.StockCount cars left</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-red margin-left5">few cars left</span>
+                                                    }
+                                                </div>
+                                                <div class="font18 text-black">
+                                                    <span class="text-bold">₹ @Carwale.Utility.Format.FormatNumericCommaSep(car.OfferPrice.ToString())</span>
+                                                    <span class="text-grey font13"> On-Road Price @car.City.CityName</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    @*<span class="jcarousel-control-left"><a class="cwsprite jcarousel-control-prev"></a></span>
+                    <span class="jcarousel-control-right"><a class="cwsprite jcarousel-control-next"></a></span>*@
+                </div>
+                <h2 class="font25 margin-top20 text-center text-uppercase">DIDN'T FIND YOUR CAR ? FIND IT HERE</h2>
+            </div>
+            <div class="text-center margin-bottom30" id="make-model-popup">
+
+                <div class="advt-find-cars padding-top20 padding-bottom20 padding-left20 padding-right20">
+                    <div class="">
+                        <div class="form-control-box margin-right30">
+                            <span class="select-box fa fa-angle-down"></span>
+                            <select class="form-control" id="drpCity">
+                                @foreach (var city in Model.CityDetails)
+                                {
+                                    <option value="@city.CityId">@city.CityName</option>
+                                }
+                            </select>
+                            <span class="cwsprite error-icon hide city-error-icon"></span>
+                            <div class="cw-blackbg-tooltip city-err-msg hide">Please select your city</div>
+                        </div>
+
+                        <div class="form-control-box margin-right30">
+                            <span class="select-box fa fa-angle-down"></span>
+                            <select class="form-control" id="drpSelectDealMake" data-bind="options: makes, optionsValue:$data, optionsText: 'makeName' ,optionsCaption:'Select a Make',value:selectedMake,event:{change:updateModels}"></select>
+                            <span class="cwsprite error-icon hide city-error-icon"></span>
+                            <div class="cw-blackbg-tooltip city-err-msg hide">Please select your make</div>
+                        </div>
+
+                        <div class="form-control-box">
+                            <span class="select-box fa fa-angle-down"></span>
+                            <select class="form-control btn-disable" id="drpSelectDealModel" data-bind="options: models, optionsValue:$data, optionsText: 'modelName' ,optionsCaption:'Select a Model',value:selectedModel"></select>
+                            <span class="cwsprite error-icon hide city-error-icon"></span>
+                            <div class="cw-blackbg-tooltip city-err-msg hide">Please select your model</div>
+                        </div>
+                        <div class="clear"></div>
+                        <button id="btnConfirmCity" class="budget-price-next-btn btn btn-md btn-orange text-uppercase margin-top20" data-src="d11" data-bind="event:{click:doneClick}">Find Car With Discount</button>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+
+        @*<!-- Offers relevant for you section Starts-->
+            <div class="relevant-offers">
+                <h2 class="text-black font20 text-bold">Offers relevant for you</h2>
+                <div class="jcarousel-wrapper best-saving-car margin-top10">
+                    <div class="jcarousel">
+                        <ul>
+                            <li class="content-box-shadow">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper text-center">
+                                        <a href="">
+                                            <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/ec/20880/Tata-Tiago-Right-Front-Three-Quarter-67641.jpg?wm=0" alt="" title="">
+                                        </a>
+                                    </div>
+                                    <div class="carDescWrapper">
+                                        <div class="carTitle margin-top10">
+                                            <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                        </div>
+                                        <div class="font13 margin-top15 margin-bottom5">
+                                            <span class="reducedTxt position-rel">
+                                                ₹ <span>11,06,590</span>
+                                            </span>
+                                            <span class="text-green margin-left10">₹ 11,06,590</span>
+                                            <span class="text-red margin-left5">1 car left</span>
+                                        </div>
+                                        <div class="font18 text-black">
+                                            <span class="text-bold">₹ 48,86,590</span>
+                                            <span class="text-grey font13">On-road price, Mumbai</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="content-box-shadow">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="">
+                                            <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/ec/20880/Tata-Tiago-Right-Front-Three-Quarter-67641.jpg?wm=0" alt="" title="">
+                                        </a>
+                                    </div>
+                                    <div class="carDescWrapper">
+                                        <div class="carTitle margin-top10">
+                                            <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                        </div>
+                                        <div class="font13 margin-top15 margin-bottom5">
+                                            <span class="reducedTxt position-rel">
+                                                ₹ <span>11,06,590</span>
+                                            </span>
+                                            <span class="text-green margin-left10">₹ 11,06,590</span>
+                                            <span class="text-red margin-left5">1 car left</span>
+                                        </div>
+                                        <div class="font18 text-black">
+                                            <span class="text-bold">₹ 48,86,590</span>
+                                            <span class="text-grey font13">On-road price, Mumbai</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="content-box-shadow">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="">
+                                            <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/ec/20880/Tata-Tiago-Right-Front-Three-Quarter-67641.jpg?wm=0" alt="" title="">
+                                        </a>
+                                    </div>
+                                    <div class="carDescWrapper">
+                                        <div class="carTitle margin-top10">
+                                            <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                        </div>
+                                        <div class="font13 margin-top15 margin-bottom5">
+                                            <span class="reducedTxt position-rel">
+                                                ₹ <span>11,06,590</span>
+                                            </span>
+                                            <span class="text-green margin-left10">₹ 11,06,590</span>
+                                            <span class="text-red margin-left5">1 car left</span>
+                                        </div>
+                                        <div class="font18 text-black">
+                                            <span class="text-bold">₹ 48,86,590</span>
+                                            <span class="text-grey font13">On-road price, Mumbai</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="content-box-shadow">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="">
+                                            <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/ec/20880/Tata-Tiago-Right-Front-Three-Quarter-67641.jpg?wm=0" alt="" title="">
+                                        </a>
+                                    </div>
+                                    <div class="carDescWrapper">
+                                        <div class="carTitle margin-top10">
+                                            <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                        </div>
+                                        <div class="font13 margin-top15 margin-bottom5">
+                                            <span class="reducedTxt position-rel">
+                                                ₹ <span>11,06,590</span>
+                                            </span>
+                                            <span class="text-green margin-left10">₹ 11,06,590</span>
+                                            <span class="text-red margin-left5">1 car left</span>
+                                        </div>
+                                        <div class="font18 text-black">
+                                            <span class="text-bold">₹ 48,86,590</span>
+                                            <span class="text-grey font13">On-road price, Mumbai</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="content-box-shadow">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="">
+                                            <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/ec/20880/Tata-Tiago-Right-Front-Three-Quarter-67641.jpg?wm=0" alt="" title="">
+                                        </a>
+                                    </div>
+                                    <div class="carDescWrapper">
+                                        <div class="carTitle margin-top10 margin-bottom5">
+                                            <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                        </div>
+                                        <div class="font13 margin-top15">
+                                            <span class="reducedTxt position-rel">
+                                                ₹ <span>11,06,590</span>
+                                            </span>
+                                            <span class="text-green margin-left10">₹ 11,06,590</span>
+                                            <span class="text-red margin-left5">1 car left</span>
+                                        </div>
+                                        <div class="font18 text-black">
+                                            <span class="text-bold">₹ 48,86,590</span>
+                                            <span class="text-grey font13">On-road price, Mumbai</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <span class="jcarousel-control-left"><a href="#" class="cwsprite jcarousel-control-prev"></a></span>
+                    <span class="jcarousel-control-right"><a href="#" class="cwsprite jcarousel-control-next"></a></span>
+                </div>
+
+            </div>
+            <!-- Offers relevant for you section ends-->*@
+
+
+        @*<!-- Selected cars section Starts-->
+            <div class="relevant-offers">
+                <h2 class="text-black font20 text-bold">1,00,000/- off on selected Hyundai cars</h2>
+                <div class="jcarousel-wrapper best-saving-car margin-top10">
+                    <div class="jcarousel">
+                        <ul>
+                            <li class="content-box-shadow">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper text-center">
+                                        <a href="">
+                                            <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/ec/20880/Tata-Tiago-Right-Front-Three-Quarter-67641.jpg?wm=0" alt="" title="">
+                                        </a>
+                                    </div>
+                                    <div class="carDescWrapper">
+                                        <div class="carTitle margin-top10">
+                                            <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                        </div>
+                                        <div class="font13 margin-top15 margin-bottom5">
+                                            <span class="reducedTxt position-rel">
+                                                ₹ <span>11,06,590</span>
+                                            </span>
+                                            <span class="text-green margin-left10">₹ 11,06,590</span>
+                                            <span class="text-red margin-left5">1 car left</span>
+                                        </div>
+                                        <div class="font18 text-black">
+                                            <span class="text-bold">₹ 48,86,590</span>
+                                            <span class="text-grey font13">On-road price, Mumbai</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="content-box-shadow">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="">
+                                            <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/ec/20880/Tata-Tiago-Right-Front-Three-Quarter-67641.jpg?wm=0" alt="" title="">
+                                        </a>
+                                    </div>
+                                    <div class="carDescWrapper">
+                                        <div class="carTitle margin-top10">
+                                            <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                        </div>
+                                        <div class="font13 margin-top15 margin-bottom5">
+                                            <span class="reducedTxt position-rel">
+                                                ₹ <span>11,06,590</span>
+                                            </span>
+                                            <span class="text-green margin-left10">₹ 11,06,590</span>
+                                            <span class="text-red margin-left5">1 car left</span>
+                                        </div>
+                                        <div class="font18 text-black">
+                                            <span class="text-bold">₹ 48,86,590</span>
+                                            <span class="text-grey font13">On-road price, Mumbai</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="content-box-shadow">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="">
+                                            <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/ec/20880/Tata-Tiago-Right-Front-Three-Quarter-67641.jpg?wm=0" alt="" title="">
+                                        </a>
+                                    </div>
+                                    <div class="carDescWrapper">
+                                        <div class="carTitle margin-top10">
+                                            <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                        </div>
+                                        <div class="font13 margin-top15 margin-bottom5">
+                                            <span class="reducedTxt position-rel">
+                                                ₹ <span>11,06,590</span>
+                                            </span>
+                                            <span class="text-green margin-left10">₹ 11,06,590</span>
+                                            <span class="text-red margin-left5">1 car left</span>
+                                        </div>
+                                        <div class="font18 text-black">
+                                            <span class="text-bold">₹ 48,86,590</span>
+                                            <span class="text-grey font13">On-road price, Mumbai</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="content-box-shadow">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="">
+                                            <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/ec/20880/Tata-Tiago-Right-Front-Three-Quarter-67641.jpg?wm=0" alt="" title="">
+                                        </a>
+                                    </div>
+                                    <div class="carDescWrapper">
+                                        <div class="carTitle margin-top10">
+                                            <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                        </div>
+                                        <div class="font13 margin-top15 margin-bottom5">
+                                            <span class="reducedTxt position-rel">
+                                                ₹ <span>11,06,590</span>
+                                            </span>
+                                            <span class="text-green margin-left10">₹ 11,06,590</span>
+                                            <span class="text-red margin-left5">1 car left</span>
+                                        </div>
+                                        <div class="font18 text-black">
+                                            <span class="text-bold">₹ 48,86,590</span>
+                                            <span class="text-grey font13">On-road price, Mumbai</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="content-box-shadow">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="">
+                                            <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/ec/20880/Tata-Tiago-Right-Front-Three-Quarter-67641.jpg?wm=0" alt="" title="">
+                                        </a>
+                                    </div>
+                                    <div class="carDescWrapper">
+                                        <div class="carTitle margin-top10 margin-bottom5">
+                                            <h3><a href="" title="">Mercedes-Benz A-Class</a></h3>
+                                        </div>
+                                        <div class="font13 margin-top15">
+                                            <span class="reducedTxt position-rel">
+                                                ₹ <span>11,06,590</span>
+                                            </span>
+                                            <span class="text-green margin-left10">₹ 11,06,590</span>
+                                            <span class="text-red margin-left5">1 car left</span>
+                                        </div>
+                                        <div class="font18 text-black">
+                                            <span class="text-bold">₹ 48,86,590</span>
+                                            <span class="text-grey font13">On-road price, Mumbai</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                    <span class="jcarousel-control-left"><a href="#" class="cwsprite jcarousel-control-prev"></a></span>
+                    <span class="jcarousel-control-right"><a href="#" class="cwsprite jcarousel-control-next"></a></span>
+                </div>
+
+            </div>
+            <!-- Selected cars section ends-->*@
+        <!-- FAQ Section Starts-->
+        <div class="margin-top10 position-rel pos-right10">
+            @{Html.RenderPartial("~/Views/Shared/Deals/_DealFaq.cshtml");}
+        </div>
+
+        <!-- FAQ Section Ends-->
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="clear"></div>
+
+
+

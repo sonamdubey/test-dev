@@ -1,0 +1,109 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/* top banner */
+.used-cars-top-banner {
+  background: #161209 url('https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/d/used-cars-banner.jpg?v1=19082015') center top no-repeat;
+  background-size: cover;
+  height: 285px;
+  padding-top: 1px;
+}
+
+.search-used-cars-wrapper {
+  position: relative;
+  margin-top: -50px;
+}
+
+.viewBtn {
+  float: left;
+}
+
+.viewBtn button {
+  height: 46px;
+}
+
+/* major cities box classes*/
+.major-city-pic {
+  width: 100%;
+  border: 1px solid #ccc;
+  height: 175px;
+  overflow: hidden;
+  display: table;
+  cursor: pointer;
+  background: #fff;
+}
+
+.major-city-pic span {
+  display: table-cell;
+  vertical-align: middle;
+  background: rgba(0,0,0,0.5);
+}
+
+.major-city-pic span:hover {
+  background: none;
+}
+
+.font60 {
+  font-size: 60px;
+}
+
+.btn-light-grey {
+  background: #f5f5f5;
+  color: #b9bec1;
+  border: 1px solid #ccc;
+}
+
+.popular-search-bg {
+  background: #fafafa;
+}
+/* carwale guarantee slug */
+.block {
+  display: block;
+}
+
+.guarantee-box.no-decoration {
+  text-decoration: none;
+}
+
+a:hover span.spancarname {
+  text-decoration: underline;
+}
+/*major cities */
+.mumbai {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/mumbai.jpg?static1fix) no-repeat center top;
+}
+
+.bangalore {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/bangalore.jpg?static1fix) no-repeat center top;
+}
+
+.chennai {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/chennai.jpg?static1fix) no-repeat center top;
+}
+
+.delhi {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/delhi.jpg?static1fix) no-repeat center top;
+}
+
+.pune {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/pune.jpg?static1fix) no-repeat center top;
+}
+
+.hyderabad {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/hyderabad.jpg?static1fix) no-repeat center top;
+}
+
+.kolkata {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/kolkata.jpg?static1fix) no-repeat center top;
+}
+
+.chandigarh {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/chandigarh.jpg?static1fix) no-repeat center top;
+}
+
+.coimbatore {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/coimbatore.jpg?static1fix) no-repeat center top;
+}
+
+.ahmedabad {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/ahmedabad.jpg?static1fix) no-repeat center top;
+}

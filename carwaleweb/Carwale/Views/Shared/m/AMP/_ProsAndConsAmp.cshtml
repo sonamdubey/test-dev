@@ -1,0 +1,68 @@
+﻿@model Carwale.DTOs.NewCars.ModelPageDTO_Mobile
+@using Carwale.Utility;
+<amp-analytics type="googleanalytics">
+    <script type="application/json">
+        {
+        "vars":{
+        "account":"UA-337359-1"
+        },
+        "triggers":{
+        "OpinionProsImpression":{
+        "on":"visible",
+        "selector":"#prosConsImpressionImage",
+        "request":"event",
+        "vars":{
+        "eventCategory":"CarWale_Opinion_pros_cons_amp",
+        "eventAction":"Impression",
+        "eventLabel":"@(Model.ModelDetails.ModelName)"
+        }
+        },
+        "OpinionConsImpression":{
+        "on":"visible",
+        "selector":"#prosConsImpressionImage1",
+        "request":"event",
+        "vars":{
+        "eventCategory":"CarWale_Opinion_pros_cons_amp",
+        "eventAction":"Impression_cons_swiped",
+        "eventLabel":"@(Model.ModelDetails.ModelName)"
+        }
+        }
+        }
+        }
+    </script>
+</amp-analytics>
+<div style="margin-bottom: -5px; margin-left: 15px;">
+    <amp-img id="prosConsImpressionImage" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" alt="" height="1" width="1">
+    </amp-img>
+</div>
+@if (Model.ProsCons!=null && Model.ProsCons.PageList.IsNotNullOrEmpty() && Model.ProsCons.PageList.Count > 1)
+{
+    <div class="pros-cons-card-container" style="margin-top: -14px;">
+        <ul class="pros-cons-card-list">
+            <li class="pros-cons__list-item">
+                <div class="pros-cons__card">
+                    <p class="card__title"><span class="thumbs-up-icon-proscons"></span>@Model.ProsCons.PageList[0].PageName</p>
+                    <div class="pros-cons__list-wrapper">
+                        <div class="card-list__container" id="pros-cons__card-list__container">
+                            @Html.Raw(Model.ProsCons.PageList[0].Content)
+                            <span class="view-images__link hide">View Images</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="pros-cons__list-item">
+                <div class="pros-cons__card">
+                    <div style="margin-bottom: -16px; margin-left: 140px;">
+                        <amp-img id="prosConsImpressionImage1" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" alt="" height="1" width="1">
+                        </amp-img>
+                    </div>
+                    <p class="card__title"><span class="thumbs-down-icon"></span>@Model.ProsCons.PageList[1].PageName</p>
+                    <div class="card-list__container">
+                        @Html.Raw(Model.ProsCons.PageList[1].Content)
+                        <span class="view-images__link hide">View Images</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+}

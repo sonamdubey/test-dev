@@ -1,0 +1,234 @@
+﻿@model Carwale.DTOs.CMS.ThreeSixtyView.ThreeSixtyDTO
+
+@using System.Configuration;
+@using Carwale.Entity.CarData;
+@using Carwale.Utility;
+
+@{
+    string cdnHostUrl = ConfigurationManager.AppSettings["CDNHostURL"].ToString();
+    bool isExteriorAvailable = Model.ModelDetails.Is360ExteriorAvailable;
+    bool isOpenAvailable = Model.ModelDetails.Is360OpenAvailable;
+    bool isInteriorAvailable = Model.ModelDetails.Is360InteriorAvailable;
+    bool isImagesAvailable = Model.ModelImagesList != null && Model.ModelImagesList.Count > 0;
+    bool isVideosAvailable = Model.ModelVideos != null && Model.ModelVideos.Count > 0;
+    string carName = Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName;
+    string loadingImageRootPath = string.Format("{0}860x484/cw/360/{1}/{2}/", cdnHostUrl, Format.FormatSpecial(Model.ModelDetails.MakeName), Model.ModelDetails.ModelId);
+    string activeState = Model.ActiveState;
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<style>
+	.hideImportant{ display: none !important}
+</style>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title itemprop="name">@(Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName + " 360° View - CarWale")</title>
+    <meta name="description" content="@("See high quality 360° view of " + Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName + ", view it from every angle. Take a virtual tour of " + Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName + ".")" />
+    <link rel="canonical" href="@string.Format("https://www.carwale.com/{0}-cars/{1}/360-view/", Carwale.Utility.Format.FormatSpecial(Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName)" />
+    <script>
+        var beforeLoadTime = Date.now();
+    </script>
+
+    @{ Html.RenderPartial("~/Views/StaticPartials/m/Editorial/M360ViewPageCss.cshtml"); }
+</head>
+<body>
+    <div class="model360-header">
+        <div id="carName" class="exterior-view-detail">
+            <h1>@carName</h1>
+        </div>
+        <div id="changeModelLink" class="change-model-btn hide" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_linkages" data-action="change_car" data-label="@carName">change car</div>
+    </div>
+
+    <a class="three-sixty-close" id="360-popup-close" href="javascript:void(0);" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_button_clicks" data-action="close" data-label="close">
+        <span class="cwmsprite cross-lg-white"></span>
+    </a>
+
+    <div class="three-sixty-main">
+        <div id="options" class="gallery__main-content hide">
+            <ul class="gallery__button-contanier">
+                @if (isExteriorAvailable)
+                {
+                    <li class="exteriorView gallery__nav--button gallery__nav--button-left @(activeState == "closed" ? "gallery__nav--button-active" : "")" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_button_clicks" data-action="exterior" data-label="@carName" data-img-type="exterior">Exterior</li>
+                }
+                @if (isOpenAvailable)
+                {
+                    <li class="openView gallery__nav--button gallery__nav--button-center @(activeState == "open" ? "gallery__nav--button-active" : "")" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_button_clicks" data-action="open" data-label="@carName" data-img-type="open">Open</li>
+                }
+                @if (isInteriorAvailable)
+                {
+                    <li class="interiorView gallery__nav--button gallery__nav--button-right @(activeState == "interior" ? "gallery__nav--button-active" : "")" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_button_clicks" data-action="interior" data-label="@carName" data-img-type="interior">Interior</li>
+                }
+            </ul>
+        </div>
+        <div class="three-sixty-outer-container">
+            <div class="three-sixty-view-conatiner">
+                <div id="player" class="">
+                    <div class="loadingView">
+                        <div class="loading"></div>
+                        <div style="min-height:200px; background-image:url('@(loadingImageRootPath + "closed-door/1.jpg?q=20&wm=1")')" id="tempLoadingImage" class="loading-single-image @(activeState != "interior" ? "" : "hide")">
+                            <img id="loadingClosedDoor" class="@(activeState == "closed" ? "" : "hide")" src="@(loadingImageRootPath + "closed-door/1.jpg?q=20&wm=1&v=20171024122425")" />
+                            <img id="loadingOpenDoor" class="@(activeState == "open" ? "" : "hide")" src="@(loadingImageRootPath + "open-door/1.jpg?q=20&wm=1&v=20181030122425")" />
+                            <span id="loadingProgress" class="hide"></span>
+                        </div>
+                    </div>
+                    <div id="orientation">
+                        <div id="wr360PlayerId" class="hide"></div>
+                        <div id="pano2vr360Player" class="hide"></div>
+                    </div>
+                    <a class="three-sixty-close fullscreen-close cur-pointer hide" id="360-popup-close" href="javascript:ThreeSixtyView.plugin.toggleFullScreen();" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_button_clicks" data-action="cross_fullscreen" data-label="cross_fullscreen">
+                        <span class="cwmsprite cross-lg-white"></span>
+                    </a>
+                    <div id="fullScreen" class="hide">
+                        <a class="three-sixty-full-screen" onclick="ThreeSixtyView.plugin.toggleFullScreen()" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_button_clicks" data-action="full_screen" data-label="full_screen">
+                            <img src="@(cdnHostUrl + "0x0/cw/static/360icons/interior/fullscreen.png")" alt="" title=""> <span class="text-grey">FullScreen</span>
+                        </a>
+                    </div>
+                    <div id="fullscreen-options" class="gallery__main-content option-buttons hide">
+                        <ul class="gallery__button-contanier">
+                            @if (isExteriorAvailable)
+                            {
+                                <li class="exteriorView gallery__nav--button gallery__nav--button-center @(activeState == "closed" ? "gallery__nav--button-active" : "")" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_button_clicks" data-action="exterior_full_screen" data-label="@carName" data-img-type="exterior">Exterior</li>
+                            }
+                            @if (isOpenAvailable)
+                            {
+                                <li class="openView gallery__nav--button gallery__nav--button-center @(activeState == "open" ? "gallery__nav--button-active" : "")" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_button_clicks" data-action="open_door_full_screen" data-label="@carName" data-img-type="open">Open</li>
+                            }
+                            @if (isInteriorAvailable)
+                            {
+                                <li class="interiorView gallery__nav--button gallery__nav--button-right @(activeState == "interior" ? "gallery__nav--button-active" : "")" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_button_clicks" data-action="interior_full_screen" data-label="@carName" data-img-type="interior">Interior</li>
+                            }
+                        </ul>
+
+                        <div class="switch-container">
+                            <span class="switch-label">hotspots</span>
+                            <div class="switch">
+                                <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" checked>
+                                <label for="cmn-toggle-1"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="full-screen-blackout-window hide"></div>
+                    <ul class="hide">
+                        <li id="video-hotspot-template">
+                            <div class="contentWrapper">
+                                <img class="video-loader" src="@(cdnHostUrl + ImageSizes._0X0 + "/cw/static/circle-loader.gif")" />
+                                <iframe style="position: relative;" width="100%" height="67.5%"></iframe>
+                                <div class="carDescWrapper">
+                                    <div class="carTitle margin-bottom10">
+                                        <div><h3 class="font18"></h3></div>
+                                        <div class="car-text">
+                                            <div class="video-info-content">
+                                                <div class="video-info-data video-info-views"><span></span></div>
+                                                <div class="video-info-data video-info-likes"><span></span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li id="image-hotspot-template" class="swiper-slide card">
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <div>
+                                        <img class="swiper-lazy" />
+                                        <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                                    </div>
+                                </div>
+                                <div class="carDescWrapper">
+                                    <div class="carTitle margin-bottom10">
+                                        <div><h3 class="font18"></h3></div>
+                                        <div class="car-text reviewtekst">
+                                            <div class="hotspot-info-content"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="hotspot-outer-container hide">
+                        <div class="hotspot-popup">
+                            <span class="three-sixty-close cur-pointer hide" id="hotspot-close">
+                                <span class="cwmsprite cross-lg-white"></span>
+                            </span>
+                            <div class="info-content-container hide">
+                                <div id="hotspot-swiper-container" class="hotspot-swiper swiper-container">
+                                    <ul class="swiper-wrapper">
+                                    </ul>
+                                    <div class="clear"></div>
+                                    <!-- Add Pagination -->
+                                    <div class="swiper-pagination swiper-pagination-white"></div>
+                                    <!-- Navigation -->
+                                    <div id="swiper-next" class="swiper-button-next swiper-button-white"></div>
+                                    <div id="swiper-prev" class="swiper-button-prev swiper-button-white"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+    <div id="menu-options" class="menu-options hide" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_button_clicks" data-action="more_icon" data-label="more_icon">
+        <span class="cwmsprite three-dots"></span>
+    </div>
+    <div id="options-popup" class="news-photo-options-container hide">
+        <div class="news-photo-filter-options">
+            <a class="news-filter-tag bg-light-grey active-option">
+                <div class="news-filter-icons">
+                    <span class="teal-360-icon-36"></span>
+                </div>
+                <span class="news-photo-filter-title">360 View</span>
+
+            </a><a class="news-filter-tag bg-white @(isImagesAvailable ? "" : " disabled-option")" href="@(isImagesAvailable ? Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, null, 0, true) : "javascript:void(0);")" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_button_clicks" data-action="images" data-label="images">
+
+                <div class="news-filter-icons">
+                    <span class="news-all-photos-icon"></span>
+                </div>
+                <span class="news-photo-filter-title">Images</span>
+            </a><a class="news-filter-tag bg-light-grey @(isVideosAvailable ? "" : "disabled-option")" href="@(isVideosAvailable ? ("/m" + Model.ModelVideos[0].VideoTitleUrl) : "javascript:void(0);")" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_button_clicks" data-action="videos" data-label="videos">
+                <div class="news-filter-icons">
+                    <span class="news-videos-icon"></span>
+                </div>
+                <span class="news-photo-filter-title">Videos</span>
+            </a>
+        </div>
+    </div>
+    <div class="blackout-window hide"></div>
+    <div class="change-model-blackout-window hide"></div>
+    <div class="change-model-popup hide">
+        <div class="change-model-data">
+            <div class="change-model-closebtn cwmsprite"></div>
+            <h2 class="change-model-header">Change Car</h2>
+            <div class="change-model-formbox">
+                <select id="drpSelectMake" class="change-model-form">
+                    <option value="0" selected="selected">Select a Make</option>
+                    @foreach (CarMakeEntityBase make in Model.ThreeSixtyMakes)
+                    {
+                        <option value="@make.MakeId">@make.MakeName</option>
+                    }
+                </select>
+            </div>
+            <div class="change-model-formbox">
+                <select class="change-model-form" id="drpSelectModel" disabled>
+                    <option value="0">Select a Model</option>
+                </select>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    @{ Html.RenderPartial("~/Views/StaticPartials/m/Editorial/M360ViewPageScript.cshtml"); }
+
+    @{ Html.RenderPartial("~/Views/Shared/_GoogleTagManagerView.cshtml"); }
+
+    @{ Html.RenderPartial("~/Views/Shared/_CrazyEggView.cshtml"); }
+</body>
+</html>

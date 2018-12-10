@@ -1,0 +1,802 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.model-version-box {
+  overflow: hidden;
+  border-radius: 5px 5px 0 0;
+  background: #fff;
+}
+
+.model-version-box .brand-main {
+  display: table;
+}
+
+.model-version-box .brand-pic {
+  *display: block;
+  *float: left;
+  display: table-cell;
+  vertical-align: middle;
+  background: #fff;
+  padding: 10px;
+}
+
+.model-version-box .brand-pic .logo {
+  background-position: center center;
+}
+
+.model-version-box .brand-details {
+  *display: block;
+  *float: left;
+  display: table-cell;
+  vertical-align: top;
+  padding-left: 15px;
+}
+
+.model-version-box .other-info ul {
+  margin: 10px 0 0 10px;
+  list-style: disc;
+  color: #666666;
+}
+
+.model-version-box .other-info li {
+  float: left;
+  width: 180px;
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.request-assistance-box {
+  background: #333;
+  text-align: center;
+}
+
+.thankyou-box {
+  padding: 40px 10px;
+}
+
+.request-assistance-form li {
+  margin-bottom: 15px;
+}
+
+.request-assistance-form li input, .request-assistance-form li select {
+  border-radius: 5px;
+  color: #000;
+  box-shadow: 2px 2px 5px #e2e2e2 inset;
+  padding: 10px;
+  width: 310px;
+}
+
+.request-assistance-form li select {
+  width: 330px;
+}
+
+.request-assistance-box .terms {
+  font-size: 11px;
+  text-align: left;
+  width: 325px;
+  margin: 0 auto;
+}
+
+.request-assistance-box .terms a {
+  color: #034fb6;
+}
+
+.thank-you-text {
+  font-size: 30px;
+  font-weight: bold;
+  color: #ec584c;
+}
+
+.model-popup-close-btn {
+  background-position: -200px -497px;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  cursor: pointer;
+}
+
+.model-error-msg {
+  margin: 5px 0 5px 35px;
+  font-size: 12px;
+  color: #fff;
+  text-align: left;
+}
+
+.get-assist-btn {
+  font-size: 13px !important;
+}
+
+.model-version-box .mob-no-box {
+  position: relative;
+}
+
+.mob-no-box input {
+  padding-left: 40px !important;
+  width: 280px !important;
+}
+
+.mob-no-box .country-code {
+  left: 30px;
+  position: absolute;
+  top: 11px;
+  width: 30px;
+}
+
+.ba-title {
+  background: #4A4A4A;
+  padding: 10px;
+}
+
+.ba-title h3 {
+  color: #fff;
+}
+
+.ba-dark-grey-bg {
+  background: #333;
+}
+
+.ba-light-grey-bg {
+  background: #4A4A4A;
+}
+
+a.ba-anchor {
+  color: #498CE5;
+}
+
+.white-circle {
+  border: 2px solid #fff;
+  display: inline-block;
+  border-radius: 50%;
+  position: relative;
+  top: 3px;
+}
+
+.white-call-icon {
+  background-position: -196px -539px;
+  width: 20px;
+  height: 20px;
+}
+
+.leadForm .leadformInput {
+  display: inline-block;
+  vertical-align: middle;
+  width: 49%;
+  padding: 0 8px;
+}
+
+
+/************************** Chosen classes ******************************************/
+#modelVerCusDrop_chosen.chosen-container, #modelVerCusDrop2_chosen.chosen-container {
+  text-align: left;
+  border: 1px solid #E2E2E2;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+}
+
+#modelVerCusDrop_chosen.chosen-container, #modelVerCusDrop2_chosen.chosen-container {
+  background: #fff;
+  border: 1px solid #c9c9c9;
+  padding: 7px 5px;
+  text-align: left;
+  width: 320px !important;
+}
+
+#modelVerCusDrop_chosen a.chosen-single, #modelVerCusDrop2_chosen a.chosen-single {
+  text-align: left;
+  padding-left: 0px;
+}
+
+.chosen-container-single  div b {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url(https://img.aeplcdn.com/newtemplate/cw-sprite_v1.3.png?v=2.290914) -166px -747px no-repeat;
+}
+
+
+
+/* logos form make start */
+.sds-ashokleyland-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-ashokleyland-logo.png?static1fix) no-repeat;
+  width: 53px;
+  height: 53px;
+}
+
+.sds-astonmartin-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-astonmartin-logo.png?static1fix) no-repeat;
+  width: 81px;
+  height: 37px;
+}
+
+.sds-audi-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-audi-logo-new.png?201606171609585767) no-repeat;
+  width: 66px;
+  height: 38px;
+}
+
+.sds-bentley-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-bentley-logo.png?static1fix) no-repeat;
+  width: 73px;
+  height: 36px;
+}
+
+.sds-bmw-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-bmw-logo.png?static1fix) no-repeat;
+  width: 52px;
+  height: 52px;
+}
+
+.sds-bugatti-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-bugatti-logo.png?static1fix) no-repeat;
+  width: 80px;
+  height: 41px;
+}
+
+.sds-caterham-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-caterham-logo.png?static1fix) no-repeat;
+  width: 55px;
+  height: 55px;
+}
+
+.sds-chevrolet-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-chevrolet-logo.png?static1fix) no-repeat;
+  width: 74px;
+  height: 33px;
+}
+
+.sds-dastsun-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-dastsun-logo.png?static1fix) no-repeat;
+  width: 71px;
+  height: 39px;
+}
+
+.sds-ferrari-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-ferrari-logo.png?static1fix) no-repeat;
+  width: 46px;
+  height: 73px;
+}
+
+.sds-fiat-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-fiat-logo.png?static1fix) no-repeat;
+  width: 51px;
+  height: 57px;
+}
+
+.sds-force-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-force-logo.png?static1fix) no-repeat;
+  width: 75px;
+  height: 50px;
+}
+
+.sds-ford-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-ford-logo.png?static1fix) no-repeat;
+  width: 86px;
+  height: 32px;
+}
+
+.sds-honda-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-honda-logo.png?static1fix) no-repeat;
+  width: 71px;
+  height: 47px;
+}
+
+.sds-hyundai-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-hyundai-logo.png?static1fix) no-repeat;
+  width: 60px;
+  height: 36px;
+}
+
+.sds-icml-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-icml-logo.png?static1fix) no-repeat;
+  width: 51px;
+  height: 58px;
+}
+
+.sds-isuzu-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-isuzu-logo.png?static1fix) no-repeat;
+  width: 80px;
+  height: 31px;
+}
+
+.sds-jaguar-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-jaguar-logo.png?static1fix) no-repeat;
+  width: 83px;
+  height: 37px;
+}
+
+.sds-lamborghini-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-lamborghini-logo.png?static1fix) no-repeat;
+  width: 48px;
+  height: 53px;
+}
+
+.sds-landrover-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-landrover-logo.png?static1fix) no-repeat;
+  width: 73px;
+  height: 38px;
+}
+
+.sds-mahindra-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-mahindra-logo.png?static1fix) no-repeat;
+  width: 99px;
+  height: 46px;
+}
+
+.sds-marutisuzuki-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-marutisuzuki-logo.png?static1fix) no-repeat;
+  width: 97px;
+  height: 25px;
+}
+
+.sds-maserati-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-maserati-logo.png?static1fix) no-repeat;
+  width: 84px;
+  height: 37px;
+}
+
+.sds-mercedes-benz-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-mercedes-logo.png?static1fix) no-repeat;
+  width: 50px;
+  height: 50px;
+}
+
+.sds-mini-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-mini-logo.png?static1fix) no-repeat;
+  width: 81px;
+  height: 34px;
+}
+
+.sds-mitsubishi-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-mitsubishi-logo.png?static1fix) no-repeat;
+  width: 52px;
+  height: 45px;
+}
+
+.sds-nissan-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-nissan-logo.png?static1fix) no-repeat;
+  width: 59px;
+  height: 50px;
+}
+
+.sds-porsche-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-porsche-logo.png?static1fix) no-repeat;
+  width: 43px;
+  height: 54px;
+}
+
+.sds-premier-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-premier-logo.png?static1fix) no-repeat;
+  width: 72px;
+  height: 49px;
+}
+
+.sds-renault-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-renault-logo.png?static1fix) no-repeat;
+  width: 58px;
+  height: 58px;
+}
+
+.sds-rexton-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-rexton-logo.png?static1fix) no-repeat;
+  width: 82px;
+  height: 18px;
+}
+
+.sds-rolls-royce-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-rollsroyce-logo.png?static1fix) no-repeat;
+  width: 38px;
+  height: 70px;
+}
+
+.sds-skoda-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-skoda-logo.png?static1fix) no-repeat;
+  width: 61px;
+  height: 72px;
+}
+
+.sds-ssangyong-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-ssangyong-logo.png?static1fix) no-repeat;
+  width: 60px;
+  height: 39px;
+}
+
+.sds-tata-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-tata-logo.png?static1fix) no-repeat;
+  width: 56px;
+  height: 38px;
+}
+
+.sds-toyota-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-toyota-logo.png?static1fix) no-repeat;
+  width: 64px;
+  height: 42px;
+}
+
+.sds-volkswagen-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-volkswagen-logo.png?static1fix) no-repeat;
+  width: 57px;
+  height: 57px;
+}
+
+.sds-volvo-logo {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/brands/sds-volvo-logo.png?static1fix) no-repeat;
+  width: 46px;
+  height: 45px;
+}
+
+#capital {
+  text-transform: capitalize;
+}
+/*logos form make end*/
+/* chosen classes */
+
+/* @group Base */
+.chosen-container {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 13px;
+  zoom: 1;
+  *display: inline;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.chosen-container .chosen-drop {
+  position: absolute;
+  top: 100%;
+  left: -9999px;
+  z-index: 1010;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #aaa;
+  border-top: 0;
+  background: #fff;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+}
+
+.chosen-container.chosen-with-drop .chosen-drop {
+  left: 0;
+}
+
+.chosen-container a {
+  cursor: pointer;
+}
+
+/* @end */
+/* @group Single Chosen */
+.chosen-container-single .chosen-single {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 0 0 0 8px;
+  height: 23px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  color: #444;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 24px;
+  text-align: right;
+  padding-right: 30px;
+}
+
+#drpPqVersion_chosen .chosen-single {
+  text-align: left;
+}
+
+.chosen-container-single .chosen-default {
+  color: #999;
+}
+
+.chosen-container-single .chosen-single span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chosen-container-single .chosen-single-with-deselect span {
+  margin-right: 38px;
+}
+
+.chosen-container-single .chosen-single abbr {
+  position: absolute;
+  top: 6px;
+  right: 26px;
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-sprite_v1.3.png?static1fix) -48px -586px no-repeat;
+  font-size: 1px;
+}
+
+.chosen-container-single .chosen-single abbr:hover {
+  background-position: -42px -10px;
+}
+
+.chosen-container-single.chosen-disabled .chosen-single abbr:hover {
+  background-position: -42px -10px;
+}
+
+.chosen-container-single .chosen-single div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: 18px;
+  height: 100%;
+}
+
+.chosen-container-single .chosen-single div b {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-sprite_v1.3.png?static1fix) -166px -747px no-repeat;
+}
+
+.chosen-container-single .chosen-search {
+  position: relative;
+  z-index: 1010;
+  margin: 0;
+  padding: 3px 4px;
+  white-space: nowrap;
+}
+
+.chosen-container-single .chosen-search input[type="text"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 1px 0;
+  padding: 4px 20px 4px 5px;
+  width: 100%;
+  height: auto;
+  outline: 0;
+  border: 1px solid #aaa;
+  /*background: white url('/images/chosen-sprite.png') no-repeat 100% -20px;
+  background: url('/images/chosen-sprite.png') no-repeat 100% -20px;*/
+  font-size: 1em;
+  font-family: sans-serif;
+  line-height: normal;
+  border-radius: 0;
+}
+
+.chosen-container-single .chosen-drop {
+  margin-top: -1px;
+  border-radius: 0 0 4px 4px;
+  background-clip: padding-box;
+  padding-top: 10px;
+}
+
+.chosen-container-single.chosen-container-single-nosearch .chosen-search {
+  position: absolute;
+  left: -9999px;
+}
+
+/* @end */
+/* @group Results */
+.chosen-container .chosen-results {
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0 4px 4px 0;
+  padding: 0 0 0 4px;
+  max-height: 240px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dealer-box .chosen-container .chosen-results {
+  height: 125px;
+}
+
+.chosen-container .chosen-results li {
+  display: none;
+  margin: 0;
+  padding: 5px 6px;
+  list-style: none;
+  line-height: 15px;
+  -webkit-touch-callout: none;
+}
+
+.chosen-container .chosen-results li.active-result {
+  display: list-item;
+  cursor: pointer;
+}
+
+.chosen-container .chosen-results li.disabled-result {
+  display: list-item;
+  color: #ccc;
+  cursor: default;
+}
+
+.chosen-container .chosen-results li.highlighted {
+  background-color: #3875d7;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #3875d7), color-stop(90%, #2a62bc));
+  background-image: -webkit-linear-gradient(#3875d7 20%, #2a62bc 90%);
+  background-image: -moz-linear-gradient(#3875d7 20%, #2a62bc 90%);
+  background-image: -o-linear-gradient(#3875d7 20%, #2a62bc 90%);
+  background-image: linear-gradient(#3875d7 20%, #2a62bc 90%);
+  color: #fff;
+}
+
+.chosen-container .chosen-results li.no-results {
+  display: list-item;
+  background: #f4f4f4;
+}
+
+.chosen-container .chosen-results li.group-result {
+  display: list-item;
+  font-weight: bold;
+  cursor: default;
+}
+
+.chosen-container .chosen-results li.group-option {
+  padding-left: 15px;
+}
+
+.chosen-container .chosen-results li em {
+  font-style: normal;
+  text-decoration: underline;
+}
+
+/* @end */
+
+/* @end */
+/* @group Active  */
+.chosen-container-active .chosen-single {
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single {
+  border: 1px solid #aaa;
+  -moz-border-radius-bottomright: 0;
+  border-bottom-right-radius: 0;
+  -moz-border-radius-bottomleft: 0;
+  border-bottom-left-radius: 0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #eeeeee), color-stop(80%, #ffffff));
+  background-image: -webkit-linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: -moz-linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: -o-linear-gradient(#eeeeee 20%, #ffffff 80%);
+  background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);
+  box-shadow: 0 1px 0 #fff inset;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single div {
+  border-left: none;
+  background: transparent;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single div b {
+  background-position: -18px 2px;
+}
+
+.chosen-container-active .chosen-choices {
+  border: 1px solid #5897fb;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.chosen-container-active .chosen-choices li.search-field input[type="text"] {
+  color: #111 !important;
+}
+
+/* @end */
+/* @group Disabled Support */
+.chosen-disabled {
+  opacity: 0.5 !important;
+  cursor: default;
+}
+
+.chosen-disabled .chosen-single {
+  cursor: default;
+}
+
+.chosen-disabled .chosen-choices .search-choice .search-choice-close {
+  cursor: default;
+}
+
+/* @end */
+/* @group Right to Left */
+.chosen-rtl {
+  text-align: right;
+}
+
+.chosen-rtl .chosen-single {
+  overflow: visible;
+  padding: 0 8px 0 0;
+}
+
+.chosen-rtl .chosen-single span {
+  margin-right: 0;
+  margin-left: 26px;
+  direction: rtl;
+}
+
+.chosen-rtl .chosen-single-with-deselect span {
+  margin-left: 38px;
+}
+
+.chosen-rtl .chosen-single div {
+  right: auto;
+  left: 3px;
+}
+
+.chosen-rtl .chosen-single abbr {
+  right: auto;
+  left: 26px;
+}
+
+.chosen-rtl .chosen-choices li {
+  float: right;
+}
+
+.chosen-rtl .chosen-choices li.search-field input[type="text"] {
+  direction: rtl;
+}
+
+.chosen-rtl .chosen-choices li.search-choice {
+  margin: 3px 5px 3px 0;
+  padding: 3px 5px 3px 19px;
+}
+
+.chosen-rtl .chosen-choices li.search-choice .search-choice-close {
+  right: auto;
+  left: 4px;
+}
+
+.chosen-rtl.chosen-container-single-nosearch .chosen-search,
+.chosen-rtl .chosen-drop {
+  left: 9999px;
+}
+
+.chosen-rtl.chosen-container-single .chosen-results {
+  margin: 0 0 4px 4px;
+  padding: 0 4px 0 0;
+}
+
+.chosen-rtl .chosen-results li.group-option {
+  padding-right: 15px;
+  padding-left: 0;
+}
+
+.chosen-rtl.chosen-container-active.chosen-with-drop .chosen-single div {
+  border-right: none;
+}
+
+.chosen-rtl .chosen-search input[type="text"] {
+  padding: 4px 5px 4px 20px;
+  /*background: white url('/images/chosen-sprite.png') no-repeat -30px -20px;
+  background: url('/images/chosen-sprite.png') no-repeat -30px -20px;*/
+  direction: rtl;
+}
+
+.chosen-rtl.chosen-container-single .chosen-single div b {
+  background-position: 6px 2px;
+}
+
+.chosen-rtl.chosen-container-single.chosen-with-drop .chosen-single div b {
+  background-position: -12px 2px;
+}
+
+/* @end */
+/* @group Retina compatibility */
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi) {
+  .chosen-rtl .chosen-search input[type="text"],
+  .chosen-container-single .chosen-single abbr,
+  .chosen-container-single .chosen-single div b,
+  .chosen-container-single .chosen-search input[type="text"],
+  .chosen-container-multi .chosen-choices .search-choice .search-choice-close,
+  .chosen-container .chosen-results-scroll-down span,
+  .chosen-container .chosen-results-scroll-up span {
+    background-image: url('/images/chosen-sprite@2x.png') !important;
+    background-size: 52px 37px !important;
+    background-repeat: no-repeat !important;
+  }
+}
+/* @end */

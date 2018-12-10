@@ -1,0 +1,136 @@
+
+%form-elements{
+    border:none;
+    outline:none;
+}
+%focus-inner{
+    border: 0;
+    padding: 0;
+    outline: none;
+}
+
+%placeholder{
+    color: #a8afb3;
+    font-size: 13px;
+}
+
+@mixin input{
+    input{
+        @extend %form-elements;
+
+        @at-root input::-moz-focus-inner,input::-webkit-focus-inner{
+            @extend %focus-inner;
+        }
+
+        @at-root input::-webkit-input-placeholder,input:-ms-input-placeholder{
+            @extend %placeholder;
+        }
+        @at-root input::-moz-placeholder{
+            @extend %placeholder;
+            opacity:1;
+        }
+    }
+}
+
+@mixin select{
+    select{
+        @extend %form-elements;
+        &.form-control{
+            -moz-appearance: none; 
+            -webkit-appearance: none; 
+            background: #fff url(https://imgd.aeplcdn.com/0x0/cw/design15/m/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; 
+            padding-right: 30px; 
+        }
+    }
+}
+
+@mixin button{
+    button{
+        @extend %form-elements;
+
+        @at-root button::-moz-focus-inner,button::-webkit-focus-inner{
+            @extend %focus-inner;
+        }
+    }
+}
+
+@mixin input-size-class($sizeName){
+    .input-#{$sizeName}{
+    @if($sizeName == "xs"){
+        padding: 5px 10px;
+    }
+    @else if ($sizeName == "sm"){
+        padding: 8px 10px;
+    }
+    @else if ($sizeName == "md"){
+        padding: 10px 10px;
+    }
+    @else if ($sizeName == "lg"){
+        padding: 12px 10px;
+    }
+    @else if ($sizeName == "xlg"){
+        padding: 14px 10px;
+    }
+    @else{
+        @warn "Invalid size name.Options : xs,sm,md,lg,xlg.";
+    }
+  }
+}
+
+
+@mixin form-control {
+    .form-control { 
+        display: block; 
+        width: 100%; 
+        padding: 10px; 
+        line-height: 1.42857143; 
+        color: #555; 
+        position: relative; 
+        background-color: #fff; 
+        background-image: none; 
+        border: 1px solid #ccc; 
+        border-radius: 4px; 
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075); 
+        -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075); 
+        -ms-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -o-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);  
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075); 
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s; 
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s; 
+        -moz-transition: border-color ease-in-out .15s, -moz-box-shadow ease-in-out .15s; 
+        -ms-transition: border-color ease-in-out .15s, -ms-box-shadow ease-in-out .15s; 
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+      &:not(select):focus { 
+          border-color: #66afe9; 
+          outline: 0; 
+          -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); 
+          -o-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); 
+          -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); 
+          -ms-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); 
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); 
+          }
+    }
+
+}
+
+@mixin select-box{
+    .select-box { 
+        position: absolute; 
+        top: 41%; 
+        right: 15px; 
+        z-index: 1; 
+        line-height: .5; 
+        font-size: 18px; 
+        display: none; }
+}
+
+@mixin form-mobile-prefix{
+    .form-mobile-prefix {
+    position: absolute;
+    padding: 0 13px;
+    line-height: 39px;
+    color: #999;
+    z-index: 1;
+}
+}

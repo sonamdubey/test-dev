@@ -1,0 +1,183 @@
+﻿@import '../mixins/_vendor-utils.scss';
+@import '../mixins/_variables.scss';
+@import '../mixins/_flexbox.scss';
+@import '../mixins/_sprites.scss';
+.pros-and-cons-wrapper {
+    background: -moz-linear-gradient(top, #21222e 0%, #21222e 50%, #21222e 50%, #3c3c40 100%);
+    background: -webkit-linear-gradient(top, #21222e 0%, #21222e 50%, #21222e 50%, #3c3c40 100%);
+    background: linear-gradient(to bottom, #21222e 0%, #21222e 50%, #21222e 50%, #3c3c40 100%);
+
+    &.review-unavailable {
+        .model-review-container__title {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .verdict__description {
+            padding-bottom: 20px;
+        }
+    }
+}
+
+.pros-and-cons-container {
+    padding-top: 20px;
+    margin: 0;
+}
+
+.pros-and-cons__title {
+    font-size: 18px;
+    color: map-get($color-map, 'white');
+    margin-left: 15px;
+}
+
+.pros-cons-card-list {
+    @include flexbox;
+    overflow-x: auto;
+}
+
+.pros-cons__list-item {
+    @include flexbox;
+    margin-left: 15px;
+    min-width: 250px;
+    &:last-child {
+        min-width: 265px;
+        margin-right: 15px;
+    }
+}
+
+.pros-cons__list-wrapper {
+    @include flexbox;
+    @include flex-grow(1);
+}
+
+.pros-cons-card-container{
+    margin-top: 15px;
+    padding-bottom: 20px;
+}
+
+.pros-cons__card {
+    @include flexbox;
+    @include flex-direction(column);
+    width: 250px;
+    background-color: map-get($color-map, 'white');
+    border-radius: 4px;
+}
+
+.thumbs-up-icon {
+    @include thumbs-up-icon;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+
+.thumbs-down-icon {
+    @include get-vendor-prefixed(transform, rotate(180deg) scaleX(-1));
+    @include thumbs-down-icon;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+
+.card__title {
+    @include flexbox;
+    @include flex-grow(0);
+    font-size: 16px;
+    color: map-get($color-map, 'charcoal');
+    padding: 15px;
+}
+
+.card-list__container {
+    @include flexbox;
+    @include flex-direction(column);
+    color: map-get($color-map, 'dim-gray');
+    padding: 15px;
+    padding-top: 0;
+    ul {
+        @include flex(auto);
+        margin-left: 15px;
+        margin-bottom: 5px;
+    }
+    li {
+        list-style-type: disc;
+        margin-bottom: 10px;
+        font-size: 14px;
+        color: map-get($color-map, 'dim-gray');
+    }
+}
+
+.view-images__link {
+    color: map-get($color-map, 'summer-sky');
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+.compare-cars-section {
+    .pros-and-cons__title {
+        color: map-get($color-map, 'charcoal');
+        text-align: center;
+        font-size: 16px;
+        margin-bottom: 0;
+    }
+}
+
+.compare-car-cards {
+    &.pros-cons-card-container {
+        padding: 20px;
+    }
+    .pros-cons-card-list {
+        display: block;
+    }
+    .card-list__container {
+        padding-top: 15px;
+        border-right: 1px solid map-get($color-map, 'smoke-white');
+    }
+    .pros-cons__list-item {
+        margin-left: 0;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        &:first-child {
+            width: 100%;
+            border: 1px solid map-get($color-map, 'riptide');
+        }
+        &:last-child {
+            width: 100%;
+            border: 1px solid map-get($color-map, 'rose-bud');
+            margin-bottom: 0;
+        }
+    }
+    .pros-cons__card {
+        width: 100%;
+        border-radius: 4px;
+    }
+    .card__title {
+        border-bottom: 1px solid map-get($color-map, 'smoke-white');
+    }
+    .view-images__link {
+        .image-count {
+            font-size: 12px;
+        }
+    }
+}
+
+.model-review__wrapper {
+    .fix-hide-button {
+        position: fixed;
+        min-width: 100px;
+        padding: 6px 10px;
+        border: 1px solid map-get($color-map, 'trout');
+        background-color: rgba(map-get($color-map, 'tuna'), .9);
+        color: map-get($color-map, 'std-link');
+        box-sizing: content-box;
+        right: 0;
+        text-align: center;
+        font-size: 15px;
+        bottom: 100px;
+        overflow-y: scroll;
+    }
+}
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PolicyBoss" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PolicyBoss" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfMemberDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MemberDetails" nillable="true" type="tns:MemberDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMemberDetails" nillable="true" type="tns:ArrayOfMemberDetails" />
+  <xs:complexType name="MemberDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MemberDOB" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MemberGender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MemberNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MemberType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MemberTypeID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MemberDetails" nillable="true" type="tns:MemberDetails" />
+  <xs:complexType name="ArrayOfHealthQuote">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="HealthQuote" nillable="true" type="tns:HealthQuote" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfHealthQuote" nillable="true" type="tns:ArrayOfHealthQuote" />
+  <xs:complexType name="HealthQuote">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BroucherDownloadLink" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Discount" type="xs:double" />
+      <xs:element minOccurs="0" name="DiscountPercent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GrossPremium" type="xs:double" />
+      <xs:element minOccurs="0" name="InsurerId" type="xs:int" />
+      <xs:element minOccurs="0" name="InsurerLogoName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InsurerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsOnlinePayment" type="xs:boolean" />
+      <xs:element minOccurs="0" name="KeyFeatures" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NetPremium" type="xs:double" />
+      <xs:element minOccurs="0" name="OtherPlanID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlanID" type="xs:int" />
+      <xs:element minOccurs="0" name="PlanName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PolicyTermYear" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="QuoteId" type="xs:int" />
+      <xs:element minOccurs="0" name="ServiceTax" type="xs:double" />
+      <xs:element minOccurs="0" name="SumInsured" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HealthQuote" nillable="true" type="tns:HealthQuote" />
+</xs:schema>

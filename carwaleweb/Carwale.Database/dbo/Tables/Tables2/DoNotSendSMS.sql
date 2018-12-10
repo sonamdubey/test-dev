@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[DoNotSendSMS] (
+    [MobileNumber] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_DoNotSendSMS] PRIMARY KEY CLUSTERED ([MobileNumber] ASC) WITH (FILLFACTOR = 90)
+);
+

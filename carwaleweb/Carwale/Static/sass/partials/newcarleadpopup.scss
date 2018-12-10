@@ -1,0 +1,260 @@
+@import '../mixins/_variables.scss';
+@import '../mixins/_sprites.scss';
+@import '../mixins/_fonts.scss';
+@import '../partials/email-screen.scss';
+@import '../partials/thankyou-screen.scss';
+@import '../partials/user-details-screen.scss';
+
+@import '../mixins/_custom-icon.scss';
+
+
+@include thankyou-screen;
+@include thankyou-header;
+
+@import "../mixins/_index.scss";
+@import "../partials/suggested-cars-list.scss";
+
+
+.lead-popup {
+	background-color: map-get($color-map, 'white');
+	overflow: auto;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 10;
+	display: none;
+
+	&.lead-popup-wrapper {
+		z-index: 100;
+	}
+
+	.popup-close-btn {
+		cursor: pointer;
+		z-index: 20;
+		position: absolute;
+		right: 0;
+		box-sizing: content-box;
+		top: 0;
+		padding: 7px;
+	}
+
+	.popup-close-btn--black {
+		@include cross-icon($height: 32, $width: 32, $color: 'medium-grey');
+	}
+
+	.popup-close-btn--white {
+		@include cross-icon($height: 32, $width: 32, $color: 'gainsboro');
+	}
+
+	.popup-close-btn--black,
+	.popup-close-btn--white {
+		&::before,
+		&::after {
+			top: 12.4px;
+			left: 21px;
+		}
+	}
+}
+
+.lead-popup--visible {
+	display: block;
+}
+
+.content-wrapper {
+	padding: 20px;
+	background-color: map-get($color-map, 'white');
+
+	.dealer-skip-button {
+        display: none;
+    }
+
+	.lead-form-btn {
+		font-size: 16px;
+		font-weight: $font-normal;
+	}
+}
+
+.lead-form-btn {
+	&[disabled] {
+		background-color: rgba(map-get($color-map, 'red'),.3);
+	}
+}
+.list-heading {
+    display: inline-block;
+    width: 60%;
+}
+.list-heading__title {
+    color: map-get($color-map, "charcoal");
+    font-size: 15px;
+    font-weight: $font-bold;
+}
+.list-heading__subtitle {
+    font-size: 12px;
+}
+
+.select-all-label {
+    float: right;
+    margin-right: 20px;
+
+    .select-all__text {
+        font-size: 13px;
+        padding-right: 30px;
+        padding-top: 10px;
+        display: inline-block;
+    }
+    .check-box__icon {
+        top: 25%;
+    }
+}
+.user-agreement {
+	padding-top: 20px;
+	color: map-get($color-map, 'medium-grey');
+    font-size: 11px;
+    text-align: center;
+
+	a {
+	color: map-get($color-map, 'pacific-blue');
+	text-decoration: none;
+	}
+}
+
+.dealer-skip-button {
+	font-weight: $font-bold;
+	padding-top: 16px;
+	text-align: center;
+	font-size: 15px;
+	color: map-get($color-map, 'summer-sky');
+}
+
+.suggested-cars-section {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	box-shadow: 0 -1px 4px 0 map-get($color-map, 'medium-grey');
+
+	.user-agreement {
+		display: none;
+	}
+
+	.dealer-skip-button {
+		display: none;
+	}
+}
+
+.other-dealers-section {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	box-shadow: 0 -1px 4px 0 map-get($color-map, 'medium-grey');
+
+	.dealer-skip-button {
+		display: block;
+		cursor: pointer;
+	}
+
+	.user-agreement {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+    .select-all-label {
+	  .select-all__text{
+		font-size: 12px;
+	  }
+	}
+}
+
+@media only screen and (min-width: 780px) {
+
+	.lead-popup, 
+	.additional-list {
+		&::-webkit-scrollbar {
+			display: none;
+		}	
+	}
+
+    .lead-popup-wrapper {
+		width: 440px;
+		right: 0;
+		left: inherit;
+		@include get-vendor-prefixed("transition","transform .5s");
+		@include get-vendor-prefixed("transform","translateX(110%)");
+		display: block;
+	}
+
+	#emiPopup {
+
+		font-family: 'Open Sans', sans-serif, Arial;
+
+		input {
+			font-family: 'Open Sans', sans-serif, Arial;
+		}
+	}
+
+	.lead-popup--visible {
+		@include get-vendor-prefixed("transform","translateX(0)");
+	}
+
+	.suggested-cars-section {
+		position: relative;
+		box-shadow: none;
+	}
+
+	.details-wrapper {
+		padding: 40px 30px 0 30px;
+	}
+
+	.additional-suggested-list {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
+	.content-wrapper {
+		padding: 20px 30px;
+		background-color: map-get($color-map, 'white');
+	}
+
+	#postsubmitmsg {
+		padding: 35px 30px 26px 30px;
+	}
+
+	.lead-popup {
+		.popup-close-btn {
+			left: 0;
+		}
+	}
+
+	input[type=button]{
+		&.lead-form-btn {
+			padding: 8px 25px;
+		}
+	}
+	.dealer-skip-button {
+		color: map-get($color-map, 'orange-btn-hover');
+		border: 1px solid map-get($color-map, 'orange-btn-hover');
+		padding: 9px;
+		margin-top: 20px;
+		border-radius: 3px;
+	}
+
+	.other-dealers-section {
+		position: relative;
+		box-shadow: none;
+	}
+
+	.thankyou-screen {
+		background-size: 175%;
+		background-position: center;
+	}
+
+	.other-dealers{
+		background-position: 96%;
+	}
+}

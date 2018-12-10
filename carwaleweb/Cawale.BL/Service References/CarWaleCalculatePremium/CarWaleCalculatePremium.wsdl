@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://CarWaleCalculatePremium.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://CarWaleCalculatePremium.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://CarWaleCalculatePremium.org/">
+      <s:element name="CalculatePremium">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="mobjCarWaleDetails" type="tns:clsCarWaleDetails" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="clsCarWaleDetails">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MarshalByRefObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CarWaleUniqueId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="MakeCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ModelCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="VarientCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="RTACityCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TransactionType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="PolicyExpiryDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="0" name="LastNoClaimBonus" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" default="false" name="AnyClaimLastYear" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="InsuredName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EmailId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="MobileNumber" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="MarshalByRefObject" abstract="true" />
+      <s:complexType name="clsCarWaleDekhoOutDetails">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MarshalByRefObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="UniqueId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" default="0" name="NetPremium" type="s:long" />
+              <s:element minOccurs="0" maxOccurs="1" default="0" name="ServiceTax" type="s:long" />
+              <s:element minOccurs="0" maxOccurs="1" default="0" name="TotalPremium" type="s:long" />
+              <s:element minOccurs="0" maxOccurs="1" name="ErrorText" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="clsPremiumDetails">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:MarshalByRefObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" default="0" name="ImposedExcess" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" default="0" name="NetPremium" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" default="0" name="ServiceTax" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" default="0" name="TotalPremium" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CalculatePremiumResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CalculatePremiumResult" type="tns:clsCarWaleDekhoOutDetails" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CalculatePremiumSoapIn">
+    <wsdl:part name="parameters" element="tns:CalculatePremium" />
+  </wsdl:message>
+  <wsdl:message name="CalculatePremiumSoapOut">
+    <wsdl:part name="parameters" element="tns:CalculatePremiumResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CarWaleCalculatePremiumSoap">
+    <wsdl:operation name="GetCalculatedPremium">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get Calculated Premium Value</wsdl:documentation>
+      <wsdl:input name="CalculatePremium" message="tns:CalculatePremiumSoapIn" />
+      <wsdl:output name="CalculatePremium" message="tns:CalculatePremiumSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CarWaleCalculatePremiumSoap" type="tns:CarWaleCalculatePremiumSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCalculatedPremium">
+      <soap:operation soapAction="http://CarWaleCalculatePremium.org/CalculatePremium" style="document" />
+      <wsdl:input name="CalculatePremium">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CalculatePremium">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CarWaleCalculatePremiumSoap12" type="tns:CarWaleCalculatePremiumSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCalculatedPremium">
+      <soap12:operation soapAction="http://CarWaleCalculatePremium.org/CalculatePremium" style="document" />
+      <wsdl:input name="CalculatePremium">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CalculatePremium">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CarWaleCalculatePremium">
+    <wsdl:port name="CarWaleCalculatePremiumSoap" binding="tns:CarWaleCalculatePremiumSoap">
+      <soap:address location="http://websalespr.cholainsurance.com/portalservice/CarWaleCalculatePremium.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CarWaleCalculatePremiumSoap12" binding="tns:CarWaleCalculatePremiumSoap12">
+      <soap12:address location="http://websalespr.cholainsurance.com/portalservice/CarWaleCalculatePremium.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

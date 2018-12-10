@@ -1,0 +1,23 @@
+﻿@model Carwale.Entity.ViewModels.CarData.ModelDataSummary
+
+<h2 class="margin-top15 special-skin-text">@Model.ModelName Specifications Summary</h2>
+<div class="content-box-shadow content-inner-block-10 margin-top10">
+    @{ string h2 = "";
+       foreach (var Specs in Model.SpecsSummary)
+        {
+            if (Specs != null)
+            {
+                if (h2 != Specs.Item)
+                {
+                <p class="margin-top10 font16 text-bold">@Html.Raw(Specs.Item)</p> h2 = Specs.Item;
+                }
+            <div class="margin-top10 margin-bottom-10">
+                <span>@Html.Raw(Specs.ItemValue)</span>
+            </div>
+            }
+        }
+    }
+    <div class="clear"></div>
+</div>
+
+

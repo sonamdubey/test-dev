@@ -1,0 +1,27 @@
+@model Carwale.DTOs.CarData.PhotoGalleryDTO_V2
+@using Carwale.Entity.Enum;
+
+<script type="text/javascript" src="/static/js/gallery-ads.js" defer></script>
+<script type="text/javascript" src="/static/m/js/mGallery.js" defer></script>
+<script type="text/javascript" src="/static/js/comscore.js" defer></script>
+
+<script>
+    function setMetaData() {
+        MGallery.modelId = @Model.ModelDetails.ModelId;
+        MGallery.modelName = "@Model.ModelDetails.ModelName";
+        MGallery.makeName = "@Model.ModelDetails.MakeName";
+        @if (Model.GalleryState.ActiveSection != GallerySections.ColorSection)
+        { 
+        <text>MGallery.currentImage = @Model.ModelImages[Model.GalleryState.ActiveSlideIndex].ImageId;</text>
+        }        
+    }
+    
+    function docReady(fn){
+        if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+            fn();
+        } else {
+            document.addEventListener('DOMContentLoaded', fn);
+        }
+    }
+    docReady(setMetaData);
+</script>

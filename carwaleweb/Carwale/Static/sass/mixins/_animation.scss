@@ -1,0 +1,19 @@
+@mixin animateSkyline() {
+	@-webkit-keyframes animateSkyline {
+		from {
+			@include vendor-prefix("transform", translate(-1024px, 0));
+		}
+		to {
+			@include vendor-prefix("transform", translate(0, 0));
+		}
+	}
+
+	@keyframes animateSkyline {
+		from {
+			@include vendor-prefix("transform", translate(-1024px, 0));
+		}
+		to {
+			@include vendor-prefix("transform", translate(0, 0));
+		}
+	}
+}

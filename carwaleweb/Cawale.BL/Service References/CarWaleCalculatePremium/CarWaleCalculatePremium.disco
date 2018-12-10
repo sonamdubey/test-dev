@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://websalespr.cholainsurance.com/portalservice/CarWaleCalculatePremium.asmx?wsdl" docRef="http://websalespr.cholainsurance.com/portalservice/CarWaleCalculatePremium.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://websalespr.cholainsurance.com/portalservice/CarWaleCalculatePremium.asmx" xmlns:q1="http://CarWaleCalculatePremium.org/" binding="q1:CarWaleCalculatePremiumSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://websalespr.cholainsurance.com/portalservice/CarWaleCalculatePremium.asmx" xmlns:q2="http://CarWaleCalculatePremium.org/" binding="q2:CarWaleCalculatePremiumSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

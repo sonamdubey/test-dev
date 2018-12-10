@@ -1,0 +1,37 @@
+@import '_variables.scss';
+
+@mixin aspect-ratio-wrapper ($aspect-ratio: '', $bg-color: "smoke-white") {
+    .image__wrapper {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+		@if ($bg-color == 'none') {
+			background-color: transparent;
+		}
+		@else {
+			background-color: map-get($color-map, $bg-color);
+		}
+
+        @if ($aspect-ratio == '16:9') {
+            padding-top: 56.25%;
+        }
+
+        @else if ($aspect-ratio == '4:3') {
+            padding-top: 75%;
+        }
+
+        @else {
+            padding-top: 100%;
+        }
+    }
+}
+
+@mixin aspect-ratio-container {
+    .image-wrapper__container {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}

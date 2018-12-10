@@ -1,0 +1,76 @@
+@import "../mixins/_sprites.scss";
+@import "../mixins/_padding.scss";
+@import "../mixins/_margin.scss";
+@import "../mixins/_utils.scss";
+@import "../mixins/_text.scss";
+@import "../mixins/_grid.scss";
+@import "../mixins/_border.scss";
+
+@include cw-logo;
+@include ct-logo;
+@include bw-logo;
+@include text-align("center");
+@include text-align("left");
+@include text-align("right");
+@include text-color("white");
+@include padding("top",30);
+@include padding("top",10);
+@include padding("bottom",15);
+@include margin("bottom",5);
+@include margin("top",5);
+@include margin("bottom",25);
+@include margin("right",15);
+@include container;
+@include clear;
+@include grid-size(12);
+@include grid-size(8);
+@include grid-size(4);
+@include alpha;
+@include omega;
+@include border-solid("bottom");
+@include border-solid("top");
+
+
+.footer-logo-section
+ {
+     div
+      {
+          display:inline-block;
+          vertical-align:top;
+          margin-bottom:15px;
+      }
+    .cw-logo{
+        background-size: 172%;
+        background-position:-18px 5px;
+        width:98px;
+    }
+    .ask-expert-text{
+        margin-top:-2px;
+    }
+ }
+
+ footer.bg-footer
+ {
+     background: #323434;
+     ul li { 
+         display: inline-block; 
+         a { 
+             display: inline-block; 
+             color: #999; 
+             padding: 10px; 
+
+             &:hover { 
+                 text-decoration: underline; 
+            }
+        }
+    }
+     .app-link-container 
+         {
+            a{
+              display:inline-block;
+              vertical-align:top;
+              height: auto;
+              padding:0 6px 0 0;
+            }
+         }
+ }

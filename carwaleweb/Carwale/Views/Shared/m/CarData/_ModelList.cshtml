@@ -1,0 +1,90 @@
+﻿@model Carwale.DTOs.NewCars.MakePageDTO_Mobile
+@using Carwale.Entity;
+@using Carwale.Entity.Enum;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Utility;
+@using System.Globalization;
+@using System.Configuration;
+@using Carwale.UI.Common;
+@using Carwale.BL.Experiments;
+
+@if (Model.NewCarModels.IsNotNullOrEmpty())
+{
+    <ul id="topCarList" class="make-car__list">
+        @foreach (var result in Model.NewCarModels)
+        {          
+            var cardModelUrl = ManageCarUrl.CreateModelUrl(Model.MakeDetails.MakeName,result.MaskingName);
+            <li class="hatchback-content-box listicle" data-modelname="@result.ModelName">
+                @if(!result.New)
+                {
+                    <div class="upcoming-label">
+                        <span class="modelType">Upcoming</span>
+                    </div>
+                }
+                @if (result.ShowDate)
+                {
+                    <div class="just-launched-section listicle">
+                        <div class="launch-title">
+                            @if (result.New)
+                                    {
+                                @Html.Raw("LAUNCHED ON");
+                                    }
+                                    else
+                                    {
+                                @Html.Raw("EXPECTED TO LAUNCH ON");
+                                    }
+                        </div>
+                        <div class="launch-date-unit">
+                            <span class="launch-date">@result.LaunchDate.Day<span class="lauch-date-unit">@Format.GetNumberSuffix(result.LaunchDate.Day)</span></span><br>
+                            <span class="launch-month">@result.LaunchDate.ToString("MMM", CultureInfo.InvariantCulture).ToUpper()</span>
+                        </div>
+                    </div>
+                }
+                <div class="hatchback-container">
+                    <div class="pos-relative hatchback-left-unit">
+                        <div class="car-count-image text-center">
+                            <a title="@Model.MakeDetails.MakeName @result.ModelName" href="@cardModelUrl"
+                               data-redirect-url='@cardModelUrl' data-ga-label='@result.ModelName' data-ga-action='ModelCardClick_@(Model.CityDetails != null && Model.CityDetails.CityId > 0 ? Model.CityDetails.CityName : "nocity")'>
+                                <img class="hatchback-image lazy" src="@(CWConfiguration._imgHostUrl)0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(result.HostUrl, ImageSizes._227X128,result.OriginalImage)" width="227" height="128" alt="@Model.MakeDetails.MakeName @result.ModelName" title="@Model.MakeDetails.MakeName @result.ModelName"
+                                     data-role="click-tracking" data-event="CWInteractive" data-cat="MakePage" data-action="Image-click" data-label="@result.ModelName">
+                            </a>
+                        </div>
+                        <div class="car-basic-details listicle">
+                            <a title="@Model.MakeDetails.MakeName @result.ModelName" href="@cardModelUrl" data-role="click-tracking" data-event="CWInteractive" data-cat="MakePage" data-action="Title-click" data-label="@result.ModelName"
+                               data-redirect-url='@cardModelUrl' data-ga-label='@result.ModelName' data-ga-action='ModelCardClick_ @(Model.CityDetails != null && Model.CityDetails.CityId > 0 ? Model.CityDetails.CityName : "nocity")'>
+                                <h2 class="text-black text-bold"><span class="hatchback-make hatchback-model-oxygen">@Model.MakeDetails.MakeName @result.ModelName</span></h2>
+                            </a>
+                            <div class="price-container">
+                                <div class="price-unit"><small>@result.CarPriceOverview.PricePrefix</small><span>  @result.CarPriceOverview.Price </span><small class="price-container-suffix">@result.CarPriceOverview.PriceSuffix</small></div>
+                                <div class="price-label @result.CarPriceOverview.LabelColor">@(!string.IsNullOrEmpty(result.CarPriceOverview.PriceLabel) ? result.CarPriceOverview.PriceLabel?.Replace(" (incl. GST, Estimated)", string.Empty)?.Replace(" (incl. GST)",string.Empty) + (result.CarPriceOverview.City.Id > 0 ? "," : string.Empty) : string.Empty) <span>@result.CarPriceOverview.City.Name</span> @(result.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<span class='average-info-tooltip class-ad-tooltip tooltip-icon inline-block'>i</span><span class='average-info-content hide'>" + @result.CarPriceOverview.ReasonText + "</span>") : Html.Raw(""))</div>
+                            </div>
+                            @if ((Model.CityDetails == null || string.IsNullOrWhiteSpace(Model.CityDetails.CityName)) && result.New)
+                            {
+                                <div class="select-city-link" modelid="@result.ModelId" data-redirect-url='@cardModelUrl' data-ga-label="@result.ModelName" data-ga-action="MakePage_ShowPriceInMyCityClick">@System.Configuration.ConfigurationManager.AppSettings["ShowPriceInCityText"]</div>
+                            }
+                                
+                            @if (result.New && result.VersionCount > 0)
+                            {                                    
+                                <div class="model-list__view-all-version-link versionlink__js" data-role="inview-imp" data-cat="MakePage" data-action="VariantsLink_Display" data-label="@result.ModelName" data-modelid="@result.ModelId" data-cityid="@CustomerCookie.MasterCityId" data-makename="@Model.MakeDetails.MakeName">
+                                    <p>
+                                        <span class="plussymbol__js">+</span>
+                                        <span>@result.VersionCount @(result.VersionCount > 1 ? "variants" : "variant")</span>
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>                
+                <div class="clear"></div>
+            </li>
+        }
+    </ul>
+
+    <div id="oxygenloader" class="hide">
+        <div class="oxygenLoaderContainer__js">
+            <div class="oxygen-loader">
+                <img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/oxygen-loader.gif" alt="Loading" />
+            </div>
+        </div>
+    </div>    
+}

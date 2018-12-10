@@ -1,0 +1,68 @@
+﻿<!--[if lt IE 9]>
+<div class="ie-browser-overlay hide" id="ie-browser-overlay"></div>
+<div class="ie-cw-pop-browser hide" id="ie-browser-popup">
+    <div class="ie-browser-popup">
+        <div class="ie-browser-popup-content">
+            <div class="cw-new-pop-head content-inner-block-10 border-solid-bottom bg-light-grey">
+                <div class="leftfloat">
+                    <h2>Did you know that your browser  is out of date? </h2>
+                </div>
+                <div class="rightfloat">
+                    <a href="javascript:void(0)" id="gb-close" class="cwsprite cross-md-dark-grey" onclick="hideDownloadBrowser()"></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="content-inner-block-10">
+                <div>For an optimized CarWale.com experience, upgrade your browser or install the latest version of any other new generation browser.</div>
+                <div class="margin-top10 text-bold">Simply click the download icon</div>
+                <div class="grid-12 alpha omega">
+                    <div class="grid-3 text-center">
+                        <a href="http://www.google.com/chrome/" target="_blank" class="text-default">
+                            <span class="ie-cw-pop-browser-sprite ie-cw-pop-icon-chrome"></span>
+                            <span>Chrome 2.0+</span>
+                        </a>
+                    </div>
+                    <div class="grid-3 text-center">
+                        <a href="https://www.mozilla.org/en-US/firefox/new/" target="_blank" class="text-default">
+                            <span class="ie-cw-pop-browser-sprite ie-cw-pop-icon-firefox"></span>
+                            <span>Firefox 3.6+</span>
+                        </a>
+                    </div>
+                    <div class="grid-3 text-center">
+                        <a href="https://support.apple.com/en_IN/downloads/safari" target="_blank" class="text-default">
+                            <span class="ie-cw-pop-browser-sprite ie-cw-pop-icon-safari"></span>
+                            <span>Safari 9.5+</span>
+                        </a>
+                    </div>
+                    <div class="grid-3 text-center">
+                        <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" target="_blank" class="text-default">
+                            <span class="ie-cw-pop-browser-sprite ie-cw-pop-icon-ie"></span>
+                            <span>Internet Explorer 9+</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="text-center margin-top30 margin-bottom10">
+                    <a href="javascript:void(0)" class="btn btn-orange" onclick="hideDownloadBrowser()">No Thanks!</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var ieOverlay = document.getElementById("ie-browser-overlay");
+    var iePopup = document.getElementById("ie-browser-popup");
+    function showDownloadBrowser() {
+        ieOverlay.style.display = "block";
+        iePopup.style.display = "block";
+        document.cookie = "checkBelowIe9=yes";
+    }
+    function hideDownloadBrowser() {
+        ieOverlay.style.display = "none";
+        iePopup.style.display = "none";
+    }
+    var cookieValue = document.cookie.replace(/(?:(?:^|.*;\s*)checkBelowIe9\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    if(cookieValue == "") {showDownloadBrowser();}
+</script>
+<![endif]-->

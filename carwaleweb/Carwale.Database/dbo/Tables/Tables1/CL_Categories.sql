@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[CL_Categories] (
+    [Id]   SMALLINT      NOT NULL,
+    [Name] VARCHAR (100) NOT NULL,
+    CONSTRAINT [PK_CL_Categories] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

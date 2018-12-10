@@ -1,0 +1,11 @@
+﻿
+@mixin padding($direction:"top",$length:5){
+    @if unitless($length){
+    .padding-#{$direction}#{$length}{
+        padding-#{$direction} : $length+px;
+    }
+    }
+    @else{
+        @warn "Please provide unitless length";
+    }
+}

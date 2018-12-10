@@ -1,0 +1,13 @@
+@import "_variables";
+
+@mixin bg-color($color){
+    @if map-has-key($color-map, $color) {
+    .bg-#{$color}{
+        background : #{map-get($color-map, $color+"-bg")};
+    }
+  }
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$color-map}`. "
+        + "Please make sure it is defined in `$color-map` map.";
+  }
+}

@@ -1,0 +1,185 @@
+﻿@model Carwale.DTOs.PriceQuote.OptionalPricesDto
+@using Carwale.Utility;
+@using Carwale.Entity.Enum;
+@{
+    var colorType = Model.PriceQuote.IsMetallic ? "js-metallic" : "js-solid";
+    var cardNo = 1; //since only one car is shown on desktop
+}
+<div class="popup-container customize-car-popup @colorType card@(cardNo)" id="customizeCar_@colorType">
+    <div class="popup-overlay"></div>
+    <div class="popup js-optional-popup card@(cardNo)">
+        <span class="popup-close-button"></span>
+        <div class="optional-packages-popup">
+            <div class="optional-packages-section optional-packages__container">
+                <!-- Optional Packages Section -->
+                <div class="optional-packages__title-container">
+                    <p class="optional-packages__title">Optional Packages</p>
+                    <p class="optional-packages__description">Additional Packages available from OEM’s or dealers</p>
+                </div>
+                <div class="optional-packages__content">
+                    @for (int l = 0; l < Model.PriceQuote.ChargeGroup.Count; l++)
+                    {
+                        var chargeGroup = Model.PriceQuote.ChargeGroup[l];
+                        if (chargeGroup.SelectionOption == (int)SelectionOption.SingleSelect)
+                        {
+                            <div class="visible-pacakage oem-package-item js-oem-package-item card@(cardNo)">
+                                <div class="other-oem-packages-title">
+                                    <div class="other-oem-packages__li-title">
+                                        <div class="oem-packages-li__title-label other-oem-packages__description">
+                                            @chargeGroup.Name
+                                            @if (!string.IsNullOrEmpty(chargeGroup.Explanation))
+                                            {
+                                                <div class="instruction-icon">
+                                                    <div class="instruction-tooltip">
+                                                        @chargeGroup.Explanation
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <span class="reset-package hide"
+                                              chargegroup-id="@chargeGroup.Id"
+                                              card-no="card@(cardNo)"
+                                              parent-id="total_@(chargeGroup.Id)_@(Model.PriceQuote.IsMetallic ? "m" : "s")_@(cardNo)"
+                                              onclick="priceQuote.charge.reset(this);">
+                                            Reset
+                                        </span>
+
+                                        <span class="other-oem-packages__amount chargegroup_total hide" id="total_@(chargeGroup.Id)_@(Model.PriceQuote.IsMetallic ? "m" : "s")_@(cardNo)">
+                                            &#x20b9;
+                                            <span class="charge_total">
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <ul class="other-oem-packages catg-insurance">
+                                    @for (int m = 0; m < chargeGroup.ChargePrice.Count; m++)
+                                    {
+                                        <li class="other-oem-packages__li">
+                                            <input id="@("rdb" + chargeGroup.ChargePrice[m].Charge.Id)_@(Model.PriceQuote.IsMetallic ? "m" : "s")_@(cardNo)" type="radio" class="oem-package__input"
+                                                   chargegroup-id="@chargeGroup.Id"
+                                                   chargegroup-name="@chargeGroup.Name"
+                                                   charge-id="@chargeGroup.ChargePrice[m].Charge.Id"
+                                                   charge-name="@chargeGroup.ChargePrice[m].Charge.Name"
+                                                   chargegroup-sortorder="@chargeGroup.SortOrder"
+                                                   charge-sortorder="@chargeGroup.ChargePrice[m].Charge.SortOrder"
+                                                   selection-option="@chargeGroup.SelectionOption"
+                                                   price="@chargeGroup.ChargePrice[m].Price"
+                                                   card-no="card@(cardNo)"
+                                                   parent-id="total_@(chargeGroup.Id)_@(Model.PriceQuote.IsMetallic ? "m" : "s")_@(cardNo)"
+                                                   name='@(chargeGroup.Name)_@(cardNo)' value="1"
+                                                   onclick="priceQuote.charge.postChargeSelection(this);">
+                                            <label class="other-oem-packages__description" for="@("rdb" + chargeGroup.ChargePrice[m].Charge.Id)_@(Model.PriceQuote.IsMetallic ? "m" : "s")_@(cardNo)" data-role="click" data-event="CWInteractive" data-cat="Desktop_PQ_Optional_Interaction" data-action="@chargeGroup.Name" data-label="selected">
+                                                <span class="custom-radio radio-box"></span>
+                                                <span class="other-oem-packages__description-text">@chargeGroup.ChargePrice[m].Charge.Name</span>
+                                                <span class="other-oem-packages__amount">&#x20b9;  @Format.FormatNumericCommaSep(chargeGroup.ChargePrice[m].Price.ToString())</span>
+                                            </label>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+                        if (chargeGroup.SelectionOption == (int)SelectionOption.MultiSelect)
+                        {
+                            <div class="other-oem-packages__list oem-package-item js-oem-package-item card@(cardNo)">
+                                <div class="other-oem-packages-title">
+                                    <div class="other-oem-packages__li-title other-oem-packages__li-titleAccessories">
+                                        <div class="other-oem-packages__description">
+                                            @chargeGroup.Name
+                                            @if (!string.IsNullOrEmpty(chargeGroup.Explanation))
+                                            {
+                                                <div class="instruction-icon">
+                                                    <div class="instruction-tooltip">
+                                                        @chargeGroup.Explanation
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <span class="reset-package hide"
+                                              chargegroup-id="@chargeGroup.Id"
+                                              card-no="card@(cardNo)"
+                                              parent-id="total_@(chargeGroup.Id)_@(Model.PriceQuote.IsMetallic ? "m" : "s")_@(cardNo)"
+                                              onclick="priceQuote.charge.reset(this);">Reset</span>
+
+                                        <span class="other-oem-packages__amount chargegroup_total card@(cardNo) hide" id="total_@(chargeGroup.Id)_@(Model.PriceQuote.IsMetallic ? "m" : "s")_@(cardNo)">&#x20b9; <span class="charge_total"></span></span>
+                                    </div>
+                                </div>
+                                <ul class="other-oem-packages">
+                                    @for (int m = 0; m < chargeGroup.ChargePrice.Count; m++)
+                                    {
+                                        <li class="other-oem-packages__li-accessories">
+                                            <input id="@("ms" + chargeGroup.ChargePrice[m].Charge.Id)_@(Model.PriceQuote.IsMetallic ? "m" : "s")_@(cardNo)" type="checkbox" value=@m class="oem-package__input"
+                                                   chargegroup-id="@chargeGroup.Id"
+                                                   chargegroup-name="@chargeGroup.Name"
+                                                   charge-id="@chargeGroup.ChargePrice[m].Charge.Id"
+                                                   charge-name="@chargeGroup.ChargePrice[m].Charge.Name"
+                                                   chargegroup-sortorder="@chargeGroup.SortOrder"
+                                                   charge-sortorder="@chargeGroup.ChargePrice[m].Charge.SortOrder"
+                                                   selection-option="@chargeGroup.SelectionOption"
+                                                   price="@chargeGroup.ChargePrice[m].Price"
+                                                   card-no="card@(cardNo)"
+                                                   parent-id="total_@(chargeGroup.Id)_@(Model.PriceQuote.IsMetallic ? "m" : "s")_@(cardNo)"
+                                                   onclick="priceQuote.charge.postChargeSelection(this);">
+                                            <label class="other-oem-packages__description" for="@("ms" + chargeGroup.ChargePrice[m].Charge.Id)_@(Model.PriceQuote.IsMetallic ? "m" : "s")_@(cardNo)" data-role="click" data-event="CWInteractive" data-cat="Desktop_PQ_Optional_Interaction" data-action="@chargeGroup.Name" data-label="selected">
+                                                <span class="oem-packages-li__descriptionText">@chargeGroup.ChargePrice[m].Charge.Name</span>
+                                                <span class="oem-packages-li__amount">&#x20b9; @Format.FormatNumericCommaSep(chargeGroup.ChargePrice[m].Price.ToString())</span>
+                                            </label>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="optional-packages-section price-breakup-container">
+                <div class="price-breakup-wrapper" id="priceBreakupWrapper1">
+                    <div class="price-breakup__modelInfo">
+                        <div class="price-breakup__details">
+                            <p class="price-breakup__name">@(Model.MakeName + " " + Model.ModelName)</p>
+                            <p class="price-breakup__description">Effective On-Road Price</p>
+                        </div>
+                        <div class="price-breakup__price">
+                            <span class="price-breakup__wrapper">
+                                <span class="price-breakup__amount">&#x20b9; </span>
+                                <span class="price-breakup__amount onroad-price" card-no="card1"></span>
+                            </span>
+                            @if (@Model.IsCampaignPresent)
+                                {
+                                    <p class="price-breakup__description" campaigncta modelid="@Model.DealerAd.FeaturedCarData.ModelId" propertyid="10"
+                                       userlocation='{"cityId":@String.Format("{0}", Model.UserLocation.CityId), "cityName":"@Model.UserLocation.CityName", "areaId":"@Model.UserLocation.AreaId", "areaName":"@Model.UserLocation.AreaName"}'
+                                       versionid="@Model.DealerAd.FeaturedCarData.VersionId" campaignid_dealerid=@String.Format("{0}_{1}",Model.DealerAd.Campaign.Id,Model.DealerAd.Campaign.DealerId)>
+                                        Get Offers from Dealer
+                                    </p>
+                                }
+                        </div>
+                    </div>
+                </div>
+                <div class="price-breakup-details optional-packages__content card@(cardNo)">
+                    <table class="price-breakup-table price-table"></table>
+                </div>
+
+                @if (@Model.IsCampaignPresent)
+                {
+                    <div class="dealer-cta-container dealer-cta-wrapper">
+                        <div class="dealer-info">
+                            <div class="dealer-icon">&nbsp;</div>
+                            <div class="dealer-name-container">
+                                <p class="dealer-name">@Model.DealerAd.Campaign.ContactName</p>
+                                <p class="dealer-subtitle">Authorised  Dealer</p>
+                            </div>
+                        </div>
+                        <div class="dealer-cta__btn-wrapper">
+                            <a class="dealer-cta__btn campaign-template btn btn-orange" campaigncta modelid="@Model.DealerAd.FeaturedCarData.ModelId" propertyid="11"
+                               userlocation='{"cityId":@String.Format("{0}", Model.UserLocation.CityId), "cityName":"@Model.UserLocation.CityName", "areaId":"@Model.UserLocation.AreaId", "areaName":"@Model.UserLocation.AreaName"}'
+                               versionid="@Model.DealerAd.FeaturedCarData.VersionId" campaignid_dealerid=@String.Format("{0}_{1}",Model.DealerAd.Campaign.Id,Model.DealerAd.Campaign.DealerId)>
+                            Get Offers from Dealer</a>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

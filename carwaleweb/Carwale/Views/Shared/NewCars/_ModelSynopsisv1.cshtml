@@ -1,0 +1,43 @@
+﻿@model  Carwale.UI.ViewModels.NewCars.CarSynopsisModelPage
+@using Carwale.Utility
+<section id="modelReview">
+    <h2 class="margin-top15 special-skin-text" data-role="inview-imp" data-event="CWNonInteractive" data-action="Impression" data-cat="CarWale_Opinion_expert_review_d" data-label="@Model.ModelName">
+        @Model.Heading
+    </h2>
+    <div class="content-box-shadow content-inner-block-10 margin-top10" data-cwticat="CarWaleOpinionExpertReview" data-cwtiact="Impression" data-cwtilbl="@("modelid=" + Model.ModelId + "|source="+(uint)Carwale.Entity.Enum.Platform.CarwaleDesktop)" cwt="">
+        <span id="spnSmallDescSynopsis" class="@((Model.IsFuturistic) ? "hide" : "show")">
+            @Html.Raw(Model.Description)
+            <span class="text-link" onclick="expertReviewActionHandler.showFullDescription()">@((!string.IsNullOrEmpty(Model.Description) && Model.PageList != null && Model.PageList.Count > 0) ? "...Read full review" : "")</span>
+        </span>
+        <div id="spnLargeDescSynopsis" class="@(Model.IsFuturistic ? "show" : "hide")">
+            <div id="expert-review">
+                @{
+                    int pageCounter = 0;
+                }
+                @if (Model.PageList != null)
+                {
+                    foreach (var page in Model.PageList)
+                    {
+                        pageCounter++;
+
+                        <div id="@Format.RemoveSpecialCharacters(page.PageName)-@Model.BasicId" class="content-inner-block-10">
+                            @Html.Raw(page.Priority == 1 ? "<span class='first-page-start' basic='" + Model.BasicId + "' idx='-1'></span>" : "")
+                            @Html.Raw(page.Priority == Model.PageList.Count ? "<span class='next-page-trigger' basic='" + Model.BasicId + "'></span>" : "")
+                            @if (@Model.IsExpertReview)
+                            {
+                                <h3 class="font16">@page.PageName</h3>
+                            }
+                            <div class="text-area-right font13">@Html.Raw(page.Content)</div>
+                        </div>
+                        @Html.Raw(page.Priority == Model.PageList.Count ? "<span class='last-page-end' basic='" + Model.BasicId + "' idx='-1'></span>" : "")
+                    }
+                }
+            </div>
+            <br />
+            <div align="right">
+                <span class="text-link" onclick="expertReviewActionHandler.showShortDescription()">@((!string.IsNullOrEmpty(Model.Description) && Model.PageList != null && Model.PageList.Count > 0) ? "Hide full review" : "")</span>
+            </div>
+        </div>
+    </div>
+
+</section>

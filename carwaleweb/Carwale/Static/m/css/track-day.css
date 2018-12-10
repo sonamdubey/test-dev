@@ -1,0 +1,413 @@
+﻿img {
+  max-width: 100%;
+}
+
+.trackday-banner-div {
+  background: #161209 url(https://imgd.aeplcdn.com/1280x720/cw/es/trackday/2016/cwm-trackday/landing-images/track-day-banner-mini-cooper-m.jpg) no-repeat center bottom;
+  background-size: cover;
+  height: 130px;
+}
+
+.swiper-wrapper {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.track-car-carousel .swiper-slide {
+  height: 338px;
+}
+
+.trackday-main-video iframe {
+  width: 100%;
+}
+
+.expert-name {
+  position: absolute;
+  bottom: 16px;
+  background: rgba(255,255,255,0.7);
+  width: 100%;
+  font-weight: bold;
+}
+
+.expert-carousel {
+  padding-bottom: 10px;
+}
+
+.expert-carousel .swiper-slide {
+  height: 270px;
+}
+
+.track-day-connected-carousel .connected-carousels .carousel-stage {
+  height: 160px;
+}
+
+.swiper-button-prev {
+  background-position: -36px -145px;
+}
+
+.swiper-button-next {
+  background-position: -71px -145px;
+}
+/* Connected Carousel Styles */
+.connected-carousels-photos .stage-photos {
+  width: 100%;
+  margin: 0 auto 10px;
+  position: relative;
+}
+
+.connected-carousels-photos .navigation-photos {
+  width: 100%;
+  max-width: 768px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.connected-carousels-photos .carousel-photos {
+  overflow: hidden;
+  position: relative;
+}
+
+.connected-carousels-photos .carousel-photos .swiper-slide {
+  width: 100%;
+  margin: 0;
+  font-size: 0;
+  position: relative;
+  height: auto;
+  text-align: center;
+}
+
+.connected-carousels-photos .carousel-navigation-photos {
+  height: auto;
+  width: 100%;
+  background: 0 0;
+  padding-left: 0;
+  margin-bottom: 0px;
+}
+
+.navigation-photos .carousel-navigation-photos .swiper-slide {
+  display: block;
+  position: relative;
+  width: 90px;
+  height: 50px;
+  overflow: hidden;
+  padding-left: 5px;
+}
+
+.navigation-photos .carousel-navigation-photos .swiper-slide img {
+  width: 90px;
+  height: 50px;
+  border: 1px solid #f5f5f5;
+}
+
+.navigation-photos .carousel-navigation-photos .swiper-slide.swiper-slide-active img {
+  border: 1px solid #2a2a2a;
+}
+
+.connected-carousels-photos .photos-next-stage,.connected-carousels-photos .photos-prev-stage {
+  display: block;
+  position: absolute;
+  top: 40%;
+  color: #fff;
+}
+
+.connected-carousels-photos .photos-prev-stage {
+  left: 0;
+}
+
+.connected-carousels-photos .photos-next-stage {
+  right: 0;
+}
+
+.connected-carousels-photos .next,.connected-carousels-photos .prev {
+  position: absolute;
+  top: 40%;
+  z-index: 1;
+  width: 26px;
+  height: 43px;
+  text-indent: -9999px;
+  border: 1px solid #e6e6e6;
+  background-color: #fff;
+  padding: 5px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  -o-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
+}
+
+.connected-carousels-photos .photos-prev-navigation,.connected-carousels-photos .photos-prev-stage {
+  background-position: -153px -207px;
+}
+
+.connected-carousels-photos .photos-next-navigation,.connected-carousels-photos .photos-next-stage {
+  background-position: -177px -238px;
+}
+
+.connected-carousels-photos .photos-prev-navigation:hover,.connected-carousels-photos .photos-prev-stage:hover {
+  background-position: -153px -238px;
+}
+
+.connected-carousels-photos .photos-next-navigation:hover,.connected-carousels-photos .photos-next-stage:hover {
+  background-position: -177px -238px;
+}
+
+.connected-carousels-photos .photos-next-navigation.inactive,.connected-carousels-photos .photos-next-stage.inactive,.connected-carousels-photos .photos-prev-navigation.inactive,.connected-carousels-photos .photos-prev-stage.inactive,.connected-carousels-photos .photos-prev-stage.inactive {
+  background-position: -153px -176px;
+  cursor: not-allowed;
+}
+
+.connected-carousels-photos .photos-next-navigation.inactive,.connected-carousels-photos .photos-next-stage.inactive {
+  background-position: -177px -176px;
+  cursor: not-allowed;
+}
+
+.connected-carousels-photos .photos-prev-navigation {
+  left: 0;
+  top: 3%;
+}
+
+.connected-carousels-photos .photos-next-navigation {
+  right: 0;
+  top: 3%;
+}
+
+.swiper-container-horizontal > .swiper-pagination {
+  margin-bottom: 0;
+}
+
+.swiper-button-next {
+  right: 5px;
+}
+
+.swiper-button-prev {
+  left: 5px;
+}
+
+.swiper-button-next,.swiper-button-prev {
+  border: 0;
+}
+
+.connected-carousels-photos {
+  position: relative;
+  z-index: 10;
+}
+
+.swiper-slide img {
+  max-width: 100%;
+  height: auto;
+}
+
+.connected-carousels-photos .carousel-photos .swiper-slide {
+  width: 100%;
+  margin: 0;
+  max-height: 400px;
+  font-size: 0;
+  position: relative;
+  height: auto;
+  text-align: center;
+}
+/* Gallery Style */
+#gallery-close-btn {
+  display: none;
+}
+
+#gallery-blackOut-window {
+  display: none;
+  background: #000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  opacity: .9;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  filter: alpha(opacity=90);
+  -moz-opacity: 0.9;
+  -khtml-opacity: 0.9;
+}
+
+.gallery-active #gallery-blackOut-window {
+  display: block;
+}
+
+.gallery-active .connected-carousels-photos {
+  position: fixed;
+  top: 15%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+}
+
+.gallery-active #gallery-close-btn {
+  display: block;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+/* gallery-active */
+.gallery-active .carousel-navigation-photos .swiper-slide img {
+  border-color: #2a2a2a;
+}
+
+.gallery-active .carousel-navigation-photos .swiper-slide:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 50px;
+  display: block;
+  background: #2a2a2a;
+  opacity: .4;
+}
+
+.gallery-active .carousel-navigation-photos .swiper-slide.swiper-slide-active img {
+  border-color: #f5f5f5;
+}
+
+.gallery-active .carousel-navigation-photos .swiper-slide.swiper-slide-active:after {
+  content: none;
+}
+
+.swiper-button-prev,.swiper-button-next {
+  background-color: rgba(255,255,255,0) !important;
+}
+
+.swiper-lazy-preloader {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/circle-loader.gif") no-repeat center center;
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  margin-left: -8px;
+  margin-top: -8px;
+}
+
+/* Details Page styles */
+.trackday-img > img {
+  display: block;
+  width: 100%;
+}
+
+.trackday-content > p {
+  line-height: 1.8;
+}
+
+.trackday-logo {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/es/trackday/2016/cwm-trackday/landing-images/trackday-logo.png") no-repeat;
+  background-size: 120px auto;
+  display: block;
+  height: 35px;
+  width: 120px;
+  text-align: center;
+  margin: 10px auto;
+}
+
+.intro-box h1.content-inner-block-10 {
+  padding-bottom: 0;
+}
+
+.author-name {
+  padding: 16px 0;
+  text-align: center;
+}
+
+.trackday-spec li {
+  display: inline-block;
+}
+
+.trackday-spec li span {
+  text-transform: uppercase;
+}
+
+.trackday-spec .divider {
+  border-left: 1px dashed #e2e2e2;
+  border-right: 1px dashed #a3a3a3;
+  height: 26px;
+  margin: 0 26px;
+}
+
+.article-heading:before, .article-heading:after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  bottom: 0;
+  left: 5%;
+  right: 5%;
+  margin: 0 auto;
+}
+
+.article-heading:before {
+  width: 24px;
+  border-top: 1px solid #d7a0a2;
+  z-index: 1;
+}
+
+.article-heading:after {
+  width: 64px;
+  border-top: 1px solid #ededed;
+}
+
+.related-articles-list {
+  margin-bottom: 25px;
+  margin-left: 17px;
+}
+
+.related-articles-list li {
+  list-style: disc;
+  margin-top: 10px;
+}
+
+.author-name > p {
+  cursor: text;
+}
+/*.intro-box .connected-carousels-photos .carousel-photos .swiper-slide{width:100% !important;}*/
+@media only screen and (max-width:360px) {
+  .connected-carousels-photos .carousel-photos .swiper-slide {
+    max-height: 160px;
+  }
+}
+
+@media only screen and (max-width:460px) {
+  .connected-carousels-photos .carousel-photos .swiper-slide {
+    max-height: 200px;
+  }
+}
+
+@media only screen and (max-width:560px) {
+  .connected-carousels-photos .carousel-photos .swiper-slide {
+    max-height: 220px;
+  }
+}
+
+@media only screen and (max-width:767px) {
+  .trackday-spec .divider {
+    display: none;
+  }
+
+  .trackday-spec li {
+    width: 49%;
+    margin-bottom: 18px;
+  }
+
+  .trackday-spec li p {
+    margin-top: 5px;
+  }
+}
+
+.swiper-slide {
+  height: auto;
+}
+
+.landing-page-banner {
+  position: relative;
+}
+
+.landing-page-banner .swiper-button-next, .landing-page-banner .swiper-button-prev {
+  z-index: 1;
+}

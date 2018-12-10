@@ -1,0 +1,30 @@
+﻿@model Carwale.DTOs.WidgetDTOs.ArticlesWidget
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+
+<section id="userreviews" class="margin-top20 tw-ad-trigger-ur">
+    <h2 class="margin-bottom10 special-skin-text">@Model.Heading</h2>
+    <div class="content-box-shadow content-inner-block-10">
+        @foreach (var userReview in Model.UserReviewList)
+        {
+            if (userReview != null)
+            {
+                <article class="list-seperator">
+                    <h3 class="font16"><a title="User Review of @userReview.ModelName @userReview.VersionName-@userReview.Title" href="/@(Format.RemoveSpecialCharacters(userReview.MakeName.ToString().ToLower()) + "-cars/" + userReview.MaskingName.ToString().ToLower()+ "/userreviews/" + userReview.ReviewId)/">@Html.Raw(userReview.Title ?? string.Empty)</a></h3>
+                    <div class="margin-top10">
+                        @Html.Raw(CommonOpn.GetRateImage(Convert.ToDouble(userReview.ReviewRate)))<span>for <b>@Html.Raw(userReview.MakeName + " " + userReview.ModelName)</b> on @Html.Raw(Convert.ToDateTime(userReview.ReviewDate).ToString("dd-MMM-yyyy")) by @Html.Raw(userReview.HandleName.Equals(string.Empty) ? userReview.CustomerName : "<a href=\"/community/members/" + userReview.HandleName + ".html\" style=\"margin:0px;padding:0px;color:#999999;text-decoration:underline;background-image: none !important;\">" + userReview.HandleName + "</a>")</span>
+                    </div>
+                    <p class="margin-top10">
+                        @Html.Raw(Format.LimitText(Format.RemoveBasicHtmlTags(userReview.Description), 185))
+                    </p>
+                </article>
+            }
+        }
+        @if (Model.LandingUrl != "")
+        {
+            <div class="content-inner-block-10 text-center">
+                <a href="@Model.LandingUrl" class="redirect-rt">All @Model.Heading</a>
+            </div>
+        }
+    </div>
+</section>

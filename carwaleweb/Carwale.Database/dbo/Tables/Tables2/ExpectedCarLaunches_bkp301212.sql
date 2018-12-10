@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[ExpectedCarLaunches_bkp301212] (
+    [Id]                INT            IDENTITY (1, 1) NOT NULL,
+    [CarMakeId]         NUMERIC (18)   NOT NULL,
+    [ModelName]         VARCHAR (250)  NULL,
+    [ExpectedLaunch]    VARCHAR (250)  NULL,
+    [EstimatedPrice]    VARCHAR (250)  NULL,
+    [Description]       VARCHAR (4000) NULL,
+    [SpecificationData] VARCHAR (3000) NULL,
+    [CarwaleViews]      VARCHAR (1000) NULL,
+    [IsLaunched]        BIT            NOT NULL,
+    [PhotoName]         VARCHAR (100)  NULL,
+    [DiscussionId]      NUMERIC (18)   NULL,
+    [Sort]              INT            NULL,
+    [CarModelId]        NUMERIC (18)   NULL,
+    [IsReplicated]      BIT            NULL,
+    [HostURL]           VARCHAR (100)  NULL,
+    [LaunchDate]        DATETIME       NULL,
+    [EstimatedPriceMin] NUMERIC (5, 2) NULL,
+    [EstimatedPriceMax] NUMERIC (5, 2) NULL,
+    [CWConfidence]      TINYINT        NULL,
+    [UpdatedDate]       DATETIME       NULL,
+    [IsDeleted]         BIT            NULL,
+    [EntryDate]         DATETIME       NULL
+);
+

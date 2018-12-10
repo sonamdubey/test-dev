@@ -1,0 +1,18 @@
+﻿@model List<Carwale.DTOs.CMS.UserReviews.UserReviewDTO>
+@using Carwale.UI.PresentationLogic
+@foreach (var review in Model)
+{
+    <a href='@EditorialContent.GetUserReviewUrl(review.MakeName, review.MaskingName, review.ReviewId, true)' style="text-decoration: none;">
+        <div class="text-black box content-box-shadow content-inner-block-10 rounded-corner2 margin-bottom20">
+            <div class="sub-heading">
+                <b>@review.Title</b> &nbsp;&nbsp;<span class="arr-small">&raquo;</span>
+            </div>
+            <div class="darkgray margin-top5">
+                @review.CustomerName
+            </div>
+            <div class="darkgray margin-top5">
+                @Html.Raw(Carwale.UI.Common.CommonOpn.GetRateImage(Convert.ToDouble(review.ReviewRate))) On @review.ModelName
+            </div>
+        </div>
+    </a>
+}

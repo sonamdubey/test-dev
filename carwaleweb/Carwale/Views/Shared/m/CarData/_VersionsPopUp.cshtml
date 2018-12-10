@@ -1,0 +1,61 @@
+﻿@model List<Carwale.DTOs.NewCars.NewCarVersionsDTOV2>
+@using Carwale.Entity;
+@using Carwale.UI.Common;
+@using System.Configuration;
+@using Carwale.Entity.Enum;
+    @{
+        var cityId = ViewBag.VersionPopupCityId;
+        var cityName = ViewBag.VersionPopupCityName;
+        var priceTextToBeShown = "";
+        var isPriceShown = false;
+    }
+    <div class="versionDiv popup_layer">
+        <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete"><div class="filterBackArrow padding-right30" onclick="closeModelVersionPopup();"><span class="cwmsprite back-long-arrow-left-white"></span></div><div class="filterTitle">Select Version</div><div class="clear"></div></div><div class="popup_content">
+            <div class="ui-content">
+                <ul id="version" data-role="listview">
+                    @foreach (var version in Model)
+                    {
+                        <li onclick="modelVersionSelected($(this),'@(ViewBag.IsVersionPage.ToString())')" data-role="click" data-event="CWInteractive" data-cat="ShowORPTest" data-action="@(ViewBag.TrackingPageName)_ChangeVersion_Select" data-label="@(cityName)_@(version.Version)" data-verId="@version.Id" data-verPrice="@version.CarPriceOverview.Price" data-labelColor="@version.CarPriceOverview.LabelColor" data-tooltipHtml="@(version.CarPriceOverview.PriceStatus>1?"<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + version.CarPriceOverview.ReasonText + "</p></div>":"")" data-verEmi="@version.VersionEmi" data-verForUrl="@(version.VersionMaskingName)" data-priceLabel="@(!string.IsNullOrWhiteSpace(version.CarPriceOverview.PriceLabel)?(version.CarPriceOverview.PriceLabel+(version.CarPriceOverview.PriceStatus>1?"":", "+cityName)):string.Empty)" data-price-status="@version.CarPriceOverview.PriceStatus" data-breakup="@(string.IsNullOrEmpty(version.VersionPriceQuote)?string.Empty: version.VersionPriceQuote)"
+                            data-downpaymentminvalue="@(version.EmiCalculatorModelData?.DownPaymentMinValue)"
+                            data-downpaymentmaxvalue="@(version.EmiCalculatorModelData?.DownPaymentMaxValue)"
+                            data-downpaymentdefaultvalue="@(version.EmiCalculatorModelData?.DownPaymentDefaultValue)">
+                            <span id="js-vwfs-version-change_@version.Id"
+                                  data-event="CWNonInteractive"
+                                  data-cat="Msite_VWFS"
+                                  data-action="@(version.EmiCalculatorModelData?.PageName)_VWFSSlug"
+                                  data-label="@(version.EmiCalculatorModelData?.MakeName + "_"+ version.EmiCalculatorModelData?.ModelName)">
+                            </span>
+                            
+                            <a class="ui-btn ui-btn-icon-right ui-icon-carat-r">
+                                <span id="versionName" class="pop-version-name">@version.Version</span><span class="block padding-top5 pop-version-info">
+                                    <span class="@(string.IsNullOrEmpty(version.CarFuelType) ?"":"pop-version-manual")">@version.CarFuelType</span><span class="@(string.IsNullOrEmpty(version.TransmissionType)?"":"pop-version-manual")">@(version.TransmissionType)</span><span class="pop-version-price">
+                                        @if (cityId > 0)
+                                        {
+                                            if (version.CarPriceOverview.PriceStatus != (int)PriceBucket.HaveUserCity)
+                                            {
+                                                priceTextToBeShown = "Price not available";
+                                                isPriceShown = false;
+                                            }
+                                            else
+                                            {
+                                                priceTextToBeShown = CommonOpn.FormatNumeric(version.CarPriceOverview.PriceForSorting.ToString());
+                                                isPriceShown = true;
+                                            }
+                                        }
+                                        @if (isPriceShown)
+                                        {
+                                            <span class="price-available"><span class="padding-right5 rupeecolor">₹</span><span class="pricecolor">@priceTextToBeShown</span></span>
+                                        }
+                                        else
+                                        {
+                                            <span class="price-not-available pop-grey">@priceTextToBeShown</span>
+                                        }
+                                    </span>
+                                </span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>

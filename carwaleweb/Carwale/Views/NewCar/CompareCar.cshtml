@@ -1,0 +1,108 @@
+﻿@model Carwale.Entity.ViewModels.CompareCarsModel
+
+@{
+    // Define all the necessary meta-tags info here.
+    // To know what are the available parameters.
+    ViewBag.BodyClass = "bg-white header-fixed-inner";
+    ViewBag.PageId = 41;
+    ViewBag.Title = "Compare Cars | New Car Comparisons in India";
+    ViewBag.Description = "Comparing Indian cars was never this easy. CarWale presents you the easiest way of comparing cars. Choose two or more cars to compare them head-to-head.";
+    ViewBag.CustomJS = "~/Views/StaticPartials/CompareCarScripts.cshtml";
+    ViewBag.CustomCSS = "~/Views/StaticPartials/CompareCarCss.cshtml";
+    ViewBag.Canonical = "https://www.carwale.com/comparecars/";
+    ViewBag.Alternate = "https://www.carwale.com/m/comparecars/";
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.AdId = "1396439798485";
+    ViewBag.AdPath = "/1017752/Compare_";
+    ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+        googletag.cmd.push(function () {
+            googletag.defineSlot('" + ViewBag.AdPath + @"300x250', [300, 250], 'div-gpt-ad-" + ViewBag.AdId + @"-0').addService(googletag.pubads());
+            googletag.defineSlot('" + ViewBag.AdPath + @"970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90]], 'div-gpt-ad-" + ViewBag.AdId + @"-2').addService(googletag.pubads());
+            googletag.defineSlot('" + ViewBag.AdPath + @"318x220', [318, 220], 'div-gpt-ad-" + ViewBag.AdId + @"-4').addService(googletag.pubads());
+            googletag.defineSlot('" + ViewBag.AdPath + @"220x90', [220, 90], 'div-gpt-ad-" + ViewBag.AdId + @"-3').addService(googletag.pubads());
+            googletag.pubads().setTargeting('UserModelHistory', '" + Carwale.UI.Common.CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+            googletag.pubads().collapseEmptyDivs();
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>";
+}
+<body class="bg-white header-fixed-inner">
+    <input type="hidden" id="hdnIsPageFromCache" />
+    <input type="hidden" id="hdnCount"/>
+    <section class="container">
+        <div class="grid-12">
+            <div class="padding-bottom15 text-center">
+                @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_728x90.cshtml");}
+            </div>
+        </div>
+    </section>
+    <div class="clear"></div>
+    <section class="bg-light-grey padding-top10 padding-bottom20 no-bg-color">
+        <div class="dropDowncontainer">
+            <div class="grid-12">
+                @{ Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist); }
+                <h1 class="font30 text-black special-skin-text">Compare Cars in India</h1>
+                <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="bg-white">
+                <div class="grid-8">
+                    <div class="content-box-shadow content-inner-block-10">
+                        <div class="mid-box padding-bottom15">
+                            <strong>Choose at least two cars</strong> of your choice to see how they compare on price, features, and performance.
+                        </div>
+                        @if (Model.Makes != null && Model.Makes.Count > 0)
+                        {
+                            for (int count = 1; count <= 4; count++)
+                            {
+                                <div class="margin-bottom20">
+                                    <div class="leftfloat margin-right10 margin-top10">Car-@count</div>
+                                    <div class="form-control-box leftfloat margin-right20 divWidth-170">
+                                        <span class="select-box fa fa-angle-down"></span>
+                                        @Html.DropDownList("drpMake" + count, new SelectList(Model.Makes, "MakeId", "MakeName"), "--Select Make--", new { @class = "form-control input-sm drpMake" })
+                                    </div>
+                                    <div class="form-control-box leftfloat margin-right20 divWidth-170">
+                                        <span class="select-box fa fa-angle-down"></span>
+                                        <select name="drpModel@(count)" id="drpModel@(count)" class="form-control input-sm drpModel" data-bind="foreach:Models" disabled="disabled">
+                                            <option data-bind="value:ModelId,text:ModelName,attr:{'mask':MaskingName}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-control-box leftfloat divWidth-170">
+                                        <span class="select-box fa fa-angle-down"></span>
+                                        <select name="drpVersion@(count)" id="drpVersion@(count)" class="form-control input-sm" data-bind="foreach:Versions" disabled="disabled">
+                                            <option data-bind="value:ID,text:Name"></option>
+                                        </select>
+                                    </div>
+                                    <input type="hidden" id="hdnDrpMake@(count)" />
+                                    <input type="hidden" id="hdnDrpModel@(count)" />
+                                    <input type="hidden" id="hdnDrpVersion@(count)" />
+                                    <div class="clear"></div>
+                                </div>
+                            }
+
+                        }
+                        <div class="margin-bottom20 divBtnContainer">
+                            <button id="btnCompare" onclick="CompareCarJs.validation.verifyVersions(@((int)Carwale.Entity.Enum.WidgetSource.CompareCarLandingSelectionWidgetDesktop))" class="btn btn-orange btn-sm text-uppercase margin-right10">Compare</button>
+                            <span id="spn" class="text-red"></span>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="border-solid-bottom"></div>
+                        <div class="margin-top20">
+                            <h3 class="margin-bottom10">Hot New Car Comparisons</h3>
+                        </div>
+                        @if (Model.HotComparisons != null && Model.HotComparisons.Count > 0)
+                        {
+                            Html.RenderPartial("~/Views/Shared/FRQ/_TopComparisonsContainer.cshtml", Model.HotComparisons);
+                        }
+                    </div>
+                </div>
+                <div class="grid-4">
+                    @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_ATF_300x250.cshtml");}
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <div class="clear"></div>
+</body>

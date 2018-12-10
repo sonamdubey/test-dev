@@ -1,0 +1,258 @@
+$img-cdn-path: "https://imgd.aeplcdn.com";
+
+@mixin svg-background-property() {
+  background-position: center;
+  background-size: cover;
+}
+
+@mixin budget-image {
+  .budget-image {
+    width: 236px;
+    height: 111px;
+    background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/budget.svg");
+    @include svg-background-property();
+    display: inline-block;
+  }
+}
+
+@mixin skyline-bg {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/skyline-bg.svg?v24Nov20171511502870525");
+  background-repeat: repeat-x;
+}
+
+@mixin uncheckbox-circle {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/uncheck.svg")
+    no-repeat center;
+}
+
+@mixin checkbox-circle {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/check.svg")
+    no-repeat center;
+}
+
+@mixin tick-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/tick.svg") no-repeat
+    center;
+}
+
+@mixin arrow-up-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/uparrow.svg")
+    no-repeat center;
+}
+
+@mixin arrow-down-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/arrow-down.svg")
+    no-repeat center;
+}
+
+@mixin cross-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/cross.svg")
+    no-repeat center;
+}
+
+@mixin cross-dark-gray {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/cross.svg")
+    no-repeat center;
+}
+
+@mixin cross-6f6f6f-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/cross-v2.svg")
+    no-repeat center;
+}
+
+@mixin information-filled-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/info-circle-filled.svg")
+    no-repeat;
+}
+
+// header icons
+@mixin hamburger-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/new-header/hamburger.svg?22Jan2018")
+    no-repeat;
+}
+
+@mixin cw-logo-color {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/new-header/logo.svg");
+  background-repeat: no-repeat;
+}
+
+@mixin location-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/new-header/location.svg")
+    no-repeat;
+}
+
+@mixin search-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/new-header/search.svg")
+    no-repeat;
+}
+
+// logo
+@mixin cw-logo-white {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/logos/carwale.svg");
+  background-repeat: no-repeat;
+}
+
+@mixin ct-logo-white {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/logos/cartrade.svg");
+  background-repeat: no-repeat;
+}
+
+@mixin bw-logo-white {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/logos/bikewale.svg");
+  background-repeat: no-repeat;
+}
+
+@mixin app-store-icon {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/app-store-img.png");
+  background-repeat: no-repeat;
+}
+
+@mixin play-store-icon {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/google-store-img.png");
+  background-repeat: no-repeat;
+}
+
+// navigation icons
+@mixin home-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/nav/home.png") no-repeat;
+}
+
+@mixin newCars-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/nav/new-cars.png")
+    no-repeat;
+}
+
+@mixin usedCars-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/nav/used-cars.png")
+    no-repeat;
+}
+
+@mixin sellCars-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/nav/sell-cars.png")
+    no-repeat;
+}
+
+@mixin reviews-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/nav/reviews.png")
+    no-repeat;
+}
+
+@mixin insurance-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/nav/insurance.png")
+    no-repeat;
+}
+
+@mixin nav-loan-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/nav/loan.png") no-repeat;
+}
+
+@mixin specials-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/nav/specials.png")
+    no-repeat;
+}
+
+@mixin new-tag-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/new-tag.png") no-repeat;
+}
+
+@mixin call-sm-black {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/1a1a1a/call-12x12.png")
+    no-repeat;
+}
+
+@mixin no-result-found {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/no-result.svg")
+    no-repeat center;
+}
+@mixin calendar-icon {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/calender.svg");
+  background-repeat: no-repeat;
+}
+
+@mixin cross-fff-16x16 {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/fff/large-cross.svg");
+  background-repeat: no-repeat;
+}
+
+@mixin locate-me-icon {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/35beff/location-detector.svg");
+  background-repeat: no-repeat;
+}
+
+@mixin shortlist-fff-icon {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/fff/shortlist.svg");
+  background-repeat: no-repeat;
+}
+
+@mixin remove-fff-icon {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/fff/remove.svg");
+  background-repeat: no-repeat;
+}
+
+@mixin shortlist-6f6f6f-icon {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/shortlist.svg");
+  background-repeat: no-repeat;
+}
+
+@mixin shortlist-aaa-icon {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/aaa/shortlist.svg");
+  background-repeat: no-repeat;
+}
+
+@mixin cross-default-15x16 {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/cross-v2.svg")
+    no-repeat;
+  display: inline-block;
+  background-size: 18px;
+}
+
+@mixin cross-white {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/fff/cross.svg");
+}
+
+@mixin thankyou-icon {
+  background-image: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/thank-you.svg?15May2018);
+}
+
+@mixin location-error-icon {
+  background: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/location-error-icon.svg")
+    no-repeat center;
+}
+
+@mixin info-circle-filled {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/info-circle-filled.svg');
+	background-repeat: no-repeat;
+}
+
+@mixin uparrow {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/uparrow.svg');
+	background-repeat: no-repeat;
+}
+
+@mixin info-icon {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/pq-new/info-icon.svg?v1');
+	background-repeat: no-repeat;
+}
+
+@mixin dealer {
+	background-image: url('#{$img-cdn-path}/0x0/cw/static/icons/svg/pq-new/dealer.svg');
+	background-repeat: no-repeat;
+}
+
+@mixin filter-icon {
+  background-image: url('#{$img-cdn-path}/0x0/cw/static/used/filter.svg');
+  background-repeat: no-repeat;
+}
+
+@mixin compare-6f6f6f-icon {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/compare-listing.svg");
+  background-repeat: no-repeat;
+}
+@mixin compare-00afa0-icon {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/00afa0/compare-listing-active.svg");
+  background-repeat: no-repeat;
+}
+@mixin shortlist-00afa0-icon {
+  background-image: url("#{$img-cdn-path}/0x0/cw/static/icons/svg/00afa0/shortlisted.svg");
+  background-repeat: no-repeat;
+}

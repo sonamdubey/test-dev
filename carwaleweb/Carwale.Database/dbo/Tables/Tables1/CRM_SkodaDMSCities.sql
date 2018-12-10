@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[CRM_SkodaDMSCities] (
+    [Id]           NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [CityId]       NUMERIC (18) NOT NULL,
+    [MappedCityId] NUMERIC (18) NOT NULL,
+    CONSTRAINT [PK_CRM_SkodaDMSCities] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

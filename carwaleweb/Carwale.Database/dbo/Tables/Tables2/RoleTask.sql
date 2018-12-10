@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[RoleTask] (
+    [RoleId] NUMERIC (18) NOT NULL,
+    [TaskId] NUMERIC (18) NOT NULL,
+    CONSTRAINT [PK_RoleTask] PRIMARY KEY CLUSTERED ([RoleId] ASC, [TaskId] ASC) WITH (FILLFACTOR = 90)
+);
+

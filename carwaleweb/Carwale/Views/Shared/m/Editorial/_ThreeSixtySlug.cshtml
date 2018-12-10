@@ -1,0 +1,51 @@
+﻿@using Carwale.DTOs.CMS.ThreeSixtyView;
+@model Tuple<ThreeSixtyDTO, bool>
+@using System.Configuration;
+@using Carwale.Utility;
+@{
+    string loadingImageRootPath = string.Format("{0}860x484/cw/360/{1}/{2}/", ConfigurationManager.AppSettings["CDNHostURL"], Format.FormatSpecial(Model.Item1.ModelDetails.MakeName), Model.Item1.ModelDetails.ModelId);
+    string activeState = Model.Item1.ActiveState;
+    Layout = null;
+}
+<noscript class="deferred-styles">
+    <link rel="stylesheet" href="/static/m/css/360ViewSlug.css" type="text/css" >
+</noscript>
+<section id="threeSixtySlug">
+    <h2 class="margin-left5 margin-top5 margin-bottom5 special-skin-text m-special-skin-text">@Model.Item1.ModelDetails.MakeName @Model.Item1.ModelDetails.ModelName 360° view</h2>
+    <div class="mainDiv no-select">
+        <div class="loadingView">
+            <div style="background-image:url('@(loadingImageRootPath + "closed-door/1.jpg?q=20&wm=1")')" id="tempLoadingImage" class="loading-single-image @(activeState != "Interior" ? "" : "hide")">
+                <img id="loadingClosedDoor" class="@(activeState == "Closed" ? "" : "hide")" src="@(loadingImageRootPath + "closed-door/1.jpg?q=20&wm=1&v=20171024122425")" />
+                <img id="loadingOpenDoor" class="@(activeState == "Open" ? "" : "hide")" src="@(loadingImageRootPath + "open-door/1.jpg?q=20&wm=1&v=20181030122425")" />
+                <span id="loadingProgress" class="loading-progress">0%</span>
+            </div>
+        </div>
+        <div id="wr360PlayerId" class="hide"></div>
+        <div id="pano2vr360Player" class="@((activeState == "Interior" ? "" : "hide") + (Model.Item2 == true ? " pano2vr360Player-mstyle" : " pano2vr360Player-style"))"></div>
+        <a href="@Carwale.UI.PresentationLogic.EditorialContent.Get360PageUrl(Model.Item1.ModelDetails.MakeName, Model.Item1.ModelDetails.MaskingName, Model.Item1.Category, Model.Item2)" class="threeSixtySlugBtn"
+           data-role="click" data-event="CWInteractive" data-cat="@((Model.Item2 == true ? "msite" : "desktop") + "_360_linkages")" data-action="model_page_360_preview" data-label="@Model.Item1.ModelDetails.MakeName @Model.Item1.ModelDetails.ModelName">
+            <span class="text-bold text-no-decoration" data-role="inview-imp" data-event="CWNonInteractive" data-cat="@((Model.Item2 == true ? "msite" : "desktop") + "_360_linkages")" data-action="model_page_360_preview_imp" data-label="@Model.Item1.ModelDetails.MakeName @Model.Item1.ModelDetails.ModelName">TRY BETTER EXPERIENCE</span>
+        </a>
+    </div>
+    <div class="clear"></div>
+    <script type="text/javascript" src="/static/m/js/imagerotator.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/360ViewSlug.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/pano2vr_player.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/skin.js" defer></script>
+    <script language="javascript" type="text/javascript">
+    var cwTrackingPath = '@ConfigurationManager.AppSettings["HostUrl"]';
+    var cdnHostUrl = '@ConfigurationManager.AppSettings["CDNHostURL"]';
+    var category = '@Model.Item1.Category';
+    var modelDetails = {
+        makeId: '@Model.Item1.ModelDetails.MakeId',
+        makeName: '@Model.Item1.ModelDetails.MakeName',
+        urlMakeName: '@(Format.FormatSpecial(Model.Item1.ModelDetails.MakeName))',
+        name: '@Model.Item1.ModelDetails.ModelName',
+        maskingName: '@Model.Item1.ModelDetails.MaskingName',
+        modelId: '@Model.Item1.ModelDetails.ModelId',
+    };
+    var carName = '@Model.Item1.ModelDetails.MakeName @Model.Item1.ModelDetails.ModelName';
+    var isMsite = @Json.Encode(Model.Item2);
+    </script>
+</section>
+<div class="clear"></div>

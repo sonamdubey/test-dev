@@ -1,0 +1,11 @@
+RewriteEngine	On
+
+RewriteRule ^carvaluation/valuationrequest\.aspx$				/used/carvaluation/ [R=301,NC,L]
+RewriteRule ^carvaluation/myvaluations/valuation.aspx$			/used/carvaluation? [R=301,NC,L]
+RewriteRule ^carvaluation/valuation\.aspx$						/used/carvaluation/ [R=301,NC,L]
+RewriteRule	^recommendcar/(.*)									/new/search/? [R=301,NC]
+RewriteRule	^forums/(.*)										/forums/$1	[R=301,NC,L]
+RewriteRule	^myinquiries/default.aspx$							/mycarwale/ [NC,R=301]
+RewriteRule	^myinquiries/$										/mycarwale/ [NC,R=301]
+RewriteRule ^mygarage/$											- [G]
+RewriteRule ^MyInquiries/AddCarPhotos.aspx$	 /MyCarwale/MyInquiries/basicuploader.aspx  [NC,L,QSA]

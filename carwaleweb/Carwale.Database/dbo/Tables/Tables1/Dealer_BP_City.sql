@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Dealer_BP_City] (
+    [Id]       NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [DealerId] NUMERIC (18) NULL,
+    [CityId]   NUMERIC (18) NULL,
+    CONSTRAINT [PK_Dealer_BP_City] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

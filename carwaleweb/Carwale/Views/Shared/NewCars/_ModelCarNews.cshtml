@@ -1,0 +1,56 @@
+﻿@model List<Carwale.Entity.CMS.Articles.ArticleSummary>
+<style>
+    .ul-arrow li p {
+        margin-left: 5px;
+        padding-left: 8px;
+        margin-top: 0px;
+        padding-top: 3px;
+    }
+
+    .width515 {
+        width: 515px;
+    }
+
+    .ul-arrow li a {
+        background: none;
+        padding-left: 0px;
+        margin-left: 0px;
+    }
+
+    .list-seperator {
+        border-top: 1px solid #ccc;
+        padding: 15px 10px;
+    }
+
+        .list-seperator:first-child {
+            border-top: 0;
+        }
+</style>
+<ul>
+    @foreach (var eachNews in Model)
+    {
+        <li class="list-seperator">
+            <div class="grid-5 alpha">
+                <a href="/news/@(eachNews.BasicId + "-" + @eachNews.ArticleUrl).html" title="@eachNews.Title" rel="follow">
+                    <img width="227" height="128" class="lazy" alt="@eachNews.Title.ToString()" title="@eachNews.Title.ToString()"
+                         src="http://img.carwale.com/grey.gif"
+                         data-original='@Carwale.Utility.ImageSizes.CreateImageUrl(eachNews.HostUrl.ToString(), Carwale.Utility.ImageSizes._227X128, eachNews.OriginalImgUrl.ToString())' />
+                </a>
+            </div>
+            <div class="grid-7 omega">
+                <a class="font20 margin-top10" href="/news/@(eachNews.BasicId + "-" + eachNews.ArticleUrl).html" title="@eachNews.Title" rel="follow">@eachNews.Title</a>
+                <div class="margin-top10 font14">@eachNews.DisplayDate.ToString("dd MMM yyyy") by @eachNews.AuthorName</div>
+                @if (ViewBag.isExpandable == "1")
+                {
+                    <div class="margin-top10">
+                    @Html.Raw(eachNews.Description.ToString())
+                    </div>
+                }
+            </div>
+            <div class="clear"></div>
+        </li>
+    }
+</ul>
+<div class="content-inner-block-10 text-center">
+    <a href="/news/" title="More Car News" rel="follow">View all news</a></span>
+</div>

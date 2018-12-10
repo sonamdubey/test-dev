@@ -1,0 +1,384 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for BodyType container component when data is available should match snapshot 1`] = `
+<div
+  className="body-type-screen"
+>
+  <div
+    className="screen__head"
+  >
+    <div
+      className="screen-head__image"
+    />
+    <p
+      className="screen-head__title"
+    >
+      Select your preferred body type
+    </p>
+    <p
+      className="screen-head__subtitle"
+    >
+      Recommended Body Types pre-selected
+    </p>
+    <ul
+      className="body-type__list list__recommended-body"
+    >
+      <li
+        className="body-type-list__item list-recommended-body__item active"
+        key="6"
+        onClick={[Function]}
+      >
+        <BodyTypeItem
+          iconType=""
+          item={
+            Object {
+              "carCount": 8,
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+              "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/suv_clr.svg",
+              "id": 6,
+              "isRecommended": true,
+              "isSelected": true,
+              "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/suv.svg",
+              "name": "SUV/MUV",
+            }
+          }
+          showCount={true}
+        />
+      </li>
+      <li
+        className="body-type-list__item list-recommended-body__item active"
+        key="3"
+        onClick={[Function]}
+      >
+        <BodyTypeItem
+          iconType=""
+          item={
+            Object {
+              "carCount": 7,
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+              "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/hatchback_clr.svg",
+              "id": 3,
+              "isRecommended": true,
+              "isSelected": true,
+              "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/hatchback.svg",
+              "name": "Hatchback",
+            }
+          }
+          showCount={true}
+        />
+      </li>
+    </ul>
+  </div>
+  <div
+    className="screen__body"
+  >
+    <p
+      className="screen-body__title"
+    >
+      Other body types for selection
+    </p>
+    <ul
+      className="body-type__list list__other-body"
+    >
+      <li
+        className="body-type-list__item list-other-body__item "
+        key="1"
+        onClick={[Function]}
+      >
+        <BodyTypeItem
+          iconType="line"
+          item={
+            Object {
+              "carCount": 5,
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+              "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/sedan_clr.svg",
+              "id": 1,
+              "isRecommended": false,
+              "isSelected": false,
+              "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/sedan.svg",
+              "name": "Sedan",
+            }
+          }
+          showCount={true}
+        />
+      </li>
+      <li
+        className="body-type-list__item list-other-body__item "
+        key="5"
+        onClick={[Function]}
+      >
+        <BodyTypeItem
+          iconType="line"
+          item={
+            Object {
+              "carCount": 1,
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+              "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/convertible_clr.svg",
+              "id": 5,
+              "isRecommended": false,
+              "isSelected": false,
+              "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/convertible.svg",
+              "name": "Convertible",
+            }
+          }
+          showCount={true}
+        />
+      </li>
+      <li
+        className="body-type-list__item list-other-body__item "
+        key="2"
+        onClick={[Function]}
+      >
+        <BodyTypeItem
+          iconType="line"
+          item={
+            Object {
+              "carCount": 1,
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+              "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/coupe_clr.svg",
+              "id": 2,
+              "isRecommended": false,
+              "isSelected": false,
+              "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/coupe.svg",
+              "name": "Coupe",
+            }
+          }
+          showCount={true}
+        />
+      </li>
+      <li
+        className="body-type-list__item list-other-body__item disable"
+        key="10"
+        onClick={[Function]}
+      >
+        <BodyTypeItem
+          iconType="line"
+          item={
+            Object {
+              "carCount": 0,
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+              "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/compactsedan_clr.svg",
+              "id": 10,
+              "isRecommended": false,
+              "isSelected": false,
+              "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/compactsedan.svg",
+              "name": "Compact Sedan",
+            }
+          }
+          showCount={true}
+        />
+      </li>
+      <li
+        className="body-type-list__item list-other-body__item disable"
+        key="4"
+        onClick={[Function]}
+      >
+        <BodyTypeItem
+          iconType="line"
+          item={
+            Object {
+              "carCount": 0,
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+              "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/van_clr.svg",
+              "id": 4,
+              "isRecommended": false,
+              "isSelected": false,
+              "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/van.svg",
+              "name": "Minivan/Van",
+            }
+          }
+          showCount={true}
+        />
+      </li>
+      <li
+        className="body-type-list__item list-other-body__item disable"
+        key="8"
+        onClick={[Function]}
+      >
+        <BodyTypeItem
+          iconType="line"
+          item={
+            Object {
+              "carCount": 0,
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+              "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/wagon_clr.svg",
+              "id": 8,
+              "isRecommended": false,
+              "isSelected": false,
+              "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/wagon.svg",
+              "name": "Station Wagon",
+            }
+          }
+          showCount={true}
+        />
+      </li>
+      <li
+        className="body-type-list__item list-other-body__item disable"
+        key="7"
+        onClick={[Function]}
+      >
+        <BodyTypeItem
+          iconType="line"
+          item={
+            Object {
+              "carCount": 0,
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+              "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/truck_clr.svg",
+              "id": 7,
+              "isRecommended": false,
+              "isSelected": false,
+              "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/truck.svg",
+              "name": "Truck",
+            }
+          }
+          showCount={true}
+        />
+      </li>
+    </ul>
+  </div>
+  <BodyTypeKnowMore
+    bodyTypeData={
+      Array [
+        Object {
+          "carCount": 8,
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+          "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/suv_clr.svg",
+          "id": 6,
+          "isRecommended": true,
+          "isSelected": true,
+          "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/suv.svg",
+          "name": "SUV/MUV",
+        },
+        Object {
+          "carCount": 7,
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+          "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/hatchback_clr.svg",
+          "id": 3,
+          "isRecommended": true,
+          "isSelected": true,
+          "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/hatchback.svg",
+          "name": "Hatchback",
+        },
+        Object {
+          "carCount": 5,
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+          "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/sedan_clr.svg",
+          "id": 1,
+          "isRecommended": false,
+          "isSelected": false,
+          "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/sedan.svg",
+          "name": "Sedan",
+        },
+        Object {
+          "carCount": 1,
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+          "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/convertible_clr.svg",
+          "id": 5,
+          "isRecommended": false,
+          "isSelected": false,
+          "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/convertible.svg",
+          "name": "Convertible",
+        },
+        Object {
+          "carCount": 1,
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+          "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/coupe_clr.svg",
+          "id": 2,
+          "isRecommended": false,
+          "isSelected": false,
+          "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/coupe.svg",
+          "name": "Coupe",
+        },
+        Object {
+          "carCount": 0,
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+          "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/compactsedan_clr.svg",
+          "id": 10,
+          "isRecommended": false,
+          "isSelected": false,
+          "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/compactsedan.svg",
+          "name": "Compact Sedan",
+        },
+        Object {
+          "carCount": 0,
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+          "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/van_clr.svg",
+          "id": 4,
+          "isRecommended": false,
+          "isSelected": false,
+          "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/van.svg",
+          "name": "Minivan/Van",
+        },
+        Object {
+          "carCount": 0,
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+          "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/wagon_clr.svg",
+          "id": 8,
+          "isRecommended": false,
+          "isSelected": false,
+          "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/wagon.svg",
+          "name": "Station Wagon",
+        },
+        Object {
+          "carCount": 0,
+          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam elementum.",
+          "icon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/truck_clr.svg",
+          "id": 7,
+          "isRecommended": false,
+          "isSelected": false,
+          "lineIcon": "https://imgd.aeplcdn.com//0x0/cw/body/svg/truck.svg",
+          "name": "Truck",
+        },
+      ]
+    }
+    clickSource={
+      Object {
+        "BODY_TYPE_SCREEN": 1,
+        "KNOW_MORE_BODY": 3,
+        "KNOW_MORE_HEADER": 2,
+      }
+    }
+    getItemStatus={[Function]}
+    handleBodyTypeClick={[Function]}
+  />
+</div>
+`;
+
+exports[`Tests for BodyType container component when no body type data is available should match snapshot 1`] = `
+<div
+  className="body-type-screen"
+>
+  <div
+    className="screen__head"
+  >
+    <div
+      className="screen-head__image"
+    />
+    <p
+      className="screen-head__title"
+    >
+      Select your preferred body type
+    </p>
+    <p
+      className="screen-head__subtitle"
+    >
+      Recommended Body Types pre-selected
+    </p>
+    <ul
+      className="body-type__list list__recommended-body"
+    />
+  </div>
+  <div
+    className="screen__body"
+  >
+    <p
+      className="screen-body__title"
+    >
+      Other body types for selection
+    </p>
+    <ul
+      className="body-type__list list__other-body"
+    />
+  </div>
+</div>
+`;

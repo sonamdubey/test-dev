@@ -1,0 +1,73 @@
+IF EXISTS (
+    SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[UpdateDealerFromPanel]') 
+    AND xtype IN (N'P')
+)
+    DROP PROCEDURE [dbo].[UpdateDealerFromPanel]
+GO
+
+	
+
+--THIS PROCEDURE INSERTS THE VALUES FOR THE FEALER REGISTRATION ITO A TEMP TABLE TEMPDEALERS      
+      
+CREATE PROCEDURE [dbo].[UpdateDealerFromPanel]      
+ @DealerId  NUMERIC,      
+ @LOGINID  VARCHAR(30),       
+ @PASSWD  VARCHAR(20),      
+ @FIRSTNAME  VARCHAR(50),       
+ @LASTNAME  VARCHAR(50),       
+ @EMAILID  VARCHAR(60),       
+ @ORGANIZATION VARCHAR(60),       
+ @ADDRESS1  VARCHAR(100),       
+ @ADDRESS2  VARCHAR(100),       
+ @AREAID  NUMERIC,       
+ @CITYID  NUMERIC,       
+ @STATEID  NUMERIC,       
+ @PHONENO  VARCHAR(15),       
+ @PINCODE  VARCHAR(6),       
+ @FAXNO  VARCHAR(15),       
+ @MOBILENO  VARCHAR(15),       
+ @BPCONTACTPERSON  VARCHAR(60),       
+ @EXPIRYDATE  DATETIME,       
+ @WEBSITEURL VARCHAR(50),       
+ @CONTACTPERSON VARCHAR(60),       
+ @CONTACTHOURS VARCHAR(20),       
+ @CONTACTEMAIL VARCHAR(60),      
+ @STATUS  BIT,      
+ @LastUpdatedOn  DATETIME,      
+ @BPMOBILENO  VARCHAR(15)
+       
+ AS      
+       
+BEGIN      
+ --NOW INSERT THE DATA INTO THE TABLE 
+ 
+	 UPDATE DEALERS       
+	 SET       
+	  LOGINID=@LOGINID,       
+	  PASSWD=@PASSWD,      
+	  FIRSTNAME=@FIRSTNAME,       
+	  LASTNAME=@LASTNAME,       
+	  EMAILID=@EMAILID,       
+	  ORGANIZATION=@ORGANIZATION,       
+	  ADDRESS1=@ADDRESS1,       
+	  ADDRESS2=@ADDRESS2,       
+	  AREAID=@AREAID,       
+	  CITYID=@CITYID,       
+	  STATEID=@STATEID,       
+	  PINCODE=@PINCODE,       
+	  PHONENO=@PHONENO,       
+	  FAXNO=@FAXNO,       
+	  MOBILENO=@MOBILENO,    
+	  BPContactPerson=@BPCONTACTPERSON,        
+	  EXPIRYDATE=@EXPIRYDATE,       
+	  WEBSITEURL=@WEBSITEURL,       
+	  CONTACTPERSON=@CONTACTPERSON,       
+	  CONTACTHOURS=@CONTACTHOURS,       
+	  CONTACTEMAIL=@CONTACTEMAIL,      
+	  STATUS=@STATUS,       
+	  LastUpdatedOn = @LastUpdatedOn,      
+	  BPMOBILENO = @BPMOBILENO  
+	 WHERE Id=@DealerId     
+       
+END 
+

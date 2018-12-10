@@ -1,0 +1,9 @@
+﻿CREATE TABLE [dbo].[CH_CallTypes] (
+    [Id]       NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [TBCType]  SMALLINT     NOT NULL,
+    [CallId]   SMALLINT     NOT NULL,
+    [Name]     VARCHAR (50) NOT NULL,
+    [Priority] SMALLINT     CONSTRAINT [DF_CH_CallTypes_Priority] DEFAULT ((5)) NOT NULL,
+    CONSTRAINT [PK_CH_CallTypes] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

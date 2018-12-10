@@ -1,0 +1,2 @@
+﻿CREATE USER [AEPL\Read_Only_DB];
+

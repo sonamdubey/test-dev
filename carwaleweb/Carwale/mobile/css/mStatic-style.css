@@ -1,0 +1,21 @@
+@charset "utf-8";
+/* CSS Document */
+.app-list-details { border-bottom:1px solid #E2E2E2; margin:30px 20px 50px 20px; padding-bottom:1px; }
+.app-list { padding:15px 0px; display:block; }
+.app-list li { float:left; text-align:center; width:325px; }
+.app-content { width:575px; }
+.app-content h2 { font-size:34px; font-weight:bold; margin-bottom:10px; margin-top:65px; color:#3f3e3e !important; }
+.app-content p { font-size:24px; font-weight:normal; color:#3f3e3e; }
+
+/*mStatic sprite*/
+.mStatic-sprite { background:url(https://img.aeplcdn.com/newtemplate/mobilesplashpage/mStatic-sprite.png) no-repeat; display:inline-block; }
+.cwMobileApp { background-position:-667px -332px; width:205px; height:78px; }
+.androidApp { background-position:-667px -420px; width:179px; height:63px; margin-top:8px; }
+.blackberryApp { background-position:-667px -493px; width:240px; height:65px; margin-top:8px; }
+
+.newCar-pic { background-position:0px 0; width:318px; height:280px; margin-left:20px; }
+.usedCar-pic { background-position:-318px 0; width:337px; height:280px; margin-left:20px; }
+.onRoadPrice-pic { background-position:-333px -332px; width:333px; height:280px; margin-left:20px; }
+.news-pic { background-position:0 -332px; width:337px; height:280px; margin-left:20px; }
+.compareCar-pic { background-position:-672px 0; width:329px; height:280px; margin-left:20px; }
+

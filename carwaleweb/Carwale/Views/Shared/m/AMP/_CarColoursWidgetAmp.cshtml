@@ -1,0 +1,68 @@
+﻿@model Carwale.Entity.CarData.CarModelDetails
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Utility;
+ @if (Model.ModelColors != null && Model.ModelColors.Count > 0)
+ {
+<h2 class="section-heading">@Model.ModelName Colours</h2>
+<p class="text-grey margin-left10">
+   @Model.MakeName @Model.ModelName is available/sold in the following colour@(Model.ModelColors.Count > 1 ? "s" : "") in India.
+</p>
+<table class="color-table">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td class="text-center">Colour</td>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var modelColor in Model.ModelColors)
+{
+    var hexList = modelColor.HexCode.Split(',').ToList();
+    string colorLink = EditorialContent.GetColorUrl(Model.MakeName, Model.MaskingName, modelColor.Color, modelColor.ColorId, true);
+        <tr>
+            <td>
+                @if (Model.IsModelColorPhotosAvailable && String.IsNullOrEmpty(modelColor.OriginalImgPath))
+                {
+                    <a href="@colorLink" data-vars-ea="model_page_colour_pallet" data-vars-ec="msite_colour_linkages" data-vars-el="@Model.MakeName @Model.ModelName @modelColor.Color">
+                        <span class="text-black">@modelColor.Color</span>
+                    </a>
+                }
+                else
+                {
+                        <span class="text-black">@modelColor.Color</span>
+                }
+            </td>
+            <td>
+            @if (Model.IsModelColorPhotosAvailable && String.IsNullOrEmpty(modelColor.OriginalImgPath))
+            {
+                    <div class="colorinfo">
+                        <div class="color-box">
+                            @foreach (var hex in hexList)
+                            {
+                                <span class="color-span c_@hex.Trim()"></span>
+                            }
+                        </div>
+                    </div>
+            }
+            else
+            {
+                <a data-vars-ea="model_page_colour_pallet" data-vars-ec="msite_colour_linkages" data-vars-el="@Model.MakeName @Model.ModelName @modelColor.Color">
+                    <div class="colorinfo">
+                        <div class="color-box">
+                            @foreach (var hex in hexList)
+                            {
+                                <span class="color-span c_@hex.Trim()"></span>
+                            }
+                        </div>
+                    </div>
+                </a>
+            }
+            </td>
+        </tr>       
+}
+@if (Model.IsModelColorPhotosAvailable) {
+    <tr><td class="text-center" colspan="2"><a href="@EditorialContent.GetColorUrl(Model.MakeName, Model.MaskingName, null, 0, true)" data-vars-ea="model_page_color_slug" data-vars-ec="msite_colour_linkages" data-vars-el="@Model.MakeName @Model.ModelName">View All Colour Images</a></td></tr>
+}
+    </tbody>
+</table>
+ }

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="https://www.cholainsurance.com/CholaWebservice/CholaProductService.asmx" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="https://www.cholainsurance.com/CholaWebservice/CholaProductService.asmx" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="https://www.cholainsurance.com/CholaWebservice/CholaProductService.asmx">
+      <s:element name="CholaCampaignService">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EmailID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MobileNo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CarBrand" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CarModel" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="policytype" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="PolicyExpiryDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Vehicleno" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RTO" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Publisher" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CholaCampaignServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CholaCampaignServiceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CholaCampaignServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:CholaCampaignService" />
+  </wsdl:message>
+  <wsdl:message name="CholaCampaignServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:CholaCampaignServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="CholaCampaignServiceHttpGetIn">
+    <wsdl:part name="Name" type="s:string" />
+    <wsdl:part name="EmailID" type="s:string" />
+    <wsdl:part name="MobileNo" type="s:string" />
+    <wsdl:part name="CarBrand" type="s:string" />
+    <wsdl:part name="CarModel" type="s:string" />
+    <wsdl:part name="policytype" type="s:string" />
+    <wsdl:part name="PolicyExpiryDate" type="s:string" />
+    <wsdl:part name="Vehicleno" type="s:string" />
+    <wsdl:part name="RTO" type="s:string" />
+    <wsdl:part name="Publisher" type="s:string" />
+    <wsdl:part name="ProductCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CholaCampaignServiceHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="CholaCampaignServiceHttpPostIn">
+    <wsdl:part name="Name" type="s:string" />
+    <wsdl:part name="EmailID" type="s:string" />
+    <wsdl:part name="MobileNo" type="s:string" />
+    <wsdl:part name="CarBrand" type="s:string" />
+    <wsdl:part name="CarModel" type="s:string" />
+    <wsdl:part name="policytype" type="s:string" />
+    <wsdl:part name="PolicyExpiryDate" type="s:string" />
+    <wsdl:part name="Vehicleno" type="s:string" />
+    <wsdl:part name="RTO" type="s:string" />
+    <wsdl:part name="Publisher" type="s:string" />
+    <wsdl:part name="ProductCode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="CholaCampaignServiceHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="CholaProductServiceSoap">
+    <wsdl:operation name="CholaCampaignService">
+      <wsdl:input message="tns:CholaCampaignServiceSoapIn" />
+      <wsdl:output message="tns:CholaCampaignServiceSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="CholaProductServiceHttpGet">
+    <wsdl:operation name="CholaCampaignService">
+      <wsdl:input message="tns:CholaCampaignServiceHttpGetIn" />
+      <wsdl:output message="tns:CholaCampaignServiceHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="CholaProductServiceHttpPost">
+    <wsdl:operation name="CholaCampaignService">
+      <wsdl:input message="tns:CholaCampaignServiceHttpPostIn" />
+      <wsdl:output message="tns:CholaCampaignServiceHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CholaProductServiceSoap" type="tns:CholaProductServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CholaCampaignService">
+      <soap:operation soapAction="https://www.cholainsurance.com/CholaWebservice/CholaProductService.asmx/CholaCampaignService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CholaProductServiceSoap12" type="tns:CholaProductServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CholaCampaignService">
+      <soap12:operation soapAction="https://www.cholainsurance.com/CholaWebservice/CholaProductService.asmx/CholaCampaignService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CholaProductServiceHttpGet" type="tns:CholaProductServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="CholaCampaignService">
+      <http:operation location="/CholaCampaignService" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CholaProductServiceHttpPost" type="tns:CholaProductServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="CholaCampaignService">
+      <http:operation location="/CholaCampaignService" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CholaProductService">
+    <wsdl:port name="CholaProductServiceSoap" binding="tns:CholaProductServiceSoap">
+      <soap:address location="https://www.cholainsurance.com/CholaWebservice/CholaProductService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CholaProductServiceSoap12" binding="tns:CholaProductServiceSoap12">
+      <soap12:address location="https://www.cholainsurance.com/CholaWebservice/CholaProductService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CholaProductServiceHttpGet" binding="tns:CholaProductServiceHttpGet">
+      <http:address location="https://www.cholainsurance.com/CholaWebservice/CholaProductService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CholaProductServiceHttpPost" binding="tns:CholaProductServiceHttpPost">
+      <http:address location="https://www.cholainsurance.com/CholaWebservice/CholaProductService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

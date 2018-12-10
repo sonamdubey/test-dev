@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[ScreenResolution] (
+    [ID]       NUMERIC (18)  IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [ScWidth]  NUMERIC (18)  NOT NULL,
+    [ScHeight] NUMERIC (18)  NOT NULL,
+    [IpAdd]    VARCHAR (100) NOT NULL,
+    CONSTRAINT [PK_ScreenResolution] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

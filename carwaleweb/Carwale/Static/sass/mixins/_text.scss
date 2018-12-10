@@ -1,0 +1,77 @@
+﻿
+@import "_variables";
+
+//left,right,center,justify
+@mixin text-align($direction){
+    .text-#{$direction}{
+        text-align : #{$direction};
+    }
+}
+//underline
+@mixin text-decoration($decoration){ 
+    .text-#{$decoration}{ 
+        text-decoration: #{$decoration}; 
+    }
+}
+//lowercase,uppercase,capitalize
+@mixin text-transform($transform){
+    .text-#{$transform}{
+        text-transform: #{$transform};
+    }
+}
+//refer _variables/$color-map
+@mixin text-color($color){
+ @if map-has-key($color-map, $color) {
+    .text-#{$color}{
+        color : #{map-get($color-map, $color)};
+    }
+  }
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$color-map}`. "
+        + "Please make sure it is defined in `$color-map` map.";
+  }
+}
+@mixin text-wrap{
+    .text-wrap { white-space: normal; }
+}
+
+@mixin text-nowrap{
+    .text-nowrap { white-space: nowrap; }
+}
+
+@mixin text-bold{
+    .text-bold { font-weight: 600; }
+}
+
+@mixin text-unbold{
+    .text-unbold { font-weight: normal; }
+}
+
+@mixin text-italic{
+    .text-italic { font-style: italic; }
+}
+
+@mixin text-link{.text-link { cursor: pointer; color: #0288d1; }}
+
+@mixin text-link-dark {
+    .text-link-dark {
+        cursor: pointer;  
+        color:#034fb6;
+    &:hover{
+        text-decoration:none;
+    }
+    }
+}
+@mixin text-no-decoration{.text-no-decoration {text-decoration:none;}}
+
+
+@mixin text-truncate($width: '') {
+	@if $width != '' {
+		width: #{$width};
+	}
+
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}

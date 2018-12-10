@@ -1,0 +1,27 @@
+﻿@using Carwale.Entity.CarData;
+@model List<MileageDataEntity>
+@if (Model != null && Model.Count > 0)
+{
+<h2 class="section-heading">@ViewBag.ModelName Mileage</h2>
+<table class="mileage-table">
+    <thead>
+        <tr class="border-1px-gray">
+            <th class="text-left text-black padding10">Fuel Type</th>
+            <th class="text-left text-black padding10">Transmission</th>
+            <th class="text-left text-black padding10">Engine Capacity</th>
+            <th class="text-left text-black padding10">Mileage</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var modelColor in Model)
+{
+        <tr class="border-1px-gray">
+            <td class="padding10">@modelColor.FuelType</td>
+            <td class="padding10">@modelColor.Transmission</td>
+            <td class="padding10">@(!string.IsNullOrEmpty(modelColor.Displacement) ? modelColor.Displacement : "-")</td>
+            <td class="padding10">@modelColor.Arai @modelColor.MileageUnit</td>
+        </tr>
+}     
+    </tbody>
+</table>
+}

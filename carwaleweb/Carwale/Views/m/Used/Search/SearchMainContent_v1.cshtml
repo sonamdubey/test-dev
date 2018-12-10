@@ -1,0 +1,107 @@
+﻿@model Carwale.UI.ViewModels.Used.Search.SearchViewModel
+@using Carwale.Utility
+
+@*<!--Count of Stock for particular Filter div starts here-->*@
+<p class="usedcar__listing-title m-special-skin-text">
+    @if (!string.IsNullOrEmpty(Model.FilterCityName))
+    {
+        <span cityName="@Model.FilterCityName" cityId="@Model.FilterCityId" id="listingTitle" class="font18 text-bold m-special-skin-text">Used Cars in @Model.FilterCityName</span>
+    }
+    else
+    {
+        <span id="listingTitle" class="font18 text-bold">Used Cars</span>
+    }
+    <span id="searchListingCount" count=@Model.TotalStockCount class="font14 m-special-skin-text">(@Format.Numeric(Model.TotalStockCount.ToString()) Cars)</span>
+</p>
+
+@*<!--Sort and Filter div starts here-->*@
+<div id="btnSortFilter" class="js-fix-tab-nav sort-filter-div text-center">
+    <span class="sort-filter-wrapper">
+        <a id="btnSort" class="sort-btn" data-role="click-tracking" data-event="CWInteractive" data-action="SortClicked" data-cat="MSite_UsedCarSearch">Sort</a>
+        <a id="btnFilter" class="filter-btn" data-role="click-tracking" data-event="CWInteractive" data-action="FilterClicked" data-cat="MSite_UsedCarSearch">
+            Filter
+            @if ((Model.SearchParams.FilterAppliedCount) > 0)
+            {<span class="filter-count">@Model.SearchParams.FilterAppliedCount</span>}
+        </a>
+    </span>
+</div>
+
+@{ bool isCityAvailable = !string.IsNullOrWhiteSpace(Model.FilterCityName);}
+@{bool isNoCarFoundInCity = Model.TotalStockCount == 0 && Model.SearchParams.Pn == 1;}
+@*If filter city and area both are not available*@
+@if (!isCityAvailable || !Model.IsCustomerAreaAvailable)
+            {
+                //If no stock found. Don't show the change location banner as it will shown on breaker
+                if (!(Model.TotalStockCount == 0 && Model.SearchParams.Pn == 1) && (Model.FilterCityId == 0 || Model.FilterCityId == 2))
+                {
+                    var cityBannerTrackingLabel = (string.IsNullOrWhiteSpace(Model.FilterCityName) ? "" : Model.FilterCityName) + (string.IsNullOrWhiteSpace(Model.CustAreaName) ? "" : "|" + Model.CustAreaName);
+        <div class="near-cars-card">
+            <span class="close-icon" data-role="click-tracking" data-event="CWInteractive" data-action="Banner_Close" data-cat="MSite_UsedCarSearch" data-label="@cityBannerTrackingLabel"></span>
+            <p class="card-information">
+                <span class="card-information__heading">@string.Format("You are seeing cars from all of {0}.", !isCityAvailable ? "India" : (!Model.IsCustomerAreaAvailable ? Model.FilterCityName : string.Empty))</span>
+                <span>Do you want to see cars near you?</span>
+            </p>
+            <div class="card-btn-container">
+                <button class="detect-location-btn card-btn" data-role="click-tracking" data-event="CWInteractive" data-action="Banner_DetectMyLocation" data-cat="MSite_UsedCarSearch" data-label="@cityBannerTrackingLabel">Detect my location</button>
+                <button class="city-area-btn card-btn" data-role="click-tracking" data-event="CWInteractive" data-action="@(!isCityAvailable ? "Banner_ChangeCity" : (!Model.IsCustomerAreaAvailable ? "Banner_ChangeArea" : string.Empty))" data-cat="MSite_UsedCarSearch" data-label="@cityBannerTrackingLabel">@(!isCityAvailable ? "Select City" : (!Model.IsCustomerAreaAvailable ? "Change Area" : string.Empty))</button>
+            </div>
+        </div>
+    }
+
+}
+
+@*<!-- Car Sold Out code starts here-->*@
+@if (Model.IsSoldOut)
+{
+    <div id="soldoutBox" class="soldout-box margin-top10 margin-bottom5">
+        <span class="cwmsprite cross-md-dark-grey padding-bottom10 margin-right10 margin-top5 rightfloat" id="btnSoldOutClose"></span>
+        <div class="soldout-content">
+            <p class="margin-bottom5 font16 m-special-skin-text">Oops... The car you are looking for has been sold out!</p>
+        </div>
+    </div>
+    <div class="clear"></div>
+}
+
+@*<!-- No car found div starts here-->*@
+@if (isNoCarFoundInCity)
+{
+    <div class="area-near-cars">
+        <span>No cars found in <span class="near-by-city">@(string.IsNullOrEmpty(Model.FilterCityName) ? "All Over India" : Model.FilterCityName)</span></span>
+        <button class="change-area-btn">Change City</button>
+    </div>
+}
+
+    @*<!--Stock Listing div starts here-->*@
+    @if (Model.StockList.IsNotNullOrEmpty())
+    {
+        <section>
+            <div class="search-list search-list-container">
+                <ul id="listing">
+                    @{Html.RenderPartial("~/Views/m/Used/Search/StockList_v1.cshtml", Model);}
+                </ul>
+            </div>
+        </section>
+                        }
+                        else
+                        {
+                            <script>
+        nextPageUrl = "@HttpUtility.JavaScriptStringEncode(Model.NextPageUrl)";
+                            </script>
+                        }
+
+    @*<!--Pagination starts here -->*@
+    <div class="pagination">
+        <div>
+            <span id="listingEndText" class="font16 text-bold m-special-skin-text">End </span>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    @* speedometer loader *@
+    <div id="cw_loading_icon" class="speedometer__container hide">
+        <div class="speedometer-loader__content">
+            <div class="speedometer-loader"></div><div class="speedometer-needle-circle">
+            </div>
+        </div>
+    </div>

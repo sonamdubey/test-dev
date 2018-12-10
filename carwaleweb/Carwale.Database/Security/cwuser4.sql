@@ -1,0 +1,2 @@
+﻿CREATE USER [cwuser4] WITHOUT LOGIN;
+

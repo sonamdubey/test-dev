@@ -1,0 +1,119 @@
+﻿@model Carwale.DTOs.CarData.SimilarCarsDTO
+@using Carwale.UI.Common;
+@using Carwale.Entity;
+@using Carwale.Utility;
+@using System.Globalization;
+@{
+
+    <h2 class="pgsubhead margin-bottom10 margin-left10 m-special-skin-text">@(ViewBag.IsCityPage ? "Prices of cars similar to " + @Model.SourceModelName + " in " + ViewBag.CityName : Model.SourceModelName + " Alternatives")</h2>
+	<div class="swiper-container alternative-carousel"><ul class="swiper-wrapper">
+
+		@{
+			int carPosition = 1;
+			if (Model.SimilarCarModels != null && Model.SimilarUpcomingCar != null && Model.SimilarCarModels.Count.Equals(0) && Model.SimilarUpcomingCar.ExpectedLaunchId > 0)
+			{
+				string cardModelUrl = ManageCarUrl.CreateModelUrl(Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.MaskingName);
+                <li class="swiper-slide card" redirect="@cardModelUrl" cwt data-cwticat="@Model.PageName" data-cwtiact="AlternateCarImpression" data-cwtilbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}|upcoming:1", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.ModelName, carPosition, Model.SourceModelId,Model.SimilarUpcomingCar.ModelId)" >
+                    <div class="front">
+                        <div class="contentWrapper">
+                            <div class="imageWrapper">
+                                <a href="@cardModelUrl" data-cwtccat="@Model.PageName" data-cwtcact="AlternateCarClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}|upcoming:1", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.ModelName, carPosition, Model.SourceModelId, Model.SimilarUpcomingCar.ModelId)">
+                                    <img class="lazy" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(Model.SimilarUpcomingCar.Image.HostUrl, Carwale.Utility.ImageSizes._272X153, Model.SimilarUpcomingCar.Image.ImagePath)" title="@Model.SimilarUpcomingCar.MakeName @Model.SimilarUpcomingCar.ModelName" alt="@Model.SimilarUpcomingCar.MakeName @Model.SimilarUpcomingCar.ModelName" width="272" height="153" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif">
+                                </a>
+                            </div>
+                            <div class="carDescWrapper">
+                                <h3 class="text-link carTitle margin-bottom5"><a title="@Model.SimilarUpcomingCar.MakeName @Model.SimilarUpcomingCar.ModelName" href="@cardModelUrl" data-cwtccat="@Model.PageName" data-cwtcact="AlternateCarClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}|upcoming:1", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.ModelName, carPosition, Model.SourceModelId, Model.SimilarUpcomingCar.ModelId)">@Model.SimilarUpcomingCar.MakeName  @Model.SimilarUpcomingCar.ModelName</a></h3>
+								@if (Model.SimilarUpcomingCar.Price != null)
+								{
+                                <div class="margin-bottom10 font25">₹ <span>@Html.Raw(Model.SimilarUpcomingCar.Price.MaxPrice == Model.SimilarUpcomingCar.Price.MinPrice ? FormatPrice.GetFormattedPriceV2(Model.SimilarUpcomingCar.Price.MinPrice.ToString()) : FormatPrice.GetFormattedPriceV2(Model.SimilarUpcomingCar.Price.MinPrice.ToString(), Model.SimilarUpcomingCar.Price.MaxPrice.ToString()))</span></div>
+								}
+                                <div class="margin-bottom5 font16 text-light-grey">Estimated price</div><div class="margin-bottom5 font16">@Model.SimilarUpcomingCar.ExpectedLaunch</div><div class="font14 text-light-grey">Expected launch</div>
+                              </div>
+                        </div>
+                    </div>
+
+                </li>
+            }
+
+            foreach (var similarCar in Model.SimilarCarModels)
+            {
+                bool appendPICHref = ViewBag.IsCityPage && similarCar.PricesOverview != null && similarCar.PricesOverview.City != null && !string.IsNullOrWhiteSpace(similarCar.PricesOverview.City.CityMaskingName);
+                string currentUrl = appendPICHref ? ManageCarUrl.CreatePriceInCityUrl(similarCar.MakeName, similarCar.MaskingName, similarCar.PricesOverview.City.CityMaskingName) : ManageCarUrl.CreateModelUrl(similarCar.MakeName, similarCar.MaskingName);
+			    <li class="swiper-slide card">                
+				    <div class="front">    
+                        @if (similarCar.LaunchDate != null && DateTimeUtility.ShowJustLaunchedLabel(similarCar.LaunchDate, DateTime.Now))
+                        {
+                            <div class="just-launched-section">
+                                <div class="launch-date-unit">
+                                    <span class="launch-date">@similarCar.LaunchDate.Day<span class="lauch-date-unit">@Format.GetNumberSuffix(similarCar.LaunchDate.Day)</span></span><br>
+                                    <span class="launch-month">@similarCar.LaunchDate.ToString("MMM", CultureInfo.InvariantCulture).ToUpper()</span>
+                                </div>
+                                <div class="launch-title">JUST LAUNCHED</div>
+                            </div>
+                        }                
+					    <div class="contentWrapper pos-relative">                                                          
+						    <div class="imageWrapper swiper-imgLoader margin-top20">
+							    <a href='@currentUrl' class="text-black text-no-decoration" title="@string.Format("{0} {1}{2}", similarCar.MakeName, similarCar.ModelName, ViewBag.IsCityPage ? " price in " + ViewBag.CityName : string.Empty)" data-cwtccat="@Model.PageName" data-cwtcact="AlternateCarClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), similarCar.MakeName, similarCar.ModelName, carPosition, Model.SourceModelId, similarCar.ModelId)">
+								    <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)272X153/cw/cars/no-cars.jpg" title="@string.Format("{0} {1}{2}", similarCar.MakeName, similarCar.ModelName, ViewBag.IsCityPage ? " price in " + ViewBag.CityName : string.Empty)" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(similarCar.HostUrl, Carwale.Utility.ImageSizes._272X153, similarCar.ModelImageOriginal)" border="0"  alt="@string.Format("{0} {1}{2}", similarCar.MakeName, similarCar.ModelName, ViewBag.IsCityPage ? " price in " + ViewBag.CityName : string.Empty)" width="272" height="153" />
+							    </a>
+						    </div>
+						    <div class="carDescWrapper">
+							    <h3 class="text-link carTitle margin-bottom10"><a title="@string.Format("{0} {1}{2}", similarCar.MakeName, similarCar.ModelName, ViewBag.IsCityPage ? " price in " + ViewBag.CityName : string.Empty)" href='@currentUrl' class="text-no-decoration"  data-cwtccat="@Model.PageName" data-cwtcact="AlternateCarClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), similarCar.MakeName, similarCar.ModelName, carPosition, Model.SourceModelId, similarCar.ModelId)">@string.Format("{0} {1}{2}", similarCar.MakeName, similarCar.ModelName, ViewBag.IsCityPage ? " price in " + ViewBag.CityName : string.Empty)</a></h3>
+								@if (similarCar.PricesOverview != null)
+                                {
+							    <p class='font16'>@similarCar.PricesOverview.PricePrefix @similarCar.PricesOverview.Price <span class='font13'>@similarCar.PricesOverview.PriceSuffix</span></p>
+							    <span class='font10 @(similarCar.PricesOverview.LabelColor)'>
+								    @similarCar.PricesOverview.PriceLabel@(!string.IsNullOrWhiteSpace(similarCar.PricesOverview.City.Name) ? ", " + similarCar.PricesOverview.City.Name : string.Empty)
+								    <span>@(similarCar.PricesOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + similarCar.PricesOverview.ReasonText + "</p></div>") : Html.Raw(string.Empty))</span>
+							    </span>
+                                }
+							    @if (!ViewBag.IsCityPage)
+                                {
+                                    if (similarCar.PricesOverview != null && similarCar.PricesOverview.PriceStatus == (int)PriceBucket.NoUserCity)
+                                    {
+									    <p class="text-link text-bold select-city-link margin-top10" data-redirect-url="@currentUrl" data-role="click" data-event="CWInteractive" data-cat="ShowORPTest" data-action="@(ViewBag.TrackingPageName)_AlternativesSection_ShowPriceInMyCity" data-label="NA_@(similarCar.MakeName)_@(similarCar.ModelName)_NA">@System.Configuration.ConfigurationManager.AppSettings["ShowPriceInCityText"]</p>
+                                    }
+
+                                }
+                                @if (!string.IsNullOrWhiteSpace(similarCar.CompareCarUrl))
+                                {
+                                <div class="margin-top10">
+                                    <a href="@(similarCar.CompareCarUrl)" onclick="window.location.href =this.href + '?source=@(Model.WidgetPageSource)'; return false;" title="Compare @Model.SourceModelName with @similarCar.ModelName" data-cwtccat="@Model.PageName" data-cwtcact="AlternateComparisonLinkClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), similarCar.MakeName, similarCar.ModelName, carPosition, Model.SourceModelId, similarCar.ModelId)">Compare with @Model.SourceModelName</a>
+                                </div>
+                                }
+                                @if (similarCar.OfferDetails != null && similarCar.OfferDetails.IsOfferAvailable)
+                                {
+                                    @Html.Partial("m/_OffersListingWidget", similarCar.OfferDetails);
+                                }
+						    </div>
+                           
+					    </div>
+				    </div>
+			    </li>
+                carPosition++;
+                if (carPosition.Equals(2) && Model.SimilarUpcomingCar != null && Model.SimilarUpcomingCar.ExpectedLaunchId > 0)
+                {
+                    string cardModelUrl = ManageCarUrl.CreateModelUrl(Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.MaskingName);
+                    <li class="swiper-slide card" redirect="@cardModelUrl" cwt data-cwticat="@Model.PageName" data-cwtiact="AlternateCarImpression" data-cwtilbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}|upcoming:1", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.ModelName, carPosition, Model.SourceModelId, Model.SimilarUpcomingCar.ModelId)" >
+                        <div class="front">
+                            <div class="contentWrapper">
+                                <div class="imageWrapper pos-relative">
+                                    <span class="upcoming-cars-tag">Upcoming</span>
+                                    <a href="@cardModelUrl" data-cwtccat="@Model.PageName" data-cwtcact="AlternateCarClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}|upcoming:1", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.ModelName, carPosition, Model.SourceModelId, Model.SimilarUpcomingCar.ModelId)">
+                                        <img class="lazy" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(Model.SimilarUpcomingCar.Image.HostUrl, Carwale.Utility.ImageSizes._272X153, Model.SimilarUpcomingCar.Image.ImagePath)" title="@Model.SimilarUpcomingCar.MakeName @Model.SimilarUpcomingCar.ModelName" alt="@Model.SimilarUpcomingCar.MakeName @Model.SimilarUpcomingCar.ModelName" width="272" height="153" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif">
+                                    </a>
+                                </div>
+                                <div class="carDescWrapper">
+                                    <h3 class="text-link carTitle margin-bottom5"><a title="@Model.SimilarUpcomingCar.MakeName @Model.SimilarUpcomingCar.ModelName" href="@cardModelUrl" data-cwtccat="@Model.PageName" data-cwtcact="AlternateCarClick" data-cwtclbl="@string.Format("mk:{0}|mo:{1}|ct:{2}|amk:{3}|amo:{4}|pos:{5}|id:{6}|aid:{7}|upcoming:1", ViewBag.MakeName, Model.SourceModelName, (ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityZone), Model.SimilarUpcomingCar.MakeName, Model.SimilarUpcomingCar.ModelName, carPosition, Model.SourceModelId, Model.SimilarUpcomingCar.ModelId)">@Model.SimilarUpcomingCar.MakeName  @Model.SimilarUpcomingCar.ModelName</a></h3>
+                                    <div class="margin-bottom10 font25">₹ <span>@Html.Raw(Model.SimilarUpcomingCar.Price.MaxPrice == Model.SimilarUpcomingCar.Price.MinPrice ? FormatPrice.GetFormattedPriceV2(Model.SimilarUpcomingCar.Price.MinPrice.ToString()) : FormatPrice.GetFormattedPriceV2(Model.SimilarUpcomingCar.Price.MinPrice.ToString(), Model.SimilarUpcomingCar.Price.MaxPrice.ToString()))</span></div>
+                                    <div class="margin-bottom5 font16 text-light-grey">Estimated price</div><div class="margin-bottom5 font16">@Model.SimilarUpcomingCar.ExpectedLaunch</div><div class="font14 text-light-grey">Expected launch</div>
+                                </div>
+                            </div>
+                        </div>
+                      
+                    </li>
+                                }
+            }
+        }
+		</ul><!-- Add Pagination --><div class="swiper-pagination swiper-pagination-white"></div></div>
+}

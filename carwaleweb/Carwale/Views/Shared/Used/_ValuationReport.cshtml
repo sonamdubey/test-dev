@@ -1,0 +1,127 @@
+﻿@model Carwale.Entity.Classified.CarValuation.ValuationReport
+
+@using Carwale.Utility;
+@using System.Globalization;
+@using Carwale.BL.Classified.CarValuation;
+@{
+    Layout = null;
+}
+
+@if (Model != null)
+{
+    <link rel="stylesheet" href="/static/css/car-valuation.css" type="text/css" inline>
+
+    <div class="top-bar">
+        <h1 class="pgsubhead margin-bottom5 font16">@Model.Make @Model.Model @Model.Version</h1>
+        <p class="margin-bottom10">
+            <span class="margin-right5">@Model.Fuel</span><span class="text-dark-grey">|</span>
+            <span class="margin-left5 margin-right5">@Model.Year</span><span class="text-dark-grey">|</span>
+            <span class="margin-left5">@Model.City</span>
+        </p>
+    </div>
+    
+    if (Model.Valuation != null)
+    {
+        var valuation = Model.Valuation;
+        <div class="right-price-box" caseid=@Model.Valuation.Case>
+            @if ((valuation.FairPrice <= 0 || valuation.GoodPrice <= 0) && (valuation.Valuations == null || valuation.Valuations.Count <= 0))
+            {
+                <div class="right-price-not-available">
+                    <div class="cwsprite not-avlbl-icon"> </div>
+                    <div class="not-avlbl-text">Right Price is not available</div>
+                </div>
+            }
+
+            @if (!String.IsNullOrEmpty(valuation.WarningNote))
+            {
+                <p class="font12 margin-top15 text-left">@valuation.WarningNote</p>
+            }
+
+            @if (!String.IsNullOrEmpty(valuation.AvailableInfoNote))
+            {
+                <p class="font12 margin-top15 text-left" style="font-weight: 700">@valuation.AvailableInfoNote</p>
+            }
+
+            @if (valuation.FairPrice > 0 && valuation.GoodPrice > 0)
+            {
+                <div>
+                    <div class="right-price-title font16 margin-top25">Right Price Guide</div>
+                    <div class="horizontal-bar @(Model.SellerAskingPrice != null ? "margin-bottom50" : "margin-bottom25")">
+                        @if (Model.SellerAskingPrice != null)
+                        {
+                            <div class="bar-pointer fair-price" style="left:@ValuationBL.GetIndicatorPosition(valuation.FairPrice, valuation.GoodPrice, Model.SellerAskingPrice.Value)%">
+                                <div class="fair-mark"></div>
+                                <div class="pointer-text">Asking Price</div>
+                                <div class="price-pos">@Format.FormatFullPrice(Model.SellerAskingPrice.ToString(), true)</div>
+                            </div>
+                        }
+                        <div class="bar-pointer fair-pointer">
+                            <div>Fair Condition</div>
+                            <div class="price-pos">@Format.FormatFullPrice(valuation.FairPrice.ToString(), true)</div>
+                            <div class="border-mark"></div>
+                        </div>
+                        <div class="bar-pointer good-pointer">
+                            <div>Good Condition</div>
+                            <div class="price-pos">@Format.FormatFullPrice(valuation.GoodPrice.ToString(), true)</div>
+                            <div class="border-mark"></div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if (valuation.Valuations != null && valuation.Valuations.Count > 0)
+            {
+                bool isYearAvailable = valuation.Valuations.Exists(v => v.Year != null);
+                bool isVersionAvailable = valuation.Valuations.Exists(v => !String.IsNullOrEmpty(v.Version));
+                <div class="table-container margin-top15">
+                    <table class="right-price__table">
+						<thead>
+							<tr>
+								@if (isYearAvailable)
+								{
+									<th class="price-table__col-heading">Year</th>
+								}
+								@if (isVersionAvailable)
+								{
+									<th class="price-table__col-heading">Version</th>
+								}
+								<th class="price-table__col-heading">Fair Car Condition</th>
+								<th class="price-table__col-heading">Good Car Condition</th>
+							</tr>
+						</thead>
+						<tbody>
+                        @foreach (var val in valuation.Valuations)
+                        {
+                            <tr>
+                                @if (isYearAvailable)
+                                {
+                                    <td class="price-table__cell">@val.Year</td>
+                                }
+                                @if (isVersionAvailable)
+                                {
+                                    <td class="price-table__cell">@val.Version</td>
+                                }
+                                <td class="price-table__cell">@String.Format(new CultureInfo("EN-in"), "{0:c0}", val.FairPrice)</td>
+                                <td class="price-table__cell">@String.Format(new CultureInfo("EN-in"), "{0:c0}", val.GoodPrice)</td>
+                            </tr>
+                        }
+						</tbody>
+                    </table>
+                </div>
+            }
+
+            @if (!String.IsNullOrEmpty(valuation.Disclaimer))
+            {
+                <p class="font12 margin-top15 text-left"><span style="font-weight: 600">Note : </span>@valuation.Disclaimer</p>
+            }
+        </div>
+    }
+    else
+    {
+        <div style="padding: 15px 10px;" class="error">Something went wrong. Please try again later.</div>
+    }
+}
+else
+{
+    <div style="padding: 15px 10px;" class="error">Something went wrong. Please try again later.</div>
+}

@@ -1,0 +1,537 @@
+﻿.sel-cars {
+  border: 1px solid #dfdfdf;
+  border-radius: 3px 3px 3px 3px;
+  color: #456!important;
+  cursor: pointer;
+  display: inline-block;
+  padding: 1px 1px 1px 5px;
+  text-decoration: none!important;
+}
+
+.sel-cars span {
+  background-color: #dfdfdf;
+  color: #456;
+  cursor: pointer;
+  margin-left: 5px;
+  padding: 0 3px;
+}
+
+.sel-cars:hover {
+  border-color: #c00;
+}
+
+.sel-cars:hover span {
+  background-color: #c00;
+  color: #fff;
+}
+
+.mid-box {
+  margin-top: 0!important;
+}
+
+.parms-sept {
+  border-top: 1px solid #dfdfdf;
+}
+
+#parms.blue-block {
+  margin-top: 0;
+}
+
+#budget li a {
+  color: #4d4d4d;
+}
+
+#rpgListings_BottomPager td:first-child {
+  width: 170px;
+}
+
+.blue-block {
+  background-color: #f4f3f3;
+  border: 1px solid #e5e5e5;
+  clear: both;
+  margin-top: 20px;
+  padding: 0 10px 10px;
+}
+
+.gray-block {
+  border: 1px solid #dfdfdf;
+  margin-top: 20px;
+  padding: 0 10px 10px;
+}
+
+.filter {
+  background: url("https://imgd.aeplcdn.com/0x0/statics/used/chkbox_new.png?v=222") no-repeat;
+  color: #4d4d4d!important;
+  padding: 2px 0 2px 23px;
+  text-decoration: none!important;
+  display: inline-block;
+}
+
+.unchecked {
+  background-position: -15px -17px;
+}
+
+.checked {
+  background-position: -15px -64px;
+}
+
+.expnd {
+  background-position: -20px -108px;
+  height: 16px;
+  padding: 0;
+  width: 16px;
+  float: right;
+}
+
+.collapse {
+  background-position: -20px -152px;
+  height: 16px;
+  padding: 0;
+  width: 16px;
+  float: right;
+}
+
+.ul-params {
+  background-color: #fff;
+  border: 1px solid #c7e3ef;
+  border-radius: 7px;
+  font-size: 12px;
+  list-style: outside none none;
+  margin-bottom: 15px;
+  padding: 7px 0;
+}
+
+.ul-params li {
+  padding: 3px;
+}
+
+.ul-params-div {
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 7px;
+  margin-bottom: 15px;
+  padding: 7px 0;
+}
+
+.ul-params-col {
+  background-color: #fff;
+  font-size: 12px;
+  list-style: outside none none;
+}
+
+.ul-params-col li {
+  float: left;
+  padding: 3px;
+  width: 135px;
+}
+
+#dvResults {
+  margin-top: 10px;
+  padding-top: 7px;
+}
+
+.icon-sheet2 {
+  background: url("https://img.carwale.com/cw-common/iconsheet3.png") no-repeat;
+  display: inline-block;
+}
+
+.share-page {
+  background-color: #f3f3f3;
+  border: 1px solid #ccc;
+  float: right;
+  line-height: 100%;
+  padding: 5px;
+  text-align: right;
+  vertical-align: middle;
+  width: 155px;
+}
+
+.share-page span {
+  float: left;
+  line-height: 15px;
+}
+
+.share-frnds {
+  background: rgba(0,0,0,0) url("https://img.carwale.com/icons/share.gif") no-repeat scroll 0 0;
+  display: inline-block;
+}
+
+.facebook {
+  background-position: 0 0;
+  height: 16px;
+  width: 20px;
+}
+
+.twitter {
+  background-position: -21px 0;
+  height: 16px;
+  width: 20px;
+}
+
+.mail-frnds {
+  background-position: -41px 0;
+  height: 16px;
+  width: 16px;
+}
+
+.icon-sheet {
+  background: rgba(0,0,0,0) url("https://imgd.aeplcdn.com/0x0/cw-common/icon-sheet2.gif") no-repeat;
+}
+
+.right-arrow2 {
+  background-position: -8px -167px;
+  display: block;
+  float: left;
+  height: 10px;
+  margin: 3px 2px 0 0;
+  width: 10px;
+}
+
+.right-arrow {
+  background-position: -8px -167px;
+  display: block;
+  float: left;
+  height: 10px;
+  margin: 3px 2px 0 0;
+  width: 10px;
+}
+
+.down-arrow2 {
+  background-position: -8px -151px;
+  display: block;
+  float: left;
+  height: 7px;
+  margin: 3px 2px 0 0;
+  width: 12px;
+}
+
+h3.hd3 {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.panel-left {
+  float: left;
+  margin-top: 0;
+  padding: 5px;
+  width: 285px;
+}
+
+.panel-left table {
+  font-size: 11px;
+  margin-left: 10px;
+  width: 100%;
+}
+
+.panel-left table td {
+  padding: 3px 0;
+  width: 50%;
+}
+
+.panel-left label {
+  margin: 0;
+  padding: 0 2px;
+  vertical-align: top;
+}
+
+.panel-rt {
+  float: right;
+  padding-left: 10px;
+  width: 645px;
+}
+
+.parms-sept {
+  border-top: 1px solid #dfdfdf;
+  margin: 10px 0 0;
+}
+
+.version-row td {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #dfdfdf -moz-use-text-color -moz-use-text-color;
+  border-image: none;
+  border-style: dotted none none;
+  border-width: 1px 0 0;
+}
+
+.version-row th {
+  background-color: #fff;
+  border: 0 none;
+}
+
+.version-bot td,.version-bot th {
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.ver-pdd {
+  padding-left: 24px!important;
+}
+
+.model-row-bot td {
+  border-bottom: 0 none;
+}
+
+.criteria-hide {
+  display: none;
+}
+
+.criteria-show {
+  display: block;
+}
+
+#parms .hd3 {
+  cursor: pointer;
+}
+
+.sel_parama {
+  border: 1px solid #dfdfdf;
+  border-radius: 3px;
+  color: #456!important;
+  cursor: pointer;
+  display: inline-block;
+  margin: 3px;
+  padding: 1px 1px 1px 5px;
+  text-decoration: none!important;
+}
+
+.sel_parama span {
+  background-color: #dfdfdf;
+  color: #456;
+  cursor: pointer;
+  margin-left: 5px;
+  padding: 0 3px;
+}
+
+.sel_parama_hover {
+  border: 1px solid #c00;
+  border-radius: 3px;
+  color: #456!important;
+  cursor: pointer;
+  display: inline-block;
+  margin: 3px;
+  padding: 1px 1px 1px 5px;
+  text-decoration: none!important;
+}
+
+.sel_parama_hover span {
+  background-color: #c00;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 5px;
+  padding: 0 3px;
+}
+
+.ul-bs {
+  padding-left: 10px;
+  width: 100%;
+}
+
+.ul-bs li {
+  text-align: left;
+  width: 125px;
+}
+
+.ul-bs li div {
+  float: left;
+}
+
+.ul-params {
+  background-color: #fff;
+  border: 0 none;
+  border-radius: 0;
+  font-size: 12px;
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
+}
+
+.ul-params li {
+  padding: 3px;
+}
+
+#app_filt,#comp_filt {
+  border: 1px solid #cecece;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: white;
+  width: 645px;
+}
+
+#searchRes {
+  width: 645px;
+  background-color: white;
+}
+
+.alert_msg {
+  background: transparent url("https://img.carwale.com/used/arrow.png") no-repeat scroll left top;
+  height: 85px;
+  padding: 5px 0 0 50px;
+  width: 525px;
+}
+
+.process {
+  background: 0;
+  background-color: none;
+  background-position: 50% 50%;
+  display: none;
+  height: 67px;
+  position: fixed;
+  top: 300px;
+  left: 40%;
+  width: 278px;
+  z-index: 100002;
+}
+
+#gb-overlay {
+  display: none;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 100001;
+}
+
+#tbl_res {
+  border: 1px solid #cecece;
+  border-collapse: collapse;
+}
+
+table {
+  color: #2f2f2f;
+  font: 13px Verdana,Arial,sans-serif;
+}
+
+.dtTable {
+  font-size: 12px;
+}
+
+.dtTable td {
+  padding: 8px;
+}
+
+.dt_header td {
+  background-color: #f6f6f6;
+  border-bottom: 1px solid #e9e9e7;
+  font-weight: bold;
+  padding: 10px 5px;
+}
+
+.dt_header a {
+  color: #2f2f2f;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.dt_body {
+  cursor: pointer;
+}
+
+.dt_body td {
+  padding: 10px 5px;
+}
+
+.dt_body_hover {
+  background-color: #f6f6f6;
+}
+
+span.pg {
+  border: 1px solid #a3b5d9;
+  margin: 0 2px;
+  padding: 2px 5px;
+}
+
+span.pgSel {
+  background-color: #ccdbf8;
+  border: 1px solid #a3b5d9;
+  color: #5b5b5b;
+  font-weight: bold;
+  margin: 0 2px;
+  padding: 2px 5px;
+}
+
+span.pgEnd {
+  border: 1px solid #ababab;
+  color: #898989;
+  cursor: default;
+  margin: 0 2px;
+  padding: 2px 5px;
+}
+
+.dgNavDiv td {
+  background-color: #f6f6f6;
+  border: 0 none;
+  padding: 10px 0;
+}
+
+.dgNavDivTop a:hover {
+  text-decoration: none;
+}
+
+.dgNavDivTop td {
+  background: url("https://imgd.aeplcdn.com/0x0/statics/used/search_head.gif") repeat-x;
+  padding: 8px;
+}
+
+h1 span {
+  color: #999;
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.dtTable td {
+  padding: 8px;
+}
+
+.paddingTop17 {
+  padding-top: 17px!important;
+}
+
+.price {
+  color: #5b5b5b;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.price2 {
+  color: #5b5b5b;
+  font-weight: bold;
+  width: 180px;
+}
+
+.dtTable td {
+  padding: 10px;
+  display: table-cell;
+  vertical-align: top;
+}
+
+.new-price2-btn {
+  padding-top: 15px;
+}
+
+.text-grey {
+  display: inline-block;
+  padding-top: 6px;
+  font-size: 11px;
+}
+
+a.viewVersions {
+  display: inline-block;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.gb-close {
+  cursor: pointer;
+}
+
+.indicative-text {
+  font-weight: normal;
+  display: block;
+  margin-top: 7px;
+}
+.margin-top-minus3{
+    margin-top:-3px;
+}

@@ -1,0 +1,26 @@
+﻿CREATE TABLE [CRM].[QACallData] (
+    [Id]               NUMERIC (18)   IDENTITY (1, 1) NOT NULL,
+    [WeekId]           INT            NOT NULL,
+    [MonitorDate]      DATETIME       NOT NULL,
+    [CallDate]         DATETIME       NOT NULL,
+    [UserId]           NUMERIC (18)   NOT NULL,
+    [RecId]            NUMERIC (18)   NOT NULL,
+    [CallType]         NUMERIC (18)   NOT NULL,
+    [CustomerName]     VARCHAR (50)   NOT NULL,
+    [MobileNo]         VARCHAR (15)   NOT NULL,
+    [MakeId]           INT            NOT NULL,
+    [ProcessId]        INT            NOT NULL,
+    [Feedback]         VARCHAR (1000) NULL,
+    [FeedbackBy]       NUMERIC (18)   NULL,
+    [IsFatal]          BIT            CONSTRAINT [DF_QACallData_IsFatal] DEFAULT ((0)) NULL,
+    [CustId]           NUMERIC (18)   NULL,
+    [QARoleID]         INT            NOT NULL,
+    [TypeOfFatal]      INT            NULL,
+    [NatureOfFatal]    VARCHAR (250)  NULL,
+    [IsSendExecutive]  BIT            NULL,
+    [AcceptStatus]     SMALLINT       NULL,
+    [AcceptStatusDate] DATETIME       NULL,
+    [RejectedReason]   VARCHAR (100)  NULL,
+    CONSTRAINT [PK_QACallData] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

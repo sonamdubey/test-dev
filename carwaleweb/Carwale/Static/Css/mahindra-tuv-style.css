@@ -1,0 +1,1457 @@
+﻿/*specific*/
+.nissan-main {
+  line-height: 1.8;
+}
+
+.nissan-main a {
+  outline: none;
+}
+
+.nissan-main img {
+  vertical-align: middle;
+}
+
+.full-width-carousel .jcarousel-wrapper {
+  width: 100%;
+}
+
+.full-width-carousel .jcarousel {
+  padding: 0;
+  width: 100%;
+}
+
+.full-width-carousel .jcarousel li {
+  width: auto;
+  height: auto;
+  margin-right: 0;
+}
+
+.full-width-carousel .jcarousel li img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+.full-width-carousel .jcarousel-control-left {
+  left: 1px;
+}
+
+.full-width-carousel .jcarousel-control-right {
+  right: 1px;
+}
+
+.about-amt {
+  line-height: 1.5;
+}
+
+.padding-lr-40 {
+  padding: 0 40px;
+}
+
+.buy-automatic-car {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/es/spotlight/mahindra/tuv/tuv-pq-wallpaper.jpg") no-repeat center top #fff;
+  min-height: 432px;
+}
+
+.nissan-main a.text-underline, .text-underline {
+  text-decoration: underline;
+}
+
+.highlighted-sec-ht {
+  min-height: 142px;
+}
+
+.nissan-logo-small {
+  background-image: url(https://imgd.aeplcdn.com/0x0/cw/es/nissan-terrano-amt/nissan-logo-small.jpg);
+  background-repeat: no-repeat;
+}
+
+.car-buying-guide-bg {
+  background-position: right top;
+}
+
+.car-buying-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/es/nissan-terrano-amt/car-buying-guide-icons-sprite.png) no-repeat center center #fff;
+  height: 52px;
+  width: 52px;
+  display: inline-block;
+}
+
+.nissan-gears-icon {
+  background-position: 0 0;
+}
+
+.nissan-effortless-driving-icon {
+  background-position: 0 -123px;
+}
+
+.nissan-clutch-throttle-icon {
+  background-position: 0 -62px;
+}
+
+.nissan-manual-transmission-icon {
+  background-position: 0 -185px;
+}
+
+.icon-content {
+  max-width: 184px;
+}
+
+.bg-dark {
+  background: #e2e2e2;
+}
+
+.manual-transmission-bg {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/es/nissan-terrano-amt/manual-transmission-bg.jpg) no-repeat center top #fff;
+}
+
+.red-line-bottom {
+  border-bottom: solid 1px #c11033;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.red-line-bottom::after {
+  position: absolute;
+  bottom: -5px;
+  height: 10px;
+  width: 10px;
+  content: "";
+  background: #c11033;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -o-border-radius: 10px;
+  -ms-border-radius: 10px;
+}
+
+.bottomr::after {
+  right: 0;
+}
+
+.bottoml::after {
+  left: 0;
+}
+
+.point1 {
+  margin: 50px 0 0 70px;
+  width: 225px;
+  padding-right: 20px;
+}
+
+.point2 {
+  margin: 50px 0 0 0px;
+  width: 280px;
+  float: right;
+  padding-left: 20px;
+}
+
+.point3 {
+  margin: 50px 0 0 0;
+  width: 275px;
+  padding-right: 20px;
+}
+
+.point4 {
+  margin: 50px 0 0 0;
+  width: 225px;
+  float: right;
+  padding-left: 20px;
+}
+
+.point5 {
+  margin: 70px 0 0 70px;
+  width: 225px;
+  padding-right: 20px;
+}
+/*comparo*/
+.select-compare-car {
+  position: absolute;
+  top: 5px;
+  right: 40px;
+  min-width: 135px;
+  z-index: 1;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.select-compare-car .accordion-sprite {
+  float: right;
+  margin-top: 7px;
+}
+
+.select-compare-car2 {
+  position: absolute;
+  top: 5px;
+  right: 50px;
+  min-width: 135px;
+  z-index: 1;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.select-compare-car2 .accordion-sprite {
+  float: right;
+  margin-top: 7px;
+}
+
+.selected-car1, .selected-car2 {
+  background: #fff;
+  border: solid 1px #e2e2e2;
+  padding: 3px 10px;
+}
+
+.show-car-list1, .show-car-list2 {
+  background: #fff;
+  border: solid 1px #e2e2e2;
+  border-top: none;
+  border-radius: 0 0 2px 2px;
+  -moz-border-radius: 0 0 2px 2px;
+  -o-border-radius: 0 0 2px 2px;
+  -webkit-border-radius: 0 0 2px 2px;
+  -ms-border-radius: 0 0 2px 2px;
+}
+
+.show-car-list1 li, .show-car-list2 li {
+  background: #fff;
+  padding: 3px 10px;
+}
+
+.show-car-list1 li:hover, .show-car-list2 li:hover {
+  background: #e2e2e2;
+}
+
+.car-models {
+  padding: 5px;
+}
+
+.car-models li {
+  display: block;
+  display: table-cell;
+}
+
+.comp-border-right , .data-table-tr div:first-child, .data-table-tr div:nth-child(2) {
+  border-right: 1px solid #e2e2e2;
+}
+
+.car-models li h4 {
+  color: #0288d1;
+  font-size: 18px;
+  margin-top: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.car-models li .start-price {
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.car-models li p {
+  font-size: 12px;
+  color: #333;
+  margin-top: 5px !important;
+}
+
+.car-models a img {
+  vertical-align: middle;
+}
+
+.comparo-accordion {
+  margin: 10px 0 10px 0;
+  border: solid 1px #e2e2e2;
+  box-shadow: 0 1px 2px #e2e2e2;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.comparo-accordion li {
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.comparo-accordion li.sep {
+  border-bottom: solid 1px #e2e2e2;
+}
+
+.comparo-accordion li h5, .sarafi-accordion li span {
+  font-size: 18px;
+  color: #666666;
+  font-weight: normal;
+}
+
+.comparo-accordion li h5 {
+  float: left;
+  position: absolute;
+  left: calc(50% - 44px);
+}
+
+.comparo-accordion li h5.active-text {
+  color: #000;
+}
+
+.margin-top12 {
+  margin-top: 12px;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-boldest {
+  font-weight: 700;
+}
+
+.content-parent {
+  overflow-y: auto;
+  margin: auto;
+}
+
+.tuv-img-box {
+  max-width: 100%;
+  width: auto;
+  display: block;
+  margin: auto;
+}
+
+.tuv-content-box {
+  max-width: 100%;
+  width: auto;
+  display: block;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.tuv-content-box ul {
+  list-style-type: disc;
+  padding-left: 15px;
+}
+
+.tuv-content-box li {
+  margin: 5px 0;
+}
+
+.tuv-content-box-head {
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.spec-sprite {
+  background-image: url("https://imgd.aeplcdn.com/0x0/cw/es/spotlight/mahindra/tuv/tuv-sprite.png");
+  margin: auto;
+}
+
+.spec-head {
+  text-align: center;
+}
+
+.spec-details {
+  text-align: center;
+}
+
+.performance-icon {
+  width: 82px;
+  height: 82px;
+  background-position: -9px -8px;
+}
+
+.fuel-icon {
+  width: 82px;
+  height: 82px;
+  background-position: -108px -8px;
+}
+
+.transmission-icon {
+  width: 82px;
+  height: 82px;
+  background-position: -208px -9px;
+}
+
+.safety-icon {
+  width: 82px;
+  height: 82px;
+  background-position: -314px -8px;
+}
+
+.download-icon {
+  width: 32px;
+  height: 40px;
+  background-position: -9px -98px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.book-icon {
+  width: 32px;
+  height: 40px;
+  background-position: -60px -103px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.check-icon {
+  width: 32px;
+  height: 40px;
+  background-position: -106px -103px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.request-icon {
+  width: 32px;
+  height: 40px;
+  background-position: -153px -103px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.pq-box {
+  width: 100%;
+}
+
+.request-callback-box .grid-4 {
+  width: 400px;
+  padding: 20px;
+  background: #f6f5f1;
+  position: relative;
+  top: 7px;
+  right: 7%;
+  border-radius: 5px;
+}
+
+.scorpio-carousel li {
+  margin: 0px;
+  height: 134px;
+  width: auto;
+}
+
+.scorpio-carousel .jcarousel-wrapper {
+  width: 92%;
+  margin: auto;
+}
+
+.scorpio-carousel .jcarousel-control-right {
+  right: 0px;
+}
+
+.scorpio-carousel .jcarousel-control-left {
+  left: 0px;
+}
+
+.compare-img-container img {
+  max-width: 100%;
+  width: auto;
+}
+
+.ad-container {
+  position: absolute;
+  bottom: 25%;
+  color: white;
+  left: 53%;
+}
+
+.ad-container .heading {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.ad-container .normal-text {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.ad-container .btn {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.btn-transparent {
+  background: rgba(0,0,0,0);
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+.btn-transparent:hover {
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  border: 1px solid #fff;
+}
+
+.full-width-carousel .banner {
+  max-width: 100%;
+  width: auto;
+  display: block;
+}
+
+.zero-transform {
+  -ms-transform: translateY(0%);
+  -moz-transform: translateY(0%);
+  -o-transform: translateY(0%);
+  -webkit-transform: translateY(0%);
+  transform: translateY(0%);
+  top: 0;
+}
+
+.car-name-head {
+  font-size: 16px;
+  font-weight: 600;
+  padding-left: 10px;
+}
+
+.car-version {
+  font-size: 12px;
+    /*font-weight: 600;*/
+  padding-left: 10px;
+}
+
+.car-price {
+  font-size: 15px;
+  padding-left: 10px;
+}
+
+.tuv-features li {
+  display: inline-block;
+  width: 33%;
+  font-weight: 600;
+  text-align: center;
+  font-size: 15px;
+  vertical-align: top;
+}
+
+.tuv-features li div {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.tuv-features img {
+  max-width: 100%;
+  width: auto;
+  display: block;
+}
+
+.quick-links {
+  padding: 20px;
+  background: #fff;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.quick-links li {
+  display: inline-block;
+  width: 30%;
+  vertical-align: top;
+  border-color: #313131;
+  cursor: pointer;
+}
+
+.quick-links li:hover {
+  color: #1a89ce;
+}
+
+.quick-text {
+  width: 61%;
+  text-align: left;
+  font-weight: 700;
+  margin-left: 10px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.pq-box #es-thankyou {
+  margin: 0;
+}
+
+/* comparo classes */
+.data-table {
+  display: table;
+  width: 100%;
+}
+
+.data-table-tr {
+  display: table-row;
+}
+/*.data-table-tr div:first-child { padding: 0 20px 0 20px;} */
+.data-table-th {
+  background: #f2f2f2;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+  display: table-caption;
+}
+
+.data-table-td {
+  display: table-cell;
+  width: 33%;
+  padding: 10px 0px 10px 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.data-table-td.hide {
+  display: none;
+}
+
+.compare-img-container {
+  text-align: center;
+  width: 39%;
+  float: left;
+}
+
+.car-name-container {
+  float: left;
+  height: 80px;
+}
+
+.brand-logo {
+  margin: 0px 20px 10px 0;
+}
+
+.comparo-accordion li span {
+  float: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.bottom-link:first-child {
+  margin: 0 10px 0 0;
+}
+
+.bottom-link {
+  font-size: 14px;
+  margin: 0 10px;
+}
+
+.data-table-td .fa-check, .data-table-td .fa-times {
+  color: #b6b7b7;
+  font-size: 18px;
+}
+
+.accordion-bullets li {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/es/nissan-terrano-amt/br-v-sprite.png) no-repeat 0 -39px;
+  float: none;
+  padding: 0 0 0 15px;
+  margin: 6px 0px;
+  cursor: default;
+}
+
+*/                                           
+/*.quick-links { padding:10px 5px 0 0; }*/
+.accordion-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/es/nissan-terrano-amt/br-v-sprite.png) no-repeat;
+  display: inline-block;
+}
+
+.plus-icon {
+  background-position: 0 -7px;
+  width: 12px;
+  height: 7px;
+}
+
+.minus-icon {
+  background-position: 0 0;
+  width: 12px;
+  height: 7px;
+}
+
+.content-inner-block-15nr {
+  padding: 15px 10px 15px 10px;
+}
+
+.content-inner-block-30 {
+  padding: 30px;
+}
+
+.content-inner-block-15lr {
+  padding: 0 15px 0 15px;
+}
+
+.content-inner-block-30-lr {
+  padding: 0 30px 0 30px;
+}
+
+.content-inner-block-30-lrt {
+  padding: 30px 30px 0 30px;
+}
+
+.lineht-pt8 {
+  line-height: 1.8;
+}
+
+#divAdBar {
+  display: none;
+}
+
+.carousel-box {
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: inline-block;
+  height: 375px;
+  overflow: hidden;
+}
+
+.image-container {
+  height: 174px;
+  overflow: hidden;
+  text-align: center;
+  width: 300px;
+  display: table;
+}
+
+.image-container a {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.inner-full-carousel {
+  width: 100%;
+}
+
+.vehicles .jcarousel-wrapper {
+  width: 100%;
+}
+
+.vehicles .jcarousel-wrapper  .jcarousel {
+  margin: 0 auto;
+  min-width: 100%;
+  position: relative;
+  width: 100%;
+  padding: 0;
+}
+
+.vehicles .jcarousel-wrapper .jcarousel li {
+  height: auto;
+}
+
+.vehicles .jcarousel-wrapper .jcarousel li img {
+  width: 100%;
+}
+
+.vehicles .jcarousel-control-left {
+  left: -20px;
+}
+
+.vehicles .jcarousel-control-right {
+  right: -20px;
+}
+
+.user-holder img {
+  width: 100%;
+}
+
+.user-holder img[src$="circle-loader.gif"] {
+  width: auto;
+  margin: 30px 0;
+}
+
+.user-holder:hover img[src$="circle-loader.gif"] {
+  width: auto;
+  margin: 75px 0;
+}
+
+.jcarousel-control-next {
+  background-position: -65px -135px;
+}
+
+.jcarousel-control-prev {
+  background-position: -33px -135px;
+}
+
+#es-thankyou {
+  margin: 95px 0 0;
+  text-align: center;
+}
+
+/* lead for left container classes */
+.buy-car-btn {
+  margin-top: 80px;
+}
+
+@media only screen and (max-width:1000px) {
+  body {
+    min-width: 100%;
+  }
+
+  .mb-margin {
+    margin: 10px 10px 0 10px;
+  }
+
+  .jcarousel-pagination {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .ask-expert {
+    display: none;
+  }
+
+  .container {
+    width: 100% !important;
+  }
+
+  .about-e2o {
+    top: 0;
+    width: 100%;
+    padding: 15px;
+    margin-top: 40px;
+  }
+
+  .buy-automatic-car .form-mb-margin {
+    padding-left: 20px;
+  }
+
+  .jcarousel-pagination {
+    margin-bottom: 10px;
+  }
+
+  .buy-automatic-car .grid-4 {
+    width: 31%;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 235px;
+  }
+
+  .ad-container .heading {
+    font-size: 16px;
+  }
+
+  .ad-container .normal-text {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .ad-container .btn {
+    font-size: 14px;
+  }
+
+  .ad-container {
+    bottom: 30%;
+    left: 53%;
+  }
+}
+
+@media only screen and (max-width:980px) {
+  .image-container {
+    width: 290px;
+  }
+
+  .image-container img {
+    width: 100%;
+  }
+
+  .nissan-main {
+    overflow-x: hidden;
+  }
+
+  .buy-automatic-car .grid-4 {
+    width: 30%;
+  }
+
+  .icon-content {
+    max-width: 168px;
+  }
+
+  .content-inner-block-15nr {
+    padding: 15px 40px 20px 40px;
+  }
+
+  .car-buying-guide .content-inner-block-15nr {
+    padding: 15px 20px 20px 20px;
+  }
+
+  .icon-content {
+    max-width: 145px;
+  }
+}
+
+@media only screen and (max-width:900px) {
+  .image-container {
+    width: 260px;
+    height: auto;
+  }
+
+  .buy-automatic-car {
+    background: #f6f5f1;
+  }
+
+  .buy-automatic-car .grid-7, .buy-automatic-car .grid-4 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .buy-car-btn {
+    display: none;
+  }
+
+  .request-callback-box .grid-4 {
+    right: 0;
+  }
+}
+
+@media only screen and (max-width:800px) {
+  .point1 {
+    margin: 50px 0 0;
+  }
+
+  .car-buying-guide .grid-6, .car-buying-guide .grid-5 {
+    float: none;
+    width: 100%;
+  }
+
+  .car-buying-guide .grid-7 {
+    width: 100%;
+  }
+
+  .icon-content {
+    max-width: 100%;
+    margin-top: 15px;
+  }
+
+  .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .image-container {
+    width: 242px;
+  }
+
+  img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 55px 0;
+  }
+
+  .user-holder img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 30px 0;
+  }
+
+  .user-holder:hover img[src$="circle-loader.gif"], .active-test .user-holder img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 75px 0;
+  }
+
+  .jcarousel-control-prev, .jcarousel-control-next {
+    background-size: 130px auto;
+    height: 34px;
+    left: 2px;
+    padding: 0;
+    position: relative;
+    top: 3px;
+    width: 20px;
+  }
+
+  .jcarousel-control-prev {
+    background-position: -21px -82px;
+  }
+
+  .jcarousel-control-prev:hover {
+    background-position: -21px -82px;
+  }
+
+  .jcarousel-control-next {
+    background-position: -42px -82px;
+  }
+
+  .jcarousel-control-next:hover {
+    background-position: -42px -82px;
+  }
+
+  .jcarousel-control-prev.inactive {
+    background-position: -21px -16px;
+    opacity: 1;
+  }
+
+  .jcarousel-control-next.inactive {
+    background-position: -42px -16px;
+    opacity: 1;
+  }
+/*.top-box .grid-6{
+    float:none;
+    width: 100%;
+}*/;
+}
+
+@media only screen and (max-width:768px) {
+  .image-container {
+    width: 229px;
+  }
+
+  .jcarousel-control-left, .jcarousel-control-right {
+    top: 36%;
+  }
+
+  #es-thankyou {
+    margin: 10px 0 0;
+    text-align: center;
+  }
+
+  .padding-lr-40 {
+    padding: 0 20px;
+  }
+
+  .car-buying-guide .content-inner-block-15nr {
+    padding: 15px 10px 20px;
+  }
+
+  .content-inner-block-15nr {
+    padding: 15px 20px 20px;
+  }
+/*.top-box .grid-6{
+    float:none;
+    width: 100%;
+}*/
+  .quick-links li {
+    width: 30%;
+    margin-bottom: 15px;
+    font-size: 11px;
+  }
+
+  .quick-links li.comp-border-right {
+    border: none;
+  }
+}
+
+@media only screen and (max-width:640px) {
+  img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 55px 0;
+  }
+
+  .grid-1, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .grid-7, .grid-8, .grid-9, .grid-10, .grid-11, .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .video-bg {
+    margin: 0 15px 0 15px;
+  }
+
+  .content-inner-block-30-lr {
+    padding: 0 15px 0 15px;
+  }
+
+  .content-inner-block-30-lrt {
+    padding: 15px 15px 0 15px;
+  }
+
+  .video-container iframe {
+    height: 306px;
+  }
+
+  .manual-transmission-bg {
+    background: none;
+  }
+
+  .point1, .point2, .point3, .point4, .point5 {
+    width: 100%;
+    margin: 10px 0 10px 0;
+    float: none;
+  }
+
+  .bottomr::after {
+    left: 0;
+  }
+
+  .point2, .point4 {
+    padding-left: 0;
+  }
+
+  .comparo-accordion li h5 {
+    left: calc(50% - 35px);
+  }
+
+  .car-models li.grid-4 {
+    width: 33%;
+  }
+
+  .car-models li.third-column, .compare2-drop {
+    /*display: none;*/;
+  }
+
+  .comparo-accordion .hide-content2.active {
+    /*display: none;*/;
+  }
+
+  .ad-container .heading {
+    font-size: 14px;
+  }
+
+  .ad-container .normal-text {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .ad-container .btn {
+    font-size: 12px;
+  }
+
+  .ad-container {
+    bottom: 20%;
+    left: 53%;
+  }
+
+  .tuv-content-box {
+    -/*ms-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    -webkit-transform: translateY(0%);
+    transform: tran*/slateY(0%);
+  }
+
+  .swap-parent {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    /* optional */
+    -webkit-box-align: start;
+    -moz-box-align: start;
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+  }
+
+  .swap-parent .first_div {
+    -webkit-box-ordinal-group: 2;
+    -moz-box-ordinal-group: 2;
+    -ms-flex-order: 2;
+    -webkit-order: 2;
+    order: 2;
+  }
+
+  .swap-parent .second_div {
+    -webkit-box-ordinal-group: 1;
+    -moz-box-ordinal-group: 1;
+    -ms-flex-order: 1;
+    -webkit-order: 1;
+    order: 1;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .nissan-main {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .full-width-carousel {
+    height: auto;
+  }
+
+  .jcarousel-wrapper {
+    width: 100%;
+  }
+
+  .jcarousel {
+    padding: 10px 0 10px;
+  }
+
+  .jcarousel-control-prev, .jcarousel-control-next {
+    background-size: 130px auto;
+    height: 34px;
+    left: 2px;
+    padding: 0;
+    position: relative;
+    top: 3px;
+    width: 20px;
+  }
+
+  .jcarousel-control-left {
+    left: 0;
+  }
+
+  .jcarousel-control-right {
+    right: 0;
+  }
+
+  .jcarousel-control-prev {
+    background-position: -21px -82px;
+  }
+
+  .jcarousel-control-prev:hover {
+    background-position: -21px -82px;
+  }
+
+  .jcarousel-control-next {
+    background-position: -42px -82px;
+  }
+
+  .jcarousel-control-next:hover {
+    background-position: -42px -82px;
+  }
+
+  .jcarousel-control-prev.inactive {
+    background-position: -21px -16px;
+  }
+
+  .jcarousel-control-next.inactive {
+    background-position: -42px -16px;
+  }
+
+  .buy-automatic-car {
+    background: #f6f5f1;
+  }
+
+  .buy-automatic-car .grid-4 {
+    margin-bottom: 20px;
+  }
+
+  .video-container iframe {
+    height: 222px;
+  }
+
+  .nissan-main .nissan-main.cw-tabs-flex li {
+    font-size: 14px;
+  }
+
+  .compare-img-container img {
+    width: 100%;
+  }
+
+  .terrano-compare-main .grid-6 {
+    width: 50%;
+  }
+
+  .select-compare-car {
+  }
+
+  .select-compare-car .accordion-sprite {
+    margin-top: 6px;
+  }
+
+  .select-compare-car2 {
+  }
+
+  .select-compare-car2 .accordion-sprite {
+    margin-top: 6px;
+  }
+
+  .car-models li h4 {
+    font-size: 16px;
+  }
+
+  .comparo-accordion li h5, .sarafi-accordion li span {
+    font-size: 16px;
+    font-weight: normal;
+  }
+
+  .compare-img-container img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 75px 0;
+  }
+/*.car-name {position: relative; top: 7px;}*/
+  .compare-img-container {
+    padding: 13px;
+    width: 100%;
+  }
+
+  .bottom-link {
+    font-size: 15px;
+  }
+
+  .cw-tabs-flex li {
+    font-size: 15px;
+  }
+
+  .cw-tabs-flex li sub {
+    font-size: 12px;
+  }
+
+  .car-name-head {
+    font-size: 13px;
+    font-weight: 600;
+    padding-left: 10px;
+  }
+
+  .car-version {
+    font-size: 13px;
+    /*font-weight: 600;*/
+    padding-left: 10px;
+  }
+
+  .car-price {
+    font-size: 11px;
+    padding-left: 10px;
+  }
+
+  .tuv-features li {
+    width: 32%;
+    font-size: 11px;
+  }
+}
+
+@media only screen and (max-width:412px) {
+  .icon-content {
+    margin-top: 0;
+    max-width: 170px;
+  }
+/*.quick-links { margin-bottom:20px;}*/
+  .ad-container .heading {
+    font-size: 10px;
+    margin-bottom: 2px;
+  }
+
+  .ad-container .normal-text {
+    font-size: 10px;
+    margin-bottom: 2px;
+  }
+
+  .ad-container .btn {
+    font-size: 10px;
+  }
+
+  .ad-container {
+    bottom: 20%;
+    left: 53%;
+  }
+
+  .btn-sm {
+    padding: 5px 10px;
+  }
+/*.car-name {position: relative; top: 5px;}*/;
+}
+
+@media only screen and (max-width:360px) {
+  .jcarousel-control-left, .jcarousel-control-right {
+    top: 31%;
+  }
+
+  .video-container iframe {
+    height: 159px;
+  }
+
+  .manual-transmission-bg img {
+    width: 100%;
+  }
+
+  .manual-transmission-bg img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 75px 0;
+  }
+
+  .compare-img-container {
+  }
+
+  .ad-container .heading {
+    font-size: 10px;
+    margin-bottom: 2px;
+  }
+
+  .ad-container .normal-text {
+    font-size: 10px;
+    margin-bottom: 2px;
+  }
+
+  .ad-container .btn {
+    font-size: 10px;
+  }
+
+  .ad-container {
+    bottom: 20%;
+    left: 53%;
+  }
+
+  .btn-sm {
+    padding: 5px 10px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .mb-view img {
+    width: 100%;
+  }
+
+  .video-container iframe {
+    height: 140px;
+  }
+
+  .car-models li h4 {
+    font-size: 14px;
+  }
+
+  .compare-img-container {
+  }
+
+  .comparo-accordion li h5, .sarafi-accordion li span {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 240px) {
+  .mb-view img {
+    width: 100%;
+  }
+
+  img[src$="circle-loader.gif"] {
+    margin: 40px 0;
+  }
+
+  .video-container iframe {
+    height: 98px;
+  }
+
+  .cw-tabs-flex li {
+    font-size: 12px;
+  }
+
+  .padding-lr-40 {
+    padding: 0 10px;
+  }
+
+  .content-inner-block-15nr {
+    padding: 10px 10px 10px;
+  }
+
+  .comparo-accordion li {
+    padding: 8px 10px;
+  }
+
+  .data-table-td {
+    padding: 4px 10px 0;
+    font-size: 12px;
+  }
+
+  .data-table-tr div:first-child {
+    padding: 0 10px;
+  }
+
+  h2, .font20 {
+    font-size: 16px;
+  }
+}
+
+@media all and (min-width: 240px) and (max-width: 768px) {
+    /* hide tagline-box on mobile devices from 240 to 768 */
+  .tagline-box {
+    display: none;
+  }
+}
+    
+ 

@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[SubCities] (
+    [Id]       NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [Name]     VARCHAR (50) NOT NULL,
+    [CityId]   NUMERIC (18) NOT NULL,
+    [IsActive] BIT          CONSTRAINT [DF_SubCities_IsActive] DEFAULT (1) NOT NULL,
+    CONSTRAINT [PK_SubCities] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

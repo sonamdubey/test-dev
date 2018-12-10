@@ -1,0 +1,23 @@
+IF EXISTS (
+    SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[SellInquiryCOUNT]') 
+    AND xtype IN (N'P')
+)
+    DROP PROCEDURE [dbo].[SellInquiryCOUNT]
+GO
+
+	
+--THIS PROCEDURE RETURNS THE COUNT FOR THE ID PASSED FROM THE SELLINQUIRIES
+
+
+CREATE PROCEDURE [dbo].[SellInquiryCOUNT]
+	@DealerID		NUMERIC,	--ID.		        	
+	@COUNT	INTEGER OUTPUT	--return value, COUNT
+ AS
+	DECLARE @TEMPCOUNT AS INTEGER
+BEGIN
+	
+	SELECT @TEMPCOUNT = COUNT(ID) FROM SellInquiries  WHERE DealerID = @DealerID AND StatusId=1
+	
+	SET @COUNT = @TEMPCOUNT	
+	
+END

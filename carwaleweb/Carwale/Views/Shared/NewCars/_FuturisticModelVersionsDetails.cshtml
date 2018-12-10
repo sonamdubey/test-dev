@@ -1,0 +1,78 @@
+﻿@model Carwale.DTOs.NewCars.ModelPageDTO_Desktop
+@using Carwale.Utility;
+@using Carwale.UI.Common;
+@using Carwale.Entity;
+
+<section class="model__variants" id="versions">
+	<header class="margin-top15 margin-bottom15">
+        <h2 class="special-skin-text">@(string.Format("{0} Details", Model.ModelDetails.ModelName))</h2>
+        <p class="text-grey margin-top5 margin-bottom10 special-skin-text">All following details are tentative.</p>
+	</header>
+	<div class="variant-list">
+			<table class ="variant-table">
+				<thead class="variant-table__head">
+					<tr><th class="variant-table__col-heading">Variant</th>
+                    @if (Model.ShowPriceColumn)
+                    {
+                        <th class="variant-table__col-heading">Expected Price</th>
+                    }
+                    @if (Model.VersionCountWithSpecs > 0)
+                    {
+                        <th class="variant-table__col-heading text-center">Compare</th>
+                    }
+                    </tr>
+				</thead>
+				<tbody>
+					@foreach (var version in Model.NewCarVersions)
+					{
+						<tr fuel-type="@version.CarFuelType" transmission-type="@version.TransmissionType" class="variant">
+							<td class="variant__name-cell">
+                                @if (version.IsSpecsExist)
+                                {
+								<a class="variant__name" title="@Model.ModelDetails.ModelName @version.Version:@(!string.IsNullOrWhiteSpace(version.CarFuelType) ? version.CarFuelType + ", " : string.Empty)@version.TransmissionType" href='@ManageCarUrl.CreateVersionUrl(Model.ModelDetails.MakeName, version.MaskingName, version.VersionMaskingName)'>@version.Version</a>
+                                }
+                                else
+                                {
+                                    <span class="variant__name" title="@Model.ModelDetails.ModelName @version.Version:@(!string.IsNullOrWhiteSpace(version.CarFuelType) ? version.CarFuelType + ", " : string.Empty)@version.TransmissionType">@version.Version</span>
+                                }
+
+								<span class="variant__specs">@version.SpecsSummary</span>
+							</td>
+                        @if (Model.ShowPriceColumn)
+                        {
+                            <td class="variant__price-cell">
+                                @if (version.CarPriceOverview != null)
+                                {
+                                <span class="variant__price">₹ @FormatPrice.GetFormattedPriceV2(version.CarPriceOverview.Price.ToString())</span>
+                                if (version.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity)
+                                {
+                                    <span class='@(version.CarPriceOverview.PriceStatus == (int)PriceBucket.PriceNotAvailable ? "oliveText" : version.CarPriceOverview.PriceStatus == (int)PriceBucket.CarNotSold ? "redText" : "") variant__price-help block'>
+                                        @version.CarPriceOverview.PriceLabel@(version.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity ? ", " + version.CarPriceOverview.City.CityName : "")
+                                        @(version.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<span class='average-info-tooltip class-ad-tooltip tooltip-icon inline-block'>i</span><span class='average-info-content hide'>" + version.CarPriceOverview.ReasonText + "</span>") : Html.Raw(""))
+                                    </span>
+                                }
+                                }
+                            </td>
+                        }
+						@if (Model.VersionCountWithSpecs > 0)
+                        {
+							<td>
+								<span class="compare-cta">
+									<input class="chkCompare compare-cta__chkbox" id="compare-@version.Id" data-version__name="@version.Version" value="@version.Id" type="checkbox"  @(version.IsSpecsExist && Model.VersionCountWithSpecs > 1? string.Empty : "disabled") />
+								</span>
+							</td>
+                        }
+						</tr>
+					}
+				</tbody>
+			</table>
+		<p class='filter__no-result'>Sorry, no matching variants found.</p>
+	</div>
+    @if (Model.VersionCountWithSpecs > 1)
+    {
+	<div class="margin-top10 margin-bottom10 text-right">
+		<span class="text-grey">Select upto @(Model.VersionCountWithSpecs>4?4: Model.VersionCountWithSpecs) @ViewBag.ModelName variants to compare.</span>
+		<input id="btnCompBottom" type="button" class="btn btn-white text-uppercase" value="Compare" onclick="CompareCars(@((int)Carwale.Entity.Enum.WidgetSource.ModelPageVariantListCompareCarLinkDesktop));" />
+	</div>
+    }
+</section>

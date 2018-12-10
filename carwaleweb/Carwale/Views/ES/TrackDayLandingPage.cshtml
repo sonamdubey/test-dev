@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Track Day 2016";
+    ViewBag.Description = "";
+    ViewBag.Keywords = "";
+    ViewBag.landingPage = true;
+    Layout = "~/views/shared/_Layout.cshtml";
+    ViewBag.BodyClass = "";
+    ViewBag.CustomCss = "~/Views/StaticPartials/ES/TrackDayCss.cshtml";
+    ViewBag.CustomJS = "~/Views/StaticPartials/ES/TrackDayScript.cshtml";
+    ViewBag.Canonical = "https://www.carwale.com/";
+}
+
+  
+@{Html.RenderPartial("~/Views/Shared/ES/_TrackDayBody.cshtml");}

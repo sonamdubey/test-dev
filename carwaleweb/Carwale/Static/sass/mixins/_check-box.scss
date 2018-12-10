@@ -1,0 +1,62 @@
+
+@mixin check-box($size: 18, $alignment: 'left',$borderColor: 'grey-btn-border',$fontColor: 'charcoal' ) {
+	.check-box {
+		input[type="checkbox"] {
+			display: none;
+		}
+
+		& {
+			position: relative;
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
+
+	.check-box {
+		input[type="checkbox"] {
+			&:checked {
+				~ .check-box__icon {
+					@include tick-icon-white;
+					border-color: map-get($color-map, "shamrockGreen");
+					background-color: map-get($color-map, "shamrockGreen");
+                    background-position: 3px;
+				}
+			}
+
+			&:disabled {
+				~ {
+					.check-box__label,
+					.check-box__icon {
+						@include vendor-prefix('opacity', .4);
+					}
+				}
+			}
+		}
+	}
+
+	.check-box__label {
+		font-size: 12px;
+		display: inline-block;
+		padding-#{$alignment}: ($size + 10) * 1px;
+		color: map-get($color-map, $fontColor);
+	}
+
+	.check-box__icon {
+		@include vendor-prefix('border-radius', 3px);
+		position: absolute;
+		top: 0;
+
+		@if $alignment == 'left' {
+			left: 0;
+		}
+		@else {
+			right: 0;
+		}
+
+		width: $size * 1px;
+		height: $size * 1px;
+		display: block;
+		border: 1px solid map-get($color-map, $borderColor);
+		background-color: map-get($color-map, "white-bg");
+	}
+}

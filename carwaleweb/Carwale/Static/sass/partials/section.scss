@@ -1,0 +1,8 @@
+﻿@import '../mixins/_section.scss';
+// Section structure
+@include section;
+@include section-head;
+@include section-primary-title;
+@include section-supporting-text;
+@include section-body;
+@include section-footer;

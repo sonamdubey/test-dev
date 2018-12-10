@@ -1,0 +1,391 @@
+﻿@{
+    ViewBag.Title = "All About Jeep Compass";
+    ViewBag.BodyClass = "bg-light-grey";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+    ViewBag.landingPage = false;
+    ViewBag.Responsive = true;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.Canonical = "";
+    ViewBag.Alternate = "";
+	ViewBag.CustomJS = "~/Views/StaticPartials/ES/JeepCompassSpotlightScripts.cshtml";
+	ViewBag.CustomCss = "~/Views/StaticPartials/ES/JeepCompassSpotlightCss.cshtml";
+    Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayout.cshtml" : "~/views/shared/_Layout.cshtml");
+}
+
+<div class="jeep-main">
+    <section class="banner position-rel">
+          <div class="top-banner"><div class="banner__campaign"><p class="banner__campaign-header">Jeep Compass <span class="banner__campaign-seprator">-</span> <span class="banner__campaign-subheader">Drive The Legend</span></p><a href="https://www.jeep-india.com/compass.html" target="_blank" class="click_track btn btn-orange btn-sm" data-label="HP-banner_Know More"> Know More</a></div></div>
+    
+       <img class="position-abt" src="https://ad.doubleclick.net/ddm/trackimp/N6267.139588.CARWALE/B10494210.141284830;dc_trk_aid=313518939;dc_trk_cid=75544818;ord=%%CACHEBUSTER%%;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=?" border="0" height="1" width="1" alt="Advertisement">
+    </section>
+
+    <div class="mb-margin">
+		<section>
+			<div class="spotlight__navigation-bar"> 
+				<ul>
+					<li class="spotlight__navigation-bar-list-item spotlight__navigation__active"><a href="#compassFeatures" class="click_track" data-label="Navgation Click_Extraordinary Features">Extraordinary Features</a></li>
+					<li class="spotlight__navigation-bar-list-item"><a href="#compassSpec" class="click_track" data-label="Navgation Click_Compass Specs">Compass Specs</a></li>
+					<li class="spotlight__navigation-bar-list-item"><a href="#jeepVsCompetition" class="click_track" data-label="Navgation Click_Jeep vs The Competition">Jeep vs The Competition</a></li>
+					<li class="spotlight__navigation-bar-list-item"><a href="#compassInformation" class="click_track" data-label="Navgation Click_More Information">More Information</a></li>
+					<li class="spotlight__navigation-bar-list-item"><a href="#compassQuickLinks" class="click_track" data-label="Navgation Click_Quick Links">Quick Links</a></li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</section>
+		<h2 id="compassFeatures" class="campaign__section-heading">Extraordinary Features</h2>
+        <section class="container top-box">
+			<div class="grid-12 jeep-carousel bg-white">
+				<div class="jcarousel-wrapper">
+					<div class="jcarousel" data-jcarousel="true">
+						<ul style="left: 0px; top: 0px;">
+							<li class="rounded-corner2 content-box-shadow">
+								<img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/jeep/bestinclassinteriors.png" alt="Jeep Compass">
+								<div class="padding-top10 padding-left15">
+									<div class="text-bold font16 text-italic padding-bottom10">Best in class interiors:</div>
+									<div class="spotlight-campaign__feature-data">
+										<p>Uconnect Infotainment System</p>
+										<p>Leather-wrapped Steering Wheel</p>
+										<p>Graphic Information Cluster</p>
+										<p>Superior Storage</p>
+										<p>Quality Sound</p>
+									</div>
+									<a href="https://www.jeep-india.com/compass/interior.html" target="_blank" title="" class="spotlight-campaign__feature-know-more click_track" data-label="Extraordinary Features Click_Interior Know more">Know more <span class="spotlight-campaign__feature-know-more-arrow-icon"></span></a>
+								</div>
+							</li>						
+							<li class="rounded-corner2 content-box-shadow">
+								<img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/jeep/extraordinary-exterior.png" alt="Jeep Compass">
+								<div class="padding-top10 padding-left15">
+									<div class="text-bold font16 text-italic padding-bottom10">Extraordinary exteriors:</div>
+									<div class="spotlight-campaign__feature-data">
+										<p>Standout Wheel Option</p>
+										<p>Stunning Style and Grace</p>
+										<p>Daytime Running Lamps</p>
+										<p>Function Equally in Cities & Outdoor</p>
+										<p>Quad Halogen Headlamps</p>
+									</div>
+									<a href="https://www.jeep-india.com/compass/exterior.html" target="_blank" title="" class="spotlight-campaign__feature-know-more click_track" data-label="Extraordinary Features Click_Exterior Know more">Know more <span class="spotlight-campaign__feature-know-more-arrow-icon"></span></a>
+								</div>
+							</li>
+							<li class="rounded-corner2 content-box-shadow">
+								<img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/jeep/safetyfeatures.png" alt="Jeep Compass">
+								<div class="padding-top10 padding-left15">
+									<div class="text-bold font16 text-italic padding-bottom10">Safety Features:</div>
+									<div class="spotlight-campaign__feature-data">
+										<p>6 Airbags</p>
+										<p>Cornering Fog Lamps</p>
+										<p>Electronic Parking Brake</p>
+										<p>Electronic Stability Control</p>
+										<p>Reverse Parking Camera</p>
+									</div>
+									<a href="https://www.jeep-india.com/compass/safety-security.html" target="_blank" title="" class="spotlight-campaign__feature-know-more click_track" data-label="Extraordinary Features Click_Safety Know more">Know more <span class="spotlight-campaign__feature-know-more-arrow-icon"></span></a>
+								</div>
+							</li>
+							<li class="rounded-corner2 content-box-shadow">
+								<img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/jeep/capabilities.png" alt="Jeep Compass">
+								<div class="padding-top10 padding-left15">
+									<div class="text-bold font16 text-italic padding-bottom10">Capabilities:</div>
+									<div class="spotlight-campaign__feature-data">
+										<p>Fuel Selective Damping Suspension</p>
+										<p>250 Nm and 162 PS</p>
+										<p>Dynamic Steering Torque (DST)</p>
+										<p>Smoothest Transmission</p>
+										<p>All Season Tyres</p>
+									</div>
+									<a href="https://www.jeep-india.com/compass/capability.html" target="_blank" title="" class="spotlight-campaign__feature-know-more click_track" data-label="Extraordinary Features Click_Capabilities Know more">Know more <span class="spotlight-campaign__feature-know-more-arrow-icon"></span></a>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<span class="jcarousel-control-left click_track" data-label="features_left click"><span class="cwsprite jcarousel-control-prev inactive" data-jcarouselcontrol="true"></span></span>
+					<span class="jcarousel-control-right click_track" data-label="features_right click"><span class="cwsprite jcarousel-control-next" data-jcarouselcontrol="true"></span></span>
+				</div>
+			</div>
+            <div class="clear"></div>
+        </section>
+		
+		<section id="compassSpec" class="bg-light-grey padding-top40 margin-top40">
+			<h2 class="campaign__section-heading">Jeep Compass Specs</h2>
+			<div class="container"><div class="grid-12 inline-block-noalign">
+				<div class="text-center">
+					<div class="grid-3 margin-bottom20">
+						<div class="specs-container">
+							<div class="performance-icon margin-bottom15"><img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/jeep/engine.svg" alt="Engine icon" /> </div>
+							<div class="spec-parent">
+								<div class="spec-head font16 text-bold margin-top10 margin-bottom10">Engine</div>
+								<div class="spec-details font13">
+									<div>2.0 Multijet II Turbo Diesel Option</div>
+									<div>1.4 Multiair Petrol Option</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="specs-container">
+						<div class="grid-3 margin-bottom20">
+							<div class="fuel-icon margin-bottom15"><img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/jeep/fuel.svg" alt="fuel icon" /> </div>
+							<div class="spec-parent">
+								<div class="spec-head font16 text-bold margin-top10 margin-bottom10">Fuel Efficiency</div>
+								<div class="spec-details font13">
+									Mileage (ARAI):- 17.1 km/l
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="specs-container">
+						<div class="grid-3 margin-bottom20">
+							<div class="transmission-icon margin-bottom15"><img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/jeep/transmission.svg" alt="transmission icon" /> </div>
+							<div class="spec-parent">
+								<div class="spec-head font16 text-bold margin-top10 margin-bottom10" ">Transmission</div>
+								<div class="spec-details font13">
+									6-Speed Manual
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="specs-container">
+						<div class="grid-3 margin-bottom20">
+							<div class="safety-icon margin-bottom15"> <img src="https://imgd.aeplcdn.com/0x0/cw/es/spotlight/jeep/brakes.svg" alt="brakes icon" /></div>
+							<div class="spec-parent">
+								<div class="spec-head font16 text-bold margin-top10 margin-bottom10" ">Brakes</div>
+								<div class="spec-details font13">
+									Front and Rare Disk Brakes
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			</div>
+			<div class="padding-bottom20 padding-top20 text-center">
+				<a href="https://www.jeep-india.com/compass/specifications.html" target="_blank" title="" class="btn btn-transparent-red click_track" data-label="Feature_Explore More Specifications">Explore More Specifications <span class="spotlight-right-arrow-image"></span></a>
+			</div>
+		</section>
+        <section id="jeepVsCompetition" class="container">
+            
+            <div class="grid-12">
+				<h2 class="margin-top40 campaign__section-heading">Jeep vs The Competition</h2>
+                <div class="padding-lr-40 content-box-shadow">
+                    <div class="position-rel margin-top20">
+                        <div class="car-models">
+                            <ul>
+                                <li class="comp-border-right grid-4  alpha omega">
+                                    <div class="compare-img-container">
+										<img class="lazy" src="https://imgd.aeplcdn.com/110x61/cw/ec/25107/Jeep-Compass-Exterior-103917.jpg" border="0" alt="Jeep Compass" title="Jeep Compass" />
+                                    </div>
+                                    <div class="car-name-container">
+                                        <div class="car-name-head">Jeep compass</div>
+                                        <div class="car-version">Sport 1.4 Petrol</div>
+                                        <div class="car-price">Price: ₹ 15.16L</div>
+                                    </div>
+                                    @*<h4>Nissan Terrano</h4>*@
+
+                                    <div class="clear"></div>
+                                </li>
+                                <li class="grid-4 alpha omega">
+                                    <div class="car-name">
+                                        <div class="hide-content">
+                                            <div class="compare-img-container">
+												<img class="lazy force-lazy" src="https://imgd.aeplcdn.com/110x61/cw/specialVersions/5212.jpg?v=20170407050934&q=85" border="0" alt="Hyundai Creta" title="Hyundai Creta" />
+                                            </div>
+                                            <div class="car-name-container">
+                                                <div class="car-name-head">Hyundai Creta</div>
+                                                <div class="car-version">SX Plus 1.6 AT Petrol</div>
+                                                <div class="car-price">Price: ₹ 13.04L</div>
+                                            </div>
+                                            @*<h4>Hyundai Creta</h4>*@
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="grid-4 third-column alpha omega">
+                                    <div class="car-name">
+                                        <div class="hide-content2">
+                                            <div class="compare-img-container">
+												<img class="lazy force-lazy" src="https://imgd.aeplcdn.com/110x61/cw/specialVersions/5078.jpg?v=20170206060552&q=85" border="0" alt="Mahindra XUV500" title="Mahindra XUV500" />
+                                            </div>
+                                            <div class="car-name-container">
+                                                <div class="car-name-head">Mahindra XUV500</div>
+                                                <div class="car-version">W10 1.99</div>
+                                                <div class="car-price">Price: ₹ 16.78L</div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="comparo-accordion">
+                            <ul>
+                                <li class="sep" data-role="click-tracking" data-event="CWInteractive" data-action="comparo-widget" data-cat="comparo-widget-tabs" data-label="Highlights">
+                                    <h5 class="active-text">More Features</h5>
+                                    <span class="accordion-sprite minus-icon plus-icon"></span>
+                                    <div class="clear"></div>
+                                </li>
+                            </ul>
+                            <div class="clear"></div>
+                            <div class="data text-bold">
+                                <div class="data-table">
+                                    <div class="data-table-th">Max Power (bhp<span class="fa fa-at"></span>rpm)</div>
+                                    <div class="data-table-tr">
+                                        <div class="data-table-td">160 <span class="fa fa-at"></span> 3750 </div>
+                                        <div class="data-table-td creta-content hide-content">122 <span class="fa fa-at"></span> 6400</div>
+                                        <div class="data-table-td creta-content hide-content2 active">138 <span class="fa fa-at"></span> 3750 </div>
+                                    </div>
+                                </div>
+                                <div class="data-table">
+                                    <div class="data-table-th">Max Torque (Nm<span class="fa fa-at"></span>rpm)</div>
+                                    <div class="data-table-tr">
+                                        <div class="data-table-td">250 <span class="fa fa-at"></span> 1750</div>
+                                        <div class="data-table-td creta-content hide-content">154 <span class="fa fa-at"></span> 4850</div>
+
+                                        <div class="data-table-td creta-content hide-content2 active">320 <span class="fa fa-at"></span> 1600</div>
+                                    </div>
+                                </div>
+                                <div class="data-table">
+                                    <div class="data-table-th">Wheelbase (mm)</div>
+                                    <div class="data-table-tr">
+                                        <div class="data-table-td">2636</div>
+                                        <div class="data-table-td creta-content hide-content">2590</div>
+                                        <div class="data-table-td creta-content hide-content2 active">2700</div>
+                                    </div>
+                                </div>
+                                <div class="data-table">
+                                    <div class="data-table-th">Fuel Tank Capacity (litres)</div>
+                                    <div class="data-table-tr">
+                                        <div class="data-table-td">60</div>
+                                        <div class="data-table-td creta-content hide-content"> 60 </div>
+                                        <div class="data-table-td creta-content hide-content2 active">70</div>
+                                    </div>
+                                </div>
+                                <div class="data-table">
+                                    <div class="data-table-th">Electronic Stability Program (ESP)</div>
+                                    <div class="data-table-tr">
+                                        <div class="data-table-td">Y</div>
+                                        <div class="data-table-td creta-content hide-content">N</div>
+
+                                        <div class="data-table-td creta-content hide-content2 active">Y</div>
+                                    </div>
+                                </div>
+                                <div class="data-table">
+                                    <div class="data-table-th">Steering Adjustment</div>
+                                    <div class="data-table-tr">
+                                        <div class="data-table-td">Tilt & Telescopic</div>
+                                        <div class="data-table-td creta-content hide-content">Tilt</div>
+
+                                        <div class="data-table-td creta-content hide-content2 active">Tilt & Telescopic	</div>
+                                    </div>
+                                </div>
+                                <div class="data-table">
+                                    <div class="data-table-th">Hill Hold Control</div>
+                                    <div class="data-table-tr">
+                                        <div class="data-table-td">Y </div>
+                                        <div class="data-table-td creta-content hide-content">N</div>
+
+                                        <div class="data-table-td creta-content hide-content2 active">Y</div>
+                                    </div>
+                                </div>
+                                <div class="data-table">
+                                    <div class="data-table-th">Split Rear Seat</div>
+                                    <div class="data-table-tr">
+                                        <div class="data-table-td">60:40 split	</div>
+                                        <div class="data-table-td creta-content hide-content">N</div>
+
+                                        <div class="data-table-td creta-content hide-content2 active">60:40 split</div>
+                                    </div>
+                                </div>
+                                <div class="data-table">
+                                    <div class="data-table-th">Front Passenger Seat Adjustment	</div>
+                                    <div class="data-table-tr">
+                                        <div class="data-table-td">Manual with Height Adjustment	</div>
+                                        <div class="data-table-td creta-content hide-content">Manual</div>
+
+                                        <div class="data-table-td creta-content hide-content2 active">Manual</div>
+                                    </div>
+                                </div>
+                                <div class="data-table">
+                                    <div class="data-table-th">Gear / Shift Indicator</div>
+                                    <div class="data-table-tr">
+                                        <div class="data-table-td">Y / Y</div>
+                                        <div class="data-table-td creta-content hide-content">Y / Dynamic</div>
+
+                                        <div class="data-table-td creta-content hide-content2 active">N / N</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (!ViewBag.isMobile)
+                        {
+                            <div class="margin-bottom20 margin-top20 text-center" id="moreComparison">
+								<a href="https://www.carwale.com/comparecars/hyundai-creta-vs-jeep-compass-vs-mahindra-xuv500/?c1=5364&c2=5212&c3=4701&source=26" target="_blank" class="btn btn-orange btn-sm click_track" data-label="View Detailed Comparison">View Detailed Comparison</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="margin-bottom20 margin-top20 text-center text-bold">
+                                <div class="font15 margin-bottom5">View Detailed Comparison</div>
+                                <a href="https://www.carwale.com/comparecars/hyundai-creta-vs-jeep-compass/?c1=5212&c2=5364&source=20" target="_blank" class="click_track margin-right10" data-label="Jeep vs Creta">Jeep vs Creta</a>
+                                <span>I</span>
+                                <a href="https://www.carwale.com/comparecars/jeep-compass-vs-mahindra-xuv500/?c1=5364&c2=4701&source=20" target="_blank" class="click_track margin-left10" data-label="Jeep vs XUV 500">Jeep vs XUV 500</a>
+                            </div>
+                        }
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+		<section id="compassInformation">
+			<div class="container mb-view pq-box margin-top40">
+				<div class="grid-12 ">
+					<div class="font14 content-box-shadow content-inner-block-15nr buy-automatic-car">
+						<div class="request-callback-box">
+                            <div class="grid-4 rightfloat">
+							@{ Html.RenderPartial("~/Views/Shared/ES/_LeadForm.cshtml"); }
+                            </div>
+						</div>
+						<div class="clear"></div>
+					</div>
+					<div class="get-more-info">Get more information <br /> on Jeep Compass</div>
+					<div class="pq-bannner-campaign"><p class="pq-banner__campaign-header">Jeep Compass <span class="banner__campaign-seprator">-</span> <span class="banner__campaign-subheader">The Legend In Its Class</span></p></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</section>
+       
+        
+		
+		<section id="compassQuickLinks" class="bg-light-grey">
+			<h2 class="campaign__section-heading padding-top30">QUICK LINKS</h2>
+			<div class="container">
+				<div class="grid-12 quick-links">
+					<ul>
+						<li class="click_track check-price" data-label="get on road price">
+                            <a href="https://www.carwale.com/jeep-cars/compass/" target="_blank" class="text-black">
+                                <span class="quick-link-icon get-orp"></span>
+                                <span class="inline-block-noalign quick-text text-black">Get On Road Price</span>
+                                <span class="quick-links-arrow-icon"></span>
+                            </a>
+						</li>
+						<li class="click_track media-gallery" data-label="media gallery">
+							<a href="https://www.carwale.com/jeep-cars/compass/images/" target="_blank" class="text-black">
+								<span class="quick-link-icon media-gallery"></span>
+                                <span class="inline-block-noalign quick-text text-black">Media Gallery</span>
+								<span class="quick-links-arrow-icon"></span>
+							</a>
+						</li>
+						<li class="click_track download-brochure" data-label="Schedule a Test Drive">
+                            <a href="https://www.jeep-india.com/shopping_tools/satd.html?vehicle=COMPASS&year=" target="_blank" class="text-black">
+                                <span class="quick-link-icon test-drive"></span>
+                                <span class="inline-block-noalign quick-text text-black">Schedule a Test Drive</span>
+                                <span class="quick-links-arrow-icon"></span>
+                            </a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</section>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+﻿@using System.Configuration;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.UI.Common;
+@using Carwale.BL.Experiments;
+@{
+    var showAdvantageLink = Advanatge.ShowAdvantageDiscountLink;
+    bool showExperimentalColor = ProductExperiments.IsShowExperimentalColor(CookiesCustomers.AbTest);
+}
+		
+<!doctype html><html>
+<head>
+@RenderSection("MetaData")
+<style>@@font-face {font-family: 'LatoWeb';src: url('https://stc.aeplcdn.com/fonts/lato-bold-webfont.woff') format('woff');font-weight: 700;font-style: normal;}@@font-face {font-family: 'LatoWeb';src: url('https://stc.aeplcdn.com/fonts/lato-regular-webfont.woff') format('woff');font-weight: 400;font-style: normal;}/*! Font Awesome 4.2.0 by @@davegandy - http://fontawesome.io - @@fontawesome * License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License) */@@font-face {font-family: 'CWFontAwesome';src:  url('https://stc.aeplcdn.com/cwfontawesome/fonts/cwfontawesome.eot?1cyjai');src:  url('https://stc.aeplcdn.com/cwfontawesome/fonts/cwfontawesome.eot?1cyjai#iefix') format('embedded-opentype'),url('https://stc.aeplcdn.com/cwfontawesome/fonts/cwfontawesome.ttf?1cyjai') format('truetype'),url('https://stc.aeplcdn.com/cwfontawesome/fonts/cwfontawesome.woff?1cyjai') format('woff'),url('https://stc.aeplcdn.com/cwfontawesome/fonts/cwfontawesome.svg?1cyjai#CWFontAwesome') format('svg');font-weight: normal;font-style: normal;}
+</style>
+    @if(showExperimentalColor)
+    {
+<style>.btn-abtest .btn-orange {background: #e53012;}.btn-abtest .btn-green {background: #00afa0;}.btn-abtest .m-call-slug .btn {border-radius: 6px;font-size: 18px;font-weight: 700;}.btn-abtest .m-call-slug {background: rgba(255, 255, 255, 0.9) none repeat scroll 0 0;bottom: 0;color: #fff;padding: 5px;position: fixed;width: 100%;z-index: 5;box-shadow: #d2d2d2 0 -1px 10px;}</style>
+    }
+@{
+    Html.RenderPartial("~/Views/Shared/_GoogleTagManagerView.cshtml");
+    Html.RenderPartial("~/Views/Shared/_GoogleTagServicesView.cshtml");
+}
+<script type="text/javascript" src="/static/m/js/frameworks.js" defer></script>
+@if (ViewBag.DefineAdSlots != null)
+{
+    @Html.Raw(ViewBag.DefineAdSlots);
+}
+@RenderSection("atfcss", true)
+@RenderSection("Styles", false)
+</head>
+<body class="@ViewBag.BodyClass bg-light-grey m-special-skin-body m-no-bg-color @(showExperimentalColor ? "btn-abtest" : "")">
+                   @{
+                       Html.RenderPartial("~/Views/Shared/_GoogleTagManagerNoScript.cshtml");
+                   }
+
+                   @RenderBody()
+
+                   <script type="text/javascript">
+                       var cwTrackingPath = '@ConfigurationManager.AppSettings["HostUrl"]';
+                       var insuranceKeys = {
+                           cholaStates: [@System.Configuration.ConfigurationManager.AppSettings["InsuranceStates"]],
+                       };
+                       var defaultCookieDomain = '@Carwale.UI.Common.CookiesCustomers.CookieDomain';
+                       var isEligibleForORP = ('@CookiesCustomers.IsEligibleForORP' === 'True');
+                       var abTestKey = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestVersion"])";
+                       var abTestKeyMaxValue = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMaxValue"])";
+                       var abTestKeyMinValue = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMinValue"])";
+                       var askingAreaCityId = [@System.Configuration.ConfigurationManager.AppSettings["AskingAreaCityIds"]];
+                       var testDriveCampaignIds = [@System.Configuration.ConfigurationManager.AppSettings["TestDriveCampaignIds"]];
+                   </script>
+                   @RenderSection("Plugins", false)
+                   <script type="text/javascript" src="/static/m/js/plugins/jquery-cookie.js" defer></script>
+                   <script type="text/javascript" src="/static/m/js/plugins/lazy-load.js" defer></script>
+                   <script type="text/javascript" src="/static/m/js/easy-autocomplete.js" defer></script>
+                   <script type="text/javascript" src="/static/js/adsense.js" defer></script>
+                   <script type="text/javascript" src="/static/js/v2/app/clientcache.js" defer></script>
+                   <script type="text/javascript" src="/static/js/globalSearch.js" defer></script>
+                   <script type="text/javascript" src="/static/js/error-logger.js" defer></script>
+                   <script type="text/javascript" src="/static/m/js/v2/app/common.js" defer></script>
+                   <script type="text/javascript" src="/static/js/cookie-migration.js" defer></script>
+                   <script type="text/javascript" src="/static/m/js/v2/app/new-car-common.js" defer></script>
+                   <script type="text/javascript" src="/static/js/v2/app/cwTracking.js" defer></script>
+                   <script type="text/javascript" src="/static/js/lazyloadad.js" defer></script>
+
+                   @RenderSection("Scripts", false)
+                   @RenderSection("LoadScript", false)
+
+                   @{
+                       Html.RenderPartial("~/Views/Shared/_FacebookScriptView.cshtml");
+                       Html.RenderPartial("~/Views/Shared/_OutbrainScriptView.cshtml");
+                   }
+
+                   @RenderSection("btfcss", true)
+                   <link rel="stylesheet" href="/static/m/css/easy-autocomplete.css" type="text/css">
+               </body>
+</html>

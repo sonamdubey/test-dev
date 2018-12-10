@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://uat.policyboss.com/SmartQuote.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://uat.policyboss.com/SmartQuote.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://uat.policyboss.com/SmartQuote.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/PolicyBoss" />
+  <xs:element name="GetMotorQuote">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Product_Id" type="xs:short" />
+        <xs:element minOccurs="0" name="CarType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PolicyExpiryDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DateofPurchaseofCar" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ManufactureYear" type="xs:int" />
+        <xs:element minOccurs="0" name="DOBofOwner" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Variant_ID" type="xs:int" />
+        <xs:element minOccurs="0" name="VehicleCity_Id" type="xs:int" />
+        <xs:element minOccurs="0" name="Preveious_Insurer_Id" type="xs:short" />
+        <xs:element minOccurs="0" name="VD_Amount" type="xs:short" />
+        <xs:element minOccurs="0" name="PACoverValue" type="xs:int" />
+        <xs:element minOccurs="0" name="IDVinExpiryPolicy" type="xs:int" />
+        <xs:element minOccurs="0" name="ExpectedIDV" type="xs:int" />
+        <xs:element minOccurs="0" name="ValueOfElectricalAccessories" type="xs:int" />
+        <xs:element minOccurs="0" name="ValueOfNonElectricalAccessories" type="xs:int" />
+        <xs:element minOccurs="0" name="ValueOfBiFuelKit" type="xs:int" />
+        <xs:element minOccurs="0" name="NoClaimBonusPercentage" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="IsNCBApplicable" type="xs:boolean" />
+        <xs:element minOccurs="0" name="ApplyAntiTheftDiscount" type="xs:boolean" />
+        <xs:element minOccurs="0" name="ApplyAutomobileAssociationDiscount" type="xs:boolean" />
+        <xs:element minOccurs="0" name="AutomobileAssociationName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="AutomobileAssociationMembershipNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="AutomobileMembershipExpiryDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PaidDriverCover" type="xs:boolean" />
+        <xs:element minOccurs="0" name="RegistrationNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="RegisterintheName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CityofRegitration" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ProfessionofOwner" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="VehicleType" type="xs:int" />
+        <xs:element minOccurs="0" name="SessionID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Existing_CustomerReferenceID" type="xs:long" />
+        <xs:element minOccurs="0" name="ContactName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ContactEmail" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ContactMobile" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SupportsAgentID" type="xs:int" />
+        <xs:element minOccurs="0" name="CallingPartners_Code" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LandMarkEmployeeCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMotorQuoteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetMotorQuoteResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="CustomerReferenceID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMotorQuotePartner">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Partner_UserId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Partner_Password" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Product_Id" type="xs:short" />
+        <xs:element minOccurs="0" name="CarType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PolicyExpiryDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DateofPurchaseofCar" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ManufactureYear" type="xs:int" />
+        <xs:element minOccurs="0" name="DOBofOwner" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Variant_ID" type="xs:int" />
+        <xs:element minOccurs="0" name="VehicleCity_Id" type="xs:int" />
+        <xs:element minOccurs="0" name="Preveious_Insurer_Id" type="xs:short" />
+        <xs:element minOccurs="0" name="VD_Amount" type="xs:short" />
+        <xs:element minOccurs="0" name="PACoverValue" type="xs:int" />
+        <xs:element minOccurs="0" name="IDVinExpiryPolicy" type="xs:int" />
+        <xs:element minOccurs="0" name="ExpectedIDV" type="xs:int" />
+        <xs:element minOccurs="0" name="ValueOfElectricalAccessories" type="xs:int" />
+        <xs:element minOccurs="0" name="ValueOfNonElectricalAccessories" type="xs:int" />
+        <xs:element minOccurs="0" name="ValueOfBiFuelKit" type="xs:int" />
+        <xs:element minOccurs="0" name="NoClaimBonusPercentage" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="IsNCBApplicable" type="xs:boolean" />
+        <xs:element minOccurs="0" name="ApplyAntiTheftDiscount" type="xs:boolean" />
+        <xs:element minOccurs="0" name="ApplyAutomobileAssociationDiscount" type="xs:boolean" />
+        <xs:element minOccurs="0" name="AutomobileAssociationName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="AutomobileAssociationMembershipNumber" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="AutomobileMembershipExpiryDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PaidDriverCover" type="xs:boolean" />
+        <xs:element minOccurs="0" name="RegistrationNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="RegisterintheName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CityofRegitration" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ProfessionofOwner" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="VehicleType" type="xs:int" />
+        <xs:element minOccurs="0" name="SessionID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Existing_CustomerReferenceID" type="xs:long" />
+        <xs:element minOccurs="0" name="ContactName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ContactEmail" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ContactMobile" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SupportsAgentID" type="xs:int" />
+        <xs:element minOccurs="0" name="CallingPartners_Code" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="LandMarkEmployeeCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMotorQuotePartnerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetMotorQuotePartnerResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="CustomerReferenceID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetQuote">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CustomerReferenceID" type="xs:long" />
+        <xs:element minOccurs="0" name="CarType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PolicyExpiryDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DateofPurchaseofCar" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="AgeOfTheVehicle" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="DOBofOwner" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="OwnerAge" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="Variant_ID" type="xs:int" />
+        <xs:element minOccurs="0" name="VehicleCity_Id" type="xs:int" />
+        <xs:element minOccurs="0" name="Preveious_Insurer_Id" type="xs:short" />
+        <xs:element minOccurs="0" name="VD_Amount" type="xs:short" />
+        <xs:element minOccurs="0" name="PACoverValue" type="xs:int" />
+        <xs:element minOccurs="0" name="IDVinExpiryPolicy" type="xs:int" />
+        <xs:element minOccurs="0" name="ExpectedIDV" type="xs:int" />
+        <xs:element minOccurs="0" name="ValueOfElectricalAccessories" type="xs:int" />
+        <xs:element minOccurs="0" name="ValueOfNonElectricalAccessories" type="xs:int" />
+        <xs:element minOccurs="0" name="ValueOfBiFuelKit" type="xs:int" />
+        <xs:element minOccurs="0" name="NoClaimBonusPercentage" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="ApplyAntiTheftDiscount" type="xs:boolean" />
+        <xs:element minOccurs="0" name="ApplyAutomobileAssociationDiscount" type="xs:boolean" />
+        <xs:element minOccurs="0" name="AutomobileAssociationName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="PaidDriverCover" type="xs:boolean" />
+        <xs:element minOccurs="0" name="HaveNCBCertificate" type="xs:boolean" />
+        <xs:element minOccurs="0" name="RegistrationNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CityofRegitration" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="RegisterintheName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetQuoteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetQuoteResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TravelQuote">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ProductID" type="xs:short" />
+        <xs:element minOccurs="0" name="Travel_ForId" type="xs:int" />
+        <xs:element minOccurs="0" name="FrequentlyGoAbroad" type="xs:boolean" />
+        <xs:element minOccurs="0" name="MaximumDuration" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DateofTravelEND" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="USACANADA" type="xs:boolean" />
+        <xs:element minOccurs="0" name="DateofTravelStart" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DateofBirthofTraveller" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Age_Months" type="xs:int" />
+        <xs:element minOccurs="0" name="TravelCountryID" type="xs:int" />
+        <xs:element minOccurs="0" name="TravelCountry" nillable="true" type="xs:string" />
+        <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="Gender" type="q1:char" />
+        <xs:element minOccurs="0" name="SessionID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Existing_ProductInsuranceMapping_Id" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TravelQuoteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="TravelQuoteResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTravelQuote">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CRNID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DOR" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="USACANADA" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DOD" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DOB" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Country" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="TravelCountryID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTravelQuoteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetTravelQuoteResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HealthQuote">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SumInsured" type="xs:int" />
+        <xs:element minOccurs="0" name="NumberOfAdult" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="NumberOfChild" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="PolicyBossCity_Id" type="xs:int" />
+        <xs:element minOccurs="0" name="PolicyTerm" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="PolicyFor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DOBAdult1" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DOBAdult2" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="IsChild90DaysOld" type="xs:boolean" />
+        <xs:element minOccurs="0" name="CallingPartners_Code" nillable="true" type="xs:string" />
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="kidDOB" nillable="true" type="q2:ArrayOfstring" />
+        <xs:element minOccurs="0" name="Existing_CustomerReferenceID" type="xs:long" />
+        <xs:element minOccurs="0" name="ProductID" type="xs:short" />
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="Eldest_Member_Gender" type="q3:char" />
+        <xs:element minOccurs="0" name="MaritalStatusID" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="InsurancePriority" type="xs:short" />
+        <xs:element minOccurs="0" name="_SessionID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SupportsAgentID" type="xs:int" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PolicyBoss" minOccurs="0" name="memberList" nillable="true" type="q4:ArrayOfMemberDetails" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HealthQuoteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="HealthQuoteResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:element ref="xs:schema" />
+              <xs:any />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="ProductInsuranceMapping_Id" type="xs:long" />
+        <xs:element minOccurs="0" name="Request_ID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHealthQuote">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SumInsured" type="xs:int" />
+        <xs:element minOccurs="0" name="NumberOfAdult" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="NumberOfChild" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="PolicyBossCity_Id" type="xs:int" />
+        <xs:element minOccurs="0" name="PolicyTerm" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="PolicyFor" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DOBAdult1" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="DOBAdult2" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="IsChild90DaysOld" type="xs:boolean" />
+        <xs:element minOccurs="0" name="CallingPartners_Code" nillable="true" type="xs:string" />
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="kidDOB" nillable="true" type="q5:ArrayOfstring" />
+        <xs:element minOccurs="0" name="Existing_CustomerReferenceID" type="xs:long" />
+        <xs:element minOccurs="0" name="ProductID" type="xs:short" />
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="Eldest_Member_Gender" type="q6:char" />
+        <xs:element minOccurs="0" name="MaritalStatusID" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="InsurancePriority" type="xs:short" />
+        <xs:element minOccurs="0" name="_SessionID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="SupportsAgentID" type="xs:int" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/PolicyBoss" minOccurs="0" name="memberList" nillable="true" type="q7:ArrayOfMemberDetails" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHealthQuoteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/PolicyBoss" minOccurs="0" name="GetHealthQuoteResult" nillable="true" type="q8:ArrayOfHealthQuote" />
+        <xs:element minOccurs="0" name="ProductInsuranceMapping_Id" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="get_model">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="make_id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="get_modelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="get_modelResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_Variant">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ModelID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_VariantResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Get_VariantResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_Make">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Product_Id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_MakeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Get_MakeResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_Vechical_city">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Get_Vechical_cityResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="Get_Vechical_cityResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Carwale.Entity.CMS.Video>
+@using Carwale.Utility
+@using Carwale.BL.CMS
+
+<div class="cw-tabs-data hide" id="Videos">
+@{
+    Carwale.Entity.CMS.Video _video1, _video2;
+    _video1 = Model.First();
+    _video2 = Model.Last();
+        <div class="padding-bottom50">
+            <a data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_linkages" data-label="@_video1.MakeName @_video1.ModelName" data-action="home_page_video_slug" href="@CMSCommon.GetVideoUrl(_video1.MakeName,_video1.MaskingName,_video1.SubCatName,_video1.BasicId,false)">
+                <div data-role="inview-imp" data-event="CWNonInteractive" data-cat="desktop_video_linkages" data-label="@_video1.MakeName @_video1.ModelName" data-action="home_page_video_slug_impression" class="grid-5 alpha">
+                    <div class="position-rel cur-pointer">
+                        <div class="yt-iframe-preview" style="overflow: hidden;">
+                            <img class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@("https://img.youtube.com/vi/" + _video1.VideoId + "/mqdefault.jpg")"
+                                 border="0" title="@_video1.VideoTitle" alt="@_video1.VideoTitle" />
+                        </div>
+                        <div class="youtube-video-icon review-yt-video-icon"></div>
+                    </div>
+                </div>
+                <div class="grid-7 omega">
+                    <p class="margin-bottom20 font20"><span class="text-black">@_video1.VideoTitle</span></p>
+                    <p class="margin-bottom15 text-light-grey font14">Updated on <span>@_video1.DisplayDate.ToString("MMMM dd, yyyy")</span></p>
+                    <div class="margin-bottom15 text-light-grey"><span class="cwsprite review-sm-lgt-grey"></span> Views <span>@Format.Numeric(_video1.Views.ToString())</span></div>
+                    <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span>@Format.Numeric(_video1.Likes.ToString())</span></div>
+                </div>
+            </a>
+                <div class="clear"></div>
+        </div>
+        <div class="padding-bottom50">
+            <a data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_linkages" data-label="@_video2.MakeName @_video2.ModelName" data-action="home_page_video_slug" href="@CMSCommon.GetVideoUrl(_video2.MakeName,_video2.MaskingName,_video2.SubCatName,_video2.BasicId,false)">
+                <div data-role="inview-imp" data-event="CWNonInteractive" data-cat="desktop_video_linkages" data-label="@_video2.MakeName @_video2.ModelName" data-action="home_page_video_slug_impression" class="grid-7 alpha">
+                    <p class="margin-bottom20 font20"><span class="text-black">@_video2.VideoTitle</span></p>
+                    <p class="margin-bottom15 text-light-grey font14">Updated on <span>@_video2.DisplayDate.ToString("MMMM dd, yyyy")</span></p>
+                    <div class="margin-bottom15 text-light-grey"><span class="cwsprite review-sm-lgt-grey"></span> Views <span>@Format.Numeric(_video2.Views.ToString())</span></div>
+                    <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span>@Format.Numeric(_video2.Likes.ToString())</span></div>
+                </div>
+                <div class="grid-5 omega">
+                    <div class="position-rel cur-pointer">
+                        <div class="yt-iframe-preview" style="overflow: hidden;">
+                            <img class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@("https://img.youtube.com/vi/" + _video2.VideoId + "/mqdefault.jpg")"
+                                 border="0" title="@_video2.VideoTitle" alt="@_video2.VideoTitle" />
+                        </div>
+                        <div class="youtube-video-icon review-yt-video-icon"></div>
+                    </div>
+                </div>
+            </a>
+                <div class="clear"></div>
+        </div>
+        <div data-role="inview-imp" data-event="CWNonInteractive" data-cat="desktop_video_linkages" data-label="" data-action="home_page_view_more_impression" class="padding-bottom50 text-center">
+            <a data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_video_linkages" data-label="" data-action="home_page_view_more" href="/videos/" class="font16">View more videos</a>
+        </div>
+        }
+</div>

@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[NCS_DealerURL] (
+    [DealerId] NUMERIC (18)  NOT NULL,
+    [URL]      VARCHAR (300) NULL,
+    CONSTRAINT [PK_NCS_DealerURL] PRIMARY KEY CLUSTERED ([DealerId] ASC) WITH (FILLFACTOR = 90)
+);
+

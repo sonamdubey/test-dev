@@ -1,0 +1,81 @@
+﻿@model Carwale.DTOs.NewCars.ModelPageDTO_Mobile
+@using Carwale.Utility;
+@using Carwale.UI.Common;
+@using Carwale.Entity;
+
+<section class="model__variants" id="variants">
+    <header class="margin-bottom10 m-special-skin-text">
+        <h2 class="m-special-skin-text">@(string.Format("{0} Details", Model.ModelDetails.ModelName)) </h2>
+        <p class="price-title__text">All following details are tentative.</p>
+</header>
+    <div class="variant-list">
+        @if (Model.ShowCompareColumn)
+        {
+        <div class="compare-block">
+            <span>Compare Variants</span>
+            <span class="switch">
+                <label class="switch__slider">
+                    <input type="checkbox" class="switch__chkbox">
+                    <span class="switch__state close"></span>
+                </label>
+            </span>
+        </div>
+        }
+        <table class="variant-table">
+            <thead class="variant-table__head">
+                <tr>
+                    <th class="variant-table__col-heading">Variant</th>
+                    @if (Model.ShowPriceColumn)
+                    {
+                    <th class="variant-table__col-heading">Expected Price</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @{int index = 0, getOffersIndex = 0;}
+                    @foreach (var version in Model.NewCarVersions)
+                    {
+                        string currentUrl = ManageCarUrl.CreateVersionUrl(ViewBag.MakeName, version.MaskingName, version.VersionMaskingName,true);
+                    <tr fuel-type="@version.CarFuelType" transmission-type="@version.TransmissionType" class="variant">
+                        <td class="variant__name-cell ">
+                            @if (version.IsSpecsExist)
+                            {
+                                <a title="@Model.ModelDetails.ModelName @version.Version:@(!string.IsNullOrWhiteSpace(version.CarFuelType) ? version.CarFuelType + ", " : string.Empty)@version.TransmissionType" class="variant__link text--truncate" href="@currentUrl">@version.Version</a>
+                            }
+                            else
+                            {
+                                <span class="variant__link text--truncate">@version.Version</span>
+                            }
+                            <span class="variant__specs text--truncate">@System.Text.RegularExpressions.Regex.Replace(version.SpecsSummary, @"\d+cc", string.Empty)</span>
+                            @if (Model.ShowCompareColumn && version.IsSpecsExist) { 
+                            <div name="chkVersion" imgurl="@ViewBag.ModelSmallImage" makename="@ViewBag.MakeName" modelname="@Model.ModelDetails.ModelName" versionid="@version.Id.ToString()" versionname="@version.Version.ToString()" price='@(version.CarPriceOverview!=null ? version.CarPriceOverview.Price : "N/A")' onclick="VersionSelectByChkBox(this)" class="divUnCheck compare-cta"><span class="compare-cta__text">Add to compare</span></div>
+                            }
+                        </td>
+@if (Model.ShowPriceColumn)
+{
+                        <td class="variant__price-cell">
+                            @if (version.CarPriceOverview != null)
+                            {
+                            <p class="variant__price">
+                                @version.CarPriceOverview.Price
+                            </p>
+                            if (version.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity)
+                            {
+                                <span class="@(version.CarPriceOverview.LabelColor) variant__price-help">
+                                    @version.CarPriceOverview.PriceLabel@(!string.IsNullOrWhiteSpace(version.CarPriceOverview.City.Name) ? ", " + version.CarPriceOverview.City.Name : string.Empty)
+                                    @(version.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<span class='tooltip-icon average-info-tooltip class-ad-tooltip inline-block'>i</span><span class='average-info-content hide'>" + version.CarPriceOverview.ReasonText + "</span>") : Html.Raw(""))
+                                </span>
+                            }
+                            }
+                        </td>
+}
+                    </tr>
+                                        }
+            </tbody>
+        </table>
+        <p class='filter__no-result'>Sorry, no matching variants found.</p>
+        @if (Model.NewCarVersions.Count > 4) {
+            <div class="variant-list__more">View More Variants</div>
+        }
+    </div>
+</section>

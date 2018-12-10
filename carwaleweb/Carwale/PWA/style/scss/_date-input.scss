@@ -1,0 +1,71 @@
+@import '../scss/partials/input.scss';
+
+.manufacture__title {
+	font-size: 11px;
+	color: color('dim-gray');
+	padding-bottom: 10px;
+	text-transform: uppercase;
+}
+.manufacture__container {
+	padding: 5px 20px 15px;
+}
+.manufacturing-date__label {
+	position: absolute;
+	top: 8px;
+	left: 10px;
+	background: color('white');
+	display: block;
+	padding: 5px;
+	color: color('dark-gray');
+	display: none;
+	font-size: 16px;
+	
+	&.active{
+		display: block
+	}
+}
+
+.manufacturing-date {
+	position: relative;
+	
+	.error-text {
+		display: none;
+		position: absolute;
+		top: 100%;
+		margin-top: 2px;
+		left: 0;
+	}
+
+	&.invalid {
+		.error-text {
+			display: block;
+		}
+	}
+
+	.date-input {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		border-color: color('light-gray');
+		font-weight: $font-semibold;
+		height: 44px;
+	}
+}
+.date-input {
+	background-color: color('white');
+	position: relative;
+
+
+    &:after {
+		@include calendar-icon;
+			background-size: 15px;
+			background-position: center;
+			content: '';
+			display: block;
+			position: absolute;
+			right: 0;
+			top: 0;
+			height: 100%;
+			width: 40px;
+			background-color: color('white');
+    }
+}

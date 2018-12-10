@@ -1,0 +1,158 @@
+﻿@model Carwale.Entity.ElasticEntities.ElasticCarData
+@using Carwale.Entity.ElasticEntities;
+@using Carwale.Entity.Enum;
+@using Carwale.Utility;
+@using System.Configuration;
+@using System.Diagnostics;
+@if (Model.ShowSponsoredAd)
+{
+    String timeStamp = Stopwatch.GetTimestamp().ToString();
+    List<int> _sponsoredVersionIds = ExtensionMethods.ConvertStringToList<int>((ConfigurationManager.AppSettings["NewCarsSponsoredVersionIds"] ?? ""), ',');
+    Dictionary<int, string> _sponsoredLandingUrl = new Dictionary<int,string> ();
+    _sponsoredLandingUrl.Add(_sponsoredVersionIds[0], "https://ad.doubleclick.net/ddm/trackclk/N6267.139588.CARWALE/B21832732.232060266;dc_trk_aid=429613552;dc_trk_cid=107498996;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=");
+    _sponsoredLandingUrl.Add(_sponsoredVersionIds[1], "https://ad.doubleclick.net/ddm/trackclk/N6267.139588.CARWALE/B21832732.231762665;dc_trk_aid=429613549;dc_trk_cid=107498996;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=");
+    ushort _sponsoredVersionIdsCount= (ushort)_sponsoredVersionIds.Count;
+    <div class="sponsored-container text-black" data-event="CWNonInteractive" data-role="inview-imp" data-action="Datsun_Go_GoPlus_Shown" data-label="Datsun_go_goplus_shown" data-cat="New Car Search Result Page">
+        <p class="sponsored-container__heading">
+            The New Datsun GO and GO+
+            <span class="sponsored-text">Sponsored</span>
+        </p>
+        @for (ushort _sponsoredVersionIdOrder=0; _sponsoredVersionIdOrder< _sponsoredVersionIdsCount; _sponsoredVersionIdOrder++)
+        {
+        <div class="grid-6 alpha omega sponsored-container__modelItem">
+            <span class="new-launch-tag">New Launch</span>
+			<a href="@_sponsoredLandingUrl[_sponsoredVersionIds[_sponsoredVersionIdOrder]]" target="_blank" rel="nofollow noopener"><img class="grid-6 alpha omega" src="@Carwale.Utility.ImageSizes.CreateImageUrl(Model.SponsoredVersions[_sponsoredVersionIdOrder].HostURL, Carwale.Utility.ImageSizes._160X89, Model.SponsoredVersions[_sponsoredVersionIdOrder].OriginalImgPath )" alt="@Model.SponsoredVersions[_sponsoredVersionIdOrder].MakeName @Model.SponsoredVersions[_sponsoredVersionIdOrder].ModelName" title="@Model.SponsoredVersions[_sponsoredVersionIdOrder].MakeName @Model.SponsoredVersions[_sponsoredVersionIdOrder].ModelName" data-role="click-tracking" data-event="CWInteractive" data-action='@(Model.SponsoredVersions[_sponsoredVersionIdOrder].ModelName)_image_click' data-cat="New Car Search Result Page" data-label="@(Model.SponsoredVersions[_sponsoredVersionIdOrder].ModelName)_clicked"></a>
+            <div class="grid-6 alpha omega model-text font16">
+                <p class="margin-bottom10"><a class="text-bold" rel="nofollow noopener" href="@_sponsoredLandingUrl[_sponsoredVersionIds[_sponsoredVersionIdOrder]]" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-action='@(Model.SponsoredVersions[_sponsoredVersionIdOrder].ModelName)_link_click' data-cat="New Car Search Result Page" data-label="@(Model.SponsoredVersions[_sponsoredVersionIdOrder].ModelName)_clicked" title="@Model.SponsoredVersions[_sponsoredVersionIdOrder].MakeName @Model.SponsoredVersions[_sponsoredVersionIdOrder].ModelName ">Datsun @(Model.SponsoredVersions[_sponsoredVersionIdOrder].VersionId == _sponsoredVersionIds[1] ? Model.SponsoredVersions[_sponsoredVersionIdOrder].ModelName.Replace(" Plus", "+"): Model.SponsoredVersions[_sponsoredVersionIdOrder].ModelName) </a></p>
+                <p class="text-bold font16"><span>&#x20B9; </span>@Carwale.UI.Common.FormatPrice.FormatFullPrice(Model.SponsoredVersions[_sponsoredVersionIdOrder].PriceOverview == null ? "0" : Model.SponsoredVersions[_sponsoredVersionIdOrder].PriceOverview.Price.ToString()) <span class="font13">Onwards</span></p>
+                <p class="sponsored-subtext">One India One Price</p>
+				<a rel="nofollow noopener" href="@_sponsoredLandingUrl[_sponsoredVersionIds[_sponsoredVersionIdOrder]]" target="_blank" class="sponsored-cta" title="Check On-Road Price" data-cat="New Car Search Result Page" data-role="click-tracking" data-event="CWInteractive" data-action="@(Model.SponsoredVersions[_sponsoredVersionIdOrder].ModelName)_onRoadPrice_click" data-label="@(Model.SponsoredVersions[_sponsoredVersionIdOrder].ModelName)_clicked">Check On-Road Price</a>
+            </div>
+        </div>    
+        }
+        <div class="clear"></div>
+		<img src="https://ad.doubleclick.net/ddm/trackimp/N6267.139588.CARWALE/B21832732.231762665;dc_trk_aid=429613549;dc_trk_cid=107498996;ord=%%CACHEBUSTER%%;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=?v=@timeStamp" style="border: 0px;  position: absolute;  top: 0;  left: 0 " height="1" width="1">
+		<img src="https://ad.doubleclick.net/ddm/trackimp/N6267.139588.CARWALE/B21832732.232060266;dc_trk_aid=429613552;dc_trk_cid=107498996;ord=%%CACHEBUSTER%%;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=?v=@timeStamp" style="border: 0px;  position: absolute;  top: 0;  left: 0 " height="1" width="1">
+    </div>
+    <div class="padding-bottom15 bg-light-grey"></div>
+}
+
+@if (Model.ModelVersionDict.Count > 0)
+{
+<table id="tbl_res" border="0" width="100%" cellpadding="0" cellspacing="0">
+    <tr id="rpgListings_TopPager" class="dgNavDivTop">
+        <td width="140"><span id="rpgListings_lblRecords" class="headers">Showing <span>@ViewBag.start-@(Model.TotalModels > ViewBag.end ? ViewBag.end : Model.TotalModels)</span> of @Model.TotalModels</span></td>
+        <td id="rpgListings_pgTop" align="center"></td>
+        <td align="right" width="60"><input type="button" name="button" style="padding:2px 10px; font-size:12px;" class="btn btn-orange btn-xs compare-button hide" value="Compare" /></td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <table class="dtTable" border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tr class="dt_header">
+                    <td width="120">Photo</td>
+                    <td>Model</td>
+                    <td>@((Carwale.UI.Common.CookiesCustomers.MasterCityId <= 0)?"Avg. Ex-Showroom":"On Road Price")</td>
+                    <td width="120" align="right">User Rating</td>
+                    <td width="20">&nbsp;</td>
+                </tr>
+                @foreach (var modelitem in Model.ModelVersionDict)
+                {
+                    CarBaseEntity car = modelitem.Value.Values.First();
+                    <tr class="model-row version-row">
+                        <td>
+                            <img alt="@car.MakeName @car.ModelName" title="@car.MakeName @car.ModelName" src="@car.HostUrl/174x98@(car.ImagePath)">
+                        </td>
+                        <td>
+                            <a class="href-title" href="/@Format.FormatURL(car.MakeName)-cars/@car.ModelMaskingName/">
+                                @car.MakeName @car.ModelName
+                            </a>
+                            <p class="text-grey">
+                                <a id="@car.ModelId" class="text-grey viewVersions">
+                                    <span id="modShowIcon" class="icon-sheet right-arrow"></span>
+                                    <span id="modShow" class="show" title="Click to expand">@modelitem.Value.Count matching versions</span>
+                                    <span id="modHide" class="hide" title="Click to hide">Hide versions.</span>
+                                </a>
+                            </p>
+                        </td>
+                        <td class="price2" valign="top">
+                            <span class="new-price2">₹ @Carwale.UI.Common.FormatPrice.GetFormattedPriceV2(car.PriceOverview == null ? "0" : car.PriceOverview.Price.ToString())</span>
+                            @if (car.PriceOverview != null)
+                            {
+                                <span class="indicative-text font11">Indicative EMI</span>
+                                <span class="indicative-text font11">
+                                    ₹ <span class="text-bold">@car.EMI</span>
+                                </span>
+                            }                      
+                            @if (Carwale.UI.Common.CookiesCustomers.MasterCityId <= 0)
+                            {
+                                <div class="new-price2-btn select-city-link" data-modelmaskingname=@car.ModelMaskingName data-makemaskingname=@Format.FormatURL(car.MakeName) data-role="click-inview-imp" data-action="showpriceinmycity" data-cat="Desktop_NewCarSearch" data-label='@(car.ModelName)'><a class="btn btn-white btn-xs font12">@(ConfigurationManager.AppSettings["ShowPriceInCityText"] ?? "Show price in my city")</a></div>
+                            }
+                            <a data-role="click-tracking" data-event="CWInteractive" data-action="dealsaccess_desktop" data-cat="deals_desktop" data-label="NewCarSearchPage" href="/@Format.FormatURL(car.MakeName)-cars/advantage?cityId=@(Carwale.UI.Common.CookiesCustomers.MasterCityId)&src=d13" class="margin-top10 font12 inline-block advantage-new-click hide">
+                                <span class="desk-deals-car-sprite book-now-thumb"></span> Save
+                                ₹
+                            </a>
+                        </td>
+                        <td align="center">
+                            @Html.Raw(Carwale.UI.Common.CommonOpn.GetRateImage((double)car.ReviewRate))
+                            <p>
+                                <a title="@car.ReviewCount Reviews of @car.MakeName @car.ModelName" href="/@Format.FormatURL(car.MakeName)-cars/@car.ModelMaskingName/userreviews/" class="href-grey">
+                                    @car.ReviewCount Reviews
+                                </a>
+                            </p>
+                        </td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    CarFuelType fuel;
+                    CarBaseEntity version;
+                    CarTransmissionType trans;
+                    foreach (var item in modelitem.Value)
+                    {
+                        version = item.Value;
+                        Enum.TryParse<CarTransmissionType>(version.TransmissionType.ToString(), out trans);
+                        Enum.TryParse<CarFuelType>(version.FuelType.ToString(),out fuel);
+                        <tr name="@version.ModelId" class="hide cls_@version.ModelId version-row">
+
+                            <td class="ver-pdd" colspan="2"><a title="@version.MakeName @version.ModelName @version.VersionName" href="@ManageCarUrl.CreateVersionUrl(version.MakeName, version.ModelMaskingName, version.VersionMaskingName)">@version.VersionName</a><br><span class="text-grey">@version.PowerBHP bhp, @fuel.ToString(), @trans.ToString(), @version.Arai</span></td>
+                            <td valign="top">
+                                ₹ @Carwale.UI.Common.FormatPrice.GetFormattedPriceV2(version.PriceOverview == null ? "0" : version.PriceOverview.Price.ToString())
+                                @if (version.PriceOverview != null)
+                                {
+                                    <span class="indicative-text font11">Indicative EMI ₹ <span class="text-bold">@version.EMI</span></span>
+                                }
+                            </td>
+                            <td class="chk-compare"><input id="check_@version.VersionId" title="Select to compare" type="checkbox" name="chk_compare" make-model="@Carwale.Utility.Format.FormatURL(version.MakeName)-@version.ModelMaskingName" value="@version.VersionId"></td>
+                        </tr>
+                    }
+                }
+            </table>
+        </td>
+    </tr>
+    <tr id="rpgListings_BottomPager" class="dgNavDivTop">
+        <td><span id="rpgListings_lblRecordsFooter" class="headers">Showing <span>@ViewBag.start-@(Model.TotalModels>ViewBag.end?ViewBag.end:Model.TotalModels)</span> of @Model.TotalModels</span></td>
+        <td id="rpgListings_pgBot" align="center">
+            <span id="rpgListings_divFirstNav1">
+                @if (ViewBag.prevUrl != null)
+                {<span class='pg'><a href='/new/search/?@ViewBag.prevUrl'>Previous</a></span>}
+            </span><span id="rpgListings_divPages1" align="center">
+                @for (int i = ViewBag.paginationCounter; i <= ViewBag.totalPages && i < ViewBag.paginationCounter + 5; i++)
+                {
+                    if (i == ViewBag.pageNo)
+                    { <span class='pgSel'>@i</span> }
+                    else
+                    { <span class='pg'><a href='/new/search/?@(ViewBag.hashParam)&pn=@i'>@i</a></span> }
+                }
+            </span>
+            @if (ViewBag.nextUrl != null)
+            {<span id="rpgListings_divLastNav1"><span class='pg'><a href='/new/search/?@ViewBag.nextUrl'>Next</a></span></span>}
+        </td>
+        <td align="right"><input type="button" name="button" class="btn btn-orange btn-xs compare-button hide" style="padding:2px 10px; font-size:12px;" value="Compare" /></td>
+    </tr>
+
+</table>}
+else
+{
+    <div id="res_msg" class="alert_msg">
+        <h3 class="hd3">Oops! No cars found.</h3>
+        <p>Try broadening your search criteria</p>
+    </div>
+}

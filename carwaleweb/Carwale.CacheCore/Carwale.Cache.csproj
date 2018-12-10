@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3F685D8D-1086-487A-8467-357DED4EDAAB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Carwale.Cache</RootNamespace>
+    <AssemblyName>Carwale.Cache</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>Carwale.Cache.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Carwale.Cache.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Testing|AnyCPU'">
+    <OutputPath>bin\Testing\</OutputPath>
+    <CodeAnalysisRuleSet>Carwale.Cache.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>Carwale.Cache.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AEPLCore.Cache, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Cache.2.0.7-beta-1\lib\net452\AEPLCore.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Logging, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Logging.1.0.2\lib\net452\AEPLCore.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Utils, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Utils.1.0.4\lib\net452\AEPLCore.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Enyim.Caching, Version=2.16.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnyimMemcached.2.16.0\lib\net35\Enyim.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Gelf4Net, Version=3.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gelf4Net.3.0.0.7\lib\net45\Gelf4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Microsoft.Practices.Unity.DLL</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.3.7.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.3.7\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accessories\AccessoryCacheRepository.cs" />
+    <Compile Include="Accessories\Tyres\TyresCacheRepository.cs" />
+    <Compile Include="Advertizing\App\SplashScreenCache.cs" />
+    <Compile Include="Authors\Author.cs" />
+    <Compile Include="Campaigns\CampaignCacheRepository.cs" />
+    <Compile Include="CarData\CarMakesCacheRepository.cs" />
+    <Compile Include="CarData\CarModelRootsCacheRepository.cs" />
+    <Compile Include="CarData\CarModelsCacheRepository.cs" />
+    <Compile Include="CarData\CarVersionsCacheRepository.cs" />
+    <Compile Include="CarData\RecentLaunchedCarCache.cs" />
+    <Compile Include="ChatManagement\ChatManagementCache.cs" />
+    <Compile Include="Classification\BodyTypeCache.cs" />
+    <Compile Include="Classified\CarDetailsCache.cs" />
+    <Compile Include="Classified\Slots\SlotsCacheRepository.cs" />
+    <Compile Include="Classified\UsedCarBuyerCacheRepository.cs" />
+    <Compile Include="Classified\ClassifiedListing.cs" />
+    <Compile Include="Classified\CommonOperationsCacheRepository.cs" />
+    <Compile Include="Classified\MyListingsCacheRepository.cs" />
+    <Compile Include="Classified\SellCarCacheRepository.cs" />
+    <Compile Include="Classified\SellerCacheRepository.cs" />
+    <Compile Include="Classified\StockCountCacheRepository.cs" />
+    <Compile Include="Classified\ValuationCacheRepository.cs" />
+    <Compile Include="CMS\ManageCMSMemcacheKeys.cs" />
+    <Compile Include="CMS\ThreeSixtyCache.cs" />
+    <Compile Include="CMS\UserReviews\UserReviewsCache.cs" />
+    <Compile Include="CompareCars\CompareCarsCache.cs" />
+    <Compile Include="Core\LocalCacheManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ES\PagesCache.cs" />
+    <Compile Include="ES\SponsoredNavigationCache.cs" />
+    <Compile Include="ES\ESBookingCache.cs" />
+    <Compile Include="ES\SurveyCache.cs" />
+    <Compile Include="Finance\FinanceCacheRepository.cs" />
+    <Compile Include="Finance\FinanceLinkCacheRepository.cs" />
+    <Compile Include="Forums\ForumsCache.cs" />
+    <Compile Include="CrossSell\CrossSellCacheRepository.cs" />
+    <Compile Include="Dealers\DealersCache.cs" />
+    <Compile Include="Dealers\NewCarDealersCache.cs" />
+    <Compile Include="Dealers\DealerSponsoredAdCache.cs" />
+    <Compile Include="Deals\DealsCache.cs" />
+    <Compile Include="Geolocation\GeoCitiesCache.cs" />
+    <Compile Include="Geolocation\GeoCitiesCacheRepository.cs" />
+    <Compile Include="IPToLocation\IPToLocationCacheRepository.cs" />
+    <Compile Include="NewCarFinder\NewCarFinderCacheRepository.cs" />
+    <Compile Include="PriceQuote\ChargeGroupsCacheRepository.cs" />
+    <Compile Include="PriceQuote\ChargesCacheRepository.cs" />
+    <Compile Include="PriceQuote\PQCacheRepository.cs" />
+    <Compile Include="PriceQuote\PricesCacheRepository.cs" />
+    <Compile Include="PriceQuote\ThirdPartyEmiDetailsCache.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Security\SecurityRepositoryCache.cs" />
+    <Compile Include="SponsoredData\SponsoredCarCacheRepository.cs" />
+    <Compile Include="Stock\StockCertificationCacheRepository.cs" />
+    <Compile Include="Stock\StockConditionCacheRepository.cs" />
+    <Compile Include="Template\TemplatesCacheRepository.cs" />
+    <Compile Include="LandingPage\LandingPageCacheRepo.cs" />
+    <Compile Include="Classified\LeadCacheRepository.cs" />
+    <Compile Include="UserProfiling\UserProfilingCache.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Carwale.DataAccessLayer\Carwale.DAL.csproj">
+      <Project>{9cf1c70b-6eb2-4f13-8fbf-9ed9e5eb5fef}</Project>
+      <Name>Carwale.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Entity\Carwale.Entity.csproj">
+      <Project>{02e68020-d0cf-48a8-9059-48b28c3df144}</Project>
+      <Name>Carwale.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Interface\Carwale.Interfaces.csproj">
+      <Project>{b4e57a71-8ac4-4957-b0cb-82ec72f8d5b7}</Project>
+      <Name>Carwale.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Notifications\Carwale.Notifications.csproj">
+      <Project>{2bd35d9b-e0da-4dab-9234-ebbb75c33001}</Project>
+      <Name>Carwale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Utility\Carwale.Utility.csproj">
+      <Project>{7edc7859-19ea-4b79-acc3-0525860b4199}</Project>
+      <Name>Carwale.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Carwale.Cache.ruleset" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="DisableAnalyzersForVisualStudioBuild" BeforeTargets="CoreCompile" Condition="'$(BuildingInsideVisualStudio)' == 'True' And '$(BuildingProject)' == 'True'">
+    <!--
+    Disable analyzers when building a project inside Visual Studio. Note that analyzer behavior for IntelliSense
+    purposes is not altered by this.
+  -->
+    <ItemGroup>
+      <Analyzer Remove="@(Analyzer)" />
+    </ItemGroup>
+  </Target>
+</Project>

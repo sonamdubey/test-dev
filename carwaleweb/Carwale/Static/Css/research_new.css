@@ -1,0 +1,597 @@
+﻿.ul-small {
+  list-style: none;
+  display: none;
+  font-size: 11px;
+}
+
+.ul-small li {
+  padding: 0 5px;
+  float: left;
+}
+
+.chk-compare {
+  background-color: #DFDFDF;
+  padding: 0;
+  width: 10px;
+}
+
+.wallpapers li {
+  padding-right: 20px;
+}
+
+.mar-top-5 {
+  margin-top: 5px;
+}
+
+/*  Search Heading */
+.search_header {
+  font-size: 28px;
+  font-weight: bold;
+  color: #5B5B5B;
+  font-family: Arial;
+  float: left;
+}
+
+.findCar {
+  font-family: Arial;
+  font-size: 11px;
+  color: #999999;
+  font-weight: normal;
+  padding-left: 8px;
+}
+
+/*----------------- Body Style ---------------------------*/
+.ul-bs {
+  width: 225px;
+}
+
+.ul-bs li {
+  text-align: center;
+  width: 104px;
+}
+
+.body-style {
+  padding: 0;
+  margin: auto;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/body-styles.gif?v1=04032016) no-repeat;
+  height: 30px;
+}
+
+.hatchback {
+  background-position: 0 0px;
+  width: 50px;
+}
+
+.sedan {
+  background-position: 0 -123px;
+  width: 80px;
+}
+
+.suv {
+  background-position: 0 -34px;
+  width: 74px;
+}
+
+.van {
+  background-position: 0 -157px;
+  width: 80px;
+}
+
+.truck {
+  background-position: 0 -63px;
+  width: 76px;
+}
+
+.wagon {
+  background-position: 0 -187px;
+  width: 79px;
+}
+
+.coupe {
+  background-position: 0 -94px;
+  width: 76px;
+}
+
+.convertible {
+  background-position: 0 -216px;
+  width: 77px;
+}
+
+.colours {
+  border: 1px solid #C1C1C1;
+  padding: 0px;
+  margin-right: 15px;
+  height: 30px;
+  width: 130px;
+  margin: 7px;
+}
+
+
+/*----------------- Tabs ---------------------------*/
+.tab-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 30px;
+}/* Skin */
+.tab-nav li {
+  margin: 0 .3em 0 0;
+  float: left;
+  list-style: none;
+  font-size: 12px;
+}
+
+.tab-nav a, .tab-nav a span {
+  float: left;
+  padding: 0 12px;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/tabs.png?v1=04032016) no-repeat;
+}
+
+.tab-nav a {
+  margin: 5px 0 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  background-position: 100% 0;
+  text-decoration: none;
+  white-space: nowrap;
+ /* @ IE 6 */
+  outline: 0;
+ /* @ Firefox, prevent dotted border after click */;
+}
+
+.tab-nav a span {
+  padding-top: 0px;
+  padding-right: 0;
+  height: 27px;
+  background-position: 0 0;
+  background-color: #fff;
+  line-height: 25px;
+}
+
+.tab-nav .tab-nav-selected a {
+  position: relative;
+  top: 5px;
+  height: 28px;
+  z-index: 2;
+  margin-top: 0;
+  background-position: 100% -28px;
+  padding-bottom: 2px;
+}
+
+.tab-nav .tab-nav-selected a span {
+  padding-top: 1px;
+  height: 28px;
+  background-position: 0 -28px;
+  line-height: 25px;
+  color: #000;
+}
+
+.tab-nav a:link, .tab-nav a:visited {
+  color: #000;
+}
+
+.tab-nav-panel {
+  clear: both;
+  border: 2px solid #CCDBF8;
+  padding: 10px;
+  background: #fff;
+  display: block;
+  margin: 0;
+} /* declare background color for container to avoid distorted fonts in IE while fading */ 
+
+/*----------------- Range Slider ---------------------------*/
+.ui-slider {
+  position: relative;
+  text-align: left;
+  width: 250px;
+}
+
+.ui-slider .ui-slider-handle {
+  position: absolute;
+  z-index: 2;
+  cursor: default;
+  no-repeat;
+}
+
+.ui-slider .ui-slider-range {
+  position: absolute;
+  z-index: 1;
+  font-size: .7em;
+  display: block;
+}
+
+.ui-slider-horizontal {
+  height: 10px;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/icon-sheet2.gif?v1=04032016) left top;
+  background-repeat: no-repeat;
+  background-position: -10px -105px;
+  cursor: pointer;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+  top: -8px;
+  margin-left: -.2em;
+  height: 21px;
+  width: 7px;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/icon-sheet2.gif?v1=04032016);
+  background-position: -10px -76px;
+  outline: 0;
+}
+
+.ui-slider-horizontal .ui-slider-range {
+  top: 0;
+  height: 10px;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/icon-sheet2.gif?v1=04032016) left top;
+  overflow: hidden;
+  background-position: -11px -120px;
+  background-repeat: no-repeat;
+}
+
+.ui-slider-horizontal .ui-slider-range-min {
+  left: 0;
+}
+
+.ui-slider-horizontal .ui-slider-range-max {
+  right: 0;
+}
+
+#slider {
+  margin: 10px 0 0 0px;
+}
+
+/* Review Model Rating */
+.model-ratings {
+  list-style: none;
+  width: 225px;
+}
+
+.model-ratings li {
+  width: 215px;
+  padding: 2px;
+  height: 26px;
+}
+
+.model-ratings li span {
+  float: right;
+}
+
+.social_share {
+  padding-top: 10px;
+}
+
+.social_share .fb_recommend {
+  float: left;
+  width: 80px;
+}
+
+.social_share .g_plus {
+  float: left;
+  width: 65px;
+}
+
+.uc_sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/upc.png?v1=04032016) no-repeat top left;
+}
+
+.bg {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/bg.png?v1=04032016) repeat-x;
+  height: 30px;
+}
+
+.rightBg {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/rightbg.jpg?v1=04032016) no-repeat;
+  width: 6px;
+  height: 30px;
+}
+
+.cwc_low {
+  background-position: -8px -8px;
+  width: 20px;
+  height: 20px;
+}
+
+.cwc_medium {
+  background-position: -8px -33px;
+  width: 20px;
+  height: 20px;
+}
+
+.cwc_high {
+  background-position: -8px -58px;
+  width: 20px;
+  height: 20px;
+}
+
+.pointer {
+  background-position: -8px -84px;
+  width: 13px;
+  height: 28px;
+}
+
+.float-lt {
+  float: left;
+}
+
+.float-rt {
+  float: right;
+}
+
+
+/* New format for Model Details and Version Details pages */
+
+#upcoming {
+  color: #000000;
+  font-size: 13px;
+  display: block;
+}
+
+#divModelRating {
+  margin-top: 10px !important;
+}
+
+#discontinued, #discontinueAlert {
+  color: #000000;
+  font-size: 11px;
+}
+
+.colours {
+  border: 1px solid #C1C1C1;
+  padding: 0px;
+  margin-right: 15px;
+}
+
+.freeBox {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/bg.gif?v1=04032016") repeat-x scroll left top #FFFFFF;
+  border: 1px solid #DADADA;
+  float: left;
+  line-height: 18px;
+  width: 100%;
+}
+
+.note {
+  font-size: 11px;
+}
+
+.btm-white-shadow {
+  background-position: 0 0;
+  height: 10px;
+  width: 145px;
+}
+
+.price-quote-all-imgs {
+  background-image: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/price-quote-sprite.png?v1=04032016");
+  background-repeat: no-repeat;
+}
+
+.shadow-bottom {
+  margin-top: 16px;
+}
+
+.imgBorder {
+  background-color: #FFFFFF;
+  border: 1px solid #E1E1E1;
+}
+
+.modelType {
+  background-color: #FDBA2B;
+  padding: 5px;
+}
+
+.padding5 {
+  padding: 5px;
+}
+
+.padding10 {
+  padding: 10px;
+}
+
+.textBlock {
+  color: #333333;
+}
+
+.detailsBox {
+  background-color: #EEEEEE;
+  padding: 10px;
+  position: relative;
+  *zoom: 1;
+}
+
+.carDescContainerLt {
+  float: left;
+  width: 235px;
+}
+
+.carDescContainerRt {
+  width: 385px;
+  float: right;
+}
+
+.upcoming-label {
+  position: absolute;
+  top: -25px;
+  right: 0px;
+  display: block;
+}
+
+.arrow {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/arrow.png?v1=04032016) no-repeat;
+  width: 11px;
+  height: 25px;
+  margin-top: 9px;
+}
+
+/* Main Slider Start Here */
+#banner {
+  width: 940px;
+  overflow: hidden;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-direction-rtl {
+  direction: rtl;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-container-horizontal {
+  width: 940px;
+  overflow: hidden;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-clip {
+  overflow: hidden;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-item {
+  width: 940px;
+  overflow: hidden;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-item-horizontal {
+  margin-left: 0;
+  margin-right: 10px;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-direction-rtl .jcarousel-item-horizontal {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-container a {
+  color: #FFF;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-container a img {
+  border: 5px solid #e0e3ec;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-clip-horizontal,#banner-full .jcarousel-skin-tango .jcarousel-clip-vertical {
+  width: 940px;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-next-horizontal {
+  position: absolute;
+  top: 120px;
+  right: 10px;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  background: transparent url(https://imgd.aeplcdn.com/0x0/cw/design15/right-arrow.png?v1=04032016) no-repeat 0 0;
+  opacity: 0.5;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-next-horizontal:hover {
+  opacity: 1;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-prev-horizontal {
+  position: absolute;
+  top: 120px;
+  left: 10px;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  background: transparent url(https://imgd.aeplcdn.com/0x0/cw/design15/left-arrow.png?v1=04032016) no-repeat 0 0;
+  opacity: 0.5;
+}
+
+#banner .jcarousel-skin-tango .jcarousel-prev-horizontal:hover {
+  opacity: 1;
+}
+/*Main Slider Ends Here*/
+
+.cw-tabs {
+  margin-bottom: 10px;
+}
+
+.cw-tabs li {
+  display: block;
+  float: left;
+}
+
+.cw-tabs li h2 {
+  font-size: 14px;
+  font-weight: normal;
+  border-bottom: 1px solid #e2e2e2;
+  cursor: pointer;
+  display: block;
+  float: left;
+  padding: 8px 0px 10px 0px;
+  text-align: center;
+  width: 136px;
+  border-top: 2px solid transparent;
+}
+
+.cw-tabs li h2.active {
+  cursor: default;
+  border-top: 2px solid #0e3a51;
+  border-bottom: 1px solid #fff;
+  margin-bottom: -1px;
+  color: #333;
+  font-weight: bold;
+}
+
+.cw-tabs li h2.first {
+  border-right: 1px solid #e2e2e2;
+}
+
+.data-view li {
+  border-top: 1px solid #e2e2e2;
+  padding: 10px 0;
+  display: table;
+}
+
+.data-view li:first-child {
+  border-top: 0px;
+}
+
+.news-title-widget {
+  width: 255px;
+  display: table-cell;
+  *display: block;
+  *float: left;
+  vertical-align: middle;
+}
+
+.news-title-count {
+  width: 40px;
+  display: table-cell;
+  *display: block;
+  *float: left;
+  text-align: right;
+  vertical-align: middle;
+  font-size: 25px;
+  color: #d9d9d9;
+  font-weight: bold;
+}
+
+.cars-thumb {
+  width: 100px;
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px solid #e2e2e2;
+  background: #fff;
+  float: left;
+  display: block;
+}
+
+.cars-thumb a img {
+  width: 100px;
+  display: block;
+}
+
+.highlight-points {
+  width: 150px;
+  float: left;
+  display: block;
+}
+
+.highlight-points a {
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.highlight-points p {
+  margin-bottom: 3px;
+}

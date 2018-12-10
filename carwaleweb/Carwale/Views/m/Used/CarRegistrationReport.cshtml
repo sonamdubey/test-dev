@@ -1,0 +1,78 @@
+﻿@model Carwale.UI.ViewModels.Used.Reports.CarRegistrationReportViewModel
+@{
+    Layout = "~/views/shared/m/_MLayoutV3.cshtml";
+    var isValid = ViewData.ModelState.IsValid;
+    var errorClassForInput = isValid ? string.Empty : "input-error";
+}
+@section MetaData{
+    <meta charset="utf-8">
+    <title itemprop="name">Usedcar registration report - Carwale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+}
+
+@section atfcss{
+    <link rel="stylesheet" href="~/static/sass/m/used/car-registration-report.css" inline />
+}
+@section btfcss{
+    <link rel="stylesheet" href="/static/sass/m/css/globalcitypopup.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/globalcarsearch.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/advantagecitypopup.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/nav.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/selectcitypq.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/footer.css" type="text/css">
+}
+
+<div class="registration-report-body">
+    @*Report title start here*@
+    <h1 class="report-title">Know the Dealer Car</h1>
+
+    <div class="report-body">
+        @*Report content start here*@
+        <div class="report-content">
+            <h2 class="report-content-title">Seen used car with a dealer?</h2>
+            <p class="report-content-subtitle">Simply enter the car's registration number and we will give you all tools you need to buy the car:</p>
+            <ul class="report-list">
+                <li class="report-list__item">Full Car Details</li>
+                <li class="report-list__item">Right Price to help you negotiate</li>
+                <li class="report-list__item">Detailed Certification Report of the Car</li>
+            </ul>
+        </div>
+
+        @*Registration form start here*@
+
+        <form class="report-registration" action="/used/certificationreport/" method="get" onsubmit="return validateInput()">
+            <p class="form-title">Enter The Car Registration No.</p>
+            <div id="registrationInputs" class="registration-input-wrapper @(errorClassForInput)">
+                <input id="stateInitials" class="registration-input registration-input-regular-box " aria-label="State Initials" type="text" placeholder="MH" name="StateInitials" value="@Model.StateInitials" /> @*add 'input-error' class for error*@
+                <input id="districtSequentialNumber" class="registration-input registration-input-regular-box" aria-label="District Sequential Number" type="text" placeholder="01" name="DistrictSequentialNumber" value="@Model.DistrictSequentialNumber" />
+                <input id="uniqueIdentifierPrefix" class="registration-input registration-input-regular-box" aria-label="Unique Identifier Prefix" type="text" placeholder="AB" name="UniqueIdentifierPrefix" value="@Model.UniqueIdentifierPrefix" />
+                <input id="uniqueIdentifierSuffix" class="registration-input registration-input-medium-box" aria-label="Unique Identifier Suffix" type="text" placeholder="1234" name="UniqueIdentifierSuffix" value="@Model.UniqueIdentifierSuffix" />
+            </div>
+            <div id="errorMessage" class="error-message @(isValid ? "hide" : string.Empty)">
+                <p>Please enter correct Car Registration No.</p>
+            </div>
+            <div class="report-submit-div">
+                <input class="btn btn-secondary" type="submit" value="Submit" aria-label="Submit" />
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function validateInput() {
+        var stateInitials = document.getElementById("stateInitials");
+        var districtSequentialNumber = document.getElementById("districtSequentialNumber");
+        var uniqueIdentifierPrefix = document.getElementById("uniqueIdentifierPrefix");
+        var uniqueIdentifierSuffix = document.getElementById("uniqueIdentifierSuffix");
+        var errorMessageDiv = document.getElementById("errorMessage");
+        var registrationNumber = stateInitials.value + districtSequentialNumber.value + uniqueIdentifierPrefix.value + uniqueIdentifierSuffix.value;
+        if (!registrationNumber) {
+            document.getElementById("registrationInputs").classList.add("input-error");
+            errorMessageDiv.classList.remove("hide");
+            return false;
+        }
+        return true;
+    }
+    if (typeof window.history.pushState === 'function') {  //to replace url parameters after form submission
+        window.history.replaceState(null, null, "/used/certificationreport/");
+    }
+</script>

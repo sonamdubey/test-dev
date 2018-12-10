@@ -1,0 +1,22 @@
+﻿<script type="text/javascript">var abTestCity = '@ViewBag.ABTestCities';</script>
+<script  type="text/javascript"  src="/static/m/js/zebra_datepicker.js" ></script>
+<script  type="text/javascript"  src="/static/js/chosen.jquery.min.js" ></script>
+@if (ViewBag.isMobile != null && ViewBag.isMobile)
+{
+    <script type="text/javascript">
+        var isMobileDevice = true;
+    </script>
+}
+<script type="text/javascript" src="/static/js/axis-page.js"></script>
+<script>
+    var AxisCarLoanPage;
+    var platFormId;
+    if ($("body").hasClass("cwm-body") == true) {
+        AxisCarLoanPage = 'Axis Car Loan_m';
+        platFormId = 43;
+    }
+    else {
+        AxisCarLoanPage = 'Axis Car Loan_d';
+        platFormId = 1;
+    }
+</script>

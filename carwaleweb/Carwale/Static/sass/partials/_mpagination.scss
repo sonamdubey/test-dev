@@ -1,0 +1,36 @@
+﻿@import "../mixins/_padding.scss";
+
+@include padding("top",15);
+.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+
+    li {
+        display: inline;
+        &:last-child a {
+        border-right-width: 1px;
+        }
+        a {
+            color: black;
+            float: left;
+            padding: 6px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+            border: 1px solid #ddd;
+            border-right-width: 0;
+
+            &:hover:not(.active) {
+            background-color: #ddd;
+            }
+
+            &.active {
+            background-color: #f5f5f5;
+            }
+        }
+    }
+}
+
+
+		 
+		

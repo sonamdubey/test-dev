@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B4E57A71-8AC4-4957-B0CB-82EC72F8D5B7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Carwale.Interfaces</RootNamespace>
+    <AssemblyName>Carwale.Interfaces</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Carwale.Interfaces.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Carwale.Interfaces.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Testing|AnyCPU'">
+    <OutputPath>bin\Testing\</OutputPath>
+    <CodeAnalysisRuleSet>Carwale.Interfaces.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>Carwale.Interfaces.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AEPLCore.Cache, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Cache.2.0.7-beta-1\lib\net452\AEPLCore.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Logging, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Logging.1.0.2\lib\net452\AEPLCore.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Utils, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Utils.1.0.4\lib\net452\AEPLCore.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="ApiGatewayLibrary">
+      <HintPath>..\libs\ApiGatewayLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Enyim.Caching, Version=2.16.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnyimMemcached.2.16.0\lib\net35\Enyim.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Gelf4Net, Version=3.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gelf4Net.3.0.0.7\lib\net45\Gelf4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.3.7.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.3.7\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accessories\IAccessoryRepo.cs" />
+    <Compile Include="Accessories\IAccessoryCache.cs" />
+    <Compile Include="Accessories\Tyres\ITyresBL.cs" />
+    <Compile Include="Accessories\Tyres\ITyresRepository.cs" />
+    <Compile Include="Advertizings\App\IAppSplashCache.cs" />
+    <Compile Include="Advertizings\App\IAppSplashRepository.cs" />
+    <Compile Include="Advertizings\App\IAppSplashScreenBL.cs" />
+    <Compile Include="AppSiteAssociation\IAppSiteAssociationBL.cs" />
+    <Compile Include="Author\IAuthorCacheRepository.cs" />
+    <Compile Include="Author\IAuthorRepository.cs" />
+    <Compile Include="AutoComplete\IAutoCompleteBL.cs" />
+    <Compile Include="AutoComplete\IAutoComplete_v1.cs" />
+    <Compile Include="Blocking\IBlockedCommunicationsRepository.cs" />
+    <Compile Include="Campaigns\IDealerAdProvider.cs" />
+    <Compile Include="Blocking\IBlockIPRepository.cs" />
+    <Compile Include="Campaigns\ICampaignPrediction.cs" />
+    <Compile Include="Campaigns\ITemplate.cs" />
+    <Compile Include="CarData\ICarDataLogic.cs" />
+    <Compile Include="CarData\ICarModelRootsCacheRepository.cs" />
+    <Compile Include="CarData\ICarRecommendationLogic.cs" />
+    <Compile Include="CarData\ICarRoots.cs" />
+    <Compile Include="CentralizedCacheRefresh\ICentralizedCacheRefreshBl.cs" />
+    <Compile Include="Classification\IBodyTypeCache.cs" />
+    <Compile Include="Classification\IClassificationRepository.cs" />
+    <Compile Include="Classified\CarValuation\IValuationBL.cs" />
+    <Compile Include="Classified\CarValuation\IValuationCacheRepository.cs" />
+    <Compile Include="Classified\Chat\IChatNotifications.cs" />
+    <Compile Include="Classified\ElasticSearch\IAggregationQueryDescriptor.cs" />
+    <Compile Include="Classified\ElasticSearch\IAggregationsRepository.cs" />
+    <Compile Include="Classified\ElasticSearch\IESStockQueryRepository.cs" />
+    <Compile Include="Classified\ElasticSearch\IProcessAggregationElasticJson.cs" />
+    <Compile Include="Classified\ElasticSearch\IQueryContainerRepository.cs" />
+    <Compile Include="Classified\ElasticSearch\ISortDescriptorRepository.cs" />
+    <Compile Include="Classified\ElasticSearch\IStockQueryProcessor.cs" />
+    <Compile Include="Classified\ICertificationProgramsRepository.cs" />
+    <Compile Include="Classified\Chat\IChatBL.cs" />
+    <Compile Include="Classified\IUsedCarBuyerCacheRepository.cs" />
+    <Compile Include="Classified\Chat\IChatSmsRepository.cs" />
+    <Compile Include="Classified\IClassifiedEmailAlertRepository.cs" />
+    <Compile Include="Classified\ICWCTCityMappingRepositiory.cs" />
+    <Compile Include="Classified\IClassifiedMails.cs" />
+    <Compile Include="Classified\IUsedCarBuyerRepository.cs" />
+    <Compile Include="Classified\Leads\ILeadBL.cs" />
+    <Compile Include="Classified\Leads\ISellerCacheRepository.cs" />
+    <Compile Include="Classified\ListingPayment\IReceiptLogic.cs" />
+    <Compile Include="Classified\ListingPayment\IReceiptRepository.cs" />
+    <Compile Include="Classified\MyListings\IMyListings.cs" />
+    <Compile Include="Classified\MyListings\IMyListingsCacheRepository.cs" />
+    <Compile Include="Classified\MyListings\IMyListingsRepository.cs" />
+    <Compile Include="Classified\MyListings\IPremiumListingsLogic.cs" />
+    <Compile Include="Classified\Search\IMetaKeywordsSearch.cs" />
+    <Compile Include="Classified\Search\ISearchBL.cs" />
+    <Compile Include="Classified\Leads\ILeadNotifications.cs" />
+    <Compile Include="Classified\Leads\ILeadRepository.cs" />
+    <Compile Include="Classified\Leads\ISellerRepository.cs" />
+    <Compile Include="Classified\Search\ISearchParamsProcesser.cs" />
+    <Compile Include="Classified\Search\ISearchUtility.cs" />
+    <Compile Include="Classified\SellCar\ICarDetailsBL.cs" />
+    <Compile Include="Classified\SellCar\ICarDetailsRepository.cs" />
+    <Compile Include="Classified\SellCar\IConsumerToBusinessBL.cs" />
+    <Compile Include="Classified\SellCar\ICTBuyingIndexClient.cs" />
+    <Compile Include="Classified\SellCar\IC2BStockRepository.cs" />
+    <Compile Include="Classified\SellCar\IListingBL.cs" />
+    <Compile Include="Classified\SellCar\IListingRepository.cs" />
+    <Compile Include="Classified\SellCar\ISellCarCacheRepository.cs" />
+    <Compile Include="Classified\Slots\ISlotsCacheRepository.cs" />
+    <Compile Include="Classified\Slots\ISlotsRepository.cs" />
+    <Compile Include="Classified\UsedLeads\IUsedLeadsRepository.cs" />
+    <Compile Include="Classified\UsedCarPhotos\ICarPhotosRepository.cs" />
+    <Compile Include="CarData\ICarDataRepository.cs" />
+    <Compile Include="Classified\SellCar\ISellCarBL.cs" />
+    <Compile Include="Classified\SellCar\ISellCarRepository.cs" />
+    <Compile Include="Classified\IGetDealerStatus.cs" />
+    <Compile Include="Classified\IGetUsedCarDealerStatus.cs" />
+    <Compile Include="CMS\IMediaBL.cs" />
+    <Compile Include="CMS\ThreeSixty\IThreeSixtyDAL.cs" />
+    <Compile Include="CMS\ThreeSixty\IThreeSixtyCache.cs" />
+    <Compile Include="CMS\IThreeSixtyView.cs" />
+    <Compile Include="CMS\UserReviews\IUserReviewsRepository.cs" />
+    <Compile Include="CMS\UserReviews\IUserReviewsCache.cs" />
+    <Compile Include="Campaigns\ICampaignCacheRepository.cs" />
+    <Compile Include="Campaigns\ICampaignRecommendationsBL.cs" />
+    <Compile Include="Campaigns\ICampaignRepository.cs" />
+    <Compile Include="CarData\ICarMakes.cs" />
+    <Compile Include="CarData\ICarMakesCacheRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CarData\ICarMileage.cs" />
+    <Compile Include="CarData\ICarModels.cs" />
+    <Compile Include="CarData\ICarVersionCacheRepository.cs" />
+    <Compile Include="CarData\ICarVersions.cs" />
+    <Compile Include="CarData\IModelRootsRepository.cs" />
+    <Compile Include="CarData\ICarModelCacheRepository.cs" />
+    <Compile Include="CarData\RecentLaunchedCar\IRecentLaunchedCarCacheRepository.cs" />
+    <Compile Include="CarData\RecentLaunchedCar\IRecentLaunchedCarRepository.cs" />
+    <Compile Include="Classified\CarDetail\ICarDetail.cs" />
+    <Compile Include="Classified\CarDetail\IcarDetailsCache.cs" />
+    <Compile Include="Classified\CarDetail\IListingDetails.cs" />
+    <Compile Include="Classified\ICommonOperationsCacheRepository.cs" />
+    <Compile Include="Classified\ICommonOperationsRepository.cs" />
+    <Compile Include="Classified\IStockCountCacheRepository.cs" />
+    <Compile Include="Classified\CarValuation\ICarValuation.cs" />
+    <Compile Include="Classified\CarValuation\IValuationRepository.cs" />
+    <Compile Include="Classified\CarValuation\ICVBaseValueCalculator.cs" />
+    <Compile Include="Classified\CarValuation\ICVFinalValueCalculator.cs" />
+    <Compile Include="Classified\IStockCountRepository.cs" />
+    <Compile Include="Classified\IClassifiedListing.cs" />
+    <Compile Include="Classified\IStockRepository.cs" />
+    <Compile Include="Classified\PopularUsedCarsDetails\IPopularUCDetails.cs" />
+    <Compile Include="CMS\Articles\ICMSContent.cs" />
+    <Compile Include="CMS\ICMSMemcacheKeysRepository.cs" />
+    <Compile Include="CMS\ICMSContentRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CMS\ICMSImagesRepository.cs" />
+    <Compile Include="CMS\ICMSPagesRepository.cs" />
+    <Compile Include="CMS\IVideosBL.cs" />
+    <Compile Include="CMS\Photos\IPhotos.cs" />
+    <Compile Include="Campaigns\ICampaign.cs" />
+    <Compile Include="CMS\UserReviews\IUserReviews.cs" />
+    <Compile Include="CompareCars\ICompareCarsBL.cs" />
+    <Compile Include="CompareCars\ICompareCarsCacheRepository.cs" />
+    <Compile Include="CompareCars\ICompareCarsRepository.cs" />
+    <Compile Include="CrossSell\ICrossSellCacheRepository.cs" />
+    <Compile Include="CrossSell\IHouseCrossSell.cs" />
+    <Compile Include="CrossSell\IPaidCrossSell.cs" />
+    <Compile Include="CustomerVerification\ICustomerVerification.cs" />
+    <Compile Include="CustomerVerification\ICustomerVerificationRepository.cs" />
+    <Compile Include="Customer\ICustomerTracking.cs" />
+    <Compile Include="Dealers\Used\IUsedDealerCitiesBL.cs" />
+    <Compile Include="Dealers\Used\IUsedDealerCitiesRepository.cs" />
+    <Compile Include="Dealers\Used\IUsedDealerRatingsBL.cs" />
+    <Compile Include="Dealers\Used\IUsedDealerRatingsRepository.cs" />
+    <Compile Include="Dealers\Used\IUsedDealerStocksBL.cs" />
+    <Compile Include="Dealers\Used\IUsedDealerStocksRepository.cs" />
+    <Compile Include="Elastic\INewCarElasticSearch.cs" />
+    <Compile Include="Elastic\INewCarSearchAppAdapter.cs" />
+    <Compile Include="Dealers\IDealerCache.cs" />
+    <Compile Include="Dealers\IDealerRepository.cs" />
+    <Compile Include="Dealers\IDealers.cs" />
+    <Compile Include="Dealers\IDealerSponsoredAdRespository.cs" />
+    <Compile Include="Dealers\INewCarDealers.cs" />
+    <Compile Include="Dealers\INewCarDealersCache.cs" />
+    <Compile Include="Dealers\INewCarDealersRepository.cs" />
+    <Compile Include="Dealers\IDealerSponsoredAdCache.cs" />
+    <Compile Include="Dealers\ISponsoredDealerBranding.cs" />
+    <Compile Include="Deals\Cache\IDealsCache.cs" />
+    <Compile Include="Deals\IDealInquiriesRepository.cs" />
+    <Compile Include="Deals\IDeals.cs" />
+    <Compile Include="Deals\IDealsRepository.cs" />
+    <Compile Include="Deals\IDealInquiriesCL.cs" />
+    <Compile Include="Deals\IDealsNotification.cs" />
+    <Compile Include="Elastic\IElasticSearchManager.cs" />
+    <Compile Include="Elastic\IESStockQuery.cs" />
+    <Compile Include="Elastic\IProcessElasticJson.cs" />
+    <Compile Include="Elastic\IProcessFilters.cs" />
+    <Compile Include="Elastic\IESOperations.cs" />
+    <Compile Include="ES\IPagesRepository.cs" />
+    <Compile Include="ES\IPagesCache.cs" />
+    <Compile Include="ES\ISponsoredNavigationRepository.cs" />
+    <Compile Include="ES\ISponsoredNavigationCache.cs" />
+    <Compile Include="ES\IBookingCache.cs" />
+    <Compile Include="ES\IBookingRepository.cs" />
+    <Compile Include="ES\IEsLeadFormRepository.cs" />
+    <Compile Include="ES\ISurveyBL.cs" />
+    <Compile Include="ES\ISurveyCache.cs" />
+    <Compile Include="ES\ISurveyRepository.cs" />
+    <Compile Include="Finance\IFinanceCacheRepository.cs" />
+    <Compile Include="Finance\IFinance.cs" />
+    <Compile Include="Finance\IFinanceAdapter.cs" />
+    <Compile Include="Finance\IFinanceLinkDataCache.cs" />
+    <Compile Include="Finance\IFinanceLinkDataRepository.cs" />
+    <Compile Include="Finance\IFinanceOperations.cs" />
+    <Compile Include="Forums\IForum.cs" />
+    <Compile Include="Forums\IForumSubscription.cs" />
+    <Compile Include="Forums\IModerator.cs" />
+    <Compile Include="Forums\INotification.cs" />
+    <Compile Include="Forums\IPost.cs" />
+    <Compile Include="Forums\IThread.cs" />
+    <Compile Include="Forums\IThreadDetails.cs" />
+    <Compile Include="Forums\IThreadsBL.cs" />
+    <Compile Include="Forums\IUser.cs" />
+    <Compile Include="Geolocation\IElasticLocation.cs" />
+    <Compile Include="Geolocation\IGeoCityLogic.cs" />
+    <Compile Include="Geolocation\IPQGeoLocationBL.cs" />
+    <Compile Include="Geolocation\IGeoCitiesCacheRepository.cs" />
+    <Compile Include="Geolocation\IGeoCitiesRepository.cs" />
+    <Compile Include="Geolocation\ILatLongCityRepository.cs" />
+    <Compile Include="Home\IServiceProvider.cs" />
+    <Compile Include="IAPIService.cs" />
+    <Compile Include="CarData\ICarMakesRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CarData\ICarModelRepository.cs" />
+    <Compile Include="CarData\ICarVersionRepository.cs" />
+    <Compile Include="ICustomers.cs" />
+    <Compile Include="Deals\IDealsUserInquiry.cs" />
+    <Compile Include="IDeepLinking.cs" />
+    <Compile Include="ImageUpload\IImageBL.cs" />
+    <Compile Include="IMobileAppAlertRepository.cs" />
+    <Compile Include="Insurance\ICholaMSInsurance.cs" />
+    <Compile Include="Insurance\ICommon.cs" />
+    <Compile Include="Insurance\IInsuranceBL.cs" />
+    <Compile Include="Insurance\IInsuranceRepository.cs" />
+    <Compile Include="IPager.cs" />
+    <Compile Include="IPToLocation\IIPToLocation.cs" />
+    <Compile Include="IPToLocation\IIPToLocationCacheRepository.cs" />
+    <Compile Include="IPToLocation\IIPToLocationRepository.cs" />
+    <Compile Include="IRequestManager.cs" />
+    <Compile Include="ISecurity.cs" />
+    <Compile Include="LeadForm\ILeadFormAdapter.cs" />
+    <Compile Include="Leads\IDealerInquiry.cs" />
+    <Compile Include="NewCarFinder\INewCarFinderCacheRepository.cs" />
+    <Compile Include="NewCarFinder\INewCarFinderRepository.cs" />
+    <Compile Include="Logs\ILoggingRepository.cs" />
+    <Compile Include="NewCars\IServiceAdapterV2.cs" />
+    <Compile Include="NewCars\ITopCarsBl.cs" />
+    <Compile Include="Offers\IOfferBL.cs" />
+    <Compile Include="Otp\IOtpLogic.cs" />
+    <Compile Include="PriceQuote\IChargeGroupsCacheRepository.cs" />
+    <Compile Include="PriceQuote\IChargeGroupsRepository.cs" />
+    <Compile Include="PriceQuote\ICharges.cs" />
+    <Compile Include="PriceQuote\IChargesCacheRepository.cs" />
+    <Compile Include="PriceQuote\IChargesRepository.cs" />
+    <Compile Include="PriceQuote\IModelSimilarPriceDetailsBL.cs" />
+    <Compile Include="PriceQuote\IModelSimilarPriceDetailsRepo.cs" />
+    <Compile Include="PriceQuote\INearbyCitiesSearch.cs" />
+    <Compile Include="PriceQuote\IOperationsTrackingRepository.cs" />
+    <Compile Include="PriceQuote\IQuotationAdapterCommon.cs" />
+    <Compile Include="PriceQuote\IThirdPartyEmiDetailsCache.cs" />
+    <Compile Include="PriceQuote\IThirdPartyEmiDetailsRepository.cs" />
+    <Compile Include="Prices\IEmiCalculatorAdapter.cs" />
+    <Compile Include="Prices\IEmiCalculatorBl.cs" />
+    <Compile Include="Prices\IPriceAdapter.cs" />
+    <Compile Include="ProfanityFilter\IBadWordsRepository.cs" />
+    <Compile Include="Blocking\IBlockMobileRepository.cs" />
+    <Compile Include="Rules\IRulesCacheRepository.cs" />
+    <Compile Include="Rules\IRulesRepository.cs" />
+    <Compile Include="Stock\IStockBL.cs" />
+    <Compile Include="Stock\IStockCertificationBL.cs" />
+    <Compile Include="Stock\IStockCertificationCacheRepository.cs" />
+    <Compile Include="Stock\IStockCertificationRepository.cs" />
+    <Compile Include="IStockImageRepository.cs" />
+    <Compile Include="Monetization\IMonetization.cs" />
+    <Compile Include="NewCars\ILead.cs" />
+    <Compile Include="NewCars\IServiceAdapter.cs" />
+    <Compile Include="Notifications\IEmailNotificationManger.cs" />
+    <Compile Include="Notifications\IEmailNotifications.cs" />
+    <Compile Include="Notifications\ISMSNotificationManger.cs.cs" />
+    <Compile Include="Notifications\ISMSNotifications.cs" />
+    <Compile Include="Notifications\ISMSRepository.cs" />
+    <Compile Include="Offers\IOffersAdapter.cs" />
+    <Compile Include="PaymentGateway\IPackageRepository.cs" />
+    <Compile Include="PaymentGateway\ITransactionValidator.cs" />
+    <Compile Include="PaymentGateway\ITransactionRepository.cs" />
+    <Compile Include="PaymentGateway\ITransaction.cs" />
+    <Compile Include="PaymentGateway\IPaymentGateway.cs" />
+    <Compile Include="PriceQuote\ICarPriceQuoteAdapter.cs" />
+    <Compile Include="PriceQuote\ICRMPush.cs" />
+    <Compile Include="PriceQuote\IPQAdapter.cs" />
+    <Compile Include="PriceQuote\IPQCacheRepository.cs" />
+    <Compile Include="PriceQuote\IPQRepository.cs" />
+    <Compile Include="PriceQuote\IPriceQuoteBL.cs" />
+    <Compile Include="PriceQuote\IPriceQuoteRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PriceQuote\IPrices.cs" />
+    <Compile Include="PriceQuote\IPricesCacheRepository.cs" />
+    <Compile Include="PriceQuote\IPricesRepository.cs" />
+    <Compile Include="Security\ISecurityRepository.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IXmlFeed.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SponsoredCar\ISponsoredCar.cs" />
+    <Compile Include="SponsoredCar\ISponsoredCarBL.cs" />
+    <Compile Include="SponsoredCar\ISponsoredCarCache.cs" />
+    <Compile Include="Stock\IStockCitiesBL.cs" />
+    <Compile Include="Stock\IStockCitiesRepository.cs" />
+    <Compile Include="Stock\IStockConditionCacheRepository.cs" />
+    <Compile Include="Stock\IStockConditionRepository.cs" />
+    <Compile Include="Stock\IStockFinanceRepository.cs" />
+    <Compile Include="Stock\IStockManager.cs" />
+    <Compile Include="Stock\IStockPackagesRepository.cs" />
+    <Compile Include="Stock\IStockRecommendationRepository.cs" />
+    <Compile Include="Stock\IStockRecommendationsBL.cs" />
+    <Compile Include="Stock\IStockRegCertificatesRepository.cs" />
+    <Compile Include="Stock\IStocksBySlot.cs" />
+    <Compile Include="Stock\IStockScoreRepository.cs" />
+    <Compile Include="Subscription\ISubscriptionRepository.cs" />
+    <Compile Include="Template\ITemplateRender.cs" />
+    <Compile Include="Template\ITemplatesCacheRepository.cs" />
+    <Compile Include="Template\ITemplatesRepository.cs" />
+    <Compile Include="LandingPage\ILandingPageBL.cs" />
+    <Compile Include="LandingPage\ILandingPageCacheRepo.cs" />
+    <Compile Include="LandingPage\ILandingPageRepository.cs" />
+    <Compile Include="UesrReview\IUserReviewLogic.cs" />
+    <Compile Include="UesrReview\IUserReviewRepository.cs" />
+    <Compile Include="UserProfiling\IUserProfilingCache.cs" />
+    <Compile Include="UserProfiling\IUserProfilingRepo.cs" />
+    <Compile Include="UserProfiling\IUserProfilingBL.cs" />
+    <Compile Include="Users\IFeedbackRepository.cs" />
+    <Compile Include="Users\IUserFeedbackBL.cs" />
+    <Compile Include="Classified\Leads\ILeadCacheRepository.cs" />
+    <Compile Include="Validations\IValidateLocation.cs" />
+    <Compile Include="Validations\IValidateMmv.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Carwale.DTOs\Carwale.DTOs.csproj">
+      <Project>{71d19ca7-5224-4827-9535-570755738374}</Project>
+      <Name>Carwale.DTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Entity\Carwale.Entity.csproj">
+      <Project>{02e68020-d0cf-48a8-9059-48b28c3df144}</Project>
+      <Name>Carwale.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CMS\Videos\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Carwale.Interfaces.ruleset" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="DisableAnalyzersForVisualStudioBuild" BeforeTargets="CoreCompile" Condition="'$(BuildingInsideVisualStudio)' == 'True' And '$(BuildingProject)' == 'True'">
+    <!--
+    Disable analyzers when building a project inside Visual Studio. Note that analyzer behavior for IntelliSense
+    purposes is not altered by this.
+  -->
+    <ItemGroup>
+      <Analyzer Remove="@(Analyzer)" />
+    </ItemGroup>
+  </Target>
+</Project>

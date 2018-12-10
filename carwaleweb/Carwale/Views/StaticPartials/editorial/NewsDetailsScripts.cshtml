@@ -1,0 +1,123 @@
+﻿<script>    
+    doNotShowAskTheExpert = false;
+    var relatedBasicIds =  @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.RelatedArticleIds));
+    var articleBasicid = '@Model.ArticlePages.BasicId';
+</script>
+<script type="text/html" id="related-news">
+    <h1 class="font30 text-black special-skin-text" data-bind="text: title"></h1>
+    <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+    <div class="content-details related-details" data-bind="attr : {id : basicId,categoryid : categoryId,categoryname : 'news'}">
+        <div class="content-box-shadow content-inner-block-10 margin-bottom20">
+           
+            <div class="margin-top10">
+                <div class="leftfloat">
+
+                    <span data-bind="if : authorMaskingName != null && authorMaskingName != '' ">
+                        <span data-bind="text : displayDate + ' IST by '"></span><a data-bind="attr:{href : '/authors/' + authorMaskingName + '/'}"><span data-bind="text :  authorName"></span></a>
+                    </span>
+                    <span data-bind="if : authorMaskingName == null || authorMaskingName == ''">
+                        <span data-bind="text: displayDate + ' IST by ' + authorName"></span>
+                    </span>
+                  
+                </div>
+                <div class="rightfloat">
+                    <span class="v-views-icon news-sprite margin-right5"></span>
+                    <span data-bind="text:views +(views > 1 ? ' Views': ' View')"></span>
+                    <br />
+                    <span class="spnComments" data-bind="attr:{id:'fbcomments_'+basicId}" >
+                        <a style="font-size: 13px;" data-bind="attr:{href:'#article-comments-'+basicId}">
+                            <!-- ko if : facebookCommentCount <= 0 -->
+                            <span>Be the first to comment</span>
+                            <!-- /ko -->
+                            <!-- ko if : facebookCommentCount > 0 -->
+                            <span data-bind="text: facebookCommentCount +'comment(s)'"></span>
+                            <!-- /ko -->
+
+                        </a>
+                    </span>
+                </div>
+                <div class="clear"></div>
+                <ul class="social margin-top15" data-bind="attr:{'data-articleurl':articleUrl}">
+                    <li style="float: left; width: 90px; height: 20px;">
+                        <iframe data-bind="attr:{src : 'https://www.facebook.com/plugins/like.php?layout=button_count&show_faces=false&action=like&font&colorscheme=light&width=100&height=25&href=https://www.carwale.com' + articleUrl }" scrolling="no" frameborder="0" style="border: none; overflow: hidden; width: 100px; height: 25px;" allowtransparency="true"></iframe>
+                    </li>
+                    <li style="float: left; width: 90px; height: 20px;">
+                        <iframe allowtransparency="true" frameborder="0" scrolling="no" data-bind="attr:{ src: 'https://platform.twitter.com/widgets/tweet_button.html?text='+ title +'&via=CarWale&url=http://www.carwale.com'+articleUrl+'&counturl=http://www.carwale.com'+ articleUrl }" style="width: 110px; height: 40px;"></iframe>
+                    </li>
+                    <li style="float: left; width: 90px; height: 20px;">
+                        <div class="g_plus" data-bind="attr:{id:'gplus-'+basicId}">
+
+                        </div>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div data-bind="foreach : pageList">
+                <!-- ko if: ($index() == 0) --><span class='first-page-start' data-bind="attr:{basic:$parent.basicId,idx:$parentContext.$index()}"></span><!-- /ko -->
+                <!-- ko if: ($index() == ($parent.pageList.length - 1)) --><span class='next-page-trigger' data-bind="attr:{basic:$parent.basicId}"></span><!-- /ko -->
+                <div data-bind="attr:{id: Common.utils.formatSpecial(pageName)+'-'+$parent.basicId }" class="news-detail">
+                    <div id="articlebody" class="margin-bottom5">
+                        <!-- ko if: $parent.imagePath != "" -->
+                        <div style='text-align:center;'>
+                            <img style='margin-top:10px; padding:5px; border:1px solid #ccc; background-color:#fff;'data-bind="attr:{title:$parent.title,alt:$parent.title,src:$parent.hostUrl+'642x361'+ $parent.imagePath,border:0}" width='100%' />
+                        </div>
+                        <!-- ko if: $parent.mainImgCaption != "" -->
+                        <div style='font-size:11px; color:#666; text-align:left;' data-bind="text:$parent.mainImgCaption"></div>
+                        <!-- /ko -->
+                        <!-- /ko -->
+                        <div class="text-area-right content-font" data-bind="html: content"></div>
+                    </div>
+                    <!-- Tags code starts here-->
+                    <!-- ko if: $parent.tagsList.length > 0 -->
+                    <div id="tag_Id">
+                        <span class="news-sprite tag-icon"></span><span class="margin-right5">Tags:</span>
+                        <b data-bind="text:$parent.tagsList"></b>
+                    </div>
+                    <!-- /ko -->
+                    <!-- Tags code ends here-->
+                </div>
+                <!-- ko if: ($index() == ($parent.pageList.length - 1)) --><span class='last-page-end' data-bind="attr:{basic:$parent.basicId,idx:$parentContext.$index()}"></span><!-- /ko -->
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- Comments code starts here
+        <div class="margin-bottom20 content-inner-block-5 content-box-shadow" data-bind="attr:{id:'article-comments-'+basicId}">
+            <span class="font16 text-bold collaps newsComments" data-bind="attr:{id:'comments-toggle-'+basicId,idx:$index()}"><span>Show Comments</span><span class="hide">Hide Comments</span></span>
+            <div class="hide">
+                <div class="fb-comments" data-bind="attr:{'data-href':  'https://'+window.location.host+articleUrl }" data-num-posts="20" data-width="628"></div>
+            </div>
+        </div>
+        Comments code ends here-->
+    </div>
+</script>
+<script type="text/javascript">    
+    (function () {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<script type="text/javascript" src="/static/src/jquery.dfp.min.js" defer></script>
+<script type="text/javascript" src="/static/js/sticky-ad-news.js" defer></script>
+<script type="text/javascript" src="/static/js/utils/date-format.js" defer></script>
+<script type="text/javascript" src="/static/js/editorial-common.js" defer></script>
+<script  type="text/javascript"  src="/static/js/news-detail.js" ></script>
+<script  type="text/javascript"  src="/static/js/contenttracking.js" ></script>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: FACEBOOKAPPID,
+            cookie: true,  // enable cookies to allow the server to access
+            // the session
+            xfbml: true,  // parse social plugins on this page
+            version: 'v2.2' // use version 2.2
+        });
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        ContentTracking.tracking.setUpTracking(1, 'News', '.content-details');
+    });    
+</script>

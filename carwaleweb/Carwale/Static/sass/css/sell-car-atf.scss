@@ -1,0 +1,603 @@
+﻿@import "../mixins/_variables.scss";
+@import "../mixins/_margin.scss";
+@import "../mixins/_padding.scss";
+@import "../mixins/_utils.scss";
+@import "../mixins/_sprites.scss";
+@import "../mixins/_vendor-utils.scss";
+
+// page specific
+@import "../mixins/_input-box.scss";
+@import "../mixins/_chosen.scss";
+@import "../mixins/_buttons.scss";
+@import "../mixins/_loader.scss";
+
+@include show;
+@include hide;
+
+// intro
+#sellCarBanner {
+	width: 100%;
+	height: 285px;
+	background: #66757a url(#{$img-cdn-path}/0x0/cw/static/landing-banners/d/sell-car-banner.jpg) no-repeat center right;
+	background-size: cover;
+	display: table;
+	padding-top: 1px;
+}
+
+.banner-box {
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.banner__title {
+	color: #fff;
+	font-size: 35px;
+	font-weight: 700;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+// benefit list
+.benefit-list__item {
+	width: 240px;
+	margin: 5px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.benefit-list__label {
+	width: 50%;
+	font-size: 14px;
+	padding-left: 15px;
+	color: #fff;
+	text-align: left;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.benefit-home-icon {
+	width: 55px;
+	height: 44px;
+	background: url(#{$img-cdn-path}/0x0/cw/static/icons/fff/home-55x44.png) no-repeat;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.verified-buyer-icon {
+	width: 48px;
+	height: 51px;
+	background: url(#{$img-cdn-path}/0x0/cw/static/icons/fff/verified-buyer-48x51.png) no-repeat;
+	display: inline-block;
+	vertical-align: bottom;
+}
+
+.best-price-icon {
+	width: 56px;
+	height: 46px;
+	background: url(#{$img-cdn-path}/0x0/cw/static/icons/fff/car-best-price-56x46.png) no-repeat;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+// content wrapper
+.content-wrapper {
+	position: relative;
+	background: #fff;
+	border: 1px solid #e2e2e2;
+	@include get-vendor-prefixed("border-radius", "4px");
+}
+
+#formContainer {
+	margin-top: -50px;
+	min-height: 450px;
+
+	.input-box {
+		min-height: 60px;
+		height: auto;
+	}
+}
+
+// accordion
+.accordion__item {
+	min-height: 80px;
+	border-top: 1px solid #e2e2e2;
+
+	&:first-child {
+		border-top: 0;
+	}
+}
+
+.accordion__head {
+	height: 80px;
+	padding: 25px 20px;
+	position: relative;
+	cursor: pointer;
+	opacity: 0.5;
+
+	&.active {
+		border-bottom: 1px solid #e2e2e2;
+		opacity: 1;
+
+		.accordion__arrow {
+			transform: rotate(180deg);
+		}
+	}
+
+	&.done {
+		opacity: 1;
+	}
+
+	&[data-access="0"] {
+		cursor: not-allowed;
+	}
+}
+
+.accordion-head__content {
+	width: 85%;
+	display: inline-block;
+	vertical-align: middle;
+	padding-left: 10px;
+}
+
+.accordion__icon {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	vertical-align: middle;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.contact-details-icon {
+	background-image: url(#{$img-cdn-path}/0x0/cw/static/used/contact-26x22.png);
+}
+
+.car-details-icon {
+	background-image: url(#{$img-cdn-path}/0x0/cw/static/used/car-details-30x21.png);
+}
+
+.car-image-icon {
+	background-image: url(#{$img-cdn-path}/0x0/cw/static/used/car-image-31x30.png);
+}
+
+.car-condition-icon {
+	background-image: url(#{$img-cdn-path}/0x0/cw/static/used/car-condition-30x30.png);
+}
+
+.accordion-head__title {
+	font-size: 18px;
+}
+
+.accordion__arrow {
+	position: absolute;
+	right: 30px;
+	top: 45%;
+	width: 18px;
+	height: 10px;
+	background: url(#{$img-cdn-path}/0x0/cw/static/icons/565a5c/arrow-down-18x10.png) no-repeat;
+	display: inline-block;
+	transition: transform .5s;
+}
+
+// form
+.form__head {
+	font-size: 16px;
+	color: map-get($color-map, "black");
+	margin-bottom: 20px;
+}
+
+.summary-content {
+	font-size: 12px;
+	color: map-get($color-map, "light-grey");
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.summary--active {
+	&.accordion__head {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+}
+
+// city and contact details form start
+.partialContactDetails {
+	.accordion__body {
+		display: block;
+	}
+}
+
+.body__contact-details {
+	width: 665px;
+	margin: 30px auto;
+
+	.form__field-box {
+		width: 320px;
+		height: 70px;
+		display: inline-block;
+		vertical-align: top;
+		position: relative;
+	}
+}
+
+.form__field-box {
+	&:nth-child(even) {
+		margin-right: 20px;
+	}
+}
+
+#cityInputBox {
+	.fa-spinner {
+		display: none;
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		color: map-get($color-map, "black");
+	}
+}
+
+#pincodeInputBox {
+	display: none;
+}
+
+@include remove-number-spin;
+
+.city-select-done {
+	#pincodeInputBox {
+		display: inline-block;
+	}
+}
+
+@include padding("top", 15);
+
+// suggestion list: popular city
+.suggestion-dropdown-list {
+	display: none;
+	position: absolute;
+	top: 32px;
+	left: 0;
+	width: 100%;
+	min-height: 200px;
+	background: map-get($color-map, "white");
+	border: 1px solid #ccc;
+	z-index: 1;
+	border-top: 0;
+	@include get-vendor-prefixed("box-shadow", "0 6px 10px 1px #e2e2e2");
+}
+
+.suggestion-list-title {
+	font-size: 12px;
+	padding: 5px 10px;
+	color: map-get($color-map, "black");
+	text-transform: uppercase;
+    font-weight: 700;
+}
+
+.suggestion-list {
+	.list--item {
+		padding: 9px 10px;
+		font-size: 14px;
+		cursor: pointer;
+	}
+
+	input[type="radio"] {
+		display: none;
+	}
+
+	label {
+		display: block;
+		cursor: pointer;
+	}
+}
+
+.state--focus {
+    background: #eee;
+}
+
+// checkbox
+.check-box {
+	label {
+		cursor: pointer;
+		user-select: none;
+		padding-left: 24px;
+		background: url(#{$img-cdn-path}/0x0/cw/static/icons/fff/checkbox-16x16.png) no-repeat left;
+	}
+
+	input[type="checkbox"] {
+		display: none;
+
+		&:checked {
+			~ label {
+				background: url(#{$img-cdn-path}/0x0/cw/static/icons/00afa0/checkbox-filled-16x16.png) no-repeat left;
+			}
+		}
+	}
+}
+
+// location and contact details form end
+
+// loader
+@include loader-bg("white", absolute);
+@include loader-spin("shamrockGreen", absolute);
+
+// car details form
+%step-property {
+	display: none;
+	vertical-align: top;
+	font-size: 14px;
+	padding-top: 20px;
+	padding-left: 10px;
+	border-left: 1px solid #e2e2e2;
+	overflow: hidden;
+	&:first-child {
+		border-left: 0;
+	}
+}
+
+@mixin step-group-width($stepCount) {
+	.step-group--count-#{$stepCount} {
+		.form__step-group {
+			width: (100 / $stepCount) * 1%;
+		}
+	}
+}
+
+// horizontal form start
+.horizontal-form {
+	width: 100%;
+	height: 450px;
+	font-size: 0;
+}
+
+// horizontal form end
+// form step group start
+.horizontal-form {
+	.form__step-group {
+		@extend %step-property;
+		height: 100%;
+		&.step-group--active,
+		&.step-group--preview {
+			display: inline-block;
+		}
+	}
+}
+
+@include step-group-width(5);
+.step-group--preview {
+	position: relative;
+	pointer-events: none;
+	user-select: none;
+	&:after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(to right, rgba(255, 255, 255, 0) -250%, #fff 100%);
+		z-index: 1;
+	}
+}
+// form step group end
+
+// form step start
+.form__step {
+	display: none;
+	margin-bottom: 20px;
+}
+// form step end
+
+.step__title {
+	font-size: 14px;
+	color: map-get($color-map, "black");
+	font-weight: 700;
+	margin-bottom: 5px;
+}
+
+.step__list-title {
+	font-size: 11px;
+	color: map-get($color-map, "black");
+	font-weight: 700;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-transform: uppercase;
+}
+
+.step__option-list {
+	input[type="radio"] {
+		display: none;
+	}
+
+	label {
+		display: block;
+		cursor: pointer;
+		padding-top: 5px;
+		padding-bottom: 5px;
+
+		&:hover {
+			color: map-get($color-map, "black");
+		}
+	}
+}
+
+.option-list__item {
+	font-size: 14px;
+	color: map-get($color-map, "default");
+	cursor: pointer;
+}
+
+// form selection start
+.step__selection {
+	font-weight: 700;
+	color: map-get($color-map, "shamrockGreen");
+	cursor: pointer;
+	position: relative;
+}
+
+.hide--selection {
+	.step__selection {
+		display: none;
+	}
+}
+
+// form selection end
+
+// form condition body start
+.form-step__condition-body {
+	display: none;
+}
+// form condition body end
+
+// status (active: step--active, done: step--done)
+.form__step {
+	&.step--active {
+		display: block;
+	}
+
+	&.step--done {
+		.form-step__head {
+			display: block;
+		}
+
+		.form-step__body {
+			display: none;
+		}
+
+		.selection__label {
+			margin-right: 10px;
+			padding: 5px 20px 5px 0;
+			background: url(#{$img-cdn-path}/0x0/cw/static/icons/00afa0/tick-12x9.png) no-repeat center right;
+			display: inline-block;
+		}
+
+		.step__selection {
+			&:hover {
+				.selection__label {
+					background-image: url(#{$img-cdn-path}/0x0/cw/static/icons/00afa0/edit-15x15.png);
+				}
+			}
+		}
+	}
+}
+
+.step--scrollbar {
+	&::-webkit-scrollbar {
+		width: 5px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: #fff;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: map-get($color-map, "disabledGray");
+	}
+}
+
+.btn {
+	&.btn--next {
+		width: 110px;
+		font-size: 14px;
+		padding: 7px;
+	}
+}
+
+@include margin("top", 15);
+
+// best way to sell car section
+.container-heading {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.sell-car-body {
+	padding: 20px;
+	font-size: 14px;
+	line-height: 24px;
+}
+
+.sell-car__tip-desc {
+	margin-bottom: 15px;
+}
+
+.list-heading {
+	font-size: 16px;
+	font-weight: 700;
+	color: map-get($color-map, "black");
+	margin-bottom: 10px;
+}
+
+#tipsAdviceList {
+	li {
+		position: relative;
+		margin-bottom: 5px;
+		padding-left: 15px;
+
+		&:before {
+			content: "\26AC";
+			font-size: 18px;
+			position: absolute;
+			left: 0;
+			top: -1px;
+		}
+	}
+}
+
+.faq-list {
+	li {
+		margin-bottom: 15px;
+		font-size: 14px;
+	}
+
+	.faq__title {
+		font-size: 15px;
+		color: map-get($color-map, "black");
+	}
+}
+
+// collapsible-content
+.more-content {
+	display: none;
+}
+
+.more-active {
+	.more-content {
+		display: block;
+	}
+
+	.gradient--top-bottom:before {
+		content: none;
+	}
+}
+
+.collapsible-target {
+	text-align: center;
+	font-size: 14px;
+	font-weight: 700;
+	color: #0288d1;
+	text-transform: capitalize;
+	cursor: pointer;
+}
+
+.gradient--top-bottom {
+	position: relative;
+
+	&:before {
+		content: "";
+		width: 100%;
+		height: 80px;
+		position: absolute;
+		top: -80px;
+		left: 0;
+		background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), #fff);
+	}
+}
+
+// below the fold hidden elements
+#modalBg,
+.modal-box {
+	display: none;
+}

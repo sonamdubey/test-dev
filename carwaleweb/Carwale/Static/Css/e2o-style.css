@@ -1,0 +1,1197 @@
+﻿/* new classes */
+.list-number li {
+  list-style-type: decimal;
+  padding-left: 10px;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+
+.list-number li:first-child {
+  margin-top: 0;
+}
+
+.banner1 {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/es/e2o/e2oplus/e2oplus-banner-l-05.jpg) center top;
+  min-height: 432px;
+}
+
+/*specific*/
+
+.e2o-main {
+  line-height: 1.8;
+}
+
+.e2o-main a {
+  outline: none;
+}
+
+.e2o-main img {
+  vertical-align: middle;
+}
+
+.about-e2o {
+  top: 0;
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.content-inner-block-15nr {
+  padding: 15px 10px 15px 10px;
+}
+
+.content-inner-block-30 {
+  padding: 30px;
+}
+
+.content-inner-block-15lr {
+  padding: 0 15px;
+}
+
+.content-inner-block-30-lr {
+  padding: 0 30px 0 30px;
+}
+
+.content-inner-block-30-lrt {
+  padding: 30px 30px 0 30px;
+}
+
+.lineht-pt8 {
+  line-height: 1.8;
+}
+
+#divAdBar {
+  display: none;
+}
+
+.card-jcarousel .jcarousel {
+  padding: 10px 0 20px;
+}
+
+.card-jcarousel .jcarousel li {
+  width: 302px;
+  height: 375px;
+  margin-right: 19px;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide {
+  width: 302px;
+  height: 375px;
+  margin-right: 19px;
+}
+
+.swiper-container .swiper-wrapper .swiper-slide:last-child {
+  margin-right: 0;
+}
+
+.carousel-box {
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: inline-block;
+  height: 375px;
+  overflow: hidden;
+}
+
+.electric-vehicles .carousel-box {
+  height: 400px;
+}
+
+.electric-vehicles .lineht-pt8 {
+  height: 100px;
+}
+
+.image-container {
+  overflow: hidden;
+  text-align: center;
+  width: 300px;
+  display: table;
+}
+
+.image-container a {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.inner-full-carousel {
+  width: 100%;
+}
+
+.twitter-border {
+  border: solid 1px #e9ebee !important;
+}
+
+.infographic-sprite {
+  display: inline-block;
+  background: url("https://imgd.aeplcdn.com/0x0/cw/es/e2o/infographic-new-sprite.png") no-repeat;
+}
+
+.infographic-car {
+  background-position: 0 -75px;
+  width: 134px;
+  height: 53px;
+}
+
+.carbon {
+  background-position: 0 -172px;
+  width: 86px;
+  height: 86px;
+}
+
+.cost {
+  background-position: 0 -86px;
+  width: 86px;
+  height: 86px;
+}
+
+.sound {
+  background-position: 0 0;
+  width: 86px;
+  height: 86px;
+}
+
+.infographic {
+  color: #565a5c;
+  width: 100%;
+}
+
+.infographic img {
+  max-width: 100%;
+}
+
+.infographic h2 {
+  color: #565a5c;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 22px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.infographic-left, .infographic-right {
+  padding: 10px;
+  min-height: 205px;
+}
+
+.infographic-right {
+  padding-bottom: 0;
+}
+
+.infographic-right ul {
+  line-height: 16px;
+  font-size: 12px;
+}
+
+.infographic-right ul li {
+  margin-bottom: 10px;
+  vertical-align: top;
+  min-height: 60px;
+  display: inline-block;
+  width: 33%;
+  text-align: center;
+}
+
+.infographic-right ul li:last-child {
+  margin-bottom: 0;
+}
+
+.infographic-right ul li h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.infographic-small {
+  line-height: 15px;
+  margin: 20px 0 19px;
+  font-size: 10px;
+}
+
+.history-electric-cars .carousel-box {
+  height: 384px;
+}
+
+.history-electric-cars .article-content {
+  height: 118px;
+}
+
+.responsive-img {
+  max-width: 100%;
+  width: auto;
+  display: block;
+}
+
+.custom-pad {
+  padding: 0 13px;
+}
+
+.state-tabs-container {
+  cursor: pointer;
+}
+
+.connected-carousels-photos {
+  position: relative;
+  background: #fff;
+  margin: 0 auto;
+}
+
+.connected-carousels-photos .swiper-wrapper {
+  padding: 0;
+}
+
+.connected-carousels-photos .stage-photos {
+  width: 100%;
+  margin: 0 auto 5px;
+  position: relative;
+}
+
+.connected-carousels-photos .navigation-photos {
+  width: 100%;
+  max-width: 768px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.connected-carousels-photos .carousel-photos {
+  overflow: hidden;
+  position: relative;
+}
+
+.connected-carousels-photos .carousel-photos .swiper-slide {
+  width: 100%;
+  margin: 0;
+  font-size: 0;
+  position: relative;
+  height: auto;
+  text-align: center;
+  cursor: pointer;
+}
+
+.connected-carousels-photos .carousel-navigation-photos {
+  height: auto;
+  width: 100%;
+  background: 0 0;
+  padding-left: 0;
+  margin-bottom: 0px;
+  padding-top: 1px;
+}
+
+.navigation-photos .swiper-slide {
+  display: block;
+  position: relative;
+  width: 90px;
+  height: 50px;
+  overflow: hidden;
+  padding-left: 5px;
+  cursor: pointer;
+}
+
+.navigation-photos .swiper-slide img {
+  width: 90px;
+  height: 50px;
+  border: 1px solid #cdcdcd;
+}
+
+.navigation-photos .swiper-slide.swiper-slide-active img {
+  border: 1px solid #2a2a2a;
+}
+
+.connected-carousels-photos .photos-next-stage,.connected-carousels-photos .photos-prev-stage {
+  display: block;
+  position: absolute;
+  top: 40%;
+  color: #fff;
+}
+
+.connected-carousels-photos .photos-prev-stage {
+  left: 0;
+}
+
+.connected-carousels-photos .photos-next-stage {
+  right: 0;
+}
+
+.connected-carousels-photos .photos-prev-navigation,.connected-carousels-photos .photos-prev-stage {
+  background-position: -153px -207px;
+}
+
+.connected-carousels-photos .photos-next-navigation,.connected-carousels-photos .photos-next-stage {
+  background-position: -177px -238px;
+}
+
+.connected-carousels-photos .photos-prev-navigation:hover,.connected-carousels-photos .photos-prev-stage:hover {
+  background-position: -153px -238px;
+}
+
+.connected-carousels-photos .photos-next-navigation:hover,.connected-carousels-photos .photos-next-stage:hover {
+  background-position: -177px -238px;
+}
+
+.connected-carousels-photos .photos-next-navigation.inactive,.connected-carousels-photos .photos-next-stage.inactive,.connected-carousels-photos .photos-prev-navigation.inactive,
+.connected-carousels-photos .photos-prev-stage.inactive {
+  background-position: -153px -176px;
+  cursor: not-allowed;
+}
+
+.connected-carousels-photos .photos-next-navigation.inactive,.connected-carousels-photos .photos-next-stage.inactive {
+  background-position: -177px -176px;
+  cursor: not-allowed;
+}
+
+.connected-carousels-photos .photos-prev-navigation {
+  left: 0;
+  top: 3%;
+}
+
+.connected-carousels-photos .photos-next-navigation {
+  right: 0;
+  top: 3%;
+}
+
+.swiper-button-next {
+  right: 5px;
+  background-position: -71px -145px;
+}
+
+.swiper-button-prev {
+  left: 5px;
+  background-position: -36px -145px;
+}
+
+.swiper-button-next,.swiper-button-prev {
+  border: 0;
+  background-color: rgba(255, 255, 255, 0) !important;
+  cursor: pointer;
+}
+
+.swiper-slide img {
+  max-width: 100%;
+  height: auto;
+}
+
+.navigation-photos .swiper-button-next,.navigation-photos .swiper-button-prev {
+  display: none;
+}
+
+.swiper-lazy-preloader {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/circle-loader.gif") no-repeat center center;
+}
+
+.swiper-lazy {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/circle-loader.gif") no-repeat center center;
+}
+
+#gallery-blackOut-window {
+  display: none;
+  background: #000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  opacity: .9;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  filter: alpha(opacity=90);
+  -moz-opacity: 0.9;
+  -khtml-opacity: 0.9;
+}
+
+#gallery-close-btn {
+  display: none;
+}
+
+#gallery-blackOut-window {
+  display: none;
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  opacity: .9;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  filter: alpha(opacity=90);
+  -moz-opacity: 0.9;
+  -khtml-opacity: 0.9;
+}
+
+.gallery-active #gallery-blackOut-window {
+  display: block;
+}
+
+.gallery-active .connected-carousels-photos {
+  border: 0;
+  background: transparent;
+  z-index: 10;
+  position: fixed;
+  top: 25%!important;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 550px;
+  padding: 0;
+}
+
+.gallery-active .carousel-navigation-photos .swiper-slide img {
+  border-color: #2a2a2a;
+}
+
+.gallery-active .carousel-navigation-photos .swiper-slide:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 84px;
+  display: block;
+  background: #2a2a2a;
+  opacity: .4;
+}
+
+.gallery-active .swiper-slide.swiper-slide-active img {
+  border-color: #f5f5f5;
+}
+
+.gallery-active .swiper-slide.swiper-slide-active:after {
+  content: none;
+}
+
+.gallery-active #gallery-close-btn {
+  display: block;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+.gallery-padding {
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.gallery-parent {
+  border: 1px solid #2a2a2a;
+  padding: 5px;
+}
+
+.drive-sprite {
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/es/e2o/electric-expedition/drive-icon-sprite.png');
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+  opacity: 0.7;
+}
+
+.state-text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.kerala-icon {
+  width: 100px;
+  height: 70px;
+  background-position: 0 0;
+}
+
+.karnatka-icon {
+  width: 58px;
+  height: 70px;
+  background-position: -19px -68px;
+}
+
+.cw-tabs-flex li:hover:not(.disabled) .kerala-icon, .cw-tabs-flex li.active .kerala-icon, .cw-tabs-flex li:hover:not(.disabled) .karnatka-icon, .cw-tabs-flex li.active .karnatka-icon {
+  opacity: 1;
+}
+
+.collage-box img {
+  max-width: 100%;
+  width: auto;
+  margin-bottom: 5px;
+}
+
+.edrive-title {
+  margin: 15px 15px 0;
+}
+
+.see-photos {
+  position: relative;
+  top: -3px;
+}
+
+.swiper-container .swiper-button-prev, .swiper-container .swiper-button-next {
+  display: block;
+}
+
+@media only screen and (max-width:1000px) {
+  body {
+    min-width: 100%;
+  }
+
+  .mb-margin {
+    margin: 10px 10px 0 10px;
+  }
+
+  .jcarousel-pagination {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .ask-expert {
+    display: none;
+  }
+
+  .container {
+    width: 100% !important;
+    margin: 0 auto 20px auto;
+  }
+
+  .about-e2o {
+    top: 0;
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+  }
+
+  .history-electric-cars h2 {
+    margin-top: 40px;
+  }
+
+  .jcarousel-pagination {
+    margin-bottom: 10px;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 235px;
+  }
+
+  .feature-grids .bg-light-grey {
+    padding: 10px;
+  }
+
+  .feature-grids .grid-6 {
+    float: none;
+    width: 100%;
+  }
+
+  .feature-text {
+    width: 98%;
+    float: none;
+  }
+
+  .feature-grids .grid-6.alpha, .feature-grids .grid-6.omega {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+@media only screen and (max-width:980px) {
+  .image-container {
+    width: 290px;
+  }
+
+  .image-container img {
+    width: 100%;
+  }
+
+  .e2o-main {
+    overflow-x: hidden;
+  }
+
+  .infographic-small {
+    margin: 27px 0 19px;
+  }
+}
+
+@media only screen and (max-width:900px) {
+  .image-container {
+    width: 260px;
+    height: auto;
+  }
+
+  .buy-car-btn {
+    display: none;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 120px;
+  }
+
+  .history-electric-cars .article-content {
+    height: 145px;
+  }
+
+  .news-electric-section .grid-1,.news-electric-section .grid-2,.news-electric-section .grid-3,.news-electric-section .grid-4,.news-electric-section .grid-5,.news-electric-section .grid-6,.news-electric-section .grid-7,.news-electric-section .grid-8,.news-electric-section .grid-9,.news-electric-section .grid-10,.news-electric-section .grid-11,.news-electric-section .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .switch-m {
+    display: block;
+  }
+
+  .switch-d {
+    display: none;
+  }
+
+  .news-electric-section img {
+    margin: 10px auto;
+  }
+
+  .swiper-container .swiper-wrapper .swiper-slide {
+    width: 262px;
+  }
+}
+
+@media only screen and (max-width:800px) {
+  .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .image-container {
+    width: 242px;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 125px;
+  }
+
+  .history-electric-cars .article-content {
+    height: 158px;
+  }
+
+  .swiper-container .swiper-wrapper .swiper-slide {
+    width: 242px;
+  }
+}
+
+@media only screen and (max-width:768px) {
+  .image-container {
+    width: 229px;
+  }
+
+  .desktop-only-text {
+    display: none;
+  }
+
+  .banner1 {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/es/e2o/e2oplus/e2oplus-banner-t-05.jpg) center top;
+    min-height: 250px;
+  }
+
+  .swiper-container .swiper-wrapper .swiper-slide {
+    width: 231px;
+    margin-right: 10px;
+  }
+
+  .article-slides.swiper-button-next {
+    right: -15px;
+    background-position: -42px -82px;
+  }
+
+  .article-slides.swiper-button-prev {
+    left: -15px;
+    background-position: -21px -82px;
+  }
+
+  .article-slides.cwsprite {
+    background-size: 130px;
+  }
+
+  .article-slides.swiper-button-prev, .article-slides.swiper-button-next {
+    top: 43%;
+    width: 20px;
+    height: 36px;
+    border: 1px solid #ccc;
+    background-color: #fff !important;
+  }
+}
+
+@media only screen and (max-width:732px) {
+  .card-jcarousel .image-container {
+    width: 280px;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 100px;
+  }
+
+  .history-electric-cars .article-content {
+    height: 130px;
+  }
+}
+
+@media only screen and (max-width:640px) {
+  img[src$="circle-loader.gif"] {
+    width: auto;
+    margin: 55px 0;
+  }
+
+  .history-electric-cars img {
+    width: 100%;
+  }
+
+  .grid-1, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .grid-7, .grid-8, .grid-9, .grid-10, .grid-11, .grid-12 {
+    float: none;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .video-bg {
+    margin: 0 15px 0 15px;
+  }
+
+  .content-inner-block-30-lr {
+    padding: 0 15px 0 15px;
+  }
+
+  .content-inner-block-30-lrt {
+    padding: 15px 15px 0 15px;
+  }
+
+  .card-jcarousel .image-container {
+    width: 280px;
+  }
+
+  .video-container iframe {
+    height: 306px;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 100px;
+  }
+
+  .twitter-border {
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  .twitter-border iframe {
+    width: 461px !important;
+  }
+
+  .infographic-left, .infographic-right {
+    min-height: 100px;
+  }
+
+  .infographic-right ul li {
+    width: 100%;
+  }
+
+  .custom-pad {
+    padding: 20px;
+  }
+
+  .img-container img {
+    width: 200px;
+    margin-bottom: 5px;
+  }
+
+  .img-container {
+    text-align: center;
+  }
+
+  .content-text p {
+    margin: 5px 15px;
+  }
+
+  .read-story {
+    margin: 10px 0 0 15px;
+  }
+
+  .beauty-shot1, .beauty-shot2, .desktop-only-text {
+    display: none !important;
+  }
+
+  .kerala-icon {
+    width: 53px;
+    height: 50px;
+    background-position: -120px -9px;
+  }
+
+  .karnatka-icon {
+    width: 39px;
+    height: 38px;
+    background-position: -131px -82px;
+  }
+
+  .content-img {
+    padding: 0 15px;
+    margin-bottom: 15px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .e2o-main {
+    width: 100%;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .full-width-carousel {
+    height: auto;
+  }
+
+  .card-jcarousel .image-container {
+    width: 278px;
+  }
+
+  .video-container iframe {
+    height: 222px;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 94px;
+  }
+
+  .infographic-right ul li {
+    min-height: 70px;
+  }
+
+  .infographic-car {
+    background-position: -140px -92px;
+    height: 36px;
+    width: 90px;
+  }
+
+  .banner1 {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/es/e2o/e2oplus/e2oplus-banner-m-05.jpg) center top;
+    min-height: 200px;
+  }
+
+  .swiper-container .swiper-wrapper .swiper-slide {
+    width: 280px;
+  }
+}
+
+@media only screen and (max-width:412px) {
+  .card-jcarousel .image-container {
+    width: 265px;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 125px;
+  }
+}
+
+@media only screen and (max-width:360px) {
+  .card-jcarousel .image-container {
+    width: 265px;
+  }
+
+  .video-container iframe {
+    height: 159px;
+  }
+
+  .electric-vehicles .lineht-pt8 {
+    height: 128px;
+  }
+
+  .history-electric-cars .article-content {
+    height: 142px;
+  }
+
+  .img-container img {
+    width: 210px;
+  }
+
+  .swiper-container .swiper-wrapper .swiper-slide {
+    width: 267px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .mb-view img {
+    width: 100%;
+  }
+
+  .swiper-container .swiper-wrapper .swiper-slide li {
+    width: 268px;
+  }
+
+  .card-jcarousel .image-container {
+    width: 266px;
+  }
+
+  .video-container iframe {
+    height: 140px;
+  }
+
+  .cw-tabs-flex li {
+    font-size: 15px;
+  }
+
+  .cw-tabs-flex li sub {
+    font-size: 12px;
+  }
+
+  .img-container img {
+    width: 210px;
+  }
+
+  .swiper-container .swiper-wrapper .swiper-slide {
+    width: 268px;
+  }
+}
+
+@media only screen and (max-width: 240px) {
+  .mb-view img {
+    width: 100%;
+  }
+
+  .card-jcarousel .image-container {
+    width: 186px;
+  }
+
+  .video-container iframe {
+    height: 98px;
+  }
+
+  .history-electric-cars .carousel-box {
+    height: 372px;
+  }
+
+  .history-electric-cars .article-content {
+    height: 173px;
+  }
+
+  .history-electric-cars .lineht-pt8 {
+    line-height: 1.5;
+  }
+
+  .article-content .font18 {
+    font-size: 16px;
+  }
+}
+
+/*Only for responsive carousel gallery*/
+
+@media only screen and (min-width:480px) {
+  .gallery-active .connected-carousels-photos {
+    top: 10% !important;
+  }
+}
+
+@media only screen and (min-width:640px) {
+  .gallery-active .connected-carousels-photos {
+    top: 5% !important;
+    height: 550px;
+  }
+}
+
+@media only screen and (min-width:769px) {
+
+/* Swiper 3.3.1 */
+
+  .swiper-container {
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-container-no-flexbox .swiper-slide {
+    float: left;
+  }
+
+  .swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    -o-transition-property: -o-transform;
+    -ms-transition-property: -ms-transform;
+    transition-property: transform;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 10px 0 20px;
+  }
+
+  .swiper-container-android .swiper-slide, .swiper-wrapper {
+    -webkit-transform: translate3d(0px, 0, 0);
+    -moz-transform: translate3d(0px, 0, 0);
+    -o-transform: translate(0px, 0px);
+    -ms-transform: translate3d(0px, 0, 0);
+    transform: translate3d(0px, 0, 0);
+  }
+
+  .swiper-slide {
+    -webkit-flex-shrink: 0;
+    -ms-flex: 0 0 auto;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .swiper-container .swiper-button-prev, .swiper-container .swiper-button-next {
+    display: block;
+  }
+
+/* IE10 Windows Phone 8 Fixes */
+
+  .swiper-wp8-horizontal {
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+  }
+
+  .swiper-wp8-vertical {
+    -ms-touch-action: pan-x;
+    touch-action: pan-x;
+  }
+
+/* Arrows */
+
+  .swiper-button-prev, .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    width: 37px;
+    height: 70px;
+    margin-top: -22px;
+    z-index: 1;
+    text-indent: -9999px;
+    padding: 5px;
+    border: 1px solid #e6e6e6;
+    background-color: #fff !important;
+  }
+
+  .swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled {
+    cursor: not-allowed;
+  }
+
+  .article-slides, .swiper-button-prev .swiper-button-next {
+    position: absolute;
+    top: 40%;
+    width: 37px;
+    height: 70px;
+    margin-top: -22px;
+    z-index: 1;
+    text-indent: -9999px;
+    padding: 5px;
+    border: 1px solid #e6e6e6;
+    background-color: #fff !important;
+  }
+
+  .swiper-button-prev {
+    left: 0;
+    right: auto;
+    background-position: -32px -135px;
+  }
+
+  .swiper-button-next {
+    right: 0;
+    left: auto;
+    background-position: -65px -134px;
+  }
+
+  .article-slides.swiper-button-next {
+    right: -36px;
+  }
+
+  .article-slides.swiper-button-prev {
+    left: -36px;
+  }
+
+/* Preloader */
+
+  .swiper-imgLoader {
+    background: url("https://imgd.aeplcdn.com/0x0/cw/static/circle-loader.gif") no-repeat center center;
+  }
+
+  .swiper-slide {
+    width: 280px;
+    height: 320px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+  }
+
+  .swiper-lazy {
+    display: block;
+    width: 100%;
+    height: 250px;
+  }
+
+/* gallery */
+
+  .connected-carousels-photos {
+    width: 100%;
+    z-index: 1;
+    padding: 5px;
+  }
+
+  .connected-carousels-photos .navigation-photos {
+    max-width: 100%;
+  }
+
+  .navigation-photos .swiper-slide,.navigation-photos .swiper-slide img {
+    width: 150px;
+    height: 84px;
+  }
+
+  .navigation-photos .swiper-slide {
+    padding-left: 0;
+    padding-right: 5px;
+  }
+
+  .navigation-photos .swiper-button-prev,.navigation-photos .swiper-button-next {
+    top: 38%;
+    display: block;
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    transform: scale(0.7);
+  }
+
+  .navigation-photos .swiper-button-prev {
+    left: -6px;
+  }
+}
+
+@media only screen and (min-width:996px) {
+  .gallery-active .connected-carousels-photos {
+    top: 15% !important;
+  }
+}
+
+@media only screen and (min-width:1024px) {
+  .gallery-active .connected-carousels-photos {
+    top: 15% !important;
+  }
+}
+
+    
+ 

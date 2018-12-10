@@ -1,0 +1,87 @@
+﻿@model Carwale.DTOs.CarData.CallSlugDTO
+@using Carwale.UI.Common;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Utility;
+@using Carwale.Entity.Enum;
+@using Carwale.Utility;
+@using System.Configuration;
+
+@{
+	var cityExists = CookiesCustomers.MasterCityId > 0;
+	var showFloatingAdvantageSlug = cityExists && Model.AdvantageAdData != null && Model.AdvantageAdData.Savings > 0 && !Model.AdvantageAdData.IsSimilarCar;
+	var showORP = Carwale.UI.Common.CookiesCustomers.IsEligibleForORP;
+    var hideCallSlug = showORP && !Model.IsAdAvailable && !showFloatingAdvantageSlug && cityExists;
+    var tollFreeSlugModelList = new List<string>((ConfigurationManager.AppSettings["tollFreeSlugModelList"] ?? String.Empty).Split(new char[] { ';' })); // This list of modelid where toll free slug should be displyed
+    bool showFixedAd = tollFreeSlugModelList.Contains(Convert.ToString(Model.ModelId)) && DateTimeUtility.CheckTollFreeCallTime(DateTime.Now);
+    var fixedAdId = ViewBag.PageId == 69 ? "1518440250750" : "1518440073068";
+    var testDriveCampaignIds = SponsoredCampaignLogic.TestDriveCampaignIds;
+    var testDriveText = ConfigurationManager.AppSettings["TestDriveCtaText"] ?? "";
+    string tollFreeNumber = ConfigurationManager.AppSettings["tollFreeNumber"];
+    var campaignDealerId = Model.DealerAd != null && Model.DealerAd.Campaign  != null ? String.Format("{0}_{1}", Model.DealerAd.Campaign.Id, Model.DealerAd.Campaign.DealerId) : "0";
+}
+<style type="text/css">
+	.center-div { display: table; margin: 0 auto; }
+</style>
+
+<div id="callslug" class="@(hideCallSlug ? "hide" : "m-call-slug container text-center slug-class")" style="display:block;" data-value="@(ViewBag.PageName)">
+    <div class="@((showORP) ? "" : (Model.IsAdAvailable || showFloatingAdvantageSlug) ? "center-div" : "")">
+        @if (!showORP)
+        {
+        <div id="divPrice" class="btn btn-orange btn-sm linkButtonBigBlueNew @((Model.IsAdAvailable || showFloatingAdvantageSlug) ? "leftfloat" : "btn-full-width") " modelid="@Model.ModelId" versionid="@(Model.VersionId > 0 ? Model.VersionId.ToString() : "")" iscitypage="@(ViewBag.IsCityPage.ToString())" cityname="@ViewBag.CityName" cityid="@ViewBag.CityId" pageid="@ViewBag.PageId" onclick="setCityIdCookieModelPage(this); redirectOrOpenPopup(this, @ViewBag.PageId)" data-cwtccat="@(ViewBag.IsCityPage ? "CityPage" : (ViewBag.IsVersionPage ? "VersionPage" : "ModelPage"))" data-cwtcact="OnRoadPriceButton" data-cwtclbl="make:@ViewBag.MakeName|model:@ViewBag.ModelName|@(ViewBag.IsVersionPage ? "version:" + ViewBag.VersionName + "|" : "")city:@ViewBag.CityZone">On-Road Price</div>
+		}
+
+        @if (Model.IsAdAvailable)
+        {
+            int abCookie = HttpContext.Current.Request.Cookies["_abtest"] != null ? Convert.ToInt16(HttpContext.Current.Request.Cookies["_abtest"].Value) : 0;
+            var compareCookie = abCookie != 0 && HttpContext.Current.Request.Cookies["CompareVersions"] != null ? HttpContext.Current.Request.Cookies["CompareVersions"].Value : "";
+            <a id="emiCallSlug" class="container">
+                <div class="btn btn-green rightfloat margin-left10 @(showORP ? "btn-full-width" : "")" style="padding: 8px 10px; @(abCookie > 0 && abCookie <= 50 && compareCookie != "" ? "display:none;" : "") " id="btnGetOffers" dealercampaignexist="true" sourceclick="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "ButtonGetOffers", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleMobile)))" recoleadsource='@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "RecoButtonGetOffers", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleMobile)))' data-predictionscore="@((Model.DealerAd != null && Model.DealerAd.Campaign.PredictionData != null) ? Model.DealerAd.Campaign.PredictionData.Score : 0)" data-predictionlabel="@((Model.DealerAd != null && Model.DealerAd.Campaign.PredictionData != null) ? Model.DealerAd.Campaign.PredictionData.Label : "")" data-cwtccat="@(ViewBag.IsCityPage ? "CityPage" : (ViewBag.IsVersionPage ? "VersionPage" : "ModelPage"))" data-cwtcact="OffersButtonClick" data-cwtclbl="make:@ViewBag.MakeName|model:@ViewBag.ModelName|@(ViewBag.IsVersionPage ? "version:" + ViewBag.VersionName + "|" : "")city:@ViewBag.CityZone"
+                     modelid=@Model.ModelId versionid="@Model.VersionId" campaigncta campaignid_dealerid=@campaignDealerId propertyid="5" testdrivechecked=@((Model.DealerAd.Campaign.IsTestDriveCampaign) ? "true" : "false") userlocation='{"cityId":@String.Format("{0}", @ViewBag.CityId), "cityName":"@ViewBag.CityName"}'>
+                    @if (showORP && Model.IsAdAvailable)
+                    {
+                        <span data-role="inview-imp" data-event="CWNonInteractive" data-cat="ShowORPTest" data-action="@ViewBag.GetOffersEventAction" data-label="@(ViewBag.PricingEventLabel)@(ViewBag.IsVersionPage ? "" : "_NA")"></span>
+    <span class="margin-left5 text-bold" data-role="click" data-event="CWInteractive" data-cat="ShowORPTest" data-action="@ViewBag.GetOffersEventAction" data-label="@(ViewBag.PricingEventLabel)@(ViewBag.IsVersionPage ? "" : "_NA")"
+          modelid=@Model.ModelId versionid="@Model.VersionId" campaigncta campaignid_dealerid=@campaignDealerId propertyid="5" testdrivechecked=@((Model.DealerAd.Campaign.IsTestDriveCampaign) ? "true" : "false") userlocation='{"cityId":@String.Format("{0}", @ViewBag.CityId), "cityName":"@ViewBag.CityName"}'>
+        @(testDriveCampaignIds.Contains(Model.DealerAd.Campaign.Id) ? testDriveText : ((Model.DealerAd != null && !string.IsNullOrEmpty(Model.DealerAd.Campaign.ActionText)) ? Model.DealerAd.Campaign.ActionText : "Get Offers from Dealers"))
+    </span>
+                    }
+                    else
+                    {
+                        <span class="margin-left5 text-bold">Get Offers</span>
+                    }
+
+                </div>
+            </a>
+        }
+
+        @if (showORP && !Model.IsAdAvailable && !cityExists)
+		{
+        <span data-role="impression" data-event="CWNonInteractive" data-cat="ShowORPTest" data-action="@ViewBag.ShowPriceInMyCityEventAction" data-label="@(ViewBag.PricingEventLabel)@(ViewBag.IsVersionPage ? "" : "_NA")"></span>
+    <div id="divPriceInCity" class="btn btn-orange btn-sm linkButtonBigBlueNew btn-full-width select-city-link" data-attribute-url="" modelid="@Model.ModelId" versionid="@(Model.VersionId > 0 ? Model.VersionId.ToString() : "")" iscitypage="@(ViewBag.IsCityPage.ToString())" cityname="@ViewBag.CityName" cityid="@ViewBag.CityId" pageid="@ViewBag.PageId" data-role="click" data-predictionscore="@((Model.DealerAd != null && Model.DealerAd.Campaign.PredictionData != null) ? Model.DealerAd.Campaign.PredictionData.Score: 0)" data-predictionlabel="@((Model.DealerAd != null && Model.DealerAd.Campaign.PredictionData != null) ? Model.DealerAd.Campaign.PredictionData.Label: "")" data-event="CWInteractive" data-cat="ShowORPTest" data-action="@ViewBag.ShowPriceInMyCityEventAction" data-label="@(ViewBag.PricingEventLabel)@(ViewBag.IsVersionPage ? "" : "_NA")">@System.Configuration.ConfigurationManager.AppSettings["ShowPriceInCityText"]</div>
+        }
+        @if (showFloatingAdvantageSlug && !Model.IsAdAvailable)
+		{
+        <a href="/m/@Advanatge.GetAdvantageURL(ViewBag.MakeName, Model.AdvantageAdData.Model.MaskingName, (int)Model.AdvantageAdData.City.CityId, src: "m15")" class="container block" data-role="click-tracking" data-event="CWInteractive" data-action="dealsaccess_mobile" data-cat="deals_mobile" data-label="@(ViewBag.IsVersionPage ? "variantpage_floatingbuttonmob" : "modelpage_floatingbuttonmob")">
+            <div id="advantageCallSlug" class="btn btn-green rightfloat margin-left10 @(showORP ? "btn-full-width" : "")" style="padding:8px 10px;">
+                <span class="margin-left5">Save&nbsp;₹ @Format.Numeric(Model.AdvantageAdData.Savings.ToString())</span>
+            </div>
+        </a>
+		}
+    </div>
+</div>
+
+@if (hideCallSlug && showFixedAd)
+{
+
+    <div class="toll-free-slug" data-role="impression" data-event="CWNonInteractive" data-action='Number' data-cat='Tollfreenumber' data-label="@Model.CarName">
+		<span class="toll-free__cross-icon" data-role="click-tracking" data-event="CWInteractive" data-action='cross button clicked' data-cat='Tollfreenumber' data-label="cross button clicked"></span>
+		<div class="animation-container">
+			<div class="toll-free__image"></div>
+			<div class="toll-free__call-block">
+				<p class="toll-free__call-text">Call <span class="text-bold">CarWale experts</span> for assistance</p>
+				<a data-event="CWInteractive" data-role="click-tracking" data-action="Number_clicked" data-cat="Tollfreenumber" data-label='@Model.CarName' href="tel:@tollFreeNumber.Replace("-",String.Empty)" title="Call CarWale experts for assistance" class="toll-free__call-btn toll-free__call-btn-ga">@tollFreeNumber</a>
+			</div>
+		</div>
+        <div class="clear"></div>	
+     </div>
+}

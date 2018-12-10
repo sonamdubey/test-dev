@@ -1,0 +1,184 @@
+﻿@using Carwale.UI.PresentationLogic;
+@using Carwale.BL.Experiments;
+@using Carwale.UI.Common;
+@{ 
+    var showAdvantageLink = Advanatge.ShowAdvantageDiscountLink;
+}
+<nav id="nav">
+	<!-- nav code starts here -->
+	<ul class="navUL">
+		<li>
+			<a href="/m/" class="open">
+				<span class="cwmsprite home-icon"></span>
+				<span class="navbarTitle">Home</span>
+			</a>
+		</li>
+		<li id="navNewCars">
+			<a href="javascript:;" class="newCarDropDown">
+				<span class="cwmsprite newCars-icon"></span>
+				<span class="navbarTitle">New Cars</span>
+				<span class="nav-drop fa fa-angle-down"></span>
+			</a>
+			<ul class="nestedUL">
+				<li>
+                    <a href="/m/new/">Find New Cars</a>
+				</li>
+                @if (showAdvantageLink)
+                {
+				<li>
+					<a href="/m/advantage/" id="menuAdvantage">New Car Offers</a>
+				</li>
+                }
+				<li>
+					<a href="/m/comparecars/">Compare Cars</a>
+				</li>
+				<li>
+                    <a href="/quotation/landing/">Check On-Road Price</a>
+				</li>
+				<li>
+					<a href="/m/research/locatedealerpopup.aspx">Find Dealer</a>
+				</li>
+				<li>
+					<a href="/m/upcoming-cars/">Upcoming Cars</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="javascript:;">
+				<span class="cwmsprite usedCars-icon"></span>
+				<span class="navbarTitle">Used Cars</span>
+				<span class="nav-drop fa fa-angle-down"></span>
+			</a>
+			<ul class="nestedUL">
+				<li>
+					<a href="/m/used/cars-for-sale/">All Used Cars</a>
+				</li>
+				<li>
+					<a href="/m/used/">Find Used Cars</a>
+				</li>
+                @if(ViewBag.ShowUsedCarsMyChats == true) {
+                <li>
+                    <a class="chat-launcher-icon applozic-launcher mck-button-launcher">
+                     My Chats
+                        <span class="margin-left5 cwmsprite new-red-tag-icon"></span>
+                    </a>
+                </li>
+                }
+				<li>
+					<a href="/m/used/carvaluation/">Check Car Valuation</a>
+				</li>
+                <li>
+                    @if (ProductExperiments.GetMyListingMenuType(CookiesCustomers.AbTest).IsControl) {
+					<a href="/used/mylistings/search/" data-role="click-tracking" data-event="CWInteractive" data-action="MyListingsClick" data-cat="MyListings" data-label="MyListings">My Listings
+						<span class="margin-left5 cwmsprite new-red-tag-icon"></span>
+					</a>
+                    }
+                    else if (ProductExperiments.GetMyListingMenuType(CookiesCustomers.AbTest).TestVersion == ProductExperiment.TestVersions.Test1)
+                    {
+
+                        <a href="/used/mylistings/search/" data-role="click-tracking" data-event="CWInteractive" data-action="MyListingsClick" data-cat="MyListings" data-label="EditAd">
+                            Edit Ad
+                            <span class="margin-left5 cwmsprite new-red-tag-icon"></span>
+                        </a>
+                    }
+				</li>
+			</ul>
+		</li>
+        <li>
+            <a href="/used/sell/" data-role="click-tracking" data-event="CWInteractive" data-action="ClickFromNavMenu" data-cat="MsiteSell">
+                <span class="cwmsprite sellCars-icon"></span>
+                <span class="navbarTitle">Sell Car</span>
+            </a>
+        </li>
+		<li>
+			<a href="javascript:;">
+				<span class="cwmsprite reviews-icon"></span>
+				<span class="navbarTitle">Reviews and News</span>
+				<span class="nav-drop fa fa-angle-down"></span>
+			</a>
+			<ul class="nestedUL">
+				<li>
+					<a href="/m/news/">News</a>
+				</li>
+				<li>
+					<a href="/m/expert-reviews/">Expert Reviews</a>
+				</li>
+				<li>
+					<a data-cwtccat="ReviewLandingLinkage" data-cwtcact="NavBarLinkClick" data-cwtclbl="source=43" href="/userreviews/">User Reviews</a>
+				</li>
+				<li>
+					<a href="/m/images/">Images
+						<span class='margin-left5 cwmsprite new-red-tag-icon'></span>
+					</a>
+				</li>
+				<li>
+					<a href="/m/videos/">Videos
+						<span class='margin-left5 cwmsprite new-red-tag-icon'></span>
+					</a>
+				</li>
+				<li>
+					<a href="/m/tipsadvice/">Tips and Advice</a>
+				</li>
+				<li>
+					<a href="/m/features/">Special Reports</a>
+				</li>
+				<li>
+					<a href="/m/forums/">Forums</a>
+				</li>
+			</ul>
+		</li>
+		<li id="navSpecials">
+			<a href="javascript:;" class="specialCarDropDown" data-role="click-tracking" data-event="CWInteractive" data-action="Specials" data-cat="CarwaleSpecials_m" data-label="Specials">
+				<span class="cwmsprite specials-icon"></span>
+				<span class="navbarTitle">Specials</span>
+				<span class="nav-drop fa fa-angle-down"></span>
+			</a>
+			<ul class="nestedUL">
+				<li>
+					<a href="/m/tyres/">Car Tyres</a>
+				</li>
+				<li>
+					<a href="/m/electriccars/" data-role="click-tracking" data-event="CWInteractive" data-action="Electriccars" data-cat="CarwaleSpecials_m" data-label="Electriccars">All about Electric</a>
+				</li>
+				<li>
+					<a href="/the-great-indian-hatchback-of-2016/" data-role="click-tracking" data-event="CWInteractive" data-action="The-Great-Indian-Hatchback-of-2016" data-cat="CarwaleSpecials_m" data-label="The-Great-Indian-Hatchback-of-2016">Great Indian Hatchback</a>
+				</li>
+			</ul>
+		</li>
+		<li id="navInsuranceLink" style="display:none">
+			<a href="/m/insurance/?utm=mnavigation/">
+				<span class="cwmsprite insurance-icon"></span>
+				<span class="navbarTitle">Insurance</span>
+			</a>
+		</li>
+		<li>
+			<a href="https://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|form_page_oops&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide&variantOptions=mobileRequired" data-role="click-tracking" data-event="CWInteractive" data-action="Link_click" data-cat="BBLink_navigation_mobile" rel="nofollow noopener" target="_blank">
+				<span class="cwmsprite nav-loan-icon opacity60"></span>
+				<span class="navbarTitle">Loans</span>
+				<span class="font9 ad-text-icon">Ad</span>
+			</a>
+		</li>
+		<li class="padding-bottom20">
+			<a href="tel:18002090230">
+				<span class="fa fa-phone"></span>
+				<span class="navbarTitle margin-left10">1800 2090 230</span>
+				<span class="text-grey font12"> Toll free</span>
+				<p class="font12 margin-left25">Mon-Fri (8 AM - 8 PM) 
+					<br /> Sat (8 AM - 5:30 PM) 
+					<br /> Sun (9 AM - 7 PM)
+				</p>
+			</a>
+		</li>
+		<li class="app-download-menu bg-light-grey padding-left15 padding-top10 padding-bottom15 border-solid-top margin-top10">
+			<div class="margin-bottom5">Download Mobile App</div>
+			<div class="app-link-container">
+				<a target="_blank" rel="noopener" href="https://itunes.apple.com/in/app/carwale/id910137745?mt=8">
+					<img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/app-store-img.png" alt="Download App" title="Download App">
+				</a>
+				<a target="_blank" rel="noopener" href="https://play.google.com/store/apps/details?id=com.carwale&referrer=utm_source%3DCarWaleMsite%26utm_medium%3DMenuDrawer%26utm_campaign=CarWale%2520MobilesiteMenuDrawer">
+					<img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/google-store-img.png" alt="Download App" title="Download App">
+				</a>
+			</div>
+		</li>
+	</ul>
+</nav><!-- nav code ends here -->

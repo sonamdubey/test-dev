@@ -1,0 +1,557 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{71D19CA7-5224-4827-9535-570755738374}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Carwale.DTOs</RootNamespace>
+    <AssemblyName>Carwale.DTOs</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Carwale.DTOs.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Carwale.DTOs.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Testing|AnyCPU'">
+    <OutputPath>bin\Testing\</OutputPath>
+    <CodeAnalysisRuleSet>Carwale.DTOs.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>Carwale.DTOs.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoBiz.DTOs">
+      <HintPath>..\libs\AutoBiz.DTOs.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\libs\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.WebApi">
+      <HintPath>..\libs\FluentValidation.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accessories\Tyres\TyreList.cs" />
+    <Compile Include="Accessories\Tyres\TyresDTO.cs" />
+    <Compile Include="Accessories\Tyres\TyreSummaryDTO.cs" />
+    <Compile Include="Accessories\Tyres\VersionTyresDTO.cs" />
+    <Compile Include="Advertisment\CustomSplash.cs" />
+    <Compile Include="Advertisment\SplashScreenBannerDto.cs" />
+    <Compile Include="Blocking\BlockedCommunicationDto.cs" />
+    <Compile Include="Blocking\BlockedCommunicationDtoValidator.cs" />
+    <Compile Include="CampaignDealsRecommendationDTO.cs" />
+    <Compile Include="Campaigns\CampaignBaseDTO.cs" />
+    <Compile Include="Campaigns\EmiCalculatorDealerAdDto.cs" />
+    <Compile Include="Campaigns\CampaignDTOv2.cs" />
+    <Compile Include="Campaigns\CampaignRecommendationDTO.cs" />
+    <Compile Include="Campaigns\CampaignRecommendations.cs" />
+    <Compile Include="Campaigns\CrossSellDto.cs" />
+    <Compile Include="Campaigns\DealerAdDTO.cs" />
+    <Compile Include="Campaigns\PredictionData.cs" />
+    <Compile Include="CarData\AlternateCarsDTO.cs" />
+    <Compile Include="CarData\CarDetailsListDTOV2.cs" />
+    <Compile Include="CarData\AllFiltersDTO.cs" />
+    <Compile Include="CarData\BodyTypeBaseDTO.cs" />
+    <Compile Include="CarData\BudgetBaseDTO.cs" />
+    <Compile Include="CarData\CarModelDetailsDtoV2.cs" />
+    <Compile Include="CarData\VersionSpecPriceMinimalDto.cs" />
+    <Compile Include="CarData\CarVersionDtoV3.cs" />
+    <Compile Include="CarData\ComparisonDataDto.cs" />
+    <Compile Include="CarData\EmiBaseDTO.cs" />
+    <Compile Include="CarData\EnginePowerBaseDTO.cs" />
+    <Compile Include="CarData\FuelTypeBaseDTO.cs" />
+    <Compile Include="CarData\FuelTypesDto.cs" />
+    <Compile Include="CarData\BodyTypesDTO.cs" />
+    <Compile Include="CarData\CarKeyFeaturesDTO.cs" />
+    <Compile Include="CarData\CallSlugDTO.cs" />
+    <Compile Include="CarData\CarDetailsDTO.cs" />
+    <Compile Include="CarData\CarDetailsListDTO.cs" />
+    <Compile Include="CarData\CarMakeModelAdDTO.cs" />
+    <Compile Include="CarData\CarMakeModelBasic.cs" />
+    <Compile Include="CarData\CarMakesDTOV1.cs" />
+    <Compile Include="CarData\CarModelSummaryDTOV2.cs" />
+    <Compile Include="CarData\CarIdDTO.cs" />
+    <Compile Include="CarData\CompareAllDTO.cs" />
+    <Compile Include="CarData\CompareCarsDetails.cs" />
+    <Compile Include="CarData\MatchingVersionDTO.cs" />
+    <Compile Include="CarData\ModelsByRootAndYearDTO.cs" />
+    <Compile Include="CustomerVerification\InitiateVerificationDto.cs" />
+    <Compile Include="CustomerVerification\MobileVerificationByType.cs" />
+    <Compile Include="CustomerVerification\Validators\IntiateMobileOtpDtoValidator.cs" />
+    <Compile Include="CustomerVerification\Validators\VerifyMobileOtpDtoValidator.cs" />
+    <Compile Include="CustomerVerification\VerifyMobileOtp.cs" />
+    <Compile Include="Dealer\UsedDealerStocksDto.cs" />
+    <Compile Include="Geolocation\AreaDto.cs" />
+    <Compile Include="Geolocation\LocationsDTO.cs" />
+    <Compile Include="LeadForm\LeadFormDto.cs" />
+    <Compile Include="Dealer\DealerDetailsV1Dto.cs" />
+    <Compile Include="OffersV1\OfferLinkDto.cs" />
+    <Compile Include="PriceQuote\EmiCalculatorModelDataDto.cs" />
+    <Compile Include="PriceQuote\EmiCalculatorDto.cs" />
+    <Compile Include="PriceQuote\EmiCalculatorModelLink.cs" />
+    <Compile Include="PriceQuote\OptionalPricesDto.cs" />
+    <Compile Include="PriceQuote\EmiWidgetCommonDataDto.cs" />
+    <Compile Include="PriceQuote\ThirdPartyEmiDetailsDto.cs" />
+    <Compile Include="PriceQuote\PriceDetailsDto.cs" />
+    <Compile Include="PriceQuote\ThirdPartyEmiDetailsDtoV2.cs" />
+    <Compile Include="UserReview\ReviewQuestion.cs" />
+    <Compile Include="UserReview\UserReviewBody.cs" />
+    <Compile Include="CarData\TopCarsByBodyTypeDto.cs" />
+    <Compile Include="ES\UserProfilingDto.cs" />
+    <Compile Include="LeadForm\LeadFormModelData.cs" />
+    <Compile Include="NewCarFinder\NcfScreenDto.cs" />
+    <Compile Include="CarData\NewCarSearchDTO.cs" />
+    <Compile Include="CarData\CarMakeModelDTO.cs" />
+    <Compile Include="CarData\CarReviewDTO.cs" />
+    <Compile Include="CarData\CarModelDetailsDTO_V1.cs" />
+    <Compile Include="CarData\CarVersionDTO_V1.cs" />
+    <Compile Include="CarData\CarVersionDTO_V2.cs" />
+    <Compile Include="CarData\CompareCarsDetailsDTO.cs" />
+    <Compile Include="CarData\MileageDataDTO_V1.cs" />
+    <Compile Include="CarData\MileageDataDTO.cs" />
+    <Compile Include="CarData\ModelMenuDTO.cs" />
+    <Compile Include="CarData\PQCarVersionDTO.cs" />
+    <Compile Include="CarData\PqVersionCitiesDTO.cs" />
+    <Compile Include="CarData\SeatingCapacityBaseDTO.cs" />
+    <Compile Include="CarData\SimilarCarModelsDTOV2.cs" />
+    <Compile Include="CarData\SimilarCarModelsDtoV3.cs" />
+    <Compile Include="CarData\SimilarCarModelsDTO_V1.cs" />
+    <Compile Include="CarData\SponsoredAdContentDTO.cs" />
+    <Compile Include="CarData\SponsoredAdHtmlContentDTO.cs" />
+    <Compile Include="CarData\SponsoredCarDTO.cs" />
+    <Compile Include="CarData\ModelSpecificationsDTO.cs" />
+    <Compile Include="CarData\PriceInOtherCitiesDTO.cs" />
+    <Compile Include="CarData\ModelDetailsDto.cs" />
+    <Compile Include="CarData\TrackingDataDTO.cs" />
+    <Compile Include="CarData\TransmissionBaseDTO.cs" />
+    <Compile Include="CarData\TrendingCarDTO.cs" />
+    <Compile Include="CarData\VariantListDTO.cs" />
+    <Compile Include="CarData\VersionColorDTO.cs" />
+    <Compile Include="CarData\VersionSubSegmentDTO.cs" />
+    <Compile Include="CarData\VersionDetailsDTO_AndroidV1.cs" />
+    <Compile Include="CarData\VersionSpecsFeatures.cs" />
+    <Compile Include="CarData\VersionSpecsFeaturesTab.cs" />
+    <Compile Include="Classified\CarDetails\CarAdditionalInfo.cs" />
+    <Compile Include="CarData\VideoDTO_V1.cs" />
+    <Compile Include="Classified\CarDetails\CarDetailsModel.cs" />
+    <Compile Include="Classified\CarDetails\CarDetailsWeb.cs" />
+    <Compile Include="Classified\CarDetails\CarPhoto.cs" />
+    <Compile Include="Classified\CarDetails\ConditionData.cs" />
+    <Compile Include="Classified\CarDetails\Data.cs" />
+    <Compile Include="Classified\CarDetails\FinanceWeb.cs" />
+    <Compile Include="Classified\CarDetails\UsedCar.cs" />
+    <Compile Include="Classified\CarDetails\UsedMakesAndCities.cs" />
+    <Compile Include="Classified\CarValuation\ValuationAmp.cs" />
+    <Compile Include="Classified\CarValuation\ValuationPricesAmp.cs" />
+    <Compile Include="Classified\CarValuation\ValuationReportAmp.cs" />
+    <Compile Include="Classified\CarValuation\ValuationResultsDTO.cs" />
+    <Compile Include="Classified\CarDetails\UsedCarDetails.cs" />
+    <Compile Include="Classified\ChatError.cs" />
+    <Compile Include="Classified\Leads\BuyerDTO.cs" />
+    <Compile Include="Classified\Leads\LeadResponse.cs" />
+    <Compile Include="Classified\Leads\SellerDetailsApp.cs" />
+    <Compile Include="Classified\Leads\SellerDTO.cs" />
+    <Compile Include="Classified\MyListings\MyListingsDTO.cs" />
+    <Compile Include="Classified\SellCar\PatchListingValidator.cs" />
+    <Compile Include="Classified\SellCar\UpdateListing.cs" />
+    <Compile Include="Classified\SellCar\UpdateListingValidator.cs" />
+    <Compile Include="CMS\Photos\ModelColorDTO.cs" />
+    <Compile Include="CMS\UserReviews\UserReviewCustomerDto.cs" />
+    <Compile Include="UserReview\RatingDetailsDTO.cs" />
+    <Compile Include="Geolocation\CityAreaDTO.cs" />
+    <Compile Include="OfferAndDealerAd\OfferAndDealerAdDTO.cs" />
+    <Compile Include="OffersV1\CategoriesMasterDto.cs" />
+    <Compile Include="OffersV1\OfferCategoryDetailsDto.cs" />
+    <Compile Include="OffersV1\OfferDetailsDto.cs" />
+    <Compile Include="OffersV1\OfferDto.cs" />
+    <Compile Include="PageProperty\PagePropertyDTO.cs" />
+    <Compile Include="PriceQuote\EmiCalculatorModelData.cs" />
+    <Compile Include="PriceQuote\PqModelChangeDTO.cs" />
+    <Compile Include="PriceQuote\QuotationPageDesktopDTO.cs" />
+    <Compile Include="PriceQuote\VehiclePriceDto.cs" />
+    <Compile Include="PriceQuote\VersionPriceDto.cs" />
+    <Compile Include="Stock\StockCitiesDTO.cs" />
+    <Compile Include="Stock\StockDTO.cs" />
+    <Compile Include="CMS\Articles\RelatedArticlesDTO.cs" />
+    <Compile Include="CMS\ContentSegmentDTO.cs" />
+    <Compile Include="CMS\GenericContentDetailDTO.cs" />
+    <Compile Include="CMS\Articles\ArticleSummaryDTOV3.cs" />
+    <Compile Include="CMS\Articles\CMSContentDTOV2.cs" />
+    <Compile Include="CMS\Media\GalleryStateDTO.cs" />
+    <Compile Include="CMS\Media\MediaDTO.cs" />
+    <Compile Include="CMS\Models\NewsListingDTO.cs" />
+    <Compile Include="Classification\BodyTypeDTO.cs" />
+    <Compile Include="CMS\Articles\ArticleGist.cs" />
+    <Compile Include="CMS\Articles\ArticleBaseDTOV2.cs" />
+    <Compile Include="CMS\Articles\ArticleSummaryDTOV2.cs" />
+    <Compile Include="CMS\Models\UserReviewsListDTO.cs" />
+    <Compile Include="CMS\Photos\ModelImageDTO.cs" />
+    <Compile Include="CMS\UserReviews\UserReviewDetailDesktopDto.cs" />
+    <Compile Include="CMS\ThreeSixtyView\ThreeSixtyAvailabilityDTO.cs" />
+    <Compile Include="CMS\ThreeSixtyView\ThreeSixtyCameraDto.cs" />
+    <Compile Include="CMS\ThreeSixtyView\ThreeSixtyDTO.cs" />
+    <Compile Include="CMS\ThreeSixtyView\ThreeSixtyExteriorDtoApp.cs" />
+    <Compile Include="CMS\ThreeSixtyView\ThreeSixtyInteriorDtoApp.cs" />
+    <Compile Include="CMS\ThreeSixtyView\ThreeSixtyViewImageDto.cs" />
+    <Compile Include="CMS\UserReviews\UserReviewDetailDTO.cs" />
+    <Compile Include="CMS\UserReviews\UserReviewDTO.cs" />
+    <Compile Include="CMS\UserReviews\UserReviewLanding.cs" />
+    <Compile Include="Common\IdNameDTO.cs" />
+    <Compile Include="Common\MinMaxDTO.cs" />
+    <Compile Include="Dealer\DealerLocatorDTO.cs" />
+    <Compile Include="Dealer\CTDealerDTO.cs" />
+    <Compile Include="CustomerVerification\MobileVerificationReponseDto.cs" />
+    <Compile Include="Dealer\DealerBase.cs" />
+    <Compile Include="Dealer\DealerDTO.cs" />
+    <Compile Include="Dealer\DealerInquiryDetailsDTO.cs" />
+    <Compile Include="Deals\AdvantageDesktop_DTO.cs" />
+    <Compile Include="AppResponse.cs" />
+    <Compile Include="Autocomplete\LabelValueDTO.cs" />
+    <Compile Include="Autocomplete\Suggest.cs" />
+    <Compile Include="Campaigns\CampaignDTO.cs" />
+    <Compile Include="Campaigns\CampaignInputs.cs" />
+    <Compile Include="Campaigns\CampaignLeadDTO.cs" />
+    <Compile Include="Campaigns\CampaignRecommendationEntity.cs" />
+    <Compile Include="CarData\CarColorDTO.cs" />
+    <Compile Include="CarData\CarImageBaseDTO.cs" />
+    <Compile Include="CarData\CarModelDetailsDTO.CS" />
+    <Compile Include="CarData\CarModelsDTO.cs" />
+    <Compile Include="CarData\CarModelSummaryDTO.cs" />
+    <Compile Include="CarData\CarModelSummaryAppDTO.cs" />
+    <Compile Include="CarData\CarOverviewDTO.cs" />
+    <Compile Include="CarData\CarMakesDTO.cs" />
+    <Compile Include="CarData\CarPricesDTO.cs" />
+    <Compile Include="CarData\CarVersionDTO.cs" />
+    <Compile Include="CarData\CarVersionsDTO.cs" />
+    <Compile Include="CarData\CCarDataDto.cs" />
+    <Compile Include="CarData\CCData.cs" />
+    <Compile Include="CarData\CustLocationDTO.cs" />
+    <Compile Include="CarData\DealerSummaryDTO.cs" />
+    <Compile Include="CarData\DiscountSummaryDTO.cs" />
+    <Compile Include="CarData\ImagePopUpDTO.cs" />
+    <Compile Include="CarData\InBodyLeadDTO.cs" />
+    <Compile Include="CarData\ModelColorsDTO.cs" />
+    <Compile Include="CarData\PhotoGalleryDTO.cs" />
+    <Compile Include="CarData\SimilarCarModelsDTO.cs" />
+    <Compile Include="CarData\SimilarCarsAndroid.cs" />
+    <Compile Include="CarData\SimilarModelRecommendation.cs" />
+    <Compile Include="CarData\SubNavigationDTO.cs" />
+    <Compile Include="CarData\VideoDTO.cs" />
+    <Compile Include="Classified\ResultsRecommendation.cs" />
+    <Compile Include="CarDetailBase.cs" />
+    <Compile Include="CustomerBaseDTO.cs" />
+    <Compile Include="Dealer\DealerDetails.cs" />
+    <Compile Include="Dealer\DealerModelListDTO.cs" />
+    <Compile Include="Dealer\DealerShowroomDetailsDTO.cs" />
+    <Compile Include="Dealer\NewCarDealer.cs" />
+    <Compile Include="Deals\AdvantageMobile_DTO.cs" />
+    <Compile Include="Deals\AdvantageSearchFilterDTO.cs" />
+    <Compile Include="Deals\AdvantageSearchModelDTO.cs" />
+    <Compile Include="Deals\AdvantageSearchResultsDTO.cs" />
+    <Compile Include="Deals\BookingAndroid_DTO.cs" />
+    <Compile Include="Deals\BookingReasons.cs" />
+    <Compile Include="Deals\CarColorAndroid_DTO.cs" />
+    <Compile Include="Deals\DealsEmiDTO.cs" />
+    <Compile Include="Deals\DealsInquiryDetailDTO.cs" />
+    <Compile Include="Deals\DealsPriceBreakupDTO.cs" />
+    <Compile Include="Deals\DealsRecommendationDTO.cs" />
+    <Compile Include="Deals\DealsStockAndroid_DTO.cs" />
+    <Compile Include="Deals\DealsStockDTO.cs" />
+    <Compile Include="Deals\DealsSummaryDesktop_DTO.cs" />
+    <Compile Include="Deals\DealsSummaryMobile_DTO.cs" />
+    <Compile Include="Deals\DealsTestimonialDTO.cs" />
+    <Compile Include="Deals\DiscountSummaryDTO_Android.cs" />
+    <Compile Include="Deals\DiscountSummaryDTO.cs" />
+    <Compile Include="Deals\DiscountSummaryDTO_AndroidV1.cs" />
+    <Compile Include="Deals\DropOffInquiryDetailDTO.cs" />
+    <Compile Include="Deals\FilterCountDTO.cs" />
+    <Compile Include="Deals\Gallery_DTO.cs" />
+    <Compile Include="Deals\ProductButtonText_DTO.cs" />
+    <Compile Include="Deals\ProductDetailsDTO_Android.cs" />
+    <Compile Include="Deals\ProductDetailsDTO_Desktop.cs" />
+    <Compile Include="Deals\ProductDetailsDTO_Msite.cs" />
+    <Compile Include="Deals\SimilarDealsRecommendationDTO.cs" />
+    <Compile Include="Deals\StockMakeDTO.cs" />
+    <Compile Include="Deeplinking\DeepLinkingEntityV2.cs" />
+    <Compile Include="Elastic\Autocomplete\Area\AreaPayLoad.cs" />
+    <Compile Include="Elastic\Autocomplete\Area\AreaSuggestions.cs" />
+    <Compile Include="Elastic\Autocomplete\BaseAutoComplete.cs" />
+    <Compile Include="Elastic\Autocomplete\FeaturedCar.cs" />
+    <Compile Include="Elastic\Autocomplete\Suggestion.cs" />
+    <Compile Include="Elastic\Autocomplete\UsedCarCityPayLoad.cs" />
+    <Compile Include="Elastic\Autocomplete\UsedCarCitySuggestion.cs" />
+    <Compile Include="Elastic\Suggest\SuggestionDTOs.cs" />
+    <Compile Include="ES\PropertiesDto.cs" />
+    <Compile Include="ES\PagesDto.cs" />
+    <Compile Include="ES\SponsoredAdCampaignDto.cs" />
+    <Compile Include="ES\SponsoredNavigationDto.cs" />
+    <Compile Include="ES\ESVersionColorsDto.cs" />
+    <Compile Include="ES\ESVersionSummaryDto.cs" />
+    <Compile Include="ES\ExteriorColorDto.cs" />
+    <Compile Include="ES\InteriorColorDto.cs" />
+    <Compile Include="Finance\FinanceLinkDto.cs" />
+    <Compile Include="Finance\FinancePageDto.cs" />
+    <Compile Include="Finance\HdfcLoanParams.cs" />
+    <Compile Include="Geolocation\CityBaseDTO.cs" />
+    <Compile Include="Geolocation\CityDTO.cs" />
+    <Compile Include="Geolocation\CitiesDTO.cs" />
+    <Compile Include="Geolocation\CityZonesDTO.cs" />
+    <Compile Include="Finance\ClientResponseDto.cs" />
+    <Compile Include="Geolocation\CityZonesDTOV2.cs" />
+    <Compile Include="Geolocation\GroupCityDTO.cs" />
+    <Compile Include="Geolocation\PQCity.cs" />
+    <Compile Include="Geolocation\PQCityDTOV2.cs" />
+    <Compile Include="Geolocation\PQCustLocationDTO.cs" />
+    <Compile Include="Geolocation\PQGroupCityDTO.cs" />
+    <Compile Include="Geolocation\PQGroupCityDTOV2.cs" />
+    <Compile Include="Geolocation\PriceQuoteCityDTO.cs" />
+    <Compile Include="Geolocation\PuneThaneZonesDTO.cs" />
+    <Compile Include="Geolocation\StateAndAllCities.cs" />
+    <Compile Include="Geolocation\Zone.cs" />
+    <Compile Include="Geolocation\ZoneDTO.cs" />
+    <Compile Include="Home\CarHomeV2.cs" />
+    <Compile Include="Home\CarHomeV3.cs" />
+    <Compile Include="Insurance\InsuranceScreenV2.cs" />
+    <Compile Include="Insurance\InsuranceResponseDTO.cs" />
+    <Compile Include="Insurance\InsuranceCityDTO.cs" />
+    <Compile Include="IPToLocation\IPToLocationDTO.cs" />
+    <Compile Include="Monetization\AdvantageMonetizationDTO.cs" />
+    <Compile Include="Monetization\AppDTOV1.cs" />
+    <Compile Include="Monetization\DealerAdMonetizationDTO.cs" />
+    <Compile Include="Monetization\MonetizationDataPriorityDTO.cs" />
+    <Compile Include="Monetization\MonetizationModelDTO.cs" />
+    <Compile Include="Monetization\MonetizationModelDTOV1.cs" />
+    <Compile Include="Monetization\SponsoredDealerMonetizationDTO.cs" />
+    <Compile Include="NewCarFinder\NewCarFinderBudgetDTO.cs" />
+    <Compile Include="NewCarFinder\NewCarFinderDto.cs" />
+    <Compile Include="NewCars\ModelPageDtoApp_V2.cs" />
+    <Compile Include="NewCars\ModelPageDTO_Android_V1.cs" />
+    <Compile Include="NewCars\MileagePageDTO.cs" />
+    <Compile Include="NewCars\PriceInCityPageDTO.cs" />
+    <Compile Include="NewCars\UpcomingCarsDTO.cs" />
+    <Compile Include="NewCars\NewCarVersionsDTO.cs" />
+    <Compile Include="NewCars\ModelCarousel.cs" />
+    <Compile Include="NewCars\RecentLaunchesDTO_Desktop.cs" />
+    <Compile Include="Offers\OffersDTO.cs" />
+    <Compile Include="NewCars\VersionPageDTO_Desktop_Cache.cs" />
+    <Compile Include="Offers\PQOffersDTO.cs" />
+    <Compile Include="PriceQuote\EMIInformationDTO.cs" />
+    <Compile Include="PriceQuote\CarPriceQuoteDTO.cs" />
+    <Compile Include="PriceQuote\LeadSourceDTO.cs" />
+    <Compile Include="PriceQuote\NearByCityDTO.cs" />
+    <Compile Include="PriceQuote\NearByCityDetailsDTO.cs" />
+    <Compile Include="PriceQuote\PQAndroidV2.cs" />
+    <Compile Include="PriceQuote\PQItemDTO.cs" />
+    <Compile Include="PriceQuote\PQItemListDTOV2.cs" />
+    <Compile Include="PriceQuote\PQItemListDTO.cs" />
+    <Compile Include="PriceQuote\QuotationPageMobileDTO.cs" />
+    <Compile Include="PriceQuote\ResponseDTO.cs" />
+    <Compile Include="PriceQuote\PriceDTO.cs" />
+    <Compile Include="PriceQuote\ModelPriceDTO.cs" />
+    <Compile Include="PriceQuote\PriceOverviewDTO.cs" />
+    <Compile Include="PriceQuote\VersionPriceQuoteDTOV2.cs" />
+    <Compile Include="PriceQuote\VersionPriceQuoteDTO.cs" />
+    <Compile Include="PriceQuote\SponsoredDealerDTO.cs" />
+    <Compile Include="PriceQuote\VersionPricesDTO.cs" />
+    <Compile Include="Security\ReCaptcha.cs" />
+    <Compile Include="StockDataMobile.cs" />
+    <Compile Include="Classified\PopularUC\PopularUCModelDesktop.cs" />
+    <Compile Include="Classified\PopularUC\PopularUCModelApp.cs" />
+    <Compile Include="Classified\Stock\Android\FilterCountsAndroid.cs" />
+    <Compile Include="Classified\Stock\Android\PagerAndroid.cs" />
+    <Compile Include="Classified\Stock\Android\PagerAndroidBase.cs" />
+    <Compile Include="Classified\Stock\Android\ResultsPagerAndroid.cs" />
+    <Compile Include="Classified\Stock\Android\SortCriteriaAndroid.cs" />
+    <Compile Include="Classified\Stock\Android\StockPagerWithParamsAndroid.cs" />
+    <Compile Include="Classified\Stock\Android\StockResultsAndroid.cs" />
+    <Compile Include="Classified\Stock\Android\ResultsFiltersPagerAndroid.cs" />
+    <Compile Include="Classified\Stock\Android\FiltersCountAndroidBase.cs" />
+    <Compile Include="Classified\Stock\Desktop\FiltersCountDesktop.cs" />
+    <Compile Include="Classified\Stock\Desktop\PagerDesktop.cs" />
+    <Compile Include="Classified\Stock\Desktop\ResultPagerDesktop.cs" />
+    <Compile Include="Classified\Stock\Desktop\ResultsFiltersPagerDesktop.cs" />
+    <Compile Include="Classified\Stock\Desktop\StockResultDesktop.cs" />
+    <Compile Include="Classified\Stock\Android\StockResultsAndroidBase.cs" />
+    <Compile Include="Classified\Stock\Ios\FilterCountIos.cs" />
+    <Compile Include="Classified\Stock\Ios\FilterCountIosBase.cs" />
+    <Compile Include="Classified\Stock\Ios\SortCriteriaIos.cs" />
+    <Compile Include="Classified\Stock\Ios\StockResultIos.cs" />
+    <Compile Include="Classified\Stock\Ios\StockResultsIosBase.cs" />
+    <Compile Include="Classified\Stock\Mobile\StockResultsMobile.cs" />
+    <Compile Include="Classified\CarValuation\ValuationMobile.cs" />
+    <Compile Include="Classified\CarValuation\ValuationRecommendationDTO.cs" />
+    <Compile Include="CMS\Articles\ArticleBase.cs" />
+    <Compile Include="CMS\Articles\ArticleDetails.cs" />
+    <Compile Include="CMS\Articles\ArticlePageDetails.cs" />
+    <Compile Include="CMS\Articles\ArticleSummary.cs" />
+    <Compile Include="CMS\Articles\CMSContent.cs" />
+    <Compile Include="CMS\Articles\MakeAndModelDetail.cs" />
+    <Compile Include="CMS\Articles\Page.cs" />
+    <Compile Include="CMS\Articles\VehicleTag.cs" />
+    <Compile Include="CMS\ContentDetailDTO.cs" />
+    <Compile Include="CMS\PagelistDTO.cs" />
+    <Compile Include="CMS\ContentDetailPagesDTO.cs" />
+    <Compile Include="CMS\ContentListDTO.cs" />
+    <Compile Include="Elastic\Autocomplete\CarDocument.cs" />
+    <Compile Include="Elastic\Autocomplete\CarPayLoad.cs" />
+    <Compile Include="Elastic\Autocomplete\CarSuggestion.cs" />
+    <Compile Include="Elastic\Autocomplete\CityPayLoad.cs" />
+    <Compile Include="Elastic\Autocomplete\CitySuggestion.cs" />
+    <Compile Include="Elastic\Autocomplete\Context.cs" />
+    <Compile Include="Elastic\Autocomplete\ESCarDocument.cs" />
+    <Compile Include="Elastic\Autocomplete\ESCityDocument.cs" />
+    <Compile Include="Elastic\Autocomplete\ESOperation.cs" />
+    <Compile Include="Elastic\Used\ResultsFilterElastic.cs" />
+    <Compile Include="Home\CarHome.cs" />
+    <Compile Include="Insurance\Insurance.cs" />
+    <Compile Include="Insurance\QuotationDto.cs" />
+    <Compile Include="NewCars\CarLaunches.cs" />
+    <Compile Include="NewCars\NewCarDealerImages.cs" />
+    <Compile Include="NewCars\NewCarHome.cs" />
+    <Compile Include="NewCars\HotCarComparisons.cs" />
+    <Compile Include="NewCars\MakePageDTO_Desktop.cs" />
+    <Compile Include="NewCars\MakePageDTO_Mobile.cs" />
+    <Compile Include="NewCars\ModelPageDTO_Android.cs" />
+    <Compile Include="NewCars\ModelPageDTO_Desktop.cs" />
+    <Compile Include="NewCars\ModelPageDTO_Mobile.cs" />
+    <Compile Include="NewCars\TopSellingModels.cs" />
+    <Compile Include="NewCars\UpcomingCars.cs" />
+    <Compile Include="NewCars\VersionPageDTO_Android.cs" />
+    <Compile Include="NewCars\VersionPageDTO_Desktop.cs" />
+    <Compile Include="NewCars\VersionPageDTO_Mobile.cs" />
+    <Compile Include="NewsDTOEntity.cs" />
+    <Compile Include="NewsItemDTOEntity.cs" />
+    <Compile Include="PriceQuote\OnRoadPrice.cs" />
+    <Compile Include="PriceQuote\PQAndroid.cs" />
+    <Compile Include="PriceQuote\PQDesktop.cs" />
+    <Compile Include="PriceQuote\PQMobile.cs" />
+    <Compile Include="PriceQuote\SponsoredDealerAd.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockBaseEntityMobile.cs" />
+    <Compile Include="LandingPage\LandingPageDTO.cs" />
+    <Compile Include="Stock\Certification\StockCertificationApp.cs" />
+    <Compile Include="Stock\Certification\StockCertificationItemApp.cs" />
+    <Compile Include="Stock\Certification\StockCertificationSubItemApp.cs" />
+    <Compile Include="Stock\Certification\StockCertificationSubItemDetailApp.cs" />
+    <Compile Include="Stock\Details\BasicInfoApp.cs" />
+    <Compile Include="Stock\Details\CarConditionApp.cs" />
+    <Compile Include="Stock\Details\ConditionItem.cs" />
+    <Compile Include="Stock\Details\ExtraInfoApp.cs" />
+    <Compile Include="Stock\Details\FeatureApp.cs" />
+    <Compile Include="Stock\Details\FeatureItemApp.cs" />
+    <Compile Include="Stock\Details\OverviewItemApp.cs" />
+    <Compile Include="Stock\Details\SpecificationApp.cs" />
+    <Compile Include="Stock\Details\SpecificationItemApp.cs" />
+    <Compile Include="Stock\Images\ImageGalleryApp.cs" />
+    <Compile Include="Stock\SectionsAvailable.cs" />
+    <Compile Include="Stock\SimiliarCars\SimilarStocksDTO.cs" />
+    <Compile Include="Stock\SimiliarCars\StockSummaryApp.cs" />
+    <Compile Include="Stock\SimiliarCars\SimilarStocksApp.cs" />
+    <Compile Include="Stock\SimiliarCars\StockSummaryDTO.cs" />
+    <Compile Include="Stock\StockApp.cs" />
+    <Compile Include="Stock\Validators\StockCitiesValidator.cs" />
+    <Compile Include="Template\MetaDataTemplateDto.cs" />
+    <Compile Include="Template\TemplateDTO.cs" />
+    <Compile Include="UserReview\RateCarDto.cs" />
+    <Compile Include="ViewModels\New\ModelFloatingCtaViewModel.cs" />
+    <Compile Include="ViewModels\PriceBreakUpModel.cs" />
+    <Compile Include="WidgetDTOs\ArticlesWidget.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Carwale.Entity\Carwale.Entity.csproj">
+      <Project>{02e68020-d0cf-48a8-9059-48b28c3df144}</Project>
+      <Name>Carwale.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Utility\Carwale.Utility.csproj">
+      <Project>{7edc7859-19ea-4b79-acc3-0525860b4199}</Project>
+      <Name>Carwale.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Carwale.DTOs.ruleset" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="DisableAnalyzersForVisualStudioBuild" BeforeTargets="CoreCompile" Condition="'$(BuildingInsideVisualStudio)' == 'True' And '$(BuildingProject)' == 'True'">
+    <!--
+    Disable analyzers when building a project inside Visual Studio. Note that analyzer behavior for IntelliSense
+    purposes is not altered by this.
+  -->
+    <ItemGroup>
+      <Analyzer Remove="@(Analyzer)" />
+    </ItemGroup>
+  </Target>
+</Project>

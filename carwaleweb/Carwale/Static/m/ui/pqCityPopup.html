@@ -1,0 +1,39 @@
+﻿<section>
+<div class="selectCitydiv hide">
+    <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete"><div class="filterBackArrow" onclick="closeWindow(this)"><span class="cwmsprite back-long-arrow-left-white"></span></div><div class="filterTitle">Select City</div><div class="clear"></div></div><div class="m-loading-popup"><span class="m-defaultAlert-window"></span><span class="m-loading-icon"></span><div class="clear"></div></div><div class="popup_content hide">
+        <div class="main-cities">
+            <ul id="main-citiesList-pq" data-role="listview" data-bind="template: { name: 'pq-popular-cities', foreach: pqCities }"></ul>
+            <script type="text/html" id="pq-popular-cities">
+                <li class="main-citiesList" onclick="popularCity_Click(this)" data-bind='attr: { value: CityId }'><div class="city-content"><div class="city-icons" data-bind="css: CityName.toLowerCase()"></div><div class="margin-top5" data-bind='text: DisplayText'></div></div></li>
+            </script><div class="clear"></div>
+        </div><div class="citiesByState">More Cities by State</div><div class="States-list">
+            <ul id="StatesList-pq" data-role="listview" data-bind="template: { name: 'state-template', foreach: pqStates }"></ul>
+            <script type="text/html" id="state-template">
+                <li onclick="stateChanged(this)" data-bind="attr: { 'value': StateId, 'text': StateName }"><span data-bind="text: StateName"></span><span class="rightfloat font20"><span class="fa fa-angle-right"></span></span></li>
+            </script>
+        </div>
+    </div>
+</div><div class="citiesByState-list-pq fixedSearchPopup hide">
+    <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete"><div class="filterBackArrow" onclick="showPrevPopup(this)"><span class="cwmsprite back-long-arrow-left-white"></span></div><div class="filterTitle">Select City</div><div class="clear"></div></div><div class="m-loading-popup"><span class="m-defaultAlert-window"></span><span class="m-loading-icon"></span><div class="clear"></div></div><div class="search-box cross-box-wrap"><span class="cross-box hide" onclick="clearSearchText(this)"><span class="cwmsprite cross-md-dark-grey"></span></span><input id="searchByCity" class="form-control rounded-corner0" type="text" placeholder="- Type to select City -" /></div><div class="popup_content hide">
+        <div class="ui-content">
+            <ul id="citiesByStatesList-pq" class="selectArea" data-role="listview" data-bind="template: { name: 'citiesByStates-template', foreach: pqCitiesByStates }"></ul>
+            <script type="text/html" id="citiesByStates-template">
+                <!-- ko 'if':zoneId == 0 -->
+                <li onclick="cityChanged(this)" data-bind="attr: { 'value': cityId, 'text': cityName }" class="filter-li"><span data-bind="text: cityName"></span></li><!--/ko--><!-- ko 'if':zoneId > 0 -->
+                <li onclick="zoneChanged(this)" data-bind="attr: { 'zoneid': zoneId, 'zonename': name, 'cityid': cityId, 'cityname': cityName }" class="filter-li"><span data-bind="text: zoneName"></span></li><!--/ko-->
+            </script>
+        </div>
+    </div>
+</div><div class="otherCitiesDiv-pq hide">
+    <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete"><div class="filterBackArrow" onclick="showPrevPopup(this)"><span class="cwmsprite back-long-arrow-left-white"></span></div><div class="filterTitle">Select Area</div><div class="clear"></div></div><div class="m-loading-popup"><span class="m-defaultAlert-window"></span><span class="m-loading-icon"></span><div class="clear"></div></div><div class="popup_content hide">
+        <div class="ui-content">
+            <ul id="zonesList-pq" class="selectArea" data-role="listview" data-bind="template: { name: 'zone-template', foreach: pqZones }"></ul>
+            <script type="text/html" id="zone-template">
+                <!-- ko foreach: zones -->
+                <li onclick="zoneChanged(this)" data-bind="attr: { 'zoneid': id, 'zonename': name, 'cityid': $parent.id, 'cityname': $parent.name }" class="filter-li"><span data-bind="text: name"></span></li><!--/ko--><!-- ko foreach: group -->
+                <li onclick="cityChanged(this)" data-bind="attr: { 'value': id, 'text': name }" class="filter-li"><span data-bind="text: name"></span></li><!--/ko-->
+            </script>
+        </div>
+    </div>
+</div>
+</section>

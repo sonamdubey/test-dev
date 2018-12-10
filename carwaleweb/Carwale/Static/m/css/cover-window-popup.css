@@ -1,0 +1,93 @@
+﻿.cover-window-popup {
+  display: none;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background: #fff;
+}
+
+.cover-window-popup .cover-popup-back,
+.cover-window-popup .body-popup-back {
+  padding: 10px 15px;
+}
+
+.cover-window-popup .cover-popup-header {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.cover-window-popup .cover-popup-list {
+  overflow: hidden;
+}
+
+.cover-popup-list li {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.cover-popup-list li span {
+  font-size: 16px;
+  padding: 10px 20px 10px 0;
+  display: block;
+  position: relative;
+  border-top: 1px solid #f5f5f5;
+  cursor: pointer;
+}
+
+.cover-popup-list li:hover {
+  background-color: #f5f5f5;
+}
+
+.cover-popup-list li:first-child span {
+  border-top: 0;
+}
+
+.cover-window-popup .with-arrow li {
+  background: url(https://imgd.aeplcdn.com/0x0/bw/static/design15/grey-right-arrow.png) no-repeat 94% 50%;
+}
+
+.car-banner {
+  width: 100%;
+  height: 110px;
+  background: #fff url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/car-popup-banner.png) repeat-x center bottom;
+}
+
+.cover-popup-body-head .head-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2a2a2a;
+}
+
+.cover-popup-body-head .body-popup-back {
+  padding-left: 20px;
+}
+
+.cover-popup-body-head .no-back-btn-label {
+  padding: 9px 0 9px 20px;
+}
+
+.extra-padding .cover-popup-body {
+  padding-bottom: 40px;
+}
+
+.back-arrow-white {
+  background-position: -155px -104px;
+  width: 21px;
+  height: 16px;
+}
+
+.cover-popup-loader-text {
+  position: fixed;
+  top: 60%;
+  margin: 0 auto;
+  left: 5%;
+  right: 5%;
+  text-align: center;
+}

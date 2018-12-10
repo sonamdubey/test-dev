@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[OprUsers] (
+    [Id]                 NUMERIC (18)   IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [LoginId]            VARCHAR (50)   NOT NULL,
+    [PassWord]           VARCHAR (50)   NULL,
+    [UserName]           VARCHAR (50)   NOT NULL,
+    [Address]            VARCHAR (255)  NULL,
+    [PhoneNo]            VARCHAR (25)   NULL,
+    [IsActive]           BIT            CONSTRAINT [DF_OprUsers_IsActive] DEFAULT ((1)) NULL,
+    [RoleIds]            VARCHAR (500)  NULL,
+    [TaskIds]            VARCHAR (1000) NULL,
+    [IsOutsideAccess]    BIT            CONSTRAINT [DF_OprUsers_IsOutsideAccess] DEFAULT ((0)) NOT NULL,
+    [UserDeptId]         INT            NULL,
+    [HostUrl]            VARCHAR (150)  NULL,
+    [IsReplicated]       BIT            NULL,
+    [IsApproved]         BIT            CONSTRAINT [DF_OprUsers_IsApproved] DEFAULT ((0)) NULL,
+    [PasswordHash]       VARCHAR (100)  NULL,
+    [HashSalt]           VARCHAR (10)   NULL,
+    [EmployeeCode]       VARCHAR (15)   NULL,
+    [Designation]        TINYINT        NULL,
+    [ReportingManagerId] INT            NULL,
+    [OriginalImgPath]    VARCHAR (100)  NULL,
+    [IsCarTrade]         BIT            NULL,
+    CONSTRAINT [PK_OprUsers] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

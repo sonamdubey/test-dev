@@ -1,0 +1,81 @@
+@import '../mixins/_animation.scss';
+@import '../mixins/_sprites.scss';
+@import '../mixins/_vendor-prefix.scss';
+@import '../mixins/_variables.scss';
+@import '../mixins/_arrow.scss';
+
+@mixin accordion-list-item($margin-bottom: 10, $background-color: 'white-bg', $border-radius: 3, $border-color: 'white-smoke-border'){
+    .accordion-list__item {
+        border: 1px solid map-get($color-map, $border-color);
+        border-radius: $border-radius * 1px;
+        margin-bottom: $margin-bottom * 1px;
+        background-color: map-get($color-map, $background-color);
+
+         &.accordion-list--active {
+            display: block;
+
+            .accordion-head__content {
+                &:after {
+                    @include vendor-prefix(transform, rotate(180deg));
+                }
+            } 
+
+            .accordion-head__selected-item {
+                display: none;
+            } 
+        } 
+    }
+}
+
+@mixin accordion-head-content($width: 14, $height: 8, $opacity: .5) {
+    .accordion__head {
+        padding: 12px 20px; 
+        cursor: pointer;
+    }
+
+    .accordion-head__content {
+        position: relative;
+
+        &:after {
+            @include arrow;
+            @include vendor-prefix(transition, transform .4s ease);
+        }
+    }
+}
+
+@mixin accordion-head-title($color: 'charcoal', $font-size: 16, $font-weight: $font-semibold) {
+    .accordion-head__title {
+        color: map-get($color-map, $color);
+        font-size: $font-size * 1px;
+        font-weight: $font-weight;
+    }
+}
+
+@mixin accordion-selected-item($color: 'shamrockGreen', $font-size: 13, $font-weight: $font-normal, $margin-top: 5, $margin-right: 30) {
+    .accordion-head__selected-item {
+        color: map-get($color-map, $color);
+        font-size: $font-size * 1px;
+        font-weight: $font-weight;
+        margin-top: $margin-top * 1px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        margin-right: $margin-right * 1px;
+        display: block;
+    }
+}
+
+@mixin accordion-body-content {
+    .accordion__body {
+        display: none;
+        width: 100%; /*prevent slidedown jump at end for more refer: https://www.bennadel.com/blog/2263-use-jquery-s-slidedown-with-fixed-width-elements-to-prevent-jumping.htm & https://stackoverflow.com/questions/11194402/slidedown-jumps-abruptly-at-the-end*/
+    }
+
+    .accordion-body__default-show {
+        display: block;
+    }
+
+    .accordion-body__content {
+        padding: 10px 15px 20px;
+    }
+}

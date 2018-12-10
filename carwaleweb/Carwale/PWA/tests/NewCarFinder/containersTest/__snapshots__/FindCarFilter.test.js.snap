@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for FindCarFilters container component when user location is  confirmed should render FindCarFilterRouter and FiltersFooter 1`] = `
+<div>
+  <FindCarFilterRouter />
+  <withRouter(Connect(FiltersFooter)) />
+</div>
+`;
+
+exports[`Tests for FindCarFilters container component when user location is not confirmed should render Redirect 1`] = `
+<Redirect
+  push={false}
+  to="/find-car/"
+/>
+`;

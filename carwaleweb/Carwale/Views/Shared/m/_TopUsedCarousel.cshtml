@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Carwale.Entity.Classified.PopularUsedCars.PopularUsedCarModel>
+@using Carwale.Utility;
+<div class="container m-no-bg-color"><div class="grid-12 margin-bottom20"><h2 class="text-uppercase text-center margin-top30 margin-bottom10 m-special-skin-text">@Html.Raw(!String.IsNullOrWhiteSpace(ViewBag.UsedCity.CityName) ? ("used cars in " + ViewBag.UsedCity.CityName) : "popular used cars")</h2><div class="swiper-container"><ul class="swiper-wrapper">
+				@if (Model != null && Model.Any())
+				{
+					var car = 1;
+					foreach (var item in Model)
+					{
+						<li class="swiper-slide front"><div class="contentWrapper"><div id="mobilePopularUCImage-@car" class="imageWrapper" onclick="trackPopularUCHomePage('Categ' + @car + '-ImageClick', '');"><a href="@Html.Raw("/m")@item.titleUrl"><img class="lazy" data-original="@item.Image.HostUrl@item.Image.ImagePath" title="@item.carName" alt="@item.carName" src=""></a></div><div class="carDescWrapper"><div id="mobilePopularUCTitle-@car" class="carTitle margin-bottom20" onclick="trackPopularUCHomePage('Categ' + @car + '-TitleClick', '');"><h3><a href="@Html.Raw("/m")@item.titleUrl" title="Used @item.carName">Used @item.carName</a></h3></div><div class="margin-bottom10 font24">₹ <span class="font25">@item.price</span>&nbsp;<span class="font14 text-light-grey">average price</span></div><div id="mobilePopularUCSimilar-@car" class="font14 text-light-grey" onclick="trackPopularUCHomePage('Categ' + @car + '-SimilarCarsClick', '');"><a href='@Html.Raw("/m")@item.viewSimilarUrl'><span class="font14">View similar @item.bodyType@Html.Raw("s")</span></a></div></div></div></li>
+						car += 1;
+					}
+				}
+			</ul><div class="clear"></div><!-- Add Pagination --><div class="swiper-pagination swiper-pagination-white"></div><!-- Navigation --><div class="swiper-button-next swiper-button-white"></div><div class="swiper-button-prev swiper-button-white"></div></div><div id="mobilePopularUCViewAll" class="text-center margin-bottom20" onclick="trackPopularUCHomePage('ViewAllClick', '');"><a class="font16" href="/m/used/cars-@Html.Raw(string.IsNullOrWhiteSpace(ViewBag.UsedCity.CityName) ? "for-sale" : "in-"+Format.RemoveSpecialCharacters(ViewBag.UsedCity.CityName.ToLower()))/">View all</a></div></div><div class="clear"></div></div>

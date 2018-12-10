@@ -1,0 +1,453 @@
+﻿/* Loacte Dealer New style */
+.locate-dealer-banner {
+  background: #161209 url("https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/d/locate-dealer-banner.jpg") no-repeat scroll center top;
+  height: 285px;
+  padding-top: 1px;
+}
+
+.ldlanding-form-container {
+  margin: 0 auto;
+  width: 540px;
+}
+
+.dealer-list-container {
+  margin: 0 0 0 160px;
+}
+
+.dealers-list {
+  list-style: none;
+  width: 32%;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 10px 0 0;
+  box-sizing: border-box;
+}
+
+.dealers-list li {
+  margin: 20px 0;
+}
+
+.dealers-list a {
+  color: #0086d4;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19px;
+}
+
+.last-dealer-list {
+}
+
+.loading-popup {
+  background: transparent;
+  width: 90px;
+  padding: 20px;
+  border-radius: 5px;
+  position: absolute;
+  top: 40%;
+  left: 45%;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  margin: 0 auto;
+  z-index: 999;
+}
+
+.loading-icon {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/design15/cw-loader.gif?v1=04032016) no-repeat;
+  width: 90px;
+  height: 61px;
+  display: block;
+  float: left;
+}
+
+/* Dealer Manufacturer New style */
+.dealer-manufacturer-form .form-control-box {
+  width: 36%;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 1.8%;
+}
+
+.manufacturer-dealer-city, .manufacturer-dealer-list {
+  display: inline-block;
+  vertical-align: top;
+  padding: 0;
+  min-height: 588px;
+}
+
+.manufacturer-dealer-city ul {
+  width: 97%;
+}
+
+.manufacturer-dealer-city li {
+  border-bottom: 1px solid #cacaca;
+  padding: 20px 0;
+  cursor: pointer;
+}
+
+.manufacturer-dealer-city li span {
+  padding: 0 0 0 20px;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.manufacturer-dealer-city li .fa-angle-down {
+  padding: 8px 15px 0 15px;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 12px;
+  color: #8c9295;
+  transition: transform .3s;
+  -moz-transition: transform .3s;
+  -webkit-transition: transform .3s;
+  -o-transition: transform .3s;
+  -ms-transition: transform .3s;
+}
+
+.manufacturer-dealer-city .active-dealer-city .fa-angle-down {
+}
+
+.manufacturer-dealer-city .active-dealer-city .fa-angle-down:before {
+}
+
+.manufacturer-dealer-city .active-dealer-city .fa-angle-down {
+  padding: 0 15px 8px 15px;
+  -moz-transform: rotateZ(180deg);
+  -webkit-transform: rotateZ(180deg);
+  -o-transform: rotateZ(180deg);
+  -ms-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
+}
+
+.manufacturer-dealer-city .dealer-city-names ul {
+  margin: 0;
+  width: 100%;
+}
+
+.dealer-city-names {
+  padding: 0 20px;
+  width: 553px;
+  cursor: default;
+}
+
+.manufacturer-dealer-city .dealer-city-names li {
+  width: 165px;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 10px 10px 10px 0;
+  border: none;
+  vertical-align: top;
+}
+
+.dealer-city-names div {
+  display: inline-block;
+  vertical-align: top;
+  width: 31%;
+  margin: 5px 0 0 0;
+}
+
+.manufacturer-dealer-city .dealer-city-names a {
+  margin: 7px 0;
+  display: inline-block;
+  font-size: 16px;
+  color: #0288d1;
+}
+
+.manufacturer-dealer-city .dealer-city-names .locate-dealer-city-name {
+  color: #0288d1;
+  padding: 0;
+  font-weight: normal;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  max-width: 135px;
+  vertical-align: top;
+  width: auto;
+}
+
+.manufacturer-dealer-city .dealer-city-names a:hover .locate-dealer-city-name {
+  text-decoration: underline;
+}
+
+.dealer-map-outer {
+  padding: 0;
+  position: relative;
+}
+
+.dealer-map {
+  display: inline-block;
+  vertical-align: top;
+  width: 402px;
+  padding: 0 10px 13px 10px;
+  position: relative;
+}
+
+.dealer-map img {
+  margin: 0 auto;
+  display: block;
+/*max-width:100%;*/;
+}
+
+.dealer-map span {
+  color: #565a5c;
+}
+
+/* Dealer List New style */
+.dealer-list-deatils {
+  width: 94%;
+  border: 1px solid #cccccc;
+  padding: 15px 20px 15px 20px;
+  min-height: 235px;
+}
+
+.dealer-list-deatils:hover {
+  -moz-box-shadow: 0px 3px 5px #bbbaba;
+  -webkit-box-shadow: 0px 3px 5px #bbbaba;
+  -o-box-shadow: 0px 3px 5px #bbbaba;
+  -ms-box-shadow: 0px 3px 5px #bbbaba;
+  box-shadow: 0px 3px 5px #bbbaba;
+}
+
+.dealer-title {
+  color: #565a5c;
+  font-size: 22px;
+  line-height: 24px;
+  font-weight: 600;
+  padding: 0 0 4px 0;
+}
+
+.dealer-info {
+  font-size: 14px;
+  line-height: 23px;
+  padding: 10px 0 0 0;
+  clear: both;
+}
+
+.dealer-info .fa {
+  color: #7f7f7f;
+  float: left;
+  font-size: 24px;
+  padding: 5px 17px 0 1px;
+}
+
+.dealer-info .fa.fa-map-marker {
+  padding: 8px 17px 0 5px;
+}
+
+.dealer-info .fa.fa-envelope {
+  font-size: 19px;
+  padding: 10px 17px 0 2px;
+}
+
+.dealer-phone-text {
+  color: #05b249;
+  font-size: 22px;
+  padding: 4px 0 0 0;
+  display: block;
+  font-weight: 600;
+}
+
+.dealer-address-text {
+  display: block;
+  line-height: 27px;
+  padding: 4px 0 0 38px;
+}
+
+.dealer-list-deatils .dealer-req-btn {
+  margin: 20px 0 5px 0;
+}
+
+.manufacturer-dealer-list {
+  padding: 0;
+  width: 100%;
+}
+
+.non-premium-dealer .dealer-title {
+  color: #1a1a1a;
+}
+
+.non-premium-dealer .dealer-phone-text {
+  font-size: 14px;
+  padding: 6px 0 0 0;
+  color: #565a5c;
+  font-weight: normal;
+}
+
+.dealer-list-deatils.bg-white.margin-bottom20.non-premium-dealer:last-child {
+  margin-bottom: 0;
+}
+
+/* Request assitance PopUp New style */
+.req-assit-popup {
+  width: 480px;
+  height: 450px;
+  background: #fff;
+  margin: 0 auto;
+  overflow-y: auto;
+  position: fixed;
+  top: 15%;
+  right: 5%;
+  left: 5%;
+  z-index: 10;
+}
+
+.mdPopup-box {
+  background: #565a5c;
+  width: 80px;
+  height: 80px;
+  line-height: 2;
+  display: inline-block;
+}
+/* .mdPopup-box .mdPopup-icon{background:url(/images/manufacturer-dealer-sprite.png) 1px 13px no-repeat;height:67px;width:46px;display: block;margin: 0 auto;text-align: center;} */
+.assistance-icon {
+  width: 36px;
+  height: 41px;
+  background-position: -125px -333px;
+  position: relative;
+  top: 8px;
+}
+
+.req-assit-popup-data {
+  width: 350px;
+  margin: 0 auto;
+  padding: 25px 0;
+}
+
+.req-assit-popup-data small {
+  text-align: left;
+  display: block;
+}
+
+.req-assit-popup-data .btn-orange {
+  width: 60%;
+}
+
+.req-assit-popup-data .chosen-container {
+  width: 100% !important;
+}
+
+.req-assit-popup-data .chosen-container-multi .chosen-choices li.search-choice {
+  padding: 3px 0 3px 0;
+}
+
+.req-assit-popup .chosen-drop ul.chosen-results {
+  max-height: 100px;
+}
+
+.req-assit-popup .chosen-drop ul.chosen-results li {
+  padding: 5px 6px;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.floating-div {
+  position: fixed;
+  top: 56px;
+  right: 14.18%;
+}
+
+.floating-div-middle {
+  width: 402px;
+  position: absolute;
+  bottom: 0;
+  right: 1.8% \9;
+}
+
+:root .floating-div-middle {
+  right: 1.6%;
+}
+
+.behavior {
+  zoom: 1;
+  behavior: url(/js/PIE.htc);
+  position: relative \9;
+}
+
+.behavior  a {
+  zoom: 1;
+  behavior: url(/js/PIE.htc);
+  position: relative \9;
+}
+
+.dealer-map img.map-call-ic {
+  display: inline;
+  margin-top: 5px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .manufacturer-dealer-city, .manufacturer-dealer-list {
+    width: 57%;
+  }
+
+  .floating-div {
+    right: auto;
+  }
+
+  .jcarousel-wrapper.ld-car-alternatives {
+    width: 94% !important;
+  }
+
+  .ld-car-alternatives .jcarousel li {
+    width: 220px!important;
+  }
+}
+
+.chosen-select.form-control {
+  overflow: hidden;
+  height: 10px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  width: 100%;
+  cursor: text;
+  height: auto !important;
+  display: none;
+  margin: 0;
+}
+
+.chosen-container {
+  display: block;
+  width: 100% !important;
+}
+
+.chosen-choices {
+  width: 100% !important;
+}
+
+.jcarousel-wrapper.ld-car-alternatives {
+  width: 94%;
+  margin-bottom: 10px;
+}
+
+.ld-car-alternatives .jcarousel {
+  padding-bottom: 10px;
+  width: 98%;
+}
+
+.ld-car-alternatives .jcarousel li {
+  width: 220px;
+  margin: 0 20px;
+  height: 270px;
+}
+
+.ld-car-alternatives .imageWrapper {
+  width: 100%;
+  height: auto;
+}
+
+.ld-car-alternatives .jcarousel li:hover a {
+  text-decoration: none;
+}
+
+.ld-car-alternatives .carTitle {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 180px;
+  text-overflow: ellipsis;
+  display:block;
+}

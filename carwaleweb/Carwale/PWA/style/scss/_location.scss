@@ -1,0 +1,129 @@
+@import 'scss/autocomplete';
+
+.location-screen {
+	position: relative;
+	height: 100vh;
+
+	.screen__head {
+		position: relative;
+		height: 190px;
+		background-color: color('snow-2');
+		text-align: center;
+		overflow: hidden;
+
+		&:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			width: 2048px;
+			height: 90px;
+			display: block;
+			@include skyline-bg();
+			background-position: center bottom;
+			@include opacity(.1);
+			will-change: transform;
+		}
+	}
+
+	.screen__body {
+		position: absolute;
+		top: 50px;
+		width: 100%;
+		padding: 0 25px 25px;
+	}
+}
+
+.location-popup--active {
+	&.location-screen {
+		.screen__head {
+			&:after {
+				@include vendor-prefix('animation', animateSkyline 30s linear 2);
+			}
+		}
+	}
+}
+
+@include animateSkyline();
+
+.location__content {
+	position: relative;
+	text-align: center;
+}
+
+.location-selection__title {
+	font-size: 18px;
+}
+
+.location-selection__subtitle {
+	font-size: 12px;
+	color: color("dark-gray");
+	margin-top: 10px;
+}
+
+.location-content__body {
+	position: absolute;
+	top: 117px;
+	width: 100%;
+}
+
+@include btn("secondary");
+
+.btn-confirm-city {
+	&.btn-secondary {
+		max-width: 133px;
+		margin-top: 30px;
+		padding: 11px 11px 10px;
+	}
+}
+
+.location-detector {
+	margin-top: 20px;
+	text-align: left;
+}
+
+.location-detector__button {
+	@include locate-me-icon;
+	background-position: left top;
+	padding-left: 25px;
+	font-size: 16px;
+	color: color('summer-sky');
+	cursor: pointer;
+}
+
+.back-button {
+	@include vendor-prefix("transform", rotate(90deg));
+	@include arrow-down-icon;
+	position: absolute;
+	left: 15px;
+	top: 20px;
+	height: 16px;
+	width: 16px;
+	z-index: 1;
+}
+
+@media (min-width: 540px) {
+	.location-screen {
+		.screen__head {
+			height: 300px;
+
+			&:after {
+				height: 120px;
+			}
+		}
+
+		.screen__body {
+			top: 110px;
+			padding-right: 50px;
+			padding-left: 50px;
+		}
+	}
+
+	.location-content__body {
+		top: 168px;
+	}
+
+	.btn-confirm-city {
+		margin-top: 60px;
+		max-width: 200px;
+	}
+}

@@ -1,0 +1,192 @@
+﻿@model Carwale.Entity.ViewModels.CompareCarsDetailModel
+@using Carwale.UI.Common;
+@using System.Text.RegularExpressions;
+@using Carwale.Utility;
+@using System.Linq;
+@{var counter = 0;}
+<div id="accordionContainer" class="data accordion-container">
+    <div class="accordion-data" id="CD0">
+        <table id="SubCategoryTable@(counter++)" class="SubCategoryTable">
+            <tbody>
+				@if (Model.CarData.IsNotNullOrEmpty())
+				{                  
+					for (int i=0;i < Model.CarData[0].Overview.Count;i++) 
+					{                        
+						<tr>
+							<td class="v-shadow">
+								@Model.CarData[0].Overview[i].Name.Replace("~", string.Empty)   @(Model.CarData[0].Overview[i].UnitType == "CUSTOM" || Model.CarData[0].Overview[i].UnitType == "BIT" || Model.CarData[0].Overview[i].UnitType == "" ? "" : "(" + Model.CarData[0].Overview[i].UnitType + ")")
+							</td>
+							@{
+								int carNumber = -1;
+							}							
+                                @for (int version = 0; version < Model.ValidVersionIds.Count; version++)
+                                {
+                                    carNumber++;
+									<td>
+                                        @Html.Raw(CommonOpn.GetFormatedValue(Model.CarData[version].Overview[i].ItemValue??"-", Model.CarData[version].Overview[i].DataTypeId))										
+										@if (Model.CarData[version].Overview[i].ItemMasterId == "255")
+                                        {
+											<br />
+                                    if (Model.VersionsWithTyres.Contains(Model.CarDetails[carNumber].VersionId))
+                                    {
+                                        <a href=@string.Format("/tyres/{0}-{1}-tyres/?cmids={2}&year={3}&versionid={4}",Format.FormatURL(@Model.CarDetails[carNumber].MakeName),@Model.CarDetails[carNumber].MaskingName,@Model.CarDetails[carNumber].ModelId,@DateTime.Now.Year.ToString(),@Model.CarDetails[carNumber].VersionId) target="_blank" data-role="click-tracking" data-event="CWInteractive" data-action='Source of traffic' data-cat="Tyres_Section_d" data-label="@string.Format("Comparison Page Click_{0}_{1}",Model.CarDetails[carNumber].ModelName,Model.CarDetails[carNumber].VersionName)">View all tyres</a>
+                                    }
+                                        }
+
+									</td>
+                                }				
+							@if (Model.ValidVersionIds.Count < 4 && Model.ValidVersionIds.Count >= 2)
+							{
+								<td></td>
+							}
+						</tr>
+					}                             
+				}
+            </tbody>
+        </table>
+
+    </div>
+    @if (Model.CarData.IsNotNullOrEmpty())
+    { 
+    if (Model.CarData[0].Specs.IsNotNullOrEmpty())
+    {
+        <div class="accordion-data hide" id='CD1'>
+            @for (int i =0;i<Model.CarData[0].Specs.Count;i++)
+            {
+                if (Model.CarData[0].Specs[i].Items.Count>0)
+                { 
+                <div class="accordion-tabs" id='cat_@(UrlRewrite.FormatSpecial(Model.CarData[0].Specs[i].Name))'>
+                    <div class="padding-left10 padding-top10 padding-bottom5">
+                        <a class="cc-a-static cc-sprite cc-up-arrow">
+                            @(Model.CarData[0].Specs[i].Name == "Suspensions, Brakes, Steering & Tyres" ? "Suspensions, Brakes & Steering" : Model.CarData[0].Specs[i].Name)
+                        </a>
+                    </div>
+                </div>
+                <div class="accordion-data">
+                    <table id="SubCategoryTable@(counter++)" class="SubCategoryTable">
+                        @for(int item =0;item<Model.CarData[0].Specs[i].Items.Count;item++)
+                        { 
+                            int carNumber = -1;
+                            <tr itemmasterid="@Model.CarData[0].Specs[i].Items[item].ItemMasterId">
+                                <td class="left v-shadow">@Model.CarData[0].Specs[i].Items[item].Name.Replace("~", "")  @(Model.CarData[0].Specs[i].Items[item].UnitType == "CUSTOM" || Model.CarData[0].Specs[i].Items[item].UnitType == "BIT" || Model.CarData[0].Specs[i].Items[item].UnitType == "" ? "" : "(" + Model.CarData[0].Specs[i].Items[item].UnitType + ")")</td>
+									@for (int version = 0; version < Model.ValidVersionIds.Count; version++)
+									{
+										carNumber++;
+										<td>
+                                            @Html.Raw(CommonOpn.GetFormatedValue(Model.CarData[version].Specs[i].Items[item].ItemValue ?? "-", Model.CarData[version].Specs[i].Items[item].DataTypeId))											
+											@if (Model.CarData[version].Specs[i].Items[item].ItemMasterId == "255")
+											{
+												<br />
+                                                if (Model.VersionsWithTyres.Contains(Model.CarDetails[carNumber].VersionId))
+                                                { 
+												<a href=@string.Format("/tyres/{0}-{1}-tyres/?cmids={2}&year={3}&versionid={4}",Format.FormatURL(Model.CarDetails[carNumber].MakeName),Model.CarDetails[carNumber].MaskingName,Model.CarDetails[carNumber].ModelId,DateTime.Now.Year.ToString(),Model.CarDetails[carNumber].VersionId) target="_blank" data-role="click-tracking" data-event="CWInteractive" data-action='Source of traffic' data-cat="Tyres_Section_d" data-label="@string.Format("Comparison Page Click_{0}_{1}",Model.CarDetails[carNumber].ModelName,Model.CarDetails[carNumber].VersionName)">View all tyres</a>
+                                                }
+											}
+										</td>
+									}
+								
+                                @if (Model.ValidVersionIds.Count < 4 && Model.ValidVersionIds.Count >= 2)
+                                {
+                                    <td></td>
+                                }
+                            </tr>
+                        }
+                    </table>
+                </div>
+            }
+            }
+        </div>
+    }
+    }
+    @if (Model.CarData.IsNotNullOrEmpty())
+    {
+    if (Model.CarData[0].Features.IsNotNullOrEmpty())
+    {
+        <div class="accordion-data hide" id='CD2'>
+            @for (int i=0;i<Model.CarData[0].Features.Count;i++)
+            {
+                if (Model.CarData[0].Features[i].Items.Count>0)
+                { 
+                <div class="accordion-tabs" id='cat_@(UrlRewrite.FormatSpecial(Model.CarData[0].Features[i].Name))'>
+                    <div class="padding-left10 padding-top10 padding-bottom5">
+                        <a class="cc-a-static cc-sprite cc-up-arrow">@Model.CarData[0].Features[i].Name</a>
+                    </div>
+                </div>
+                <div class="accordion-data">
+                    <table id="SubCategoryTable@(counter++)" class="SubCategoryTable">
+                        @for (int item=0;item<Model.CarData[0].Features[i].Items.Count;item++)
+                        {
+                            <tr>
+                                <td class="left v-shadow">@Model.CarData[0].Features[i].Items[item].Name</td>
+								
+                                    @for (int version = 0; version < Model.ValidVersionIds.Count; version++)
+                                    {
+										<td>
+                                            @Html.Raw(CommonOpn.GetFormatedValue(Model.CarData[version].Features[i].Items[item].ItemValue ?? "-", Model.CarData[version].Features[i].Items[item].DataTypeId))											
+										</td>
+									}
+							
+                                @if (Model.ValidVersionIds.Count == 2 || Model.ValidVersionIds.Count == 3)
+                                {
+                                    <td></td>
+                                }
+                            </tr>
+                        }
+                    </table>
+                </div>
+            }
+            }
+        </div>
+    }
+    }
+
+    @if (Model.Colors != null && Model.Colors.Exists(x => x.Count > 0))
+    {
+        <div class="accordion-data hide" id="CD3">
+            <table class="SubCategoryTable border-bottom-none">
+                <tr style="vertical-align: top">
+                    <td class="v-shadow">Available Colours</td>
+                    @foreach (var colour in Model.Colors)
+					{
+						if (colour.IsNotNullOrEmpty())
+						{
+							<td>
+								<ul style="vertical-align: top">
+									@foreach (var item in colour)
+									{
+										<li>
+											<div class="colorBg">
+												@{var _colors = ((item.Value ?? string.Empty).Split(',')); }
+												@foreach (var value in _colors)
+												{
+													<span class="show" style="background-color: #@(value);height:@(Math.Floor(100.0/_colors.Length))%;"></span>
+												}
+											</div>
+										</li>
+										<li class="colorName">@item.Name</li>
+									}
+								</ul>
+							</td>
+						}
+					}
+                    @if (Model.ValidVersionIds.Count < 4 && Model.ValidVersionIds.Count >= 2)
+                    {
+                        <td></td>
+                    }
+                </tr>
+                <tr>
+                    <td class="v-shadow"></td>
+                @foreach (var car in Model.CarDetails) { 
+                    <td>@if (car.ShowAllColorsLink) {<a data-role="click-tracking" data-label="@car.MakeName @car.ModelName" data-event="CWInteractive" data-action="compare_car_button" data-cat="desktop_colour_linkages" class="ex-showroom btn-white btn-xs" href="@Carwale.UI.PresentationLogic.EditorialContent.GetColorUrl(car.MakeName, car.MaskingName, null, 0, false)"><span data-role="inview-imp" data-cat="desktop_colour_linkages" data-label="@car.MakeName @car.ModelName" data-action="compare_car_button_impression">View Colour Images</span></a>}</td>
+                }
+                @if (Model.ValidVersionIds.Count < 4 && Model.ValidVersionIds.Count >= 2)
+                {
+                    <td></td>
+                }
+                </tr>
+            </table>
+
+        </div>
+                                                }
+</div>
+

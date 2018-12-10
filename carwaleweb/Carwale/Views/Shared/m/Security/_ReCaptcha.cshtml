@@ -1,0 +1,18 @@
+﻿
+<script src='https://www.google.com/recaptcha/api.js' defer></script>
+<style>#g-recaptcha-form{padding-top:30vh;text-align:center}
+    .g-recaptcha {display:inline-block;}
+</style>
+<section>
+       
+        <form id="g-recaptcha-form" action="/m/security/validaterecaptcha/" method="post">
+            <div class="g-recaptcha" data-sitekey="6Lep-zIUAAAAAL4DMX3QlwEy0V3wlZB-kmN3T11g" data-callback="validateCaptcha"></div>
+        </form>
+    <div style="width:304px;margin:0 auto;">
+        <p style="font-size:17px;margin:0 auto;padding-top:20px;">We apologize for the confusion.<br /> Please check the box to let us know <br />you're human, and we'll be out of your way <br />(sorry, no robots allowed).</p>
+    </div>
+</section>
+<script>function validateCaptcha() {
+    ga('send', 'event', 'Security', 'Validation', 'ReCaptcha');
+    document.getElementById("g-recaptcha-form").submit();
+}</script>

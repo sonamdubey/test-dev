@@ -1,0 +1,110 @@
+﻿@import '../mixins/_variables.scss';
+@import '../mixins/_vendor-utils.scss';
+@import '../mixins/_vendor-prefix.scss';
+
+@mixin cross-icon($height: 30, $width: 30, $color: 'white') {
+	display: inline-block;
+	vertical-align: middle;
+	height: $height * 1px;
+	width: $width * 1px;
+
+	&::before,
+	&::after {
+		content: '';
+		display: block;
+		height: $height - 12 * 1px;
+		width: 2px;
+		background-color: map-get($color-map, $color);
+		top: $height * .2 * 1px;
+		left: $width * .48 * 1px;
+		position: absolute;
+		border-radius: 30px;
+	}
+
+	&::before {
+		@include vendor-prefix(transform, 'rotate(45deg)');
+	}
+
+	&::after {
+		@include vendor-prefix(transform, 'rotate(-45deg)');
+	}
+}
+
+@mixin arrow($height: 40, $width: 30, $direction: 'left', $thickness: 2, $color: 'dim-grey') {
+	height: $height * 1px;
+	width: $width * 1px;
+
+		&::before,
+		&::after {
+			content: '';
+			display: block;
+			background-color: map-get($color-map, $color);
+			position: absolute;
+			border-radius: 30px;
+		}
+
+		@if ($direction == 'left' or $direction == 'right') {
+			&::before,
+			&::after {
+				left: 44%;
+				height: $height * .33 * 1px;
+				width: $thickness * 1px;
+			}
+		}
+		@else if($direction == 'top' or $direction == 'bottom') {
+			&::before,
+			&::after {
+				top: 44%;
+				height: $thickness * 1px;
+				width: $height * .33 * 1px;
+			}
+		}
+
+		@if ($direction == 'left') {
+			&::before {
+				transform: rotate(40deg);
+				bottom: 44%;
+			}
+
+			&::after {
+				transform: rotate(-40deg);
+				top: 44%;
+			}
+		}
+		@else if($direction == 'right') {
+			&::before {
+				transform: rotate(-40deg);
+				bottom: 44%;
+			}
+
+			&::after {
+				transform: rotate(40deg);
+				top: 44%;
+			}
+		}
+		@else if($direction == 'top') {
+			&::before {
+				transform: rotate(-40deg);
+				right: 44%;
+			}
+
+			&::after {
+				transform: rotate(40deg);
+				left: 44%;
+			}
+		}
+		@else if($direction == 'bottom') {
+			&::before {
+				transform: rotate(-40deg);
+				top: 44%;
+				left: 44%;
+			}
+
+			&::after {
+				transform: rotate(40deg);
+				top: 44%;
+				right: 44%;
+			}
+		}
+
+}

@@ -1,0 +1,215 @@
+﻿/*
+    NCF styles starts here
+*/
+.ncf-linkage {
+    text-align: center;
+    background-color: white;
+    border-top: solid 1px #efefef;
+    padding: 20px;
+    color: #484848;
+    border-bottom: solid 7px #00afa0;
+}
+.ncf-button {
+    border: solid 1px #ff653f;
+    color: #ff653f;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 25px;
+}
+.ncf-image {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/new-car-finder/ncf-background.svg) no-repeat;
+    height: 100px;
+    margin-bottom: 20px;
+    background-position: center;
+    position: relative;
+}
+.ncf-car-image {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/new-car-finder/ncf-car.svg) no-repeat;
+    width: 100%;
+    height: 25px;
+    display: block;
+    background-size: contain;
+    background-position: center;
+    position: absolute;
+    top: 38px;
+    left: 0;
+}
+.ncf-magnify-image {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/new-car-finder/ncf-scan.svg) no-repeat;
+    width: 50%;
+    height: 70px;
+    display: block;
+    background-size: contain;
+    background-position: center;
+    position: absolute;
+    top: 25px;
+    left: 25%;
+    -webkit-animation: loader-littlecube 3s linear infinite;
+    animation: loader-littlecube 3s linear infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+    will-change: transform;
+}
+
+@-webkit-keyframes loader-littlecube {
+    0% {
+        -webkit-transform: translateX(-30px);
+        transform: translateX(-30px);
+    }
+
+    100% {
+        -webkit-transform: translateX(30px);
+        transform: translateX(30px);
+    }
+}
+
+@keyframes loader-littlecube {
+    0% {
+        -webkit-transform: translateX(-30px);
+        transform: translateX(-30px);
+    }
+
+    100% {
+        -webkit-transform: translateX(30px);
+        transform: translateX(30px);
+    }
+}
+
+
+.ncf-secondary-slug .ncf-linkage {
+    margin: 10px;
+    border-radius: 3px;
+    border-bottom: solid 7px #00afa0;
+    padding: 18px 15px;
+}
+.ncf-linkage.ncf-compare-slug {
+    padding: 5px;
+}
+
+.ncf-secondary-slug .ncf-content {
+    text-align: left;
+}
+
+.ncf-secondary-slug .ncf-image {
+    width: 45%;
+    float: right;
+}
+
+.ncf-secondary-slug .ncf-button {
+    padding: 8px 25px;
+    margin-top: 15px;
+    font-weight: 700;
+}
+.ncf-compare-slug .ncf-button{
+    margin-top:0px;
+    float:right;
+}
+.ncf-secondary-slug .ncf-car-image {
+    height: 25px;
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/new-car-finder/ncf-car.svg) no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.ncf-secondary-slug .ncf-magnify-image {
+    height: 60px;
+}
+
+/* ncf-secondary-blue-slug */
+.ncf-secondary-blue-slug {
+	padding: 10px 0px;
+	position: fixed;
+	bottom: -110px;
+	left: 0px;
+	width: 100%;
+	z-index: 5;
+}
+
+.ncf-secondary-blue-slug .ncf-slug-wrapper {
+    background-color: #144657;
+    color: white;
+    border-radius: 3px;
+    margin: 10px 30px 10px 20px;
+    position: relative;
+    font-size: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    text-decoration: none;
+
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.ncf-secondary-blue-slug .ncf-white-car-img {
+    display: inline-block;
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/new-car-finder/ncf-car-white.svg) no-repeat;
+    background-size: 85%;
+    background-position: left;
+    width: 150px;
+    height: 73px;
+    text-align: center;
+    position: relative;
+}
+.ncf-secondary-blue-slug .ncf-magnify-image {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/new-car-finder/ncf-scan-white.svg) no-repeat;
+    width: 25px;
+    height: 35px;
+    display: block;
+    top: 20px;
+    left: 32%;
+    background-size: contain;
+    background-position: center;
+    position: absolute;
+    -webkit-animation: loader-littlecube 3s linear infinite;
+    animation: loader-littlecube 3s linear infinite;
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+    will-change: transform;
+}
+
+.ncf-secondary-blue-slug .ncf-white-car-content {
+    display: inline-block;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex: 1;
+    flex-grow: 1;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.ncf-secondary-blue-slug .slug-close-btn {
+    width: 33px;
+    height: 33px;
+	padding: 4px;
+    border-radius: 50px;
+    background-color: #144657;
+    border: solid 2px white;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+.close-x {
+	stroke: rgba(255, 255, 255, 0.6);
+	fill: transparent;
+	stroke-linecap: round;
+	stroke-width: 4px;
+}
+.svg-close-slug {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    stroke-opacity: 0.4;
+}
+
+/*
+    NCF styles Ends here
+*/

@@ -1,0 +1,35 @@
+.container-fluid,
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.clearfix {
+    &:after {
+        display: block;
+        clear: both;
+        content: '';
+    }
+}
+
+@media (min-width: 800px) {
+  .container {
+    max-width: 800px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-fluid {
+    padding: 0 60px;
+  }
+
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {  
+  .container {
+    max-width: 996px;
+  }
+}

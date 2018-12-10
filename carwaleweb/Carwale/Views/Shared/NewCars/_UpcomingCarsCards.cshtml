@@ -1,0 +1,80 @@
+﻿@model List<Carwale.Entity.CarData.UpcomingCarModel>
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@foreach(var item in Model)
+{
+var featured = TestDrive.isFeaturedUpcoming(item.ModelId.ToString());
+<li class="card">
+    <div class="front">
+        <div class="contentWrapper">
+            <div class="position-abt pos-right10 pos-top10 infoBtn cwsprite alert-circle-icon"></div>
+            <div class="imageWrapper">
+                <a href="@ManageCarUrl.CreateModelUrl(item.MakeName,item.MaskingName)" onclick='trackTNU("UpcomingCars", "UpcomingCars-Click","@item.ModelName");'>
+                    <img width="310" height="174" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(item.Image.HostUrl,ImageSizes._310X174,item.Image.ImagePath)" title="@item.MakeName @item.ModelName" alt="@item.MakeName @item.ModelName">
+                </a>
+            </div>
+            <div class="carDescWrapper">
+                <div class="carTitle @(featured ? "margin-bottom10" : "margin-bottom20") text-bold">
+                    <a href="@ManageCarUrl.CreateModelUrl(item.MakeName,item.MaskingName)" title="@item.MakeName  @item.ModelName">@item.MakeName  @item.ModelName</a>
+                    @if (featured)
+                    {
+                        <p class="font14 text-link" style="margin-top:2px;" onclick="location.href='/campaigns/?id=419160827'">@Carwale.UI.Common.TestDrive.GetFeaturedUpcomingString(item.ModelId.ToString())</p>
+                    }
+                </div>
+
+                <div class="font24">
+                    ₹
+                    <span class="font25"> @Html.Raw(item.Price.MaxPrice == item.Price.MinPrice ? FormatPrice.GetFormattedPriceV2(item.Price.MinPrice.ToString()) : FormatPrice.GetFormattedPriceV2(item.Price.MinPrice.ToString(), item.Price.MaxPrice.ToString()))</span>
+                </div>
+                <div class="margin-bottom15 font14 text-light-grey">Estimated price</div>
+                <div class="font18">@(item.ExpectedLaunch ?? string.Empty)</div>
+                <div class="font14 text-light-grey">Expected launch</div>
+            </div>
+				@if (item.ModelId == CWConfiguration.MahindraMozarroModelid)
+                {
+                    <span class="infoBtn text-link font15 padding-left15 padding-top10" data-role="click-tracking" data-event="CWInteractive" data-cat="HPSlug_d" data-action="HPSlug_d_Click-Contact Mahindra" data-label="Contact Mahindra" data-cwtccat="ESProperties" data-cwtcact="Click" data-cwtclbl="adtype=HPSlug_d|clickedon=Contact Mahindra">Contact Mahindra</span>
+                }
+        </div>
+    </div>
+    <div class="back">
+        <div class="formWrapper">
+            <div class="position-abt pos-right10 pos-top10 closeBtn cwsprite back-circle-icon"></div>
+            <div class="formContent padding-top10">
+                <p class="text-black margin-bottom15 font22"><span class="fa fa-bell-o"></span> Be the first to know</p>
+                <div class="userInputContent">
+                    <div class="form-control-box margin-bottom20 userNameInput">
+                        <input prefill="name" class="form-control" type="text" name="userName" placeholder="Name">
+                        <span class="cwsprite error-icon hide"></span>
+                        <div class="cw-blackbg-tooltip hide">Please provide your name</div>
+                    </div>
+                    <div class="form-control-box margin-bottom20 userEmailInput">
+                        <input prefill="email" class="form-control" type="text" name="userEmail" placeholder="Email">
+                        <span class="cwsprite error-icon hide"></span>
+                        <div class="cw-blackbg-tooltip hide">Please provide your email</div>
+                    </div>
+                    <div class="form-control-box margin-bottom20 userMobileInput">
+                        <span class="form-mobile-prefix">+91</span>
+                        <input prefill="mobile" class="form-control padding-left40" type="text" name="userMobile" placeholder="Mobile">
+                        <span class="cwsprite error-icon hide"></span>
+                        <div class="cw-blackbg-tooltip hide">Please provide your mobile</div>
+                    </div>
+                    <div class="form-control-box margin-bottom20 userCityInput">
+                        <input type="text" placeholder="Type to select city" id="upcomingCityid_@item.ModelId" modelid="@item.ModelId" class="form-control ui-autocomplete-input blur upcomingCity" autocomplete="off">
+                        <span class="cwsprite error-icon hide"></span>
+                        <div class="cw-blackbg-tooltip hide">No city match</div>
+                    </div>
+                    <button id="btnUpcoming_@item.ModelId" class="margin-bottom15 btn btn-orange btn-md btn-full-width text-uppercase" modelid="@item.ModelId" makeid="@item.MakeName" onclick="pushInquiry(this);">Done</button>
+                    <div class="font12">
+                        <p>By proceeding ahead, you agree to CarWale <a href="https://www.carwale.com/visitoragreement.aspx">visitor agreement</a> and <a href="https://www.carwale.com/privacypolicy.aspx">privacy policy</a>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="thankYouForm text-center margin-top90 hide">
+                <div><span class="fa fa-envelope-o"></span></div>
+                <p class="text-black font26 margin-top10 margin-bottom20">Thank You!</p>
+                <p>We would keep you posted on all <br />the latest updates</p>
+            </div>          
+        </div>
+    </div>
+</li>
+}

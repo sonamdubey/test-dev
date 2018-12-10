@@ -1,0 +1,149 @@
+﻿@model Carwale.DTOs.CarData.PhotoGalleryDTO_V2
+@using Carwale.UI.PresentationLogic
+@using Carwale.Utility
+@using Carwale.Entity.Enum
+@using Carwale.BL.CMS
+@using System.Configuration
+@using Carwale.Entity.CMS.Photos
+@using Carwale.DTOs.CMS.ThreeSixtyView
+@using AutoMapper
+@{
+    GalleryFilters activeFilter = Model.GalleryState.ActiveFilter;
+    int activeIndex = Model.GalleryState.ActiveSlideIndex;
+    int counter = 0;
+    int nextBigImageCount = 7;
+    int globalCounter = 0;
+    int index = 1;
+    string url = string.Empty;
+    string imageSize;
+    ThreeSixtyViewCategory threeSixtyIconCategory = ThreeSixtyViewCategory.Closed;
+    bool isShow360Icon = CMSCommon.IsThreeSixtyViewAvailable(Model.ModelDetails);
+    if (isShow360Icon)
+    {
+        switch (activeFilter)
+        {
+            case GalleryFilters.ExteriorPhotos:
+                threeSixtyIconCategory = CMSCommon.CheckCategoryAvailable(Model.ModelDetails, ThreeSixtyViewCategory.Closed) ? ThreeSixtyViewCategory.Closed : ThreeSixtyViewCategory.Open;
+                break;
+            case GalleryFilters.InteriorPhotos:
+                threeSixtyIconCategory = ThreeSixtyViewCategory.Interior;
+                break;
+            default:
+                threeSixtyIconCategory = CMSCommon.Get360DefaultCategory(Mapper.Map<ThreeSixtyAvailabilityDTO>(Model.ModelDetails));
+                break;
+        }
+        isShow360Icon = CMSCommon.CheckCategoryAvailable(Model.ModelDetails, threeSixtyIconCategory);
+    }
+    
+    string threeSixtyPageUrl = string.Empty;
+    string threeSixtySlugImage = string.Empty;
+    string dataTrack360Action = string.Empty;
+    if (isShow360Icon)
+    {
+        threeSixtyPageUrl = EditorialContent.Get360PageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, threeSixtyIconCategory, true);
+        threeSixtySlugImage = EditorialContent.Get360SlugImage(Model.ModelDetails.MakeName, Model.ModelDetails.ModelId, threeSixtyIconCategory, ImageSizes._424x424, true);
+        dataTrack360Action = ((threeSixtyIconCategory == ThreeSixtyViewCategory.Interior) ? "interior" : "exterior") + "_slug_image_gallery";
+    }
+
+    string carName = Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName;
+    string greyGifUrl = ConfigurationManager.AppSettings["CDNHostURL"].ToString() + ImageSizes._0X0 + "/statics/grey.gif";
+    bool showVideo = Model.ModelVideos != null && Model.ModelVideos.Count > 0 && Model.GalleryState.ActiveSection == GallerySections.Photos && Model.GalleryState.ActiveFilter == GalleryFilters.AllPhotos;
+    int firstListCount = (isShow360Icon ? 8 : 9) - (activeIndex > 8 ? 1 : 0);
+    List<ModelImage> firstList = Model.ModelImages.GetRange(0, Model.ModelImages.Count > firstListCount ? firstListCount : Model.ModelImages.Count);
+    List<ModelImage> secondList = firstList.Count == firstListCount ? Model.ModelImages.GetRange(firstListCount, Model.ModelImages.Count - firstListCount) : new List<ModelImage>();
+}
+
+<ul class="gallery-img-list swiperUl">
+    @{url = ImageSizes.CreateImageUrl(Model.ModelImages[activeIndex].HostUrl, ImageSizes._211x211, Model.ModelImages[activeIndex].OriginalImgPath, 80);}
+    <li style="background-image: url('@url');background-size:cover">
+        <a class="galleryAnchor" href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, Model.ModelImages[activeIndex].ImageName, Model.ModelImages[activeIndex].ImageId, true)">
+            <img data-index="0" data-image-id="@Model.ModelImages[activeIndex].ImageId" data-image-name="@Model.ModelImages[activeIndex].ImageName" class="lazy"
+                 src="@url" data-original="@url"
+                 alt="@Model.ModelImages[activeIndex].ImageName" title="@(Model.ModelImages[activeIndex].ImageName?.Replace("-", " "))">
+        </a>
+    </li>
+    @if (isShow360Icon)
+    {
+        nextBigImageCount = nextBigImageCount ^ 5 ^ 7;
+        counter++;
+    <li>
+        <a data-role="click-tracking" data-event="CWInteractive" data-action="@dataTrack360Action" data-cat="msite_360_linkages" data-label="@carName" class="swiper-overlay-bg experience-360-slug" href="@threeSixtyPageUrl">
+            <div class="center-container">
+                <span class="swiper-slide__360-icon"></span>
+                <span class="experience-now-button">Experience the car</span>
+            </div>
+        </a>
+        <img data-role="inview-imp" data-cat="msite_360_linkages" data-action=@(dataTrack360Action + "_imp") data-label="@carName" class="lazy" src="@greyGifUrl" data-original="@threeSixtySlugImage" />
+    </li>
+    }
+    @foreach (var image in firstList)
+    {
+        if (globalCounter != activeIndex)
+        {
+            if (counter == nextBigImageCount || counter == 0)
+            {
+                nextBigImageCount = nextBigImageCount ^ 5 ^ 7;
+                counter = 0;
+                imageSize = ImageSizes._424x424;
+            }
+            else
+            {
+                imageSize = ImageSizes._211x211;
+            }
+            url = ImageSizes.CreateImageUrl(image.HostUrl, imageSize, image.OriginalImgPath, 80);
+                <li data-role="inview-imp" data-cat="msite_image_gallery" data-action="image_impression" data-label="@carName" style="@Html.Raw(index < 3 ? "background-image:url(\'" + url + "\');background-size:cover" : "")">
+                    <a class="galleryAnchor" data-role="click-tracking" data-event="CWInteractive" data-action="thumbnail" data-cat="msite_image_gallery" data-label="thumbnail"
+                    href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, image.ImageName, image.ImageId, true)">
+                        <img data-index="@index" data-image-id="@image.ImageId" data-image-name="@image.ImageName" class="lazy" src="@(index < 3 ? url : greyGifUrl)"
+                             data-original="@url" alt="@image.ImageName" title="@(image.ImageName?.Replace("-", " "))">
+                    </a>
+                </li>
+            counter++;
+            index++;
+        }
+        globalCounter++;
+    }
+</ul>
+@if (showVideo)
+{
+<div class="video-child-list" data-role="inview-imp" data-cat="msite_image_gallery" data-action="middle_video_slug_imp" data-label="@carName">
+    <a class="galleryAnchor swiper-overlay-bg" data-role="click-tracking" data-event="CWInteractive" data-action="middle_video_slug" data-cat="msite_image_gallery" data-label="@carName"
+       href="@CMSCommon.GetVideoUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, Model.ModelVideos[0].SubCatName, Model.ModelVideos[0].BasicId, true)">
+        <span class="youtube-video-icon carousel-yt-icon" data-role="inview-imp" data-event="CWNonInteractive" data-cat="msite_video_linkages" data-label="Honda Amaze" data-action="msite_gallery_video_imp"></span>
+    </a>
+
+    <div><img class="lazy" src="@greyGifUrl" data-original="@string.Format("https://img.youtube.com/vi/{0}/mqdefault.jpg", Model.ModelVideos[0].VideoId)" alt="@Model.ModelVideos[0].VideoTitle" title="@Model.ModelVideos[0].VideoTitle"></div>
+</div>}
+<ul class="gallery-img-list swiperUl second-list">
+    @{ 
+        counter = 6;
+        nextBigImageCount = 7;
+    }
+    @foreach (var image in secondList)
+    {
+        if (globalCounter != activeIndex)
+        {
+            if (counter == nextBigImageCount)
+            {
+                nextBigImageCount = nextBigImageCount ^ 5 ^ 7;
+                counter = 0;
+                imageSize = ImageSizes._424x424;
+            }
+            else
+            {
+                imageSize = ImageSizes._211x211;
+            }
+            url = ImageSizes.CreateImageUrl(image.HostUrl, imageSize, image.OriginalImgPath, 80);
+            <li data-role="inview-imp" data-cat="msite_image_gallery" data-action="image_impression" data-label="@carName">
+                <a class="galleryAnchor" data-role="click-tracking" data-event="CWInteractive" data-action="thumbnail" data-cat="msite_image_gallery" data-label="thumbnail"
+                   href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, image.ImageName, image.ImageId, true)">
+                    <img data-index="@index" data-image-id="@image.ImageId" data-image-name="@image.ImageName" class="lazy" src="@(index < 3 ? url : greyGifUrl)"
+                         data-original="@url" alt="@image.ImageName" title="@(image.ImageName?.Replace("-", " "))">
+                </a>
+            </li>
+            counter++;
+            index++;
+        }
+        globalCounter++;
+    }
+</ul>

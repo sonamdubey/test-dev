@@ -1,0 +1,558 @@
+﻿
+.pq-popup-offers {
+    font-size: 11px;
+    margin-bottom: 30px;
+    color: #54585a;
+}
+.pq-popup-desc {
+    padding-left: 18px;
+    padding-right: 18px;
+    margin-top: 43px;
+}
+.pq-popup-title {
+    font-size: 21px;
+    color: #565a5c;
+    margin-bottom: 5px;
+    display: block;
+}
+.customer-info {
+    position: relative;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+.pq-popup-fields-div {
+    margin-bottom: 20px;
+    position: relative;
+}
+.pq-popup-field {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    color: #54585a;
+    font-size: 15px;
+    text-align:left;
+    padding-left: 17px;
+    position: relative;
+}
+.customer-agreement {
+    color: #aaa;
+    font-size: 11px;
+    text-align: center;
+}
+.customer-agreement a {
+   color: #0288d1;
+   text-decoration: none;
+}
+.pq-popup-field::placeholder {
+  color: #bfbfbf;
+}
+.dealerDiv:after {
+    content: '';
+    height: 43px;
+    width: 1px;
+    border-right: 1px solid #aaa;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 43px;
+}
+select.pq-popup-dropdown {
+    background-image: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/6f6f6f/arrow-down.svg);
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: 96%;
+    padding-right: 43px;
+}
+@media only screen and (min-device-width: 750px)  {
+    select.pq-popup-dropdown {
+        background-position: 98%;
+    }
+}
+
+#dealerList:invalid {
+    color: #bfbfbf;
+  }
+#dealerList option {
+    color: #54585a;
+}
+.done {
+   padding-left: 6px;
+   padding-right: 6px;
+}
+
+.width94 {
+   width: 94%;
+}
+
+.bankBazaarOfferPopUp {
+   background-color: #fff;
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   z-index: 10;
+   overflow-y: auto;
+}
+
+.gop-sprite {
+   background: url("https://imgd.aeplcdn.com/0x0/cw/static/pq/cw-md-circle-icon.png?v1=26022016?v1=evng") no-repeat scroll 0 0;
+   display: block;
+   margin: 0 auto;
+   padding: 0;
+}
+
+.emi-icon,
+.compare-icon,
+.apply-icon {
+   width: 70px;
+   height: 70px;
+   display: inline-block;
+   vertical-align: top;
+}
+
+.gop-icon-container .emi-icon {
+   background-position: -570px 3px;
+}
+
+.gop-icon-container .compare-icon {
+   background-position: -474px 3px;
+}
+
+.gop-icon-container .apply-icon {
+   background-position: -379px 3px;
+}
+
+.gop-icon-container {
+   font-style: normal;
+   margin: 4px 8px 4px 0;
+   text-align: left;
+   float: left;
+   display: inline-block;
+}
+
+.emi-options {
+   display: block;
+   vertical-align: top;
+   clear: both;
+}
+
+.emi-options-text {
+   display: inline-block;
+   float: left;
+   vertical-align: top;
+   padding: 25px 0 0 0;
+   width: 68%;
+   text-align: left;
+}
+
+.breakable-text br {
+   display: none;
+}
+
+.pq-popup-cross {
+   display: inline-block;
+   width: 30px;
+   height: 30px;
+   z-index: 1;
+   right: 10px;
+   top: 8px;
+   position: fixed;
+   cursor: pointer;
+   background: url(http://imgd.aeplcdn.com/0x0/cw/static/icons/svg/6f6f6f/cross-icon.svg) no-repeat center;
+   background-size: 15px;
+}
+
+.submit-btn {
+   margin: 30px 0;
+}
+.pq-popup-btn {
+   border-radius: 3px;
+   font-size: 18px;
+   text-transform: capitalize;
+}
+.suggestion-box .listTable li {
+   padding: 10px;
+   border: 1px solid #e2e2e2;
+   margin-bottom: 10px !important;
+   margin: 0 auto;
+   width: 96%;
+}
+.suggestion-box .listTable .listCell {
+   display: table-cell;
+   vertical-align: middle;
+}
+
+.suggestion-box .listTable .listCell:nth-child(2) {
+    width: 105px;
+}
+
+.suggestion-box .listTable .rounded-corner2 .suggested-car-image {
+   width: 33%;
+}
+
+.suggestion-box .listTable .rounded-corner2 .suggested-car-info {
+    padding-left: 10px;
+    width: 57.2%;
+}
+
+.suggestion-box p {
+   line-height: 22px;
+}
+
+.suggestion-box p.font12 {
+   font-size: 12px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    padding-top: 7px;
+   float: right;
+}
+
+.suggestion-box .listTable .unchecked {
+   background: url("https://imgd.aeplcdn.com/0x0/cw/design15/m/inputUnchecked.png") no-repeat scroll 0 0;
+   background-size: 19px;
+   cursor: pointer;
+   height: 20px;
+   margin-bottom: 10px;
+   padding-left: 20px;
+   padding-top: 7px;
+   float: right;
+}
+
+.suggestion-box .listTable .checked {
+   background: url("https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/tick.svg") no-repeat scroll 0 0;
+   background-color: #00afa0;
+   background-size: 10px;
+   background-position: 5px;
+   border-radius: 2px;
+   float: right;
+}
+
+.suggestion-box .listTable .empty {
+   background: url("https://imgd.aeplcdn.com/0x0/cw/design15/m/inputEmpty.png") no-repeat scroll 0 0;
+   background-size: 19px;
+   float: right;
+}
+
+.width100 {
+   width: 100%;
+}
+
+.thanks-section {
+   padding-bottom: 70px;
+}
+
+.suggestTitle {
+   width: 80%;
+   background: #fff;
+   margin: 0 auto;
+   padding: 4px 0 6px 0;
+   -webkit-box-shadow: 0 -3px 5px 0 #cccccc;
+   -moz-box-shadow: 0 -3px 5px 0 #cccccc;
+   -o-box-shadow: 0 -3px 5px 0 #cccccc;
+   box-shadow: 0 -3px 5px 0 #cccccc;
+}
+
+.padding10 {
+    padding: 10px;
+}
+
+#recommedationList {
+   padding: 10px;
+   box-shadow: none;
+}
+
+.recommendation-section {
+   top: -53px;
+}
+
+.modified-full-popup {
+   padding: 0;
+}
+.suggestion-box {
+   margin: 0 auto;
+}
+
+.center-div {
+   display: table;
+   margin: 0 auto;
+}
+
+@media all and (max-width: 360px) {
+  .breakable-text br {
+      display: inline-block;
+    }
+}
+
+/*thankyou msg css*/
+#postsubmitmsg {
+    width: 100%;
+    z-index: 1;
+    padding: 14px 19px 26px 19px;
+    background: #00afa0;
+    text-align: left;
+    font-size: 12px;
+    color: white;
+}
+
+.thankyou-section{
+    color: white;
+    font-size: 21px;
+}
+.thank-you-subheading{
+    margin-bottom: 12px;
+}
+
+.email-Assist{
+        padding: 110px 25px 20px 25px;
+        overflow-y: scroll;
+        padding-bottom: 30%;
+        text-align: left;
+}
+
+.msg-with-email{
+    font-size: 12px;
+}
+/*email popup css*/
+
+#btnDone{
+    display: inherit;
+    margin: 0 auto;
+    width: 90%;
+    padding: 12px;
+}
+
+.btnDone{
+    width: 100%;
+    padding: 18px 0 18px 0;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 0;
+    box-shadow: -2px 0 4px 0 #999;
+    background: #fff;
+    z-index: 1;
+}
+
+.custEmailOptional{
+    margin: 20px 0 20px 0;
+    position: relative;
+}
+
+/*recommended car section*/
+
+.lead-recommend-cars{
+    padding-top: 115px;
+    padding-bottom: 100px;
+}
+
+.suggestion-box.lead-recommend-cars{
+    margin-top: 0;
+}
+
+#pq-popup-close{
+    z-index: 2;
+}
+
+.req-assist-button-wrapper{
+    padding: 18px 25px 18px 25px;
+    position: fixed;
+    bottom: 0;
+    font-size: 0;
+    background: #fff;
+    box-shadow: -2px 0 4px 0 #999;
+    width: 100%;
+    margin: 0;
+    background-color: #fff;
+}
+
+.select-all-recommendation{
+    display: table;
+    width: 96%;
+    margin: 0 auto;
+    padding: 5px 10px 5px 15px;
+}
+
+.recommended-checkbox{
+    width: 10%;
+    height: 20px;
+    width: 20px;
+}
+
+#divSelectRecommendation .select-all-checkbox {
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    padding-left: 20px;
+    padding-top: 7px;
+}
+.select-all .select-bar{
+    background: url(https://imgd.aeplcdn.com/0x0/cw/design15/m/inputUnchecked.png) no-repeat scroll 0 0;
+    background-size: 19px;
+    border-radius: 0;
+}
+
+.remove-all .select-bar{
+    background: url("https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/tick.svg") no-repeat scroll 0 0;
+    background-size: 10px;
+    background-color: #00afa0;
+    background-position: 5px;
+    border-radius: 2px;
+ }
+ .suggested-car-slug{
+     display: inline-block;
+     width: 70%;
+ }
+ .suggested-slug-heading{
+     font-size: 15px;
+     font-weight: 700;
+     color: #484848;
+ }
+ .suggested-slug-subheading{
+     font-size: 12px;
+     color: #54585a;
+ }
+
+ .select-all .toggle-selection-txt{
+    margin-right: 2px;
+    color: #54585a;
+ }
+
+ .remove-all .toggle-selection-txt{
+    margin-right: 2px;
+    color: #54585a;
+ }
+
+ .toggle-selection-view{
+     float: right;
+     max-width: 157px;
+     display: inline-block;
+     vertical-align: top;
+     margin-right: 10px;
+ }
+
+ /*other dealer popup*/
+.other-dealers-popup {
+    padding-top: 115px;
+    padding-bottom: 122px;
+    text-align: left;
+    position: relative;
+}
+.recommended-dealer {
+    margin-left: 18px;
+    margin-right: 17px;
+    margin-top: 24px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+.other-dealer-slug {
+    width: 59%;
+    display: inline-block;
+}
+.slug-tag {
+    font-size: 15px;
+    color: #484848;
+}
+.slug-desc {
+    font-size: 12px;
+    color: #54585a;
+}
+
+.suggestion-box .listTable .dealer-info-desc {
+    width: 90% !important;
+}
+.dealer-name {
+    padding-left: 10px;
+    padding-top: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #565a5c;
+    text-align: left;
+    line-height: normal;
+}
+.dealer-location {
+    margin-top: 6px;
+    padding-left: 10px;
+}
+.dealer-city-name:before {
+    width: 10px;
+    content: '';
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/new-header/location.svg) right no-repeat;
+    height: 15px;
+    display: inline-block;
+    margin-right: 5px;
+    background-size: 9px;
+}
+
+.dealer-distance:before{
+    content: '|';
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.checkbox-field {
+    width: 10% !important;
+    float: right;
+    text-align: right;
+    margin-right: 7px;
+    padding-top: 25px;
+}
+.dealer-submit-btn {
+    display: block;
+    margin-bottom: 6px;
+}
+.skip-txt {
+    text-align: center;
+    margin-top: 6px;
+}
+.skip-btn {
+    width: 100%;
+    padding: 5px;
+    color: #0288d1;
+    font-size: 15px;
+    font-weight: 400;
+    background-color: #fff;
+    cursor: pointer;
+}
+ #reqAsstncBtn[disabled],
+ #reqSellerAsstncBtn[disabled] {
+    background-color: rgba(255, 0, 0, .3);
+    border-color: transparent;
+ }
+
+ .similar-car-heading{
+     margin-left: 20px;
+     margin-right: 20px;
+ }
+
+ .thank-box{
+     padding-top: 100px;
+     padding-bottom: 100px;
+ }
+
+ .suggested-car-list,.other-dealers-list {
+     outline: 0;
+ }
+
+ .suggested-car-list{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+ }
+
+
+@media only screen and (max-width: 320px) {
+    #postsubmitmsg {
+        height: 90px;
+    }
+    .suggested-car-slug {
+        width: 65%;
+    }
+}
+
+@media only screen and (min-width: 640px) {
+   .suggestion-box .listTable .rounded-corner2 .suggested-car-image {
+        width: 15%;
+    }
+}

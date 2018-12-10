@@ -1,0 +1,98 @@
+﻿@model Carwale.DTOs.NewCars.VersionPageDTO_Mobile
+@using Carwale.Entity.Enum;
+
+<script type="text/javascript" src="~/static/js/plugins/accordion.js" defer></script>
+<script type="text/javascript" src="/static/js/utils/api-calls.js" defer></script>
+<script type="text/javascript" src="/static/js/utils/scroll-to.js" defer></script>
+<script type="text/javascript" src="/static/js/utils/read-more-collapse.js" defer></script>
+<script type="text/javascript" src="/static/m/js/specs-accordion.js" defer></script>
+<script  type="text/javascript"  src="/static/m/js/new-car-version.js" defer></script>
+<script type="text/javascript" src="/Static/m/js/v2/app/specFeatureTooltip.js" defer></script>
+<script type="text/javascript" src="/static/m/js/upcoming-form.js" defer></script>
+<script type="text/javascript" src="/static/m/js/model-main-menu.js" defer></script>
+<script type="text/javascript" src="/static/js/utils/popup.js" defer></script>
+<script type="text/javascript" src="/static/js/utils/viewport-detection.js" defer></script>
+<script type="text/javascript" src="~/Static/m/js/accordian-coachmark.js" defer></script>
+
+@if (!Model.VersionDetails.Futuristic && Model.VersionDetails.New > 0)
+{
+    <script  type="text/javascript"  src="/static/m/js/call-slug-number.js" defer></script>
+}
+
+<script type="text/javascript">
+    var isVersionPage = "true";
+    var redirectURL = '@Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString()'
+    var isAreaPopupShown = @(Model.VersionDetails.New == 1 ?"true":"false");
+    var PageId = 69;
+
+    // Identifies dealers group id
+    defaultVerId= "@Model.VersionDetails.VersionId",
+    defaultVerName = "@Model.VersionDetails.VersionName",
+    carName = "@(Model.VersionDetails.MakeName + ' ' + Model.VersionDetails.ModelName)",
+    modelId = "@Model.ModelDetails.ModelId",
+    pageId = "69",
+    futuristicString = "@Model.VersionDetails.Futuristic".toLowerCase(),
+    futuristic = (futuristicString === 'true'),
+    newString = "@Model.VersionDetails.New".toLowerCase(),
+    newFlag = (newString === "true");
+    var maxDiscount = "@(Model.AdvantageAdData != null ? Model.AdvantageAdData.Savings.ToString() : "0")";
+    var zoneId = "@(ViewBag.ZoneId)";
+    var callSlugDisplay = ("@(ViewBag.CallSlugDisplay)".toLowerCase() === "true");
+    var isPriceShown = '@ViewBag.IsPriceShown';
+    var USERIP = '@(Carwale.Utility.UserTracker.GetUserIp())';
+    var imageCarouselCount = @Model.ModelPhotosListCarousel.Count;
+    var CarDetails =
+     {
+         carMakeId : @Model.ModelDetails.MakeId,
+         carMakeName : "@Model.ModelDetails.MakeName" ,
+         carMaskingName : "@Model.ModelDetails.MaskingName",
+         carModelName : "@Model.ModelDetails.ModelName",
+         carModelId : @Model.ModelDetails.ModelId
+         };
+    var globalPageObject = {id: @((int)CwPages.VersionMsite), name: "VersionMsite"};
+    var globalPlatformObject = {id: @((int)Platform.CarwaleMobile), name: "mobile"};
+    var campaignId = @(Model.DealerAd != null && Model.DealerAd.Campaign != null ? Model.DealerAd.Campaign.Id:0);
+    var sponsorDlrLeadPanel = @(Model.DealerAd != null && Model.DealerAd.Campaign != null ? Model.DealerAd.Campaign.LeadPanel : 0);
+    var sponsorDlrName = '@(Model.DealerAd != null && Model.DealerAd.Campaign != null  ? String.Format("{0}", Model.DealerAd.Campaign.ContactName) : "")';
+    var sponsoredDealerId = @(Model.DealerAd != null && Model.DealerAd.Campaign != null  ? Model.DealerAd.Campaign.DealerId : 0);
+</script>
+@if (Carwale.UI.Common.CookiesCustomers.IsEligibleForORP)
+{
+    <script>
+        @if (ViewBag.IsCityPage){<text> // IscityPage variable should not be here on version page
+            var toReloadOnLocationChange = false;
+            </text>}
+        else {<text>
+            var redirectURL = '@Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString()'
+            var isAreaPopupShown = @(Model.VersionDetails.New == 1 ?"true":"false");
+            </text>}
+    </script>    
+}
+<script>
+	@if (Model.MobileOverviewDetails != null && Model.MobileOverviewDetails.CarPriceOverview != null && Model.MobileOverviewDetails.CarPriceOverview.PriceForSorting > 0 && !Model.MobileOverviewDetails.AdAvailable)
+	{
+		<text>
+			var ncfBudget = @Model.MobileOverviewDetails.CarPriceOverview.PriceForSorting;
+		</text>
+	}
+    else
+    {
+        <text>
+            var ncfBudget = 0;
+        </text>
+    }
+</script>
+@if (!Model.MobileOverviewDetails.AdAvailable)
+{
+	<script type="text/javascript" src="~/Static/m/js/ncfPopup.js" defer></script>
+}
+
+@if (!Model.VersionDetails.Futuristic && Model.VersionDetails.New > 0)
+{
+    <script type="text/javascript" src="/static/m/js/offers.js" defer></script>
+    if (MobileWeb.Common.CookiesCustomers.MasterCityId > 0)
+    {
+        <script type="text/javascript" src="/static/m/js/utils/emi-slug.js" defer></script>
+        { Html.RenderPartial("~/Views/Shared/m/_EmiCalculator.cshtml"); }        
+    }
+}

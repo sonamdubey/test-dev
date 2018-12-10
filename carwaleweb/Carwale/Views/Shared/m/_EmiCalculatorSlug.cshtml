@@ -1,0 +1,91 @@
+﻿@model List<Carwale.DTOs.PriceQuote.EmiCalculatorModelData>
+@using Carwale.Entity.Enum;
+
+<section class="emi-slug-container">
+@for (int i = 0; i < Model.Count; i++)
+{
+    var emiData = Model[i];
+    var leadClickSource = emiData.DealerAd != null && emiData.CtaDetails != null ? emiData.CtaDetails.LeadClickSourceId : 0;
+    var inquirySource = emiData.DealerAd != null && emiData.CtaDetails != null ? emiData.CtaDetails.InquirySourceId : 0;
+    var showThirdPartyEmi = emiData.IsEligibleForThirdPartyEmi && !emiData.IsMetallic;
+    if (emiData.IsEligibleForThirdPartyEmi  && emiData.IsMetallic)
+    {
+        continue;
+    }
+
+    if (emiData.IsEligibleForThirdPartyEmi && emiData.ThirdPartyEmiDetails == null)
+    {
+        continue;
+    }
+    
+    <div class="@(emiData.IsMetallic ? "metallic-compulsory hide" : "solid-compulsory") customize-emi-container customizeEmiContainer__js"
+         id="@(emiData.UniqueKey)" data-versionid="@(emiData.VersionId)"
+         data-makename="@(emiData.MakeName)" data-modelname="@(emiData.ModelName)" data-versionname="@(emiData.VersionName)"
+         data-downpaymentdefaultvalue="@(emiData.DownPaymentDefaultValue)"
+         data-downpaymentminvalue="@(emiData.DownPaymentMinValue)" data-downpaymentmaxvalue="@(emiData.DownPaymentMaxValue)"
+         data-campaign-template="@(emiData.DealerAd != null ? (emiData.DealerAd.PageProperty.Count > 0 ? emiData.DealerAd.PageProperty[0].Template.HTML : "") : "")"
+         dealercampaignexist="True" data-campaign-lead-click-source="@(leadClickSource)" data-campaign-inquiry-source="@(inquirySource)" data-is-campaign-available="@(emiData.DealerAd != null ? "true" : "false")">
+
+        <div class="customize-emi__info" data-tooltiptextid="@(emiData.UniqueKey)">
+            <span class="instruction-icon"></span>
+            @if(showThirdPartyEmi)
+            {
+               <span class="customize-emi__toast-box">
+                   EMI Calculated based on @Enum.GetName(typeof(EmiType), emiData.ThirdPartyEmiDetails.EmiType) EMI scheme offered by @emiData.MakeName Financial Services.
+                   For exact EMI quotes please get in touch with an authorised personnel from @emiData.MakeName Financial Services. 
+                </span>
+            }
+            else
+            {
+                <span class="customize-emi__toast-box">
+                    EMI Calculated basis <span class="emi-interest-text"></span>% interest rate and loan tenure of <span class="emi-tenure-text"></span><span class="emi-cust-final-text hide"> as customised by you</span>
+                </span>
+            }
+        </div>
+        <div class="customize-emi__text" data-divtxtid="@(emiData.UniqueKey)">
+            <div class="emi-unit-text">
+            </div>
+            @if (showThirdPartyEmi)
+            {
+                <div class="emi-cacl-result">
+                    <span class="emi-present-text">EMI ₹ @emiData.ThirdPartyEmiDetails.Emi for @emiData.ThirdPartyEmiDetails.Tenure Years</span>
+                </div>
+            }
+            else
+            {
+                <div class="emi-cacl-result">
+                    <span class="emi-present-text">EMI <span class="emi-amount-text"></span>for <span class="emi-tenure-text"></span></span>
+                    <span class="emi-absent-text hide">Please increase loan amount</span>
+                </div>
+                
+            }
+           
+        </div>
+        <span data-role="impression" data-event="CWNonInteractive" data-action="EMICalculatorLink" data-cat="@(emiData.Page + "_EMICalculatorLink")"
+              data-label="@(emiData.ModelName)"></span>
+         @if (showThirdPartyEmi)
+         {
+            <a href="javascript:void(0)" class="block customize-emi js-emi-summary-link" id="@(emiData.UniqueKey)" data-role="click" data-event="CWInteractive" data-action="EMICalculatorLink" data-cat="@(emiData.Page + "_EMICalculatorLink")"
+                data-label="@(emiData.ModelName)"  data-popup="loanSummary">Customise Your EMI</a>
+             
+             <div  class="finacial-services-slug">
+                 <span id="js-poweredBy" data-role="@(emiData.ThirdPartyEmiDetails == null ? " " : "impression")"
+                       data-event="CWNonInteractive"
+                       data-cat="Msite_VWFS"
+                       data-action="@(emiData.PageName)_VWFSSlug"
+                       data-label="@(emiData.MakeName + "_" + emiData.ModelName)" class="finacial-services-slug__text" aria-label="Finacial Service Slug Powered By">Powered by</span>
+
+                <span class="finacial-services-slug--logo">
+                    <img class="finacial-services-slug--logo__image finacial-services-slug-@(emiData.MakeName.ToLower())__img" alt="@emiData.MakeName Financial Services" aria-label="@emiData.MakeName Financial Services" src="@emiData.ThirdPartyEmiDetails.ImageUrl" />
+                </span>
+
+            </div>
+         }
+        else
+        {
+            <a href="javascript:void(0)" class="block customize-emi js-emi-summary-link" id="@(emiData.UniqueKey)" data-role="click" data-event="CWInteractive" data-action="EMICalculatorLink" data-cat="@(emiData.Page + "_EMICalculatorLink")"
+            data-label="@(emiData.ModelName)">Customise Your EMI</a>
+         }
+    </div>
+}
+</section>

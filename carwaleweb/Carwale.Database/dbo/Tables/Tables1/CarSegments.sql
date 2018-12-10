@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[CarSegments] (
+    [ID]   NUMERIC (18) NOT NULL,
+    [Name] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_CarSegments] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

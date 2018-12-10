@@ -1,0 +1,287 @@
+﻿@using Carwale.Utility;
+@{
+	int pageId = ViewBag.PageId ?? 1;
+	ViewBag.dataCategory = PageMapping.GetPageNameById(pageId);
+}
+
+<script type="text/javascript" src="/static/js/newcarsearchwidget.js" defer></script>
+<noscript class="deferred-styles"><link rel="stylesheet" href="/static/css/newcarsearchwidget.css" type="text/css"></noscript>
+
+<div class="grid-12">
+	<div class="cw-tabs-panel brand-budget-body-wrapper content-box-shadow @(@ViewBag.PageId==1 ? "margin-top50":"margin-minus50")">
+		<div class="cw-tabs cw-tabs-flex">
+			<ul class="brand-budget-body-UL">
+				<li data-tabs="brand-type" class="active"><h3 class="text-unbold">Brand</h3></li>
+				<li data-tabs="budget-slider" class=""><h3 class="text-unbold">EMI / Budget</h3></li>
+				<li data-tabs="body-type" class=""><h3 class="text-unbold">Body Type</h3></li>
+				<li data-tabs="fuel-type" class="" data-role="click-tracking" data-event="CWInteractive" data-action="NavigationTabClick" data-cat=@ViewBag.dataCategory data-label="FuelType"><h3 class="text-unbold">Fuel Type</h3></li>
+			</ul>
+		</div>
+		<div class="cw-tabs-data hide" id="budget-slider">
+			<div class="emi-container grid-12 alpha omega">
+				<h2 class="font16 text-bold text-center text-default">Search By EMI</h2>
+				<div class="grid-3 powered-by-box">
+					<div id="NewCarHome_EMI_224x230" class="text-center">
+						<script>googletag.cmd.push(function () { googletag.display('NewCarHome_EMI_224x230'); googletag.pubads().refresh([NewCarHome_EMI_224x230]); });</script>
+					</div>
+				</div>
+				<div class="text-center grid-9 alpha omega">
+					<div class="emi-slider-box leftfloat padding-left50 margin-top50 margin-bottom20">
+						<div id="emi-range"></div>
+						<span class="rounded-corner5 content-box-shadow" id="min"></span>
+						<span class="rounded-corner5 content-box-shadow" id="max"></span>
+						<div class="clear"></div>
+						<div class="leftfloat font16">₹ <strong>0</strong></div>
+						<div class="rightfloat font16">₹ <strong>60K+</strong></div>
+					</div>
+					<div class="rightfloat padding-left20 padding-right30 margin-top35 margin-bottom20">
+						<input type="button" id="btnEmiSearch" class="btn btn-orange text-uppercase margin-top5" value="search" />
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="budget-container">
+				<h2 class="font16 text-bold text-center text-default margin-bottom20 position-rel or-divider margin-left15 margin-right15">Search By Budget</h2>
+				<ul class="text-center">
+					<li>
+						<div class="budget-amount-box">
+							<div class="font12 margin-top5">Upto</div>
+							<div class="text-black font22">
+								₹
+								<span> 4 Lakhs</span>
+							</div>
+							<a href="/new/search/#budget=1&budget=2" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategory" data-label="category4">
+								<span class="text-link margin-top5 block">View All</span>
+							</a>
+						</div>
+						<div class="budget-alt-links">
+							<a href="/tata-cars/nano/" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategoryLink" data-label="category4_Tata Nano">Tata Nano</a>
+							<a href="/marutisuzuki-cars/alto-k10/" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategoryLink" data-label="category4_Maruti Suzuki Alto K10">Maruti Suzuki Alto K10</a>
+						</div>
+					</li>
+					<li>
+						<div class="budget-amount-box">
+							<div class="font12 margin-top5">Between</div>
+							<div class="text-black font22">
+								₹
+								<span> 4-8 Lakhs</span>
+							</div>
+							<a href="/new/search/#budget=3&budget=4" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategory" data-label="category4-8">
+								<span class="text-link margin-top5 block">View All</span>
+							</a>
+						</div>
+						<div class="budget-alt-links">
+							<a href="/hyundai-cars/i10/" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategoryLink" data-label="category4-8_Hyundai i10">Hyundai i10</a>
+							<a href="/ford-cars/aspire/" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategoryLink" data-label="category4-8_Ford Aspire">Ford Aspire</a>
+						</div>
+					</li>
+					<li>
+						<div class="budget-amount-box">
+							<div class="font12 margin-top5">Between</div>
+							<div class="text-black font22">
+								₹
+								<span> 8-12 Lakhs</span>
+							</div>
+							<a href="/new/search/#budget=5" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategory" data-label="category8-12">
+								<span class="text-link margin-top5 block">View All</span>
+							</a>
+						</div>
+						<div class="budget-alt-links">
+							<a href="/honda-cars/city/" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategoryLink" data-label="category8-12_Honda City">Honda City</a>
+							<a href="/marutisuzuki-cars/ciaz/" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategoryLink" data-label="category8-12_Maruti Suzuki Ciaz">Maruti Suzuki Ciaz</a>
+						</div>
+					</li>
+					<li>
+						<div class="budget-amount-box">
+							<div class="font12 margin-top5">Between</div>
+							<div class="text-black font22">
+								₹
+								<span> 12-25 Lakhs</span>
+							</div>
+							<a href="/new/search/#budget=6&budget=7" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategory" data-label="category12-25">
+								<span class="text-link margin-top5 block">View All</span>
+							</a>
+						</div>
+						<div class="budget-alt-links">
+							<a href="/renault-cars/duster/" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategoryLink" data-label="category12-25_Renault Duster">Renault Duster</a>
+							<a href="/chevrolet-cars/cruze/" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategoryLink" data-label="category12-25_Chevrolet Cruze">Chevrolet Cruze</a>
+						</div>
+					</li>
+					<li>
+						<div class="budget-amount-box">
+							<div class="font12 margin-top5">Above</div>
+							<div class="text-black font22">
+								₹
+								<span> 25 Lakhs</span>
+							</div>
+							<a href="/new/search/#budget=8&budget=9" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategory" data-label="category25">
+								<span class="text-link margin-top5 block">View All</span>
+							</a>
+						</div>
+						<div class="budget-alt-links">
+							<a href="/mercedesbenz-cars/cla/" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategoryLink" data-label="category25_Mercedes-Benz CLA">Mercedes-Benz CLA</a>
+							<a href="/toyota-cars/fortuner/" data-role="click-tracking" data-event="CWInteractive" data-cat=@ViewBag.dataCategory data-action="BudgetCategoryLink" data-label="category25_Toyota Fortuner">Toyota Fortuner</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		@{Html.RenderAction("AllMakesWidget", "CarWidgets");}
+		<div class="cw-tabs-data hide" id="body-type">
+			<div class="body-type-container grid-12 alpha omega">
+				<div id="body-type-grid-9" class="grid-9 alpha omega">
+					<p id="body-type-container-title" class="margin-bottom25 text-center font16">Which body type are you looking for?</p>
+					<ul class="text-center">
+						<li>
+							<a href="/new/search/#bs=3" class="car-type">
+								<span class="body-type">
+									<span class="bodytypesprite hatchback"></span>
+								</span>
+								<span class="body-type-title font14">Hatchback</span>
+							</a>
+							<a href="/best-hatchbacks-in-india/" class="top-bodytype-cars margin-top5">Best Hatchback Cars</a>
+						</li>
+						<li>
+							<a href="/new/search/#bs=1" class="car-type">
+								<span class="body-type">
+									<span class="bodytypesprite sedan"></span>
+								</span>
+								<span class="body-type-title font14">Sedan</span>
+							</a>
+							<a href="/best-sedans-in-india/" class="top-bodytype-cars margin-top5">Best Sedan Cars</a>
+						</li>
+						<li>
+							<a href="/new/search/#bs=10" class="car-type">
+								<span class="body-type">
+									<span class="bodytypesprite compact-sedan"></span>
+								</span>
+								<span class="body-type-title font14">Compact Sedan</span>
+							</a>
+							<a href="/best-compactsedans-in-india/" class="top-bodytype-cars margin-top5">Best Compact Sedan Cars</a>
+						</li>
+						<li>
+							<a href="/new/search/#bs=6" class="car-type">
+								<span class="body-type">
+									<span class="bodytypesprite suv"></span>
+								</span>
+								<span class="body-type-title font14">SUV/MUV</span>
+							</a>
+							<a href="/best-suvs-in-india/" class="top-bodytype-cars margin-top5">Best SUV/MUV Cars</a>
+						</li>
+						<li id="truck-body-up" style="display:none">
+							<a href="/new/search/#bs=7" class="car-type">
+								<span class="body-type">
+									<span class="bodytypesprite truck"></span>
+								</span>
+								<span class="body-type-title font14">Truck</span>
+							</a>
+						</li>
+					</ul>
+					<ul class="brand-body-moreBtn bodyTypeMore padding-top20 hide text-center">
+						<li id="truck-body-down">
+							<a href="/new/search/#bs=7" class="car-type">
+								<span class="body-type">
+									<span class="bodytypesprite truck"></span>
+								</span>
+								<span class="body-type-title font14">Truck</span>
+							</a>
+						</li>
+						<li>
+							<a href="/new/search/#bs=4" class="car-type">
+								<span class="body-type">
+									<span class="bodytypesprite mini-van"></span>
+								</span>
+								<span class="body-type-title font14">Minivan/Van</span>
+							</a>
+						</li>
+						<li>
+							<a href="/new/search/#bs=8" class="car-type">
+								<span class="body-type">
+									<span class="bodytypesprite station-wagon"></span>
+								</span>
+								<span class="body-type-title font14">Station Wagon</span>
+							</a>
+						</li>
+						<li>
+							<a href="/new/search/#bs=2" class="car-type">
+								<span class="body-type">
+									<span class="bodytypesprite coupe"></span>
+								</span>
+								<span class="body-type-title font14">Coupe</span>
+							</a>
+						</li>
+						<li>
+							<a href="/new/search/#bs=5" class="car-type">
+								<span class="body-type">
+									<span class="bodytypesprite convertible"></span>
+								</span>
+								<span class="body-type-title font14">Convertible</span>
+							</a>
+						</li>
+					</ul>
+					<div class="view-bodyType text-center padding-top10">
+						<a href="#" id="view-bodyType" class="view-more-btn font16">View <span>more</span> body types</a>
+					</div>
+				</div>
+				<div id="powered-by-box" class="grid-3 powered-by-box">
+					<!-- /1017752/NewCarHome_BodyType_224x230 -->
+					<div id='div-gpt-ad-1491317900891-0' style="height:230px; width:224px;">
+						<script>googletag.cmd.push(function () { googletag.display('div-gpt-ad-1491317900891-0'); });</script>
+					</div>
+				</div>
+
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="cw-tabs-data hide" id="fuel-type">
+			<div class="body-type-container fuel-type grid-12 alpha omega">
+				<ul class="text-center grid-12 alpha omega">
+					<li>
+						<a data-role='click-tracking' data-event='CWInteractive' data-action='FuelTypeTabClick' data-cat='NewCarSearch' data-label='Petrol-Click'
+						   href="/new/search/#fuel=1" class="car-type">
+							<span class="body-type">
+								<span class="fueltypesprite petrol"></span>
+							</span>
+							<span class="body-type-title font14">Petrol</span>
+						</a>
+					</li>
+					<li>
+						<a data-role='click-tracking' data-event='CWInteractive' data-action='FuelTypeTabClick' data-cat='NewCarSearch' data-label='Diesel-Click'
+						   href="/new/search/#fuel=2" class="car-type">
+							<span class="body-type">
+								<span class="fueltypesprite diesel"></span>
+							</span>
+							<span class="body-type-title font14">Diesel</span>
+						</a>
+					</li>
+					<li>
+						<a data-role='click-tracking' data-event='CWInteractive' data-action='FuelTypeTabClick' data-cat='NewCarSearch' data-label='CNG-Click'
+						   href="/new/search/#fuel=3" class="car-type">
+							<span class="body-type">
+								<span class="fueltypesprite cng"></span>
+							</span>
+							<span class="body-type-title font14">CNG</span>
+						</a>
+					</li>
+					<li>
+						<a data-role='click-tracking' data-event='CWInteractive' data-action='FuelTypeTabClick' data-cat='NewCarSearch' data-label='Electric-Click'
+						   href="/new/search/#fuel=5" class="car-type">
+							<span class="body-type">
+								<span class="fueltypesprite electrical"></span>
+							</span>
+							<span class="body-type-title font14">Electric</span>
+						</a>
+					</li>
+				</ul>
+				<div class="grid-3 powered-by-box">
+					<div id="NewCarHome_FuelType_224x230" class="text-center">
+						<script>googletag.cmd.push(function () { googletag.display('NewCarHome_FuelType_224x230'); googletag.pubads().refresh([NewCarHome_FuelType_224x230]); });</script>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+</div><div class="clear"></div>

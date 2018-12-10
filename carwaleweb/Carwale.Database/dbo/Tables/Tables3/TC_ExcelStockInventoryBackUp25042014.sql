@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[TC_ExcelStockInventoryBackUp25042014] (
+    [TC_ExcelStockInventoryId]      INT          IDENTITY (1, 1) NOT NULL,
+    [ModelCode]                     VARCHAR (50) NULL,
+    [ColourCode]                    VARCHAR (50) NULL,
+    [PrCodes]                       VARCHAR (50) NULL,
+    [Region]                        VARCHAR (50) NULL,
+    [ChassisNumber]                 VARCHAR (50) NULL,
+    [DealerCompanyName]             VARCHAR (50) NULL,
+    [SellingDealerCode]             VARCHAR (50) NULL,
+    [DealerLocation]                VARCHAR (50) NULL,
+    [PaymentDealerInvoiceDate]      VARCHAR (50) NULL,
+    [ModelYear]                     VARCHAR (50) NULL,
+    [CheckpointDate]                VARCHAR (50) NULL,
+    [WholesaleDate]                 VARCHAR (50) NULL,
+    [IsValid]                       BIT          NULL,
+    [IsDeleted]                     BIT          NULL,
+    [EntryDate]                     DATETIME     NULL,
+    [CreatedBy]                     INT          NULL,
+    [BranchId]                      INT          NULL,
+    [ModifiedBy]                    INT          NULL,
+    [ModifiedDate]                  DATETIME     NULL,
+    [TC_ExcelSheetStockInventoryId] INT          NULL,
+    [IsSpecialUser]                 BIT          NULL
+);
+

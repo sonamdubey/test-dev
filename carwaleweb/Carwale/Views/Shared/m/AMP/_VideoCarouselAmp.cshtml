@@ -1,0 +1,65 @@
+﻿@model Carwale.Entity.ViewModels.CarData.VideosCarousel
+@using Carwale.Entity.Enum;
+@using Carwale.Utility;
+@{ 
+    string eventCategory = string.Empty;
+    string eventAction = string.Empty;
+    string eventLabel = string.Empty;
+    switch(Model.Page)
+    {
+        case ContentPages.ModelPage:
+            eventCategory = "contentcons";
+            eventAction = "Model-Page-Video-Click";
+            eventLabel = Model.ModelName;
+            break;
+        case ContentPages.MakePage:
+            eventCategory = "msite_video_linkages";
+            eventAction = "Make-Page-Video-Click";
+            break;
+    }
+    }
+@if (Model.Videos.IsNotNullOrEmpty())
+{
+    <h2 class="section-heading"> @Model.Title  </h2>
+    <amp-carousel height="325" layout="fixed-height" type="carousel">
+        @foreach (var video in Model.Videos)
+        {
+            <div class="contentWrapper">
+                <div class="imageWrapper">
+                    <a data-vars-ec="@eventCategory" data-vars-ea="@eventAction" data-vars-el="@(Model.Page==ContentPages.MakePage?string.Format("{0}_{1}",Model.CarName,video.VideoTitle):eventLabel)" href=" @("/m" + video.VideoTitleUrl) " class=" text-black" title="@Model.CarName">
+                        <amp-img class="max-width-100-percent" src="@("https://img.youtube.com/vi/"+video.VideoId+"/mqdefault.jpg")" title="@video.VideoTitle" alt="@video.VideoTitle" width="278" height="160" layout="responsive"></amp-img>
+                    </a>
+                </div>
+                <div class="carDescWrapper">
+                    <a data-vars-ec="@eventCategory" data-vars-ea="@eventAction" data-vars-el="@(Model.Page==ContentPages.MakePage?string.Format("{0}_{1}",Model.CarName,video.VideoTitle):eventLabel)" href="@("/m"+video.VideoTitleUrl)">
+                        <header>
+                            <h3 class="model-news-heading">@video.VideoTitle</h3>
+                        </header>
+                        <footer>
+                            <div class="margin-bottom10 text-light-grey">
+                                @((video.DisplayDate != null ? video.DisplayDate.ToString("dd MMM yyyy") : string.Empty))
+                            </div>
+                            <div class="margin-bottom10 text-light-grey">
+                                <span class="cwmsprite review-sm-lgt-grey"></span> Views @video.Views
+                            </div>
+                            <div class="text-light-grey">
+                                <span class="thumbs-up-icon"></span> Likes @video.Likes
+                            </div>
+                        </footer>
+                    </a>
+
+                </div>
+            </div>
+        }
+    </amp-carousel>
+    <div class="text-center margin-bottom10 margin-top20  video-section__link">
+        @if (Model.Page == ContentPages.MakePage)
+        {
+            <a class="font14" href="@Model.ViewAllVideoUrl" data-vars-ec="@eventCategory" data-vars-ea="Make-Page-Video-Link-Click" data-vars-el="@Model.CarName">All @Model.CarName Videos</a>
+        }
+        else
+        {
+            <a class="font14" href="@Model.ViewAllVideoUrl">All @Model.CarName videos</a>
+        }
+    </div>
+}

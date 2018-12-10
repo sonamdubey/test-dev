@@ -1,0 +1,27 @@
+﻿<header id="header" class="new-header-white">
+	<div class="header-fixed-white">
+		<!-- Fixed Header code starts here -->
+        <!-- CW Doodle start-->@{Html.RenderAction("GetDoodle", "SponsoredCampaign", new { platform = Carwale.Entity.Enum.Platform.CarwaleMobile });}<!-- CW Doodle end-->
+		<div class="logo-menu-wrapper position-rel">
+			<span class="navbarBtn hamburger-icon"></span>
+			<a href="/m/" class="cw-logo-colored" onclick="trackTopMenu('CarwaleLogo-Click',window.location.href)"></a>
+		</div>
+
+		<div class="search-wrapper">
+            		<div id="global-location" class="global-location">
+				<input type="hidden" id="hdnGlobalCity" value="@Carwale.UI.Common.CookiesCustomers.MasterCityId" />
+				<span class="location-icon @(Carwale.UI.Common.CookiesCustomers.MasterCityId> 0 ? "city-selected" : "")"></span>
+			</div>
+
+			@if (ViewBag.ShowUsedCarsMyChats == true)
+			{
+				<span class="chat-icon-lg chat-launcher-icon applozic-launcher mck-button-launcher"></span>
+			}
+			<span class="global-search"></span>
+		</div>
+
+	</div>
+
+    <!-- ends here -->
+    <div class="clear"></div>
+</header>

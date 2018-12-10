@@ -1,0 +1,13 @@
+@import '../mixins/_sprites.scss';
+
+@mixin youtube-play($width: 72, $height: 53) {
+	@include youtube-icon;
+	@include get-vendor-prefixed("transform","translate(-50%, -50%)");
+	background-size: contain;
+	width: $width * 1px;
+	height: $height * 1px;
+	display: inline-block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}

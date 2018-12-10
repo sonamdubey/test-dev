@@ -1,0 +1,18 @@
+RewriteEngine on
+RewriteRule refundpolicy.html$			refundpolicy.aspx [NC,L]
+RewriteRule refundfaq.html$				refundFaq.aspx [NC,L]
+
+RewriteRule CarDetails-car-([\d]+).html		         /m/version/$1 [NC,L]
+RewriteRule BrowseCarsByVersion-model-(.*).html	     /m/model/?modelid=$1 [NC,L]
+RewriteRule browsecarsbymodel-make-(.*).html         /m/make/?makeId=$1 [NC,L]
+RewriteRule CarComparison-(.*)-(.*).html			 /m/research/comparecardetails.aspx?car1=$1&car2=$2 [NC,L]
+RewriteRule browsecarsbymake-bodystyle-(.*).html	 https://%{HTTP_HOST}/m/new/ [R=301,NC,L]
+RewriteRule CarDetails-car-(.*)-bodyStyle-(.*).html	 /m/make/?makeId=$1 [NC,L]
+RewriteRule colors-car-(.*).html					 /m/version/$1 [NC,L]
+RewriteRule upcoming-([\d]+)-(.*).html				 /m/model/?modelid=$1 [NC,L]
+RewriteRule allfeatures-car-(.*).html				 /m/version/$1 [NC,L]
+RewriteRule specifications-car-(.*).html			 /m/version/$1 [NC,L]
+RewriteRule ReadUserReviews-carm-(.*).html			 /UserReview/UserReviewsDetails/$1/ [R=301,NC,L]
+
+#PriceQuote aspx pages rediretcted to MVC
+RewriteRule ^pricequote.aspx                  https://%{HTTP_HOST}/quotation/landing/  [R=301,NC,L,QSA]

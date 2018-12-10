@@ -1,0 +1,500 @@
+﻿@model Carwale.Entity.ViewModels.UsedCarModel
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@{
+    ViewBag.Title = "Used Cars in India - Buy & Sell Second Hand Cars";
+    ViewBag.Description = "With more than 10,000 used cars listed for sale, CarWale is India's largest source of used cars in India. Find a second hand car or list your car for sale.";
+    ViewBag.canonical = "https://www.carwale.com/used/";
+    ViewBag.altUrl = "https://www.carwale.com/m/used/";
+    ViewBag.Keywords = "Used cars, used car, used cars for sale, second hand cars, buy used car";
+    ViewBag.CustomCss = "~/Views/StaticPartials/UsedCarsPageCss.cshtml";
+    ViewBag.landingPage = true;
+    ViewBag.HeaderClass = "header-landing";
+    ViewBag.BodyClass = "special-landing-page";
+	ViewBag.DefineAdSlots =
+		@"<script type='text/javascript'>
+            googletag.cmd.push(function () {
+            googletag.defineSlot('/1017752/UsedCarHome_FirstSlot_976x400', [[976, 150], [976, 450], [976, 90], [976, 250], [976, 300], [976, 350], [976, 400], [976, 60], [970, 90]], 'div-gpt-ad-1439111102840-0').addService(googletag.pubads());
+            googletag.defineSlot('/1017752/UsedCarHome_SecondSlot_976x400', [[976, 150], [976, 90], [976, 250], [976, 300], [976, 350], [976, 400], [976, 60], [970, 90]], 'div-gpt-ad-1439111102840-1').addService(googletag.pubads());
+            googletag.defineSlot('/1017752/UsedCarHome_ThirdSlot_976x400', [[976, 150], [976, 90], [976, 250], [976, 300], [976, 350], [976, 400], [976, 60], [970, 90]], 'div-gpt-ad-1439111102840-2').addService(googletag.pubads());
+            googletag.defineSlot('/1017752/UsedCarHome_FourthSlot_976x400', [[976, 150], [976, 90], [976, 250], [976, 350], [976, 400], [9760, 300], [976, 60], [970, 90]], 'div-gpt-ad-1439111102840-3').addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.pubads().collapseEmptyDivs();
+            googletag.enableServices();
+            });
+        </script>";
+}
+<header class="used-cars-top-banner">
+		<div class="container">
+			<div class="welcome-box">
+				<h1 class="text-uppercase margin-bottom10">Used cars</h1>
+			</div>
+		</div>
+</header>
+<section class="container">
+    <!--  used cars Brand-Budget-Bodytype section code starts here -->
+    <div class="grid-12">
+        <div class="content-box-shadow search-used-cars-wrapper">
+            <div class="new-used-search-container margin-top40 margin-bottom40">
+                <div class="new-used-search">
+                    <div class="used-search position-rel">
+                        <input type="text" placeholder="Type to select city name, e.g. Mumbai" id="usedCarsList" autocomplete="off" />
+                        <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
+                    </div>
+                    <div class="used-budget-box">
+                        <div id="minMaxContainer">
+                            <span class="leftfloat" id="budgetBtn">Choose your budget</span>
+                            <span id="upDownArrow" class="rightfloat fa fa-angle-down"></span>
+                            <div class="clear"></div>
+                        </div>
+                        <div id="budgetListContainer" class="hide">
+                            <div id="userBudgetInput">
+                                <input type="text" class="priceBox" id="minInput" placeholder="Min" maxlength="5">
+                                <input type="text" class="priceBox" id="maxInput" placeholder="Max" maxlength="5">
+                                <div class="cw-blackbg-tooltip cw-blackbg-tooltip-search-error text-center hide">Max budget should be greater than Min budget.</div>
+                            </div>
+                            <ul id="minPriceList" class="text-left">
+                                <li data-min-price="Any">Any</li>
+                                <li data-min-price="1">1 Lakh</li>
+                                <li data-min-price="3">3 Lakh</li>
+                                <li data-min-price="4">4 Lakh</li>
+                                <li data-min-price="6">6 Lakh</li>
+                                <li data-min-price="8">8 Lakh</li>
+                                <li data-min-price="12">12 Lakh</li>
+                                <li data-min-price="20">20 Lakh</li>
+                            </ul>
+                            <ul id="maxPriceList" class="text-right  hide">
+                                <li data-max-price="12">12 Lakh</li>
+                                <li data-max-price="15">15 Lakh</li>
+                                <li data-max-price="20">20 Lakh</li>
+                                <li data-max-price="30">30 Lakh</li>
+                                <li data-max-price="40">40 Lakh</li>
+                                <li data-max-price="50">50 Lakh</li>
+                                <li data-max-price="60">60 Lakh</li>
+                                <li data-max-price="Any">Any</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div id="btnFindCarLanding" class="findBtn">
+                    <button id="findCarText" class="text-uppercase btn btn-orange btn-md font16">Find Car</button>
+                </div>
+                <div class="clear"></div>
+            </div>          
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+<section class="container overflow-x-auto">
+    <div class="grid-12">
+        <!-- /1017752/UsedCarHome_FirstSlot_976x400 -->
+        <div id='div-gpt-ad-1439111102840-0' class="margin-top20 margin-bottom20 text-center">
+            <script type='text/javascript'>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1439111102840-0'); });
+            </script>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+<!-- dealer of month code starts here -->
+@*@{Html.RenderPartial("~/Views/Used/LandingPartials/_dealerOfTheMonth.cshtml", Model.DealerOfTheMonth);}*@
+<!-- Dealer of the month code ends here -->
+<section class="container">
+        <!-- used cars in major cities section code starts here -->
+    <div id="usedCarsinMajorCities" class="grid-12 alpha omega">
+        <h2 class="text-uppercase text-center margin-top30 margin-bottom30 special-skin-text">Used Cars By City</h2>
+        <div class="text-center">
+            <a href="/used/cars-in-newdelhi/">
+                <div class="grid-4 margin-bottom20">
+                    <div class="major-city-pic delhi text-center">
+                        <span class="text-white font24">Delhi</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/used/cars-in-mumbai/">
+                <div class="grid-4 margin-bottom20">
+                    <div class="major-city-pic mumbai text-center">
+                        <span class="text-white font24">Mumbai</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/used/cars-in-bangalore/">
+                <div class="grid-4 margin-bottom20">
+                    <div class="major-city-pic bangalore text-center">
+                        <span class="text-white font24">Bengaluru</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/used/cars-in-chennai/">
+                <div class="grid-4 margin-bottom20">
+                    <div class="major-city-pic chennai text-center">
+                        <span class="text-white font24">Chennai</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/used/cars-in-hyderabad/">
+                <div class="grid-4 margin-bottom20">
+                    <div class="major-city-pic hyderabad text-center">
+                        <span class="text-white font24">Hyderabad</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/used/cars-in-kolkata/">
+                <div class="grid-4 margin-bottom20">
+                    <div class="major-city-pic kolkata text-center">
+                        <span class="text-white font24">Kolkata</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/used/cars-in-pune/">
+                <div class="grid-4 margin-bottom20">
+                    <div class="major-city-pic pune text-center">
+                        <span class="text-white font24">Pune</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/used/cars-in-ahmedabad/">
+                <div class="grid-4 margin-bottom20">
+                    <div class="major-city-pic ahmedabad text-center">
+                        <span class="text-white font24">Ahmedabad</span>
+                    </div>
+                </div>
+            </a>
+            <a href="/used/cars-in-chandigarh/">
+                <div class="grid-4 margin-bottom20">
+                    <div class="major-city-pic chandigarh text-center">
+                        <span class="text-white font24">Chandigarh</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+        <div class="clear"></div>
+</section>
+<section class="container overflow-x-auto">
+    <div class="grid-12 text-center">
+        <!-- /1017752/UsedCarHome_SecondSlot_976x400 -->
+        <div id='div-gpt-ad-1439111102840-1'>
+            <script type='text/javascript'>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1439111102840-1'); });
+            </script>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+
+    <section class="container">
+        <!-- Discover cars section code starts here -->
+        <div class="grid-12">
+            <h2 class="text-uppercase text-center margin-top30 margin-bottom30 special-skin-text">TOOLS YOU MIGHT NEED</h2>
+            <div class="content-box-shadow">
+                <div class="grid-6">
+                    <a class="block content-inner-block-10" href="/used/carvaluation/" style="width:100%" id="CheckCarValue">
+                        <div class="tools-pic">
+                            <span class="cwbigicon-sprite checkcarvalue-icon"></span>
+                        </div>
+                        <div class="tools-details">
+                            <p class="font20">Check car value</p>
+                            <p class="font16 margin-top10 text-light-grey">Find out the true market value of a used car</p>
+                            <p class="font14 margin-top10"><span class="text-link">Know more</span></p>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+                <div class="grid-6">
+                    <a class="block content-inner-block-10 border-solid-left" href="/used/sell/" class="content-inner-block-15" style="width:100%" id="SellYourCar">
+                        <div class="tools-pic">
+                            <span class="cwbigicon-sprite sellcar-icon"></span>
+                        </div>
+                        <div class="tools-details">
+                            <p class="font20">Sell your car</p>
+                            <p class="font16 margin-top10 text-light-grey">13,000 cars get sold every month. Just 3 steps and your ad is live</p>
+                            <p class="font14 margin-top10"><span class="text-link">Know more</span></p>
+                        </div>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </section>
+    <section class="container">
+        <!-- Popular Searches across Segments code starts here -->
+        <div class="grid-12 alpha omega">
+            <h2 class="text-uppercase text-center margin-top50 margin-bottom30 special-skin-text">Used Cars By Price</h2>
+            <div class="grid-4 text-center">
+                <div class="content-box-shadow">
+                    <div class="padding-top30 padding-bottom30">
+                        <p class="font25 margin-bottom15">
+                            <span class="font14 margin-right5 text-default">Up to </span>
+                            <a href="/used/cars-for-sale/?budget=0-1" class="text-red">
+                                ₹
+                                <span class="font26"> 1</span>
+                                <span class="font14"> Lakh</span>
+                            </a>
+                        </p>
+                        <a class="font14 text-link" href="/used/cars-for-sale/?budget=0-1">View cars</a>
+                    </div>
+                    <div class="border-solid-top"></div>
+                    <div class="padding-top30 padding-bottom30">
+                        <p class="font25 margin-bottom15">
+                            <span class="font14 margin-right5 text-default">Up to </span>
+                            <a href="/used/cars-for-sale/?budget=0-2" class="text-red">
+                                ₹
+                                <span class="font26"> 2</span>
+                                <span class="font14"> Lakh</span>
+                            </a>
+                        </p>
+                        <a class="font14 text-link" href="/used/cars-for-sale/?budget=0-2">View cars</a>
+                    </div>
+                    <div class="border-solid-top"></div>
+                    <div class="padding-top30 padding-bottom30">
+                        <p class="font25 margin-bottom15">
+                            <span class="font14 margin-right5 text-default">Between </span>
+                            <a href="/used/cars-for-sale/?budget=1-2" class="text-red">
+                                ₹
+                                <span class="font26"> 1-2</span>
+                                <span class="font14"> Lakh</span>
+                            </a>
+                        </p>
+                        <a class="font14 text-link" href="/used/cars-for-sale/?budget=1-2">View cars</a>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-4 text-center">
+                <div class="content-box-shadow">
+                    <div class="padding-top30 padding-bottom30">
+                        <p class="font25 margin-bottom15">
+                            <span class="font14 margin-right5 text-default">Between </span>
+                            <a href="/used/cars-for-sale/?budget=2-3" class="text-red">
+                                ₹
+                                <span class="font26"> 2-3</span>
+                                <span class="font14"> Lakh</span>
+                            </a>
+                        </p>
+                        <a class="font14 text-link" href="/used/cars-for-sale/?budget=2-3">View cars</a>
+                    </div>
+                    <div class="border-solid-top"></div>
+                    <div class="padding-top30 padding-bottom30">
+                        <p class="font25 margin-bottom15">
+                            <span class="font14 margin-right5 text-default">Between </span>
+                            <a href="/used/cars-for-sale/?budget=3-4" class="text-red">
+                                ₹
+                                <span class="font26"> 3-4</span>
+                                <span class="font14"> Lakh</span>
+                            </a>
+                        </p>
+                        <a class="font14 text-link" href="/used/cars-for-sale/?budget=3-4">View cars</a>
+                    </div>
+                    <div class="border-solid-top"></div>
+                    <div class="padding-top30 padding-bottom30">
+                        <p class="font25 margin-bottom15">
+                            <span class="font14 margin-right5 text-default">Between </span>
+                            <a href="/used/cars-for-sale/?budget=4-5" class="text-red">
+                                ₹
+                                <span class="font26"> 4-5</span>
+                                <span class="font14"> Lakh</span>
+                            </a>
+                        </p>
+                        <a class="font14 text-link" href="/used/cars-for-sale/?budget=4-5">View cars</a>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-4 text-center">
+                <div class="content-box-shadow">
+                    <div class="padding-top30 padding-bottom30">
+                        <p class="font25 margin-bottom15">
+                            <span class="font14 margin-right5 text-default">Between </span>
+                            <a href="/used/cars-for-sale/?budget=6-8" class="text-red">
+                                ₹
+                                <span class="font26"> 6-8</span>
+                                <span class="font14"> Lakh</span>
+                            </a>
+                        </p>
+                        <a class="font14 text-link" href="/used/cars-for-sale/?budget=6-8">View cars</a>
+                    </div>
+                    <div class="border-solid-top"></div>
+                    <div class="padding-top30 padding-bottom30">
+                        <p class="font25 margin-bottom15">
+                            <span class="font14 margin-right5 text-default">Between </span>
+                            <a href="/used/cars-for-sale/?budget=5-10" class="text-red">
+                                ₹
+                                <span class="font26"> 5-10</span>
+                                <span class="font14"> Lakh</span>
+                            </a>
+                        </p>
+                        <a class="font14 text-link" href="/used/cars-for-sale/?budget=5-10">View cars</a>
+                    </div>
+                    <div class="border-solid-top"></div>
+                    <div class="padding-top30 padding-bottom30">
+                        <p class="font25 margin-bottom15">
+                            <span class="font14 margin-right5 text-default">Between </span>
+                            <a href="/used/cars-for-sale/?budget=10-15" class="text-red">
+                                ₹
+                                <span class="font26"> 10-15</span>
+                                <span class="font14"> Lakh</span>
+                            </a>
+                        </p>
+                        <a class="font14 text-link" href="/used/cars-for-sale/?budget=10-15">View cars</a>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </section>
+
+    <section class="container">
+    <!-- Popular Searches across Segments code starts here -->
+    <div class="grid-12 alpha omega">
+        <h2 class="text-uppercase text-center margin-top50 margin-bottom30 special-skin-text">POPULAR CARS</h2>
+        <div class="grid-4 text-center">
+            <div class="content-box-shadow">
+                <div class="padding-top10 padding-bottom10">
+                    <h3>Popular Hatchbacks</h3>
+                    <a class="font14 text-link block margin-top15" href="/used/marutisuzuki-swift-cars/">Maruti Swift</a>
+                    <a class="font14 text-link block margin-top10" href="/used/hyundai-i10-cars/">Hyundai i10</a>
+                    <a class="font14 text-link block margin-top10" href="/used/ford-figo-cars/">Ford Figo</a>
+                    <a class="font14 text-link block margin-top10" href="/used/cars-for-sale/?bodytype=3">View All Hatchbacks</a>
+                </div>
+            </div>
+        </div>
+        <div class="grid-4 text-center">
+            <div class="content-box-shadow">
+                <div class="padding-top10 padding-bottom10">
+                    <h3>Popular Sedans</h3>
+                    <a class="font14 text-link block margin-top15" href="/used/marutisuzuki-swiftdzire-cars/">Maruti Dzire</a>
+                    <a class="font14 text-link block margin-top10" href="/used/honda-city-cars/">Honda City</a>
+                    <a class="font14 text-link block margin-top10" href="/used/hyundai-verna-cars/">Hyundai Verna</a>
+                    <a class="font14 text-link block margin-top10" href="/used/cars-for-sale/?bodytype=1">View All Sedans</a>
+                </div>
+            </div>
+        </div>
+        <div class="grid-4 text-center">
+            <div class="content-box-shadow">
+                <div class="padding-top10 padding-bottom10">
+                    <h3>Popular SUVs</h3>
+                    <a class="font14 text-link block margin-top15" href="/used/toyota-innova-cars/">Toyota Innova</a>
+                    <a class="font14 text-link block margin-top10" href="/used/mahindra-scorpio-cars/">Mahindra Scorpio</a>
+                    <a class="font14 text-link block margin-top10" href="/used/marutisuzuki-ertiga-cars/">Maruti Ertiga</a>
+                    <a class="font14 text-link block margin-top10" href="/used/cars-for-sale/?bodytype=6">View All SUVs</a>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</section>
+    
+    <section class="container hide">
+        <div class="grid-12 alpha omega">
+            <h2 class="text-uppercase text-center margin-top50 margin-bottom10 special-skin-text">CARS WITH CARWALE GUARANTEE</h2>
+            <p class="margin-bottom30 font16 text-center">Cars that have undergone 217 checks</p>
+            <div class="grid-4">
+                <div class="content-box-shadow cw-guarantee-slug">
+                    <a class="text-grey guarantee-box no-decoration" href="/used/cars-for-sale/#filterbyadditional=5&bodytype=3" id="BudgetCars">
+                        <span class="imageWrapper block">
+                            <img src="https://img.aeplcdn.com/design15/d/budget.jpg?v1=19082015" alt="Budget cars" title="Budget cars">
+                        </span>
+                        <span class="font20 content-inner-block-10 block text-black">Budget cars</span>
+                        <span class="font24 content-inner-block-10 price-tag">₹3.00 lakhs<span class="font14 margin-left5">average price</span></span>
+                        <span class="content-inner-block-10 bg-light-grey block margin-top5">
+                            <span class="rightfloat"><img src="https://img.aeplcdn.com/autobiz/certifications/guarantee.png?v1=19082015" alt="" title=""></span>
+                            <div class="clear"></div>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="grid-4">
+                <div class="content-box-shadow">
+                    <a class="text-grey guarantee-box no-decoration" href="/used/cars-for-sale/#filterbyadditional=5&bodytype=2+1+5" id="ComfortCars">
+                        <span class="imageWrapper block">
+                            <img src="https://img.aeplcdn.com/design15/d/style-and-comfort.jpg?v1=19082015" alt="Comfort cars" title="Comfort cars">
+                        </span>
+                        <span class="font20 content-inner-block-10 block text-black">Comfort cars</span>
+                        <span class="font24 content-inner-block-10">₹8.00 lakhs<span class="font14 margin-left5">average price</span></span>
+                        <span class="content-inner-block-10 bg-light-grey block margin-top5">
+                            <span class="rightfloat"><img src="https://img.aeplcdn.com/autobiz/certifications/guarantee.png?v1=19082015" alt="" title=""></span>
+                            <div class="clear"></div>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="grid-4">
+                <div class="content-box-shadow">
+                    <a class="text-grey guarantee-box no-decoration" href="/used/cars-for-sale/#filterbyadditional=5&bodytype=6+4+7+8" id="familyCars">
+                        <span class="imageWrapper block">
+                            <img src="https://img.aeplcdn.com/design15/d/big-family.jpg?v1=19082015" alt="Family cars" title="Family cars">
+                        </span>
+                        <span class="font20 content-inner-block-10 block text-black">Family cars</span>
+                        <span class="font24 content-inner-block-10">₹12.00 lakhs<span class="font14 margin-left5">average price</span></span>
+                        <span class="content-inner-block-10 bg-light-grey block margin-top5">
+                            <span class="rightfloat"><img src="https://img.aeplcdn.com/autobiz/certifications/guarantee.png?v1=19082015" alt="" title=""></span>
+                            <div class="clear"></div>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container">
+        <!-- Recently added cars section code starts here -->
+        <div class="grid-12">
+            <h2 class="text-uppercase text-center margin-top50 margin-bottom30 special-skin-text">Recently added cars</h2>
+            <div class="jcarousel-wrapper">
+                <div class="jcarousel">
+                    <ul>
+                        @if (Model != null && Model.ListTopLiveListingCars != null)
+                        {
+                            var index = 1;
+                            foreach (var item in Model.ListTopLiveListingCars)
+                            {
+                                <li class="front">
+                                    <div class="contentWrapper">
+                                        <div class="imageWrapper">
+                                            <a id="RecentlyAddedCars@(index)" href="/used/cars-in-@UrlRewrite.FormatSpecial(item.CityName)/@UrlRewrite.FormatSpecial(item.MakeName)-@UrlRewrite.FormatSpecial(item.MaskingName)-@UrlRewrite.FormatSpecial(item.ProfileId)/" title="@(UrlRewrite.FormatSpecial(item.MakeName) + " " + UrlRewrite.FormatSpecial(item.ModelName) + " " + UrlRewrite.FormatSpecial(item.VersionName))">
+                                                <img border="0" src="@(item.OriginalImagePath == "" ? "https://img.carwale.com/used/no-car.jpg" : ImageSizes.CreateImageUrl(item.HostURL, ImageSizes._310X174, item.OriginalImagePath))" alt="@(item.MakeName + " " + item.ModelName + " " + item.VersionName)" />
+                                            </a>
+                                        </div>
+                                        <div class="carDescWrapper">
+                                            <div class="carTitle margin-bottom20">
+                                                <h3>
+                                                    <a id="RecentlyAddedCars@(index)" href="/used/cars-in-@UrlRewrite.FormatSpecial(item.CityName)/@UrlRewrite.FormatSpecial(item.MakeName)-@item.MaskingName-@item.ProfileId.ToLower()/" title="@(item.MakeYear + "," + item.MakeName + " " + item.ModelName + " " + item.VersionName)">@(item.MakeYear + "," + item.MakeName + " " + item.ModelName + " " + item.VersionName)</a>
+                                                </h3>
+                                            </div>
+                                            <div class="margin-bottom10 font24">
+                                                ₹
+                                                <span class="font25"> @(FormatPrice.FormatFullPrice(item.Price.ToString()))</span>
+                                            </div>
+                                            <div class="font14 text-light-grey">
+                                                <span class="margin-right15">Year: <span>@(item.MakeYear)</span></span>
+                                                <span>Km: <span>@(item.Kilometers)</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                index += 1;
+                            }
+                        }
+                    </ul>
+                </div>
+                <span class="jcarousel-control-left"><span class="cwsprite jcarousel-control-prev"></span></span>
+                <span class="jcarousel-control-right"><span class="cwsprite jcarousel-control-next"></span></span>
+                <!--<p class="jcarousel-pagination"></p> -->
+            </div>
+        </div>
+        <div class="clear"></div>
+    </section>
+
+    <script>
+        var landingPage = true;
+        doNotShowAskTheExpert = false;
+        $(document).ready(function () {
+            if ($('#minInput').val() != "" || $('#maxInput').val() != "") {
+                $('#minInput').val("");
+                $('#maxInput').val("");
+            }
+        });
+    </script>

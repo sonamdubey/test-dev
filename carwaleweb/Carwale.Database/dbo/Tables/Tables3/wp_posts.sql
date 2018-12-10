@@ -1,0 +1,28 @@
+﻿CREATE TABLE [dbo].[wp_posts] (
+    [ID]                    NUMERIC (18)   NULL,
+    [post_author]           NUMERIC (18)   NULL,
+    [post_date]             DATETIME       NULL,
+    [post_date_gmt]         DATETIME       NULL,
+    [post_content]          VARCHAR (MAX)  NULL,
+    [post_title]            VARCHAR (2000) NULL,
+    [post_category]         NUMERIC (18)   NULL,
+    [post_excerpt]          VARCHAR (2000) NULL,
+    [post_status]           VARCHAR (20)   NULL,
+    [comment_status]        VARCHAR (20)   NULL,
+    [ping_status]           VARCHAR (20)   NULL,
+    [post_password]         VARCHAR (20)   NULL,
+    [post_name]             VARCHAR (200)  NULL,
+    [to_ping]               VARCHAR (2000) NULL,
+    [pinged]                VARCHAR (2000) NULL,
+    [post_modified]         DATETIME       NULL,
+    [post_modified_gmt]     DATETIME       NULL,
+    [post_content_filtered] VARCHAR (2000) NULL,
+    [post_parent]           NUMERIC (18)   NULL,
+    [guid]                  VARCHAR (255)  NULL,
+    [menu_order]            NUMERIC (18)   NULL,
+    [post_type]             VARCHAR (20)   NULL,
+    [post_mime_type]        VARCHAR (100)  NULL,
+    [comment_count]         NUMERIC (18)   NULL,
+    [Summary]               VARCHAR (MAX)  NULL
+);
+

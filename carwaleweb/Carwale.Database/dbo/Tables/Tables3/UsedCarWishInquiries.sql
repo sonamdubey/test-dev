@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[UsedCarWishInquiries] (
+    [Id]              NUMERIC (18)   IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [CustomerID]      NUMERIC (18)   NOT NULL,
+    [CarModelIds]     VARCHAR (100)  NULL,
+    [CarModelNames]   VARCHAR (500)  NULL,
+    [PriceFrom]       NUMERIC (18)   NULL,
+    [PriceTo]         NUMERIC (18)   NULL,
+    [KmFrom]          NUMERIC (18)   NULL,
+    [KmTo]            NUMERIC (18)   NULL,
+    [YearFrom]        INT            NULL,
+    [YearTo]          INT            NULL,
+    [NoOfCars]        INT            NOT NULL,
+    [BuyTime]         VARCHAR (20)   NOT NULL,
+    [Comments]        VARCHAR (2000) NULL,
+    [RequestDateTime] DATETIME       NOT NULL,
+    [StateId]         NUMERIC (18)   CONSTRAINT [DF_UsedCarWishTable_StateId] DEFAULT (0) NULL,
+    [CityId]          NUMERIC (18)   CONSTRAINT [DF_UsedCarWishTable_CityId] DEFAULT (0) NULL,
+    [WithinDistance]  NUMERIC (18)   CONSTRAINT [DF_UsedCarWishTable_WithinDistance] DEFAULT (0) NULL,
+    [ExpiryDate]      DATETIME       NULL,
+    [IsApproved]      BIT            CONSTRAINT [DF_UsedCarWishInquiries_IsApproved] DEFAULT (0) NOT NULL,
+    [IsFake]          BIT            CONSTRAINT [DF_UsedCarWishInquiries_IsFake] DEFAULT (0) NOT NULL,
+    [StatusId]        SMALLINT       CONSTRAINT [DF_UsedCarWishInquiries_StatusId] DEFAULT (1) NOT NULL,
+    [lastReminded]    DATETIME       NULL,
+    CONSTRAINT [PK_UsedCarWishInquiries] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

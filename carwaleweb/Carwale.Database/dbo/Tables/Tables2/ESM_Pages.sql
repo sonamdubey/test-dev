@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[ESM_Pages] (
+    [Id]    NUMERIC (18)  IDENTITY (1, 1) NOT NULL,
+    [Pages] VARCHAR (255) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

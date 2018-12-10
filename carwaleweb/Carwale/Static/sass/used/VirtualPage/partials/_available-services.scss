@@ -1,0 +1,50 @@
+@import "../../../mixins/_variables.scss";
+@import "../mixins/_container.scss";
+
+@include container-head;
+@include container-title;
+@include container-body;
+
+.services {
+    background-color: map-get($color-map, 'snow');
+}
+
+.services-list__item {
+    position: relative;
+    padding-left: 15px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.services-list__item-content {
+    position: relative;
+    font-size: 15px;
+    color: map-get($color-map, 'dim-grey');
+
+    &:before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        display: block;
+        position: absolute;
+        top: 6px;
+        left: -15px;
+        border-radius: 50%;
+        background-color: map-get($color-map, 'text-grey');
+        opacity: .8;
+    }
+
+} 
+
+@media (min-width: 1024px) {
+    .services__list {
+        font-size: 0;
+    }
+
+    .services-list__item {
+        width: 50%;
+        display: inline-block;
+        vertical-align: top;
+        padding-right: 15px;
+    }
+}

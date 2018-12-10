@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[TC_ExelSheetLog] (
+    [Id]                  INT            IDENTITY (1, 1) NOT NULL,
+    [DealerId]            INT            NULL,
+    [UserId]              INT            NOT NULL,
+    [FileName]            VARCHAR (100)  NULL,
+    [DirPath]             VARCHAR (255)  NULL,
+    [HostUrl]             VARCHAR (100)  NULL,
+    [InquiryType]         TINYINT        NULL,
+    [EntryDate]           DATETIME       NULL,
+    [StatusId]            INT            CONSTRAINT [DF_TC_ExelSheetLog_StatusId] DEFAULT ((0)) NOT NULL,
+    [IsDeleted]           BIT            CONSTRAINT [DF_TC_ExelSheetLog_IsDeleted] DEFAULT ((0)) NULL,
+    [Location]            VARCHAR (255)  NULL,
+    [LastUpdatedDate]     DATETIME       NULL,
+    [NewInquiries]        INT            NULL,
+    [OldInquiries]        INT            NULL,
+    [TotalInquiries]      INT            NULL,
+    [InvalidInquiries]    INT            NULL,
+    [InquirySourceId]     SMALLINT       NULL,
+    [IsProperExcel]       BIT            CONSTRAINT [DF_TC_ExelSheetLog_IsProperExcel] DEFAULT ((1)) NULL,
+    [UnassignedInquiries] INT            NULL,
+    [ExcelSheetName]      VARCHAR (50)   NULL,
+    [DivertedInquiries]   INT            NULL,
+    [AssignedInquiries]   INT            NULL,
+    [DivertedLeadIds]     VARCHAR (1000) NULL
+);
+

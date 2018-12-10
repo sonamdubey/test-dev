@@ -1,0 +1,755 @@
+﻿@if (ViewBag.isMobile != null && ViewBag.isMobile)
+{
+    <style>
+        .clearfix::after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+        .global-location, .nav-icon, .position-rel {
+            position: relative;
+        }
+
+        .fa, body {
+            font-style: normal;
+        }
+
+        #globalCity-input input[type=text], *, ::after, ::before {
+            box-sizing: border-box;
+        }
+
+        html {
+            height: 100%;
+            text-size-adjust: 100%;
+            line-height: 1.42857;
+        }
+
+        body {
+            font-size: 13px;
+            font-family: "Open Sans",sans-serif,Arial;
+            color: #565a5c;
+            background: #f4f3f3;
+            min-width: 100%;
+        }
+
+        blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, label, legend, li, ol, p, pre, textarea, ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .bg-light-grey {
+            background: #f5f5f5;
+        }
+
+        article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+            display: block;
+        }
+
+        .cwmsprite, .fa {
+            display: inline-block;
+        }
+
+        .header-fixed {
+            background: rgba(14,64,91,.9);
+            padding: 10px;
+            z-index: 3;
+        }
+
+        .leftfloat {
+            float: left;
+        }
+
+        .cwmsprite {
+            background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/cwmsprite.png?201703221903422656) no-repeat;
+        }
+
+        .nav-icon {
+            background-position: 0 5px;
+            width: 24px;
+            height: 19px;
+            cursor: pointer;
+            top: -1px;
+        }
+
+        .margin-right10 {
+            margin-right: 10px;
+        }
+
+        a {
+            color: #0288d1;
+            text-decoration: none;
+        }
+
+        .cw-logo {
+            background-position: -35px 1px;
+            width: 108px;
+            height: 20px;
+        }
+
+        .rightfloat {
+            float: right;
+        }
+
+        .global-location {
+            float: left;
+            color: #fff;
+            padding: 0 5px 0 10px;
+            font-size: 15px;
+        }
+
+        .padding-right15 {
+            padding-right: 15px;
+        }
+
+        .global-location .locInput {
+            border-bottom: 1px solid #fff;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            width: auto;
+            max-width: 100px;
+            text-align: right;
+        }
+
+        button, input, select {
+            border: none;
+            outline: 0;
+        }
+
+        .text-capitalize {
+            text-transform: capitalize;
+        }
+
+        .font13 {
+            font-size: 13px;
+        }
+
+        .text-white {
+            color: #fff;
+        }
+
+        .position-abt {
+            position: absolute;
+        }
+
+        .pos-right0 {
+            right: 0;
+        }
+
+        .fa {
+            speak: none;
+            font-weight: 400;
+            font-variant-ligatures: normal;
+            font-variant-caps: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            font-family: CWFontAwesome !important;
+        }
+
+        .global-location .fa-map-marker {
+            right: 0;
+            top: 4px;
+        }
+
+        .global-search {
+            float: left;
+            padding: 0 10px;
+            position: relative;
+            top: 2px;
+            cursor: pointer;
+        }
+
+        .search-icon-grey, .search-icon-white {
+            width: 18px;
+            height: 18px;
+        }
+
+        .search-icon-grey {
+            background-position: -62px -275px;
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 100% !important;
+        }
+
+        .grid-12 {
+            width: 100%;
+        }
+
+        .content-box-shadow {
+            background: #fff;
+            border: 1px solid #e2e2e2;
+            box-shadow: #e5e5e5 0 1px 2px;
+            border-radius: 2px;
+        }
+
+        .bg-white {
+            background: #fff;
+        }
+
+        .grid-1, .grid-10, .grid-11, .grid-12, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .grid-7, .grid-8, .grid-9 {
+            float: left;
+            position: relative;
+            min-height: 1px;
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        .padding-left20 {
+            padding-left: 20px;
+        }
+
+        .padding-right20 {
+            padding-right: 20px;
+        }
+
+        .text-bold {
+            font-weight: 600;
+        }
+
+        .font20 {
+            font-size: 20px;
+        }
+
+        .padding-top20 {
+            padding-top: 20px;
+        }
+
+        .padding-bottom20 {
+            padding-bottom: 20px;
+        }
+
+        .booking__title {
+            border-bottom: 1px solid #e2e2e2;
+        }
+
+        .font14 {
+            font-size: 14px;
+        }
+
+        .font16 {
+            font-size: 16px;
+        }
+
+        .margin-top20 {
+            margin-top: 20px;
+        }
+
+        .margin-top5 {
+            margin-top: 5px;
+        }
+
+        .text-unbold {
+            font-weight: 400;
+        }
+    </style>
+}
+else
+{
+<style>
+    .loc-widget .cityName {
+        width: 100%;
+        min-height: 30px;
+        padding: 0;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .loc-widget .cityName {
+        width: 100%;
+        min-height: 30px;
+        padding: 0;
+    }
+
+    .navUL li a, .profileUL li a {
+        color: #1a1a1a;
+        font-size: 16px;
+        text-decoration: none;
+        display: block;
+        height: 48px;
+        padding: 6px 0 0 15px;
+    }
+
+    .ui-autocomplete-multiselect.ui-state-default {
+        width: 100%;
+    }
+
+    .navUL li ul {
+        display: none;
+    }
+
+    .top-nav-nested-panel {
+        display: none;
+    }
+
+    .loc-widget {
+        background: #fff;
+        height: 0;
+        overflow: hidden;
+        z-index: 10;
+    }
+
+
+    #nav, .loginPopUpWrapper {
+        background: #fff;
+        width: 300px;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: -300px;
+        overflow-y: hidden;
+        z-index: 11;
+    }
+
+    #cw-top-navbar li, .leftfloat {
+        float: left;
+    }
+
+    .fa, body {
+        font-style: normal;
+    }
+
+    #cw-top-navbar, #cw-top-navbar .nested-panel-list, #global-place {
+        overflow: hidden;
+    }
+
+    #globalCity-input input[type=text], *, .global-search input[type=text], ::after, ::before {
+        box-sizing: border-box;
+    }
+
+    html {
+        height: 100%;
+        text-size-adjust: 100%;
+        line-height: 1.42857;
+    }
+
+    body {
+        font-size: 13px;
+        font-family: "Open Sans",sans-serif,Arial;
+        color: #565a5c;
+        background: #f4f3f3;
+        min-width: 960px;
+    }
+
+    blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, label, legend, li, ol, p, pre, textarea, ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    .bg-light-grey {
+        background: #f5f5f5;
+    }
+
+    .clear {
+        clear: both;
+    }
+
+    .header-fixed {
+        background: rgba(14,64,91,.9);
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        padding: 0 10px 0 20px;
+        z-index: 3;
+    }
+
+    #header {
+        height: 50px;
+        z-index: 8;
+    }
+
+    .margin-top10 {
+        margin-top: 10px;
+    }
+
+    .cwsprite {
+        background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cwsprite.png?201703071717247120) no-repeat;
+        display: inline-block;
+    }
+
+    .nav-icon {
+        background-position: 0 0;
+        width: 24px;
+        height: 19px;
+        cursor: pointer;
+        position: relative;
+        top: -1px;
+    }
+
+    .margin-right25 {
+        margin-right: 25px;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    a {
+        color: #0288d1;
+        text-decoration: none;
+    }
+
+    .cw-logo {
+        background-position: -36px 0;
+        width: 155px;
+        height: 25px;
+    }
+
+    article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+        display: block;
+    }
+
+    #cw-top-navigation-wrapper {
+        width: 840px;
+        margin: 0 auto;
+    }
+
+    ol, ul {
+        list-style: none;
+    }
+
+    #cw-top-navbar li .top-nav-label {
+        font-size: 14px;
+        color: #fff;
+        padding: 15px 10px;
+        cursor: pointer;
+        transition: background-color .2s ease;
+    }
+
+    .margin-right5 {
+        margin-right: 5px;
+    }
+
+    .top-nav-nested-panel {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        height: 0;
+        background: #fff;
+        cursor: default;
+        display: none;
+        box-shadow: #bbb 0 1px 1px;
+    }
+
+    .global-search, .new-red-tag-icon, .position-rel {
+        position: relative;
+    }
+
+    .container {
+        width: 996px;
+        margin: 0 auto;
+    }
+
+    .padding-top20 {
+        padding-top: 20px;
+    }
+
+    .padding-bottom20 {
+        padding-bottom: 20px;
+    }
+
+    .grid-1, .grid-10, .grid-11, .grid-12, .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .grid-7, .grid-8, .grid-9 {
+        float: left;
+        position: relative;
+        min-height: 1px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .grid-4 {
+        width: 33.3333%;
+    }
+
+    .omega {
+        padding-right: 0;
+    }
+
+    .font15 {
+        font-size: 15px;
+    }
+
+    .text-black {
+        color: #1a1a1a;
+    }
+
+    .new-cars-nested-panel .grid-4, .uc-rv-nested-panel .grid-4 {
+        width: 380px;
+    }
+
+    .nested-lt-column1 {
+        width: 200px;
+        padding-right: 10px;
+    }
+
+    .nested-panel-list li {
+        width: 100%;
+        margin-bottom: 9px;
+    }
+
+        .nested-panel-list li a {
+            font-size: 15px;
+            color: #1a1a1a;
+            display: block;
+            padding: 10px 0;
+        }
+
+    .nested-lt-column4 {
+        width: 170px;
+    }
+
+    .new-red-tag-icon {
+        width: 36px;
+        height: 16px;
+        background-position: -93px -503px;
+        top: 2px;
+    }
+
+    .margin-left5 {
+        margin-left: 5px;
+    }
+
+    .grid-8 {
+        width: 66.6667%;
+    }
+
+    .used-and-reviews-right-panel {
+        padding-left: 50px;
+    }
+
+    .new-cars-nested-panel .grid-8, .uc-rv-nested-panel .grid-8 {
+        width: 610px;
+    }
+
+    .uc-rv-nested-right-wrapper {
+        padding-left: 50px;
+        border-left: 1px solid #e2e2e2;
+    }
+
+    .padding-top10 {
+        padding-top: 10px;
+    }
+
+    .line-height08 {
+        line-height: .8;
+    }
+
+    .text-bold {
+        font-weight: 600;
+    }
+
+    .fa, .text-unbold {
+        font-weight: 400;
+    }
+
+    .font17 {
+        font-size: 17px;
+    }
+
+    .rv-nested-right-panel, .uc-rv-nested-right-panel {
+        margin-top: 10px;
+    }
+
+    .global-search-new {
+        float: right;
+        margin-right: 3px;
+        margin-top: 7px;
+    }
+
+    .global-search {
+        width: 400px;
+    }
+
+        .global-search.global-search-new.global-search-wrapper {
+            width: 320px;
+        }
+
+    .fa {
+        display: inline-block;
+        speak: none;
+        font-variant-ligatures: normal;
+        font-variant-caps: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        font-family: CWFontAwesome !important;
+    }
+
+    .global-search span.fa-search {
+        position: absolute;
+        color: #7f7f7f;
+        cursor: pointer;
+    }
+
+    .global-search-new span.fa-search {
+        right: 10px;
+        top: 11px;
+    }
+
+    #loc-widget button, #loc-widget input, #loc-widget select, button, input, select {
+        border: none;
+        outline: 0;
+    }
+
+    .form-control, input, select, textarea {
+        color: #666;
+    }
+
+        .ui-autocomplete-input, input::-webkit-input-placeholder {
+            color: #666;
+            font-size: 13px;
+        }
+
+    .global-search .ui-autocomplete-input, .global-search input::-webkit-input-placeholder {
+        color: #666;
+        font-size: 13px;
+    }
+
+    #globalCity-input input[type=text], .cw-blackbg-tooltip, .gl-default-stage, .global-search input[type=text], .home-tabs, .home-tabs li.active, .lang-changer-option, .rounded-corner2 {
+        border-radius: 2px;
+    }
+
+    #globalCity-input input[type=text], .global-search-new input[type=text] {
+        width: 100%;
+        padding: 10px 9px 9px;
+        border: 1px solid #ccc;
+        outline: 0;
+    }
+
+    .global-search input[type=text] {
+        background: #fff;
+    }
+
+    .rightfloat {
+        float: right;
+    }
+
+    .global-location, .login-box {
+        float: left;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    #cw-topnav-right-section {
+        position: relative;
+        top: -40px;
+    }
+
+    .global-location {
+        margin-right: 10px;
+    }
+
+    .global-location-new {
+        margin-top: 0;
+    }
+
+    .global-location .global-search {
+        width: auto;
+        margin-right: 0;
+        margin-top: 5px;
+        padding-right: 15px;
+        z-index: 10;
+    }
+
+    .font13 {
+        font-size: 13px;
+    }
+
+    .global-location .global-search > span {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    #global-place {
+        max-width: 120px;
+        text-align: right;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .text-white {
+        color: #fff;
+    }
+
+    .position-abt {
+        position: absolute;
+    }
+
+    .global-location .global-search .fa-map-marker {
+        right: 0;
+        top: 4px;
+    }
+
+    .login-box {
+        padding: 5px 10px;
+        position: relative;
+    }
+
+    .login-box-new {
+        top: 3px;
+    }
+
+    .user-login-icon {
+        width: 14px;
+        height: 15px;
+        background-position: -138px -472px;
+    }
+
+    .receipt-confirmation {
+        margin-top: 120px;
+        margin-bottom: 20px;
+    }
+
+    .grid-12 {
+        width: 100%;
+    }
+
+    .content-box-shadow {
+        background: #fff;
+        border: 1px solid #e2e2e2;
+        box-shadow: #e5e5e5 0 1px 2px;
+    }
+
+    .bg-white {
+        background: #fff;
+    }
+
+    .padding-left20 {
+        padding-left: 20px;
+    }
+
+    .padding-right20 {
+        padding-right: 20px;
+    }
+
+    .font20 {
+        font-size: 20px;
+    }
+
+    .booking__title {
+        border-bottom: 1px solid #e2e2e2;
+    }
+
+    .font14 {
+        font-size: 14px;
+    }
+
+    .font18 {
+        font-size: 18px;
+    }
+
+    .margin-top20 {
+        margin-top: 20px;
+    }
+
+    .margin-top5 {
+        margin-top: 5px;
+    }
+</style>
+}
+    

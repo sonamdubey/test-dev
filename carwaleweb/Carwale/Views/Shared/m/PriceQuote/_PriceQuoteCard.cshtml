@@ -1,0 +1,342 @@
+﻿@model Carwale.DTOs.PriceQuote.QuotationPageMobileDTO
+@using Carwale.Utility;
+@using Carwale.Entity.Enum;
+@using System.Configuration;
+@{
+    int solidOrp = 0;
+    int metallicOrp = 0;
+    int i = Model.CardNo;
+    
+    bool useDynamicTemplate = CustomParser.parseBoolObject(ConfigurationManager.AppSettings["NewPqPageUseDynamicTemplate"]);
+    double predictionScore = (Model.DealerAd != null && Model.DealerAd.Campaign != null && Model.DealerAd.Campaign.PredictionData != null) ? Model.DealerAd.Campaign.PredictionData.Score : 0;
+    string predictionLabel = (Model.DealerAd != null && Model.DealerAd.Campaign != null && Model.DealerAd.Campaign.PredictionData != null) ? Model.DealerAd.Campaign.PredictionData.Label : "";
+}
+<!-- Floating Header -->
+<section class="fixed-model-name floating-container floating-model-header hide @("card" + i)">
+    <div class="floating-container__model">@(Model.CarDetails.MakeName + ' ' + Model.CarDetails.ModelName)</div>
+    <span data-role="impression" data-event="CWNonInteractive" data-action="PQ_ModelChange" data-cat="MSite_PQ_ModelChange" data-label="@(Model.CarDetails.ModelName)"></span>
+    <span class="floating-container__changeBtn open-modelchange-popup" data-model="@Model.CarDetails.ModelId" data-version="@Model.CarDetails.VersionId" data-city="@Model.Location.CityId" data-area="@Model.Location.AreaId"
+          data-role="click" data-event="CWInteractive" data-action="PQ_ModelChange" data-cat="MSite_PQ_ModelChange" data-label="@Model.CarDetails.ModelName">Change</span>
+</section>
+
+<div class="pq-container @("card" + i) " card-no="card@(Model.CardNo)" make-name="@Model.CarDetails.MakeName">
+
+    <!-- Car Details Section -->
+    <section class="pq-card car-model-details">
+        <div class="car-model-details__container">
+            <div class="car-model-details__image">
+                <img src="@(Carwale.Utility.ImageSizes.CreateImageUrl(Model.CarDetails.HostURL, Carwale.Utility.ImageSizes._310X174, Model.CarDetails.OriginalImgPath))" />
+            </div>
+            <div class="car-model-details__name">
+                <h3>On Road Price</h3>
+                <h2 class="car-model-details__modelName">@(Model.CarDetails.MakeName + ' ' + Model.CarDetails.ModelName)</h2>
+                <span class="car-model-deatils__changeModelIcon open-modelchange-popup" data-model="@Model.CarDetails.ModelId" data-version="@Model.CarDetails.VersionId" data-city="@Model.Location.CityId" data-area="@Model.Location.AreaId"
+                      data-role="click" data-event="CWInteractive" data-action="PQ_ModelChange" data-cat="MSite_PQ_ModelChange" data-label="@(Model.CarDetails.ModelName)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Version and City Section -->
+    <section class="pq-card car-filters">
+        <div class="car-filters__version" pageid=@((int)SponsoredCarPageId.MsitePQPageVersionChange)>
+            <p class="car-filters__title">Version</p>
+            <p class="car-filters__subtitle">@Model.CarDetails.VersionName <span class="right-arrow"></span></p>
+        </div>
+        <div class="car-filters__city pq-city-change"
+             data-attr-versionid="@Model.CarDetails.VersionId" data-attr-cityid="@Model.Location.CityId" data-attr-cityname="@Model.Location.CityName"
+             data-attr-areaid="@Model.Location.AreaId" data-attr-iscrosssellpricequote='@(Model.IsCrossSellPriceQuote ? "true" : "false")'
+             data-attr-pageid=@((int)SponsoredCarPageId.MsitePQPageCityChange) data-attr-cardno='@("card" + i)' data-attr-hidecampaign="false">
+            <p class="car-filters__title">City</p>
+            <p class="car-filters__subtitle">@(String.IsNullOrEmpty(Model.Location.AreaName) ? "" : Model.Location.AreaName + ", ") @Model.Location.CityName <span class="right-arrow"></span></p>
+        </div>
+    </section>
+    @if (Model.PriceQuote == null || Model.PriceQuote.Count == 0)
+    {
+        { Html.RenderPartial("~/Views/Shared/NewCars/PriceQuote/_PriceNotAvailable.cshtml", Model.NearByCities); }
+    }
+    else
+    {
+        if (Model.PriceQuote.Count > 1)
+        {
+            <section class="pq-card color-switcher">
+                <div class=" color-switcher__title">
+                    Color
+                </div>
+                @{ Html.RenderPartial("~/Views/Shared/NewCars/PriceQuote/_SolidMetallicToggle.cshtml", Model.CardNo); }
+            </section>
+        }
+
+        <!-- Price Breakup Section -->
+        <section class="pq-card price-breakup-section">
+            <table class="price-table">
+                <tbody>
+                    @for (int k = 0; k < Model.PriceQuote.Count; k++)
+                    {
+                        var ModelPq = Model.PriceQuote[k];
+                        if (ModelPq.ChargeGroup != null)
+                        {
+                            for (int l = 0; l < ModelPq.ChargeGroup.Count; l++)
+                            {
+                                var pqChargeGroup = ModelPq.ChargeGroup[l];
+                                for (int m = 0; m < pqChargeGroup.ChargePrice.Count; m++)
+                                {
+                                    if (pqChargeGroup.Type == 1)
+                                    {
+                                        var price = pqChargeGroup.ChargePrice[m].Price;
+                                        if (ModelPq.IsMetallic)
+                                        {
+                                            metallicOrp += price;
+                                        }
+                                        else
+                                        {
+                                            solidOrp += price;
+                                        }
+                                        <tr class="@(ModelPq.IsMetallic ? "metallic-compulsory hide" : "solid-compulsory") compulsory-charges"
+                                            chargegroup-id="@pqChargeGroup.Id"
+                                            chargegroup-name="@pqChargeGroup.Name"
+                                            charge-id="@pqChargeGroup.ChargePrice[m].Charge.Id"
+                                            charge-name="@pqChargeGroup.ChargePrice[m].Charge.Name"
+                                            chargegroup-sortorder="@pqChargeGroup.SortOrder"
+                                            charge-sortorder="@pqChargeGroup.ChargePrice[m].Charge.SortOrder"
+                                            selection-option="@pqChargeGroup.SelectionOption"
+                                            price="@price"
+                                            card-no="card@(Model.CardNo)">
+                                            <td class="description">
+                                                @pqChargeGroup.ChargePrice[m].Charge.Name
+                                                @if (pqChargeGroup.ChargePrice[m].Charge.Id == (int)PricesCategoryItem.Exshowroom)
+                                                {
+                                                    <span class="hide gst-tooltip"><span>The price is in accordance with the GST rates as declared by the Government of India.</span></span>
+                                                    <span class="instruction-icon" spnidentifier="gst-tooltip"></span>
+                                                }
+                                                @if (pqChargeGroup.Id == (int)ChargeGroup.CompulsoryInsurance)
+                                                {
+                                                    <span class="hide insurance-tooltip"><span>Insurance amount is inclusive of 3-year third party cover. This is in accordance with the law effective 1-Sep-2018 where in all the new cars sold in India should have a 3-year Third party cover. Contact nearest dealer to know more.</span></span>
+                                                    <span class="instruction-icon" spnidentifier="insurance-tooltip"></span>
+                                                    <br />
+                                                    if (Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.Insurance))
+                                                    {
+                                                        <div class="inline-block" data-event="CWNonInteractive" data-role="impression" data-action="PQ_Insurance_m" data-cat="SponsoredLink_Shown"
+                                                             data-label='@("campaign_" + Model.CampaignTemplates[(short)PageProperties.Insurance].Id)'>
+                                                            <div data-role="click-tracking" data-event="CWInteractive" data-action="PQ_Insurance_m" data-cat="SponsoredLink_Click"
+                                                                 data-label='@("campaign_" + Model.CampaignTemplates[(short)PageProperties.Insurance].Id)'>
+                                                                @Html.Raw(Model.CampaignTemplates[(short)PageProperties.Insurance].Name)
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            </td>
+                                            <td class="amount">@Format.FormatNumericCommaSep(price.ToString()) </td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        }
+                        if (ModelPq.IsMetallic && metallicOrp > 0 || !ModelPq.IsMetallic && solidOrp > 0)
+                        {
+                            <tr class="@(ModelPq.IsMetallic ? "metallic-compulsory hide" : "solid-compulsory")">
+                                <td colspan="2" class="hr-line"></td>
+                            </tr>
+                            <tr class="@(ModelPq.IsMetallic ? "metallic-compulsory hide" : "solid-compulsory")">
+                                <td class="description total-col">
+                                    On-Road Price (Basic)
+                                    <span class="hide price-disclaimer-tooltip">
+                                        <span>
+                                            We try our best to show you the most accurate prices and other content, however, these details are subject to change without prior notice.
+                                            If you find any discrepancy, please bring it to our notice by writing at <a class="text-white text-underline" href="mailto:contact@carwale.com?subject=Content/Pricing%20related%20discrepancy">contact@carwale.com</a>.
+                                        </span>
+                                    </span>
+                                    <span class="instruction-icon" spnidentifier="price-disclaimer-tooltip"></span>
+                                </td>
+                                <td class="amount total-col">&#8377; @(ModelPq.IsMetallic && metallicOrp > 0 ? Format.FormatNumericCommaSep(metallicOrp.ToString()) : (!ModelPq.IsMetallic && solidOrp > 0 ? Format.FormatNumericCommaSep(solidOrp.ToString()) : "")) </td>
+                            </tr>
+                            <tr class="@(ModelPq.IsMetallic ? "metallic-compulsory hide" : "solid-compulsory")">
+                                <td colspan="2" class="hr-line"></td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            @if (Model.DealerAd != null)
+            {
+                <div class="get-offer-link">
+                    <a class="campaignLinkCTA btnOfferLink" dealercampaignexist="True"
+                       campaign-ad-type="@((int)Model.DealerAd.CampaignType)"
+                       source="FixedLink"
+                       data-predictionScore="@predictionScore"
+                       data-predictionlabel="@predictionLabel">@Model.DealerAd.Campaign.ActionText</a>
+                </div>
+            }
+            else if (Model.CampaignTemplates != null && Model.CampaignTemplates.ContainsKey((short)PageProperties.Overview))
+            {
+                <div data-event="CWNonInteractive" data-role="impression" data-action="PQ_Overview_m" data-cat="SponsoredLink_Shown"
+                     data-label='@("campaign_" + Model.CampaignTemplates[(short)PageProperties.Overview].Id)'>
+                    <div class="get-offer-link offer-with-ad" data-event="CWInteractive" data-role="click-tracking" data-action="PQ_Overview_m" data-cat="SponsoredLink_Click"
+                         data-label='@("campaign_" + Model.CampaignTemplates[(short)PageProperties.Overview].Id)'>
+                        @Html.Raw(Model.CampaignTemplates[(short)PageProperties.Overview].Name)
+                    </div>
+                </div>
+            }
+
+        </section>
+
+        if (!Model.HideCrossSellEmiSlug)
+        {
+            Html.RenderPartial("~/Views/Shared/m/_EmiCalculatorSlug.cshtml", Model.EmiCalculatorModelData);
+        }
+     
+        <span data-role="impression-tracking" data-event="CWNonInteractive" data-cat="MSite_PQ_loaded_OEM_Offers_On"
+              data-action="@(Model.OfferAndDealerAd != null && Model.OfferAndDealerAd.Offer != null && Model.OfferAndDealerAd.Offer.OfferDetails != null ? "OEM_Offers" : "OEM_Offers_not")"
+              data-label='@(Model.CarDetails.MakeName + "_" + Model.CarDetails.ModelName)'>
+        </span>
+
+        if (Model.OfferAndDealerAd != null && Model.OfferAndDealerAd.Offer != null && Model.OfferAndDealerAd.Offer.OfferDetails != null)
+        {
+            <div class="campaign-offer-slug">
+                @{ Html.RenderPartial("~/Views/Shared/m/OfferAndDealerAd/_OfferAndDealerAd.cshtml", Model.OfferAndDealerAd); }
+            </div>
+        }
+
+        Html.RenderPartial("~/Views/Shared/m/PriceQuote/_OptionalPrices.cshtml", Model);
+
+        if (Model.DealerAd != null)
+        {
+            <section class="dealer-cta js-dealer-cta pq-template">
+
+                @if (useDynamicTemplate && Model.DealerAd.PageProperty.Count > 0)
+                {
+                    @(Html.Raw(Model.DealerAd.PageProperty[0].Template.Html))
+                }
+                else
+                {
+                    <div class="dealer-cta-container floating-container fixed-dealer">
+                        <div class="dealer-info">
+                            <div class="dealer-icon"></div>
+                            <div class="dealer-name-container">
+                                <p class="dealer-name">@Model.DealerAd.Campaign.ContactName</p>
+                                <p>Authorised  Dealer</p>
+                            </div>
+                        </div>
+                        <a class="pq-btn pq-btn-m dealer-cta__btn campaign-template floating-cta text-teal" data-predictionscore="@predictionScore" data-predictionlabel="@predictionLabel">Get Assistance</a>
+                    </div>
+                }
+
+            </section>
+        }
+                <!-- Price Breakup  -->
+        <section class="price-breakup hide">
+            <div class="grey-patch hide"></div>
+            <div class="floating-dealer__container">
+                <div class="price-breakup-container floating-container">
+                    <div class="price-breakup-wrapper" id="priceBreakupWrapper1">
+                        <div class="price-breakup__button">
+                            <p class="view-breakup-text">Tap to View Breakup</p>
+                        </div>
+                        <div class="price-breakup__modelInfo">
+                            <div class="close-float-price-breakup-container">
+                                <span class="close-float-price-breakup"></span>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="price-breakup__details">
+                                <p class="price-breakup__name">@(Model.CarDetails.MakeName + " " + Model.CarDetails.ModelName)</p>
+                                <p>Effective On-Road Price</p>
+                            </div>
+                            <div class="price-breakup__price">
+                                <span class="price-breakup__wrapper">
+                                    <span class="price-breakup__amount">&#8377; </span>
+                                    <span class="price-breakup__amount onroad-price" card-no="card@(Model.CardNo)"></span>
+                                </span>
+                                @if (Model.DealerAd != null)
+                                {
+                                    <p class="price-breakup__offers campaign-link"
+                                       dealercampaignexist="True"
+                                       campaign-ad-type="@((int)Model.DealerAd.CampaignType)"
+                                       source="Link"
+                                       data-predictionscore="@predictionScore"
+                                       data-predictionlabel="@predictionLabel">
+                                        @Model.DealerAd.Campaign.ActionText
+                                </p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="float-price-breakup-details hide">
+                        <table class="price-breakup-table">
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    <!-- Version Div -->
+    @{ Html.RenderPartial("~/Views/Shared/m/PriceQuote/_VersionList.cshtml", Model); }
+</div>
+
+@if (!Model.IsCrossSellPriceQuote)
+{
+    <script>
+        var cityId = @Model.Location.CityId;
+        var cityName = "@Model.Location.CityName";
+        var versionId = @Model.CarDetails.VersionId;
+    </script>
+}
+
+@if (Model.DealerAd != null)
+{
+    <script>
+        @{ var dealerAdPriceQuote = Model; }
+        var isQuotationPage = true;
+        var isModelCityPage = "false";
+        var leadSources = [];
+
+        @foreach (var leadSource in Model.DealerAd.LeadSource)
+        {
+            @:leadSources.push({ "name": "@(leadSource.LeadClickSourceDesc)", "leadClickSource": "@(leadSource.LeadClickSourceId)", "inquirySource": "@(leadSource.InquirySourceId)", "adType": "@(leadSource.AdType)" });
+        }
+
+        var CarDetails =
+       {
+           carMakeId: "@dealerAdPriceQuote.CarDetails.MakeId",
+           carMakeName: "@dealerAdPriceQuote.CarDetails.MakeName",
+           carMaskingName: "@dealerAdPriceQuote.CarDetails.MaskingName",
+           carModelName: "@dealerAdPriceQuote.CarDetails.ModelName",
+           carModelId: "@dealerAdPriceQuote.CarDetails.ModelId"
+       };
+
+        var CityDetail =
+        {
+            cityId: "@dealerAdPriceQuote.Location.CityId",
+            cityName: "@dealerAdPriceQuote.Location.CityName",
+            zoneId: "@dealerAdPriceQuote.Location.ZoneId",
+            areaId: "@dealerAdPriceQuote.Location.AreaId"
+        }
+
+        var newFlag = "true";
+        var userCityId = "@(dealerAdPriceQuote.Location.CityId)";
+        var userZoneId = "@(dealerAdPriceQuote.Location.ZoneId)";
+        var defaultVerId = "@(dealerAdPriceQuote.CarDetails.VersionId)";
+        var defaultVerName = "@(dealerAdPriceQuote.CarDetails.VersionName)";
+        var sponsorDlrBusType = "@(dealerAdPriceQuote.DealerAd.Campaign.Type)";
+        var sponsorDlrName = "@(dealerAdPriceQuote.DealerAd.Campaign.ContactName)";
+        var campaignId = "@(dealerAdPriceQuote.DealerAd.Campaign.Id)";
+        var sponsorDlrLeadPanel = "@(dealerAdPriceQuote.DealerAd.Campaign.LeadPanel)";
+        var showEmail = "@(dealerAdPriceQuote.DealerAd.Campaign.IsEmailRequired)".toLowerCase() === 'true';
+        var sponsoredDealerId = "@(dealerAdPriceQuote.DealerAd.Campaign.DealerId)";
+        var sponsoredDlrMutualLeads  = "@(dealerAdPriceQuote.DealerAd.Campaign.MutualLeads)".toLowerCase() === 'true';
+        var dealerAdminId = "@(Model.DealerAd.Campaign != null ? Model.DealerAd.Campaign.DealerAdminId : 0)";  // Identifies dealers group id
+        var futuristic = 'false';
+        var PageId = '70';
+        var userAreaId = "@Model.Location.AreaId";
+        var isSponsoredCar = "@(Model.DealerAd.CampaignType == CampaignAdType.PaidCrossSell || Model.DealerAd.CampaignType == CampaignAdType.HouseCrossSell)".toLowerCase() === 'true';
+
+        if(isSponsoredCar)
+        {
+            CarDetails.hostURL= "@dealerAdPriceQuote.CarDetails.HostURL";
+            CarDetails.originalImgPath = "@dealerAdPriceQuote.CarDetails.OriginalImgPath";
+        }
+
+        var predictionScore =  '@predictionScore';
+        var predictionLabel = '@predictionLabel';
+    </script>
+}
+<div class="loaded_content"></div>

@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[AE_Ratings] (
+    [Id]   SMALLINT     NOT NULL,
+    [Name] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_AE_Rating] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

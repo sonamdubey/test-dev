@@ -1,0 +1,31 @@
+﻿@import "../../partials/_reset.scss";
+@import "../../partials/_mheader.scss";
+@import "../../partials/_mbreadcrumb.scss";
+@import "../../partials/_androiddownload.scss";
+@import "../../partials/_mpagination.scss";
+@import "../../mixins/_grid.scss";
+@import "../../mixins/_utils.scss";
+@import "../../mixins/_text.scss";
+@import "../../mixins/_padding.scss";
+@import "../../mixins/_margin.scss";
+
+@include grid-size(12);
+@include blackout-window;
+@include ad-div;
+@include content-box-shadow;
+@include content-inner-block(10);
+@include text-color("medium-grey");
+@include text-align("center");
+@include arr-big;
+@include padding("bottom",10);
+@include margin("left",10);
+
+ 
+
+ .compareImageContainer {
+     @extend .text-center;
+     img{
+         width:272px;
+         height:auto;
+     }
+ }

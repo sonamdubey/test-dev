@@ -1,0 +1,190 @@
+﻿@model Carwale.Entity.ES.ESSurveyEnity
+@{
+    ViewBag.Title = "Carwale Survey";
+    ViewBag.BodyClass = "bg-white";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+    ViewBag.landingPage = false;
+    ViewBag.Responsive = true;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.Canonical = "";
+    ViewBag.Alternate = "";
+    ViewBag.CustomJS = "~/Views/StaticPartials/ES/VolvoSurveyScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/ES/VolvoSurveyCss.cshtml";
+    Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayout.cshtml" : "~/views/shared/_Layout.cshtml");
+}
+<section class="volvo-survey-main-content">
+    <div class="clearfix">
+        <div class="landing-section container">
+            <div class="volvo-survey-wrapper clearfix">
+                <div class="grid-5 volvo-survey-wrapper__banner">
+                    <ul class="volvo-survey-wrapper__slides">
+                        @if (ViewBag.isMobile != null && ViewBag.isMobile)
+                        {
+                            foreach (var question in Model.Questions)
+                            {
+                                <li class="volvo-survey-wrapper__slide-item hide" id="image_@(question.QuestionNumber)">
+                                    <img class="volvo-survey-wrapper__slide-img" src="@question.ImageUrl" alt="volvo survey Image" />
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="volvo-survey-wrapper__slide-item hide" id="image_1">
+                                <img class="volvo-survey-wrapper__slide-img" src="https://imgd.aeplcdn.com/0x0/cw/es/volvo/volvo-survey/desktop/question-1.jpg" alt="volvo survey Image" />
+                            </li>
+                            <li class="volvo-survey-wrapper__slide-item hide" id="image_2">
+                                <img class="volvo-survey-wrapper__slide-img" src="https://imgd.aeplcdn.com/0x0/cw/es/volvo/volvo-survey/desktop/question-2.jpg" alt="volvo survey Image" />
+                            </li>
+                            <li class="volvo-survey-wrapper__slide-item hide" id="image_3">
+                                <img class="volvo-survey-wrapper__slide-img" src="https://imgd.aeplcdn.com/0x0/cw/es/volvo/volvo-survey/desktop/question-3.jpg" alt="volvo survey Image" />
+                            </li>
+                            <li class="volvo-survey-wrapper__slide-item hide" id="image_4">
+                                <img class="volvo-survey-wrapper__slide-img" src="https://imgd.aeplcdn.com/0x0/cw/es/volvo/volvo-survey/desktop/question-4.jpg" alt="volvo survey Image" />
+                            </li>
+                            <li class="volvo-survey-wrapper__slide-item hide" id="image_5">
+                                <img class="volvo-survey-wrapper__slide-img" src="https://imgd.aeplcdn.com/0x0/cw/es/volvo/volvo-survey/desktop/question-5.jpg" alt="volvo survey Image" />
+                            </li>
+                            <li class="volvo-survey-wrapper__slide-item hide" id="image_6">
+                                <img class="volvo-survey-wrapper__slide-img" src="https://imgd.aeplcdn.com/0x0/cw/es/volvo/volvo-survey/desktop/question-6.jpg" alt="volvo survey Image" />
+                            </li>
+                            <li class="volvo-survey-wrapper__slide-item hide" id="image_7">
+                                <img class="volvo-survey-wrapper__slide-img" src="https://imgd.aeplcdn.com/0x0/cw/es/volvo/volvo-survey/desktop/question-7.jpg" alt="volvo survey Image" />
+                            </li>
+                             <li class="volvo-survey-wrapper__slide-item hide" id="image_8">
+                                 <img class="volvo-survey-wrapper__slide-img" src="https://imgd.aeplcdn.com/0x0/cw/es/volvo/volvo-survey/desktop/question-8.jpg" alt="volvo survey Image" />
+                            </li>
+                             <li class="volvo-survey-wrapper__slide-item hide" id="image_9">
+                                 <img class="volvo-survey-wrapper__slide-img" src="https://imgd.aeplcdn.com/0x0/cw/es/volvo/volvo-survey/desktop/question-9.jpg" alt="volvo survey Image" />
+                            </li>
+                             <li class="volvo-survey-wrapper__slide-item hide" id="image_10">
+                                 <img class="volvo-survey-wrapper__slide-img" src="https://imgd.aeplcdn.com/0x0/cw/es/volvo/volvo-survey/desktop/question-10.jpg" alt="volvo survey Image" />
+                            </li>
+
+                        }
+
+                    </ul>
+                </div>
+                <div class="grid-7 volvo-survey-wrapper__content">
+                    <div class="que-nav-margin">
+                        <div class="question-nav">
+                            @foreach (var question in Model.Questions)
+                            {
+
+                                <div class="round-container question-nav@(question.QuestionNumber)" data-id="que@(question.QuestionNumber)">
+                                    <div class="ques-comm"></div>
+                                </div>
+                            }
+                            <div class="clear"></div>
+                            <div class="middle-line"></div>
+                        </div>
+                    </div>
+
+                    <div class="volvo-survey-wrapper__form-content">
+                        <div class="volvo-survey-questions ">
+
+                            <div class="ques-sec hide font24  title-class">
+                                @*<div>Just @Model.Questions.Count() simple questions to help us make CarWale better.</div>
+                                    <div class="clear"></div>*@
+                            </div>
+
+                            @foreach (var question in Model.Questions)
+                            {
+                                <div class="ques-sec hide font25  es-survey-specific questions" id="que@(question.QuestionNumber)" questionid="@question.Id" istexttype="@(question.IsFreeText ? "True" : "False")">
+                                    <div class="text-bold que-box">@question.Question</div>
+                                    <div class="form-control-box font15">
+                                        @if (question.IsFreeText)
+                                        {
+                                            <div class="survey-textarea">
+                                                <textarea class="survey-textarea" name="message" maxlength="256" questionid="@question.Id" placeholder="List as many as you can"></textarea>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            foreach (var option in question.Options)
+                                            {
+                                                <div class="volvo-form-elements">
+                                                    @if (question.IsMultiselect)
+                                                    {
+                                                        <input type="checkbox" name="question@(question.QuestionNumber)" questionid="@question.Id" class="volvo-checkbox" id="question@(question.QuestionNumber)-opt@(option.OptionNumber)" value="@option.Id">
+                                                        <label for="question@(question.QuestionNumber)-opt@(option.OptionNumber)" class="">@option.OptionValue</label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="radio" name="question@(question.QuestionNumber)" questionid="@question.Id" id="question@(question.QuestionNumber)-opt@(option.OptionNumber)" value="@option.Id">
+                                                        <label for="question@(question.QuestionNumber)-opt@(option.OptionNumber)" class=" ">@option.OptionValue</label>
+                                                    }
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                    <div class="error-text hide">Please select an answer</div>
+                                   
+                                    <div class="btn btn-orange volvo-survey-next" onclick="dataLayer.push({ event: 'CWInteractive', cat: 'Luxury_Survey', act: '@(ViewBag.isMobile != null && ViewBag.isMobile ? "Clicks_m" : "Clicks")', lab: '@(ViewBag.isMobile != null && ViewBag.isMobile ? "Next_m_"+question.QuestionNumber : "Next_"+question.QuestionNumber)' })">Next </div>
+									<span class="exit-link" onclick="dataLayer.push({ event: 'CWInteractive', cat: 'Luxury_Survey', act: '@(ViewBag.isMobile != null && ViewBag.isMobile ? "Clicks_m" : "Clicks")', lab: '@(ViewBag.isMobile != null && ViewBag.isMobile ? "Skip_m_"+question.QuestionNumber : "Skip_"+question.QuestionNumber)' })">Skip Question</span>
+
+                                    <div class="wrapper-bottom-line clearfix">
+                                        <div class="page-navigation font16 page margin-bottom10">
+                                            <span class="current-page">@question.QuestionNumber</span> / @Model.Questions.Count()
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--Thank you screen --->
+
+        <div class="volvo-thank-you hide">
+            <div class="container">
+                <div class="volvo-survey-form">
+                    @Html.Raw(!string.IsNullOrEmpty(Model.Campaign.ThankYouText)
+                     ? Model.Campaign.ThankYouText : "<div class='volvo__thank-text'>Thanks for your valuable insights &#33; <br/> We will get back to you with the results on <span class='date-color'>4 July.</span></div>")
+
+                    @if (Model.Campaign.ShowLeadForm)
+                    {
+                        <div class="form-control-box grid-6 alpha omega">
+                                <div class="volvo-form-field">
+                                    <input type="text" id="txtName" class="form-control" placeholder="Name*" maxlength="50">
+                                    <div id="spntxtName" class="error font13 margin-top5 hide">Please enter name.</div>
+                                </div>
+                                <div class="volvo-form-field">
+                                    <input type="text" id="txtEmailId" class="form-control" placeholder="Email*" maxlength="100">
+                                    <div id="spntxtEmail" class="error font13 margin-top5 hide">Please enter email.</div>
+                                </div>
+                                <div class="volvo-form-field">
+                                    <input type="text" id="txtMobile" class="form-control" placeholder="+91*" maxlength="10">
+                                    <div id="spntxtMobile" class="error font13 margin-top5 hide">Please enter mobile number.</div>
+                                </div>
+                                <div>
+                                    <input type="hidden" id="custId" value="">
+                                </div>
+                                <div class="volvo-survey__submit-btn"><input type="submit" id="btnSubmit" class="btn btn-orange" value="Submit"></div>
+                            </div>
+                       }
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<div class="timer__container hide">
+    <div class="timer-text">Thank you! Your Form is successfully submitted <br/>
+Redirecting to CarWale Home page in <span id="timercount" class="date-color"></span> seconds.</div>
+</div>
+
+<div class="volvo-survey__popup-overlay hide">
+    <div class="volvo-survey__close-popup">
+        <p class="close-popup__heading">Are  you sure want to close the survey?</p>
+        <div>
+			<span class="close-survey__btn-no close-survey__btn" data-role="click-tracking" data-event="CWInteractive" data-action='@(ViewBag.isMobile != null && ViewBag.isMobile ? "Clicks_m" : "Clicks")' data-cat="Luxury_Survey" data-label='@(ViewBag.isMobile != null && ViewBag.isMobile ? "Close-pop-up_No button_m" : "Close-pop-up_No button")'>No</span>
+			<span class="close-survey__btn-yes close-survey__btn" data-role="click-tracking" data-event="CWInteractive" data-action='@(ViewBag.isMobile != null && ViewBag.isMobile ? "Clicks_m" : "Clicks")' data-cat="Luxury_Survey" data-label='@(ViewBag.isMobile != null && ViewBag.isMobile ? "Close-pop-up_Yes button_m" : "Close-pop-up_Yes button")'>Yes</span>
+        </div>
+    </div>
+</div>
+

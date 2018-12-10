@@ -1,0 +1,137 @@
+@import "_variables.scss";
+
+@mixin cw-tabs{
+    .cw-tabs{
+        display: block;
+    }
+}
+
+@mixin cw-tabs-flex{
+    .cw-tabs-flex{
+            display: table; 
+            width: 100%;
+            & ul{
+                border-bottom: 1px solid #cccccc; 
+                margin-bottom: 45px;
+            }
+            & li{
+                display: table-cell; 
+                padding: 10px; 
+                text-align: center; 
+                width: 1%; 
+                color: #82888b; 
+                font-size: 18px; 
+                cursor: pointer;
+
+                &:hover:not(.disabled){
+                    color: #565a5c;
+                }
+
+                &.active{
+                    border-bottom: 3px solid #ef3f30; 
+                    color: #565a5c; 
+                    cursor: default;
+                }
+            }
+        }
+}
+
+@mixin cw-tabs-auto($tabsColor: "") {
+	.cw-tabs--overflow {
+		width: 100%;
+		display: block;
+		overflow-x: auto;
+
+		&::-webkit-scrollbar {
+			width: 0;
+			height: 0;
+			display: none;
+		}
+	}
+
+	.cw-tabs--auto {
+		width: 100%;
+		display: table;
+		margin-bottom: 15px;
+		border-bottom: 1px solid map-get($color-map, "disabledGray");
+	}
+
+	.cw-tabs__item {
+		width: 1%;
+		display: table-cell;
+		font-size: 14px;
+		padding: 10px 15px 7px;
+		text-align: center;
+		white-space: nowrap;
+		color: map-get($color-map, "default");
+		cursor: pointer;
+
+		&.active {
+		@if $tabsColor == "shamrockGreen" {
+			border-bottom: 3px solid map-get($color-map, "shamrockGreen");
+			color: map-get($color-map, "shamrockGreen");
+		}
+		@else {
+			border-bottom: 3px solid map-get($color-map, "red");
+			color: map-get($color-map, "black");
+		}
+		}		
+	}
+
+	.cw-tabs--auto {
+		&.cw-tabs--inline {
+			.cw-tabs__item {
+				width: auto;
+				display: inline-block;
+			}
+		}
+	}
+}
+
+@mixin cw-tabs-bottom-margin-ul($margin:10,$unit:"px"){
+    @if unitless($margin){
+    .cw-tabs-inner-margin#{$margin}{
+        ul{
+            margin-bottom: #{$margin+$unit};
+        }
+    }
+    }
+    @else{
+        @warn "Please provide unitless margin";
+    }
+}
+
+@mixin cw-tabs-oxygen($padding: 10px 15px 0 15px, $borderColor: 'shamrockGreen') {
+
+	.cw-tab-wrapper {
+		border-bottom: 1px solid  map-get($color-map, 'smoke-white');
+	}
+
+	.cw-tab-list {
+		display: table;
+	}
+
+	.cw-tab__list-item {
+		display: table-cell;
+		width: 1%;
+		text-align: center;
+		padding: $padding;
+		cursor: pointer;
+
+		&.active {
+			.cw-tab-list__title {
+				border-bottom: 3px solid map-get($color-map, $borderColor);
+				color: map-get($color-map, "shamrockGreen");
+			}
+		}
+	}
+
+	.cw-tab-list__title {
+		font-size: 13px;
+		color: map-get($color-map, "charcoal");
+		text-transform: uppercase;
+		display: inline-block;
+		font-weight: $font-bold;
+		padding-bottom: 10px;
+	}
+}

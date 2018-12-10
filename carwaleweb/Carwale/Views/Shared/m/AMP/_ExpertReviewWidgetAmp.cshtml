@@ -1,0 +1,36 @@
+﻿@model List<Carwale.Entity.CMS.Articles.ArticleSummary>
+@using Carwale.Utility;
+@using MobileWeb.Common;
+@if (Model.Count > 0)
+{
+<h2 class="section-heading">@ViewBag.MakeName @ViewBag.ModelName Expert Reviews</h2>
+<ul>
+@foreach (var review in Model)
+{
+    <li>
+        <article>
+            <a title="Review of @ViewBag.ModelName-@review.Title" class="expert-review-list content-box-shadow" href="@string.Format("{0}{1}","/m", review.ArticleUrl)">
+                <div class="clearfix">
+                    <div class="smallImageWrapper">
+                        <amp-img title="@review.Title" alt="@review.Title"
+                                 src="@ImageSizes.CreateImageUrl(review.HostUrl,ImageSizes._160X89, review.OriginalImgUrl)" width="100" height="56"></amp-img>
+                    </div>
+                    <div class="image-heading-details">
+                        <header>
+                            <b>@review.Title.ToString()</b>
+                        </header>
+                        <footer>@review.DisplayDate.ConvertDateToDays() | @review.AuthorName</footer>
+                    </div>
+                </div>
+                <p class="margin-top5">@Html.Raw(Format.LimitText(review.Description, 450))<span class="text-link" data-vars-ec="msite_expert_review_linkages" data-vars-ea="model_page_read_more_click" data-vars-el="@ViewBag.MakeName @ViewBag.ModelName"> Read more</span></p>
+            </a>
+        </article>
+    </li>
+}
+</ul>
+<div class="text-center margin-bottom20">
+    <a data-vars-ec="msite_expert_reviews" data-vars-ea="model_page_view_all_click" data-vars-el="@ViewBag.MakeName @ViewBag.ModelName" class="font14" href="/m/@CommonOpn.FormatSpecial(ViewBag.MakeName)-cars/@ViewBag.MaskingName/expert-reviews/">
+        <span>All @ViewBag.MakeName @ViewBag.ModelName Expert Reviews</span>
+    </a>
+</div>
+}

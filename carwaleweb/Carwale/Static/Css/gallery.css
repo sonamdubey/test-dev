@@ -1,0 +1,365 @@
+﻿/*********************Gallery Header Starts*****************************/
+#media-gallery--root, #media-gallery--blackout, #image-wrapper, #video-wrapper, .td-gallery-container.nc-gallery-container {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+
+#media-gallery--root {
+  z-index: 10;
+}
+
+#media-gallery--blackout {
+  background: rgba(0, 0, 0, 0.95);
+  top: 0px;
+}
+
+#media-gallery--detail-frame {
+  height: 100%;
+}
+
+#media-gallery--header {
+  width: 81%;
+  margin: 0.5% auto 0 auto;
+  border-bottom: 1px solid #ccc;
+}
+
+#media-gallery--model-name {
+  font-size: 24px;
+  font-weight: 500;
+  color: white;
+  float: left;
+}
+/*********************Gallery Header Ends*****************************/
+/*********************Share Icons Starts*****************************/
+#media-gallery--actions-list {
+  font-size: 18px;
+  color: white;
+  float: right;
+}
+
+#media-gallery--actions-list li {
+  display: inline-block;
+}
+
+#media-gallery--actions-list li span {
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+#media-gallery--actions-list a {
+  color: white;
+}
+
+.media-gallery--actions-share {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 15px;
+  border: 1px solid;
+  transition: all 0.1s;
+}
+/*********************Share Icons Ends*****************************/
+/*********************Image Categories Starts*****************************/
+#media-gallery--sections-list {
+  font-size: 18px;
+  color: white;
+  float: right;
+  transition: all 0.1s;
+}
+
+#media-gallery--sections-list li {
+  display: inline-block;
+  cursor: pointer;
+  padding-bottom: 7px;
+  color: #ccc;
+}
+
+#media-gallery--sections-list li a {
+  text-decoration: none;
+}
+
+#media-gallery--sections-list li span {
+  padding: 0 25px;
+}
+
+#media-gallery--sections-list li.active {
+  border-bottom: 2px solid #fff;
+  color: white;
+}
+/*********************Image Categories Ends*****************************/
+/******************************Gallery Video Starts***********************************/
+#media-gallery--videos-large {
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+  width: 60%;
+  height: 100%;
+  float: left;
+  margin-left: 9.6%;
+}
+
+#media-gallery--videos-thumbnail {
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+  width: 20%;
+  height: 100%;
+  float: left;
+  margin-right: 10%;
+}
+
+#media-gallery--videos-thumbnail-list {
+  width: 90%;
+  margin: 0 auto;
+  height: 80%;
+  overflow-y: auto;
+}
+
+#media-gallery--videos-thumbnail-list::-webkit-scrollbar {
+  width: 3px;
+}
+
+#media-gallery--videos-thumbnail-list::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,0.3);
+}
+
+#media-gallery--videos-thumbnail-list::-webkit-scrollbar-thumb {
+  background-color: white;
+  outline: 1px solid white;
+}
+
+#media-gallery--videos-thumbnail-list li {
+  cursor: pointer;
+}
+
+#media-gallery--videos-thumbnail-list li img {
+  width: 100%;
+  border: 1px solid;
+}
+
+.media-gallery--video-thumbnail {
+  position: relative;
+}
+
+.media-gallery--video-thumbnail-category {
+  position: absolute;
+  bottom: 0;
+  padding: 5%;
+  text-align: center;
+  width: 100%;
+  color: white;
+  background: rgba(0,0,0,0.8);
+}
+
+#media-gallery--empty-view {
+  height: 80%;
+  width: 80%;
+  position: fixed;
+  top: 0;
+  margin: 3% 10%;
+}
+
+#media-gallery--empty-text {
+  font-size: 22px;
+  margin: 20% 42%;
+  position: absolute;
+  width: 210px;
+}
+/******************************Gallery Video Ends***********************************/
+/******************************Gallery Close Starts***********************************/
+#media-gallery--close {
+  position: fixed;
+  top: 0;
+  right: 1%;
+  color: white;
+  cursor: pointer;
+}
+
+.fa-times-thin:before {
+  content: '\00d7';
+}
+/******************************Gallery Close Ends***********************************/
+/*********************Carousel Common Starts*****************************/
+#image-wrapper, #video-wrapper {
+  height: 95%;
+}
+
+.td-gallery-container.nc-gallery-container {
+  width: 100%;
+  position: relative;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  margin: 0 auto;
+  z-index: auto;
+  min-height: 403px;
+  height: 100%;
+}
+
+.connected-carousels {
+  width: 81%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.connected-carousels .carousel {
+  overflow: hidden;
+  position: relative;
+}
+
+.connected-carousels .carousel ul {
+  overflow: hidden;
+  height: 100%;
+  width: 20000%;
+  position: relative;
+  list-style: none;
+  margin: 8px 0 0 0;
+  padding: 0;
+}
+
+.connected-carousels .carousel li {
+  float: left;
+}
+
+.connected-carousels .carousel li img {
+  width: 100%;
+  display: block;
+  margin: -5% auto 0 auto;
+  overflow: hidden;
+  border: none;
+}
+
+.connected-carousels .stage-wrapper {
+  height: 85%;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.connected-carousels .stage {
+  height: 100%;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.carousel-stage {
+  overflow: visible !important;
+  height: 100%;
+  width: 100%;
+}
+
+.carousel-stage li {
+  width: 0.5%;
+  margin: 0 0.035% 0 0;
+}
+
+.connected-carousels .navigation {
+  width: 100%;
+  margin: 0;
+  height: 100%;
+  position: relative;
+}
+
+.connected-carousels .carousel-navigation {
+  width: 100%;
+  margin: 0;
+  height: 100%;
+  position: relative;
+  background-color: transparent;
+}
+
+.connected-carousels .carousel-navigation li {
+  width: 0.05%;
+  margin-right: 0.003%;
+}
+
+.connected-carousels .carousel-navigation li img {
+  margin-top: 0;
+  height: 75px;
+}
+
+.connected-carousels .carousel-navigation li.active img {
+  border: 2px solid #03a9f4;
+}
+/*********************Carousel Common Ends*****************************/
+/*********************Carousel Next Prev Buttons Starts*****************************/
+.connected-carousels .prev-stage, .connected-carousels .next-stage {
+  display: block;
+  position: absolute;
+  width: 45px;
+  color: #fff;
+  top: 0;
+  height: 85%;
+}
+
+.connected-carousels .prev-stage, .connected-carousels .prev-navigation {
+  left: -5px;
+}
+
+.connected-carousels .next-stage, .connected-carousels .next-navigation {
+  right: -5px;
+}
+
+.connected-carousels .prev-stage.inactive, .connected-carousels .next-stage.inactive {
+  display: none;
+}
+
+.connected-carousels .prev-navigation, .connected-carousels .next-navigation {
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  text-decoration: none;
+  color: #fff;
+  border: none;
+  background: none;
+  top: 4%;
+  z-index: 1;
+}
+
+.connected-carousels .prev-navigation {
+  text-indent: 6px;
+}
+
+.connected-carousels .prev-navigation.inactive, .connected-carousels .next-navigation.inactive {
+  opacity: .8;
+  cursor: default;
+}
+
+.connected-carousels .prev-stage span, .connected-carousels .next-stage span {
+  font: 4em FontAwesome;
+  top: 45%;
+  display: block;
+  position: absolute;
+}
+
+.connected-carousels .prev-stage span {
+  left: 60%;
+}
+
+.connected-carousels span.next {
+  margin-right: 20%;
+}
+/*********************Carousel Next Prev Buttons Ends*****************************/
+
+/* 360 link */
+#media-gallery--sections-list {
+  margin-right: 15px;
+}
+
+.tab-360-target {
+  padding-right: 25px;
+  padding-left: 25px;
+  color: #ccc;
+  display: inline-block;
+}
+
+.new-tag-icon-28 {
+  width: 28px;
+  height: 13px;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ef3f30/new-tag.png) no-repeat;
+  display: inline-block;
+  position: relative;
+  top: 0;
+  left: 3px;
+  padding: 0 !important;
+}

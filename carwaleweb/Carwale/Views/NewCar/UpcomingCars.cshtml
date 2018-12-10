@@ -1,0 +1,288 @@
+﻿@model Carwale.DTOs.NewCars.UpcomingCarsDTO
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@{
+    int currentYear = DateTime.Today.Year;
+
+    ViewBag.PageId = 46;
+    ViewBag.BodyClass = "bg-white header-fixed-inner";
+    ViewBag.Title = Model.MetaData.Title;
+    ViewBag.Description = Model.MetaData.Description;
+    ViewBag.canonical = Model.MetaData.Canonical;
+    ViewBag.Alternate = Model.MetaData.Alternate;
+    ViewBag.DeeplinkAlternatives = Model.MetaData.DeeplinkAlternativesAndroid;
+    ViewBag.AdId = "1398840401023";
+    ViewBag.AdPath = "/1017752/Upcoming_Cars_";
+    ViewBag.CustomJS = "~/Views/StaticPartials/UpcomingCarScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/UpcomingCarsCss.cshtml";
+    ViewBag.Next = Model.MetaData.NextUrl; 
+    ViewBag.Prev = Model.MetaData.PrevUrl;
+
+
+    ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+            googletag.cmd.push(function () {
+            googletag.defineSlot('" + ViewBag.AdPath + @"300x250', [[300, 250], [300, 600]], 'div-gpt-ad-" + ViewBag.AdId + @"-0').addService(googletag.pubads());
+            googletag.defineSlot('" + ViewBag.AdPath + @"300x250_BTF', [300, 250], 'div-gpt-ad-" + ViewBag.AdId + @"-1').addService(googletag.pubads());
+            googletag.defineSlot('" + ViewBag.AdPath + @"970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90], [960, 60], [970, 60]], 'div-gpt-ad-" + ViewBag.AdId + @"-2').addService(googletag.pubads());
+            googletag.defineSlot('" + ViewBag.AdPath + @"300x600', [[120, 240], [120, 600], [160, 600], [300, 250], [300, 600]], 'div-gpt-ad-" + ViewBag.AdId + @"-9').addService(googletag.pubads());
+            googletag.pubads().setTargeting('City', '" + CookiesCustomers.MasterCity.ToString() + @"');
+    googletag.pubads().setTargeting('UserModelHistory', '" + CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+    googletag.pubads().collapseEmptyDivs(); 
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+});</script>";
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+}
+@section MetaTags{
+    @Helpers.GetOgTags("https://www.carwale.com" + Request.ServerVariables["http_x_rewrite_url"], ViewBag.Title.ToString(), ViewBag.Description.ToString(), string.Empty)
+}
+<aside class="container">
+    <div class="grid-12">
+        <div class="padding-bottom15 text-center">
+            @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_728x90.cshtml");}
+        </div>
+    </div>
+</aside>
+<div class="clear"></div>
+<section class="bg-light-grey padding-top10 padding-bottom20 no-bg-color">
+    <div class="container">
+        <div class="grid-12">
+            <div class="breadcrumb margin-bottom15">
+                <ul class="special-skin-text" itemscope itemtype="http://schema.org/BreadcrumbList">
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/" itemprop="item" title="Carwale"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li>
+                    @if (Model.MakeName != string.Empty)
+                    {
+                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span class="fa fa-angle-right margin-right10"></span><a href="/@Carwale.Utility.Format.FormatURL(Model.MakeName)-cars/" itemprop="item" title="@Model.MakeName Cars"><span itemprop="name">@Model.MakeName</span></a><meta itemprop="position" content="2" /></li>}
+                    else
+                    {
+                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span class="fa fa-angle-right margin-right10"></span><a href="/new/" itemprop="item" title="New Cars"><span itemprop="name">New Cars</span></a><meta itemprop="position" content="2" /></li>}
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><span class="fa fa-angle-right margin-right10"></span><span itemprop="name">Upcoming Cars</span><meta itemprop="position" content="3" /></li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <h1 class="font30 text-black special-skin-text">Upcoming @Model.MakeName Cars in India</h1>
+            <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="container">
+        <div class="grid-8">
+            <div class="margin-bottom10 content-box-shadow">
+                <span id="spnError"></span>
+                <h3 class="margin-left10 margin-top10 margin-bottom10">Latest information on expected new car launches in India.</h3>
+                <div class="margin-bottom10">
+                    <div class="grid-7">
+                        <div class="leftfloat margin-top10 margin-right10">Filter by:</div>
+                        <div class="grid-6 form-control-box">
+                            <span class="select-box fa fa-angle-down"></span>
+                            <select name="UpcomingCarSearch$drpMake" id="UpcomingCarSearch_drpMake" class="form-control">
+                                <option value="0">--Select Makes--</option>
+                                @foreach (var make in Model.CarMakes)
+                                {
+                                    <option value="@make.MakeId">@make.MakeName</option>}
+                            </select>
+                        </div>
+                        <div class="leftfloat margin-right10">
+                            <a class="btn btn-orange btn-xs text-uppercase" id="btnMakeModelSearch" onclick="javascript:MakeModelSearch_click()">Go</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="grid-5">
+                        <div class="rightfloat">
+                            <div class="leftfloat margin-top10  margin-right10">Sort by:</div>
+                            <div class="leftfloat form-control-box">
+                                <span class="select-box fa fa-angle-down"></span>
+                                <select id="UpcomingCarSearch_drpUCSortList" class="form-control">
+                                    <option value="-1">Select</option>
+                                    <option value="1">Price: Low to High</option>
+                                    <option value="2">Price: High to Low</option>
+                                    <option value="3">Launch Date: Sooner</option>
+                                    <option value="4">Launch Date: Later</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            @if (Model.UpcomingCarModels == null || Model.UpcomingCarModels.Count < 1)
+            {<div class="alert moz-round" id="alertObj">CarWale doesn't have information for upcoming cars from this manufacturer at this point. Please check again later.</div>}
+            else
+            {
+                <div class="mid-box">
+                    @{int srNo = (Model.PageNo - 1) * 10 + 1; string desc = string.Empty;
+                    foreach (var car in Model.UpcomingCarModels)
+                    {
+                        <div class="gb-solid-bg content-box-shadow">
+                            <div class="redirect-rt" style="width:325px;">
+                                <div style="font-size:11px;">
+                                    <div class="rightBg float-rt"></div>
+                                    <div id="cwc" style="width:300px; padding-top:3px;" class="bg float-rt @Html.Raw("cwc" + car.CWConfidenceText)">
+                                        <div class="float-lt">Updated: <strong>@car.UpdatedDate</strong>,&nbsp;</div>
+                                        <div class="float-lt">
+                                            <div class="uc_sprite float-rt @car.CWConfidenceCSS"></div>CarWale Confidence:&nbsp;<strong>@car.CWConfidenceText</strong>&nbsp;
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="uc_sprite pointer float-rt"></div>
+                                </div><div class="clear"></div>
+                                <div><img class='lazy' width="210" height="118" data-original='@Carwale.Utility.ImageSizes.CreateImageUrl(car.Image.HostUrl ?? string.Empty, Carwale.Utility.ImageSizes._210X118, car.Image.ImagePath ?? string.Empty)' alt='@car.MakeName @car.ModelName' title='@car.MakeName @car.ModelName' src='https://img.carwale.com/grey.gif' align='right' border='0' /></div>
+                            </div>
+                            <h3 class="hd3"><span>@Html.Raw(srNo). </span><a href="/@UrlRewrite.FormatSpecial(car.MakeName)-cars/@car.MaskingName/">@car.MakeName @car.ModelName</a></h3>
+                            <div style="margin:5px 0;"><b>When to expect:</b> @car.ExpectedLaunch</div>
+                            <div style="margin: 5px 0;"><b>Estimated Price:</b> ₹ @Carwale.UI.Common.FormatPrice.GetFormattedPriceV2(car.Price.MinPrice.ToString(), car.Price.MaxPrice.ToString())</div>
+                            @if (Model.CarSynopsis.TryGetValue(car.ModelId, out desc))
+                            {
+                                <div class="desc">
+                                    @Html.Raw(desc)...
+                                    <a href="/@UrlRewrite.FormatSpecial(car.MakeName)-cars/@car.MaskingName/">Read More</a>
+                                </div>
+                            }
+                            <div class="clear"></div>
+                        </div>srNo++;
+                    }}
+                </div>
+                <p class="mid-box">&nbsp;</p>
+                <div class="clear"></div>
+                if (Model.TotalPages > 1)
+                {
+                    bool sort = Model.Sort > 0;
+                    string prefix = Model.MakeId > 0 ? string.Format("{0}-cars/upcoming", Carwale.Utility.Format.FormatURL(Model.MakeName)) : "upcoming-cars";
+                    <div style="padding-bottom: 20px;">
+                        <span id="divFirstNav">
+                            @if (Model.PageNo < 2)
+{ <span class="pgEnd special-skin-text">First</span><span class="pgEnd special-skin-text">Previous</span> }
+                            else
+                            { <span class="pg"><a href="/@prefix/@(sort?string.Format("sort/{0}/",Model.Sort):string.Empty)page/1/">First</a></span><span class="pg"><a href="/@prefix/@(sort?string.Format("sort/{0}/",Model.Sort):string.Empty)page/@(Model.PageNo - 1)/">Previous</a></span> }
+                        </span>
+                        <span id="divPages" align="center">
+                            @for (int i = 1; i <= Model.TotalPages; i++)
+                            {
+                                if (i == Model.PageNo)
+                                {<span class="pgSel">@i</span>}
+                                else
+                                {<span class="pg"><a href="/@prefix/@(sort?string.Format("sort/{0}/",Model.Sort):string.Empty)page/@i/">@i</a></span>}
+                            }
+                        </span>
+                        <span id="divLastNav">
+                            @if (Model.PageNo == Model.TotalPages)
+{ <span class="pgEnd special-skin-text">Next</span><span class="pgEnd special-skin-text">Last</span> }
+                            else
+                            { <span class="pg special-skin-text"><a href="/@prefix/@(sort?string.Format("sort/{0}/",Model.Sort):string.Empty)page/@(Model.PageNo+1)/">Next</a></span><span class="pg"><a href="/@prefix/@(sort?string.Format("sort/{0}/",Model.Sort):string.Empty)page/@Model.TotalPages/">Last</a></span> }
+                        </span>
+                    </div>}
+            }
+        </div>
+        <div id="cwcContentHigh" class="hide">
+            <div><strong>CarWale Confidence:</strong></div>
+            <div class="margin-top10"><div class="float-lt"><div class="uc_sprite cwc_high float-lt"></div><strong>High:</strong></div><div class="float-lt" style="width:240px; margin-left:5px;"> The source of information on this page is authoritative. We are almost sure about the launch date, car specs & features etc. Prices are tentative.</div></div>
+        </div>
+        <div id="cwcContentMedium" class="hide">
+            <div><strong>CarWale Confidence:</strong></div>
+            <div class="margin-top10"><div class="float-lt"><div class="uc_sprite cwc_medium float-lt"></div><strong>Medium:</strong></div><div class="float-lt" style="width:220px; margin-left:5px;"> Some of the information on this page comes from an authoritative source and is correct to a good extent. The launch date and estimated price are tentative.</div></div>
+        </div>
+        <div id="cwcContentLow" class="hide">
+            <div><strong>CarWale Confidence:</strong></div>
+            <div class="margin-top10"><div class="float-lt"><div class="uc_sprite cwc_low float-lt"></div><strong>Low:</strong></div><div class="float-lt" style="width:240px; margin-left:5px;"> Information on this page is based upon speculations & rumours and may not be correct. </div></div>
+        </div>
+        <div class="grid-4">
+            <div class="margin-bottom20">
+                <div class="content-box-shadow content-inner-block-10">
+                    <div id="divSubscription">
+                        <h3 class="font16">Get Upcoming Car Alerts</h3>
+                        <ul class="ul-alerts margin-top10">
+                            <li class="grid-8"><input type="text" class="form-control" id="txtUpcomingAlertEmail" placeholder="Enter your email address"></li>
+                            <li class="grid-3"><input type="button" class="btn btn-orange btn-xs" id="btnSubscribe" value="Subscribe"></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <aside>
+                @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_ATF_300x250.cshtml");}
+            </aside>
+            <div class="content-box-shadow content-inner-block-10 margin-bottom20">
+                <h2 class="hd2">New Launches</h2>
+                <p class="text-grey">Check out just launched cars, their prices, specs, pictures etc.</p>
+                <div id="divNewLaunch" class="nl-ver">
+                    @if (Model.NewLaunches != null)
+                    {
+                        foreach (var car in Model.NewLaunches)
+                        {
+                            string currentUrl;
+                            <div class="nl-car margin-bottom10">
+                                @if (car.Version != null && car.Version.VersionMasking != null)
+                                {
+                                    currentUrl = ManageCarUrl.CreateVersionUrl(car.Make.MakeName, car.Model.MaskingName, car.Version.VersionMasking);
+                                }
+                                else
+                                {
+                                    currentUrl = ManageCarUrl.CreateModelUrl(car.Make.MakeName, car.Model.MaskingName);
+                                }
+                                <a href="@currentUrl">
+                                    <img class="img-border" width="120" align="left" src="@ImageSizes.CreateImageUrl(car.Image != null && !string.IsNullOrEmpty(car.Image.HostUrl.ToString()) ? car.Image.HostUrl.ToString() : string.Empty, ImageSizes._160X89, car.Image.ImagePath != null && !string.IsNullOrEmpty(car.Image.ImagePath) ? car.Image.ImagePath : string.Empty)" border="0" title="@car.Make.MakeName @car.Model.ModelName @(car.Version != null && car.Version.VersionName != null ? car.Version.VersionName : "")" alt="@car.Make.MakeName @car.Model.ModelName @(car.Version != null && car.Version.VersionName != null ? car.Version.VersionName : "")" />
+                                </a>
+                                <div class="nl-links">
+                                    <a href='@currentUrl'></a>
+                                    <ul class="ul-arrow font11 margin-top5">
+                                        <li><a class="href-grey" href="javascript:void(0);" title="Check @car.Make.MakeName @car.Model.ModelName @(car.Version != null && car.Version.VersionName != null ? car.Version.VersionName : "") On-road Price" onclick="GetPriceQuote('@(car.Version != null && car.Version.VersionName != null ? car.Version.VersionName + "-" : "")','@car.Model.ModelId',19, this)">Check On-road Price</a></li>
+                                        <li><a class="href-grey" title="View @car.Make.MakeName @car.Model.ModelName Photos" href="/@UrlRewrite.FormatSpecial(car.Make.MakeName)-cars/@car.Model.MaskingName/photos/">Photos</a> </li>
+                                        <li><a class="href-grey" title="@car.Make.MakeName @car.Model.ModelName User Reviews" href="/@UrlRewrite.FormatSpecial(car.Make.MakeName)-cars/@car.Model.MaskingName/userreviews/">User Reviews</a></li>
+                                    </ul>
+                                </div>
+                                <div class="nl-clear clear"></div>
+                            </div>
+                        }
+                    }
+                    <div class="clear"></div>
+                    <br />
+                    <a class="rightfloat" href="/new-car-launches/">All New Launches</a>
+                    <span class="icon-sheet more-link"></span>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-shadow content-inner-block-10 margin-bottom20">
+                <h2 class="hd2 font16 text-black text-bold margin-bottom10">Tips, Advice & Guides</h2>
+                <p class="text-grey font12 margin-bottom10">Car tips, advice & guides from our experts</p>
+                <ul class="ul-arrow" style="margin-bottom:5px;">
+                    <li><a href="/tipsadvice/new-car-discount-negotiation-guide-8915/">New car discount negotiation guide</a></li>
+                    <li><a href="/tipsadvice/general-car-buying-tips-8916/">Things to know while buying a car</a></li>
+                    <li><a href="/tipsadvice/how-to-save-fuel-8732/">How to increase car mileage</a></li>
+                </ul>
+                <a class="rightfloat" href="/tipsadvice/">Tips & Advice</a><span class="icon-sheet more-link"></span><span class="redirect-rt text-grey">&nbsp;</span>
+                <div class="clear"></div>
+            </div>
+            <aside>
+                @{Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_BTF_300x250.cshtml");}
+            </aside>
+            <div class="content-box-shadow content-inner-block-10 margin-bottom20">
+                <h2 class="hd2">CarWale Forum Discussions</h2>
+                <p class="text-grey">Check out user discussions in car buying/owning categories</p>
+                <ul class="ul-arrow" style="margin-bottom:5px;">
+                    <li><a href="/forums/ViewForum-1.html">Buying a Car Forum</a></li>
+                    <li><a href="/forums/ViewForum-6.html">Finance & Insurance Forum</a></li>
+                    <li><a href="/forums/ViewForum-22.html">Indian Car Market Forum</a></li>
+                    <li><a href="/forums/ViewForum-30.html">Car Audio/Video Forum</a></li>
+                    <li><a href="/forums/ViewForum-16.html">Car Maintenance Forum</a></li>
+                </ul>
+                <a class="redirect-rt" href="/forums/">All Forum Categories</a><span class="icon-sheet more-link"></span>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-shadow content-inner-block-10">
+                <h2 class="hd2">Car Buyer's Tools</h2>
+                <ul class="ul-arrow">
+                    <li><a href="/new/locatenewcardealers.aspx">Locate car dealers/showrooms</a></li>
+                    <li><a href="/finance/calculateemi.aspx">Calculate car loan EMI</a></li>
+                    <li><a href="/used/cars-for-sale/">Search used cars for sale</a></li>
+                    <li><a href="/used/carvaluation/">Check value of your car</a></li>
+                    <li><a href="/insurance/insurancepremium.aspx">Calculate car insurance premium</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</section>
+<div class="clear"></div>

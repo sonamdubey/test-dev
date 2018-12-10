@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" ContentType="text/html" Inherits="MobileWeb.Users.Logout" AutoEventWireup="false" trace="false" %>

@@ -1,0 +1,180 @@
+﻿@model Carwale.DTOs.Deals.Gallery_DTO
+@using Carwale.BL.Experiments;
+@using Carwale.UI.Common;
+@{
+    string jsPath = "", cssPath = "", staticPath = System.Configuration.ConfigurationManager.AppSettings["staticPath"];
+    if (System.Configuration.ConfigurationManager.AppSettings["staticHostUrl"] != "")
+    {
+        cssPath = "https://st.aeplcdn.com" + staticPath;
+        jsPath = "https://st.aeplcdn.com" + staticPath;
+    }
+    bool showExperimentalColor = ProductExperiments.IsShowExperimentalColor(CookiesCustomers.AbTest);
+}
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+	<meta name="HandheldFriendly" content="true" />
+	<title itemprop="name">Photo Gallery</title>
+	<link rel="stylesheet" href="/static/m/css/cwm-common-style.css" type="text/css">
+	<link rel="stylesheet" href="/static/cwfontawesome/cw-font-awesome.css" type="text/css">
+	<link rel="stylesheet" href="/static/m/css/deals.css" type="text/css">
+	<link rel="stylesheet" href="/static/m/css/cust-gallery.css" type="text/css">
+</head>
+<body class="@(showExperimentalColor ?"btn-abtest":"")">
+
+	<!-- Main container starts here -->
+	<div id="main-container" class="galley-wrap">
+		<div class="nc-pg-container">
+			<div class="nc-pg-header">
+				<a href="javascript:history.back()">
+					<span class="nc-pg-sprite bk-arrow leftfloat"></span>
+                    <h2 class="leftfloat gallery-heading" style="padding: 0 0 0 10px;"></h2>
+					<div class="clear"></div>
+				</a>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+			<div class="position-abt pos-left0 pos-right0 photo-info-wrap">
+				<span id="camp-model-info-tooltip" class="inline-block ad-tooltip stable-tooltip fa fa-info-circle photo-info padding-top10 padding-bottom10 padding-left10 padding-right10">
+				</span>
+				<span class="camp-model-info-content hide">
+					Images are representational and may not exactly match the version
+				</span>
+			</div>
+			<div class="nc-pg-body">
+
+				<!-- carousel starts here -->
+				<div id="imgCarouselContainer">
+					<div class="m-carousel m-fluid m-carousel-photos m-uc-gallery">
+						<div id="imgGalleryCarousel" class="m-carousel-inner autoHeight" data-bind="template: { foreach: filteredGallery } ">
+							<div class="m-item">
+								<img class="lazy" src="https://imgd.aeplcdn.com/0x0/adgallery/loader.gif" data-bind="attr: { 'data-original': HostUrl + '393x221' + OriginalImgPath, alt: ImageTitle, title: ImageTitle, desc: ImageDescription }">
+							</div>
+						</div>
+						<div class="m-carousel-controls m-carousel-hud">
+							<a data-slide="prev" href="#" class="m-carousel-prev ui-link">Previous</a>
+							<a data-slide="next" href="#" class="m-carousel-next ui-link">Next</a>
+						</div>
+					</div>
+				</div>
+				<div id="videoCarouselContainer">
+					<div class="m-carousel m-fluid m-carousel-photos m-uc-gallery">
+						<div class="m-carousel-inner autoHeight" id="videoGalleryCarousel" data-bind="foreach: videos">
+							<div class="m-item">
+								<iframe data-bind="attr: { src: VideoUrl + '&enablejsapi=1' }" frameborder="0" allowtransparency="true"></iframe>
+							</div>
+						</div>
+						<div class="m-carousel-controls m-carousel-hud">
+							<a data-slide="prev" href="#" class="m-carousel-prev ui-link">Previous</a>
+							<a data-slide="next" href="#" class="m-carousel-next ui-link">Next</a>
+						</div>
+					</div>
+				</div>
+				<!--carousel ends here-->
+				<!-- call-action-box code start here -->
+				<div class="call-action-box">
+					<div class="clear"></div>
+					<a data-role="click-tracking" data-event="CWInteractive" data-action="dealsPhotogalleryLeadpopupOpen_mob" data-cat="deals_mobile" data-label="dealsPhotogalleryLeadpopupOpen_mob" href="javascript:void(0)" class="btn btn-orange req-call-btn text-uppercase" id="reqAssisBtn">Get This Offer</a>
+					<a data-role="click-tracking" data-event="CWInteractive" data-action="deals_clickCallUsButton_PhotoGallery" data-cat="deals_mobile" data-label="deals_clickCallUsButton_PhotoGallery" href="tel:@System.Configuration.ConfigurationManager.AppSettings["CarwaleAdvantageMaskingNumber"]" class="btn btn-green btn-xs call-details-btn text-uppercase">
+						<span class="nc-pg-sprite call-detail-icon"></span>Call
+					</a>
+
+					<div class="clear"></div>
+				</div>
+				<!-- ends here -->
+			</div>
+			<div class="nc-pg-footer">
+				<div class="nc-pg-text">
+					<span class="nc-pg-sprite six-dots-icon"></span>
+					<span>Gallery</span>
+				</div>
+				<div class="nc-pg-thumb tab-panel hide">
+					<div class="nc-pg-tabs">
+						<ul>
+							<li class="active" data-id="exterior">Exterior</li>
+							<li data-id="interior">Interior</li>
+							<li data-id="videos">Videos</li>
+						</ul>
+					</div>
+					<div class="nc-pg-tabs-data" id="imgList" onscroll="lazyLoadViewport();">
+						<ul data-bind="template: { foreach: filteredGallery } ">
+							<li>
+								<a data-bind="attr: { 'original-href': HostUrl + '393x221' + OriginalImgPath }" class="swipebox" title="">
+									<img class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-bind="attr: { 'data-original': HostUrl + '144x81' + OriginalImgPath, alt: ImageTitle, title: ImageTitle, desc: ImageDescription }" />
+								</a>
+							</li>
+						</ul>
+						<div id="noImages" class="hide"><span>No images available.</span></div>
+						<div class="clear"></div>
+					</div>
+					<div class="nc-pg-tabs-data hide" id="videoList" onscroll="lazyLoadViewport();">
+						<ul id="videosList" data-bind="foreach: videos">
+							<li>
+								<span class="video-sprite play-icon"></span>
+								<img class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-bind="attr: { 'data-original': ImagePath != '' ? 'https://' + ImgHost + ImagePath : 'http://img.youtube.com/vi/' + VideoId + '/mqdefault.jpg', title: VideoTitle, desc: Description, 'basicid': BasicId }" />
+							</li>
+						</ul>
+						<div id="noVideos" class="hide"><span>No videos available.</span></div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Request a call back popUp code starts here -->
+		<div class="m-defaultAlert-window black-window hide"></div>
+		<div class="m-defaultAlert-window-new hide"></div>
+		<div class="blackOut-window hide"></div>
+		<div id="reasons">
+			@foreach (var x in Model.StockDetails.Reasons.Reasons)
+			{
+				<div class="reason">
+					<span>@x.Reason</span>
+					<span>@x.Description</span>
+				</div>
+			}
+		</div>
+		<!-- Deals emi popup -->
+		@{Html.RenderPartial("~/Views/Shared/m/Deals/_DealEmiPopup.cshtml");}
+	</div>
+
+	@Html.Partial("~/Views/Shared/_GoogleTagManagerView.cshtml")
+	<script type="text/javascript">
+		var cwTrackingPath = '@System.Configuration.ConfigurationManager.AppSettings["HostUrl"]';
+		var insuranceKeys = {
+			cholaStates: [@System.Configuration.ConfigurationManager.AppSettings["InsuranceStates"]],
+		};
+		var defaultCookieDomain = '@Carwale.UI.Common.CookiesCustomers.CookieDomain';
+		var isEligibleForORP = '@Carwale.UI.Common.CookiesCustomers.IsEligibleForORP' === 'True';
+		var abTestKey = "@System.Configuration.ConfigurationManager.AppSettings["AbTestVersion"]";
+		var abTestKeyMaxValue = "@System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMaxValue"]";
+		var abTestKeyMinValue = "@System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMinValue"]";
+		var askingAreaCityId = [@System.Configuration.ConfigurationManager.AppSettings["AskingAreaCityIds"]];
+	</script>
+	<script type="text/javascript" src="/static/m/js/frameworks.js"></script>
+	<script type="text/javascript" src="/static/m/js/plugins.js"></script>
+	<script type="text/javascript" src="/static/m/js/home-carousel.js"></script>
+	<script type="text/javascript" src="/static/js/v2/app/clientcache.js"></script>
+	<script type="text/javascript" src="/static/js/globalSearch.js"></script>
+    <script type="text/javascript" src="/static/js/error-logger.js"></script>
+	<script type="text/javascript" src="/static/m/js/v2/app/common.js"></script>
+	<script type="text/javascript" src="/static/js/cookie-migration.js"></script>
+	<script type="text/javascript" src="/static/js/v2/app/cwTracking.js"></script>
+	<script type="text/javascript" src="/static/m/js/cust-gallery.js"></script>
+	<script type="text/javascript" src="/static/js/deals.js"></script>
+
+	<script type="text/javascript">
+		Deals.env = 1;
+		Deals.photoGallery.stockId = '@(Model.StockId)';
+        Deals.modelId = '@(Model.StockDetails.Model.ModelId)';
+		Deals.apiHostUrl = "@(System.Configuration.ConfigurationManager.AppSettings["DealsApiHostUrl"])";
+        Deals.advantageDealerId = "@(System.Configuration.ConfigurationManager.AppSettings["AdvantageDealerId"])";
+        Deals.pageLoad.photGalleyLoad();
+	</script>
+</body>
+</html>

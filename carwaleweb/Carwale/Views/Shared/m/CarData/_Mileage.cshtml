@@ -1,0 +1,38 @@
+﻿@using Carwale.Entity.CarData;
+@model List<MileageDataEntity>
+<style type="text/css">
+    .margin-tablerow td {padding: 5px 0;}.mileage-table {display: table;border-collapse: collapse;border-spacing: 0;border-left: 1px solid #ccc;border-bottom: 1px solid #ccc;margin: 10px 0 20px;}.mileage-table thead tr, .mileage-table tbody tr, .color-table thead tr, .color-table tbody tr{display: table-row;}.mileage-table thead tr td, .mileage-table tbody tr td {padding: 6px 10px;width: 17%;display: table-cell;border-right: 1px solid #ccc;}.mileage-table thead tr td {background: #e2e2e2;font-weight: bold;border-top: 1px solid #ccc;} .mileage-table tbody tr td {border-top: 1px solid #ccc;background: #fff;}.fullWidth {width: 100%;max-width: 100%;height: auto;}.grid--no-padding{padding-right:0px !important;padding-left:0px !important;}
+</style>
+@if (Model.Count > 0)
+{
+    <section class="clearfix">
+        <h1 class="font18 margin-bottom20 margin-top20 margin-left10">@ViewBag.MakeName @ViewBag.ModelName Mileage</h1>
+        <table class="mileage-table">
+            <thead>
+                <tr>
+                    <td>Fuel</td>
+                    <td>Transmission</td>
+                    <td>Engine Capacity</td>
+                    <td>Mileage</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var modelColor in Model)
+                {
+                    if (modelColor != null)
+                    {
+                        <tr>
+                            <td>@modelColor.FuelType</td>
+                            <td>@modelColor.Transmission</td>
+                            <td>@(!string.IsNullOrEmpty(modelColor.Displacement) ? modelColor.Displacement : "-")></td>
+                            <td>@modelColor.Arai @modelColor.MileageUnit</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </section>
+}
+else{
+    <p class="margin-left10">Sorry, Mileage data not available.</p>
+}

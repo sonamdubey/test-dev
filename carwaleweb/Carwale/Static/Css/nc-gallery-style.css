@@ -1,0 +1,605 @@
+﻿@charset "utf-8";
+/* CSS Document */
+#blackOut-window {
+  background: #000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: .95;
+  z-index: 999;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+}
+
+.nc-gallery-container {
+  background: #fff;
+  width: 980px;
+  min-height: 543px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+  margin: -280px 0 0 -490px;
+}
+
+.ask-gallery, .ask-form-container {
+  padding: 0 15px 25px;
+  box-sizing: border-box;
+}
+
+.ask-gallery {
+  width: 623px;
+  *width: 600px;
+  float: left;
+  background: #1c1c1c;
+  min-height: 575px;
+  min-height: 545px\9;
+  border: 1px solid grey;
+}
+
+.ask-form-container {
+  color: #333;
+  width: 350px;
+  *width: 290px;
+  float: left;
+  margin-top: 14px;
+}
+/* .ask-form-container.noFloat { float: none; } */
+.font20 {
+  font-size: 20px;
+}
+
+.unbold {
+  font-weight: normal;
+}
+
+.rupee-large {
+  position: relative;
+  top: 2px;
+}
+
+.pos-relative {
+  position: relative;
+}
+
+.margin-bottom25 {
+  margin-bottom: 25px;
+}
+
+.margin-bottom30 {
+  margin-bottom: 30px;
+}
+
+.margin-bottom35 {
+  margin-bottom: 35px;
+}
+
+a.nc-pg-btn-blue, input[type="submit"].nc-pg-btn-blue, input[type="button"].nc-pg-btn-blue, input[type="reset"].nc-pg-btn-blue {
+  background: none repeat scroll 0 0 #1288da;
+  color: #000;
+  font-size: 16px;
+  padding: 10px 25px;
+  display: inline-block;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+}
+
+a.nc-pg-btn-blue:hover, input[type="submit"].nc-pg-btn-blue:hover, input[type="button"].nc-pg-btn-blue:hover, input[type="reset"].nc-pg-btn-blue:hover {
+  text-decoration: none;
+  background: #0C7ECD;
+}
+
+a.nc-pg-btn-blue-full, input[type="submit"].nc-pg-btn-blue-full, input[type="button"].nc-pg-btn-blue-full, 
+input[type="reset"].nc-pg-btn-blue-full {
+  display: block;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nc-pg-fields input[type="text"], .nc-pg-fields select {
+  width: 100%;
+  *width: 80%;
+  box-sizing: border-box;
+}
+
+.nc-pg-fields input[type="text"]:hover, .nc-pg-fields input[type="text"]:focus {
+  border: 1px solid #999;
+}
+
+.nc-pg-fields input[type="text"], .nc-pg-fields select {
+  border: 1px solid #cccccc;
+  padding: 10px;
+  outline: none;
+  width: 100%;
+  *width: 85%;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+}
+
+.step-1 input[type="text"], .step-1 select {
+  padding-left: 10px;
+}
+
+input[type="text"].uc-pg-mobile-txt {
+  padding-left: 35px;
+}
+
+.nc-pg-fields {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+input.red-border[type="text"] {
+  border: 1px solid #F00;
+}
+
+input[type="text"].uc-pg-5digit-txt {
+  width: 160px;
+  padding: 12px 10px;
+}
+
+.photo-cust-form .step-1 input[type="text"], .photo-cust-form .step-1 select {
+  padding-left: 10px;
+}
+
+/* CU PG revised classes */
+#galleryHolder {
+  width: 589px;
+  border: 1px solid #fff;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  background: #666;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.pg-gallery, .pg-gallery .pg-nav .pg-thumbs {
+  width: 592px;
+}
+
+.pg-gallery .pg-nav {
+  top: 0;
+}
+
+.pg-gallery .pg-image-wrapper .pg-image {
+  position: inherit;
+}
+
+.pg-gallery .pg-image-wrapper {
+  height: 320px;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.pg-image img {
+  height: 100%;
+}
+
+.pg-thumb-list {
+  width: 80px;
+  overflow: hidden;
+}
+
+.pg-gallery .pg-thumbs li {
+  padding-right: 10px;
+  position: relative;
+}
+
+.pg-gallery .pg-thumbs li a {
+  display: table;
+}
+
+.pg-gallery .pg-thumbs li a img {
+  display: table-cell;
+  text-align: center;
+  border: 1px solid #fff;
+  height: 84px;
+  border-radius: 5px;
+}
+
+.pg-gallery .pg-thumbs li a.pg-active img {
+  border: 1px solid #787676;
+}
+
+#descriptions {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  font-weight: bold;
+  z-index: 99;
+  padding: 12px 10px;
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+  filter: alpha(opacity=50);
+}
+
+.pg-controls {
+  display: inline-block;
+  color: #fff;
+}
+
+.pg-gallery .pg-info {
+  float: none;
+}
+
+.pg-gallery .pg-controls {
+  height: inherit;
+}
+
+.pg-image-description {
+  display: none;
+}
+
+.pg-slideshow-controls {
+  display: none !important;
+}
+
+.nc-gallery-nav {
+  background: #fff;
+  color: #000;
+  font-size: 15px;
+  border-radius: 5px 5px 0 0;
+  *width: 592px;
+  *height: 48px;
+}
+
+.nc-gallery-nav li {
+  display: block;
+  float: left;
+  padding: 12px 0;
+  width: 80px;
+  margin: 0 10px;
+  text-align: center;
+  border-bottom: 5px solid #fff;
+  cursor: pointer;
+}
+
+.nc-gallery-active {
+  border-bottom: 5px solid #f83f35 !important;
+  font-weight: bold;
+}
+
+.nc-pg-contact-box {
+  border: 1px solid #f1f1f1;
+  background: #f7f7f7;
+  box-shadow: 0px 0px 4px #666;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 20px auto 0;
+  position: relative;
+}
+
+.nc-pg-call-box {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  *bottom: -12px;
+}
+
+.nc-gallery-or-text:before {
+  border-top: 1px dotted #9b9b9b;
+  content: "";
+  left: 0;
+  position: absolute;
+  top: 16px;
+  width: 100%;
+}
+
+.nc-gallery-or-text div {
+  background: none repeat scroll 0 0 #fff;
+  width: 30px;
+  margin: 20px auto 0;
+  padding: 0 10px;
+  position: relative;
+}
+
+.nc-gallery-or-text span {
+  background: #218dd8;
+  border-radius: 50%;
+  font-weight: bold;
+  color: #fff;
+  display: inline-block;
+  height: 30px;
+  position: relative;
+  width: 30px;
+  text-align: center;
+  line-height: 2.3;
+}
+
+.nc-on-road-price-btn {
+  background: #1288da;
+  text-align: center;
+}
+
+.nc-thank-you-text {
+  font-size: 34px;
+  color: #1288da;
+ /*margin:37px 0 0;*/;
+}
+
+.cw-nc-close-btn:hover {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+}
+
+.dealer-locator-count {
+  width: 260px;
+}
+
+.font18 {
+  font-size: 18px !important;
+}
+
+.font21 {
+  font-size: 21px;
+}
+
+.relative {
+  position: relative;
+}
+
+/* New cars gallery sprite classes */
+.pg-gallery .pg-image-wrapper .pg-next .pg-next-image, 
+.pg-gallery .pg-image-wrapper .pg-prev .pg-prev-image {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-nc-pg-sprite.png?static1fix") no-repeat;
+  display: inline-block;
+  height: 50px;
+  width: 30px;
+  top: 40%;
+}
+
+.pg-gallery .pg-image-wrapper .pg-next .pg-next-image {
+  background-position: -33px -84px;
+}
+
+.pg-gallery .pg-image-wrapper .pg-prev .pg-prev-image {
+  background-position: 3px -81px;
+}
+
+.pg-gallery .pg-nav .pg-back, .pg-gallery .pg-nav .pg-forward {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-nc-pg-sprite.png?static1fix") no-repeat;
+  display: inline-block;
+  width: 35px;
+  height: 88px;
+  position: absolute;
+  top: 0;
+}
+
+.pg-gallery .pg-nav .pg-back {
+  background-position: -70px -55px;
+  left: 0;
+}
+
+.pg-gallery .pg-nav .pg-forward {
+  background-position: -70px -154px;
+  right: 0;
+}
+
+.cw-nc-pg-sprite {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-nc-pg-sprite.png?static1fix") no-repeat;
+  display: inline-block;
+}
+
+.cw-nc-user-name-icon {
+  background-position: 0 0;
+  width: 17px;
+  height: 15px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.cw-nc-dealer-name-icon {
+  *background: none;
+  background-position: 0 -25px;
+  width: 18px;
+  height: 16px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.cw-nc-error-red-icon {
+  background-position: -50px -25px;
+  width: 19px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.cw-nc-email-icon {
+  background-position: -27px 0px;
+  width: 14px;
+  height: 17px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.cw-nc-mobile-icon {
+  background-position: -26px -26px;
+  width: 14px;
+  height: 20px;
+  position: absolute;
+  top: 8px;
+  left: 10px;
+}
+
+.cw-nc-close-btn {
+  background-position: 0 -52px;
+  width: 23px;
+  height: 23px;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  cursor: pointer;
+}
+
+.cw-nc-green-call-icon {
+  background-position: -51px 0px;
+  width: 17px;
+  height: 20px;
+}
+
+.cw-nc-select-city-icon {
+  *background: none;
+  background-position: -77px 0px;
+  width: 12px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.cw-nc-locate-dealer-icon {
+  background-position: 0px -134px;
+  width: 57px;
+  height: 62px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.video-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/video-sprite.png?static1fix) no-repeat;
+  display: inline-block;
+}
+
+.play-btn {
+  background-position: 0px -163px;
+  width: 38px;
+  height: 38px;
+  position: absolute;
+  left: 50%;
+  bottom: 25%;
+  margin-left: -20px;
+}
+
+.leadForm .nc-pg-fields {
+  margin-bottom: 22px;
+}
+
+.material-form .leadForm .nc-pg-fields {
+  margin-bottom: 15px;
+}
+/* Test Drive Page Style Starts Here */
+.td-gallery-container.nc-gallery-container {
+  width: 100%;
+  position: relative;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  margin: 0;
+  z-index: auto;
+  min-height: 403px;
+}
+
+.test-gallery-nav.nc-gallery-nav li {
+  padding: 8px 0 3px;
+}
+
+.test-gallery-nav .nc-gallery-active {
+  border-bottom: 3px solid #ef3f30 !important;
+}
+
+.connected-carousels .navigation {
+  margin: 20px 0 0 20px;
+  width: 97%;
+}
+
+#carBannerImageCarousel .carousel-stage {
+  height: 300px;
+  margin-left: 25px;
+}
+
+#carBannerImageCarousel .stage {
+  width: 555px;
+}
+
+#carBannerImageCarousel .carousel-stage li {
+  width: 555px;
+  height: 100%;
+}
+
+.connected-carousels .carousel-navigation li img {
+  width: 128px;
+}
+
+.connected-carousels .next-stage .cj-next-arrow,.connected-carousels .prev-stage .cj-prev-arrow {
+  width: 27px;
+  height: 51px;
+  padding: 6px 3px;
+  display: block;
+  background-color: #fff;
+  border: 1px solid #e2e2e2;
+}
+
+.connected-carousels .prev-stage .cj-prev-arrow {
+  background-position: -35px -142px;
+}
+
+.connected-carousels .next-stage .cj-next-arrow {
+  background-position: -70px -142px;
+}
+
+.connected-carousels .prev-navigation span, .connected-carousels .next-navigation span {
+  width: 8px;
+  height: 16px;
+}
+
+#carBannerImageCarousel .prev-navigation,#carBannerImageCarousel .next-navigation {
+  width: 20px;
+}
+
+.connected-carousels .next-navigation .next-nav-arrow {
+  background-position: -161px -57px;
+  left: 8px;
+  top: 7px;
+  position: absolute;
+}
+
+.connected-carousels .prev-navigation .prev-nav-arrow {
+  background-position: -154px -57px;
+  right: 8px;
+  top: 7px;
+  position: absolute;
+}
+
+#carBannerImageCarousel .carousel-navigation {
+  width: 538px;
+}
+
+#carBannerImageCarousel .carousel-navigation li {
+  width: 100px;
+  height: 100%;
+  margin: 0 2px;
+}
+
+.connected-carousels .next-stage {
+  right: -29px;
+}
+/* Test Drive Page Style Ends Here */
+#thank-you p {
+  font-size: 25px;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.gst-applied-section .jcarousel li {
+  height: 350px;
+}

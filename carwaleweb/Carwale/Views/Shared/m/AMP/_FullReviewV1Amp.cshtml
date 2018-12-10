@@ -1,0 +1,85 @@
+﻿@model Carwale.DTOs.NewCars.ModelPageDTO_Mobile
+@using Carwale.Utility
+<amp-analytics type="googleanalytics">
+    <script type="application/json">
+        {
+        "vars":{
+        "account":"UA-337359-1"
+        },
+        "triggers":{
+        "OpinionImpression":{
+        "on":"visible",
+        "selector":"#expertReviewAmpModelPage",
+        "request":"event",
+        "vars":{
+        "eventCategory": "${ec}",
+        "eventAction": "${ea}",
+        "eventLabel": "${el}"
+        }
+        }
+        }
+        }
+    </script>
+</amp-analytics>
+@{
+    bool showH2 = (Convert.ToBoolean(ViewData["showH2"]));
+    bool isVerdict = Model.Verdict != null ? Model.Verdict.PageList.IsNotNullOrEmpty() : false;        
+}
+@if (Model.ExpertReviewOpinion != null && Model.ExpertReviewOpinion.PageList.IsNotNullOrEmpty())
+{
+    if (showH2)
+    {
+        <h2 class="margin-bottom10 margin-left10">@string.Format("{0} {1}", Model.ModelDetails.ModelName, (Model.ModelDetails.Futuristic ? "Preview" : "Review"))</h2>
+    <div class="only-expertreview">
+        <amp-img id="expertReviewAmpModelPage" data-vars-ec="CarWale_Opinion_expert_review_amp" data-vars-ea="Impression" data-vars-el="@Model.ModelDetails.ModelName" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" alt="" height="1" width="1">
+        </amp-img>
+    </div>
+    }
+    <section class=@(showH2 ? "write-review-section-wrapper" : (isVerdict)?"margin-top-20":"")>
+
+        <div class="model-expert-review-container">
+            @if (!showH2)
+            {
+                <h3 class="@(isVerdict ? "model-expert-review-container__title" : "model-expert-review__title") m-special-skin-text">@string.Format("{0} {1}", Model.ModelDetails.ModelName, (Model.ModelDetails.Futuristic ? "Preview" : "Review"))</h3>
+    <div class="expertreview">
+        <amp-img id="expertReviewAmpModelPage" data-vars-ec="CarWale_Opinion_expert_review_amp" data-vars-ea="Impression" data-vars-el="@Model.ModelDetails.ModelName" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" alt="" height="1" width="1">
+        </amp-img>
+    </div>
+            }
+            <div class="model-expert-review__wrapper" id="prosconsmodelreview">
+                <div class="read-more-collapse-container">
+                    @if (Model.ExpertReviewOpinion.CategoryId == (int)Carwale.Entity.Enum.CmsContentCategory.ExpertReview)
+                    {
+                        <div id="divShortSynopsis">
+                            <div id="divShortDescContent">@Html.Raw(Model.ExpertReviewOpinion.Description)</div>
+                            <a data-vars-ec="CarWale_Opinion_expert_review_amp" data-vars-ea="full_review_clicked" data-vars-el="@Model.ModelDetails.ModelName" class="read-more-collapse-link" href="@string.Format("https://{0}/m{1}",CWConfiguration.HostUrl, Model.ExpertReviewOpinion.ArticleUrl)" class="read-more-collapse-link">...Read More</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="divShortSynopsis">
+                            <div>@Html.Raw(Model.ExpertReviewOpinion.Description)</div>
+                            <span data-vars-ec="CarWale_Opinion_expert_review_amp" data-vars-ea="full_review_clicked" data-vars-el="@Model.ModelDetails.ModelName" class="read-more-collapse-link" on="tap: divShortSynopsis.hide, divFullSynopsis.show" role="button" tabindex="0">...Full Review</span>
+                        </div>
+                        <div id="divFullSynopsis" hidden>
+                            <div>
+                                @if (Model.ExpertReviewOpinion.PageList.IsNotNullOrEmpty())
+                                {
+                                    foreach (var page in Model.ExpertReviewOpinion.PageList)
+                                    {
+                                        <div id="@Format.RemoveSpecialCharacters(page.PageName)-@Model.ExpertReviewOpinion.BasicId">
+                                            <div class="text-area-right">@Html.Raw(page.Content)</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <span data-vars-ec="CarWale_Opinion_expert_review_amp" data-vars-ea="hide_review_clicked" data-vars-el="@Model.ModelDetails.ModelName" class="read-more-collapse-link" on="tap: divFullSynopsis.hide, divShortSynopsis.show" role="button" tabindex="0">Hide Review</span>
+                        </div>
+                    }
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+} 

@@ -1,0 +1,88 @@
+﻿@model Tuple<List<Carwale.Entity.CarData.CarModelDetails>, bool>
+@using Carwale.Utility;
+@using Carwale.BL.CMS;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Entity.Enum;
+@using Carwale.DTOs.CMS.ThreeSixtyView;
+@using AutoMapper;
+
+@if (Model.Item1 != null && Model.Item1.Count > 0)
+{
+    bool is360Available = false;
+    string modelCarName = null;
+    string imgUrl = null;
+    string galleryUrl = null;
+    if (Model.Item2)
+    {
+        <h2 class="special-skin-text">Recently viewed cars</h2>
+        <div class="jcarousel-wrapper horizontal">
+            <div class="jcarousel">
+                <ul>
+                    @foreach (var model in Model.Item1)
+                    {
+                        is360Available = CMSCommon.IsThreeSixtyViewAvailable(model);
+                        modelCarName = model.MakeName + " " + model.ModelName;
+                        imgUrl = ImageSizes.CreateImageUrl(model.HostUrl, ImageSizes._310X174, model.OriginalImage);
+                        galleryUrl = Carwale.BL.CMS.CMSCommon.GetImageUrl(model.MakeName, model.MaskingName, null, 0, false);
+                        <li class="content-box-shadow content-inner-block-5 margin-bottom5" data-role="inview-imp" data-cat="desktop_image_linkages" data-action="image_gallery_similar_imp" data-label="@modelCarName">
+                            <a title="@modelCarName" class="text-bold" href="@galleryUrl" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_image_linkages" data-label="@modelCarName" data-action="image_gallery_similar">
+                                <div class="carsuggested-imageWrapper ">
+                                    <img class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@imgUrl" title="@modelCarName" alt="@modelCarName" width="199" height="112" style="display: inline;">
+                                </div>
+                            </a>
+                            <div class="carTitle">
+                                <a title="@modelCarName" class="text-bold" href="@galleryUrl" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_image_linkages" data-label="@modelCarName" data-action="image_gallery_similar">
+                                    <span class="font16 inline-block">@modelCarName</span>
+                                    <div class="similar-car-image-data padding-bottom5">
+                                        <span class="similar-car-image-icon"></span>
+                                        <span class="similar-car-image-count font14">@(model.PhotoCount) Images</span>
+                                    </div>
+                                </a>
+                                @if (is360Available)
+                                {
+                                <a data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_linkages" data-label="@modelCarName" data-action="suggested_cars_image_gallery" href="@EditorialContent.Get360PageUrl(model.MakeName, model.MaskingName, CMSCommon.Get360DefaultCategory(Mapper.Map<ThreeSixtyAvailabilityDTO>(model)), false)" title="@modelCarName 360 View" class="similar-car-experience360-link"><span data-role="inview-imp" data-cat="desktop_360_linkages" data-action="image_gallery_similar_imp" data-label="@modelCarName" class="similar-car-experience360-button">Experience<span class="similar-car-experience360-icon"></span></span></a>
+                                }
+                            </div>
+                        </li>}
+                </ul>
+            </div>
+            @if (Model.Item1.Count > 4)
+            {
+                <span class="jcarousel-control-left"><span class="cwsprite jcarousel-control-prev"></span></span>
+                <span class="jcarousel-control-right"><span class="cwsprite jcarousel-control-next"></span></span>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="similar-car-container">
+            <h2 class="margin-bottom10 special-skin-text">Recently viewed cars</h2>
+            <ul class="content-box-shadow similar-car-gallery">
+                @foreach (var model in Model.Item1)
+                    {
+                        is360Available = CMSCommon.IsThreeSixtyViewAvailable(model);
+                        modelCarName = model.MakeName + " " + model.ModelName;
+                        imgUrl = ImageSizes.CreateImageUrl(model.HostUrl, ImageSizes._110X61, model.OriginalImage);
+                        galleryUrl = Carwale.BL.CMS.CMSCommon.GetImageUrl(model.MakeName, model.MaskingName, null, 0, false);
+                    <li class="has-360-slug" data-role="inview-imp" data-cat="desktop_image_linkages" data-action="image_gallery_similar_imp" data-label="@modelCarName">
+                        <a class="similar-car-gallery-block" href="@galleryUrl" title="@modelCarName Image Gallery" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_image_linkages" data-label="@modelCarName" data-action="image_gallery_similar">
+                            <span class="similar-car-image">
+                                <img src="@(imgUrl)" alt="@modelCarName" title="@modelCarName" />
+                            </span>
+                            <div class="similar-car-data" @Html.Raw(is360Available ? string.Empty : "style='vertical-align:middle;'")>
+                                <h3 class="similar-car-header">@modelCarName</h3>
+                                <div class="similar-car-image-data">
+                                    <span class="similar-car-image-icon"></span>
+                                    <span class="similar-car-image-count">@(model.PhotoCount) Images</span>
+                                </div>
+                            </div>
+                        </a>
+                        @if (is360Available)
+                        {
+                            <a href="@EditorialContent.Get360PageUrl(model.MakeName, model.MaskingName, CMSCommon.Get360DefaultCategory(Mapper.Map<ThreeSixtyAvailabilityDTO>(model)), false)" title="@modelCarName 360 View" class="similar-car-experience360-link"><span class="similar-car-experience360-button">Experience<span class="similar-car-experience360-icon"></span></span></a>
+                        }
+                    </li>}
+            </ul>
+        </div>
+    }
+}

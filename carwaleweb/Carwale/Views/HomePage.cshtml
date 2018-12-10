@@ -1,0 +1,278 @@
+﻿@using Carwale.UI.PresentationLogic;
+@using Carwale.Utility;
+@model Carwale.Entity.ViewModels.HomeModel
+@{
+    ViewBag.BodyClass = "bg-white home-special-page";
+    ViewBag.landingPage = true;
+    ViewBag.CustomJS = "~/Views/StaticPartials/HomePageScripts.cshtml";
+    ViewBag.CustomCSS = "~/Views/StaticPartials/HomePageCss.cshtml";
+    ViewBag.Title = "New Cars, Used Cars, Car Prices, Reviews & Images in India";
+    ViewBag.Description = "CarWale is India's most authoritative source of new car pricing. Focused around car buyers, CarWale promises to help you buy the right car at the right price.";
+    ViewBag.Canonical = "https://www.carwale.com/";
+    ViewBag.Alternate = "https://www.carwale.com/m/";
+    ViewBag.HeaderClass = "header-landing";
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.DeeplinkAlternativesAndroid = ViewBag.DeeplinkAlternatives;
+    ViewBag.AdPath = "/1017752/" + ViewBag.DomainName;
+    ViewBag.AdId = "1439110989763";
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+    bool showAdvantageDiscountLink = Advanatge.ShowAdvantageDiscountLink;
+    ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+		var AdSlots = {};
+        googletag.cmd.push(function () {
+			googletag.pubads().disableInitialLoad();
+			googletag.pubads().setCentering(true);            
+            AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-0'] = googletag.defineSlot('" + ViewBag.AdPath + @"Homepage_FirstSlot_976x400', [[976, 350], [976, 250], [976, 400], [976, 450], [976, 500], [976, 550], [976, 90], [976, 300], [976, 60], [976, 150], [970, 90]], 'div-gpt-ad-" + ViewBag.AdId + @"-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+			AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-1'] = googletag.defineSlot('" + ViewBag.AdPath + @"Homepage_SecondSlot_976x400', [[976, 350], [976, 250], [976, 400], [976, 450], [976, 500], [976, 550], [976, 90], [976, 300], [976, 60], [976, 150], [970, 90]], 'div-gpt-ad-" + ViewBag.AdId + @"-1').addService(googletag.pubads());
+			AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-3'] = googletag.defineSlot('" + ViewBag.AdPath + @"Homepage_300x250', [[300, 250], [300, 330], [300, 308]], 'div-gpt-ad-" + ViewBag.AdId + @"-3').addService(googletag.pubads());
+			NewCarHome_FuelType_224x230 = googletag.defineSlot('" + ViewBag.AdPath + @"NewCarHome_FuelType_224x230', [224, 230], 'NewCarHome_FuelType_224x230').addService(googletag.pubads());
+			NewCarHome_EMI_224x230 = googletag.defineSlot('" + ViewBag.AdPath + @"NewCarHome_EMI_224x230', [224, 230], 'NewCarHome_EMI_224x230').addService(googletag.pubads());
+			AdSlots['div-gpt-ad-1491317900891-0'] = googletag.defineSlot('" + ViewBag.AdPath + @"NewCarHome_BodyType_224x230', [224, 230], 'div-gpt-ad-1491317900891-0').addService(googletag.pubads());
+			googletag.pubads().setTargeting('City', '" + (Carwale.UI.Common.CookiesCustomers.MasterCity) + @"');
+			googletag.pubads().setTargeting('UserModelHistory', '" + Carwale.UI.Common.CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+            googletag.pubads().collapseEmptyDivs(true);
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>";
+}
+<script>
+    var communicationtext = '@System.Configuration.ConfigurationManager.AppSettings["PriceSupportText"]';
+</script>
+<!-- Home page banner starts here-->
+<header class="home-top-banner" style="@(Model.SponsoredHomeBanner != null && !String.IsNullOrWhiteSpace(Model.SponsoredHomeBanner.ImageUrl) ? "background:" + Model.SponsoredHomeBanner.BackgroundColor + " url(" + Url.Content(Model.SponsoredHomeBanner.ImageUrl) + ") no-repeat " + Model.SponsoredHomeBanner.HorizontalPosition + " " + Model.SponsoredHomeBanner.VerticalPosition + "; background-size: cover; height: 580px;" : "")">
+    <div class="container">
+        <div class="welcome-box welcome-box-hp" style="@(Model.SponsoredHomeBanner != null  ? "margin-top: " + Model.SponsoredHomeBanner.JumbotronPosition + "px;" : "")">
+            <h1 class="text-uppercase">Find the right car</h1>
+            <!--<p class="font20">Car buying simplified</p>-->
+            <div class="cw-tabs-panel">
+                <div class="cw-tabs home-tabs">
+                    <ul>
+                        <li class="active" data-tabs="newCars">New cars</li>
+                        <li data-tabs="usedCars">Used cars</li>
+                    </ul>
+                </div>
+                <div class="cw-tabs-data" id="newCars">
+                    <div class="new-used-search-container">
+                        <div class="new-used-search new-cars-search position-rel">
+                            <input type="text" placeholder="@(ViewData["HomePageBanner"] ?? "Type to select car name")" id="newCarsList" class="form-control border-no blur ui-autocomplete-input">
+                            <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
+                            @Html.Partial("_GlobalSearch")
+                        </div>
+                        <div class="findBtn">
+                            <button id="btnFindCarNew" class="text-uppercase btn btn-orange btn-md font16">Find Car</button>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="margin-top10 font14 clear">
+                            @if (Model.SearchExampleText != null)
+                            {
+                                <p class="leftfloat">e.g. <a href='@ManageCarUrl.CreateModelUrl(Model.SearchExampleText.MakeName,Model.SearchExampleText.ModelMaskingName)' onclick="trackHomePage('FirstPanel-Desktop-HP', '@Model.SearchExampleText.MakeName.Replace(" ","-")-@Model.SearchExampleText.ModelName.Replace(" ","-")' + '-Click', '');" class="text-white">@Model.SearchExampleText.MakeName @Model.SearchExampleText.ModelName</a></p>
+                            }
+                            <p class="rightfloat" style="padding-right:18px">
+                                <a onclick="trackHomePage('FirstPanel-Desktop-HP', 'NewCars-View-AllCars-Click', '');" href="/new/" class="text-white">Not Sure?  &nbsp;View all cars here</a>
+                                @if (showAdvantageDiscountLink)
+                                {
+                                    <span>&nbsp;|&nbsp;</span>
+                                    <a id="advantageLinkHome" class="text-white" href="/advantage/">New Car Discounts</a>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cw-tabs-data hide" id="usedCars">
+                    <div class="new-used-search-container">
+                        <div class="new-used-search">
+                            <div class="used-search position-rel">
+                                <input type="text" placeholder="Type to select city name, e.g. Mumbai" id="usedCarsList">
+                                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
+                            </div>
+                            <div class="used-budget-box">
+                                <div id="minMaxContainer">
+                                    <span class="leftfloat" id="budgetBtn">Choose your budget</span>
+                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down"></span>
+                                    <div class="clear"></div>
+                                </div>
+                                <div id="budgetListContainer" class="hide">
+                                    <div id="userBudgetInput">
+                                        <input type="text" class="priceBox" id="minInput" placeholder="Min" maxlength="5">
+                                        <input type="text" class="priceBox" id="maxInput" placeholder="Max" maxlength="5">
+                                        <div class="cw-blackbg-tooltip cw-blackbg-tooltip-used text-center hide">Max budget should be greater than Min budget.</div>
+                                    </div>
+                                    <ul id="minPriceList" class="text-left">
+                                        <li data-min-price="Any">Any</li>
+                                        <li data-min-price="1">1 Lakh</li>
+                                        <li data-min-price="3">3 Lakh</li>
+                                        <li data-min-price="4">4 Lakh</li>
+                                        <li data-min-price="6">6 Lakh</li>
+                                        <li data-min-price="8">8 Lakh</li>
+                                        <li data-min-price="12">12 Lakh</li>
+                                        <li data-min-price="20">20 Lakh</li>
+                                    </ul>
+                                    <ul id="maxPriceList" class="text-right  hide">
+                                        <li data-max-price="12">12 Lakh</li>
+                                        <li data-max-price="15">15 Lakh</li>
+                                        <li data-max-price="20">20 Lakh</li>
+                                        <li data-max-price="30">30 Lakh</li>
+                                        <li data-max-price="40">40 Lakh</li>
+                                        <li data-max-price="50">50 Lakh</li>
+                                        <li data-max-price="60">60 Lakh</li>
+                                        <li data-max-price="Any">Any</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="findBtn">
+                            <button id="btnFindCar" class="text-uppercase btn btn-orange btn-md font16">Find Car</button>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.SponsoredHomeBanner != null)
+    {
+        @Html.Raw(Model.SponsoredHomeBanner.Ad_Html)
+    }
+    else
+    {
+        <script type='text/javascript' src='https://www.googletagservices.com/tag/js/gpt.js'>
+            googletag.pubads().definePassback('/1017752/CarWale_Homepage_Wallpaper_1x1', [1, 1]).display();
+        </script>
+    }
+</header>
+<!-- Home page banner ends here-->
+<div class="container overflow-x-auto">
+    <div class="grid-12">
+        <!-- /1017752/Homepage_FirstSlot_976x400 -->
+        <div id='div-gpt-ad-1439110989763-0' class="margin-top20 text-center" data-load-immediate="true">
+            <script type='text/javascript'>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1439110989763-0'); });
+            </script>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<section>
+    <div class="clear"></div>
+            <!--  Upcoming, New Launches and Top Selling code starts here -->
+            <div class="container">
+                <div class="grid-12">
+                    <h2 class="text-uppercase text-center margin-top50 margin-bottom30 special-skin-text">featured cars</h2>
+
+					<div class="cw-tabs-panel featured-car_tabs-container">
+						<div class="cw-tabs cw-tabs-flex pos-relative">
+							<ul class="bg-white">
+								<li class="active" data-tabs="upComingCars"><h3 class="text-unbold special-skin-text">Upcoming Cars</h3></li>
+								<li data-tabs="topSelling"><h3 class="text-unbold special-skin-text">Popular</h3></li>
+								<li data-tabs="newLaunches"><h3 class="text-unbold special-skin-text">Just Launched</h3></li>
+							</ul>
+						</div>
+						@Html.Partial("NewCars/_FeaturedCars")
+					</div>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+    <div class="container home-newcar-widget">
+        @{Html.RenderAction("NewCarSearchWidget", "CarWidgets", new { pageId = ViewBag.PageId });}
+    </div>
+</section>
+@{Html.RenderAction("TopCarsByBodyTypeCarousel", "CarWidgets");}
+
+<div class="container overflow-x-auto">
+    <div class="grid-12">
+        <!-- /1017752/Homepage_SecondSlot_976x400 -->
+        <div id='div-gpt-ad-1439110989763-1' class="margin-top20 margin-bottom20 text-center">
+            <script type='text/javascript'>
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1439110989763-1'); });
+            </script>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- default PQ code start here  -->
+@if (Model.SponsoredPQBanner == null)
+{
+    <section class="home-getFinalPrice-banner">
+        <div class="container">
+            <div class="grid-5 rightfloat">
+                @Html.Partial("_PQWidget")
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section><!-- Ends here -->
+}
+else
+{ 
+    <section class="home-getFinalPrice-banner" style="@(Model.SponsoredPQBanner != null && !String.IsNullOrWhiteSpace(Model.SponsoredPQBanner.ImageUrl) ? "background:" + Model.SponsoredPQBanner.BackgroundColor + " url(" + Url.Content(Model.SponsoredPQBanner.ImageUrl) + ") no-repeat " + Model.SponsoredPQBanner.HorizontalPosition + " " + Model.SponsoredPQBanner.VerticalPosition + "; background-size: cover;" : "")">
+        <div class="container">
+            <div class="grid-5 rightfloat" style="float:@Model.SponsoredPQBanner.WidgetPosition">
+                @Html.Partial("_PQWidget")
+            </div>
+            @if (!String.IsNullOrWhiteSpace(Model.SponsoredPQBanner.ImageUrl) && !String.IsNullOrEmpty(Model.SponsoredPQBanner.Ad_Html))
+            {
+                @Html.Raw(Model.SponsoredPQBanner.Ad_Html)
+            }
+            <div class="clear"></div>
+        </div>
+    </section><!-- Ends here -->
+}
+<section>
+    <!--  Compare section code starts here -->
+    <div class="container">
+        <h2 class="text-uppercase text-center margin-top50 margin-bottom30 special-skin-text">compare cars</h2>
+        <div class="grid-8 omega adblockCompare">
+            @Html.Partial("FRQ/_TopComparisonsContainer", Model.HotComparisons)
+            <div class="margin-bottom40 text-center" id="moreComparison">
+                <a href="/comparecars/" class="btn btn-orange text-uppercase">More Comparisons</a>
+            </div>
+        </div>
+        <div class="grid-4 omega overflow-x-auto compareAdDiv">
+            <div style="height:360px; display:table;">
+                <div style="display:table-cell; vertical-align:middle; width:auto;">
+                    <!-- /1017752/Homepage_300x250 -->
+                    <div id='div-gpt-ad-1439110989763-3' class="text-center">
+                        <script type='text/javascript'>
+                            googletag.cmd.push(function () { googletag.display('div-gpt-ad-1439110989763-3'); });
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>
+
+<section>
+    <!--  News Cars code starts here -->
+    <div class="container">
+        <div class="grid-12 update-skin-change-bg">
+            <h2 class="text-uppercase text-center margin-top50 margin-bottom30 special-skin-text">LATEST CAR UPDATES</h2>
+            <div class="cw-tabs-panel">
+                <div class="cw-tabs cw-tabs-flex">
+                    <ul>
+                        <li class="active" data-tabs="News"><h3 class="text-unbold">Car News</h3></li>
+                        <li data-tabs="Reviews"><h3 class="text-unbold">Expert Reviews</h3></li>                    
+                        <li data-tabs="Videos"><h3 class="text-unbold">Videos</h3></li>
+                    </ul>
+                </div>     
+                @{Html.RenderAction("EditorialWidget", "CarWidgets", new { pageId = ViewBag.PageId });}
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section><!-- Ends here -->
+<section class="bg-light-grey no-bg-color">
+    <div class="container">
+        <div class="grid-12">
+            @Html.Partial("FRQ/_PopularUsedCars", Model.PopularUsedCars)
+        </div>
+        <div class="clear"></div>
+    </div>
+</section><!-- Ends here -->
+

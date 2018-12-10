@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[InsuranceInquiries] (
+    [Id]              NUMERIC (18)   IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [CustomerId]      NUMERIC (18)   NOT NULL,
+    [CarVersionID]    NUMERIC (18)   NOT NULL,
+    [MakeYear]        DATETIME       NOT NULL,
+    [RegistrationNo]  VARCHAR (20)   NOT NULL,
+    [Kilometers]      NUMERIC (18)   NULL,
+    [Color]           VARCHAR (50)   NULL,
+    [EngineNo]        VARCHAR (50)   NULL,
+    [ChassisNo]       VARCHAR (50)   NULL,
+    [InsCompanyId]    NUMERIC (18)   NULL,
+    [InsType]         VARCHAR (50)   NULL,
+    [InsFrom]         DATETIME       NULL,
+    [InsTo]           DATETIME       NULL,
+    [HypothecatedTo]  VARCHAR (50)   NULL,
+    [Premium]         NUMERIC (18)   NULL,
+    [SumInsured]      NUMERIC (18)   NULL,
+    [Comments]        VARCHAR (2000) NULL,
+    [RequestDateTime] DATETIME       NOT NULL,
+    [IsApproved]      BIT            CONSTRAINT [DF_InsuranceInquiries_IsApproved] DEFAULT (0) NOT NULL,
+    [IsFake]          BIT            CONSTRAINT [DF_InsuranceInquiries_IsFake] DEFAULT (0) NOT NULL,
+    [StatusId]        SMALLINT       CONSTRAINT [DF_InsuranceInquiries_StatusId] DEFAULT (1) NOT NULL,
+    CONSTRAINT [PK_InsuranceInquiries] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

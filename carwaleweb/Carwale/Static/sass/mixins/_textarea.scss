@@ -1,0 +1,26 @@
+﻿@mixin reset-textarea-property() {
+	resize: none;
+
+	&:focus {
+		outline: 0;
+	}
+}
+
+@mixin textarea-box() {
+	.textarea-box {
+		textarea {
+			font-family: $font-Open-Sans;
+			@include reset-textarea-property();
+			border: 1px solid #ccc;
+			padding: 10px;
+		}
+	}
+}
+
+@mixin textarea-info-label($font-size: 10, $color: map-get($color-map, disabledGray)) {
+	.textarea-info-label {
+		font-size: $font-size * 1px;
+		color: $color;
+	}
+}
+

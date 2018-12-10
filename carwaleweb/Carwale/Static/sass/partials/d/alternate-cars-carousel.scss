@@ -1,0 +1,38 @@
+@import '../../mixins/_variables.scss';
+@import '../../mixins/_sprites.scss';
+@import '../../mixins/_vendor-utils.scss';
+@import '../../mixins/_jcarousel.scss';
+
+@include carousel-list;
+@include carousel-image-wrapper;
+@include carousel-info-wrapper;
+
+.content-block {
+	background-color: map-get($color-map, 'white');
+	width: 100%;
+}
+
+@include carousel-container__heading;
+
+.alternate-car-container {
+	@include carousel-body;
+	@include carousel-wrapper;
+	@include carousel-list-item;
+	@include carousel-control-button;
+	margin-bottom: 30px;
+	padding-top: 30px;
+
+	.carousel-container__heading {
+		margin-bottom: 20px;
+	}
+}
+
+.car-info-container {
+	margin-bottom: 15px;
+}
+
+@include carousel__content-wrapper;
+@include info-wrapper__model-name;
+@include info-wrapper__model-price;
+@include info-wrapper__subtitle;
+@include info-wrapper__link;

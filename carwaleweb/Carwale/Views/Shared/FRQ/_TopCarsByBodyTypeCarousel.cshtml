@@ -1,0 +1,41 @@
+﻿@using Carwale.Entity.Enum;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Utility;
+@model Dictionary<CarBodyStyle, Tuple<int[], string>>
+
+<section class="padding-bottom40">
+    <!--Top 10 cars carousel code starts here-->
+    <div class="container">
+        <div class="grid-12">
+            <h2 class="text-uppercase text-center margin-top50 margin-bottom30 special-skin-text">top 10 cars in india</h2>
+            <div class="jcarousel-wrapper top-cars-carousel">
+                <div class="jcarousel padding-bottom10">
+                    <ul>
+                        @foreach (CarBodyStyle key in Model.Keys)
+                        {
+                            <li class="rounded-corner2 content-box-shadow">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="@ManageCarUrl.CreateTopCarsByBodyTypeUrl(key.ToUrlString())" title="@HtmlAttributes.GetTopBodyTypeLinkTitle(Model[key].Item1.Length, key)"><img src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(CWConfiguration._imgHostUrl,ImageSizes._0X0,"/cw/static/top-10-cars/d/"+key.ToUrlString()+"_desktop.png?v=1")" class="lazy" /></a>
+                                    </div>
+                                    <div class="carDescWrapper">
+                                        <a href="@ManageCarUrl.CreateTopCarsByBodyTypeUrl(key.ToUrlString())" title="@HtmlAttributes.GetTopBodyTypeLinkTitle(Model[key].Item1.Length, key)" class="font18 text-bold text-black">@HtmlAttributes.GetTopBodyTypeLinkText(Model[key].Item1.Length, key)</a>
+                                        <p class="margin-top5 text-light-grey truncate-text">@Model[key].Item2</p>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                @if (Model.Keys.Count > 3)
+                {
+                <span class="jcarousel-control-left" id="prevComparison"><span class="cwsprite jcarousel-control-prev"></span></span>
+                <span class="jcarousel-control-right" id="nextComparison"><span class="cwsprite jcarousel-control-next"></span></span>
+                }
+            </div>
+
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</section>

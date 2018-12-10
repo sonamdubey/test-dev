@@ -1,0 +1,2020 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+#header .global-location {
+  display: none;
+}
+/* Booking details pages css*/
+/* booking sprite */
+.desk-aged-car-sprite + span.iconTtl {
+  display: block;
+  margin: 10px 0 0 0;
+}
+
+span.iconTtl {
+  display: block;
+}
+
+.car-icon, .personal-icon, .payment-icon {
+  width: 58px;
+  height: 58px;
+}
+
+.car-icon {
+  background-position: 0 -79px;
+}
+
+.personal-icon {
+  background-position: 0 -112px;
+}
+
+.payment-icon {
+  background-position: 0 -182px;
+}
+
+.details-tabs.active-tab .car-icon {
+  background-position: -72px -45px;
+}
+
+.details-tabs.active-tab .personal-icon {
+  background-position: -72px -112px;
+}
+
+.details-tabs.active-tab .payment-icon {
+  background-position: -72px -182px;
+}
+
+.details-tabs.active-tab span.iconTtl {
+  font-weight: bold;
+}
+
+.booking-tabs ul {
+  display: table;
+  margin: 0 auto 10px;
+}
+
+.booking-tabs ul li {
+  display: inline-block;
+  vertical-align: top;
+  width: 190px;
+  text-align: center;
+  position: relative;
+}
+
+.details-tabs {
+  cursor: pointer;
+}
+
+.details-icon-wrap {
+  position: relative;
+}
+
+.details-icon-wrap:after, .details-icon-wrap:before {
+  border-top: 2px dotted #ccc;
+  top: 26px;
+  position: absolute;
+  content: "";
+  width: 35%;
+  z-index: 0;
+}
+
+.details-icon-wrap:after {
+  right: -2px;
+}
+
+.details-icon-wrap:before {
+  left: 0;
+}
+
+.first .details-icon-wrap:before, .last .details-icon-wrap:after {
+  display: none;
+}
+
+.ticked .details-icon-wrap:before {
+  border-color: #565a5c;
+}
+
+.ticked .first-tick.details-icon-wrap:after,.ticked .center-tick.details-icon-wrap:after {
+  border-color: #565a5c;
+}
+
+.color-code-circle-sm {
+  background: #ccbfac;
+  width: 24px;
+  height: 24px;
+  display: block;
+  border: 1px solid #ccc;
+}
+
+.color-code-circle-sm {
+  width: 20px;
+  height: 20px;
+}
+
+.color-code-circle-sm, .color-code-circle-sm + span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.booking-steps {
+  width: 40%;
+  display: inline-block;
+  vertical-align: top;
+  min-height: 240px;
+  margin: 0 10px;
+  padding: 0 10px;
+}
+
+.disabled-tab {
+  cursor: not-allowed !important;
+}
+
+.fa.payment-rs-icon {
+  font-weight: normal;
+}
+
+.agree-terms-text {
+  font-weight: bold;
+}
+
+.agree-checkbox {
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+.agree-text {
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+
+#carDetails .tooltip {
+  min-width: 130px;
+  left: -250%;
+}
+
+.personal-detail-form .form-control-box {
+  width: 30%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.booking-details .color-details-outer,.booking-details .year-type {
+  display: inline-block;
+}
+
+.final-price-text {
+  line-height: 34px;
+}
+
+.final-amt-text {
+  vertical-align: top;
+  padding-bottom: 1px;
+}
+
+.booking-details .year-type {
+  margin-top: 12px;
+}
+
+.booking-details .offer-details-slab {
+  width: 100%;
+}
+
+.booking-details .aged-phone-no .fa-phone {
+  margin: 2px 0 2px 0;
+}
+
+.booking-details .note-text {
+  display: block;
+}
+
+.car-left {
+  vertical-align: top;
+  padding: 8px 0 0 0;
+}
+
+/* thank you and failure screen style */
+.bullet-confirmation .fa-circle {
+  font-size: 10px;
+  color: #a8afb3;
+}
+
+.thanks-details {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.aged-phone-no {
+  font-weight: 600;
+}
+
+.aged-phone-no .fa-phone {
+  color: #2fa70a;
+  margin: 2px 5px 0 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.failure-icon {
+  width: 96px;
+  height: 93px;
+  background-position: -1721px 0;
+}
+
+/* aged car sprite */
+.advantage-logo {
+  background-position: 0 -332px;
+  width: 90px;
+  height: 16px;
+  position: relative;
+  top: 2px;
+}
+
+.bullet-lg {
+  background-position: -82px -2px;
+  width: 10px;
+  height: 10px;
+}
+
+.bullet-sm {
+  background-position: -82px -20px;
+  width: 8px;
+  height: 8px;
+  position: relative;
+  top: -2px;
+}
+
+.dealer-ic {
+  background-position: 0 -250px;
+  width: 20px;
+  height: 25px;
+}
+
+.manufactured-ic {
+  background-position: -29px -250px;
+  width: 20px;
+  height: 24px;
+}
+
+.fuel-type {
+  background-position: -59px -250px;
+  width: 41px;
+  height: 30px;
+}
+
+.petrol-fuel {
+  background-position: -146px -51px;
+  width: 32px;
+  height: 43px;
+}
+
+.diesel-fuel {
+  background-position: -146px 0;
+  width: 32px;
+  height: 43px;
+}
+
+.cng-fuel {
+  background-position: -142px -105px;
+  width: 57px;
+  height: 43px;
+}
+
+.mileage {
+  background-position: -146px -164px;
+  width: 39px;
+  height: 41px;
+}
+
+.transmission {
+  background-position: -41px -292px;
+  width: 32px;
+  height: 33px;
+}
+
+.manual-transmission {
+  background-position: -86px -292px;
+  width: 32px;
+  height: 33px;
+}
+
+/* Aged Car Product Details Left Section Style */
+.left-section {
+  float: left;
+  width: 310px;
+  height: auto;
+  overflow: hidden;
+  margin: 20px 20px 0 0;
+}
+
+.carThumb img {
+  max-width: 100%;
+  min-height: 100px;
+}
+
+.carDetails {
+  float: left;
+  width: 620px;
+}
+
+.reducedTxt:before {
+  border-top: 1px solid #565a5c;
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+}
+
+/* Aged Car Product Details Right Section Style */
+.car-title-name .fa-pencil {
+  color: #82878b;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.pq-map-pointer {
+  position: absolute;
+  top: 3px;
+  z-index: 1;
+  left: 4px;
+  font-size: 18px;
+  margin: 0 4px 0 4px;
+}
+
+select.aged-city-dropdown {
+  padding-left: 20px;
+}
+
+select.aged-version-dropdown {
+  padding-left: 5px;
+  width: 30%;
+}
+
+.color-detail-section {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+}
+
+.color-detail-section:last-child {
+  margin-right: 0;
+}
+
+.active-color-shade .color-shade {
+  width: 30px;
+  height: 20px;
+}
+
+.color-shade {
+  width: 30px;
+  height: 20px;
+  margin: 3px 2px 0 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.display-inline {
+  display: inline-block;
+}
+
+.color-detail-section .color-name {
+  margin: 4px 0 0 0;
+  vertical-align: top;
+  display: block;
+  font-size: 12px;
+}
+
+.tick-color {
+  cursor: pointer;
+  font-size: 20px;
+  color: #ffffff;
+  position: absolute;
+  left: 5px;
+  top: 3px;
+  font-weight: normal;
+  background-position: -115px -254px;
+  width: 20px;
+  height: 20px;
+}
+
+.color-name-tooltip.tool-tip-info {
+  display: inline-block;
+  cursor: pointer;
+  margin: 5px auto;
+  position: absolute;
+  text-align: center;
+  width: auto;
+  -webkit-transform: translateZ(0);
+ /* webkit flicker fix */
+  -webkit-font-smoothing: antialiased;
+  z-index: 1;
+}
+
+.color-name-tooltip.tool-tip-info .tooltip {
+  border: 1px solid #cccccc;
+  font-size: 12px;
+  font-weight: normal;
+  width: 205px;
+  background: #ffffff;
+  top: 24px;
+  color: #fff;
+  display: block;
+  left: 37px;
+  right: 0;
+  margin-bottom: 15px;
+  opacity: 0;
+  padding: 15px 10px 5px 10px;
+  pointer-events: none;
+  position: absolute;
+  -webkit-transform: translate(-115px, 0);
+  -moz-transform: translate(-115px, 0);
+  -ms-transform: translate(-115px, 0);
+  -o-transform: translate(-115px, 0);
+  transform: translate(-115px, 0);
+  -webkit-transition: all .25s ease-out;
+  -moz-transition: all .25s ease-out;
+  -ms-transition: all .25s ease-out;
+  -o-transition: all .25s ease-out;
+  transition: all .25s ease-out;
+}
+
+.color-name-tooltip.tool-tip-info .tooltip:after {
+  bottom: -20px;
+  content: " ";
+  display: block;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.color-name-tooltip.tool-tip-info .tooltip:before {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-bottom: solid #cccccc 10px;
+  top: -10px;
+  content: " ";
+  height: 0;
+  left: 50%;
+  margin-left: -13px;
+  position: absolute;
+  width: 0;
+}
+
+.color-name-tooltip.tool-tip-info .tooltip.tooltip-details {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translate(-115px, 0px);
+  -moz-transform: translate(-115px, 0px);
+  -ms-transform: translate(-115px, 0px);
+  -o-transform: translate(-115px, 0px);
+  transform: translate(-115px, 0px);
+}
+
+.color-name-tooltip.tool-tip-info .color-detail-section {
+  vertical-align: top;
+  text-align: center;
+}
+
+.color-name-tooltip.tool-tip-info .color-detail-section .color-name {
+  display: block;
+  color: #000;
+  font-size: 12px;
+  margin-top: 0;
+}
+
+.color-name-tooltip.tool-tip-info .color-detail-section .color-shade {
+  width: 30px;
+  height: 30px;
+}
+
+.year-type ul {
+  display: inline-block;
+}
+
+.year-type li {
+  display: inline-block;
+  width: 65px;
+  padding: 5px 0;
+  text-align: center;
+  margin: 0;
+}
+
+.year-type select {
+  border: 1px solid #ccc;
+  padding: 3px 20px 3px 2px;
+  display: inline-block;
+  width: auto;
+  font-size: 13px;
+  background-position: 90% 50%;
+}
+
+.year-type select[disabled] {
+  border: 1px solid #fff;
+  background: none;
+  font-family: 'Open Sans', sans-serif, Arial;
+  padding: 3px 0px 3px 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(255,255,255,.075);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.075);
+}
+
+.offer-details-slab {
+  border: 1px dashed #cccccc;
+  padding: 2px 0 0 0;
+  width: 100%;
+}
+
+.offer-details-slab ul {
+  padding: 2px 10px 5px 10px;
+}
+
+.offer-details-slab li {
+  padding: 0 0 7px 0;
+}
+
+.offer-details-slab li .fa-circle {
+  color: #e2e2e2;
+  margin: 0 3px 0 0;
+  font-size: 12px;
+}
+
+h2 .small-text {
+  font-weight: normal;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.product-amt-details {
+  display: block;
+}
+
+.agedbtn-section {
+  float: left;
+  width: 100%;
+}
+
+.agedbtn-section .btn {
+  display: inline-block;
+  width: auto;
+}
+
+.more-link:hover {
+  text-decoration: none;
+}
+
+.note-text {
+  display: inline-block;
+}
+
+.not-available-error {
+  display: flex;
+}
+
+.not-available-error .fa-exclamation-triangle {
+  color: #888d91;
+  font-size: 50px;
+  margin-right: 10px;
+}
+
+.mobile-text-box {
+  width: 100%;
+  max-width: 200px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.mobile-text-box .form-control {
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.right-cardetail-section.query-section {
+  width: 100%;
+}
+
+/* Feature Specification Tabs Style */
+.engineDetails li:first-child {
+  margin: 0;
+}
+
+.engineDetails {
+  width: 750px;
+  margin: 0 auto;
+}
+
+.engineDetails li {
+  width: 250px;
+  display: block;
+  float: left;
+  border-left: 1px solid #ccc;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.engineDetails li:first-child {
+  border: 0 none;
+}
+
+#features li, #specifications li, #overview li {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 13px;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  width: 100%;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+#overview li {
+  margin: 0;
+  padding: 4px 0 4px 10px;
+}
+
+#features li .featureList li, #specifications li .specList li {
+  margin: 0 0 0 0;
+  width: 450px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 4px 0 4px 10px;
+  border: none;
+  border-bottom: 1px solid #f6f6f6;
+}
+
+#features li .featureList li, #specifications li .specList li {
+  width: 48%;
+}
+
+#overview li .overviewList li {
+  margin: 0 0 0;
+  width: 48%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0;
+  border: none;
+}
+
+#features li h3, #specifications li h3, #overview li h3 {
+  background: #f6f6f6;
+  padding: 4px 10px;
+  font-size: 13px;
+}
+
+#overview li .overviewList li .bullet-sm,#features li .featureList li .bullet-sm, #specifications li .specList li .bullet-sm {
+  display: none;
+}
+
+.specs-full-width {
+  width: 100%;
+}
+
+/* Make Model PopUp Style */
+.make-model-popup {
+  width: 600px;
+  height: auto;
+  background: #fff;
+  margin: 0 auto;
+  overflow-y: auto;
+  position: fixed;
+  top: 28%;
+  right: 5%;
+  left: 5%;
+  z-index: 10;
+}
+
+/* Common Classes */
+.word-break {
+  word-break: break-all;
+}
+
+.text-default {
+  color: #565a5c;
+}
+
+.text-green {
+  color: #1a9e08;
+}
+
+.text-linethrough {
+  text-decoration: line-through;
+}
+
+.margin-top-min5 {
+  margin-top: -5px;
+}
+
+.hideImportant {
+  display: none!important;
+}
+
+.pd-blackwindow {
+  display: block;
+}
+
+.adv-left-column {
+  width: 310px;
+  float: left;
+}
+
+.advantage-right-column {
+  float: right;
+  width: 300px;
+}
+
+/* Advantage PopUp Style */
+.advantage-left-popup {
+  display: inline-block;
+  width: 400px;
+  vertical-align: top;
+  height: 380px;
+}
+
+.advantage-right-popup {
+  display: inline-block;
+  width: 340px;
+  vertical-align: top;
+}
+
+.advantage-logo-section {
+  text-align: left;
+}
+
+.advantage-icon {
+  width: 146px;
+  height: 25px;
+  background-position: 0 -355px;
+  vertical-align: middle;
+  margin: -4px 0 0 0;
+}
+
+#advantage-detail-popup.globalcity-popup {
+  width: 800px;
+  height: 380px;
+}
+
+.advantage-left-popup {
+  -moz-box-shadow: 0 0 9px #cccccc;
+  -webkit-box-shadow: 0 0 9px #cccccc;
+  -o-box-shadow: 0 0 9px #cccccc;
+  -ms-box-shadow: 0 0 9px #cccccc;
+  box-shadow: 0 0 9px #cccccc;
+}
+
+.advantage-left-popup ul .fa-circle {
+  font-size: 10px;
+  vertical-align: top;
+  margin: 7px 5px 0 0;
+}
+
+.form-helper-content li .fa {
+  font-size: 30px;
+  color: #666;
+  vertical-align: top;
+  display: inline-block;
+  width: 25px;
+  padding: 4px 0 0 0;
+}
+
+.what-you-get-text {
+  display: inline-block;
+  padding: 0px 0 0 12px;
+  width: 82%;
+  text-align: left;
+  vertical-align: top;
+}
+
+.advantage-coachmark {
+  width: 350px;
+  left: -107px;
+  top: 40px;
+}
+
+.coachmark-arrow-top {
+  border-left: 8px solid rgba(0, 0, 0, 0);
+  border-right: 8px solid rgba(0, 0, 0, 0);
+  border-bottom: 8px solid #333333;
+  border-top: none;
+  top: -9px;
+  left: 45%;
+}
+
+.coachmark-arrow-top:before {
+  border-left: 8px solid rgba(0, 0, 0, 0);
+  border-right: 8px solid rgba(0, 0, 0, 0);
+  border-bottom: 8px solid #ffffff;
+  border-top: none;
+  content: " ";
+  height: 0;
+  left: -8px;
+  position: absolute;
+  top: 1px;
+  width: 0;
+}
+
+.advantage-coach-info {
+  width: 75%;
+}
+
+/* Car Details Section Style */
+.left-cardetail-section {
+  width: 55%;
+}
+
+.right-cardetail-section {
+  width: 45%;
+}
+
+.right-cardetail-section ul .fa-circle {
+  font-size: 9px;
+  color: #a9afb4;
+}
+
+.aged-phone-no span {
+  font-weight: normal;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.onroad-Price {
+  display: inline-block;
+  vertical-align: sub;
+}
+
+.aged-year-dropdown {
+  display: inline-block;
+  width: auto;
+}
+
+
+/* Offer Section Style */
+.offers-title .offers-text {
+  padding: 0 0 0 5px;
+  line-height: 16px;
+}
+
+.offers-title .offers-top-shadow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 8px 12px;
+  border-color: transparent transparent #0a2838 transparent;
+  position: absolute;
+  top: -8px;
+  left: 0px;
+}
+
+.offers-right-ribbon {
+  position: absolute;
+  top: -11px;
+  right: 0;
+}
+
+.ribbon {
+  height: 13px !important;
+  position: absolute;
+  z-index: 2;
+  width: 0;
+  height: 0;
+}
+
+.ribbon.top {
+  border-bottom: 12px solid transparent;
+  top: 11px;
+  border-top: 0px solid transparent;
+  border-left: 14px solid #12415b;
+  border-right: none;
+}
+
+.ribbon.bottom {
+  top: 20px;
+  border-top: 12px solid transparent;
+  border-bottom: 0px solid transparent;
+  border-left: 14px solid #12415b;
+}
+
+/* Year ToolTip Style */
+.year-info-icon {
+  padding: 2px 5px 2px 5px;
+  border-radius: 50px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-position: -6px -333px;
+  vertical-align: top;
+  margin: 1px 0 0 0;
+}
+
+.year-tooltip.tool-tip-info {
+  display: inline-block;
+  cursor: pointer;
+  margin: 5px auto;
+  text-align: center;
+  width: auto;
+  -webkit-transform: translateZ(0);
+ /* webkit flicker fix */
+  -webkit-font-smoothing: antialiased;
+  z-index: 1;
+}
+
+.year-tooltip.tool-tip-info .tooltip {
+  border: 1px solid #cccccc;
+  font-size: 12px;
+  font-weight: normal;
+  width: 220px;
+  background: #ffffff;
+  left: 142px;
+  top: -7px;
+  display: block;
+  opacity: 0;
+  padding: 5px 10px 5px 10px;
+  pointer-events: none;
+  position: absolute;
+  -webkit-transform: translate(-115px, 0);
+  -moz-transform: translate(-115px, 0);
+  -ms-transform: translate(-115px, 0);
+  -o-transform: translate(-115px, 0);
+  transform: translate(-115px, 0);
+  -webkit-transition: all .25s ease-out;
+  -moz-transition: all .25s ease-out;
+  -ms-transition: all .25s ease-out;
+  -o-transition: all .25s ease-out;
+  transition: all .25s ease-out;
+}
+
+.year-tooltip.tool-tip-info .tooltip:after {
+  bottom: -20px;
+  content: " ";
+  display: block;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.year-tooltip.tool-tip-info .tooltip:before {
+  border-top: solid transparent 10px;
+  border-bottom: solid transparent 10px;
+  border-right: solid #cccccc 10px;
+  top: 4px;
+  content: " ";
+  height: 0;
+  left: -0px;
+  margin-left: -10px;
+  position: absolute;
+  width: 0;
+}
+
+.year-tooltip.tool-tip-info .tooltip.tooltip-details {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translate(-115px, 0px);
+  -moz-transform: translate(-115px, 0px);
+  -ms-transform: translate(-115px, 0px);
+  -o-transform: translate(-115px, 0px);
+  transform: translate(-115px, 0px);
+}
+
+/* How it works Style */
+.advantage-work-slug {
+  text-align: center;
+}
+
+.advantage-work-slug .work-steps, .advantage-work-slug .work-arrow-section {
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px 25px 0 25px;
+}
+
+.advantage-work-slug .work-steps {
+  max-width: 240px;
+  text-align: center;
+}
+
+.advantage-work-slug .work-steps:first-child {
+  max-width: 283px;
+  margin: 10px -22px 0 25px;
+}
+
+.work-steps p {
+  display: block;
+  margin: 15px auto 10px;
+}
+
+.work-steps h2 span {
+}
+
+.work-arrow {
+  width: 16px;
+  height: 21px;
+  background-position: -27px -330px;
+}
+
+.book-car {
+  width: 88px;
+  height: 52px;
+  background-position: -152px -355px;
+}
+
+.provide-doc {
+  width: 46px;
+  height: 52px;
+  background-position: -166px -287px;
+}
+
+.get-car {
+  width: 39px;
+  height: 52px;
+  background-position: -151px -224px;
+}
+
+/* FAQ Section Style */
+.aged-car-faq-section {
+}
+
+.aged-car-faq-section ul {
+  padding: 0 10px 10px 10px;
+}
+
+.aged-car-faq-section ul li {
+  padding: 4px 0 4px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.faq-details {
+  background: #ffffff;
+}
+
+.faq-ques {
+  width: 93%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.stepStrip {
+  color: #565a5c;
+  font-size: 14px;
+  padding: 6px 10px 6px 10px;
+  min-height: 33px;
+  cursor: pointer;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  position: relative;
+}
+
+.stepStrip .icon {
+  float: right;
+}
+
+.stepStrip .icon .fa {
+  font-size: 13px;
+}
+
+.accordion.open .stepStrip {
+  color: #565a5c;
+  background-color: #fafafa;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.stepStrip.disabled {
+  cursor: not-allowed;
+  background-color: #fff;
+}
+
+.keySpecsDiv {
+  text-align: center;
+}
+
+.advantage-landing-banner {
+  background: #161209 url(https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/d/d-adv-landing-banner.jpg?v=1) no-repeat right top;
+  background-size: cover;
+  height: 285px;
+  padding-top: 1px;
+}
+
+.banner-img {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.advt-tab-wrapper .cw-tabs-flex ul {
+  margin-bottom: 0;
+}
+
+.advt-tab-wrapper .tabHr {
+  bottom: 1px;
+}
+
+.advantage-tab-details {
+  width: 43%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.advantage-tab-details ul .fa-circle {
+  font-size: 8px;
+  color: #969696;
+  vertical-align: top;
+  padding-top: 6px;
+}
+
+.recommendation-advt-carousel .jcarousel {
+  width: 934px;
+  overflow: hidden;
+  left: 20px;
+}
+
+.best-saving-car ul {
+  margin: 0 3px;
+}
+
+.best-saving-car .imageWrapper {
+  width: 296px;
+  height: 166px;
+}
+
+.best-saving-car a {
+  text-decoration: none;
+}
+
+.carTitle a {
+  font-size: 16px;
+}
+
+.advt-find-cars .form-control-box {
+  width: 30%;
+  display: inline-block;
+}
+
+.relevant-offers .best-saving-car li {
+  width: 311px;
+  height: 297px;
+}
+
+.relevant-offers .best-saving-car .imageWrapper {
+  width: 311px;
+  height: 160px;
+}
+
+.relevant-offers .jcarousel {
+  padding: 10px 0 30px 0;
+}
+/*.relevant-offers .jcarousel-wrapper{width:945px;}*/
+.jcarousel a:hover {
+  text-decoration: none;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.visibility-visible {
+  visibility: visible;
+}
+/* Variant Section Style Starts Here*/
+.variant-fuel-info,.variant-price-info, .variant-discount-info, .variant-final-info, .variant-btn-info, .variant-info-header .variant-fuel-info p {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.variant-fuel-info {
+  width: 49%;
+}
+
+.variant-price-info {
+  width: 15%;
+}
+
+.variant-discount-info {
+  width: 15%;
+  text-align: center;
+}
+
+.variant-final-info {
+  width: 15%;
+}
+
+.variant-btn-info {
+  width: 11%;
+}
+
+.variant-fuel-info p, .variant-price-info p, .variant-discount-info p, .variant-final-info p, .variant-btn-info p {
+  display: block;
+  vertical-align: middle;
+}
+
+.select-checkbox {
+  display: inline-block;
+  vertical-align: sub;
+}
+
+.select-checkbox input {
+  vertical-align: baseline;
+}
+
+.lock-icon, .lock-icon:before {
+  font-size: 15px;
+  color: #666;
+  vertical-align: middle;
+  margin-right: 0;
+}
+
+.lock-text.what-you-get-text {
+  padding-left: 5px;
+  width: 90%;
+}
+
+.user-agreement.photo-cust-agreement {
+  position: absolute;
+  bottom: 10px;
+}
+
+.center-divider {
+  width: 90%;
+  text-align: center;
+  border: none;
+  height: 1px;
+  background: #e2e2e2;
+}
+
+.click-photos-link {
+  padding: 4px 6px;
+  display: inline-block;
+  position: absolute;
+  top: -4px;
+  right: 0;
+}
+
+.click-photos-link a {
+  color: #565a5c;
+  font-size: 14px;
+}
+
+.click-photos-link a:hover {
+  text-decoration: none;
+}
+
+.click-photos-link .fa-search-plus:before {
+  font-size: 18px;
+}
+
+.view-photo-text {
+  vertical-align: top;
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.select-checkbox label {
+  vertical-align: middle;
+  margin-right: 12px;
+}
+
+.select-checkbox span {
+  vertical-align: text-bottom;
+}
+
+.variant-fuel-info:hover a {
+  text-decoration: none;
+}
+
+.checkbox-selction {
+  vertical-align: top;
+  padding-top: 5px;
+  margin-right: 10px;
+}
+
+.variant-info-header .variant-price-info, .variant-info-header .variant-discount-info, .variant-info-header .variant-final-info {
+  padding-left: 20px;
+}
+
+.req-call-btn-section .form-control-box {
+  display: inline-block;
+}
+
+.req-call-btn-section .form-control {
+  border-radius: 0;
+  border-right: none;
+}
+
+.req-call-btn-section .form-control:focus {
+  border-color: #ccc;
+  box-shadow: none;
+}
+
+.req-call-btn-section .btn {
+  padding: 10px 10px 9px;
+  border-radius: 0;
+  vertical-align: top;
+}
+
+.toll-call {
+  margin: 0 2px 2px 2px;
+}
+
+.variant-section {
+  display: block;
+}
+
+.view-more-versions {
+  color: #0288d1;
+  cursor: pointer;
+}
+
+.select-version-msg {
+  text-align: center;
+  color: red;
+  padding: 0 8px 0 6px;
+  margin: 6px 0 10px 0;
+}
+
+.req-call-thnk {
+  width: 96%;
+  margin: 0 auto;
+}
+
+.req-call-thnk .green-thanks-icon {
+  margin: 5px 0;
+}
+/* Variant Section Style Ends Here*/
+
+.cwm-md-circle {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-md-circle-icon.png?201605111351139405") no-repeat scroll 0 0;
+  width: 65px;
+  height: 65px;
+  display: block;
+}
+
+.md-green-thanks-icon {
+  background-position: -867px 0;
+  width: 67px;
+  height: 67px;
+  display: inline-block;
+}
+
+.min-height {
+  min-height: 600px;
+}
+/*recomended cars popup*/
+#advantage-detail-popup.globalcity-popup.rcmd-car-popup {
+  width: 1010px;
+  height: 463px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.recommendedCarsDetail {
+  left: 700px;
+  width: 1010px;
+}
+
+.list-rcmd-cars li {
+  width: 230px;
+  margin-right: 20px;
+  float: left;
+}
+
+.list-rcmd-cars li:last-child {
+  margin-right: 0;
+}
+
+.list-rcmd-cars li.activeBox {
+  border-color: #b5b5b5;
+  -moz-box-shadow: 0 4px 8px #ccc;
+  -webkit-box-shadow: 0 4px 8px #ccc;
+  -o-box-shadow: 0 4px 8px #ccc;
+  -ms-box-shadow: 0 4px 8px #ccc;
+  box-shadow: 0 4px 8px #ccc;
+}
+
+.list-rcmd-cars li .imageWrapper {
+  width: 100%;
+  height: 130px;
+}
+
+.list-rcmd-cars li .imageWrapper img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+
+.cust-checkbox {
+  font-size: 20px;
+}
+
+.personal-details-form .cw-blackbg-tooltip {
+  top: 33px;
+}
+
+.right-offer-section {
+  width: 96%;
+  vertical-align: top;
+}
+
+.right-offer-section li {
+  padding: 10px 0;
+  table-layout: fixed;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}
+
+.right-offer-section li a:hover {
+  text-decoration: none;
+}
+
+.right-offer-section .listCell {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.car-image {
+  width: 100%;
+  max-width: 115px;
+  text-align: center;
+}
+
+.car-detail-recommend {
+  width: 100%;
+  max-width: 185px;
+}
+
+/* coachmark css starts here */
+.coachmark-box {
+  background: #fff;
+  position: absolute;
+  z-index: 2;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #333;
+  -moz-box-shadow: 0 2px 2px #666;
+  -ms-box-shadow: 0 2px 2px #666;
+  -o-box-shadow: 0 2px 2px #666;
+  -webkit-box-shadow: 0 2px 2px #666;
+  box-shadow: 0 2px 2px #666;
+}
+
+.coachmark-arrow {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #333;
+  position: absolute;
+}
+
+.coachmark-arrow:before {
+  width: 0;
+  height: 0;
+  content: " ";
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #fff;
+  position: absolute;
+  left: -8px;
+  top: 2px;
+}
+
+.coachmark-arrow-left {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 40px;
+  left: -9px;
+  border-top: 8px solid transparent;
+  border-right: 8px solid #333;
+  border-bottom: 8px solid transparent;
+}
+
+.coachmark-arrow-left:before {
+  width: 0;
+  height: 0;
+  content: " ";
+  position: absolute;
+  top: -8px;
+  left: 2px;
+  border-top: 8px solid transparent;
+  border-right: 8px solid #fff;
+  border-bottom: 8px solid transparent;
+}
+
+.coachmark-arrow-right {
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: 40px;
+  right: -9px;
+  border-top: 8px solid transparent;
+  border-left: 8px solid #333;
+  border-bottom: 8px solid transparent;
+}
+
+.coachmark-arrow-right:before {
+  width: 0;
+  height: 0;
+  content: " ";
+  position: absolute;
+  top: -8px;
+  left: -10px;
+  border-top: 8px solid transparent;
+  border-left: 8px solid #fff;
+  border-bottom: 8px solid transparent;
+}
+
+.coachmark-arrow-globalcity {
+  top: -8px;
+  left: 230px;
+}
+
+.change-car-coachmark .coachmark-arrow-globalcity, .change-color-coachmark .coachmark-arrow-globalcity, .change-version-coachmark .coachmark-arrow-globalcity {
+  left: 140px;
+}
+
+.change-car-coachmark {
+  top: 47px;
+  left: 440px;
+  width: 300px;
+}
+
+.change-color-coachmark {
+  top: 78px;
+  right: 150px;
+  width: 320px;
+}
+
+.change-version-coachmark {
+  top: 87px;
+  left: 340px;
+  width: 323px;
+}
+
+.week-offer-img {
+  max-width: 320px;
+}
+
+.week-offer-img img {
+  width: 100%;
+}
+
+.week-offer-content {
+  width: 66%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.week-offer-car-info {
+  float: left;
+}
+
+.week-offer-discount-info {
+  float: right;
+  width: 35%;
+}
+
+.week-offer-content a:hover {
+  text-decoration: none;
+}
+
+.advantage-red-logo {
+  background-position: 0 -356px;
+  width: 145px;
+  height: 23px;
+  top: 8px;
+  position: relative;
+}
+
+.advantage-brand-logo .book-now-thumb {
+  margin: 0;
+}
+
+/* Testimonial css starts here */
+.testimonial-outer-container {
+  background: url('http://imgd.aeplcdn.com/0x0/cw/static/landing-banners/d/advantage-testimonial-bg.jpg') center top no-repeat;
+  height: 295px;
+  background-size: cover;
+}
+
+.testimonial-jcarousel {
+  padding-bottom: 0;
+}
+
+.testimonial-jcarousel li {
+  width: 965px;
+  height: 235px;
+  background: none;
+}
+
+.testimonial-left {
+  width: 52%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.testimonial-review {
+  line-height: 26px;
+}
+
+.testimonial-right {
+  width: 41%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.testimonial-user-img {
+  border: 1px solid #ccc;
+  display: inline-block;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -moz-border-radius: 4px;
+  max-height: 291px;
+  max-width: 372px;
+}
+
+.testimonial-user-img img {
+  border: 9px solid #ffffff;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -moz-border-radius: 4px;
+  display: block;
+}
+
+.testimonial-outer-container .jcarousel-control-left, .testimonial-outer-container .jcarousel-control-right {
+  top: 28%;
+}
+
+.new-advantage-popup {
+  width: 980px;
+  border: 1px solid #ccc;
+  height: 460px;
+  top: 9%;
+}
+
+.right-enquiry-form {
+  -webkit-box-shadow: -2px 0 1px 0 #CCCCCC;
+  -moz-box-shadow: -2px 0 1px 0 #CCCCCC;
+  -o-box-shadow: -2px 0 1px 0 #CCCCCC;
+  box-shadow: -2px 0 1px 0 #CCCCCC;
+  padding: 0 0 43px 20px;
+}
+
+.offer-details-slab .offerUlCont {
+  padding: 0;
+}
+
+.offer-details-slab .offerUlCont li {
+  padding: 0 0 0 5px;
+  margin-bottom: 10px;
+  display: block;
+  vertical-align: top;
+}
+
+.offer-details-slab .offerUlCont li:last-child {
+  margin-bottom: 0;
+}
+
+.offer-details-slab .offerUlCont li span {
+  vertical-align: top;
+}
+
+.offer-details-slab .offerUlCont li .offerUl-text {
+  padding-left: 10px;
+  width: 95%;
+  display: inline-block;
+}
+
+.offer-details-slab .free-accesories {
+  background-position: -218px -44px;
+  width: 23px;
+  height: 19px;
+  margin-top: 1px;
+}
+
+.offer-details-slab .exchange-bonus {
+  background-position: -218px -78px;
+  width: 23px;
+  height: 14px;
+  margin-top: 5px;
+}
+
+.offer-details-slab .extended-warranty {
+  background-position: -218px -103px;
+  width: 23px;
+  height: 22px;
+  margin-top: 1px;
+}
+
+.offer-details-slab .assured-gifts {
+  background-position: -218px -137px;
+  width: 23px;
+  height: 20px;
+  margin-top: 1px;
+}
+
+.offer-details-slab .generic-offer {
+  background-position: -218px -172px;
+  width: 23px;
+  height: 16px;
+  margin-top: 2px;
+}
+
+.offer-details-slab .delivery-timeline {
+  background-position: -216px -198px;
+  width: 23px;
+  height: 13px;
+  margin-top: 1px;
+}
+
+.offer-details-slab .t-permit-availability {
+  background-position: -216px -221px;
+  width: 23px;
+  height: 17px;
+  margin-top: 1px;
+}
+
+.offer-details-slab .free-insurance {
+  background-position: -216px -250px;
+  width: 23px;
+  height: 15px;
+  margin-top: 1px;
+}
+
+.offer-details-slab .test-drive {
+  background-position: -216px -272px;
+  width: 23px;
+  height: 17px;
+  margin-top: 1px;
+}
+
+.check-options div {
+  display: inline-block;
+}
+
+.check-options div label input {
+  vertical-align: top;
+  margin: 3px 0 0 0;
+}
+
+.enquiry-button-control {
+  vertical-align: top;
+}
+
+.call-query {
+  width: 55%;
+  vertical-align: top;
+}
+
+.enquiry-form-container .form-control-box {
+  width: 75%;
+}
+
+.car-interest {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 20px;
+}
+
+.car-interest .imageWrapper {
+  max-width: 170px;
+  display: inline-block;
+  height: auto;
+}
+
+.car-interest .imageWrapper img {
+  max-width: 100%;
+}
+
+.car-interest .car-detail {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.what-get-list-container {
+}
+
+.what-you-get-title {
+  font-weight: bold;
+}
+
+.what-get-list-detail {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.what-get-list-container .fa {
+  font-size: 22px;
+  min-height: 30px;
+  display: inline-block;
+  color: #666;
+}
+
+.what-get-list-container .fa.fa-calendar {
+  font-size: 18px;
+}
+
+.what-get-list-container .fa.fa-inr {
+  margin-left: 5px;
+}
+
+.what-get-list-detail p {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+#enquire-detail-popup .globalcity-close-btn {
+  z-index: 1;
+}
+
+.enquire-step1 {
+  padding: 20px 20px;
+}
+
+.enquire-thanks-container {
+  padding-top: 30px;
+  -webkit-box-shadow: -2px 0 1px 0 #CCCCCC;
+  -moz-box-shadow: -2px 0 1px 0 #CCCCCC;
+  -o-box-shadow: -2px 0 1px 0 #CCCCCC;
+  box-shadow: -2px 0 1px 0 #CCCCCC;
+}
+
+.thanks-top-content {
+  padding: 20px 0 30px;
+}
+
+.thanks-top-content h2 {
+}
+
+.thanks-top-content .green-thanks-icon {
+}
+
+.thanks-top-content p {
+  width: 90%;
+  margin: 15px auto 20px;
+  line-height: 25px;
+}
+
+.thanks-bottom-content {
+  padding: 30px 10px;
+}
+
+.thanks-top-content.thanks-top-para {
+  padding: 20px 0 15px;
+}
+
+.thanks-top-content.thanks-top-para p {
+  width: 99%;
+  margin: 15px auto 10px;
+}
+
+.thanks-bottom-content a:hover {
+  text-decoration: none;
+}
+
+.thanks-bottom-content p {
+  width: 70%;
+  margin: 0 auto;
+  line-height: 26px;
+}
+
+.small-text-content {
+  font-size: 12px;
+  padding-top: 10px;
+  display: block;
+}
+
+.right-enquiry-recommendation {
+}
+
+.recommendedCarsDetail {
+  left: auto;
+  width: 100%;
+}
+
+.recommendedCarsDetail .jcarousel-wrapper {
+  width: 510px;
+}
+
+.left-enquiry-small {
+  width: 40%;
+}
+
+.right-enquiry-large {
+  width: 56%;
+  padding: 0 0 0 25px;
+}
+
+.right-enquiry-recommendation .recommendedCarsDetail {
+  left: 400px;
+}
+
+.right-enquiry-recommendation .jcarousel {
+  padding-bottom: 0;
+}
+
+.right-enquiry-recommendation .jcarousel li {
+  height: 260px;
+}
+
+.right-enquiry-recommendation .list-rcmd-cars li {
+  margin-right: 10px;
+}
+
+.enquiry-second-screen {
+}
+
+.enquiry-second-screen .left-enquiry-form {
+/*display:inline-block;*/
+  float: left;
+  width: 40%;
+}
+
+.enquiry-second-screen .right-enquiry-form {
+/*display:inline-block;*/
+  float: left;
+  width: 56%;
+}
+/*.enquiry-first-screen{width:100%;}*/
+.enquiry-first-screen,.enquiry-second-screen {
+/*display:inline-block;*/;
+}
+
+.enquiry-first-screen {
+  width: 58%;
+  float: left;
+  position: relative;
+}
+
+.enquiry-second-screen {
+  width: 40%;
+  float: right;
+  position: relative;
+}
+
+.left-enquiry-form, .left-enquiry-form-2,.right-enquiry-form , .right-enquiry-form-2 {
+  width: 100%;
+}
+
+.enquiry-second-screen .right-enquiry-form {
+  width: 100%;
+}
+/*.enquiry-first-screen-small{width:30%;position:relative;}*/
+/*.right-enquiry-form-2{opacity: 0;transition: opacity .25s ease-in-out;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;}
+.pqr.right-enquiry-form-2{opacity: 0.9;}*/
+
+.left-enquiry-form-2 {
+  right: -1000px;
+}
+
+.right-enquiry-form-2 {
+  right: -800px;
+}
+
+.recommend-container {
+  padding-left: 35px;
+}
+
+.small-width-enquiry-popup {
+  width: 450px;
+}
+
+.left-enquiry-form-2.abc {
+}
+
+.enquiry-form-container .form-mobile-prefix {
+  line-height: 16px;
+}
+
+.disc-tag-icon {
+  background-position: 0px -664px;
+  width: 22px;
+  height: 22px;
+}
+
+.clock-icon {
+  background-position: -26px -661px;
+  width: 25px;
+  height: 25px;
+}
+
+.check-calender {
+  background-position: -55px -664px;
+  width: 23px;
+  height: 20px;
+}
+
+.authorized-dealer-icon {
+  background-position: -84px -664px;
+  width: 23px;
+  height: 23px;
+}
+
+.disc-tag-icon,.check-calender,.clock-icon,.authorized-dealer-icon {
+  vertical-align: bottom;
+}

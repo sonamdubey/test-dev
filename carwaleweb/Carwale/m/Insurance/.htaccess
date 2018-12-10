@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteRule ^coverfox/$							/m/insurance/ [R=301,NC,L]
+RewriteRule ^cw/$								/m/insurance/ [R=301,NC,L]

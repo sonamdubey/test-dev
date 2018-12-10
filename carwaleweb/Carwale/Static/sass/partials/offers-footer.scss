@@ -1,0 +1,87 @@
+﻿
+@import "../mixins/_variables.scss";
+@import "../mixins/_text.scss";
+@import "../mixins/_utils.scss";
+@import "../mixins/_sprites.scss";
+
+//oem offers footer
+
+.offer-footer {
+    font-size: 11px;
+    line-height: 14px;
+    padding-top: 10px;
+    color: map-get($color-map, "white");
+}
+
+.offer__validity {
+	display: inline-block;
+	width: 60%;
+}
+
+.js-offer__tnc {
+	display: inline-block;
+	position: relative;
+	width: 39%;
+	text-align: right;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+
+	.tnc__icon {
+		background: url(#{$img-cdn-path}/0x0/cw/static/icons/svg/info-circle-filled.svg) no-repeat;
+		display: inline-block;
+		height: 15px;
+		width: 15px;
+		vertical-align: top;
+		margin-left: 5px;
+	}
+}
+
+.offers-tool-tip {
+	@include get-vendor-prefixed("transform", "translate(-62%, -100%)");
+    background-color:  map-get($color-map, "default");
+    color:  map-get($color-map, "white");
+    padding: 10px;
+    width: 290px;
+    opacity: .95;
+    z-index: 1; 
+	left: 0;
+    top: -12px;
+    position: absolute;
+	text-align: left;
+}
+
+.offers-tool-tip__title {
+    border-bottom: 1px solid  map-get($color-map, "white");
+    padding-bottom: 5px;
+}
+
+ul.offers-terms-list{
+	 li {
+		padding-left: 15px;
+		line-height: 18px;
+		position: relative;
+	}
+}
+
+ul.offers-terms-list {
+	li{
+		&:before {
+			top: 6px;
+			left: 4px;
+			position: absolute;
+			vertical-align: middle;
+			display: inline-block;
+			width: 5px;
+			height: 5px;
+			background:  map-get($color-map, "white");
+			content: "";
+			border-radius: 25px;
+		}
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	.offers-tool-tip {
+		@include get-vendor-prefixed("transform", "translate(-66%, -100%)");
+	}
+}

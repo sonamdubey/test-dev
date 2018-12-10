@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[UCS_CarBuyers] (
+    [ID]        NUMERIC (18)  IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [ProfileId] VARCHAR (50)  NULL,
+    [Buyers]    VARCHAR (MAX) NULL,
+    CONSTRAINT [PK_UCS_CarBuyers] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

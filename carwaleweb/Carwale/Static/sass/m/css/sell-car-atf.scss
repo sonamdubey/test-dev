@@ -1,0 +1,411 @@
+@import "../../mixins/_grid.scss";
+@import "../../mixins/_margin.scss";
+@import "../../mixins/_utils.scss";
+@import "../../mixins/_text.scss";
+@import "../../mixins/_buttons.scss";
+@import "../../mixins/_rounded-corner.scss";
+@import "../../mixins/_fonts.scss";
+@import "../../mixins/_fontawesome.scss";
+@import "../../mixins/_background.scss";
+@import "../../mixins/_position.scss";
+@import "../../partials/_reset.scss";
+@import "../../partials/_mheader.scss";
+@import "../../partials/_androiddownload.scss";
+@import "../../mixins/_sprites.scss";
+
+// page specific
+@import "../../mixins/_cwtabs.scss";
+@import "../../mixins/_input-box.scss";
+@import "../../mixins/_button-pill.scss";
+@import "../../mixins/_chosen.scss";
+
+@include blackout-window;
+@include grid-size(12);
+@include margin("bottom",10);
+@include margin("bottom",15);
+@include margin("top",20);
+@include margin("left",110);
+@include content-inner-block(10);
+@include font-size-class(12);
+@include rounded-corner(2);
+@include content-box-shadow;
+@include text-link;
+@include text-bold;
+@include arr-small;
+@include btn-color("white");
+@include text-color("black");
+@include text-color("light-grey");
+@include book-now-thumb;
+@include show;
+@include hide;
+@include get-font-icon("rupee");
+@include bg-color("light-grey");
+@include info-icon;
+@include inline-block;
+@include ad-div;
+@include position("left",10);
+@include position("rel");
+
+body {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+// form screen
+.form-screen {
+	width: 100%;
+	min-height: 350px;
+	padding: 10px 20px 50px;
+	background: map-get($color-map, "white");
+}
+
+.screen__head {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.screen-head__title {
+	color: map-get($color-map, "black");
+	font-size: 18px;
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+
+.screen-head__banner {
+	width: 271px;
+	height: 93px;
+	background: url(#{$img-cdn-path}/0x0/cw/static/used/city-background-271x93.png) no-repeat center;
+	display: block;
+	position: relative;
+	margin: 0 auto;
+}
+
+.screen-head__icon {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -6px;
+	margin: 0 auto;
+}
+
+.screen-body__title {
+	color: map-get($color-map, "black");
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.screen-body__subtitle {
+	color: map-get($color-map, "default");
+	font-size: 14px;
+}
+
+.body-item__note {
+	color: map-get($color-map, "default");
+	font-size: 12px;
+}
+
+// option-list
+.option-list {
+	text-align: center;
+	list-style: none;
+	overflow: hidden;
+}
+
+.option-list__item {
+	width: 90px;
+	margin: 0 5px 15px;
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: top;
+
+	input[type="radio"] {
+		display: none;
+	}
+
+	label {
+		display: block;
+	}
+}
+
+.list-item__label {
+	font-size: 13px;
+	color: map-get($color-map, "default");
+}
+
+// next, prev buttons
+@include btn-color("orange");
+
+.btn-fullwidth-48 {
+	width: 100%;
+	padding: 13px;
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+// intro
+#sellCarBanner {
+	width: 100%;
+	height: 200px;
+	background: #66757a url(#{$img-cdn-path}/0x0/cw/static/landing-banners/m/sell-car-banner.jpg?1503296937742) no-repeat center;
+	background-size: cover;
+	display: table;
+}
+
+.banner-box {
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.banner__title {
+	color: #fff;
+	font-size: 20px;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.benefit-list__item {
+	width: 80px;
+	margin: 5px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.benefit-list__label {
+	font-size: 11px;
+	color: #fff;
+}
+
+.benefit-home-icon {
+	width: 35px;
+	height: 30px;
+	background: url(#{$img-cdn-path}/0x0/cw/static/icons/fff/home-35x28.png) no-repeat;
+	display: inline-block;
+}
+
+.verified-buyer-icon {
+	width: 28px;
+	height: 30px;
+	background: url(#{$img-cdn-path}/0x0/cw/static/icons/fff/verified-buyer-28x30.png) no-repeat;
+	display: inline-block;
+}
+
+.best-price-icon {
+	width: 36px;
+	height: 30px;
+	background: url(#{$img-cdn-path}/0x0/cw/static/icons/fff/car-best-price-36x30.png) no-repeat;
+	display: inline-block;
+}
+
+.sell-car-body {
+	padding: 20px;
+	background: #f5f5f5;
+}
+
+.sell-car__tip-title {
+	font-size: 16px;
+	font-weight: 700;
+	color: map-get($color-map, "black");
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.sell-car__tip-desc {
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+
+@include cw-tabs-auto("shamrockGreen");
+
+#tipsAdviceList {
+    li {
+        position: relative;
+        font-size: 14px;
+        margin-bottom: 8px;
+        padding-left: 10px;
+
+        &:before {
+            content: "\2022";
+            font-size: 14px;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+        }
+    }
+}
+
+.faq-list {
+	li {
+		margin-bottom: 15px;
+		font-size: 14px;
+	}
+
+	.faq__title {
+		color: map-get($color-map, "black");
+		margin-bottom: 8px;
+	}
+}
+
+// collapsible-content
+.more-content {
+	display: none;
+}
+
+.more-active {
+	.more-content {
+		display: block;
+	}
+
+	.gradient--top-bottom:before {
+		content: none;
+	}
+}
+
+.collapsible-target {
+	text-align: center;
+	font-size: 14px;
+	font-weight: 700;
+	color: #0288d1;
+	text-transform: capitalize;
+	cursor: pointer;
+}
+
+.gradient--top-bottom {
+	position: relative;
+
+	&:before {
+		content: "";
+		width: 100%;
+		height: 80px;
+		position: absolute;
+		top: -80px;
+		left: 0;
+		background: linear-gradient(to bottom, rgba(245, 245, 245, 0.5), #f5f5f5);
+	}
+}
+
+// city form
+#formCity {
+	padding-top: 20px;
+	padding-bottom: 15px;
+
+	.screen__head {
+		margin-bottom: 30px;
+	}
+}
+
+#cityInputBox {
+	.fa-spinner {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		color: map-get($color-map, "black");
+	}
+}
+
+// city-icon 
+@include city-icon-id(1, 67);
+@include city-icon-id(2, 67);
+@include city-icon-id(10, 67);
+@include city-icon-id(12, 67);
+@include city-icon-id(105, 67);
+@include city-icon-id(128, 67);
+@include city-icon-id(176, 67);
+@include city-icon-id(177, 67);
+@include city-icon-id(198, 67);
+
+// screen: city
+#bodyPincodeSelect {
+	display: none;
+}
+
+.city-select-done {
+	#bodyCitySelect {
+		display: none;
+	}
+
+	#bodyPincodeSelect {
+		display: block;
+	}
+}
+
+body.bg-light-grey {
+	background: #fff;
+}
+
+/* form */
+.form-wrapper {
+	display: none;
+	position: relative;
+	padding-top: 40px; // fixed breadcrumb nav height
+
+	.screen__body {
+		min-height: 280px;
+		margin-top: 30px;
+	}
+}
+
+.form-active {
+	.form-wrapper {
+		display: block;
+	}
+
+	#introContainer {
+		display: none;
+	}
+}
+
+.header-footer-inactive {
+	#header,
+	.bg-footer,
+	#divAndroid {
+		display: none;
+	}
+}
+
+// pill buttons
+@include btn-pill("default");
+@include pill--active;
+@include pill__cross;
+@include pill--150-14;
+@include pill--auto-12;
+@include pill-list__label(11);
+@include pill-group--type-input("default");
+@include pill-group--checkbox("pill--auto-12", "midGray");
+
+// btf content to be hidden
+.loader-bg,
+.modal-box,
+#voucherScreen {
+	display: none;
+}
+
+.select-box .chosen-container {
+	z-index: auto;
+}
+
+.btn-abtest {
+    .btn-orange {
+        background: #e53012;
+    }
+
+    .btn-green {
+        background: #00afa0;
+    }
+
+    .m-call-slug {
+        background: rgba(255, 255, 255, 0.9) none repeat scroll 0 0;
+        bottom: 0;
+        color: #fff;
+        padding: 5px;
+        position: fixed;
+        width: 100%;
+        z-index: 5;
+        box-shadow: #d2d2d2 0 -1px 10px;
+
+        .btn {
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+    }
+}

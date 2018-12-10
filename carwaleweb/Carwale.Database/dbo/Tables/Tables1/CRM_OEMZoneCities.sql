@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[CRM_OEMZoneCities] (
+    [ZoneId] NUMERIC (18) NOT NULL,
+    [CityId] NUMERIC (18) NOT NULL,
+    CONSTRAINT [PK_CRM_ZoneCities] PRIMARY KEY CLUSTERED ([ZoneId] ASC, [CityId] ASC) WITH (FILLFACTOR = 90)
+);
+

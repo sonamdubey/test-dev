@@ -1,0 +1,40 @@
+﻿@model Carwale.DTOs.WidgetDTOs.ArticlesWidget
+@using Carwale.Utility;
+<section id="news" class="margin-top20">
+    <h2 class="margin-bottom10 special-skin-text">
+        @*<a class="icon-sheet rss-link" href='https://www.carwale.com/news/tag/@Model.Heading.ToString().Trim().Replace(" ", "-")/feed/' title="CarWale News RSS Feed"></a>*@
+        @Model.Heading.Replace("News", "") in News
+    </h2>
+    @if(Model != null && Model.Articles.IsNotNullOrEmpty())
+    { 
+    <div class="content-box-shadow">
+            @foreach (var News in Model.Articles)
+            {
+                    if (News != null)
+                    {
+                        <article class="list-seperator">
+                            <h3><a data-role="click" data-event="CWInteractive" data-cat="desktop_news_linkages" data-action="model_page_news" data-label="model_page_news" class="font20 margin-top10" href="@(News.ArticleUrl)" title="@News.Title">@News.Title</a></h3>
+                            <div class="grid-4 alpha">
+                                <a href="@News.ArticleUrl" title="@News.Title">
+                                    <img width="199" height="112" class="lazy" alt="@News.Title.ToString()" title="@News.Title.ToString()" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original='@ImageSizes.CreateImageUrl(News.HostUrl.ToString(),ImageSizes._199X112, News.OriginalImgUrl.ToString())' />
+                                </a>
+                            </div>
+                            <div class="grid-8 omega">
+                            
+                                <p class="margin-top10">
+                                    @Html.Raw(Format.LimitText(News.Description.ToString(), 170))
+                                </p>
+                            
+                            </div>
+                            <footer class="leftfloat margin-top10 margin-left10"><p>@News.DisplayDate.ToString("dd MMM yyyy") by @News.AuthorName | <span class="text-link" onclick="window.location = '@(News.ArticleUrl)';">Read more</span></p></footer>
+                            <div class="clear"></div>
+                        </article>
+                    }
+            }
+        
+        <div class="content-inner-block-10 text-center">
+        <a data-role="click" data-event="CWInteractive" data-cat="desktop_news_linkages" data-action="model_page_view_all" data-label="@ViewBag.MakeName @ViewBag.ModelName" href="@Model.LandingUrl" title="@Model.Heading" >All @Model.Heading </a>
+       </div>
+</div>
+    }
+    </section>

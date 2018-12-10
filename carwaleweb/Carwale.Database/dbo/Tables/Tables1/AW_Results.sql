@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[AW_Results] (
+    [ID]         NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [AwardYear]  NUMERIC (18) NULL,
+    [CategoryId] NUMERIC (18) NULL,
+    [ModelId]    NUMERIC (18) NULL,
+    CONSTRAINT [PK_AW_Results] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

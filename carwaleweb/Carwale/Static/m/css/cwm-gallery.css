@@ -1,0 +1,821 @@
+﻿html {
+  height: 100%;
+}
+
+body {
+  height: 100vh;
+  height: 100%;
+}
+
+body,img {
+  transition: all .2s linear;
+  -o-transition: all .2s linear;
+  -moz-transition: all .2s linear;
+  -webkit-transition: all .2s linear;
+}
+
+.swiper-container .swiper-button-prev, .swiper-container .swiper-button-next {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.swiper-container .swiper-button-prev {
+  background-position: -37px -144px;
+  background-color: transparent !important;
+  border: none;
+  height: 47px;
+  left: 2%;
+}
+
+.swiper-container .swiper-button-next {
+  background-position: -71px -144px;
+  background-color: transparent !important;
+  border: none;
+  height: 47px;
+  right: 2%;
+}
+
+#car-gallery-popup .swiper-slide {
+  height: 100%;
+  background: none;
+}
+
+.swiper-slide img {
+/*height: 100%;width:100%;*/
+  height: auto;
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 45%;
+}
+
+.swiper-lazy-preloader {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/design15/cw-loader.gif?v1=04032016") no-repeat center center;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+}
+
+#car-gallery-popup {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  position: fixed;
+  top: 42px;
+  left: 0;
+  right: 0;
+  background-color: rgb(42, 42, 42);
+  z-index: 1;
+}
+
+.news-photo-options-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 3;
+  background: #fff;
+}
+
+.news-photo-filter {
+  cursor: pointer;
+  background: #04b4c4;
+  width: 50px;
+  height: 50px;
+  border-radius: 35px;
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  box-shadow: 0px 2px 3px #696969;
+  z-index: 4;
+}
+
+.news-filter-tag {
+  float: left;
+  width: 33.3%;
+  height: 100px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.news-filter-tag .news-photo-filter-title {
+  display: block;
+}
+
+.news-filter-icons {
+  text-align: center;
+  height: 70px;
+}
+
+.news-filter-icons span {
+  margin: 36px auto 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.news-filter-tag .news-photo-filter-title {
+  color: #565a5c;
+  font-weight: bold;
+}
+
+.news-filter-icons .red-advantage-icon {
+  margin: 28px auto 0;
+}
+
+.news-filter-icons .news-interior-icon {
+  margin: 30px auto 0;
+}
+
+.news-filter-icons .news-exterior-icon {
+  margin: 38px auto 0;
+}
+
+.news-contact-dealer-icon {
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/04b4c4/dealer.png') no-repeat;
+  width: 26px;
+  height: 25px;
+}
+
+.news-call-dealer-icon {
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/04b4c4/call.png') no-repeat;
+  width: 26px;
+  height: 25px;
+}
+
+.news-exterior-icon {
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/04b4c4/exterior.png') no-repeat;
+  width: 36px;
+  height: 20px;
+}
+
+.news-interior-icon {
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/04b4c4/interior.png') no-repeat;
+  width: 28px;
+  height: 30px;
+}
+
+.news-videos-icon {
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/04b4c4/video.png') no-repeat;
+  width: 28px;
+  height: 26px;
+}
+
+.red-advantage-icon {
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/04b4c4/advantage.png') no-repeat;
+  width: 34px;
+  height: 34px;
+}
+
+.news-all-photos-icon {
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/04b4c4/photos.png') no-repeat;
+  width: 28px;
+  height: 22px;
+}
+
+.news-photo-options .inline-block {
+  cursor: pointer;
+  vertical-align: top;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.news-photo-share {
+  background-position: -83px -402px;
+  width: 20px;
+  height: 20px;
+}
+
+.news-photo-count {
+  background-position: -107px -401px;
+  width: 20px;
+  height: 20px;
+}
+
+.news-photo-download {
+  background-position: -129px -402px;
+  width: 15px;
+  height: 19px;
+}
+
+.news-photo-fullscreen {
+  background-position: -152px -401px;
+  width: 20px;
+  height: 20px;
+}
+
+.news-photo-smallscreen {
+  background-position: -146px -340px;
+  width: 20px;
+  height: 20px;
+}
+
+.news-photo-filter span {
+  position: relative;
+  left: 22%;
+  top: 28%;
+}
+
+.three-dots {
+  background-position: -178px -401px;
+  width: 27px;
+  height: 15px;
+}
+
+.news-photo-options .share-pic {
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+.gallery-count span {
+  vertical-align: top;
+}
+
+.gallery-count .image-count {
+  vertical-align: top;
+  display: inline-block;
+  margin-top: 3px;
+}
+
+.news-photo-share-container {
+  padding-bottom: 20px;
+}
+
+.share-icon-container {
+  display: inline-block;
+  width: 32.5%;
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+
+.news-share-icons span {
+  display: block;
+  margin: 0 auto;
+}
+
+.news-fb-icon {
+  background-position: -55px -430px;
+  width: 40px;
+  height: 40px;
+}
+
+.news-wp-icon {
+  background-position: -106px -428px;
+  width: 48px;
+  height: 48px;
+}
+
+.news-gm-icon {
+  background-position: -162px -430px;
+  width: 43px;
+  height: 34px;
+}
+
+.news-tw-icon {
+  background-position: -1px -429px;
+  width: 48px;
+  height: 44px;
+}
+
+#root {
+  height: 100%;
+}
+
+.all-photos-section {
+  height: 100%;
+}
+
+.all-photo-container {
+  height: 100%;
+}
+
+.all-photo-container * {
+  box-sizing: border-box;
+}
+
+.all-photo-container .gallery-image {
+  padding: 4px;
+  float: left;
+}
+
+.all-photo-container  .gallery-image:nth-of-type(3n+1) {
+  width: 100%;
+  padding-bottom: 55.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.all-photo-container .gallery-image:nth-of-type(3n+1) img {
+  width: 100%;
+}
+
+.all-photo-container .gallery-image:nth-of-type(3n+2),.all-photo-container .gallery-image:nth-of-type(3n+3) {
+  overflow: hidden;
+  width: 50%;
+  height: 0;
+  padding-bottom: 27.125%;
+}
+
+.all-photo-container .gallery-image:nth-of-type(3n+2) img,.all-photo-container .gallery-image:nth-of-type(3n+3) img {
+  width: 100%;
+}
+
+.news-video-view {
+  width: 100%;
+}
+
+.news-video-view iframe {
+  width: 100%;
+  height: 50vh;
+}
+
+.video-view {
+  display: inline-block;
+  width: 125px;
+}
+
+.video-view img {
+  height: 70px;
+  max-width: 100%;
+}
+
+.video-option-detail {
+  display: inline-block;
+  width: 50%;
+  vertical-align: top;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.news-video-options.active{ background: #f5f5f5; }
+
+.video-option-detail .views-container {
+    display: inline-block; 
+}
+
+.video-option-detail .watching-container {
+    display: inline-block;
+    float: right;
+    margin-top: 3px;
+}
+
+.watching-container .watching {
+    font-size: 10px;
+    padding: 3px 6px;
+}
+
+.video-frame{
+    border-width: 0px;
+    position:relative;
+}
+.video-next-btn, .video-prev-btn{
+    position: absolute;
+    top: 50%;
+    width: 24px;
+    height: 32px;
+    margin-top: -22px;
+    text-indent: -9999px;
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    z-index: 1;
+    border: none;
+    cursor: pointer;
+} 
+
+.video-next-btn{
+    background-position: -16px 7px !important;
+    right: 0;
+}
+
+.video-prev-btn{
+    background-position: 6px 7px !important;
+    left: 0;
+}
+
+.connected-carousels-photos .swiper-container .swiper-button-disabled {
+  display: none!important;
+}
+
+.blackout-window {
+  opacity: 0.8;
+  z-index: 2;
+  background: #000 none repeat scroll 0 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.header {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+}
+
+.photo-list-heading {
+  background: #fff;
+}
+
+.connected-carousels-photos {
+  height: 100%;
+}
+
+img:not([src]) {
+  visibility: hidden;
+}
+/*.news-photo-heading{background:rgba(255,255,255, 0.7);position:fixed;top:0;width:100%;z-index:1}*/
+.news-photo-heading h1 {
+  background-color: rgb(42, 42, 42);
+  padding-bottom: 15px;
+}
+
+#car-gallery-popup .swiper-container .swiper-button-next {
+  background-position: -66px -579px;
+}
+
+#car-gallery-popup .swiper-container .swiper-button-prev {
+  background-position: -52px -579px;
+}
+
+#car-gallery-popup .swiper-button-prev, #car-gallery-popup .swiper-button-next {
+  top: 47%;
+}
+
+@media only screen and (orientation:landscape) {
+  #car-gallery-popup {
+    width: 100%;
+    max-width: 100%;
+    top: 0;
+    height: 100%;
+  }
+
+  .news-photo-heading {
+    background: rgba(255,255,255, 0.7);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .news-photo-heading h1 {
+    color: #666;
+  }
+
+  .news-photo-heading .gallery-close-btn {
+    background-position: -62px -246px;
+  }
+
+  .connected-carousels-photos {
+    height: 100%;
+  }
+
+  #car-gallery-popup .swiper-wrapper {
+    padding-top: 0;
+  }
+
+  #car-gallery-popup .swiper-slide {
+    height: 100%;
+  }
+
+  .swiper-slide img {
+    top: 50%;
+  }
+
+  .share-icon-container {
+    width: 19.2%;
+    margin: 0;
+  }
+}
+
+/** 
+ * iPad with landscape orientation.
+ */
+@media all and (min-height: 768px) and (min-width: 1024px) and (orientation:landscape) {
+  #car-gallery-popup {
+    width: 100%;
+    max-width: 100%;
+    top: 0;
+    height: 100%;
+  }
+
+  .news-photo-heading {
+    background: rgba(255,255,255, 0.7);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .news-photo-heading h1 {
+    color: #666;
+  }
+
+  .news-photo-heading .gallery-close-btn {
+    background-position: -62px -246px;
+  }
+
+  .connected-carousels-photos {
+    height: 100%;
+  }
+
+  #car-gallery-popup .swiper-wrapper {
+    padding-top: 0;
+  }
+
+  #car-gallery-popup .swiper-slide {
+    height: 100%;
+  }
+
+  .share-icon-container {
+    width: 19.2%;
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width:479px) {
+  .news-photo-options {
+    width: 100%;
+  }
+
+  .news-video-view iframe {
+    height: 30vh;
+  }
+}
+
+@media screen and (min-width: 320px) {
+  .iphone {
+    height: calc(100% + 72px);
+  }
+}
+
+.swiper-lazy-preloader {
+  width: 100px;
+  height: 80px;
+  position: absolute;
+  left: 45%;
+  top: 40%;
+  margin-left: -21px;
+  margin-top: -21px;
+  z-index: 10;
+  -webkit-transform-origin: 50%;
+  -moz-transform-origin: 50%;
+  transform-origin: 50%;
+  -webkit-animation: swiper-preloader-spin 1s steps(12, end) infinite;
+  -moz-animation: swiper-preloader-spin 1s steps(12, end) infinite;
+  animation: swiper-preloader-spin 1s steps(12, end) infinite;
+}
+
+@-webkit-keyframes swiper-preloader-spin {
+  100% {
+    -webkit-transform: rotate(0deg);
+  }
+}
+
+@keyframes swiper-preloader-spin {
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.suggestion-box {
+  margin: 0 auto;
+}
+
+.center-div {
+  display: table;
+  margin: 0 auto;
+}
+
+.advt-rec-car-image {
+  max-width: 100px;
+  max-height: 92px;
+  vertical-align: middle;
+}
+
+.advt-rec-car-image img {
+  width: 100%;
+}
+
+.advt-rec-car-details {
+  width: 62%;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.cancel-price:before {
+  border-top: 1px solid #565a5c;
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 100%;
+}
+
+.car-left-count {
+  margin: 2px 0 0 8px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+@media only screen and (max-width: 320px) {
+  .advt-rec-car-details {
+    width: 59%;
+    text-align: left;
+  }
+}
+
+.dealer-logo-box {
+  display: table-cell;
+  padding: 60px;
+  min-width: 100px;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.dealer-name-box {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modified-full-popup {
+  padding: 0;
+}
+
+.full-page-popup {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 20px;
+}
+
+.pq-img-window {
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  z-index: 9;
+  overflow-y: auto;
+}
+
+.snackbar-single {
+  padding: 15px;
+  margin-bottom: -48px;
+}
+
+.news-photo-filter-options .disabled-option.news-filter-tag:nth-child(odd), .news-photo-filter-options .disabled-option.news-filter-tag:nth-child(even) {
+  font-weight: 100;
+  background-color: #9E9E9E;
+}
+
+.active-option {
+  border: 2px solid #04b4c4;
+}
+
+.no-link-decoration {
+  color: #565a5c;
+  text-decoration: none;
+}
+
+/* 360 icon */
+.teal-360-icon-36 {
+  width: 36px;
+  height: 24px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/04b4c4/360.png') no-repeat;
+  display: inline-block;
+}
+
+.new-tag-icon-28 {
+  width: 28px;
+  height: 13px;
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/ef3f30/new-tag.png') no-repeat;
+  display: inline-block;
+  position: relative;
+  top: -6px;
+  left: 3px;
+}
+
+.news-photo-filter-options .news-filter-tag:nth-child(odd) {
+  background: #f5f5f5;
+}
+
+.news-photo-filter-options .news-filter-tag:nth-child(even) {
+  background: #fff;
+}
+
+.switch {
+    display: inline-block;
+    width: 49px;
+}
+
+.switch-container {
+  position: relative;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+
+.switch-label {
+  color: rgb(28, 28, 28);
+  margin-right:5px;
+}
+
+.cmn-toggle {
+    position: absolute;
+    margin-left: -9999px;
+    visibility: hidden;
+}
+
+input.cmn-toggle-round+label {
+    padding: 2px;
+    width: 35px;
+    height: 12px;
+    background-color: #ddd;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+    border-radius: 30px;
+}
+
+input.cmn-toggle-round + label:before, input.cmn-toggle-round + label:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 1px;
+  bottom: 1px;
+  content: "";
+}
+
+input.cmn-toggle-round + label:before {
+  right: 1px;
+  background-color: #ccd1d5;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-transition: background 0.4s;
+  -moz-transition: background 0.4s;
+  -o-transition: background 0.4s;
+  transition: background 0.4s;
+}
+
+input.cmn-toggle-round + label:after {
+  width: 21px;
+  height: 21px;
+  background-color: #fff;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+  border-radius: 100%;
+  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  -webkit-transition: margin 0.4s;
+  -moz-transition: margin 0.4s;
+  -o-transition: margin 0.4s;
+  transition: margin 0.4s;
+  top: -3px;
+}
+
+input.cmn-toggle-round:checked + label:before {
+  background-color: #8cd4dc;
+}
+
+input.cmn-toggle-round:checked + label:after {
+  margin-left: 16px;
+}
+
+input.cmn-toggle-round:checked + label:after {
+  background-color: #04b4c4;
+}
+
+.cmn-toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+
+.cmn-toggle+label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    outline: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+

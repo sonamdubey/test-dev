@@ -1,0 +1,16 @@
+﻿@model Carwale.DTOs.LandingPage.LandingPageDTO
+<script type="text/javascript">
+    Common.showCityPopup = false;
+    var type = '@Model.CampaignDetails.CampaignType';
+    var campaignId = '@Model.CampaignDetails.PQCampaignId';
+    var dealerId = '@Model.CampaignDetails.DealerId';
+    var defaultModel = '@Model.CampaignDetails.DefaultModel';
+    var defaultCity = '@Model.Cities.FirstOrDefault().CityId';
+    var defaultModelId = '@Model.DefaultModelsDetails.ModelId';
+    var LeadClickSource = 210;
+    var PlatformId = 1;
+</script>
+<script>var landingPage = true;</script>
+<script  type="text/javascript"  src="/static/js/connected-carousel.js" ></script>
+<script  type="text/javascript"  src="/static/js/newcar-landingpage.js" ></script>
+<script  type="text/javascript"  src="/static/js/landingpage.js" ></script>

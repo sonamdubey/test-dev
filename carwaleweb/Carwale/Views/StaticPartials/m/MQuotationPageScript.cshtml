@@ -1,0 +1,16 @@
+﻿@model List<Carwale.DTOs.PriceQuote.QuotationPageMobileDTO>
+<script type="text/javascript" src="/static/js/PriceQuote/quotation-common-v1.js" defer></script>
+<script type="text/javascript" src="/static/m/js/quotation-v1.js" defer></script>
+<script type="text/javascript" src="/static/m/js/plugins/swiper.js" defer></script>
+<script type="text/javascript" src="/static/m/js/offers.js" defer></script>
+<script type="text/javascript" src="/static/m/js/utils/emi-slug.js" defer></script>
+<script type="text/javascript" src="/static/m/js/lead-form-support.js" defer></script>
+<script type="text/javascript"  src="/static/js/utils/popup.js" defer></script>
+
+@{ Html.RenderPartial("~/Views/Shared/m/_EmiCalculator.cshtml"); }
+    <script>
+        var platform = Number('@((int)Model[0].Source)');
+    </script>
+    
+    @{Html.RenderPartial("~/Views/Shared/m/_DealerLeadPopUpAsync.cshtml", new Tuple<Carwale.Entity.CarData.CarModelDetails, Carwale.Entity.Dealers.SponsoredDealer>(null,null));}
+    

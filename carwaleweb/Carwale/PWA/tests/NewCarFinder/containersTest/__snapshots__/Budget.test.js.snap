@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for budget container it should always show default seleced budget 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <Connect(Budget)>
+    <Budget
+      cityId={1}
+      inputBox={
+        Object {
+          "value": 300000,
+        }
+      }
+      screenId={0}
+      setCurrentScreen={[Function]}
+      slider={
+        Object {
+          "max": 10000000,
+          "min": 200000,
+          "snapPoints": Array [
+            200000,
+            250000,
+            300000,
+            350000,
+            400000,
+            450000,
+            500000,
+            550000,
+            600000,
+            650000,
+            700000,
+            750000,
+            800000,
+            850000,
+            900000,
+            950000,
+            1000000,
+            1050000,
+            1100000,
+            1150000,
+            1200000,
+            1250000,
+            1300000,
+            1400000,
+            1500000,
+            1600000,
+            1700000,
+            1800000,
+            1900000,
+            2000000,
+            2100000,
+            2200000,
+            2300000,
+            2400000,
+            2500000,
+            2600000,
+            2700000,
+            2800000,
+            3000000,
+            3200000,
+            3400000,
+            3500000,
+            4000000,
+            4500000,
+            5000000,
+            5500000,
+            6000000,
+            6500000,
+            7000000,
+            7500000,
+            8000000,
+            9000000,
+            10000000,
+          ],
+          "userChange": false,
+          "values": Array [
+            300000,
+          ],
+        }
+      }
+      updateBudgetInput={[Function]}
+      updateBudgetSlider={[Function]}
+    >
+      <SpeedometerLoader>
+        <div
+          className="speedometer__container"
+        >
+          <div
+            className="speedometer-loader__content"
+          >
+            <div
+              className="speedometer-loader"
+            />
+            <div
+              className="speedometer-needle-circle"
+            />
+          </div>
+        </div>
+      </SpeedometerLoader>
+    </Budget>
+  </Connect(Budget)>
+</Provider>
+`;

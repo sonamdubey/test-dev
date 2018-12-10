@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[DCRM_LostReasons] (
+    [Id]   NUMERIC (18) NOT NULL,
+    [Name] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_DCRM_LostReasons] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

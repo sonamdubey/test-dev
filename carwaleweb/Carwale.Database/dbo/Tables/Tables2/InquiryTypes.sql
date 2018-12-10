@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[InquiryTypes] (
+    [ID]   SMALLINT     NOT NULL,
+    [Name] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_InquiryType] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

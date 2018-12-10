@@ -1,0 +1,43 @@
+﻿@model Carwale.Entity.Accessories.Tyres.VersionTyresList
+@using Carwale.Utility;
+@if (Model.TyresList != null && Model.TyresList.Count > 0)
+{
+<div class="text-center">
+    <h2 class="text-left margin-bottom10 margin-top10 truncate-text m-special-skin-text" id="carMakeName">Tyres For @Model.MakeName @Format.FilterModelName(Model.ModelName)</h2>
+    <div class="swiper-container noSwiper tyre-alternative-carousel">
+        <ul class="swiper-wrapper">
+            @foreach (var item in Model.TyresList.Tyres)
+            {
+            <li class="swiper-slide">
+                <div class="contentWrapper">
+                    <div class="imageWrapper">
+                        <a onclick="window.open(this.href,'_blank');return false;" href="@("/m" + item.TyreDetailPageUrl)" target="_blank">
+                            <img class="lazy modelTyres" src="@(item.HostUrl + "370X208" + item.OriginalImgPath)" alt="@(item.BrandName + ' ' + item.ModelName)" data-role="click-tracking" data-event="CWInteractive" data-action="Source of traffic" data-cat="Tyres_Section_m" data-label="Used Details ClickResult clicked_@Format.FilterModelName(Model.ModelName)_@(Model.VersionName)">
+                        </a>
+                    </div>
+                    <div class="carDescWrapper text-left">
+                        <div class="carTitle">
+                            <a onclick="window.open(this.href,'_blank');return false;" href="@("/m" + item.TyreDetailPageUrl)" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-action="Source of traffic" data-cat="Tyres_Section_m" data-label="Used Details ClickResult clicked_@Format.FilterModelName(Model.ModelName)_@(Model.VersionName)" class="modelTyres">
+                                <h3 class="font18 text-gray truncate-text">@item.BrandName</h3>
+                                <h3 class="font18 text-gray truncate-text">@item.ModelName</h3>
+                            </a>
+                            <div class="tyre-size font14 margin-top5">@item.Size</div>
+                            <div class="tyre-tube font14 margin-top5">@(item.Tubeless ? "Tubeless" : "Tube")</div>
+                            <div class="tyre-warranty"><span class="cwmsprite warranty-icon"></span><span>@item.Warranty Warranty</span></div>
+                            <div class="tyre-price"><span class="fa fa-rupee"></span>&nbsp;<span>@( item.Price > 0 ? Format.FormatNumericCommaSep(item.Price.ToString()) + "/-" : "NA")</span></div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            }
+        </ul>
+        <div class="clear"></div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination-white" id="tyre-swiper-pagination">
+            <div class="tyre-swiper-button-next swiper-button-white"></div>
+            <div class="tyre-swiper-button-prev swiper-button-white"></div>
+        </div>
+    </div>
+    <a href='@ManageCarUrl.TyreSrpPageUrl(Model.MakeName, Format.FilterModelName(Model.ModelName), (uint)Model.ModelId, Model.MakeYear.ToString(), true, (uint)Model.VersionId)' target="_blank" class="font15 margin-top10" id="viewAllTyres" data-role="click-tracking" data-event="CWInteractive" data-action="Source of traffic" data-cat="Tyres_Section_m" data-label="Used Details ClickView all clicked_@(Model.ModelName.Split(' ')[0])_@(Model.VersionName)">View All Tyres</a>
+</div>
+}

@@ -1,0 +1,20 @@
+﻿<div id="content" data-bind="template:{name:'divMasterTemplate',foreach:detail}">
+</div>
+<div class="clear"></div>
+<div class='swiper-imgLoader news-loader hide'></div>
+@Html.Partial("m/editorial/_ContentNewsTemplate")
+@Html.Partial("m/editorial/_ContentExpertReviewTemplate")
+@Html.Partial("m/editorial/_ContentVideoTemplate")
+<script type="text/html" id="divMasterTemplate">   
+    <div data-bind="if:categoryId == 1">         
+        <span data-bind="template:{name:'newsTemplate',data:$data}"></span>
+    </div>
+    <div data-bind="if:categoryId == 2 || categoryId == 8 ">
+       
+        <span data-bind="template:{name:'expertReviewsTemplate',data:$data}"></span>
+    </div>
+    <div data-bind="if:categoryId == 13">
+      
+        <span data-bind="template:{name:'divVideosTempalte',data:$data}"></span>
+    </div>
+</script>

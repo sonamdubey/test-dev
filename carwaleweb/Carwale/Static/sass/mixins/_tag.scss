@@ -1,0 +1,11 @@
+@import '../mixins/_variables.scss';
+
+@mixin tag ($color: 'white', $background-color: 'dusty-orange', $font-size: 10, $font-weight: $font-semibold) {
+    color: map-get($color-map, $color);
+    background-color: map-get($color-map, $background-color);
+    font-size: $font-size * 1px;
+    font-weight: $font-weight;
+    border-radius: 3px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+}

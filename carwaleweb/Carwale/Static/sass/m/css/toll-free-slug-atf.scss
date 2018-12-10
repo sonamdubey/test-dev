@@ -1,0 +1,78 @@
+﻿@import "../../mixins/_grid.scss";
+@import "../../mixins/_margin.scss";
+@import "../../mixins/_utils.scss";
+@import "../../mixins/_text.scss";
+@import "../../mixins/_buttons.scss";
+@import "../../mixins/_fonts.scss";
+@import "../../mixins/_sprites.scss";
+
+.toll-free-slug {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	background: map-get($color-map, "white-bg");
+	z-index: 5;
+	border-top: 2px solid #ddd;
+}
+.toll-free__image {
+	float: left;
+	width: 58px;
+	height: 51px;
+	position: relative;
+	background: url('#{$img-cdn-path}/0x0/cw/static/svg/headphone-icon.svg') center no-repeat;
+	background-size: contain;
+}
+.toll-free__call-block {
+	float: right;
+	width: 240px;
+	text-align: center;
+	position: relative;
+	z-index: 3;
+}
+.toll-free__call-text {
+	font-size: 11px;
+	background: map-get($color-map, "white-bg");
+	color: map-get($color-map, "light-grey");
+	margin-bottom: 5px;
+}
+.toll-free__call-btn {
+	cursor: pointer;
+	display: block;
+	width: 215px;
+	margin:0 auto;
+	padding: 5px 0;
+	border-radius: 90px;
+	border: 1px solid map-get($color-map, "shamrockGreen");
+	font-size: 15px;
+	color: map-get($color-map, "shamrockGreen");
+	background: map-get($color-map, "white-bg");
+}
+.toll-free__call-btn:hover {
+	text-decoration: none;
+}
+.animation-container {
+	padding: 12px 26px;
+	overflow: hidden;
+}
+.toll-free__cross-icon {
+	position: absolute;
+	display: inline-block;
+	top: -20px;
+	right: 10px;
+	width: 40px;
+	height: 40px;
+	border-radius: 90px;
+	background: #fff url('#{$img-cdn-path}/0x0/cw/static/icons/svg/6f6f6f/cross.svg') center no-repeat;
+	background-size: 12px;
+	z-index: 5;
+	border-top: 2px solid #ddd;
+}
+@media screen and (max-width:359px) {
+		.toll-free__image {
+		width: 51px;
+	}
+	.toll-free__call-btn,
+	.toll-free__call-block {
+		width:210px;
+	}
+}

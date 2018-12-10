@@ -1,0 +1,3 @@
+﻿CREATE SCHEMA [DCRM]
+    AUTHORIZATION [dbo];
+

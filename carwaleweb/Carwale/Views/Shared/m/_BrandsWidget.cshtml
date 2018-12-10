@@ -1,0 +1,28 @@
+﻿@model List<Carwale.Entity.CarData.CarMakeEntityBase>
+@using Carwale.Utility;
+<div class="grid-12 margin-bottom20">
+	<div class="bg-white brand-wrapper content-box-shadow margin-top10">
+		<h2 class="content-inner-block-10 text-uppercase text-center margin-top10 margin-bottom10">Brand</h2>
+		<div class="brand-type-container">
+			@if (Model.Count > 0)
+			{
+				<ul id="brand-nav" class="text-center">
+					@foreach (var make in Model)
+					{
+						<li>
+							<a href="@(string.IsNullOrEmpty(make.MakeName)?string.Empty:ManageCarUrl.CreateMakeUrl(make.MakeName,true))">
+								<span class="brand-type-title">@(string.IsNullOrEmpty(make.MakeName) ? string.Empty : make.MakeName)</span>
+							</a>
+						</li>
+					}
+				</ul>
+
+			}
+
+		</div>
+		<div class="text-center padding-bottom20">
+			<a href="#" id="more-brand-tab" class="view-more-btn font14">View <span>more</span> brands</a>
+		</div>
+	</div>
+</div>
+<div class="clear"></div>

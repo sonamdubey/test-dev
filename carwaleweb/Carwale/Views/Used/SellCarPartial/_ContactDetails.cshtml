@@ -1,0 +1,122 @@
+﻿<ul class="accordion-wrapper">
+    <li class="accordion__item partialContactDetails" data-tab="formContact">
+        <div class="accordion__head active" data-access="1">
+            <span class="accordion__icon contact-details-icon"></span>
+            <div class="accordion-head__content">
+                <span class="accordion-head__title">Location and Contact Details</span>
+            </div>
+            <span class="accordion__arrow"></span>
+        </div>
+        <div class="accordion__body body__contact-details">
+            <div id="formCity">
+                <p class="form__head">Select your city</p>
+
+                <div id="cityFieldWrapper" class="form__field-box">
+                    <div id="cityInputBox" class="input-box field-box">
+                        <input type="text" id="getCity" autocomplete="off" tabindex="1">
+                        <span class="fa fa-spinner fa-spin hide"></span>
+                        <label for="getCity">City<sup>*</sup></label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                    </div>
+
+                    <div id="popularCityList" class="suggestion-dropdown-list">
+                        <p class="suggestion-list-title">Popular Cities</p>
+                        <ul class="suggestion-list">
+                            @foreach (var city in Model.PopularCities)
+                            {
+                                <li>
+                                    <input type="radio" id="city@(city.CityId)" name="citySelect" value="@city.CityId">
+                                    <label for="city@(city.CityId)" class="list--item">@city.CityName</label>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="pincodeInputBox" class="select-box field-box no-dropdown-icon form__field-box">
+                    <select id="getPincode" class="chosen-select input-type-number">
+                        <option value="0"></option>
+                    </select>
+                    <p class="select-label">Pin Code <sup>*</sup></p>
+                    <span class="boundary"></span>
+                    <span class="error-text"></span>
+                </div>
+            </div>
+            <div id="formContact">
+                <p class="form__head">Fill your contact details</p>
+
+				<div class="form__field-box">
+					<div id="nameInputBox" class="input-box field-box">
+						<input type="text" id="getName" maxlength="100" autocomplete="off" tabindex="3">
+						<label for="getName">Name<sup>*</sup></label>
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+					</div>
+				</div>
+
+				<div class="form__field-box">
+					<div id="mobileInputBox" class="input-box field-box">
+						<input type="tel" id="getMobile" maxlength="10" autocomplete="off" tabindex="4">
+						<label for="getMobile">Mobile<sup>*</sup></label>
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+					</div>
+				</div>
+
+				<div class="form__field-box">
+					<div id="emailInputBox" class="input-box field-box">
+						<input type="email" id="getEmail" maxlength="100" autocomplete="off" tabindex="5">
+						<label for="getEmail">Email<sup>*</sup></label>
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+					</div>
+				</div>
+
+				<div class="form__field-box">
+					<div class="check-box padding-top15">
+						<input type="checkbox" id="ctAdChecbox" name="shareToCt" checked tabindex="6">
+						<label for="ctAdChecbox">Show my Ad on CarTrade.com as well</label>
+					</div>
+				</div>
+
+                <div class="text-center">
+                    <input type="submit" id="submitCityContactForm" value="Next" class="btn btn-orange btn--next" tabindex="7">
+
+                    <p class="margin-top15">By clicking Next, you agree to our <a href="/used/sell/terms/" target="_blank">Terms &amp; Conditions</a>, <a href="/visitoragreement.aspx" target="_blank">Visitor Agreement</a> and <a href="/privacypolicy.aspx" target="_blank">Privacy Policy</a>.</p>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="accordion__item partialCarDetails" data-tab="formCarDetail" data-url="contactdetails/">
+        <div class="accordion__head" data-access="0">
+            <span class="accordion__icon car-details-icon"></span>
+            <div class="accordion-head__content">
+                <span class="accordion-head__title">Car Details</span>
+            </div>
+            <span class="accordion__arrow"></span>
+        </div>
+        <div class="accordion__body body__car-details"></div>
+    </li>
+    <li class="accordion__item partialCarImages" data-tab="formCarImage" data-url="cardetails/">
+        <div class="accordion__head" data-access="0">
+            <span class="accordion__icon car-image-icon"></span>
+            <div class="accordion-head__content">
+                <span class="accordion-head__title">Car Images</span>
+            </div>
+            <span class="accordion__arrow"></span>
+        </div>
+        <div class="accordion__body body__car-images"></div>
+    </li>
+    <li class="accordion__item partialCarCondition" data-tab="formCarCondition" data-url="carimages/">
+        <div class="accordion__head" data-access="0">
+            <span class="accordion__icon car-condition-icon"></span>
+            <div class="accordion-head__content">
+                <span class="accordion-head__title">Car Condition</span>
+            </div>
+            <span class="accordion__arrow"></span>
+        </div>
+        <div class="accordion__body body__car-condition"></div>
+    </li>
+</ul>
+

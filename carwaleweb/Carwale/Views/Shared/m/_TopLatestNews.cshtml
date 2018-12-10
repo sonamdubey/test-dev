@@ -1,0 +1,63 @@
+﻿@model List<Carwale.Entity.CMS.Articles.ArticleSummary>
+@using Carwale.Utility;
+@{
+	Layout = null;
+	ViewBag.Pagename = ViewBag.Pagename ?? "homepage";
+}
+@if (Model.IsNotNullOrEmpty())
+{
+	<section class="news-carousel-container">
+	@if (ViewBag.Pagename == "modelpage")
+	{
+        <text>
+			<h2 class="margin-bottom10 margin-left10 m-special-skin-text">@ViewBag.MakeName @ViewBag.ModelName News</h2>
+			<div class="cw-tabs-data" id="News">
+		</text>
+    }
+    else if (ViewBag.Pagename == "makepage")
+    {
+        <h2 class="margin-top20 margin-bottom15 m-special-skin-text text-bold">@ViewBag.MakeName in News</h2>
+    }
+	<div class="swiper-container">
+		<ul class="swiper-wrapper car-card-wrapper">
+			@if (Model.Any())
+			{
+				foreach (var item in Model)
+				{
+					<li class="swiper-slide">
+						<article>
+							<a data-role="click" data-event="CWInteractive" data-cat="msite_news_linkages" data-action="model_page_news" data-label="model_page_news" href="@(Html.Raw(Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(item.BasicId.ToString() + "_clickmhome") == string.Empty ? string.Format("{0}{1}{2}", "/", "m", item.ArticleUrl) : Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(item.BasicId.ToString() + "_clickmhome")))">
+								<div class="front">
+									<div class="contentWrapper">
+										<div class="imageWrapper">
+											<img class="lazy" alt="@item.Title" title="@item.Title" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(item.HostUrl, Carwale.Utility.ImageSizes._272X153, item.OriginalImgUrl)" width="272" height="153" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif">
+										</div>
+										<div class="carDescWrapper">
+											<header>
+												<strong class="carTitle margin-bottom15 text-black font15">@item.Title</strong>
+											</header>
+											<footer class="bg-white text-black">
+												<p class="margin-bottom10 text-light-grey">@Carwale.Utility.ExtensionMethods.ConvertDateToDays(item.DisplayDate)</p>
+												<p class="margin-bottom10 text-light-grey">By <strong>@item.AuthorName</strong>
+												</p>
+											</footer>
+										</div>
+									</div>
+								</div>
+							</a>
+						</article>						
+					</li>
+				}
+			}
+		</ul>
+		<div class="clear"></div>
+		<!-- Add Pagination -->
+		<div class="swiper-pagination swiper-pagination-white pagination-bullet"></div>
+	</div>
+	@if (ViewBag.Pagename == "modelpage")
+	{
+		<text><div class="text-center margin-bottom20"><a data-role="click" data-event="CWInteractive" data-cat="msite_news_linkages" data-action="model_page_view_all" data-label="@ViewBag.MakeName @ViewBag.ModelName" class="font14" href="/m/@MobileWeb.Common.CommonOpn.FormatSpecial(ViewBag.MakeName)-cars/@ViewBag.MaskingName/news/">All @ViewBag.MakeName @ViewBag.ModelName news</a></div></text>
+		@Html.Raw("</div>");
+	}
+	</section>
+}

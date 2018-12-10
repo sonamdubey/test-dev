@@ -1,0 +1,55 @@
+@import "normalize.scss";
+@import "../../../style/scss/partials/_variables.scss";
+@import "../../../style/scss/mixins/_icons.scss";
+@import "../../../style/scss/mixins/_vendor-prefix.scss";
+@import "scss/mixins/_fonts.scss";
+
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  line-height: 1.42857143;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  font-size: 13px;
+  font-family: "Lato", sans-serif, Arial;
+  color: #565a5c;
+  background: #f4f3f3;
+  font-style: normal;
+  -webkit-overflow-scrolling: touch;
+}
+
+// Form-Item styles
+@import "scss/form-item";
+
+// Input styles
+@import "scss/input";
+
+//Button styles
+@import "scss/button";
+
+//Checkbox styles
+@import "scss/checkbox";
+
+//Select styles
+@import "scss/select";
+
+//Main Screen
+@import "scss/leadpopup";
+@import "scss/form-screen";
+@import "scss/thankyou-screen";
+@import "scss/mla-screen";
+@import "scss/cardstructure";
+@import "scss/reco-screen";
+@import "scss/sorry-screen";
+
+// Location screen
+.lead-location__confirm-btn {
+  &.btn-primary {
+    font-size: 15px;
+    padding: 11px 20px;
+    border-radius: 3px;
+  }
+}

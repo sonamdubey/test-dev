@@ -1,0 +1,349 @@
+@import "../mixins/_tag.scss";
+@import "../mixins/_variables.scss";
+@import "../mixins/_flexbox.scss";
+@import "../mixins/_sprites.scss";
+@import "../mixins/_aspect-ratio-container.scss";
+@import "../mixins/_card-structure.scss";
+@import "../mixins/_vendor-prefix.scss";
+@import "../mixins/_coachmark.scss";
+@import "../mixins/_no-image-container.scss";
+@import "../mixins/_text.scss";
+@import "../mixins/_no-image-container.scss";
+@import "../mixins/_text.scss";
+
+@include card-detail-title;
+@include card-detail-info;
+@include car-choices-unit;
+@include car-data-amount;
+
+.usedcar__listing-title {
+    padding: 10px 20px;
+    color: map-get($color-map, 'charcoal');
+    background-color: map-get($color-map, 'snow');
+}
+
+.search-list-container {
+    background-color: map-get($color-map, "gainsboro-bg");
+}
+
+.card-list-container {
+	background-color: map-get($color-map, "white-six");
+	position: relative;
+	margin-top: 15px;	
+
+	&:first-child{
+		margin-top: 0;
+	}
+
+    &:hover {
+        .image-container__gallery-icon {
+            display: block;
+        }
+    }
+}
+
+.card-list-container--franchisee {
+    border: 5px solid map-get($color-map, 'grey-blue');
+}
+
+.card-detail-block {
+	position: relative;
+	text-align: left;
+	padding: 15px 20px 10px;
+	color: map-get($color-map, "charcoal");
+}
+
+.card-detail-block__title {
+    @include text-truncate ($width: 84%);
+}
+
+.card-detail-block__data {
+	position: relative;
+	text-align: left;
+	color: map-get($color-map, "charcoal");
+    font-size: 18px;
+    font-weight: $font-bold;
+    display: block;
+    padding-bottom: 10px;
+    -webkit-tap-highlight-color: transparent;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.card-detail-block__data-table {
+	width: 100%;
+	border-collapse: collapse;
+    table-layout: fixed;
+    padding: 0 0 5px 0;
+}
+
+.card-detail-block__title {
+    @include text-truncate ($width: 84%);
+}
+
+.emi-unit-data {
+	padding-right: 9px;
+}
+
+.car-unit-data__amount {
+	padding-bottom: 5px;	
+	margin-right: 20px;
+}
+
+.emi-unit-data__link {
+	display: inline-block;
+	font-size: 15px;
+	margin-top: 2px;
+	font-weight: normal;
+	cursor: pointer;
+	color: map-get($color-map, "std-link");
+	text-decoration: none;
+	position: relative;
+	vertical-align: top;
+}
+
+.card-detail__vehicle-information {
+	padding: 0;
+}
+
+.card-detail__vehicle-data {
+    font-size: 14px;
+    font-weight: $font-normal;
+    color: map-get($color-map, "grey-text");
+    background-color: map-get($color-map, "white-bg");
+    border: solid 1px map-get($color-map, "white-smoke-border");
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    border-collapse: collapse;
+
+	.vehicle-data__item {
+	    padding: 10px;
+
+		&::before {
+			content: '';
+			width: 5px;
+			height: 5px;
+			background-color: map-get($color-map, "grey-text");
+			opacity: .5;
+			display: inline-block;
+			position: relative;
+			top: -2px;
+			left: -10px;
+			border-radius: 50%;
+		}
+	}
+	
+	td{
+	    padding: 7px 12px;
+	}
+}
+
+@include no-image-container;
+@include no-image-text;
+
+.delivery-text {
+	display: block;
+    color: map-get($color-map, 'dim-gray');
+    font-size: 14px;
+	font-weight: $font-normal;
+}
+
+/*image wrapper aspect ratio*/
+@include aspect-ratio-wrapper ($aspect-ratio: '4:3');
+@include aspect-ratio-container;
+
+.featured__tag {
+    @include tag;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    line-height: 12px;
+}
+
+.tag__image {
+    margin-right: 4px;
+    position: relative;
+    top: 1px;
+}
+
+.certified-tag__img {
+    @include cw-logo-white-icon;
+    width: 15px;
+    height: 9px;
+    display: inline-block;
+    position: relative;
+    top: 1px;
+}
+
+.certified__tag {
+    @include tag ($background-color: 'shamrockGreen');
+    position: absolute;
+    bottom: -11px;
+    left: 20px;
+    line-height: 12px;
+}
+
+.car-item__image-link {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+}
+
+.car-item__image {
+    width: 100%;
+}
+
+.dealers-logo__container {
+    width: 80px;
+    height: 39px;
+    background-color: map-get($color-map, 'white-six');
+    position: absolute;
+    right: 0;
+    bottom: -14px;
+    z-index: 1;
+
+    &:before {
+        @include left-border-curve-fbfbfb-icon;
+        content: '';
+        height: 40px;
+        width: 40px;
+        position: absolute;
+        right: 98%;
+        background-size: 29px;
+        background-position: top right;
+    }
+}
+
+.dealers-logo__tag {
+    width: 70px;
+    height: 34px;
+    position: relative;
+    top: 5px;
+}
+
+.dealer-logo__img {
+    width: 100%;
+}
+
+.city-info__area-name {
+    color: map-get($color-map, 'dim-grey'); 
+}
+
+.seller-btn-detail {
+    padding-bottom: 15px;
+}
+
+.car-detail-block__similar-car {
+    margin-bottom: 10px;
+}
+
+.no-similar-cars {
+    font-size: 15px;
+    color: map-get($color-map, 'text-grey');
+    display: inline-block;
+    margin-right: 20px;
+}
+
+@media screen and (max-width: 359px) {
+	.card-detail__vehicle-data {
+		td { 
+			padding: 7px;
+		}
+	}
+} 
+
+/*Desktop card css*/
+
+.image-container {
+    position: relative;
+}
+
+@include coachmark-container;
+@include coachmark-heading;
+@include coachmark-subheading;
+@include coachmark-link;
+
+.shortlist-coachmark {
+    width: 358px;
+    top: 38px;
+    left: 288px;
+}
+
+.coachmark__subheading {
+    display: inline-block;
+}
+
+.coachmark__btn {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.image-container__item {
+    width: 100%;
+    height: 100%;
+}
+
+%shortlist-icon-position {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.shortlist-icon--inactive {
+    @include shortlist-icon-transperant;
+    @extend %shortlist-icon-position;
+
+    &:hover{
+        @include shortlist-icon-teal;
+    }
+}
+
+.shortlist-icon--active {
+    @include shortlist-icon-teal;
+    @extend %shortlist-icon-position;
+}
+
+
+.shortlistBtn {
+    .shortlist-icon--active {
+        @include shortlist-icon-teal;
+        @extend %shortlist-icon-position;
+        position: static;
+    }
+}
+
+.wishlist-data {
+    .shortlist-icon--active {
+        display: inline-block;
+        position: relative;
+        top: 4px;
+        right: 0;
+    }
+} 
+
+.image-container__gallery-icon {
+    @include gallery-icon;
+    @include vendor-prefix('transform', 'translate(-50%, -50%)');
+    display: none;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.card-detail-block__title-text {
+    color: map-get($color-map, 'charcoal');
+}
+
+.card-detail__vehicle-information {
+    width: 100%;
+    padding: 0;
+}

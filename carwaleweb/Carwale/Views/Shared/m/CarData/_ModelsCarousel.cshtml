@@ -1,0 +1,49 @@
+﻿@model Carwale.DTOs.CarData.ModelCarousel
+@using Carwale.Utility;
+@using Carwale.UI.Common;
+@using Carwale.Entity;
+@{Layout = null;}
+@if (Model.Cars != null && Model.Cars.Any())
+{
+<section>
+	<h2 class="margin-left10 m-special-skin-text">@Model.MakeName Cars</h2>
+	<div class="swiper-container">
+		<ul class="swiper-wrapper">
+			@foreach (var item in Model.Cars)
+			{
+				<li class="swiper-slide card" redirect="@ManageCarUrl.CreateModelUrl(Model.MakeName,item.MaskingName)">
+					<div class="front">
+						<div class="contentWrapper">
+							<div class="imageWrapper swiper-imgLoader @(CookiesCustomers.IsEligibleForORP?"model-city-link":"")" @if (CookiesCustomers.IsEligibleForORP) { <text> data-redirect-url="@ManageCarUrl.CreateModelUrl(Model.MakeName,item.MaskingName)" </text>   }>
+								<a href="@ManageCarUrl.CreateModelUrl(Model.MakeName,item.MaskingName)">
+									<img class="lazy" data-original="@ImageSizes.CreateImageUrl(item.HostUrl,ImageSizes._272X153, item.OriginalImage)" title="@Model.MakeName @item.ModelName" alt="@Model.MakeName @item.ModelName" width="272" height="153" src="">
+								</a>
+							</div>
+							<div class="carDescWrapper">
+								<div class="carTitle margin-bottom10 @(CookiesCustomers.IsEligibleForORP?"model-city-link":"")" @if (CookiesCustomers.IsEligibleForORP) { <text> data-ga-label="PopularCardClick_@(CookiesCustomers.MasterCityId > 0?@CookiesCustomers.MasterCity:"nocity")" data-ga-action="@Model.MakeName @item.ModelName" data-redirect-url="@ManageCarUrl.CreateModelUrl(Model.MakeName,item.MaskingName)" </text>   }>
+									<a href="@ManageCarUrl.CreateModelUrl(Model.MakeName,item.MaskingName)">
+										<h3 class="font18 @(CookiesCustomers.IsEligibleForORP?"text-link":"")">@Model.MakeName @item.ModelName</h3>
+									</a>
+								</div>
+								<div class="margin-bottom5">
+						@Html.Raw(item.CarPriceOverview.PricePrefix+" ")
+						<span class="font22"> @item.CarPriceOverview.Price.ToString()</span>			
+						<span class="font20">@Html.Raw(" "+item.CarPriceOverview.PriceSuffix)</span>
+					</div><div class='font14 text-light-grey margin-bottom10 @(item.CarPriceOverview.LabelColor)'>@Html.Raw(item.CarPriceOverview.PriceLabel)@Html.Raw(!string.IsNullOrEmpty(item.CarPriceOverview.City.Name) ? ", " + item.CarPriceOverview.City.Name : string.Empty)<span>@(item.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + item.CarPriceOverview.ReasonText + "</p></div>") : Html.Raw(""))</span></div>
+							@if (CookiesCustomers.IsEligibleForORP && CookiesCustomers.MasterCityId < 0)
+                            {<span class="select-city-link text-link text-bold" data-redirect-url="@ManageCarUrl.CreateModelUrl(Model.MakeName,item.MaskingName)">@(System.Configuration.ConfigurationManager.AppSettings["ShowPriceInCityText"]??"Show price in my city")</span>}
+	
+                            </div>								
+								</div>
+						</div>					
+				</li>
+			}
+		</ul>
+		<div class="clear"></div>
+		<div class="swiper-pagination swiper-pagination-white"></div>
+	</div>
+	<div class="text-center margin-bottom20">
+		<a class="font14" href="/m/@UrlRewrite.FormatSpecial(Model.MakeName)-cars/">All @Model.MakeName cars</a>
+	</div>
+</section>
+}

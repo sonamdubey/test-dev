@@ -1,0 +1,86 @@
+﻿
+@import "../mixins/_index.scss";
+
+.additional-dealer-count {
+    display: none;
+}
+.additional-list {
+    padding-top: 10px;
+        .suggested-list-details {
+      height: auto;
+            max-height: 156px;
+            overflow-y: scroll;
+        }
+        .suggested-list > .suggested-list-item {
+            border: none;
+            padding: 0;
+            margin-top: 18px;
+            display: none;
+
+            &:first-child {
+                display: block;
+                margin-top: 0;
+            }
+        }
+        .additional-list-count {
+            color: map-get($color-map, "sky-blue");
+            font-size: 15px;
+            padding-top: 18px;
+            display: block;
+            cursor: pointer;
+        }
+
+    .suggested-dealers {
+      padding-bottom: 0;
+    }
+}
+.suggested-list--expand {
+    .suggested-list > .suggested-list-item {
+        display: block;
+    }
+    .additional-list-count {
+        display: none;
+    }
+}
+
+.suggested-list-item__info {
+    width: 100%;
+    display: inline-block;
+    position: relative;
+
+    .check-box__icon {
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+.suggested-dealer-name {
+    color: map-get($color-map, "default");
+    font-size: 14px;
+    font-weight: $font-bold;
+    display: inline-block;
+    padding-right: 0;
+}
+.suggested-dealer-location {
+    color: map-get($color-map, "default");
+    font-size: 11px;
+    display: inline-block;
+    width: 90%;
+    padding-right: 0;
+}
+
+.dealer-info__city-name:before {
+  @include location-icon;
+    width: 10px;
+    content: '';
+    height: 15px;
+    display: inline-block;
+    margin-right: 5px;
+    background-size: 9px;
+  background-position-y: 3px;
+}
+
+.dealer-info__distance:before {
+    content: '|';
+    margin-left: 5px;
+    margin-right: 5px;
+}

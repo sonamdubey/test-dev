@@ -1,0 +1,296 @@
+RewriteEngine on
+
+RewriteMap map_makes txt:../urlmappings/map_makes.txt
+#RewriteMap map_models txt:research/map_models_online.txt
+RewriteMap map_cities txt:../urlmappings/map_cities.txt
+RewriteMap map_image_category txt:../urlmappings/map_image_category.txt
+RewriteMap map_basicsubcategory txt:../urlmappings/map_tipsadvicescategories.txt
+RewriteMap lowercase int:tolower
+
+
+#Rewrite rule for mobile site home page
+RewriteRule ^$										/m/home [NC,L,QSA]
+
+#Rewrite rule for mobile site new page
+RewriteRule ^new/$									https://%{HTTP_HOST}/new/  [NC,L,QSA,R=301]
+
+RewriteRule ^autoexpo/$                                       https://%{HTTP_HOST}/m/autoexpo2016/    [R=301,NC,L]
+
+
+#----------------------------------------- New URl added for Tata Bolt ---------------------------------------------------------------
+RewriteRule ^tata-bolt/$									https://%{HTTP_HOST}/tata-cars/bolt/	[NC,L,R=301]
+RewriteRule ^skoda-cars/octaviavrs/$						https://%{HTTP_HOST}/skoda-cars/octavia-rs/	[NC,L,R=301]
+RewriteRule ^marutisuzuki-cars/swift-dzire/$				https://%{HTTP_HOST}/marutisuzuki-cars/dzire/	[NC,L,R=301]
+RewriteRule ^marutisuzuki-cars/new-dzire/$				https://%{HTTP_HOST}/marutisuzuki-cars/dzire/	[NC,L,R=301]
+RewriteRule ^hyundai-cars/new-verna/$					https://%{HTTP_HOST}/m/hyundai-cars/verna/	[NC,L,R=301,QSA]
+--------------------------------------------------------------------------------------------------------------------------------------
+
+RewriteRule new/(.*)-dealers/([\d]+)-(.*)/(.*)-([\d]+)/$				https://%{HTTP_HOST}/m/new/$1-dealers-showroom/$2-$3/$4-$5/ [NC,L,R=301]
+RewriteRule new/(.*)-dealers-showroom/([\d]+)-(.*)/(.*)-([\d]+)/$	research/DealerMicrosite.aspx?make=${map_makes:${lowercase:$1}}&cityId=$2&cityName=$3&dealerId=$5 [NC,L]
+RewriteRule ^new/(.*)-dealers/(.*)-(.*).html							https://%{HTTP_HOST}/m/$1-dealer-showrooms/$3-$2/	[NC,L,R=301]
+RewriteRule new/(.*)-dealers/(.*)-(.*)/								https://%{HTTP_HOST}/m/$1-dealer-showrooms/$3-$2/	[NC,L,R=301]
+
+##------------------------------------------------------------------------
+# PitStop
+# Old URL complete redirection rules to new MVC controllers
+RewriteRule ^pitstop/([\d]+)-(.*).html			https://%{HTTP_HOST}/m/pitstop/$2-$1/ [NC,L,R=301]
+
+# New pitstop rules for MVC controllers
+RewriteRule ^pitstop/page/([\d]+)/				/m/pitstop/?pn=$1 [NC,L]
+RewriteRule ^pitstop/(.*)-([\d]+)				/m/pitstopdetail/$2/ [NC,L]
+
+##------------------------------------------------------------------------
+# News
+# Old URL redirection rules to new MVC controllers
+RewriteRule ^news/([\d]+)-(.*).html			https://%{HTTP_HOST}/m/news/$2-$1/ [NC,L,R=301]
+
+#------------- fixed for msn newsfeed issue ----------------------------------
+RewriteRule ^news//news/(.*)$							https://%{HTTP_HOST}/m/news/$1  [NC,L,R=301]
+
+# New News rules for MVC controllers
+RewriteRule ^news/page/([\d]+)/				/NewsListing/?page=$1&m=1 [NC,L]
+#RewriteRule ^news/page/([\d]+)/				/m/news/?pn=$1 [NC,L]
+RewriteRule ^news/(.*)-([\d]+)/amp/$			/m/contentdetailsamp/$2/$1/amp/ [NC,L]
+RewriteRule ^news/(.*)-([\d]+)/amp/(.*)/	/m/news/$1-$2/amp/ [NC,L,R=301]
+RewriteRule ^news/(.*)/amp/$			      /m/contentdetailsamp/0/$1/amp/ [NC,L]
+RewriteRule ^news/(.*)/\{\{url\}\}/(.*)			/m/news/$1/ [NC,R=301]
+RewriteRule ^news/(.*)-([\d]+)/$				/m/newsdetail/$2/$1/ [NC,L]
+RewriteRule ^news/(.*)/$						/m/newsdetail/0/$1/ [NC,L]
+RewriteRule ^news/							/NewsListing/?page=1&m=1 [NC,L]
+
+#Rule to solve 404 error in webmasters
+RewriteRule ^contentdetailsamp/([\d]+)/(.*)/			https://%{HTTP_HOST}/m/news/$2/  [NC,L,R=301]
+RewriteRule ^contentdetails0/(.*)/$						https://%{HTTP_HOST}/m/news/$1/ [NC,L,R=301]
+RewriteRule ^contentdetails([\d]+)/$					https://%{HTTP_HOST}/m/ [NC,L,R=301]
+
+#-----Deals product details----#
+RewriteRule ^(.*)-cars/(.*)/advantage/booking/(.*)/$		/m/advantage/  [R=301,NC,L]
+RewriteRule ^(.*)-cars/(.*)/advantage/gallery/undefined/$	${lowercase:$1}-cars/${lowercase:$2}/images/? [NC,L,R=301]
+RewriteRule ^(.*)-cars/(.*)/advantage/gallery/(.*)/$		$1-cars/$2/advantage/gallery/$3/  [NC,L]
+RewriteRule ^(.*)-cars//advantage/$										/m/advantage/? [R=301,NC,L]
+RewriteRule ^(.*)-cars/(.*)/advantage/(.*)				deals/stock/${lowercase:$1}/${lowercase:$2}/$3 [NC,L]
+RewriteRule ^offers/										/m/advantage/   [R,NC,L]
+
+
+RewriteRule ^dealer/testdrive.aspx						dealer/upcomingleadform.aspx	[NC,L]
+RewriteRule ^reviews-news/								/m/news/ [R=302,NC,L]
+
+#-----Upcoming-cars----#
+
+RewriteRule ^upcoming-cars/[A-Za-z_\d.]+\-[\d.]+.html$		    https://%{HTTP_HOST}/m/upcoming-cars/ [NC,R=301,L]
+RewriteRule ^upcoming-cars/$								/mupcomingCarList/upcomingcars/ [NC,L,QSA]
+RewriteRule	^upcoming-cars/sort/([\d]+)/page/([\d]+)/$		/mupcomingCarList/upcomingcars/?sort=$1&pn=$2 [NC,L,QSA]
+RewriteRule	^upcoming-cars/sort/([\d]+)/$				    /mupcomingCarList/upcomingcars/?sort=$1 [NC,L,QSA]
+RewriteRule ^upcoming-cars/page/([\d]+)/$					/mupcomingCarList/upcomingcars/?pn=$1 [NC,L,QSA]
+RewriteRule ^(.*)-cars/upcoming/sort/([\d]+)/$				/mupcomingCarList/upcomingcars/?make=$1&makeId=${map_makes:${lowercase:$1}}&sort=$2 [NC,L,QSA]
+RewriteRule ^(.*)-cars/upcoming/sort/([\d]+)/page/([\d]+)/$	/mupcomingCarList/upcomingcars/?make=$1&makeId=${map_makes:${lowercase:$1}}&sort=$2&pn=$3 [NC,L,QSA]
+RewriteRule ^(.*)-cars/upcoming/$							/mupcomingCarList/upcomingcars/?make=$1&makeId=${map_makes:${lowercase:$1}} [NC,L,QSA]
+RewriteRule ^(.*)-cars/upcoming/page/([\d]+)/$				/mupcomingCarList/upcomingcars/?make=$1&makeId=${map_makes:${lowercase:$1}}&pn=$2 [NC,L,QSA]
+
+RewriteRule (.*)-dealer-showrooms/(.*)-(.*)/			research/DealerDetails.aspx?makeId=${map_makes:${lowercase:$1}}&cityId=$3 [NC,L,QSA]
+#RewriteRule new/(.*)-dealers/(.*)-(.*)					research/DealerDetails.aspx?makeId=${map_makes:${lowercase:$1}}&cityId=$2 [NC,L]
+RewriteRule new/locate-dealer/							research/locatedealerpopup.aspx [NC,L,QSA]
+RewriteRule ^new/(.*)-dealers/$						research/locatedealerpopup.aspx [NC,L,R=301]
+RewriteRule ^new/locatenewcardealers.aspx			research/locatedealerpopup.aspx [NC,L,R=301]
+#RewriteRule ^new/										research/default.aspx [NC,L]
+
+RewriteRule (.*)-cars/(.*)/price-in-(.*)/photos/(.+)/$			https://%{HTTP_HOST}/m/$1-cars/$2/photos/$4/ [NC,R=301,L]
+RewriteRule (.*)-cars/(.*)/price-in-(.*)/(.+)/$					https://%{HTTP_HOST}/m/$1-cars/$2/$4/ [NC,R=301,L]
+
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/news/page/(.*)/				/NewsListing/?cat=news&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&model=${lowercase:$2}&page=$3&m=1 [NC,L]
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/news/						/NewsListing/?cat=news&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&model=${lowercase:$2}&m=1 [NC,L]
+RewriteRule (.*)-cars/news/page/(.*)/					/NewsListing/?cat=news&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&page=$2&m=1 [NC,L]
+RewriteRule (.*)-cars/news/								/NewsListing/?cat=news&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&m=1 [NC,L]
+
+RewriteRule (.*)-cars/([a-zA-Z0-9_-]+)/userreviews/(.*).html        /m/$1-cars/$2/userreviews/$3/ [R=301,NC,L]
+RewriteRule (.*)-cars/([a-zA-Z0-9_-]+)/userreviews/(.*)/			/UserReview/UserReviewsDetails/$3/?model=${lowercase:$2}&make=${lowercase:$1} [NC,L]
+RewriteRule (.*)-cars/([a-zA-Z0-9_-]+)/userreviews-p(.*)/$			/userreviewlist/?carname=$2&page=$3&m=1 [NC,L]
+RewriteRule (.*)-cars/([a-zA-Z0-9_-]+)/userreviews/$				/userreviewlist/?carname=$2&m=1 [NC,L]
+RewriteRule (.*)-cars/([a-zA-Z0-9_-]+)/userreviews-p(.*)-(.*)/$		/userreviewlist/?carname=$2&page=$3&versionId=$4&m=1 [NC,L]
+
+RewriteCond %{QUERY_STRING}   ^makeId=(.*)&modelId=([\d]+)&versionId=(.*)$
+RewriteRule user-reviews/								https://%{HTTP_HOST}/userreviews/rate-car/?modelid=%2 [NC,L,R=301]
+RewriteRule user-reviews/$								https://%{HTTP_HOST}/userreviews/ [NC,L,R=301]
+RewriteRule userreview(s{0,1})/$													https://%{HTTP_HOST}/userreviews/ [R=301,NC,L]
+
+RewriteRule ^(.*)-cars/([a-zA-Z0-9-]+)/videos/videos.html$			https://%{HTTP_HOST}/m/$1-cars/$2/videos/	[NC,L,R=301]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9-]+)/photos/photos.html$			https://%{HTTP_HOST}/m/$1-cars/$2/photos/	[NC,L,R=301]
+
+RewriteRule ^(.*)-cars/([a-zA-Z0-9-]+)/photos/all/$					https://%{HTTP_HOST}/m/$1-cars/$2/images/ [NC,L,R=301]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9-]+)/photos/interior/$		    https://%{HTTP_HOST}/m/$1-cars/$2/images/?category=interior [NC,L,R=301]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9-]+)/photos/exterior/$	        https://%{HTTP_HOST}/m/$1-cars/$2/images/?category=exterior [NC,L,R=301]
+
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/photos/(.*).html$				https://%{HTTP_HOST}/m/$1-cars/$2/images/$3/ [NC,L,R=301]
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/photos/(.*)/$					https://%{HTTP_HOST}/m/$1-cars/$2/images/$3/    [NC,L,R=301]
+
+RewriteCond %{QUERY_STRING} category=interior
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/images/$						/Gallery/?model=${lowercase:$2}&filter=interior&section=images  [NC,L,QSA]
+RewriteCond %{QUERY_STRING} category=exterior
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/images/$						/Gallery/?model=${lowercase:$2}&filter=exterior&section=images [NC,L,QSA]
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/colours/$						/Gallery/?model=${lowercase:$2}&section=colors [NC,L,QSA]
+
+RewriteCond %{QUERY_STRING} gallery=true
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/images/$						https://%{HTTP_HOST}/m/$1-cars/$2/images/? [NC,L,R=301]
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/images/$						/Gallery/?model=${lowercase:$2}&filter=all&section=images [NC,L,QSA]
+
+
+
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/images/(.*).html$	        https://%{HTTP_HOST}/m/$1-cars/$2/images/$3/ [NC,L,R=301]
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/images/([a-zA-Z0-9\(\)\[\]\-]+).jpg$				/Gallery/?&makename=${lowercase:$1}&model=${lowercase:$2}&filter=all&section=images&imageName=${lowercase:$3} [NC,L,QSA]
+RewriteRule (.*)-cars/([a-zA-Z0-9_-]+)/colours/(.*).html$	        https://%{HTTP_HOST}/m/$1-cars/$2/colours/$3/ [NC,L,R=301]
+RewriteRule (.*)-cars/([a-zA-Z0-9_-]+)/colours/(.*).jpg$				/Gallery/?&makename=${lowercase:$1}&model=${lowercase:$2}&section=colors&imageName=${lowercase:$3} [NC,L,QSA]
+RewriteCond %{QUERY_STRING} gallery=true
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/images/(.*)/$	            https://%{HTTP_HOST}/m/$1-cars/$2/images/$3/? [NC,L,R=301]
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/images/([a-zA-Z0-9\(\)\[\]\-]+)/$	        /Gallery/?model=${lowercase:$2}&filter=all&section=images&imageName=${lowercase:$3} [NC,L,QSA]
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/colours/(.*)/$							/Gallery/?model=${lowercase:$2}&section=colors&imageName=${lowercase:$3} [NC,L,QSA]
+
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/videos/(.*)/								/Gallery/?model=${lowercase:$2}&filter=all&section=videos&videoName=${lowercase:$3}&videos=true [NC,L,QSA]
+
+
+
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/all-photos/					https://%{HTTP_HOST}/m/$1-cars/$2/images/ [NC,L,R=301]
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/interior-photos/				https://%{HTTP_HOST}/m/$1-cars/$2/images/?category=interior [NC,L,R=301]
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/exterior-photos/				https://%{HTTP_HOST}/m/$1-cars/$2/images/?category=exterior [NC,L,R=301]
+
+RewriteRule ^(.*)-cars/([a-zA-Z0-9-]+)/360-view/exterior/$					/MThreeSixtyView/?makeId=${map_makes:${lowercase:$1}}&makeName=${lowercase:$1}&maskingName=${lowercase:$2} [NC,L]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9-]+)/360-view/$					/MThreeSixtyView/?makeId=${map_makes:${lowercase:$1}}&makeName=${lowercase:$1}&maskingName=${lowercase:$2} [NC,L]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9-]+)/360-view/open/$				/MThreeSixtyView/?makeId=${map_makes:${lowercase:$1}}&makeName=${lowercase:$1}&maskingName=${lowercase:$2}&category=open [NC,L]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9-]+)/360-view/interior/$			/MThreeSixtyView/?makeId=${map_makes:${lowercase:$1}}&makeName=${lowercase:$1}&maskingName=${lowercase:$2}&category=interior [NC,L]
+
+#photos
+RewriteCond %{QUERY_STRING} ^make=(.*)&model=(.*)$
+RewriteRule ^images/$									/NewsListing/?cat=images&makeid=${map_makes:${lowercase:%1}}&model=%2&m=1 [NC,L]
+
+
+RewriteCond %{QUERY_STRING} ^make=(.*)$
+RewriteRule ^images/$									/NewsListing/?cat=images&makeid=${map_makes:${lowercase:%1}}&m=1 [NC,L]
+
+RewriteCond %{QUERY_STRING} ^make=(.*)$
+RewriteRule ^images/page/([\d]+)/$						/NewsListing/?cat=images&makeid=${map_makes:${lowercase:%1}}&page=$1&m=1 [NC,L]
+
+RewriteRule ^images/page/([\d]+)/$						/NewsListing/?cat=images&page=$1&m=1 [NC,L]
+
+RewriteRule ^images/$									/NewsListing/?cat=images&m=1 [NC,L]
+
+RewriteRule ^photos/$	                                https://%{HTTP_HOST}/m/images/   [NC,L,R=301]
+RewriteRule ^(.*)-cars/photos/$							https://%{HTTP_HOST}/m/images/?make=$1  [NC,L,R=301]
+RewriteRule ^(.*)-cars/(.*)/photos/$						https://%{HTTP_HOST}/m/images/?make=$1&model=$2  [NC,L,R=301]
+RewriteRule ^(.*)-cars/photos/page/([\d]+)/$				https://%{HTTP_HOST}/m/images/page/$2/?make=$1 [NC,L,R=301]
+RewriteRule ^photos/page/([\d]+)/$						https://%{HTTP_HOST}/m/images/page/$1/ [NC,L,R=301]
+
+
+
+
+#videos
+
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/videos/						/Gallery/?model=${lowercase:$2}&videos=true&section=videos [NC,L,QSA]
+RewriteCond %{QUERY_STRING} ^model=(.*)$
+RewriteRule ^(.*)-cars/videos/$							/NewsListing/?cat=videos&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&model=${lowercase:%1}&m=1 [NC,L]
+RewriteRule ^(.*)-cars/videos/$							/NewsListing/?cat=videos&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&m=1 [NC,L]
+RewriteRule ^(.*)-cars/videos/page/([\d]+)/$			/NewsListing/?cat=videos&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&page=$2&m=1 [NC,L]
+RewriteRule ^videos/page/([\d]+)/$						/NewsListing/?cat=videos&page=$1&m=1 [NC,L]
+RewriteRule ^videos/$	                                /NewsListing/?cat=videos&m=1 [NC,L]
+RewriteRule videos/(.*)/								/Gallery/?filter=all&section=videos&videoName=${lowercase:$1}&videos=true [NC,L,QSA]
+
+ # Features
+RewriteRule ^features/(.*)-([\d]+)/					/m/featuresdetail/$2/ [NC,L]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9-]+)/features/p([\d]+)/$				/NewsListing/?cat=features&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&model=${lowercase:$2}&page=$3&m=1 [NC,L]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9-]+)/features/page/([\d]+)/$				/NewsListing/?cat=features&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&model=${lowercase:$2}&page=$3&m=1 [NC,L]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9-]+)/features/$						/NewsListing/?cat=features&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&model=${lowercase:$2}&m=1 [NC,L]
+RewriteRule ^(.*)-cars/features/p([\d]+)/					/NewsListing/?cat=features&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&page=$2&m=1 [NC,L]
+RewriteRule ^(.*)-cars/features/page/([\d]+)/					/NewsListing/?cat=features&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&page=$2&m=1 [NC,L]
+RewriteRule ^(.*)-cars/features/$							/NewsListing/?cat=features&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&m=1 [NC,L]
+RewriteRule ^features/page/([\d]+)/							/NewsListing/?cat=features&page=$1&m=1 [NC,L]
+RewriteRule ^features/										/NewsListing/?cat=features&m=1 [NC,L]
+
+# New expert reviews rules for MVC controllers
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/expert-reviews/p([\d]+)/$		/NewsListing/?cat=expert-reviews&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&model=${lowercase:$2}&page=$3&m=1 [NC,L]
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/expert-reviews/page/([\d]+)/$		/NewsListing/?cat=expert-reviews&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&model=${lowercase:$2}&page=$3&m=1 [NC,L]
+RewriteRule (.*)-cars/([a-zA-Z0-9-]+)/expert-reviews/$					/NewsListing/?cat=expert-reviews&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&model=${lowercase:$2}&m=1 [NC,L]
+RewriteRule (.*)-cars/expert-reviews/p([\d]+)/				/NewsListing/?cat=expert-reviews&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&page=$2&m=1 [NC,L]
+RewriteRule (.*)-cars/expert-reviews/page/([\d]+)/				/NewsListing/?cat=expert-reviews&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&page=$2&m=1 [NC,L]
+RewriteRule (.*)-cars/expert-reviews/$						/NewsListing/?cat=expert-reviews&makeId=${map_makes:${lowercase:$1}}&makename=${lowercase:$1}&m=1 [NC,L]
+RewriteRule expert-reviews/p([\d]+)/						/NewsListing/?cat=expert-reviews&page=$1&m=1 [NC,L]
+RewriteRule expert-reviews/page/([\d]+)/						/NewsListing/?cat=expert-reviews&page=$1&m=1 [NC,L]
+RewriteRule (.*)-cars/expert-reviews-(.*)/					/m/expertreviewdetails/$2/
+RewriteRule (.*)-cars/(.*)/expert-reviews-([\d]+)/			/m/expertreviewdetails/$3/$1/$2
+RewriteRule (.*)-cars/(.*)/expert-reviews/(.*)/		    	/m/expertreviewdetails/0/$3/$1/$2
+RewriteRule expert-reviews/(.*)-([\d]+)/					/m/expertreviewdetails/$2/$1/
+RewriteRule expert-reviews/(.*)/							/m/expertreviewdetails/0/$1/
+RewriteRule expert-reviews/									/NewsListing/?cat=expert-reviews&m=1 [NC,L] 
+
+####################
+#####Old rules #####
+#RewriteRule (.*)-cars/(.*)/roadtests/page/([\d]+)/		research/roadtestlist.aspx?makeId=${map_makes:${lowercase:$1}}&modelId=${map_models:${lowercase:$2}}&pn=$3 [NC,L]
+RewriteRule (.*)-cars/(.*)/roadtests/page/([\d]+)/		research/roadtestlist.aspx?makeId=${map_makes:${lowercase:$1}}&model=${lowercase:$2}&pn=$3 [NC,L]
+RewriteRule (.*)-cars/roadtests/page/([\d]+)/			research/roadtestlist.aspx?makeId=${map_makes:${lowercase:$1}}&pn=$2 [NC,L]
+#RewriteRule (.*)-cars/(.*)/roadtests/					research/roadtestlist.aspx?makeId=${map_makes:${lowercase:$1}}&modelId=${map_models:${lowercase:$2}} [NC,L]
+RewriteRule (.*)-cars/(.*)/roadtests/					research/roadtestlist.aspx?makeId=${map_makes:${lowercase:$1}}&model=${lowercase:$2} [NC,L]
+RewriteRule (.*)-cars/roadtests/						research/roadtestlist.aspx?makeId=${map_makes:${lowercase:$1}} [NC,L]
+RewriteRule roadtests/page/([\d]+)/						research/roadtestlist.aspx?pn=$1 [NC,L]
+RewriteRule roadtests/									research/roadtestlist.aspx [NC,L]
+
+RewriteRule (.*)-cars/(.*)/roadtest-(.*)/p(.*)/			research/roadtestdetails.aspx?bid=$3&pr=$4 [NC,L]
+RewriteRule (.*)-cars/(.*)/roadtest-(.*)/				research/roadtestdetails.aspx?bid=$3 [NC,L]
+#####################
+
+##Added by Sachin Bharti Model Price in city
+RewriteRule (.*)-cars/(.*)/price-in-(.*)/$				https://%{HTTP_HOST}/$1-cars/$2/price-in-$3/ [NE,NC,L,R=301]
+
+##Added By Shalini Nair to redirect Version pages
+RewriteRule ^(.*)-cars/([a-zA-Z0-9_-]+)/(.*)-details-(.*).html					https://%{HTTP_HOST}/m/$1-cars/$2/$3/	[NC,L,R=301]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9_-]+)/(.*)-detail-(.*).html					https://%{HTTP_HOST}/m/$1-cars/$2/$3/	[NC,L,R=301]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9_-]+)/(.*)-specifications-(.*).html			https://%{HTTP_HOST}/m/$1-cars/$2/$3/	[NC,L,R=301]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9_-]+)/(.*)-features-(.*).html					https://%{HTTP_HOST}/m/$1-cars/$2/$3/	[NC,L,R=301]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)-([\d]+)/							/m/version/getversiondetails?make=${lowercase:$1}&model=$2&version=$3&car=$4    [NC,L,QSA] 
+RewriteRule ^(.*)-cars/([a-zA-Z0-9_-]+)/(.*)-(.*)/                              https://%{HTTP_HOST}/m/$1-cars/$2/$3/	[NC,L,R=301]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9_-]+)/mileage/$								https://%{HTTP_HOST}/$1-cars/$2/mileage/ [NC,L,R=301]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9_-]+)/(variants|versions|colors|colours)/$						https://%{HTTP_HOST}/$1-cars/$2/#$3 [NE,NC,L,R=301]
+RewriteRule ^(.*)-cars/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/                                   /m/version/getversiondetails?make=${lowercase:$1}&model=$2&version=$3    [NC,L,QSA]
+RewriteRule (.*)-cars/amp/$									/m/make?makeId=${map_makes:${lowercase:$1}}&amp=true [NC,L,QSA]      
+RewriteRule (.*)-cars/(.*)/$						https://%{HTTP_HOST}/$1-cars/$2/ [QSA,NE,NC,L,R=301]
+RewriteRule (.*)-cars/$									/m/make?makeId=${map_makes:${lowercase:$1}} [NC,L,QSA]       
+
+
+# TipsAdvice New MVC Rules
+RewriteRule ^tipsadvice/(.*)-([\d]+)/			/m/tipsadvicedetail/$2 [NC,L]
+RewriteRule ^tipsadvice/page/([\d]+)/			/m/tipsadvice/?pn=$1
+RewriteRule ^tipsadvice/(.*)/page/([\d]+)/		/m/tipsadvice/?subCatId=${map_basicsubcategory:${lowercase:$1}}&pn=$2 [NC,L]
+RewriteRule ^tipsadvice/(.*)/					/m/tipsadvice/?subCatId=${map_basicsubcategory:${lowercase:$1}} [NC,L]
+
+#RewriteRule	^comparecars/([a-zA-Z]+)-(.*)-vs-([a-zA-Z]+)-(.*)-vs-([a-zA-Z]+)-(.*)-vs-([a-zA-Z]+)-(.*)/$		research/comparecardetails.aspx?mk=${map_makes:${lowercase:$1}},${map_makes:${lowercase:$3}}&mo=${lowercase:$2},${lowercase:$4} [NC,L]
+#RewriteRule	^comparecars/([a-zA-Z]+)-(.*)-vs-([a-zA-Z]+)-(.*)/$		research/comparecardetails.aspx?mk=${map_makes:${lowercase:$1}},${map_makes:${lowercase:$3}}&mo=${lowercase:$2},${lowercase:$4} [NC,L,QSA]
+#RewriteRule ^comparecars/all/page/([\d]+)/				research/carcomparelist.aspx?pn=$1  [NC,L]
+#RewriteRule ^comparecars/all/							research/carcomparelist.aspx  [NC,L]
+
+RewriteRule	^comparecars/([a-zA-Z]+)-(.*)-vs-([a-zA-Z]+)-(.*)-vs-([a-zA-Z]+)-(.*)-vs-([a-zA-Z]+)-(.*)/$		/MCompareCarDetail/Compare/?mo=${lowercase:$2},${lowercase:$4} [NC,L,QSA]
+RewriteRule	^comparecars/([a-zA-Z]+)-(.*)-vs-([a-zA-Z]+)-(.*)-vs-([a-zA-Z]+)-(.*)/$		/MCompareCarDetail/Compare/?mo=${lowercase:$2},${lowercase:$4} [NC,L,QSA]
+RewriteRule	^comparecars/([a-zA-Z]+)-(.*)-vs-([a-zA-Z]+)-(.*)/$		/MCompareCarDetail/Compare/?mo=${lowercase:$2},${lowercase:$4} [NC,L,QSA]
+RewriteRule ^comparecars/carcomparison.aspx					https://%{HTTP_HOST}/m/comparecars/ [R=301,NC,L,QSA]
+#------------------------------------------------------------------------------------------------------------------------------------------
+
+
+RewriteRule refundpolicy.html$			refundpolicy.aspx [NC,L]
+RewriteRule refundfaq.html$				refundFaq.aspx [NC,L]
+
+
+#CBA
+RewriteRule ^new/buy/												/ [NC,L,R=301]
+##-----------------------------------------------------------------------------
+## Added by Sachin Bharti
+
+##------------------------------------------------
+# New finance rules for MVC controllers
+#RewriteRule ^finance/(.*)/$							/m/finance/${lowercase:$2} [NC,L]
+
+#---------------------------------------------------------------------------------------------
+RewriteRule ^trackday2016/(.*)-([\d]+)/				/m/trackday2016/details/$2/ [NC,L]
+
+#----------------------------------------------------------------------------------------------
+# Tyres
+
+RewriteRule ^tyres/(.*)-(.*)-([\d]+)/			/m/tyreDetails/$3/ [NC,L]
+RewriteRule ^tyres/(.*)-tyres/$						/m/tyres/search/ [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)\.(\d+)\.(js|css)$ $1.$3 [PT,L]

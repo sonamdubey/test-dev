@@ -1,0 +1,62 @@
+﻿@model Carwale.DTOs.Campaigns.DealerAdDTO
+
+<script>
+    sponsorDlrBusType = "@Model.Campaign.LeadPanel";
+    sponsorDlrName = "@Model.Campaign.ContactName";
+    campaignId = "@Model.Campaign.Id";
+    sponsorDlrLeadPanel = "@Model.Campaign.LeadPanel";
+    showEmail ="@Model.Campaign.IsEmailRequired".toLowerCase() === 'true';
+    sponsoredDealerId = "@Model.Campaign.DealerId";
+</script>
+<style>
+    .open-lead-form-input {
+        font-size: 16px;
+    }
+</style>
+
+<section class="container margin-bottom20 grid-12 padding0" id="leadform">
+    <div class="renault-lead-container">
+        <h2 class="font16 bg-color-grey text-bold padding-left10 padding-bottom10"> Contact @Model.Campaign.ContactName </h2>
+        <div class="bg-white padding-top10 text-center grid-12 content-box-shadow" id="renaultCustInfo">
+            <p class="renault-contact-para">Connect with @Model.Campaign.ContactName for more information about the car</p>
+            <div class="renault-customer-info">
+                <div class="margin-bottom20 position-rel custName">
+                    <input class="form-control open-lead-form-input" type="text" id="custName" name="Name" placeholder="Name" maxlength="100">
+                    <span class="cwmsprite error-icon hide"></span>
+                    <div class="cw-blackbg-tooltip hide"></div>
+                </div>
+                <div class="margin-bottom20 position-rel custMobile">
+                    <input type="tel" id="custMobile" name="Mobile" placeholder="Mobile +91" class="form-control open-lead-form-input" maxlength="10" />
+                    <span class="cwmsprite error-icon hide"></span>
+                    <div class="cw-blackbg-tooltip hide"></div>
+                </div>
+
+                <div class="margin-top20 form-control-box hide">
+                    <input type="text" placeholder="Type to select city" id="personCity" class="form-control ui-autocomplete-input blur open-lead-form-input" autocomplete="off">
+                    <span class="cwsprite error-icon hide"></span>
+                    <div class="cw-blackbg-tooltip hide">No city match</div>
+                </div>
+
+                <div class="margin-top20 margin-bottom10">
+                    <input type="button" id="renaultBtnSubmit" value="Submit" data-role="none" class="renault-submit-btn btn"
+                           sourceclick="334">
+                </div>
+                <div class="font11 padding-bottom15 text-left"><span>By proceeding ahead you agree to CarWale <a href="/visitoragreement.aspx">visitor agreement</a> and <a href="/privacypolicy.aspx">privacy policy</a>.</span></div>
+                @*<div class="renault-form-line-seprator"></div>
+                <div class="text-center font13 padding-top15">
+                    <p class="text-color-lightgrey">Get in touch with Authorised Dealership on call for the best buying options</p>
+                    <div class="font16 padding-top10 padding-bottom15 phone-text-color font-bold"><span class="fa fa-phone"></span> 18002090230</div>
+                </div>*@
+                <input type="hidden" id="hdnDealerId">
+                <input type="hidden" id="hdnDealerName">
+            </div>
+        </div>
+        <div class="renault-lead-msg text-left hide" style="display: none;">
+            <div class="margin-bottom20 margin-top20 text-center">
+                <h2>Thank you </h2>
+                <p>A car consultant would get in touch with you shortly with assistance on your purchase.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="clear"></div>

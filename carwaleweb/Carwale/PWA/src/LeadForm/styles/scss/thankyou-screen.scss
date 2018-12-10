@@ -1,0 +1,75 @@
+.thankyou-header {
+  width: 100%;
+  background-color: map-get($color-map, "shamrock-green");
+  padding: 20px;
+  z-index: 10;
+
+  .thankyou-header__title {
+    @include font-weight(700);
+    font-size: 21px;
+    color: map-get($color-map, "white");
+    padding-right: 10px;
+  }
+
+  .thankyou-header__subtitle {
+    font-size: 12px;
+    color: map-get($color-map, "white");
+  }
+}
+
+#postsubmitmsg {
+  width: 100%;
+  z-index: 1;
+  padding: 14px 19px 26px;
+  background: #00afa0;
+  text-align: left;
+  color: #fff;
+}
+
+.email-screen {
+  padding: 20px;
+
+  .oxygen-input {
+    display: block;
+  }
+  .email-screen__header {
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: map-get($color-map, "trout-grey");
+  }
+}
+
+.thankyou-screen {
+  @include thankyou-icon;
+  width: 100%;
+  //make it responsive
+  height: 483px;
+  background-repeat: no-repeat;
+  margin-top: 60px;
+  background-position: -89px;
+}
+
+.thankyou-text {
+  font-size: 14px;
+  color: map-get($color-map, "grey");
+  text-align: center;
+  margin: 15px 20px;
+  position: absolute;
+  bottom: 5%;
+}
+
+@media only screen and (min-width: 780px) {
+  #postsubmitmsg {
+    padding: 35px 30px 25px 30px;
+  }
+
+  .email-screen {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+
+  .thankyou-screen {
+    background-size: 175%;
+    background-position: center;
+  }
+}

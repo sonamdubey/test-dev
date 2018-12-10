@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Add Car Photos";
+    ViewBag.canonical = "https://www.carwale.com/used/mylistings/search";
+    Layout = "~/views/shared/m/_MLayoutV3.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MUsedHomePageCss.cshtml";
+    ViewBag.CustomJS = "~/Views/StaticPartials/m/MUsedHomePageScript.cshtml";
+}
+
+@section atfcss{
+    <link rel="stylesheet" href="/static/sass/m/css/common-atf.css" type="text/css" inline>
+}
+@section btfcss{   
+    <link rel="stylesheet" href="/static/sass/m/css/uploadImage.css" type="text/css">
+    <link rel="stylesheet" href="/static/Css/dropzone.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/nav.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/footer.css" type="text/css">
+}
+
+@section MetaData{
+   
+}
+
+@section Scripts{
+    <script type="text/javascript" src="/static/js/dropzone.js" defer></script>
+}
+<div id="formCarImage" class="form-screen">
+    <div class="screen-group--item always-active">
+        <div class="screen__head">
+            <p class="screen-head__title">Car Images</p>
+        </div>
+        <div class="screen__body">
+                <p class="category-upload-subtitle">Tap on below icons to upload images</p>
+                <ul id="imageUploadList" class="option-list category-upload-list cw-dropzone">
+                    <li id="item1" class="option-list__item dropzone dz-clickable" data-id="1" data-title="Front Right Corner">
+                        <div class="dropzone-placeholder">
+                            <span class="list-item__upload-icon front-right-icon"></span>
+                            <span class="list-item__upload-label">Front Right Corner</span>
+                        </div>
+                    </li>
+                    <li class="option-list__item dropzone dz-clickable" data-id="2" data-title="Front View">
+                        <div class="dropzone-placeholder">
+                            <span class="list-item__upload-icon front-view-icon"></span>
+                            <span class="list-item__upload-label">Front View</span>
+                        </div>
+                    </li>
+                    <li class="option-list__item dropzone dz-clickable" data-id="3" data-title="Left Side View">
+                        <div class="dropzone-placeholder">
+                            <span class="list-item__upload-icon left-side-icon"></span>
+                            <span class="list-item__upload-label">Left Side View</span>
+                        </div>
+                    </li>
+                    <li class="option-list__item dropzone dz-clickable" data-id="4" data-title="Rear View">
+                        <div class="dropzone-placeholder">
+                            <span class="list-item__upload-icon rear-view-icon"></span>
+                            <span class="list-item__upload-label">Rear View</span>
+                        </div>
+                    </li>
+                    <li class="option-list__item dropzone dz-clickable" data-id="5" data-title="Odometer Reading">
+                        <div class="dropzone-placeholder">
+                            <span class="list-item__upload-icon odometer-icon"></span>
+                            <span class="list-item__upload-label">Odometer Reading</span>
+                        </div>
+                    </li>
+                </ul>
+            <p class="screen-body__title margin-bottom15">Upload other images</p>
+            <div class="cw-dropzone">
+                <div id="add-photos-dropzone" class="others-upload-list dropzone dz-clickable" data-id="7" data-title="Other Images">
+                    <div id="add-more-photos" class="option-list__item dz-preview">
+                        <span class="more-icon">+</span>
+                    </div>
+                </div>
+            </div>
+                <div class="screen__footer">
+                    <p class="info-list__title">Tips</p>
+                    <ul class="info-list">
+                        <li>Shoot clear pictures of your car and upload as many as possible.</li>
+                        <li>If you do not have any photos currently, you can upload them later by logging in to your account</li>
+                        <li>We accept images in jpeg, png and gif formats up to <strong>8MB</strong>.</li>
+                    </ul>
+                </div>
+        </div>
+    </div>
+
+    <div id="otherImageTemplate" class="hide">
+        <div class="option-list__item dz-preview dz-file-preview">
+            <div class="dz-image">
+                <div class="dz-image-thumbnail">
+                    <img data-dz-thumbnail />
+                </div>
+            </div>
+            <div class="dz-error-message"></div>
+            <div class="dz-filename"></div>
+            <div id="spinner-content">
+                <svg class="dz-spinner" width="50px" height="50px" viewBox="0 0 50 50">
+                    <circle class="circle-path" fill="none" stroke-width="4" stroke-linecap="round" cx="25" cy="25" r="22"></circle>
+                </svg>
+            </div>
+            <div class="dz-progress">
+                <span class="dz-upload" data-dz-uploadprogress></span>
+            </div>
+            <div class="dz-error-mark">
+                <span>Retry</span>
+            </div>
+        </div>
+    </div>
+</div>
+

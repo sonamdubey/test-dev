@@ -1,0 +1,185 @@
+﻿.nearest-dealer {
+  width: 90px;
+  height: 90px;
+  background: #565a5c;
+}
+
+.nearest-dealer-form {
+  width: 400px;
+}
+
+.nearest-dealer-form-input {
+  width: 280px;
+}
+
+.book-now-thumb {
+  width: 32px;
+  height: 32px;
+  background-position: -123px -317px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 2px 4px 0;
+}
+
+.advantage-link:hover {
+  text-decoration: none;
+}
+
+.advantage-text-slug {
+  width: 82%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 5px;
+}
+
+.advantage-text-slug a {
+  cursor: pointer;
+}
+
+.know-more-text {
+  padding: 3px 3px 3px 3px;
+  border-radius: 3px;
+  margin: 0 0 0 2px;
+}
+
+.cw-spons {
+  position: absolute;
+  top: 582px;
+  right: 14px;
+}
+
+.pre-owned-box {
+  width: 268px;
+  margin: 0 auto;
+}
+
+.jcarousel li {
+  margin-left: 0px;
+  width: 268px;
+  text-align: left;
+  min-height: 300px;
+}
+
+.dealer-sprite {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/dealer-sprite.png") no-repeat;
+  display: inline-block;
+}
+
+.cwd-carousel-single .call-ico {
+  background-position: -51px 0;
+  width: 15px;
+  height: 21px;
+  width: 22px;
+  position: relative;
+  top: 2px;
+}
+
+.main-carousel-div .jcarousel-control-prev,  .main-carousel-div .jcarousel-control-next {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/sprites/cw-sprite_v1.3.png?1") no-repeat;
+  display: inline-block;
+  height: 19px;
+  width: 11px;
+  margin-top: 22%;
+}
+
+.main-carousel-div .jcarousel-control-next {
+  background-position: 0 -272px;
+  float: right;
+  width: 11px !important;
+  position: relative;
+  right: -6px;
+}
+
+.main-carousel-div .jcarousel-control-prev {
+  background-position: -21px -272px;
+  float: left;
+  position: relative;
+  left: -6px;
+}
+
+.main-carousel-div .jcarousel-control-prev:hover {
+  background-position: -21px -301px;
+}
+
+.main-carousel-div .jcarousel-control-next:hover {
+  background-position: 0 -301px;
+}
+
+.main-carousel-div .jcarousel-control-next.inactive, .main-carousel-div .jcarousel-control-prev.inactive {
+  display: none;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.cw-tel {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.cw-tel a, .cw-tel a:hover {
+  color: #666;
+  text-decoration: none;
+}
+
+.carname {
+  width: 275px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.disblock {
+  display: inline-table;
+  vertical-align: top;
+  margin-top: 2px;
+}
+
+.main-carousel-div {
+  position: relative;
+}
+
+.cw-spons {
+  position: absolute;
+  top: -7px;
+  right: 0px;
+}
+
+.cw-paddbor {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.cw-relative {
+  position: relative;
+}
+
+.imgheight img {
+  width: 100%;
+}
+
+.used-luxury-widget {
+  text-decoration: none;
+  font-weight: bold;
+  color: #5B5B5B;
+}
+
+.list-seperator {
+  border-top: 1px solid #ccc;
+  padding: 15px 10px;
+}
+
+.list-seperator:first-child {
+  border-top: 0;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}

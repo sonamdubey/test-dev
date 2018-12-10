@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[FOB_BookingRequestData] (
+    [Id]              NUMERIC (18)    IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [CustomerId]      NUMERIC (18)    NULL,
+    [CustomerName]    VARCHAR (100)   NULL,
+    [EmailId]         VARCHAR (100)   NULL,
+    [Mobile]          VARCHAR (50)    NULL,
+    [Landline]        VARCHAR (50)    NULL,
+    [CityId]          NUMERIC (18)    NULL,
+    [DeliveryCityId]  NUMERIC (18)    NULL,
+    [DealerId]        NUMERIC (18)    NULL,
+    [RequestType]     SMALLINT        NULL,
+    [VersionID]       NUMERIC (18)    NULL,
+    [Color]           NUMERIC (18)    NULL,
+    [Amount]          NUMERIC (18, 2) CONSTRAINT [DF_FOB_BookingRequestData_Amount] DEFAULT ((0.00)) NULL,
+    [TestDrive]       BIT             CONSTRAINT [DF_FOB_BookingRequestData_TestDrive] DEFAULT ((0)) NULL,
+    [AvailLoan]       BIT             CONSTRAINT [DF_FOB_BookingRequestData_AvailLoan] DEFAULT ((0)) NULL,
+    [EntryDateTime]   DATETIME        NULL,
+    [IsPaid]          BIT             CONSTRAINT [DF_FOB_BookingRequestData_IsPaid] DEFAULT ((0)) NOT NULL,
+    [IsBooked]        BIT             CONSTRAINT [DF_FOB_BookingRequestData_IsBooked] DEFAULT ((0)) NOT NULL,
+    [IsCancelled]     BIT             CONSTRAINT [DF_FOB_BookingRequestData_IsCancelled] DEFAULT ((0)) NOT NULL,
+    [IsRefunded]      BIT             CONSTRAINT [DF_FOB_BookingRequestData_IsRefunded] DEFAULT ((0)) NOT NULL,
+    [LeadId]          NUMERIC (18)    NULL,
+    [ExpDeliveryDate] DATETIME        NULL,
+    CONSTRAINT [PK_FOB_BookingRequestData] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

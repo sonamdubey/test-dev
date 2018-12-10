@@ -1,0 +1,49 @@
+@mixin fuel-type-icon-container($dimension: 100, $background: "white-smoke") {
+	@if type-of($dimension) == "number" {
+		@if (unitless($dimension)) {
+			width: $dimension * 1px;
+			height: $dimension * 1px;
+			background-color: color($background, .5);
+			@include vendor-prefix("border-radius", 50%);
+
+			&:before,
+			&:after {
+				content: "";
+				position: absolute;
+				left: 0;
+				display: block;
+			}
+
+			&:before {
+				top: 0;
+				width: $dimension * 1px;
+				height: $dimension * 1px;
+				background-color: color("shamrock-green", .35);
+				@include vendor-prefix("border-radius", 50%);
+				@include vendor-prefix("transform", scale(0));
+				@include vendor-prefix("transition", transform .3s cubic-bezier(.25, .1, .25, 1));
+				overflow: hidden;
+			}
+
+			&:after {
+				bottom: 0;
+				width: $dimension * 1px;
+				height: ($dimension / 4) * 1px;
+				background-color: color("white");
+			}
+		}
+		@else {
+			@warn "Please provide unitless value";
+		}
+	}
+	@else {
+		@warn "Please provide numeric value";
+	}
+}
+
+// active state
+@mixin fuel-type-icon-container-active() {
+	&:before {
+		@include vendor-prefix("transform", scale(1));
+	}
+}

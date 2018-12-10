@@ -1,0 +1,25 @@
+﻿
+@mixin margin($direction:"top",$length:5){
+    @if $direction=="auto" {
+       .margin-auto{ margin : 0 auto;}
+    }
+    @else if unitless($length){
+    .margin-#{$direction}#{$length}{
+        margin-#{$direction} : $length+px;
+    }
+    }
+    @else{
+        @warn "Please provide unitless length";
+    }
+}
+
+@mixin margin-minus($length:5){
+    @if unitless($length){
+    .margin-minus#{$length}{
+        margin-top : -$length+px;
+    }
+    }
+    @else{
+        @warn "Please provide unitless length";
+    }
+}

@@ -1,0 +1,26 @@
+.campaign-cta-container {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0px;
+    background-color: #fff4ec;
+    z-index: 3;
+}
+
+.campaign-cta__btn {
+    padding: 10px;
+    border: 1px solid #00afa0;
+    background-color: #00afa0;
+    color: #ffffff;
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+	min-width: 154px;
+	width: 100%;
+	display: inline-block;
+    vertical-align: middle;
+}

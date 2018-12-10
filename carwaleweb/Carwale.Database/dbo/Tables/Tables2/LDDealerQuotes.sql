@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[LDDealerQuotes] (
+    [LDQ_Id]     NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [InquiryId]  NUMERIC (18) NOT NULL,
+    [QuoteId]    NUMERIC (18) NOT NULL,
+    [LDDealerId] NUMERIC (18) NOT NULL,
+    CONSTRAINT [PK_LDDealerQuotes] PRIMARY KEY CLUSTERED ([LDQ_Id] ASC) WITH (FILLFACTOR = 90)
+);
+

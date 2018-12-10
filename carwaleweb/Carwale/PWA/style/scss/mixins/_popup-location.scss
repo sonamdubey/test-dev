@@ -1,0 +1,84 @@
+@mixin location-popup($direction: 'none') {
+  $direction: to-lower-case($direction);
+  $directionPosition: 0;
+
+  @if $direction != 'none' {
+    @if $direction == 'right' {
+      $directionPosition: 110%, 0;
+    }
+    @else if $direction == 'left' {
+      $directionPosition: -110%, 0;
+    }
+    @else if $direction == 'top' {
+      $directionPosition: 0, -110%;
+    }
+    @else if $direction == 'bottom' {
+      $directionPosition: 0, 110%;
+    }
+    @else {
+      @error 'please provide appropriate direction for location popup';
+    }
+  }
+
+  .location-popup {
+    @include vendor-prefix('transition', transform .5s ease);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: color('white');
+    z-index: 3;
+    display: none;
+    will-change: transform;
+
+    &.location-popup--active {
+      display: block;
+    }
+
+    @if $direction != 'none' {
+      &.location-popup--#{$direction} {
+        transform: translate($directionPosition);
+        display: block;
+      }
+      &.location-popup--active {
+        transform: translate(0);
+      }			
+    }	
+  }
+
+  @include location-back-arrow;
+}
+
+@mixin location-back-arrow {
+  .location-content__back-arrow {
+    @include arrow-down-icon;
+    @include vendor-prefix('transform', rotate(90deg));
+    background-size: 20px;
+    display: inline-block;
+    height: 60px;
+    width: 40px;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+  }
+}
+
+@mixin location-close-button {
+  .location-content__close {
+    @include cross-6f6f6f-icon;
+    background-size: 18px;
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+}

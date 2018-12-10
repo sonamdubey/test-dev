@@ -1,0 +1,15 @@
+﻿@using Carwale.Entity.Enum;
+@model Carwale.Entity.ViewModels.CarData.OpinionData
+<div class="whats-new-container">
+    <h2 class="whats-new-container__title" data-role="inview-imp" data-event="CWNonInteractive" data-action="Impression" data-cat="CarWale_Opinion_whats_new_m" data-label="@Model.ModelName">What's New in @Model.ModelName</h2>
+    <div class="whats-new__description" id="whatsNewDescription" data-cwticat="CarWaleOpinionWhatsNew" data-cwtiact="Impression" data-cwtilbl="@("modelid=" + Model.ModelId + "|source="+(uint)Platform.CarwaleMobile)" cwt="">
+        <div class="read-more-collapse-container">
+            <div class="read-more-collapse-initial-text">@Html.Raw(Model.SmallDescription)</div>
+            @if (!string.IsNullOrEmpty(Model.LargeDescription))
+            {
+                <div class="read-more-collapse-final-text">@Html.Raw(Model.LargeDescription)</div>
+                <span class="read-more-collapse-link">...More</span><div class="clear"></div>
+            }
+        </div>
+    </div>
+</div>

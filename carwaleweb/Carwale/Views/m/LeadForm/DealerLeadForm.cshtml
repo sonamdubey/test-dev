@@ -1,0 +1,145 @@
+﻿@using System.Collections;
+@using Carwale.Entity.CarData;
+@using Carwale.Entity.Dealers;
+@using MobileWeb.Common;
+@using Carwale.Utility;
+@using System.Configuration;
+
+@model Carwale.DTOs.LeadForm.LeadFormDto
+@{
+    Layout = "";
+}
+
+<!doctype html>
+<html lang="en">
+<meta name="robots" content="noindex"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<head>
+    <title>Contact Dealer</title>
+            <link rel="stylesheet" href="/static/m/css/WebviewLeadForm.css" type="text/css">
+            <link rel="stylesheet" href="/static/m/css/cwm-common-style.css" type="text/css">
+            <link rel="stylesheet" href="/static/sass/m/css/loader.css" type="text/css">
+            <link rel="stylesheet" href="/static/m/css/easy-autocomplete.css" type="text/css">
+            <link rel="stylesheet" href="/static/cwfontawesome/cw-font-awesome.css" type="text/css">
+        <script type="text/javascript" src="/static/m/js/frameworks.js"></script>
+
+
+        @{
+            Html.RenderPartial("~/Views/Shared/_GoogleTagManagerView.cshtml");
+        }
+</head>
+
+<body>
+
+    @Html.Raw(File.ReadAllText(Server.MapPath("~/Static/m/ui/newCarLeadPopup.html")));
+    <script>
+    @{
+
+        if(Model != null)
+        { 
+                if (Model.CarDetails != null)
+                {
+                    <text>
+                    var CarDetails =
+                    {
+
+                        carMakeId : @Model.CarDetails.MakeId,
+                        carMakeName : "@Model.CarDetails.MakeName" ,
+                        carMaskingName : "@Model.CarDetails.MaskingName",
+                        carModelName : "@Model.CarDetails.ModelName",
+                        carModelId : @Model.CarDetails.ModelId
+                    };
+                    </text>
+                    if (Model.CampaignDetails != null)
+                    {
+                        <text>
+                        sponsorDlrBusType = "@Model.CampaignDetails.DealerLeadBusinessType";
+                        sponsorDlrName = "@Model.CampaignDetails.DealerName";
+                        campaignId = "@Model.CampaignDetails.DealerId";
+                        sponsorDlrLeadPanel = "@Model.CampaignDetails.LeadPanel";
+                        showEmail ="@Model.CampaignDetails.ShowEmail".toLowerCase() === 'true';
+                        sponsoredDealerId = "@Model.CampaignDetails.ActualDealerId";
+                        sponsoredDlrMutualLeads = "@Model.CampaignDetails.MutualLeads".toLowerCase() === 'true';
+                        dealerAdminId = "@(Model.CampaignDetails.DealerAdminId)";  // Identifies dealers group id
+                        </text>
+                    }
+
+
+                }
+                <text>
+
+                
+                webviewDealerCampaignExist =  @(Model.CampaignDetails != null && Model.CampaignDetails.DealerId > 0 ? "true" : "false");
+                webviewDealerLocatorAvailable = false;
+                webviewVersionId = @Model.VersionId;
+                webviewCityId = @Model.CustLocation.CityId;
+                webviewCityName = "@Model.CustLocation.CityName";
+                webviewAreaId = @Model.CustLocation.AreaId;
+                webviewZoneId = @Model.CustLocation.ZoneId;
+                webviewScreenId = @Model.ScreenId;
+                webviewLeadClickSource = @Model.LeadClickSource;
+                webviewInquiryclickSource = @Model.InquiryClickSource;
+                webviewPlatformId = @Model.PlatformId;
+                webviewPredictionScore = @(Model.CampaignDetails != null && Model.CampaignDetails.PredictionData != null ? Model.CampaignDetails.PredictionData.Score : 0);
+                webviewPredictionLabel = "@(Model.CampaignDetails != null && Model.CampaignDetails.PredictionData != null ? (Model.CampaignDetails.PredictionData.Label) : "")";
+                webviewAppVersionId = "@Model.AppVersionId";
+                
+
+        </text>
+            }
+            <text>
+                isLeadWebview = true;
+                var userCityId = @CookiesCustomers.MasterCityId;
+                var nonRecommendationsCampaignIds = '@(System.Configuration.ConfigurationManager.AppSettings["nonRecommendationsCampaignIds"] ?? String.Empty)'.split(",");
+                var LeadFormFlowCitiesArray = '@(System.Configuration.ConfigurationManager.AppSettings["multiLeadAssignmentABTestCities"] ?? String.Empty)'.split(",");
+                cwTrackingPath = '@ConfigurationManager.AppSettings["HostUrl"]';
+                insuranceKeys = {
+                    cholaStates: [@System.Configuration.ConfigurationManager.AppSettings["InsuranceStates"]],
+                };
+                defaultCookieDomain = '@Carwale.UI.Common.CookiesCustomers.CookieDomain';
+                askingAreaCityId = [@System.Configuration.ConfigurationManager.AppSettings["AskingAreaCityIds"]];
+                testDriveCampaignIds = [@System.Configuration.ConfigurationManager.AppSettings["TestDriveCampaignIds"]];
+        </text>
+        }
+        function saveDealerCookie(campaignId, cityId, zoneId, modelId) {
+            if (cityId == null) cityId = -1;
+            var dealerDetail = $.cookie("_dealerCityModel");
+            if (dealerDetail == null || dealerDetail == undefined)
+                $.cookie("_dealerCityModel", campaignId + "~" + cityId + "~" + modelId + "~" + zoneId + "!", { path: '/' });
+            else {
+                var temp = dealerDetail.split('!');
+                var len = temp.length;
+                var flag = 0;
+                for (var i = 0 ; i < len - 1 ; i++) {
+                    var curr = temp[i].split('~');
+                    var existingcity = curr[1];
+                    var existingmodel = curr[2];
+                    var existingzone = curr[3];
+                    if (existingcity == cityId && existingmodel == modelId && existingzone == zoneId) {
+                        dealerDetail = dealerDetail.replace(curr[0], campaignId); // string replace without knowing position
+                        $.cookie("_dealerCityModel", dealerDetail, { path: '/' });
+                        break;
+                    } flag++;
+                }
+                if (flag == (len - 1))
+                    $.cookie("_dealerCityModel", dealerDetail + campaignId + "~" + cityId + "~" + modelId + "~" + zoneId + "!", { path: '/' });
+            }
+        }
+
+    </script>
+
+    <script type="text/javascript" src="/static/m/js/plugins/jquery-cookie.js"></script>
+    <script type="text/javascript" src="/static/m/js/plugins/lazy-load.js"></script>
+    <script type="text/javascript" src="/static/js/v2/app/clientcache.js"></script>
+    <script type="text/javascript" src="/static/js/globalSearch.js"></script>
+    <script type="text/javascript" src="/static/js/error-logger.js"></script>
+    <script type="text/javascript" src="/static/m/js/v2/app/common.js"></script>
+    <script type="text/javascript" src="/static/js/lead-conversion-tracking.js"></script>
+    <script type="text/javascript" src="/static/m/js/easy-autocomplete.js"></script>
+    <script type="text/javascript" src="/static/js/v2/app/cwTracking.js"></script>
+    <script type="text/javascript" src="/static/m/js/lead-form-support-webview.js"></script>
+    <script type="text/javascript" src="/static/m/js/lead-form.js"></script>
+    <script type="text/javascript" src="/static/m/js/form-misc.js"></script>
+    <script type="text/javascript" src="/static/js/location-plugin.js"></script>
+</body>
+</html>

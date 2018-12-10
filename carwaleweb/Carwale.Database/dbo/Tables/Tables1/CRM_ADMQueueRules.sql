@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[CRM_ADMQueueRules] (
+    [QueueId] NUMERIC (18)   NOT NULL,
+    [MakeId]  VARCHAR (5000) NOT NULL,
+    [CityId]  VARCHAR (5000) NOT NULL,
+    CONSTRAINT [PK_CRM_QueueRules] PRIMARY KEY CLUSTERED ([QueueId] ASC) WITH (FILLFACTOR = 90)
+);
+

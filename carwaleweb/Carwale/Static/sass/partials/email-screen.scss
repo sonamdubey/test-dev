@@ -1,0 +1,19 @@
+﻿@import '../mixins/_variables.scss';
+@import '../mixins/_sprites.scss';
+@import '../partials/input-structure.scss';
+
+@include input-field;
+
+
+//email-screen
+
+.email-screen {
+	padding: 20px;
+
+	.email-screen__header {
+		font-size: 12px;
+		color: map-get($color-map, 'trout-grey');
+	}
+}
+
+

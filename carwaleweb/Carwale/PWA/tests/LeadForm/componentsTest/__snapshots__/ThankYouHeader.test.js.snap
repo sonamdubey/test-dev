@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component ThankYouHeader Snapshot RenderedTree 1`] = `
+<div
+  className="thankyou-header undefined"
+  id="postsubmitmsg"
+>
+  <p
+    className="thankyou-header__title"
+  >
+    Thank You 
+    test
+    !
+  </p>
+  <p
+    className="thankyou-header__subtitle"
+  >
+    A car consultant would get in touch with you shortly with assistance on your purchase.
+  </p>
+</div>
+`;

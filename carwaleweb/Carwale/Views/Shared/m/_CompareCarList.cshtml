@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Carwale.Entity.CompareCars.HotCarComparison>
+@using Carwale.UI.Common;
+<div>
+    <ul>
+        @foreach (var topCar in Model)
+        {
+            <li>
+                <a class="normal" href="/m/comparecars/@topCar.CompareUrl/" title="Compare @topCar.HotCars[0].MakeName @topCar.HotCars[0].ModelName Vs @topCar.HotCars[1].MakeName @topCar.HotCars[1].ModelName" data-role="click-tracking" data-event="CWInteractive" data-cat="Comparison-widget" data-action="CompareCars_m_click" data-label="@topCar.HotCars[0].MakeName @topCar.HotCars[0].ModelName Vs @topCar.HotCars[1].MakeName @topCar.HotCars[1].ModelName" onclick="window.location.href = this.href +'?c1=@topCar.HotCars[0].VersionId&c2=@topCar.HotCars[1].VersionId&source=@topCar.WidgetPage';return false;">
+                    <div class="content-box-shadow content-inner-block-10 rounded-corner2 margin-bottom10 text-black">
+                        <span class="font11 text-medium-grey position-abt pos-right10" data-role="impression" data-event="CWNonInteractive" data-cat="Comparison-widget" data-action="CompareCars_m" data-label="@topCar.HotCars[0].MakeName @topCar.HotCars[0].ModelName Vs @topCar.HotCars[1].MakeName @topCar.HotCars[1].ModelName">@(topCar.IsSponsored ? "Ad" : "")</span>
+                        <div class="compareImageContainer">
+                            <img class="lazy" src="@Carwale.Utility.ImageSizes.CreateImageUrl(topCar.Image.HostUrl, Carwale.Utility.ImageSizes._357X114, topCar.Image.ImagePath)"  alt="Compare @topCar.HotCars[0].MakeName @topCar.HotCars[0].ModelName Vs @topCar.HotCars[1].MakeName @topCar.HotCars[1].ModelName">
+                        </div>
+                        <div class="text-center">
+                            @topCar.HotCars[0].MakeName @topCar.HotCars[0].ModelName Vs @topCar.HotCars[1].MakeName @topCar.HotCars[1].ModelName
+                        </div>
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,10 @@
+RewriteEngine on
+
+RewriteMap mapauthors txt:../urlMappings/mapauthors.txt
+RewriteMap lowercase int:tolower
+
+RewriteRule ^sponsored-by-mahindra/    /es/bridgestone/default.aspx [R=301,NC,L]
+RewriteRule ^sponsored-by-bridgestone/    /es/bridgestone/default.aspx [R=301,NC,L]
+
+RewriteRule ^(.*)/$				AuthorDetails.aspx?authorId=${mapauthors:${lowercase:$1}} [NC,L]
+RewriteRule ^$				AuthorsList.aspx [NC,L]

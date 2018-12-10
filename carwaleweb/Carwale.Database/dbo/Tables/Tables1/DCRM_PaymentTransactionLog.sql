@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[DCRM_PaymentTransactionLog] (
+    [Id]                    INT             IDENTITY (1, 1) NOT NULL,
+    [TransactionId]         INT             NOT NULL,
+    [OldTotalClosingAmount] NUMERIC (18, 2) NULL,
+    [NewTotalClosingAmount] NUMERIC (18, 2) NULL,
+    [OldDiscountAmount]     INT             NULL,
+    [NewDiscountAmount]     INT             NULL,
+    [OldProductAmount]      INT             NULL,
+    [NewProductAmount]      INT             NULL,
+    [OldServiceTax]         FLOAT (53)      NULL,
+    [NewServiceTax]         FLOAT (53)      NULL,
+    [OldIsTDSGiven]         BIT             NULL,
+    [NewIsTDSGiven]         BIT             NULL,
+    [OldTDSAmount]          DECIMAL (18, 2) NULL,
+    [NewTDSAmount]          DECIMAL (18, 2) NULL,
+    [OldFinalAmount]        DECIMAL (18, 2) NULL,
+    [NewFinalAmount]        DECIMAL (18, 2) NULL,
+    [OldPANNumber]          VARCHAR (10)    NULL,
+    [NewPANNumber]          VARCHAR (10)    NULL,
+    [OldTANNumber]          VARCHAR (10)    NULL,
+    [NewTANNumber]          VARCHAR (10)    NULL,
+    [UpdatedBy]             INT             NOT NULL,
+    [UpdatedOn]             DATETIME        NOT NULL,
+    CONSTRAINT [PK_DCRM_PaymentTransactionLog] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+

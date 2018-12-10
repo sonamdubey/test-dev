@@ -1,0 +1,97 @@
+﻿#threeSixtySlug {
+        position: relative;
+    }
+    .loadingView{
+        position:relative;
+    }
+    .loadingView img{
+        width: 100%;
+    }
+    .loading-single-image {
+        background-size: 98% 90%;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+        .loading-single-image img {
+            width: 100%;
+            max-width: 100%;
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(2px);
+            -o-filter: blur(2px);
+            -ms-filter: blur(2px);
+            filter: blur(2px);
+        }
+    .loading-progress {
+        color: #fff;
+        display: inline;
+        margin: 0 auto;
+        right: 0;
+        top: 40%;
+        position: absolute;
+        left: 16%;
+        text-align: center;
+        background-color: rgba(86, 90, 92,0.7);
+        padding: 15px;
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        border: 1px solid #fff;
+        transform: translate(-60%);
+        -o-transform: translate(-60%);
+        -ms-transform: translate(-60%);
+        -moz-transform: translate(-60%);
+        -webkit-transform: translate(-60%);
+    }
+    .mainDiv {
+        width: 100%;
+        height: auto!important;
+        position: relative;
+        margin-bottom: 37px;
+        overflow: hidden;
+        min-height: 180px;
+    }
+    #wr360PlayerId {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    #wr360container_wr360PlayerId {
+        height: 100% !important;
+    }
+    #wr360image_wr360PlayerId {
+        height: 100% !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-top: 0!important;
+    }
+    .pano2vr360Player-mstyle{
+        height: 220px !important;
+        width: 100%;
+    }
+    .pano2vr360Player-style{
+        height: 366px !important;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .pano2vr360Player-style div {
+        cursor: pointer !important;
+}
+
+    .remove-top-margin{
+        margin-top: 0 !important;
+    }
+    .threeSixtySlugBtn {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 9px 12px 6px;
+        margin: 0 0 10px 0;
+        background: teal;
+        right: 1%;
+        position: absolute;
+        bottom: 0;
+        text-decoration: none;
+        background: white;
+        opacity: .9;
+        z-index: 4;
+        color: #00afa0;
+    }

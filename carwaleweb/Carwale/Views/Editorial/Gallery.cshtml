@@ -1,0 +1,350 @@
+﻿@model Carwale.DTOs.CarData.PhotoGalleryDTO_V2
+
+@using Carwale.Utility
+@using Carwale.UI.PresentationLogic
+@using Carwale.Entity.Enum
+@using System.Configuration;
+
+@{
+    ViewBag.BodyClass = "bg-white header-fixed-inner";
+    ViewBag.landingPage = false;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.DeeplinkAlternativesAndroid = ViewBag.DeeplinkAlternatives;
+    ViewBag.AdId = "1396440106184";
+    ViewBag.AdPath = "/1017752/" + ViewBag.DomainName + "NewCar_";
+    ViewBag.CustomJS = "~/Views/StaticPartials/editorial/GalleryPageScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/editorial/GalleryPageCss.cshtml";
+    string pageUrl = Request.ServerVariables["http_x_rewrite_url"].Split('?')[0];
+    ViewBag.Canonical = "https://www.carwale.com" + pageUrl;
+    ViewBag.Alternate = "https://www.carwale.com/m" + pageUrl;
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+    bool isColorsActive = Model.GalleryState.ActiveFilter == GalleryFilters.Colors;
+    var currentImage = (Model.ModelImages == null || Model.ModelImages.Count == 0) ? null : Model.ModelImages[isColorsActive ? 0 : Model.GalleryState.ActiveSlideIndex];
+    string url = string.Empty;
+    int activeIndex = Model.GalleryState.ActiveSlideIndex;
+    string makeName = Model.ModelDetails.MakeName;
+    string modelName = Model.ModelDetails.ModelName;
+    string imageName = (Model.ModelImages == null || Model.ModelImages.Count == 0) ? null : EditorialContent.FilterImageName(Model.ModelImages[activeIndex].ImageName, makeName, modelName, (int)Model.ModelImages[activeIndex].ImageId);
+    string cdnHostUrl = ConfigurationManager.AppSettings["CDNHostURL"].ToString();
+    string titleMakeName = Model.ModelDetails.MakeId == 10 ? string.Empty : Model.ModelDetails.MakeName + " ";
+    string showColour = "";
+    if (Model.GalleryState.ActiveSection == GallerySections.PhotosDetail)
+    {
+        ViewBag.Title = string.Format("{0}{1} Photo, {2} Image", titleMakeName, modelName, imageName);
+    }
+    else
+    {
+        switch (Model.GalleryState.ActiveFilter)
+        {
+            case GalleryFilters.Colors:
+                ViewBag.Title = string.Format("{0}{1} Colours in India, {2} {1} Colour Images", titleMakeName, modelName, Model.ModelColors.Count);
+                break;
+            case GalleryFilters.ExteriorPhotos:
+                ViewBag.Title = string.Format("{0}{1} Exterior Images & Photo Gallery", titleMakeName, modelName);
+                break;
+            case GalleryFilters.InteriorPhotos:
+                ViewBag.Title = string.Format("{0}{1} Interior Images & Photo Gallery", titleMakeName, modelName);
+                break;
+            default:
+                ViewBag.Title = string.Format("{0}{1} Images, Interior & Exterior Photo Gallery", titleMakeName, modelName);
+                break;
+        }
+    }
+
+    if (isColorsActive)
+    {
+        string colors = string.Join(", ", Model.ModelColors.Select(x => x.Color));
+        ViewBag.Description = string.Format("Check out new {0} {1} available in {2} different colours in India - {3}.", makeName, modelName, Model.ModelColors.Count, colors);
+        showColour = string.Format("{0} {1} is available in {2} different {3} - {4}.", makeName, modelName, Model.ModelColors.Count, (@Model.ModelColors.Count > 1 ? "colours" : "colour"), colors);   
+    }
+    else
+    {
+        ViewBag.Description = string.Format("Checkout {0} {1} Images taken by auto experts at Carwale. View Interior, Exterior and Beauty Shot photos of {0} {1} India.", makeName, modelName);
+    }
+
+    string associatedMedia = string.Empty;
+    bool showSubnavigation = !Model.ModelDetails.Futuristic && Convert.ToBoolean(Model.ModelDetails.New);
+    ViewBag.ShowAskTheExperts = false;
+    ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+        googletag.cmd.push(function () {
+			googletag.pubads().setCentering(true);
+            googletag.defineSlot('/1017752/Carwale_Image_Details_970x90', [[960, 90], [970, 66], [970, 60], [728, 90], [960, 66], [970, 90]], 'div-gpt-ad-1516616845209-2').addService(googletag.pubads());
+            googletag.pubads().collapseEmptyDivs(true);
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+    </script>";
+}
+
+@section MetaTags {
+    @{ string imageUrl = string.Empty; }
+
+    @if (isColorsActive)
+    {
+        imageUrl = ImageSizes.CreateImageUrl(cdnHostUrl, ImageSizes._1280x720, Model.ModelColors[activeIndex].OriginalImgPath);
+        <link rel="image_src" href="@ImageSizes.CreateImageUrl(cdnHostUrl, ImageSizes._174X98, Model.ModelColors[activeIndex].OriginalImgPath)" />
+    }
+    else
+    {
+        imageUrl = ImageSizes.CreateImageUrl(cdnHostUrl, ImageSizes._1280x720, currentImage.OriginalImgPath);
+        <link rel="image_src" href="@ImageSizes.CreateImageUrl(cdnHostUrl, ImageSizes._174X98, currentImage.OriginalImgPath)" />
+    }
+    @Helpers.GetOgTags("https://www.carwale.com" + Request.ServerVariables["http_x_rewrite_url"], ViewBag.Title.ToString(), ViewBag.Description.ToString(), imageUrl)
+    @Helpers.GetTwitterTags("summary_large_image", ViewBag.Title.ToString(), ViewBag.Description.ToString(), imageUrl)
+}
+<aside class="container">
+    <div class="grid-12">
+        <div class="inline-block text-center">
+            <div id='div-gpt-ad-1516616845209-2' class="padding-bottom15" data-load-immediate="true" style="min-width:728px;min-height:90px;">
+                <div class="text-right font11 text-medium-grey">Ad</div>
+                <script>
+                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1516616845209-2'); });
+                </script>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<div class="clear"></div>
+<div class="bg-light-grey padding-top10 padding-bottom20 no-bg-color">
+    <div class="container">
+        <section class="grid-12">
+            @{ Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist); }
+            <h1 class="font30 text-black special-skin-text">@makeName @modelName <span id="spnHeading">@(isColorsActive ? "Colours" : "Images")</span></h1>
+            <p id="showColours" class="font11 margin-bottom10 model-colors-head__desc special-skin-text">@showColour</p>
+            <div class="border-solid-bottom margin-top5 margin-bottom15"></div>
+            <div class="clear"></div>
+        </section>
+        <div class="clear"></div>
+        <div class="grid-8">
+            <section>
+                <div style="margin-bottom: -5px;">
+                    @if (showSubnavigation)
+                    {
+                        Html.RenderPartial("~/Views/Shared/NewCars/_QuickMenu.cshtml", Model.SubNavigation);
+                    }
+                </div>
+            </section>
+        </div>
+        <div class="clear"></div>
+
+        @if (Model.IsExteriorPresent || Model.IsInteriorPresent)
+        {
+            <section id="image-carousel" class="bg-light-grey @(showSubnavigation ? "margin-top20" : string.Empty) @(isColorsActive ? "hide" : string.Empty)">
+                <div class="container">
+                    <div class="grid-12">
+                        <div class="main-image-container" style="min-height:550px;@(isColorsActive ? string.Empty : "background-image:url(\"" + ImageSizes.CreateImageUrl(currentImage.HostUrl, ImageSizes._1056X594, currentImage.OriginalImgPath, 80) + "\")")">
+                            <img class="main-image" style="max-width:100%;" @((isColorsActive ? "data-original=" : "src=") + ImageSizes.CreateImageUrl(currentImage.HostUrl, ImageSizes._1056X594, currentImage.OriginalImgPath, 80)) alt="@currentImage.ImageName" title="@currentImage.ImageName" />
+                            <span style="position:absolute;max-height:5px;" class="rightfloat">
+                                <a class="downloadBtn" download href="@ImageSizes.CreateImageUrl(currentImage.HostUrl, ImageSizes._0X0, currentImage.OriginalImgPath).Split(new string[] { "&q" }, StringSplitOptions.None)[0].Split(new string[] { "?q" }, StringSplitOptions.None)[0]"><span class="carousel__download-icon icon-gallery-Download"></span></a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </section>
+        }
+        <aside class="container">
+            <div class="grid-12 inline-block text-center" id="leaderBoard"></div>
+        </aside>
+        <section class="bg-light-grey margin-top20">
+            <div class="container">
+                <div class="grid-12">
+                    <div class="cw-tabs-panel border-solid">
+                        <div class="cw-tabs cw-tabs-flex bg-white">
+                            @{url = Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName);}
+                            @if (Model.IsExteriorPresent || Model.IsInteriorPresent)
+                            {
+                                <ul>
+                                    <li data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_image_gallery" data-label="@Model.ModelDetails.ModelName" data-action="all" class="@(Model.GalleryState.ActiveFilter == GalleryFilters.AllPhotos ? "active" : "")" data-tabs="tabAll">
+                                        <a clas href="@url"><h3>ALL</h3></a>
+                                    </li>
+                                    @if (Model.IsExteriorPresent)
+                                    {
+                                        <li data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_image_gallery" data-label="@Model.ModelDetails.ModelName" data-action="exterior" class="@(Model.GalleryState.ActiveFilter == GalleryFilters.ExteriorPhotos ? "active" : "")" data-tabs="tabExterior">
+                                            <a href="@url?category=exterior"><h3>EXTERIOR</h3></a>
+                                        </li>
+                                    }
+                                    @if (Model.IsInteriorPresent)
+                                    {
+                                        <li data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_image_gallery" data-label="@Model.ModelDetails.ModelName" data-action="interior" class="@(Model.GalleryState.ActiveFilter == GalleryFilters.InteriorPhotos ? "active" : "")" data-tabs="tabInterior">
+                                            <a href="@url?category=interior"><h3>INTERIOR</h3></a>
+                                        </li>
+                                    }
+                                    @if (Model.ShowModelColors)
+                                    {
+                                        <li class="@(isColorsActive ? "active" : "")" data-tabs="tabColors" id="colourTab">
+                                            <a href="@EditorialContent.GetColorUrl(makeName, Model.ModelDetails.MaskingName, null, 0, false)" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_image_gallery" data-action="color" data-label="@(Model.ModelDetails.MakeName + " " + Model.ModelDetails.ModelName)">
+                                                <h3>COLOURS</h3>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            <hr class="tabHr tran-ease-out-all">
+                        </div>
+                        <div class="cw-tabs-data tab-container @(Model.GalleryState.ActiveFilter == GalleryFilters.AllPhotos ? "active-container loaded" : "hide")" id="tabAll">
+                            @if (Model.GalleryState.ActiveFilter == GalleryFilters.AllPhotos)
+                            {
+                                Html.RenderPartial("~/Views/Shared/Editorial/_ImageList.cshtml", Model);
+                            }
+                            else
+                            {
+                                <img class="loader-img" src="@(cdnHostUrl)0x0/adgallery/loader.gif" />
+                            }
+                            @*<div class="text-center padding-top30 padding-bottom30 bg-white">
+                                    <span class="font16 text-bold text-link">View 20 More Images</span>
+                                </div>*@
+                        </div>
+                        <div class="cw-tabs-data tab-container @(Model.GalleryState.ActiveFilter == GalleryFilters.ExteriorPhotos ? "active-container loaded" : "hide")" id="tabExterior">
+                            @if (Model.GalleryState.ActiveFilter == GalleryFilters.ExteriorPhotos)
+                            {
+                                Html.RenderPartial("~/Views/Shared/Editorial/_ImageList.cshtml", Model);
+                            }
+                            else
+                            {
+                                <img class="loader-img" src="@(cdnHostUrl)0x0/adgallery/loader.gif" />
+                            }
+                            @*<div class="text-center padding-top30 padding-bottom30 bg-white">
+                                    <span class="font16 text-bold text-link">View 20 More Images</span>
+                                </div>*@
+                        </div>
+                        <div class="cw-tabs-data tab-container @(Model.GalleryState.ActiveFilter == GalleryFilters.InteriorPhotos ? "active-container loaded" : "hide")" id="tabInterior">
+                            @if (Model.GalleryState.ActiveFilter == GalleryFilters.InteriorPhotos)
+                            {
+                                Html.RenderPartial("~/Views/Shared/Editorial/_ImageList.cshtml", Model);
+                            }
+                            else
+                            {
+                                <img class="loader-img" src="@(cdnHostUrl)0x0/adgallery/loader.gif" />
+                            }
+                            @*<div class="text-center padding-top30 padding-bottom30 bg-white">
+                                    <span class="font16 text-bold text-link">View 20 More Images</span>
+                                </div>*@
+                        </div>
+                        <div class="cw-tabs-data tab-container @(isColorsActive ? "active-container loaded" : "hide")" id="tabColors">
+                            @if (isColorsActive)
+                            {
+                                Html.RenderPartial("~/Views/Shared/Editorial/_ColoursList.cshtml", Model);
+                            }
+                            else
+                            {
+                                <img class="loader-img" src="@(cdnHostUrl)0x0/adgallery/loader.gif" />
+                            }
+                        </div>
+                        <div id="showmore" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_image_gallery" data-label="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName" data-action="view_all" class="padding-top10 padding-bottom10 text-center font22 text-link content-box-shadow @Html.Raw(Model.GalleryState.ActiveFilter == GalleryFilters.Colors? "hide":string.Empty)">
+                            <span data-role="inview-imp" data-cat="desktop_image_gallery" data-action="view_all_imp" data-label="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName">View More</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </section>
+
+        <div class="gallery-popup-container">
+            <span data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_image_gallery" data-label="@Model.ModelDetails.ModelName" data-action="close_full_screen" id="galleryCloseButton" class="fa fa-times-thin fa-4x"></span>
+            <div class="gallery__white-div">
+            </div>
+        </div>
+        <section id="video" class="margin-top20 video-section">
+            @if (Model.ModelVideos != null && Model.ModelVideos.Count > 0) { { Html.RenderAction("ModelVideos", "CarWidgets", new { modelVideos = Model.ModelVideos, modelId = Model.ModelDetails.ModelId, modelDetails = Model.ModelDetails, page = ContentPages.GalleryPage }); } }
+            @{ Html.RenderAction("GetSuggestedModelGallery", "Gallery", new { modelId = Model.ModelDetails.ModelId, count = 5, isMsite = false, horizontal = Model.ModelVideos != null && Model.ModelVideos.Count > 0 ? false : true });}
+        </section>
+    </div>
+</div>
+
+<ul id="image-gallery-template" class="hide">
+    <li class="text-center">
+        <img class="lazy" data-original="" src="@(cdnHostUrl)0x0/adgallery/loader.gif" alt="" title="" />
+    </li>
+</ul>
+<ul id="image-icon-template" class="hide">
+    <li data-role="click-tracking" data-event="CWInteractive" data-action="image_icon" data-cat="desktop_image_gallery" data-label="image_icon">
+        <img class="lazy" data-original="" src="@(cdnHostUrl)0x0/adgallery/loader.gif" alt="" title="" />
+    </li>
+</ul>
+
+@if (Model.IsExteriorPresent || Model.IsInteriorPresent)
+{
+    <div id="carousel-template" class="hide">
+        <div style="min-height: 550px" class="jcarousel-wrapper image-gallery-carousel-container bg-white">
+            <div class="jcarousel carousel-stage carousel-target--one carousel-swipe image-gallery-carousel">
+                <ul style="min-height: 550px" class="swiper-image-container"></ul>
+                <div class="carousel__bottom-container">
+                    <div>
+                        <div class="leftfloat inline-block-noalign text-white">
+                            <span class="font14 margin-right5 imageCount">(<span>1</span>/<span>@Model.ModelImages.Count</span>)</span>
+                            <p class="inline-block-noalign font14 imageName">@imageName</p>
+                        </div>
+                        <span class="rightfloat">
+                            <a data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_image_gallery" data-label="@Model.ModelDetails.ModelName" data-action="download" class="downloadBtn" download href="">
+                                <span class="carousel__download-icon icon-gallery-Download"></span>
+                            </a>
+                            <span data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_image_gallery" data-label="@Model.ModelDetails.ModelName" data-action="full_screen" class="carousel__maximize-icon icon-gallery-maximize">
+                                <a href=""></a>
+                            </span>
+                        </span>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <span data-role="click-tracking" data-event="CWInteractive" data-action="image_prev_click" data-cat="desktop_image_gallery" data-label="image_prev_click" class="jcarousel-control-left gallery-carousel__left-control">
+                <span class="gallery-control-prev icon-gallery-arrow_carousel"></span>
+            </span>
+            <span data-role="click-tracking" data-event="CWInteractive" data-action="image_next_click" data-cat="desktop_image_gallery" data-label="image_next_click" class="jcarousel-control-right gallery-carousel__right-control">
+                <span class="gallery-control-next  icon-gallery-arrow_carousel"></span>
+            </span>
+        </div>
+
+        <div style="min-height:75px" class="jcarousel-wrapper thumnail-carousel-container bg-white">
+            <div class="jcarousel carousel-navigation margin-top10 carousel-swipe gallery-thumnail-carousel">
+                <ul class="swiper-icon-container"></ul>
+            </div>
+            <span data-role="click-tracking" data-event="CWInteractive" data-action="icon_prev_click" data-cat="desktop_image_gallery" data-label="icon_prev_click" class="jcarousel-control-left thumbnail-carousel__left-control">
+                <span class="gallery-control-prev left-target5 icon-gallery-arrow_carousel"></span>
+            </span>
+            <span data-role="click-tracking" data-event="CWInteractive" data-action="icon_next_click" data-cat="desktop_image_gallery" data-label="icon_next_click" class="jcarousel-control-right thumbnail-carousel__right-control">
+                <span class="gallery-control-next right-target5 icon-gallery-arrow_carousel"></span>
+            </span>
+        </div>
+
+    </div>
+}
+
+
+@if (Model.GalleryState.ActiveFilter != GalleryFilters.Colors)
+{
+    <script type="application/ld+json">
+        {
+        "@@context": "http://schema.org",
+        "@@type": "ImageGallery",
+        "name": "@ViewBag.Title",
+        "description": "@ViewBag.Description",
+        "headline": "@ViewBag.Title",
+        "primaryImageOfPage": {
+        "@@type": "ImageObject",
+        "contentUrl": "@ImageSizes.CreateImageUrl(Model.ModelImages[activeIndex].HostUrl, ImageSizes._0X0, Model.ModelImages[activeIndex].OriginalImgPath, 100)",
+        "thumbnailUrl": "@ImageSizes.CreateImageUrl(Model.ModelImages[activeIndex].HostUrl, ImageSizes._1056X594, Model.ModelImages[activeIndex].OriginalImgPath, 80)",
+        "caption":"@imageName"
+        },
+        "associatedMedia": [
+        @foreach (var image in Model.ModelImages)
+        {
+            associatedMedia += (string.Format("{0}\"@type\" : \"ImageObject\",\"contentUrl\": \"{1}\",\"thumbnailUrl\":\"{2}\",\"caption\":\"{3}\"{4}{5}", "{",
+            ImageSizes.CreateImageUrl(image.HostUrl, ImageSizes._0X0, image.OriginalImgPath, 100),
+            ImageSizes.CreateImageUrl(image.HostUrl, ImageSizes._370X208, image.OriginalImgPath, 80),
+            image.ImageName, "}",
+            (image == Model.ModelImages[Model.ModelImages.Count - 1] ? string.Empty : ",")));
+        }
+        @Html.Raw(associatedMedia)
+        ]
+        }
+    </script>
+}
+<script>
+    var makeName = '@Model.ModelDetails.MakeName';
+    var modelName = '@Format.FilterModelName(Model.ModelDetails.ModelName)';    
+</script>
+

@@ -1,0 +1,419 @@
+﻿@model Carwale.Entity.ViewModels.CompareCarsDetailModel
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using Carwale.Entity.Enum;
+@using Carwale.BL.Classified.Search;
+@{
+    ViewBag.PageId = 25;
+    ViewBag.Title = "Compare " + Model.PageMetaTags.Title;
+    ViewBag.Description = Model.PageMetaTags.Description;
+    ViewBag.BodyClass = "bg-white header-fixed-inner";
+    ViewBag.landingPage = false;
+    ViewBag.Canonical = "https://www.carwale.com" + Model.PageMetaTags.Canonical;
+    if (Model.ValidVersionIds.Count <= 2)
+    {
+        ViewBag.Alternate = "https://www.carwale.com/m" + Model.PageMetaTags.Canonical;
+    }
+    ViewBag.CustomJS = "~/Views/StaticPartials/CompareCarDetailsScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/CompareCarDetailsCss.cshtml";
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.AdId = 1396439798485;
+    ViewBag.DefineAdSlots = @"<script type='text/javascript'>
+        var AdSlots = {};
+        googletag.cmd.push(function () {
+        googletag.pubads().disableInitialLoad();
+        googletag.pubads().setCentering(true);
+        AdSlots['div-gpt-ad-" + ViewBag.AdId + @"-2'] = googletag.defineSlot('/1017752/Compare_970x90', [[220, 90], [728, 90], [950, 90], [960, 90], [970, 66], [970, 90]], 'div-gpt-ad-" + ViewBag.AdId + @"-2').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+        AdSlots['div-gpt-ad-1520831045036-0'] = googletag.defineSlot('/1017752/Carwale_Desktop_CompareCars_BTF_970x90', [[950, 90], [960, 66], [970, 90], [728, 90], [960, 90], [970, 66]], 'div-gpt-ad-1520831045036-0').addService(googletag.pubads());        
+        googletag.pubads().setTargeting('Dcompare',[" + Model.TargetValue + @"]);
+        googletag.pubads().setTargeting('City','" + CookiesCustomers.MasterCity.ToString() + @"');
+        googletag.pubads().setTargeting('UserModelHistory','" + CookiesCustomers.UserModelHistory.Replace('~', ',') + @"');
+        googletag.pubads().collapseEmptyDivs(true);
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+});
+    </script>";
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+}
+@section MetaTags{
+    @Helpers.GetOgTags("https://www.carwale.com" + Model.PageMetaTags.Canonical, ViewBag.Title.ToString(), ViewBag.Description.ToString(), string.Empty)
+}
+<div class="container">
+    <div class="grid-12">
+        <div class="padding-bottom15 text-center">
+            @{ Html.RenderPartial("~/Views/Shared/ads/_GoogleAd_728x90.cshtml"); }
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<section class="bg-light-grey padding-top10 padding-bottom20 no-bg-color">
+    <div class="container">
+        <div class="grid-12">
+            @{ Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist); }
+            <h1 class="font16 block-space leftfloat special-skin-text">@ViewBag.Title</h1><div class="clear"></div>
+            @{Html.RenderPartial("~/Views/Shared/NewCars/_ComparisonCards.cshtml");}
+            <div class="cc-bottom-border"></div>
+            <div class="grey-bg-shadow text-center text-bold padding-top10">
+                <p class="inline-block position-rel" data-role="impression" data-event="BBLink_finance" data-cat="BBLinkImpressions_desktop" data-action="finance_CompareCarsImpressions">
+                    <span class="position-abt bankbazarAd">Ad</span>
+                    <a href="http://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|CompareCars_desktop&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide" target="_blank" data-role="click-tracking" data-event="BBLink_finance" data-cat="BBLinkClicks_desktop" data-action="finance_CompareCarsClicks" rel="nofollow noopener">
+                        Get Car Loan Offers from Top Banks
+                    </a>
+                </p>
+            </div>
+            <div class="grey-bg-shadow align-center">
+                <div class="tabs-container rounded-corner2" id="tabsList">
+                    <ul id="mainMenu">
+                        <li><a id="tab_Overview" class="active-tab" show_content="CD0">Overview</a></li>
+                        <li><a id="tab_Features" show_content="CD2">Features</a></li>
+                        <li><a id="tab_Specifications" show_content="CD1">Specifications</a></li>
+                        <li><a id="tab_Colours" show_content="CD3">Colours</a></li>
+                    </ul>
+                </div>
+            </div>
+            @{ Html.RenderPartial("~/Views/Shared/NewCars/_ComparisonTable.cshtml");}
+            <div id="FloatHeader" class="FloatContainer">
+                <div class="cc-area CarHeader" id="Div1">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                        <tr>
+                            <td class="grey-bg-top CarHeaderFilter" align="center">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td class="align-left"><a id="chkShowDiffFloat" class="cc-a-static cc-sprite chk-box"><strong>Hide common features</strong></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td height="10"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="align-left"><a id="chkHighlightDiffFloat" class="cc-a-static cc-sprite chk-box"><strong>Highlight differences</strong></a></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="cars" style="width: @(Model.TblHeaderWidth)px">
+                                <table id="tblFloatHeader" width="100%">
+                                    <tr>
+                                        @{ var tempCounter = 0;}
+                                        @foreach (var item in Model.CarDetails)
+                                        {
+                                            <td>
+                                                @if (Model.FeaturedVersionId != -1 && (++tempCounter == Model.CarDetails.Count))
+                                                {
+                                                    <span class="cc-sprite close-btn" onclick="HideSponsoredAd('@item.ModelName',@Model.CarDetails.Count)"></span>
+                                                    <span class="font11" style="float: right;">Sponsored</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="cc-sprite close-btn" title="Remove" onclick="window.location.href = '@item.CloseUrl';return false;"></span>
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                    <tr id="trCarNameFloat" class="verticalAlign">
+                                        @{tempCounter = 0;}
+                                        @foreach (var item in Model.CarDetails)
+                                        {
+
+                                            <td>
+                                                <a modelid="@item.ModelId" data-action="Click_Model_@item.MaskingName" data-label="@Model.TargetLabel" track-sponsored="@(item.VersionId == Model.FeaturedVersionId ? "true" : "false")" class="hyperLink" href="@ManageCarUrl.CreateVersionUrl(item.MakeName, item.MaskingName, item.VersionMaskingName)">@(item.MakeName + " " + item.ModelName + " " + item.VersionName)</a>
+                                                @if (((Model.FeaturedVersionId != -1 ? Model.ValidVersionIds.Count + 1 : Model.ValidVersionIds.Count) > Model.ValidVersionIds.Count) && Model.FeaturedCarData != null && !string.IsNullOrEmpty(Model.FeaturedCarData.ExternalLinkTracker) && Model.FeaturedCarData.FeaturedVersionId == item.VersionId)
+                                                {
+                                                    <span class="margin-left5 margin-right5">|</span>
+                                                    <a href="@Model.FeaturedCarData.ExternalLinkTracker" target="_blank" data-role="click-tracking" data-event="CWInteractive" data-action="Click_@item.MaskingName" data-cat="Comparecars_filters" data-label="@Model.TargetLabel">@(string.IsNullOrEmpty(Model.FeaturedCarData.ExternalLinkText) ? "Explore" : Model.FeaturedCarData.ExternalLinkText)<i class="fa fa-external-link text-lighter-grey"></i></a>
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        @foreach (var item in Model.CarDetails)
+                                        {
+                                            <td>
+                                                <p class="dotted-line"></p>
+                                            </td>
+                                        }
+
+                                    </tr>
+                                    <tr id="trOrpFloat" style="height: 22px;">
+                                        @{tempCounter = 0; }
+                                        @foreach (var item in Model.CarDetails)
+                                        {
+                                            <td class="dark-text">
+                                                ₹ @(item.PriceOverview.Price > 0 ? FormatPrice.GetFormattedPriceV2(item.PriceOverview.Price.ToString()) : "N/A") @item.PriceOverview.PriceLabel                                               
+                                                <div class="clear"></div>
+                                            </td>
+                                        }
+                                    </tr>
+									@if (CookiesCustomers.MasterCityId <= 0)
+									{
+										<tr>
+											@{tempCounter = 1;}
+											@foreach (var competator in Model.CarDetails)
+											{
+
+												<td modelid="@competator.ModelId">
+													@if (competator.IsNew)
+													{
+    <div class="select-city-link" data-makemaskingname=@Format.FormatURL(competator.MakeName) data-modelmaskingname=@competator.MaskingName data-role="click-inview-imp" data-action="showpriceinmycity" data-cat="Desktop_CompareDetails" data-label='@(competator.ModelName)'><span class="btn btn-white btn-xs font12" style="font-weight:bold">@(System.Configuration.ConfigurationManager.AppSettings["ShowPriceInCityText"] ?? "Show price in my city")</span></div>
+													}
+												</td>
+											}
+										</tr>
+									}             
+                                </table>
+                            </td>
+                            @if (Model.ValidVersionIds.Count < 4)
+                            {
+                                <td id="addCar">
+                                    <div style="margin-top: auto; text-align: center">
+                                        <a id="btnAddCar_float" href="javascript:ScrollToTop('#data-table-top',500)" class="action-button btn btn-xs btn-orange xs">Add a Car</a>
+                                    </div>
+                                </td>
+                            }
+                        </tr>
+                    </table>
+                </div>
+                <div class="cc-bottom-border"></div>
+                <div class="grey-bg-shadow text-center text-bold padding-top10">
+                    <p class="inline-block position-rel">
+                        <span class="position-abt bankbazarAd">Ad</span>
+                        <a href="http://www.bankbazaar.com/car-loan.html?WT.mc_id=bb01|CL|CompareCars_desktop&utm_source=bb01&utm_medium=display&utm_campaign=bb01&variant=slide&variantOptions=mobileRequired" target="_blank" onclick="dataLayer.push({ event: 'BBLink_finance', cat: 'BBLinkClicks_desktop', act: 'finance_CompareCarsClicks' });" rel="nofollow">
+                            Get instant EMI quotes from Top Banks.
+                        </a>
+                    </p>
+                </div>
+                <div class="grey-bg-shadow align-center">
+                    <div class="tabs-container rounded-corner2" id="tabsListFloat">
+                        <ul>
+                            <li><a id="tabFloat_Overview" class="active-tab" show_content="CD0">Overview</a></li>
+                            <li><a id="tabFloat_Features" show_content="CD2">Features</a></li>
+                            <li><a id="tabFloat_Specifications" show_content="CD1">Specifications</a></li>
+                            <li><a id="tabFloat_Colours" show_content="CD3">Colours</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.ShowCampaignSlab)
+            {
+                short position = 0;
+                <table class="UsedCars">
+                    <tr>
+                        <td>Connect with Dealer Partner</td>
+                        <td class="innerTableWrap count@(Model.CarDetails.Count)" style="width: @(Model.TblHeaderWidth)px">
+                            <table width="100%">
+                                <tr>
+                                    @foreach (var item in Model.CarDetails)
+                                    {
+                                        position++;
+                                        if (item != null && (item.SponsoredCampaign != null && item.SponsoredCampaign.Campaign.Id > 0))
+                                        {
+                                            var sponsoredCampaign = item.SponsoredCampaign.Campaign;
+                                            var sponsoredDealer = item.SponsoredCampaign.DealerDetails;
+                                            <td style="padding:10px; text-align: center;">
+                                                <div id="camparecarLink">
+                                                    <a class="btn-white btn-xs getCCLeadAssistance" href="javascript:void(0)"
+                                                       data-role="click-impression" data-event="CWNonInteractive" data-action="compare_button_desktop" data-cat="compare_button_desktop" data-label="@string.Format("{0}_{1}_{2}_{3}", item.MakeName, item.MaskingName, (string.IsNullOrWhiteSpace(CookiesCustomers.MasterCity)) ? "No_city": CookiesCustomers.MasterCity , position)"
+                                                       data-cardetails='{"carMakeId":"@item.MakeId", "carMakeName":"@item.MakeName", "carMaskingName":"@item.MaskingName", "carModelName":"@item.ModelName", "carModelId":"@item.ModelId"}' data-dealerid="@sponsoredDealer.DealerId"
+                                                       data-versionid="@item.VersionId" data-versionname="@item.VersionName" data-cityid="@(CookiesCustomers.MasterCityId)" data-zoneid="@(CookiesCustomers.MasterZoneId)" data-sponsordlrname="@sponsoredDealer.Name" data-campaignid="@sponsoredCampaign.Id" data-campaigntype="@sponsoredCampaign.Type"
+                                                       data-areaid="@(CookiesCustomers.MasterAreaId)" data-leadpanel="@sponsoredCampaign.LeadPanel" data-showemail="@sponsoredCampaign.IsEmailRequired" data-predictionScore="@(sponsoredCampaign.PredictionData != null ? sponsoredCampaign.PredictionData.Score : '0')"
+                                                       data-predictionLabel="@(sponsoredCampaign.PredictionData !=null ? @sponsoredCampaign.PredictionData.Label : "" )"
+                                                       leadclicksource="@(CookiesCustomers.MasterCityId < 1 ? Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "ComparePageDesktop-CampaignWithoutCity", (short)LeadSources.PQ, (short)Platform.CarwaleDesktop)) : Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "ComparePageDesktop-CampaignWithCity", (short)LeadSources.PQ, (short)Platform.CarwaleDesktop)))"
+                                                       inquirysourceid="@(CookiesCustomers.MasterCityId < 1 ? Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "ComparePageDesktop-CampaignWithoutCity", (short)LeadSources.PQ, (short)Platform.CarwaleDesktop)) : Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "ComparePageDesktop-CampaignWithCity", (short)LeadSources.PQ, (short)Platform.CarwaleDesktop)))" emiadavailable="true" dealercampaignexist="true" page="ComparePage"
+                                                       data-mutualleads="@sponsoredCampaign.MutualLeads" data-dealeradminid="@sponsoredCampaign.DealerAdminId">
+                                                        @Html.Raw("Get Offers")
+                                                    </a>
+                                                    <span id="linkClass"></span>
+                                                </div>
+                                            </td>
+                                        }
+                                        else if (CookiesCustomers.MasterCityId < 1 || item.ShowCampaignLink)
+                                        {
+                                            <td style="padding:10px; text-align: center;">
+                                                <div id="camparecarLink">
+                                                    <a class="btn-white btn-xs getCCLeadAssistance" href="javascript:void(0)"
+                                                       data-role="click-impression" data-event="CWNonInteractive" data-action="compare_button_desktop" data-cat="compare_button_no_area_desktop" data-label="@string.Format("{0}_{1}_{2}_{3}", item.MakeName, item.MaskingName, CookiesCustomers.MasterCity , position)"
+                                                       data-cardetails='{"carMakeId":"@item.MakeId", "carMakeName":"@item.MakeName", "carMaskingName":"@item.MaskingName", "carModelName":"@item.ModelName", "carModelId":"@item.ModelId"}'
+                                                       data-versionid="@item.VersionId" data-versionname="@item.VersionName" data-cityid="@(CookiesCustomers.MasterCityId)"
+                                                       leadclicksource="@(CookiesCustomers.MasterCityId < 1 ? Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "ComparePageDesktop-CampaignWithoutCity", (short)LeadSources.PQ, (short)Platform.CarwaleDesktop)) : Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "ComparePageDesktop-CampaignWithCity", (short)LeadSources.PQ, (short)Platform.CarwaleDesktop)))"
+                                                       inquirysourceid="@(CookiesCustomers.MasterCityId < 1 ? Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "ComparePageDesktop-CampaignWithoutCity", (short)LeadSources.PQ, (short)Platform.CarwaleDesktop)) : Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "ComparePageDesktop-CampaignWithCity", (short)LeadSources.PQ, (short)Platform.CarwaleDesktop)))" emiadavailable="false" page="ComparePage">
+                                                        @Html.Raw("Get Offers")
+                                                    </a>
+                                                    <span id="linkClass"></span>
+                                                </div>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="padding:10px;">
+                                                <div id="linkContainer" class="advantageLinkDiv">
+                                                    <a id="advantageLink"></a>
+                                                    <span id="linkClass" class="cc-sprite grey-none"></span>
+                                                </div>
+                                            </td>
+                                        }
+                                    }
+
+                                </tr>
+                            </table>
+                            @if (Model.ValidVersionIds.Count < 4)
+                            {
+                            <td style="padding: 10px;"></td>
+                            }
+                        </tr>
+                    </table>
+            }
+            @if(!string.IsNullOrWhiteSpace(Model.Summary))
+            {
+                <div id="compareCars"class="content-box-shadow content-inner-block-10 margin-top10" style="font-family:'Open Sans', sans-serif, Arial">
+                    <p class="show">@Model.Summary</p>
+                </div>
+            }
+            @if (Model.UsedCarComparison.IsNotNullOrEmpty())
+            {
+                <table class="UsedCars" id="tblUsed">
+                    <tr>
+                        <td>You may also like</td>
+                        <td class="innerTableWrap count@(Model.CarDetails.Count)" style="width: @(Model.TblHeaderWidth)px">
+                            <table width="100%">
+                                <tr>
+                                    @foreach (var data in Model.CarDetails)
+                                    {
+                                        <td style="padding: 10px;text-align: center;">
+
+                                            @if (Model.UsedCarComparison.ContainsKey(data.RootId))
+                                            {
+                                                <a href="@SearchUtility.GetSearchAbsolutePath(data.MakeName, data.RootName, string.Empty)"> @(Model.UsedCarComparison[data.RootId].Count + " Used " + data.MakeName + " " + data.ModelName)</a><br />
+                                                @Html.Raw("Starting at ₹");
+                                                @CommonOpn.FormatNumeric(Model.UsedCarComparison[data.RootId].MinPrice)
+                                            }
+                                            else
+                                            {
+
+                                                <span class="cc-sprite grey-none"></span>
+                                            }
+                                        </td>
+                                    }
+                                </tr>
+                            </table>
+                        </td>
+                        @if (Model.ValidVersionIds.Count < 4)
+                        {
+                            <td style="padding: 10px;"></td>
+                        }
+                    </tr>
+                </table>
+            }
+
+            @if (Model.IsDiscountAvailable)
+            {
+                <table class="UsedCars">
+                    <tr>
+                        <td>CarWale Exclusive Offers</td>
+                        <td class="innerTableWrap count@(Model.CarDetails.Count)" style="width: @(Model.TblHeaderWidth)px">
+                            <table width="100%">
+                                <tr>
+                                    @foreach (var item in Model.CarDetails)
+                                    {
+                                        if (item != null && item.IsNew && (item.DiscountSummary.Savings > 0 || item.DiscountSummary.Offers != ""))
+                                        {
+                                            <td style="padding:10px; text-align: center;">
+                                                <div id="linkContainer" class="advantageLinkDiv @(CookiesCustomers.MasterCityId < 0 ? "" : "ex-showroom")">
+                                                    @if (CookiesCustomers.MasterCityId > 0 && item.DiscountSummary.Make != null && item.DiscountSummary.Model != null && item.DiscountSummary.City != null && item.DiscountSummary.Version != null)
+                                                    {
+                                                        <a id="advantageLink" class="btn-xs btn-white" href="/@UrlRewrite.FormatSpecial(item.DiscountSummary.Make.MakeName)-cars/@(item.DiscountSummary.Model.MaskingName.ToString())/advantage/?src=d02&cityid=@(item.DiscountSummary.City.CityId)&versionid=@(item.DiscountSummary.Version.VersionId)" data-role="click-tracking" data-event="CWInteractive" data-action="dealsaccess_desktop" data-cat="deals_desktop" data-label="ComparepageDes">
+                                                            @if (item.DiscountSummary.Savings > 0)
+                                                            {
+                                                                @Html.Raw("Save ₹ " + Format.FormatNumericCommaSep(item.DiscountSummary.Savings.ToString()));
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.Raw("Offer available");
+                                                            }
+                                                        </a>
+                                                    }
+                                                    else
+                                                    {
+                                                        if (item != null && item.DiscountSummary != null && item.DiscountSummary.Model != null && item.DiscountSummary.Make != null && item.DiscountSummary.Version != null)
+                                                        { 
+                                                        <a id="advantageLink" class="ex-showroom btn-white btn-xs advantageSlugClick" href="javascript:void(0)"
+                                                           data-role="click-tracking" data-event="CWInteractive" data-action="dealsaccess_desktop" data-cat="deals_desktop" data-label="ComparepageDes" data-adv-popup="showAdvantageCityPopup" data-variant="@item.DiscountSummary.Version.VersionId.ToString()"
+                                                           data-model="@item.DiscountSummary.Model.ModelId.ToString()" data-url="/@UrlRewrite.FormatSpecial(item.DiscountSummary.Make.MakeName)-cars/@item.DiscountSummary.Model.MaskingName.ToString()/advantage/?src=d02&versionid=@item.DiscountSummary.Version.VersionId ">
+                                                            @Html.Raw("Offer available")
+                                                        </a>
+                                                    }
+                                                    }
+                                                    <span id="linkClass"></span>
+                                                </div>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="padding:10px;">
+                                                <div id="linkContainer" class="advantageLinkDiv">
+                                                    <a id="advantageLink"></a>
+                                                    <span id="linkClass" class="cc-sprite grey-none"></span>
+                                                </div>
+                                            </td>
+                                        }
+                                    }
+
+                                </tr>
+                            </table>
+                            @if (Model.ValidVersionIds.Count < 4)
+                            {
+                            <td style="padding: 10px;"></td>
+                            }
+                        </tr>
+                    </table>
+            }
+
+            @if (Model.SimilarCars.Count > 0)
+            {
+                <div id="smc">
+                    &nbsp;People who compared above cars also compared:
+                    <table>
+                        @foreach (var data in Model.CarDetails)
+                        {
+
+                            <tr>
+                                @if (Model.SimilarCars.ContainsKey(data.ModelId))
+                                {
+                                    var list = Model.SimilarCars[data.ModelId];
+                                    foreach (var similarcar in list)
+                                    {
+                                        <td>
+                                            <a href="/comparecars/@(data.ModelId > similarcar.ModelId ?  (UrlRewrite.FormatSpecial(data.MakeName)+"-"+data.MaskingName+"-vs-"+UrlRewrite.FormatSpecial(similarcar.MakeName)+"-"+similarcar.MaskingName+"/")
+                                                : (UrlRewrite.FormatSpecial(similarcar.MakeName)+"-"+similarcar.MaskingName+"-vs-"+UrlRewrite.FormatSpecial(data.MakeName)+"-"+data.MaskingName+"/"))" onclick="window.location.href = this.href + '?source=21'; return false;">
+                                                @Html.Raw(data.MakeName + " " + data.MaskingName + " vs " + similarcar.MakeName + " " + similarcar.MaskingName)
+                                            </a>
+                                        </td>
+                                    }
+                                    Model.SimilarCars.Remove(data.ModelId);
+                                }
+                            </tr>
+                        }
+                    </table>
+                </div>
+
+            }
+
+            <div style="margin-top: 14px;" class="special-skin-text">
+                <b>Disclaimer : </b>For the above Comparison of @ViewBag.Title.Replace(" vs ", " and ").TrimEnd(' '), CarWale has taken utmost care in gathering precise and accurate information about prices, specs, features, colours etc, however, CarWale cannot be held liable for any direct or indirect damage/loss.
+                For @ViewBag.Title.Replace(" vs ", " and ").TrimEnd(' ') comparison, we have considered most popular versions on CarWale as default, however, any version of these cars can be compared.
+            </div>
+            <span id="impressionsPassback"></span>
+        </div>
+        <div class="grid-12">
+            <div class="padding-bottom15 text-center inline-block ad-slot">
+                <div class="text-right font11 text-medium-grey">Ad</div>
+                <div id='div-gpt-ad-1520831045036-0' style="min-width:728px;min-height:90px;">
+                    <script type='text/javascript'>googletag.cmd.push(function () { googletag.display('div-gpt-ad-1520831045036-0'); });</script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="divEmiPopup">
+        @{Html.RenderPartial("m/_DealerLeadPopUpAsync", new Tuple<Carwale.Entity.CarData.CarModelDetails, Carwale.Entity.Dealers.SponsoredDealer>(null, null));}
+    </div>
+</section>
+

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Carwale.Entity.CMS.Articles.ArticleSummary>
+@using Carwale.Entity.CMS.Articles
+@using Carwale.Utility;
+<div class="cw-tabs-data hide" id="Reviews">
+@{
+    ArticleSummary _review1, _review2;
+      _review1 = Model.First();
+      _review2 = Model.Last();
+    
+    <div class="padding-bottom50">
+        <div class="grid-5 alpha">
+            <div class="img-preview">
+                <a href="@_review1.ArticleUrl"><img class="lazy" width="393" height="221" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(_review1.HostUrl, ImageSizes._393X221, _review1.OriginalImgUrl)" title="@_review1.Title" alt="@_review1.Title"></a>
+            </div>
+        </div>
+        <div class="grid-7 omega">
+            <p class="margin-bottom20 font20"><a href="@_review1.ArticleUrl" class="text-black">@_review1.Title</a></p>
+            <div class="margin-bottom15 font14 line-height">@Html.Raw(_review1.Description)</div>
+            <div class="margin-bottom15">
+                <a href="@_review1.ArticleUrl" class="margin-right25 btn btn-white btn-md text-uppercase leftfloat">Read More</a>
+                <p class="leftfloat margin-top10 text-light-grey font14">@_review1.DisplayDate.ToString("MMMM dd, yyyy") by <span class="text-dark-grey">@_review1.AuthorName</span></p>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="padding-bottom50">
+        <div class="grid-7 alpha">
+            <p class="margin-bottom20 font20"><a href="@_review2.ArticleUrl" class="text-black">@_review2.Title</a></p>
+            <div class="margin-bottom15 font14 line-height">@Html.Raw(_review2.Description)</div>
+            <div class="margin-bottom15">
+                <a href="@_review2.ArticleUrl" class="margin-right25 btn btn-white btn-md text-uppercase leftfloat">Read More</a>
+                <p class="leftfloat margin-top10 text-light-grey font14">@_review2.DisplayDate.ToString("MMMM dd, yyyy") by <span class="text-dark-grey">@_review2.AuthorName</span></p>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="grid-5 omega">
+            <div class="img-preview">
+                <a href="@_review2.ArticleUrl"><img width="393" height="221" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif"  data-original="@ImageSizes.CreateImageUrl(_review2.HostUrl, ImageSizes._393X221, _review2.OriginalImgUrl)" title="@_review2.Title" alt="@_review2.Title"></a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="padding-bottom50 text-center">
+        <a href="/expert-reviews/" class="font16">View more reviews</a>
+    </div>
+}
+</div>

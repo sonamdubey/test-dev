@@ -1,0 +1,50 @@
+﻿@model List<Carwale.Entity.CMS.Articles.ArticleSummary>
+@using Carwale.Utility;
+@using MobileWeb.Common;
+@using Carwale.BL.Advertizing;
+@{ ViewBag.Pagename = ViewBag.Pagename ?? "homepage";}
+@if (Model != null && Model.Any())
+{
+    if (ViewBag.Pagename == "modelpage")
+    {
+        <h2 class="section-heading">@ViewBag.MakeName @ViewBag.ModelName News</h2>
+    }
+    else if (ViewBag.Pagename == "makepage")
+    {
+        <h2 class="section-heading">@ViewBag.MakeName @ViewBag.ModelName News</h2>
+    }
+    <amp-carousel height="322" layout="fixed-height" type="carousel">
+        @foreach (var item in Model)
+        {
+            <div class="contentWrapper">
+                <div class="imageWrapper">
+                    <a href="@(Html.Raw(SponsoredCampaignApp.GetScript(item.BasicId.ToString() + "_clickmhome") == string.Empty ? string.Format("{0}{1}","/m", item.ArticleUrl) : SponsoredCampaignApp.GetScript(item.BasicId.ToString() + "_clickmhome")))" class="text-black" title="@item.Title">
+                        <amp-img class="max-width-100-percent" alt="@item.Title"
+                                 title="@item.Title"
+                                 src="@ImageSizes.CreateImageUrl(item.HostUrl,ImageSizes._272X153, item.OriginalImgUrl)" width="278" height="160" layout="responsive"></amp-img>
+                    </a>
+                </div>
+                <div class="carDescWrapper">
+                    <a data-vars-ec="msite_news_linkages" data-vars-ea="@(ViewBag.Pagename == "modelpage" ? "model": "make")_page_news_click" data-vars-el="@(ViewBag.Pagename == "modelpage" ? "model": "make")_page_news" href="@(Html.Raw(SponsoredCampaignApp.GetScript(item.BasicId.ToString() + "_clickmhome") == string.Empty ? string.Format("{0}{1}", "/m", item.ArticleUrl) : SponsoredCampaignApp.GetScript(item.BasicId.ToString() + "_clickmhome")))">
+                        <header>
+                            <h3 class="model-news-heading">@item.Title</h3>
+                        </header>
+                        <footer class="bg-white text-black">
+                            <p class="margin-bottom10 text-light-grey">@ExtensionMethods.ConvertDateToDays(item.DisplayDate)</p>
+                            <p class="margin-bottom10 text-light-grey">
+                                By
+                                <span class="text-bold">@item.AuthorName</span>
+                            </p>
+                        </footer>
+                    </a>
+                </div>
+            </div>
+        }
+    </amp-carousel>
+    if (ViewBag.Pagename == "modelpage")
+    {
+        <div class="text-center margin-bottom20 margin-top20">
+            <a data-vars-ec="msite_news_linkages" data-vars-ea="@(ViewBag.Pagename == "modelpage" ? "model": "make")_page_view_all_click" data-vars-el="@ViewBag.MakeName @ViewBag.ModelName" class="font14" href="/m/@CommonOpn.FormatSpecial(ViewBag.MakeName)-cars/@ViewBag.MaskingName/news/">All @ViewBag.MakeName @ViewBag.ModelName news</a>
+        </div>
+    }
+}

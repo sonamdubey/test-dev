@@ -1,0 +1,57 @@
+﻿@model Tuple<List<Carwale.DTOs.NewCars.NewCarVersionsDTOV2>, Carwale.DTOs.Campaigns.DealerAdDTO, int, bool>
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using Carwale.Entity;
+@{
+	     string makeUrl = string.Format("/m/{0}-cars/", UrlRewrite.FormatSpecial(ViewBag.MakeName));
+		<div class="swiper-container other-variants"><ul class="swiper-wrapper">
+		@foreach (var otherVariant in Model.Item1)
+        {
+            if (otherVariant.Id != Model.Item3)
+            {
+                string currentUrl = ManageCarUrl.CreateVersionUrl(ViewBag.MakeName, otherVariant.MaskingName, otherVariant.VersionMaskingName,true);
+                <li class="swiper-slide card @(Model.Item4 ? string.Empty : "collapsed")" >
+                    <div class="front">
+                        <div class="contentWrapper">
+                            <div class="carDescWrapper">
+                                <h3 class="carTitle margin-bottom5">
+                                @if(otherVariant.IsSpecsExist)
+                                {<a href='@currentUrl' title="@(ViewBag.MakeName + " " + ViewBag.ModelName + " " + otherVariant.Version)" class="text-no-decoration">@otherVariant.Version</a>}
+                                else { <span>@otherVariant.Version</span>}
+                                </h3>
+                                <p class="margin-bottom10 text-light-grey">@otherVariant.SpecsSummary</p>
+                                @if (otherVariant.CarPriceOverview != null)
+                                {
+                                <span class='font16 text-bold'>@otherVariant.CarPriceOverview.PricePrefix @otherVariant.CarPriceOverview.Price</span><br />
+                                <span class='font10 @(otherVariant.CarPriceOverview.LabelColor)'>
+                                    @otherVariant.CarPriceOverview.PriceLabel@(!string.IsNullOrWhiteSpace(otherVariant.CarPriceOverview.City.Name) ? ", " + otherVariant.CarPriceOverview.City.Name : string.Empty)
+                                    <span>@(otherVariant.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + otherVariant.CarPriceOverview.ReasonText + "</p></div>") : Html.Raw(string.Empty))</span>
+                                </span>
+                                <div class="margin-top10">
+                                    @if (otherVariant.CarPriceOverview.PriceStatus == (int)PriceBucket.NoUserCity)
+                                    {
+                                        <span class="text-link text-bold select-city-link" data-redirect-url="@currentUrl" data-role="click" data-event="CWInteractive" data-cat="ShowORPTest" data-action="@(ViewBag.TrackingPageName)_AlternativesSection_ShowPriceInMyCity" data-label="NA_@(ViewBag.MakeName)_@(ViewBag.ModelName)_NA">@System.Configuration.ConfigurationManager.AppSettings["ShowPriceInCityText"]</span>
+                                    }
+                                    @*@if (Model.Item2 != null && Model.Item2.DealerId > 0 && otherVariant.CarPriceOverview.PriceStatus != (int)PriceBucket.PriceNotAvailable)
+                                    {
+                                        if (otherVariant.CarPriceOverview.PriceStatus == (int)PriceBucket.NoUserCity)
+                                        {
+                                            <span> | </span>
+                                        }
+                                        <span class="text-link spnGetOffer getOffersVersionLink" dealercampaignexist="true" sourceclick="" isdealerexistincity="false" isgetoffers-versionlink="true" version-name="@otherVariant.Version" version-id="@otherVariant.Id" data-role="click" data-event="CWNonInteractive" data-action="Link" data-cwtccat="VersionPage" data-cwtcact="GetOffersClick" data-cwtclbl="make:@ViewBag.MakeName|model:@ViewBag.ModelName|version:@otherVariant.Version|city:@ViewBag.CityZone" data-cat="MSite-VersionPage-OtherVersionList_CampaignLink" data-predictionlabel='@(Model.Item2.PredictionData != null ? Model.Item2.PredictionData.Label : "")' data-score='@(Model.Item2.PredictionData != null ? Model.Item2.PredictionData.Score : 0)' data-label='@(ViewBag.GetOffersLinkLabel)'>
+                                            <span data-role='@(CookiesCustomers.IsEligibleForORP ? "click" : "")' data-event="CWInteractive" data-cat="ShowORPTest" data-action="@(ViewBag.TrackingPageName)_OtherVariantsSection_GetOffers" data-label="@(ViewBag.PricingEventLabel)_@(otherVariant.Version)">
+                                               Get Offers
+                                            </span>
+                                        </span>
+                                    }*@
+                                 
+                                </div>
+                                }
+                            </div>
+                            </div>
+                        </div>
+                </li>
+            }
+        }
+		</ul></div>
+}

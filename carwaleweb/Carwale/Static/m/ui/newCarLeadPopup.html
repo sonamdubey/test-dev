@@ -1,0 +1,206 @@
+<div id="emiPopup">
+    <div class="location-popup-container" id="dealerPopUpWrapper">
+        <div class="location-popup-wrapper" id="dealerPopUp-box">
+            <div id="closeDealerPopup" class="location-popup__close-button"></div>
+            <div class="location-popup" >
+                <div class="loginWithCW dealer-assitance-section location-popup__city-container" id="askcityForm">
+                    <div class="location-popup__location-icon-wrapper">
+                        <span class="location-popup-icon location-popup__location-icon"></span>
+                    </div>
+                    <p class="location-popup__title">Please tell us your city</p>
+                    <p class="location-popup__subtitle">This allows us to provide relevant content for you</p>
+                    <div class="margin-top30 material-form clear dealer-form">
+                        <div class="divCustForm step-1 leadForm">
+                            <div class="nc-pg-fields ng-div-city">
+                                <div class="globalcity-input-box">
+                                    <div class="form-control-box margin-top20 margin-bottom20" id="citySlider">
+                                        <div class="city-input-box nc-pg-fields-input-text" id="cityBox"></div>
+                                        <div class="form-control-box area-input-box nc-pg-fields-input-text" id="areaBox"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="margin-top15">
+                                <input type="button" class="btnSubmit btn-orange btn-xlg text-uppercase text-white btn-full-width font16 padding-top5 cur-pointer" data-role="none" id="btnsliderConfirmCity" value="Confirm City">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="lead-popup" class="lead-popup dealerPopup__js lead-popup-wrapper">
+        <span id="pq-popup-close-spn" class="pq-popup-close__js popup-close-btn popup-close-btn--black"></span>
+
+        <!-- MainScreen Starts -->
+        <div id="divCustInfo" class="details-wrapper">
+            <div id="popup-title" class="dealer-detail margin-bottom20">
+                <p id="spnPopupTitle" class="dealer-detail__heading"></p>
+                <p class="dealer-detail__subheading">Provide your contact details for further communication related to Test Drive, EMI options, Offers & Exchange Benefits</p>
+            </div>
+            <div id="carDetailsDiv" class="dealer-detail margin-bottom20 hide">
+                <p class="dealer-detail__heading"><span class="text-unbold">Get assistance from <span id="dealerName" class="text-bold"></span> for</span></p>
+                <div class="car-img-fold margin-top10">
+                    <img id="carImage" class="pq-m-car-img">
+                    <div id="carName" class="font16 margin-top10 margin-bottom10 text-center"></div>
+                </div>
+            </div>
+            <div class="form-container margin-bottom20 customer-info__js">
+                <div class="input-container margin-bottom20">
+                    <label class="input__title margin-bottom10" for="userName">Name</label>
+                    <input id="userName" type="text" class="user-name form-input" placeholder="Name" />
+                    <span class="input__error-message">Please enter name</span>
+                </div>
+                <div class="input-container margin-bottom20">
+                    <label class="input__title margin-bottom10" for="phoneNumber">Contact Number</label>
+                    <input id="phoneNumber" type="tel" class="contact-number form-input" placeholder="Contact Number" maxlength="10" />
+                    <span class="input__error-message">Please enter phone number</span>
+                </div>
+                <div class="input-container margin-bottom20 custEmail__js">
+                    <label class="input__title margin-bottom10" for="emailAssist">Email-id</label>
+                    <input id="emailAssist" type="text" class="email-field form-input" placeholder="Email" />
+                    <span class="input__error-message">Please enter valid email address</span>
+                </div>
+                <div class="book-test-drive text-left font16 text-green text-bold">
+                    <label><input type="checkbox" class="chkBoxBookTestDrive__js" name="" /> I'm also interested in taking a test drive</label>
+                </div>
+                <div class="book-test-drive-disclaimer testDriveDisclaimer__js text-left font12">
+                    <span>A CarWale executive will call you and assist you with scheduling your test drive</span>
+                </div>
+                <div id="cityDealerPopup" class="input-container dropdown-wrapper margin-bottom20 form-input-dropdown">
+                    <label class="input__title" for="drpCityDealerPopup">City</label>
+                    <select id="drpCityDealerPopup" class="other-dealers form-input" data-role="none" data-bind='options: pqCities, optionsText: "name", optionsValue: "id", event: { change: dealerPopupCityChange }' required></select>
+                    <span class="input__error-message">Please select option</span>
+                </div>
+                <div class="input-container dropdown-wrapper margin-bottom20 drp-dealer-list__js hide form-input-dropdown">
+                    <label class="input__title" for="otherDealerDropdown">Dealership</label>
+                    <select id="otherDealerDropdown" class="other-dealers form-input" data-role="none" data-bind='options: dealer, optionsCaption: "Select Your Nearest Dealership", optionsText: "name", optionsValue: "id", event: { change: drpDealerChange }' required></select>
+                    <span class="input__error-message">Please select option</span>
+                </div>
+            </div>
+        </div>
+        <!-- MainScreen Ends abcd-->
+        <!-- Thankyou Header Starts -->
+        <div id="postsubmitmsg" class="thankyou-header hide">
+            <p class="thankyou-header__title">Thank You <span></span>!</p>
+            <p class="thankyou-header__subtitle">A car consultant would get in touch with you shortly with assistance on your purchase.</p>
+        </div>
+        <!-- Thankyou Header Ends-->
+        <!-- Email Screen Starts -->
+        <div class="email-screen email-screen__js hide">
+            <p class="email-screen__header margin-bottom20">
+                Meanwhile you can provide your e-mail ID to recieve the price-list, brochure and other collaterals.
+            </p>
+            <div class="input-container">
+                <label class="input__title margin-bottom10" for="emailAssist">Email-id</label>
+                <input id="emailAssistOptional" type="text" class="email-field form-input" placeholder="Email" />
+                <span class="input__error-message">Please enter valid email address</span>
+            </div>
+        </div>
+        <!-- Email Screen Ends-->
+        <!-- Thankyou Screen With Image Starts -->
+        <div id="thankYouWithImage" class="thank-you-msg__js thankyou-screen hide">
+            <div class="thankyou-text">A car consultant would get in touch with you shortly to assist on your purchase.</div>
+        </div>
+
+        <!-- Thankyou Screen With Image Ends-->
+        <!-- Dealer List Starts -->
+        <div id="reqSellerAssist" class="additional-suggested-list checkbox-list multi-dealer hide">
+            <div class="padding-bottom20">
+                <div class="list-heading">
+                    <h2 class="list-heading__title mla-header__js">Other Dealers</h2>
+                    <p class="list-heading__subtitle">Check offer from other dealers</p>
+                </div>
+                <label class="select-all-label check-box">
+                    <span class="select-all__text check-box__label toggle-selection-txt__js">Select All</span>
+                    <input type="checkbox" class="select_all select_all__js">
+                    <span class="check-box__icon"></span>
+                </label>
+            </div>
+            <div class="suggested-list-details">
+                <ul id="recommedationSellerList" type="multiselect" class="suggested-list suggested-dealers multi-dealer-list" data-type="multiSelect" data-bind="foreach: SellerRecommendation">
+                    <li class="suggested-list-item">
+                        <label class="suggested-list-item__info check-box">
+                            <div class="check-box__label">
+                                <span class="suggested-dealer-name check-box__label" data-bind="text: $data.dealerDetails.name"></span>
+                                <div class="dealer-info-slug">
+                                    <span class="dealer-info__city-name" data-bind="text: $data.dealerDetails.area"></span>
+                                    <!--ko 'if': $data.dealerDetails.distance != -1 -->
+                                    <span class="dealer-info__distance" data-bind="text: Common.utils.formatNumeric($data.dealerDetails.distance) + ' km away' "></span>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                            <input type="checkbox" class="checkbox-input" data-bind="attr:{campaignId : $data.campaign.id }">
+                            <span class="check-box__icon"></span>
+                        </label>
+                    </li>
+                </ul>
+                <span data-attr="2" id="additionalDealer" class="additional-list-count">+2 More Dealers</span>
+            </div>
+        </div>
+        <!-- Dealer List Ends-->
+        <!-- Suggested Cars Starts -->
+        <div id="reqAssist" class="additional-suggested-list checkbox-list recommendation hide">
+            <div class="padding-bottom20">
+                <div class="list-heading">
+                    <h2 class="list-heading__title">Suggested Cars</h2>
+                    <p class="list-heading__subtitle">Based on your research</p>
+                </div>
+                <label class="select-all-label check-box toggle-selection-view__js">
+                    <span class="select-all__text check-box__label toggle-selection-txt__js">Select All</span>
+                    <input type="checkbox" id="selectAllCheckbox" class="select_all select_all__js">
+                    <span class="check-box__icon"></span>
+                </label>
+            </div>
+            <ul id="recommendationList" class="suggested-list suggested-cars recommendation-list" type="multiselect" data-type="multiSelect" data-bind="foreach: CampaignRecommendation">
+                <li class="suggested-list-item">
+                    <label class="suggested-list-item__info check-box suggested-car-wrapper">
+                        <div class="suggested-car__image">
+                            <img data-bind="attr: { 'src': $data.carData.carImageBase.hostUrl + '110X61' + $data.carData.carImageBase.originalImgPath }">
+                        </div>
+                        <div class="suggested-cars-info">
+                            <div class="suggested-cars-info__heading" data-bind="text: $data.carData.carMake.makeName + ' ' + $data.carData.carModel.modelName">
+                            </div>
+                            <div class="suggested-cars__amount" data-bind="text: $data.carPricesOverview.price"></div>
+                            <p class="suggested-cars-info__title" data-bind="text: $data.carPricesOverview.city.name != null ? '(On-Road ' + $data.carPricesOverview.city.name + ')' : '(' + $data.carPricesOverview.priceLabel + ')'"></p>
+                            <p class="suggested-cars-info__subtitle" data-bind="text: $data.campaign.contactName"></p>
+                        </div>
+                        <input type="checkbox" class="checkbox-input" data-bind="attr: { 'ModelId': $data.carData.carModel.modelId, 'ModelName': $data.carData.carModel.modelName, 'CampaignId': $data.campaign.id, 'MakeName':$data.carData.carMake.makeName, 'CityName':$data.carPricesOverview.city.name }">
+                        <span class="check-box__icon unchecked__js"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <!-- Suggested Cars Ends-->
+        <!-- Dealer Sorry Message Popup Code Starts !-->
+        <div class="dealer-city-popup-div text-center margin-top20 margin-left10 margin-right10 margin-bottom30 hide" id="divMassage">
+            <div class="cityPopup-box location-popup__sorry-icon-wrapper">
+                <span class="location-popup-icon location-popup__sorry-icon"></span>
+            </div>
+            <h2 class="font20"><strong>We couldn't find any dealerships in your city</strong></h2>
+        </div>
+        <!-- Dealer Sorry Message Popup Code Ends !-->
+
+        <div class="content-wrapper">
+            <input id="reqAsstncBtn" type="button" class="btn btn-orange btn-full-width lead-form-btn" value="submit" aria-label="submitbtn">
+            <p id="skipBtn" class="dealer-skip-button">
+                <span>Skip</span>
+            </p>
+            <div class="user-agreement user-agreement__js">
+                <span>
+                    By proceeding ahead you agree to CarWale
+                    <a class="visitor-agreement" href="/visitoragreement.aspx">visitor agreement</a>
+                    <span class="privacy-policy">
+                        and
+                        <a href="/privacypolicy.aspx">privacy policy</a>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="/static/m/css/dealer-lead-popup.css" rel="stylesheet" />
+<link rel="stylesheet" href="/Static/sass/partials/card-structure.css" type="text/css" />
+<link rel="stylesheet" href="/Static/sass/partials/dealer-list-card.css" type="text/css" />
+<link rel="stylesheet" href="/Static/sass/partials/newcarleadpopup.css" type="text/css" />
+<link rel="stylesheet" href="/Static/sass/partials/location-popup.css" type="text/css" />

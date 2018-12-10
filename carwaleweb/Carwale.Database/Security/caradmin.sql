@@ -1,0 +1,2 @@
+﻿CREATE USER [caradmin] WITHOUT LOGIN;
+

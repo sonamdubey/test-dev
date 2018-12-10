@@ -1,0 +1,29 @@
+﻿@import "../../partials/_reset.scss";
+@import "../../partials/_mheader.scss";
+@import "../../partials/_mbreadcrumb.scss";
+@import "../../partials/_androiddownload.scss";
+@import "../../partials/_mpagination.scss";
+@import "../../mixins/_background.scss";
+@import "../../mixins/_grid.scss";
+@import "../../mixins/_utils.scss";
+@import "../../mixins/_text.scss";
+@import "../../mixins/_padding.scss";
+@import "../../mixins/_margin.scss";
+
+@include grid-size(12);
+@include grid-size(5);
+@include grid-size(7);
+@include blackout-window;
+@include ad-div;
+@include content-box-shadow;
+@include content-inner-block(10);
+@include font-size-class(12);
+@include text-color("medium-grey");
+@include text-align("center");
+@include arr-big;
+@include padding("left",10);
+@include margin("top",10);
+@include bg-color("light-grey");
+
+.alert{ background:url(https://img.carwale.com/cw-common/bg_alert.gif) repeat-x; padding:15px; border:1px solid #F7EC64;}
+.moz-round{-moz-border-radius:3px;}

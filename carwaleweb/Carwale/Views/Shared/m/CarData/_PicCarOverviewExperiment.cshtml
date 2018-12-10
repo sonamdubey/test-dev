@@ -1,0 +1,52 @@
+﻿@using Carwale.Utility;
+@using Carwale.Entity;
+@using Carwale.UI.PresentationLogic;
+@using System.Configuration;
+@using MobileWeb.Common;
+@using Carwale.BL.CMS;
+@using Carwale.Entity.Enum;
+@using Carwale.DTOs.CMS.ThreeSixtyView;
+
+@if (Model.MobileOverviewDetails != null)
+{
+	<div id="divModel">
+								
+		<div class="text-center price-emi-block bg-white">
+			@if (Model.MobileOverviewDetails.New && !Model.MobileOverviewDetails.Futuristic)//if new car
+			{
+				<div>@{Html.RenderAction("PriceOverview", "ModelComponent", new { overview = Model.MobileOverviewDetails, isPicPage = ViewBag.IsCityPage, cityName = ViewBag.CityName, cityMaskingName = ViewBag.CityMaskingName, cityZone = ViewBag.CityZone, pricingEventAction = ViewBag.PricingEventAction, pricingEventLabel = ViewBag.PricingEventLabel, campaignDealerId = Model.MobileOverviewDetails.CampaignDealerId });}</div>
+			}
+			else if (Model.MobileOverviewDetails.Futuristic)//if upcoming car
+			{
+				<div id="discontinued" class="upcoming-label">
+					<span class="modelType">Upcoming</span>
+				</div>
+
+				<div>
+					Estimated price:
+					<span class="text-bold">₹ @(!string.IsNullOrEmpty(Model.MobileOverviewDetails.EstimatedPrice) ? Model.MobileOverviewDetails.EstimatedPrice : "N/A")</span>
+				</div>
+				if (!String.IsNullOrEmpty(Model.MobileOverviewDetails.ExpectedLaunch))
+				{
+					<div>When to expect: <span class="text-bold">@Model.MobileOverviewDetails.ExpectedLaunch</span></div>
+				}
+			}
+			else if (Model.MobileOverviewDetails.Discontinue)//if discontinued car
+			{
+				<div id="discontinued" class="upcoming-label">
+					<span class="modelType">Discontinued</span>
+				</div>
+				<div>
+					<div>
+						<span>Last recorded price</span>
+						₹
+						@(Model.MobileOverviewDetails.IsVersionPage ? Carwale.UI.Common.FormatPrice.FormatFullPrice(Model.MobileOverviewDetails.MinPrice.ToString() == "0" ? string.Empty : Model.MobileOverviewDetails.MinPrice.ToString()) : Carwale.UI.Common.FormatPrice.FormatFullPrice(Model.MobileOverviewDetails.MinPrice.ToString() == "0" ? "" : Model.MobileOverviewDetails.MinPrice.ToString(), Model.MobileOverviewDetails.MaxPrice.ToString() == "0" ? "" : Model.MobileOverviewDetails.MaxPrice.ToString()))
+					</div>
+				</div>
+			}
+		</div>
+
+	</div>
+
+	<div id="versionListPopup"></div>
+}

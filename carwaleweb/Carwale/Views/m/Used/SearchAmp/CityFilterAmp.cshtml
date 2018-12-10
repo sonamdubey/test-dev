@@ -1,0 +1,35 @@
+﻿@{
+    string currentHostUrl = Request.Url.GetLeftPart(UriPartial.Authority).Replace("http:", string.Empty).Replace("https:", string.Empty);
+}
+
+<amp-lightbox layout="nodisplay" id="city-popup" scrollable on="lightboxClose: AMP.setState({citySearchterm : ''})">
+    <div id="cityList" class="city-car-filter fixedSearchPopup popup_layer">
+        <div class="ui-corner-top top-corner">
+            <span id="btnCityBack" on="tap: city-popup.close" role="tab" tabindex="0" class="content-inner-block-10 padding-right30">
+                <span class="cwmsprite back-long-arrow-left-white margin-top5"></span>
+            </span>
+            <span class="margin-left10">Select City</span>
+        </div>
+        <div class="bg-grey content-inner-block-10 search-box cross-box-wrap">
+            <span class="cross-box" id="search-cross" on="tap:popupCityTextBox.focus, AMP.setState({citySearchterm :''})" role="tab" tabindex="1">
+            </span>
+            <input class="form-control" type="text" id="popupCityTextBox" placeholder="Type your city" autocomplete="off"
+                   on="input-debounced:AMP.setState({citySearchterm : event.value})" required="" value="" [value]="citySearchterm || ''" autofocus>
+        </div>
+        <div class="popup_content">
+            <ul id="popupCityList" class="ui-content">
+                <amp-list id="city-list" layout="fixed-height" [hidden]="(citySearchterm || '') != ''" src="@currentHostUrl/api/cities/?module=UsedSearch&ispopular=true" class="city-list" items="." height="576">
+                    <template type="amp-mustache">
+                        <li on="tap: AMP.setState({cityId : '{{cityId}}', cityName : '{{cityName}}'}),city-popup.close" role="tab" tabindex="0">{{cityName}}</li>
+                    </template>
+                </amp-list>
+                <amp-list id="citySuggest-list" layout="fixed-height" src="@currentHostUrl/api/v2/autocomplete/city/?term=&record=5&size=5&SourceId=43&showFeaturedCar=true" [height]="(citySearchterm || '') == '' ? 0 : 240"
+                          [src]="'@currentHostUrl/api/v2/autocomplete/city/?term=' + (citySearchterm || '') + '&record=5&size=5&SourceId=43&showFeaturedCar=true'" items="." height="1" reset-on-refresh>
+                    <template type="amp-mustache">
+                        <li on="tap: AMP.setState({cityId : '{{payload.cityId}}', cityName : '{{payload.cityName}}'}),city-popup.close" role="tab" tabindex="0">{{payload.cityName}}</li>
+                    </template>
+                </amp-list>
+            </ul>
+        </div>
+    </div>
+</amp-lightbox>

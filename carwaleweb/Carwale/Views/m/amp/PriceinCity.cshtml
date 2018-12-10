@@ -1,0 +1,175 @@
+﻿@model Carwale.DTOs.NewCars.PriceInCityPageDTO
+@using Carwale.Entity.Enum;
+@using Carwale.UI.HtmlHelpers;
+@using Carwale.Utility;
+@using System.Linq;
+@using System.Configuration;
+@using MobileWeb.Common;
+
+@{
+    string currentHost = Request.Url.GetLeftPart(UriPartial.Authority).Replace("http:", string.Empty).Replace("https:", string.Empty);
+    string colorCss = string.Empty;
+    if (Model.ModelDetails.ModelColors != null && Model.ModelDetails.ModelColors.Count > 0)
+    {
+        foreach (var code in Model.ModelDetails.ModelColors)
+        {
+            var hexList = code.HexCode.Split(',');
+            foreach (var hex in hexList)
+            {
+                colorCss += ".c_" + hex + "{background-color:#" + hex + ";height:" + (25 / hexList.Length) + "px}";
+            }
+        }
+    }
+    ViewBag.Title = Model.PageMetaTags.Title??string.Empty;
+    ViewBag.Description = Model.PageMetaTags.Description??string.Empty;
+    ViewBag.Canonical = Model.PageMetaTags.Canonical??string.Empty;
+    Layout = "~/views/shared/m/_MLayoutAmp.cshtml";
+    ViewBag.ModelUrl = ManageCarUrl.CreateModelUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName);
+    ViewBag.NonAmpUrl = ManageCarUrl.CreatePriceInCityUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, ViewBag.CityMaskingName);
+}
+<!-- only one style tag is allowed, and it must have an "amp-custom" attribute -->
+@section Scripts{
+    <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
+}
+@section CustomAMPCSS{
+    @Html.Partial("~/Views/StaticPartials/m/Amp/PICPageAmpCss.cshtml")@colorCss
+}
+@section Tracking{
+    <!-- Google Analytics Tracking -->
+    <amp-analytics type="googleanalytics" id="google-analytics">
+        <script type="application/json">
+            {
+            "vars":{
+            "account": "UA-337359-1"
+            },
+            "triggers":{
+            "defaultPageview":{
+            "on": "visible",
+            "request": "pageview",
+            "vars":{
+            "title": "@ViewBag.Title"
+            }
+            },
+			"tracklinkClicks":{
+			"on": "click",
+			"selector": "a[data-vars-ec], div[data-vars-ec], span[data-vars-ec]",
+			"request": "event",
+			"vars":{
+			"eventCategory": "${ec}",
+			"eventAction": "${ea}",
+			"eventLabel": "${el}"
+			}
+			},
+			"trackCarouselNext":{
+			"on": "click",
+			"selector": "#model-overview .amp-carousel-button-next",
+			"request": "event",
+			"vars":{
+			"eventCategory": "contentcons",
+			"eventAction": "msite_model_image_carousel_next_click",
+			"eventLabel": "@(Model.ModelDetails.ModelName)_amp_pic"
+			}
+			},"trackCarouselPrev":{
+			"on": "click",
+			"selector": "#model-overview .amp-carousel-button-prev",
+			"request": "event",
+			"vars":{
+			"eventCategory": "contentcons",
+			"eventAction": "msite_model_image_carousel_prev_click",
+			"eventLabel": "@(Model.ModelDetails.ModelName)_amp_pic"
+			}
+			},
+			"ampCarouselNext": {
+			"on": "amp-carousel-next",
+			"request": "event",
+			"vars":{
+			"eventCategory": "contentcons",
+			"eventAction": "msite_model_image_carousel_next",
+			"eventLabel": "@(Model.ModelDetails.ModelName)_amp_pic"
+			}
+			},
+			"ampCarouselPrev": {
+			"on": "amp-carousel-prev",
+			"request": "event",
+			"vars":{
+			"eventCategory": "contentcons",
+			"eventAction": "msite_model_image_carousel_prev",
+			"eventLabel": "@(Model.ModelDetails.ModelName)_amp_pic"
+			}
+			}
+            }
+            }
+        </script>
+    </amp-analytics>
+}
+@{Html.RenderAction("ModelMenu", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, tab = ModelMenuEnum.PriceInCity, modelDetails = Model.ModelDetails, isAmp = true, isPriceInCityPage = true });}
+
+@{Html.RenderPartial("~/Views/Shared/m/AMP/_ModelOverviewAmp.cshtml", Model);}
+
+<aside class="adblock">
+    <div id="top_banner_ad" class="adblock-content">
+        <amp-ad width=320 height=50 type="doubleclick" data-slot="/1017752/CarWale_Mobile_ROS_320x50">
+            <div placeholder></div>
+        </amp-ad>
+    </div>
+</aside>
+
+@if (Model.MobileOverviewDetails.AdAvailable && Model.MobileOverviewDetails.MinPrice > 0 && Model.MobileOverviewDetails.New)
+{
+    if (Model.DealerDetails != null && MobileWeb.Common.CookiesCustomers.MasterCityId > 0)
+    {
+        { Html.RenderPartial("~/Views/Shared/m/AMP/_DealerLocatorSlugAMP.cshtml", Model.DealerDetails); }
+    }
+    else
+    {
+        { Html.RenderPartial("~/Views/Shared/m/AMP/_GenericDealerSlugAMP.cshtml", Model.DealerAd); }
+    }
+}
+
+@*Variant-list code starts here*@
+
+ <section id="model-variant-section">
+     @if (Model.VariantList != null && Model.VariantList.ShowVariantList)
+     {
+         { Html.RenderPartial("~/Views/Shared/m/AMP/_ModelVariantsTableAmp.cshtml", Model.VariantList); }
+     }
+        
+</section>
+
+@if (Model.ModelDetails != null)
+{
+    if (Model.ModelDetails.New)
+    {
+        <section id="model-price-other-city">
+            @{
+            Html.RenderAction("PriceInOtherCities", "CarWidgets", new { cityId = ViewBag.CityId, cityName = ViewBag.CityName??string.Empty, modelDetails = Model.ModelDetails, modelId = Model.ModelDetails.ModelId, isAmp = true });
+            Html.RenderAction("PriceInOtherCities", "CarWidgets", new { cityId = -1, cityName = string.Empty, modelDetails = Model.ModelDetails, excludedCities = new List<int>{ ViewBag.CityId }, modelId = Model.ModelDetails.ModelId, isAmp = true });
+            }
+         </section>
+    }
+}
+
+@if (Model.SimilarCars != null && Model.SimilarCars.SimilarCarModels.IsNotNullOrEmpty())
+{
+    <section id="model-alternatives">
+        @{Html.RenderPartial("~/Views/Shared/m/AMP/_AlternateCarCarouselAmp.cshtml", Model.SimilarCars);}
+    </section>
+}
+<section id="make-dealers" class="margin-top15">
+    @{ Html.RenderPartial("m/cardata/_NewCarDealer", Model.DealersList.NewCarDealers); }
+</section>
+@if (Model.ModelDetails.New && Model.MobileOverviewDetails.AdAvailable)
+{
+    <div id="callslug" class="m-call-slug">
+        <a href="@ViewBag.NonAmpUrl?q=lead&propertyid=5" class="dealer-call-slug"
+           data-vars-ea="@ViewBag.GetOffersEventAction" data-vars-ec="ShowORPTest" data-vars-el="@(ViewBag.PricingEventLabel)_NA">Get Offers from Dealers</a>
+    </div>
+}
+<section>
+	<div class="breadcrum">
+		<a href="/m/">Home</a> ›
+		<a href="@ManageCarUrl.CreateMakeUrl(Model.ModelDetails.MakeName,true)">@Model.ModelDetails.MakeName</a> ›
+			<a href="@ViewBag.ModelUrl">@Model.ModelDetails.ModelName</a> ›
+			<span>@Model.ModelDetails.ModelName Price in @ViewBag.CityName</span>
+	</div>
+</section>

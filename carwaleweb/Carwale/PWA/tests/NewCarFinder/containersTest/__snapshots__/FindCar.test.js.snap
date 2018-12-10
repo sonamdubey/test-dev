@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests for FindCar component should render a Redirect to /select-city 1`] = `
+<FindCar
+  cityId={1}
+  nextPath="/find-car/filters/budget/"
+  setCity={[Function]}
+/>
+`;

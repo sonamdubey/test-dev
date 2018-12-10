@@ -1,0 +1,309 @@
+﻿@using Carwale.Utility;
+@using Carwale.Entity;
+@using Carwale.UI.PresentationLogic;
+@using System.Configuration;
+@using MobileWeb.Common;
+@using Carwale.BL.CMS;
+@using Carwale.Entity.Enum;
+@using Carwale.DTOs.CMS.ThreeSixtyView;
+@{
+		bool is360Available = CMSCommon.IsThreeSixtyViewAvailable(Model.ModelDetails);
+		ThreeSixtyViewCategory default360Category = CMSCommon.Get360DefaultCategory(AutoMapper.Mapper.Map<ThreeSixtyAvailabilityDTO>(Model.ModelDetails));
+		string threeSixtyPageUrl = EditorialContent.Get360PageUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, default360Category, true);
+		string linkageImageUrl = default360Category == ThreeSixtyViewCategory.Interior ? CMSCommon.Get360ModelCarouselLinkageImageUrl(Model.ModelDetails, true) : CMSCommon.Get360ModelCarouselLinkageImageUrl(Model.ModelDetails);
+		string ratingLinkCategory = Model.MobileOverviewDetails.IsVersionPage ? $"{CwPages.VersionMsite}LinkClick" : ViewBag.IsCityPage ? $"{CwPages.PicMsite}LinkClick" : $"{CwPages.ModelMsite}LinkClick";
+		string ratingLabel = Model.MobileOverviewDetails.IsVersionPage ? $"modelId={Model.ModelDetails.ModelId}|versionId={Model.MobileOverviewDetails.VersionId}" : $"modelId={Model.ModelDetails.ModelId}";
+        var campaignDealerId = Model.DealerAd != null && Model.DealerAd.Campaign != null ? String.Format("{0}_{1}", Model.DealerAd.Campaign.Id, Model.DealerAd.Campaign.DealerId) : "0";
+	}
+@if (Model.MobileOverviewDetails != null)
+{
+    <div id="divModel">
+        @if (Model.ModelDetails != null && Model.ModelDetails.ModelRating > 0)
+        {
+            <div class="margin-bottom10 margin-left10">
+                <span class="rating-sprite @MobileWeb.Common.CommonOpn.GetRateImage(Model.ModelDetails.ModelRating) margin-right5"></span>
+                <span itemscope itemtype="http://schema.org/Car" class="review-class">
+                    <meta itemprop="name" content="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName" />
+                    <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                        <meta itemprop="ratingValue" content="@Math.Round((decimal)Model.ModelDetails.ModelRating, 2).ToString()" />
+                        <meta itemprop="worstRating" content="1" />
+                        <meta itemprop="bestRating" content="5" />
+                        <a title="User Review of @Model.ModelDetails.ModelName" href="/m/@Carwale.UI.Common.UrlRewrite.FormatSpecial(Model.ModelDetails.MakeName)-cars/@Model.ModelDetails.MaskingName/userreviews/">
+                            <span itemprop="reviewCount">
+                                @Html.Raw(Model.ModelDetails.ReviewCount != null ? Model.ModelDetails.ReviewCount.ToString() : "")
+                            </span>reviews
+                        </a> <span>|</span>
+                        <a title="User Review of @Model.ModelDetails.ModelName" href=@ManageCarUrl.CreateRatingPageUrl(Model.ModelDetails.ModelId, Model.MobileOverviewDetails.IsVersionPage ? Model.MobileOverviewDetails.VersionId : 0)
+						    data-cwtccat="RatingLinkage" data-cwtcact=@ratingLinkCategory data-cwtclbl=@ratingLabel
+                           data-role="click" data-event="CWInteractive" data-cat="msite_user_review" data-action="model_write_review_link" data-label="@(Carwale.UI.Common.UrlRewrite.FormatSpecial(Model.ModelDetails.MakeName) + '_' + Model.ModelDetails.MaskingName)">
+                            Write Review
+                        </a>
+                    </span>
+                </span>
+            </div>
+        }
+        else if (!Model.ModelDetails.Futuristic)
+        {
+            <div class="margin-bottom10 margin-left10 m-special-skin-text">
+                Not rated yet,
+                <a title="User Review of @Model.ModelDetails.ModelName" href=@ManageCarUrl.CreateRatingPageUrl(Model.ModelDetails.ModelId, Model.MobileOverviewDetails.IsVersionPage ? Model.MobileOverviewDetails.VersionId : 0) data-cwtccat="RatingLinkage" data-cwtcact=@ratingLinkCategory data-cwtclbl=@ratingLabel
+                   data-role="click" data-event="CWInteractive" data-cat="msite_user_review" data-action="model_write_review_link" data-label="@(Carwale.UI.Common.UrlRewrite.FormatSpecial(Model.ModelDetails.MakeName)+'_'+Model.ModelDetails.MaskingName)">
+                    Be the first one to write a review
+                </a>
+            </div>
+        }
+        <div id="cwmLoadingIcon" class="m-loading-popup hide">
+            <span class="m-loading-icon"></span>
+        </div>
+        <div class="text-black content-box-shadow margin-bottom20 position-rel" id="divModelImg">
+            @if (Model.ModelPhotosListCarousel != null && Model.ModelPhotosListCarousel.Count > 0)
+            {
+                int carouselImageCount = 0;
+                Int32.TryParse(ConfigurationManager.AppSettings["ModelImageCarouselCount"], out carouselImageCount);
+                int imageCount = Model.ModelPhotosListCarousel.Count;
+                int index = 0;
+                int linkageIndex = is360Available ? ((imageCount < 3) ? imageCount - 1 : 2) : -1;
+                <div style="min-height:180px" class="carmodel-image-swipper">
+                    <div class="swiper-container noSwiper margin-top10 carmodel-image-swipper-container">
+                        <ul class="swiper-wrapper">
+                            @for (int i = 0; i < imageCount; i++, index++)
+                            {
+                                if (index == linkageIndex)
+                                {
+
+                                    <li class="swiper-slide" data-index=@(index + 1)>
+                                        <a class="swiper-overlay-bg text-center" href="@threeSixtyPageUrl" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_linkages" data-action=@("image_carousel_" + (linkageIndex + 1)) data-label="@Model.MobileOverviewDetails.CarName">
+                                            <div class="center-container">
+                                                <span class="swiper-slide__360-icon"
+                                                      data-role="inview-imp" data-event='CWNonInteractive' data-cat='msite_360_linkages' data-action='image_carousel_impressions_@(index+1)' data-label="@Model.MobileOverviewDetails.CarName">
+                                                </span>
+                                                <span class="experience-now-button text-center">VIEW THE CAR</span>
+                                            </div>
+                                        </a>
+
+                                        <div data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-label="@Model.MobileOverviewDetails.ModelName" data-action="msite_model_image_carousel_click" class="imageWrapper swiper-imgLoader">
+                                            <a href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.MobileOverviewDetails.MakeName, Model.MobileOverviewDetails.MaskingName, Model.ModelPhotosListCarousel[i].ImageName, Model.ModelPhotosListCarousel[i].ImageId,true)">
+                                                <img class="swiper-lazy" data-src="@(Carwale.Utility.ImageSizes.CreateImageUrl(Model.ModelPhotosListCarousel[i].HostUrl, ImageSizes._370X208, ((i == linkageIndex) ? linkageImageUrl : Model.ModelPhotosListCarousel[i].OriginalImgPath)))" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" alt="@Model.ModelPhotosListCarousel[i].ImageName" title="@(Model.ModelPhotosListCarousel[i].ImageName?.Replace("-", " "))" />
+                                            </a>
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+
+                                    </li>
+                                    index++;
+                                }
+                                if (i == carouselImageCount)
+                                {
+                                    <li class="swiper-slide" data-index="@(index + 1)">
+                                        <div data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-label="@Model.MobileOverviewDetails.ModelName" data-action="msite_model_image_carousel_click" class="imageWrapper swiper-imgLoader">
+                                            <a href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.MobileOverviewDetails.MakeName, Model.MobileOverviewDetails.MaskingName, Model.ModelPhotosListCarousel[i].ImageName, Model.ModelPhotosListCarousel[i].ImageId, true)">
+                                                <img class="swiper-lazy" data-src="@(Carwale.Utility.ImageSizes.CreateImageUrl(Model.ModelPhotosListCarousel[i].HostUrl, ImageSizes._370X208, ((i == linkageIndex) ? linkageImageUrl : Model.ModelPhotosListCarousel[i].OriginalImgPath)))" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" alt="@Model.ModelPhotosListCarousel[i].ImageName" title="@(Model.ModelPhotosListCarousel[i].ImageName?.Replace("-", " "))" />
+                                            </a>
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                        <div class="swiper-overlay-bg">
+                                            <div class="@("center-container link-container" + (is360Available ? "" : "text-center"))">
+                                                <a href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.MobileOverviewDetails.MakeName, Model.MobileOverviewDetails.MaskingName, Model.ModelPhotosListCarousel[i].ImageName, Model.ModelPhotosListCarousel[i].ImageId, true)" data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-label="@Model.MobileOverviewDetails.ModelName" data-action="msite_model_image_carousel_view_all">
+                                                    <div class="icons-container text-center">
+                                                        <div class="center-container image-link-container__item">
+                                                            <span class="media-image-icon-24"></span>
+                                                            <span class="inline-block text-white block">+@(Model.ModelDetails.PhotoCount - carouselImageCount) Images</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                @if (is360Available)
+                                                {
+                                                    <a class="carousel-360-link position-abt pos-right10" href="@threeSixtyPageUrl" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_linkages" data-action="image_carousel" data-label="@Model.MobileOverviewDetails.CarName">
+                                                        <div class="icons-container text-center rightfloat"
+                                                             data-role="inview-imp" data-event='CWNonInteractive' data-cat='msite_360_linkages' data-action='image_carousel_impressions' data-label="@Model.MobileOverviewDetails.CarName">
+                                                            <div class="center-container image-link-container__item">
+                                                                <span class="icons-container__new-icon"></span>
+                                                                <span class="icons-container__three-sixty-icon"></span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </li>
+                                    index++;
+                                }
+                                else
+                                {
+                                    <li class="swiper-slide" data-index="@(index + 1)">
+                                        <div data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-label="@Model.MobileOverviewDetails.ModelName" data-action="msite_model_image_carousel_click" class="imageWrapper swiper-imgLoader">
+                                            <a href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.MobileOverviewDetails.MakeName, Model.MobileOverviewDetails.MaskingName, Model.ModelPhotosListCarousel[i].ImageName, Model.ModelPhotosListCarousel[i].ImageId, true)">
+                                                <img class="swiper-lazy" data-src="@(Carwale.Utility.ImageSizes.CreateImageUrl(Model.ModelPhotosListCarousel[i].HostUrl, ImageSizes._370X208, Model.ModelPhotosListCarousel[i].OriginalImgPath)))" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" alt="@Model.ModelPhotosListCarousel[i].ImageName" title="@(Model.ModelPhotosListCarousel[i].ImageName?.Replace("-", " "))" />
+                                            </a>
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                    </li>
+                                }
+                                if (Model.ModelVideos != null && Model.ModelVideos.Count > 0 && index == (imageCount > 4 ? 4 : imageCount - 1))
+                                {
+                                    <li class="swiper-slide video-card" data-index=@(index + 1)>
+                                        <div data-role="click-tracking" data-event="CWInteractive" data-cat="msite_video_linkages" data-label="@Model.MobileOverviewDetails.MakeName @Model.MobileOverviewDetails.ModelName" data-action="@(Model.MobileOverviewDetails.IsVersionPage ? "variant_page_image_carousel" : "model_page_image_carousel")" class="imageWrapper swiper-imgLoader">
+                                            <a href="@Carwale.BL.CMS.CMSCommon.GetVideoUrl(Model.MobileOverviewDetails.MakeName, Model.MobileOverviewDetails.MaskingName, Model.ModelVideos[0].SubCatName, Model.ModelVideos[0].BasicId,true)">
+                                                <img class="swiper-lazy" data-src="@("https://img.youtube.com/vi/" + Model.ModelVideos[0].VideoId + "/mqdefault.jpg")" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" alt="@Model.ModelVideos[0].VideoTitle" title="@Model.ModelVideos[0].VideoTitle" />
+                                                <span class="youtube-video-icon carousel-yt-icon"
+                                                      data-role="inview-imp" data-event="CWNonInteractive" data-cat="msite_video_linkages" data-label="@Model.MobileOverviewDetails.MakeName @Model.MobileOverviewDetails.ModelName" data-action="@(Model.MobileOverviewDetails.IsVersionPage ? "variant_page_image_carousel_imp" : "model_page_image_carousel_imp")">
+                                                </span>
+                                            </a>
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
+                                    </li>
+                                    index++;
+                                }
+                            }
+                        </ul>
+                        <div class="clear"></div>
+                        <div class="swiper-pagination swiper-pagination-white hide"></div>
+                        @if (index > 1)
+                        {
+                            <div data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-label="@Model.MobileOverviewDetails.ModelName" data-action="msite_model_image_carousel_next_click" class="arrow-fff-10 model-swiper-next-btn"></div>
+                            <div data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-label="@Model.MobileOverviewDetails.ModelName" data-action="msite_model_image_carousel_prev_click" class="arrow-fff-10 model-swiper-prev-btn"></div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="text-center">
+                    <img title="@Model.MobileOverviewDetails.CarName" alt="@Model.MobileOverviewDetails.CarName" src="@Carwale.Utility.ImageSizes.CreateImageUrl(Model.MobileOverviewDetails.HostUrl, @Carwale.Utility.ImageSizes._272X153, Model.MobileOverviewDetails.OriginalImage)" onerror="this.onerror=null;this.src='@( Carwale.Utility.CWConfiguration._imgHostUrl)310x174/cw/cars/no-cars.jpg';" class="overview-model-image" />
+                </div>}
+
+            @if (Model.ModelDetails.PhotoCount > 0 || is360Available)
+            {
+                int count = 0;
+                <ul class="list-type-pills text-right">
+                    @if (Model.ModelDetails != null && Model.ModelDetails.PhotoCount > 0)
+                    {
+                        <li class="list-type-pills__item">
+                            <a href="/m/@Format.RemoveSpecialCharacters(Model.MobileOverviewDetails.MakeName)-cars/@Model.MobileOverviewDetails.MaskingName/images/" class="item--padding" data-role="click-tracking" data-event="CWInteractive" data-cat="contentcons" data-action="@((Model.MobileOverviewDetails.IsVersionPage ? "version" : (ViewBag.IsCityPage ? "price_in_city" : "model")) + "_page_photo_count")" data-label="@(Model.MobileOverviewDetails.CarName)">
+                                <span class="media-image-icon item--icon-right-margin"></span><span class="list-item__label">Images (@Model.ModelDetails.PhotoCount)</span>
+                            </a>
+                        </li>
+                        count++;
+                    }
+                    @if (Model.ModelDetails != null && Model.ModelDetails.IsModelColorPhotosAvailable && Model.ModelDetails.ModelColors != null)
+                    {
+                        <li class="list-type-pills__item" data-role="impression" data-event="CWNonInteractive" data-cat="msite_colour_linkages" data-action="@((Model.MobileOverviewDetails.IsVersionPage ? "version" : (ViewBag.IsCityPage ? "price_in_city" : "model"))+"_page_imp")" data-label="@Model.MobileOverviewDetails.MakeName @Model.MobileOverviewDetails.ModelName">
+                            <a href="@EditorialContent.GetColorUrl(Model.MobileOverviewDetails.MakeName, Model.MobileOverviewDetails.MaskingName, null, 0,true)" class="video-link-padding" data-role="click" data-event="CWInteractive" data-cat="msite_colour_linkages" data-action="@((Model.MobileOverviewDetails.IsVersionPage ? "version" : (ViewBag.IsCityPage ? "price_in_city" : "model")) + "_page")" data-label="@Model.MobileOverviewDetails.MakeName @Model.MobileOverviewDetails.ModelName">
+                                <span class="media-color-icon item--icon-right-margin"></span>
+                                <span class="list-item__label">Colours (@Model.ModelDetails.ModelColors.Count)</span>
+                            </a>
+                        </li>
+                        count++;
+                    }
+                    @if (is360Available)
+                    {
+                        <li class="list-type-pills__item" data-role="impression" data-event="CWNonInteractive" data-cat="msite_360_linkages" data-action="@((Model.MobileOverviewDetails.IsVersionPage ? "version" : (ViewBag.IsCityPage ? "price_in_city" : "model")) + "_page_impression")" data-label="@Model.MobileOverviewDetails.CarName">
+                            <a class="list-item__label item--360-padding" href="@threeSixtyPageUrl" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_360_linkages" data-action="@((Model.MobileOverviewDetails.IsVersionPage ? "version" : (ViewBag.IsCityPage ? "price_in_city" : "model")) + "_page")" data-label="@(Model.MobileOverviewDetails.CarName)">
+                                <span class="list-item__icon blue-360-24-17"></span>
+                            </a>
+                        </li>
+                        count++;
+                    }
+                    @if (Model.ModelDetails != null && Model.ModelVideos != null && Model.ModelVideos.Count > 0 && count < 3)
+                    {
+                        <li class="list-type-pills__item" data-role="impression" data-event="CWNonInteractive" data-cat="msite_video_linkages" data-action="@((Model.MobileOverviewDetails.IsVersionPage ? "version" : (ViewBag.IsCityPage ? "price_in_city" : "model"))+"_page_imp")" data-label="@Model.MobileOverviewDetails.MakeName @Model.MobileOverviewDetails.ModelName">
+                            <a href="@String.Format("/m{0}",Model.ModelVideos[0].VideoTitleUrl)" class="video-link-padding" data-role="click" data-event="CWInteractive" data-cat="msite_video_linkages" data-action="@((Model.MobileOverviewDetails.IsVersionPage ? "version" : (ViewBag.IsCityPage ? "price_in_city" : "model")) + "_page")" data-label="@Model.MobileOverviewDetails.MakeName @Model.MobileOverviewDetails.ModelName">
+                                <span class="media-video-icon"></span>
+                                <span class="list-item__label">@Model.ModelVideos.Count</span>
+                            </a>
+                        </li>
+                    }
+                </ul>}
+            <div class="content-inner-block-10">
+                @if (Model.MobileOverviewDetails.New && Model.MobileOverviewDetails.VersionId > 0 && !Model.MobileOverviewDetails.Futuristic)
+                {
+                    bool cityUnavailable = string.IsNullOrWhiteSpace(ViewBag.CityName) || ViewBag.CityName == "Select City";
+                    <div class="model-city-version">
+                        <div class="newcar-version city-version-unit" onclick="openModelVersionPopup(@Model.MobileOverviewDetails.ModelId,@(cityUnavailable?-1:(Model.MobileOverviewDetails.UserLocation.CityId)),'@(ViewBag.IsCityPage.ToString())','@(ViewBag.IsVersionPage.ToString())');" data-role="click" data-event="CWInteractive" data-cat="ShowORPTest" data-action="@(ViewBag.TrackingPageName)_ChangeVersion" data-label="@(ViewBag.PricingEventLabel)@(Model.MobileOverviewDetails.IsVersionPage ? "" : "_NA")">
+                            <p class="city-version-title text-light-grey">
+                                Version&nbsp;
+                                <span class="fa fa-caret-right"></span>
+                            </p>
+                            <p class="city-version-content">@(Model.MobileOverviewDetails.VersionName)</p>
+                        </div>
+                        <div class="city-version-divider"></div>
+                        <div class="@(cityUnavailable ? " city-version-unit-show-price " : " ") newcar-city city-version-unit select-city-link"
+                             data-role="click" data-event="CWInteractive" data-cat="ShowORPTest" data-action="@(ViewBag.TrackingPageName)_ChangeCity"
+                             data-label="@(ViewBag.PricingEventLabel)@(Model.MobileOverviewDetails.IsVersionPage ? " " : "_NA ")" @(ViewBag.IsCityPage ? "data-areamandatory=false" : "") data-cityid="@(cityUnavailable?-1:(Model.MobileOverviewDetails.CarPriceOverview.City.Id))" data-cityname="@(cityUnavailable?"":ViewBag.CityName)" data-location-postcallback="@(ViewBag.IsCityPage?"globalLocation.coreInstance.manualTriggerChangeEvent;":"undefined")">
+                            @if (cityUnavailable)
+                            {
+                                <a class="text-link text-bold">
+                                    @System.Configuration.ConfigurationManager.AppSettings["ShowPriceInCityText"]
+                                </a>
+                            }
+                            else
+                            {
+                                <p class="city-version-title text-light-grey">
+                                    City&nbsp;
+                                    <span class="fa fa-caret-right"></span>
+                                </p>
+                                <p class="city-version-content">@ViewBag.CityName</p>
+                            }
+                        </div>
+                    </div>
+                }
+                <div class="text-center price-emi-block">
+                    @if (Model.MobileOverviewDetails.New && !Model.MobileOverviewDetails.Futuristic)//if new car
+                    {
+                        <div>@{Html.RenderAction("PriceOverview", "ModelComponent", new { overview = Model.MobileOverviewDetails, isPicPage = ViewBag.IsCityPage, cityName = ViewBag.CityName, cityMaskingName = ViewBag.CityMaskingName, cityZone = ViewBag.CityZone, pricingEventAction = ViewBag.PricingEventAction, pricingEventLabel = ViewBag.PricingEventLabel, campaignDealerId= campaignDealerId });}</div>
+                    }
+                    else if (Model.MobileOverviewDetails.Futuristic)//if upcoming car
+                    {
+                        <div id="discontinued" class="upcoming-label">
+                            <span class="modelType">Upcoming</span>
+                        </div>
+
+                        <div>
+                            Estimated price:
+                            <span class="text-bold">₹ @(!string.IsNullOrEmpty(Model.MobileOverviewDetails.EstimatedPrice) ? Model.MobileOverviewDetails.EstimatedPrice : "N/A")</span>
+                        </div>
+                        if (!String.IsNullOrEmpty(Model.MobileOverviewDetails.ExpectedLaunch))
+                        {
+                            <div>When to expect: <span class="text-bold">@Model.MobileOverviewDetails.ExpectedLaunch</span></div>
+                        }
+                    }
+                    else if (Model.MobileOverviewDetails.Discontinue)//if discontinued car
+                    {
+                        <div id="discontinued" class="upcoming-label">
+                            <span class="modelType">Discontinued</span>
+                        </div>
+                        <div>
+                            <div>
+                                <span>Last recorded price</span>
+                                ₹
+                                @(Model.MobileOverviewDetails.IsVersionPage ? Carwale.UI.Common.FormatPrice.FormatFullPrice(Model.MobileOverviewDetails.MinPrice.ToString() == "0" ? string.Empty : Model.MobileOverviewDetails.MinPrice.ToString()) : Carwale.UI.Common.FormatPrice.FormatFullPrice(Model.MobileOverviewDetails.MinPrice.ToString() == "0" ? "" : Model.MobileOverviewDetails.MinPrice.ToString(), Model.MobileOverviewDetails.MaxPrice.ToString() == "0" ? "" : Model.MobileOverviewDetails.MaxPrice.ToString()))
+                            </div>
+                        </div>
+                    }
+                </div>
+                @if (Model.MobileOverviewDetails.ReplacedModelDetails != null && (Model.WhatsNew==null?true:Model.WhatsNew.PageList==null) && Model.ModelDetails.ModelLaunchDate.AddDays(30) > DateTime.Now.Date )
+                {
+                    <div class="margin-top10 font16 text-center">
+                        <a href="@Model.MobileOverviewDetails.ReplacedModelDetails.CompareCarUrl">
+                            Compare with @Model.MobileOverviewDetails.ReplacedModelDetails.ModelName
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    
+        
+        if (Model.ModelDetails.Futuristic && Model.ModelDetails.ModelId == CWConfiguration.MahindraMozarroModelid)
+        {
+            <div class="grid-12 margin-bottom20 position-rel">
+                <div class="request-callback-box content-box-shadow">
+                    @{ Html.RenderPartial("~/Views/Shared/ES/_LeadForm.cshtml"); }
+                </div>
+            </div>
+        }
+
+        <div class="clear"></div>
+
+        <div id="versionListPopup"></div>
+}
+

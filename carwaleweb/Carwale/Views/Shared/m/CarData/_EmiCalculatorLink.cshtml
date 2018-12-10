@@ -1,0 +1,179 @@
+﻿@model Carwale.DTOs.CarData.CarOverviewDTOV2
+@using Carwale.Entity.Enum;
+@using Carwale.Entity;
+@using Newtonsoft.Json;
+
+@{
+    var emiCalculatorData = Model.EmiCalculatorModelData;
+    string userlocation =  Model.UserLocation != null ? JsonConvert.SerializeObject(Model.UserLocation) : "";
+}
+
+@if(emiCalculatorData != null)
+    {
+
+    <div class="emi-links__container">
+        @if (emiCalculatorData.IsEligibleForThirdPartyEmi)
+        {
+            var thirdPartyDetails = emiCalculatorData?.ThirdPartyEmiDetails;
+
+            <div class="font12 text-light-grey emi-text margin-top15 ">
+                <div class="customize-emi__text">
+                    <div class="emi-unit-text" style="display: none;"></div>
+                    <div class="emi-cacl-result @(thirdPartyDetails == null ? "hide":"")">
+                        @if(Model.ShowChangeTextLink)
+                        {
+                            <span>
+                            EMI <span class="emi-value__js"> @(thirdPartyDetails != null ? thirdPartyDetails.Emi : "0") </span> for <span class="tenure-value__js">
+                                    @(thirdPartyDetails != null ? thirdPartyDetails.Tenure : "0")
+                                </span> Years
+                                <span class="font12 customize-emi customise-emi-link js-emi-summary-link emi-link customize-emi--abtest customize-emi__change-btn" data-popup="loanSummary" id="@(emiCalculatorData.UniqueKey)">
+                                     Change
+                                </span>
+                            </span>        
+                        }
+                        else
+                        {
+                            <span>
+                            EMI <span class="emi-value__js"> @(thirdPartyDetails != null ? thirdPartyDetails.Emi : "0") </span> for <span class="tenure-value__js">
+                                    @(thirdPartyDetails != null ? thirdPartyDetails.Tenure : "0")
+                            </span> Years
+                            </span>
+                        }
+
+                        <span id="nocamp-model-info-tooltip" class="info-icon deals-car-sprite inline-block ad-tooltip stable-tooltip"></span><div class="emi-tooltip">
+                            <div class="nocamp-model-info-content hide font12 customize-emi__info">
+                                EMI Calculated based on <span class="thirdPartyEmiType__js"> @(thirdPartyDetails != null ? Enum.GetName(typeof(EmiType), thirdPartyDetails.EmiType) : "") </span> EMI scheme offered by @(emiCalculatorData.MakeName) Financial Services.
+                                For exact EMI quotes please get in touch an authorised personnel from @(emiCalculatorData?.MakeName == null ? "":emiCalculatorData?.MakeName) Financial Services.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            if(Model.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity)
+            {
+                <div class="finacial-services-slug @(thirdPartyDetails == null ? " hide ":"")">
+                    <span id="js-poweredBy" data-role="@(thirdPartyDetails == null ? " ":"impression")" 
+                          data-event="CWNonInteractive" 
+                          data-cat="Msite_VWFS" 
+                          data-action="@(emiCalculatorData.PageName)_VWFSSlug" 
+                          data-label="@(emiCalculatorData.MakeName + "_"+ emiCalculatorData.ModelName)"
+                          class="finacial-services-slug__text" aria-label="Finacial Service Slug Powered By">Powered by</span>
+
+                    <span class="finacial-services-slug--logo">
+                        <img class="finacial-services-slug--logo__image thirdPartyLogoImg__js finacial-services-slug-@(emiCalculatorData.MakeName.ToLower())__img" alt="@emiCalculatorData.MakeName Financial Services" aria-label="@emiCalculatorData.MakeName Financial Services" src='@(thirdPartyDetails != null ? thirdPartyDetails.ImageUrl : "https://imgd.aeplcdn.com/0x0/cw/es/specials/volkswagen/finance-logos/vw-finance-logo.png?q=85")' />
+                    </span>
+
+                </div>
+            }
+        }
+        else
+        {
+            <div class="font12 text-light-grey emi-text @(Model.PageId != (int)CwPages.PicMsite ? "margin-top15 " : "")">
+                <div class="customize-emi__text" data-divtxtid="@(Model.EmiCalculatorModelData.UniqueKey)">
+                    <div class="emi-unit-text">
+                    </div>
+                    <div class="emi-cacl-result @(Carwale.Utility.CustomParser.parseIntObject(Model.EmiCalculatorModelData.DownPaymentMinValue) > 0 ? "" : "hide" )">
+                        @if(Model.ShowChangeTextLink)
+                        {
+
+                            <span class="emi-present-text">EMI <span class="emi-amount-text"></span>&nbsp;for&nbsp;<span class="emi-tenure-text"></span>&nbsp;</span>
+                            <span class="font12 customize-emi customise-emi-link js-emi-summary-link emi-link customize-emi--abtest customize-emi__change-btn" data-popup="loanSummary" id="@(emiCalculatorData.UniqueKey)">
+                                <span class="change-absent-text hide">
+                                    Change
+                                </span>
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="emi-present-text">EMI <span class="emi-amount-text"></span>&nbsp;for&nbsp;<span class="emi-tenure-text"></span></span>
+                        }
+                        <span class="emi-absent-text hide">Please increase loan amount</span>
+
+                        @if(!Model.ShowChangeTextLink)
+                        {
+                            if (Model.AdAvailable)
+                            {
+                                <span id="camp-model-info-tooltip" class="ad-tooltip info-icon-container" data-assigned-id="@(Model.IsVersionPage ? (int)CwPages.VersionMsite : (int)CwPages.ModelMsite)" title="" data-label="@((Model.IsToolTipCampaign ? "campaign_" + Model.CampaignTemplates[(int)PageProperties.ToolTip].Id : string.Empty))">
+                                    <span class="info-icon deals-car-sprite inline-block"></span>
+                                </span>
+                                <div class="emi-tooltip" data-tooltiptextid="@(Model.EmiCalculatorModelData.UniqueKey)">
+                                    <div class="camp-model-info-content hide font12 customize-emi__info">
+                                        EMI Calculated basis <span class="emi-interest-text">9.5</span>% interest rate and loan tenure of <span class="emi-tenure-text">5</span><span class="emi-cust-tenure-end-text">.</span> <span class="emi-cust-final-text hide"> as customised by you.</span>
+                                        For exact EMI quotes please get in touch with your <a id="authDealer" class="cur-pointer" pageid="@Model.PageId" sourceclick="163" emiadavailable="true" data-assigned-id="@(Model.IsVersionPage)" dealercampaignexist="@Model.AdAvailable.ToString()" isdealerexistincity="false" data-assigned-id="@(Model.IsVersionPage)" modelid=@Model.ModelId versionid="@Model.VersionId" campaigncta campaignid_dealerid=@Model.CampaignDealerId propertyid="6" data-user-location='@(userlocation)'>Authorized Dealer</a>
+
+                                        @if (Model.IsToolTipCampaign)
+                                        {
+                                            <div>
+                                                <span> or check out our</span>
+                                                <div class="inline-block" data-event="CWInteractive" data-role="click-tracking" data-action="@(Model.IsVersionPage ? "VersionPage_ToolTip_m" : "ModelPage_ToolTip_m")" data-cat="SponsoredLink_Click" data-label="campaign_@(Model.CampaignTemplates[(int)PageProperties.ToolTip].Id)">
+                                                    @Html.Raw(Model.CampaignTemplates[(int)PageProperties.ToolTip].Name)
+                                                </div>
+                                                <span>.</span>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <span id="nocamp-model-info-tooltip" class="info-icon deals-car-sprite inline-block ad-tooltip stable-tooltip" data-assigned-id="@(Model.IsVersionPage ? (int)CwPages.VersionMsite : (int)CwPages.ModelMsite)" title="" data-label="@(Model.IsToolTipCampaign ? "campaign_" + Model.CampaignTemplates[(int)PageProperties.ToolTip].Id : string.Empty)"></span>
+
+                                <div class="emi-tooltip" data-tooltiptextid="@(Model.EmiCalculatorModelData.UniqueKey)">
+                                    <div class="nocamp-model-info-content hide font12 customize-emi__info">
+                                        EMI Calculated basis <span class="emi-interest-text">9.5</span>% interest rate and loan tenure of <span class="emi-tenure-text">5</span><span class="emi-cust-final-text hide"> as customised by you.</span>
+
+                                        @if (Model.IsToolTipCampaign)
+                                        {
+                                            <div>
+                                                <span> For exact EMI quotes please check our</span>
+                                                <div class="inline-block" data-event="CWInteractive" data-role="click-tracking" data-action="@(Model.IsVersionPage ? "VersionPage_ToolTip_m" : "ModelPage_ToolTip_m")" data-cat="SponsoredLink_Click" data-label="campaign_@(Model.CampaignTemplates[(int)PageProperties.ToolTip].Id)">
+                                                    @Html.Raw(Model.CampaignTemplates[(int)PageProperties.ToolTip].Name)
+                                                </div>
+                                                <span>.</span>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        @{
+                var emiData = Model.EmiCalculatorModelData;
+                var leadClickSource = emiData.DealerAd != null && emiData.CtaDetails != null ? emiData.CtaDetails.LeadClickSourceId : 0;
+                var inquirySource = emiData.DealerAd != null && emiData.CtaDetails != null ? emiData.CtaDetails.InquirySourceId : 0;
+                string hideClass = emiCalculatorData.IsEligibleForThirdPartyEmi && emiCalculatorData?.ThirdPartyEmiDetails == null ? "hide" : "";
+                 
+                <span data-role="impression" data-event="CWNonInteractive" data-action="EMICalculatorLink" data-cat="@(emiData.Page + "_EMICalculatorLink")"
+                      data-label="@(emiData.ModelName)"></span>
+
+    <div class="@(emiData.IsMetallic ? "hide" : "") customizeEmiContainer__js hide"
+         id="@(emiData.UniqueKey)" data-versionid="@(Model.VersionId)"
+         data-makename="@(emiData.MakeName)" data-modelname="@(emiData.ModelName)" data-versionname="@(emiData.VersionName)"
+         data-downpaymentdefaultvalue="@(emiData.DownPaymentDefaultValue)"
+         data-downpaymentminvalue="@(emiData.DownPaymentMinValue)" data-downpaymentmaxvalue="@(emiData.DownPaymentMaxValue)"
+         data-campaign-template="@(emiData.DealerAd != null ? (emiData.DealerAd.PageProperty.Count > 0 ? emiData.DealerAd.PageProperty[0].Template.HTML : "") : "")"
+         data-campaign-lead-click-source="@(leadClickSource)" data-campaign-inquiry-source="@(inquirySource)"
+         data-role="click" data-event="CWInteractive" data-action="EMICalculatorLink" data-cat="@(emiData.Page + "_EMICalculatorLink")" data-label="@(emiData.ModelName)" data-is-campaign-available="@(Model.AdAvailable.ToString().ToLower())"
+         data-model-id="@(Model.ModelId)" data-campaign-dealer-id="@(Model.CampaignDealerId)" data-user-location='@(userlocation)' data-react-campaign-cta="true">
+
+        @if (Model.ShowCustomiseYourEmiButton)
+                    {
+            <button class="btn-rect-customise-emi customize-emi js-emi-summary-link  @(hideClass)" data-popup="loanSummary" id="@(emiData.UniqueKey)">
+                <span>Customise Your EMI</span>
+            </button>
+            <br>
+                    }
+        @if (Model.ShowCustomiseYourEmiLink)
+                    {
+            <span class="font13 customize-emi customise-emi-link js-emi-summary-link pic-customise-link @(hideClass)" data-popup="loanSummary" id="@(emiData.UniqueKey)">
+                <span>Customise Your EMI</span>
+            </span>
+                    }
+    </div>
+}
+    </div>
+    }

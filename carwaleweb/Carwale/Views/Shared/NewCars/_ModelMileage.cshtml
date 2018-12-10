@@ -1,0 +1,48 @@
+﻿
+@model List<MileageDataEntity>
+@using Carwale.Entity.CarData;
+@if (Model!=null && Model.Count > 0)
+{
+    <section id="mileage">
+        @if (!string.IsNullOrEmpty(ViewBag.MileageHeading))
+{
+    <h2 class="margin-top15 m-special-skin-text special-skin-text @(ViewBag.IsMobile?"margin-left10":string.Empty)">@ViewBag.MileageHeading</h2>
+}
+        
+        <table class="model-section-table version-price-table">
+            <thead>
+                <tr>
+                    <th>Fuel Type</th>
+                    <th>Transmission</th>
+                    <th>Engine Capacity</th>
+                    <th>Mileage</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var version in Model)
+                {
+                    if (version != null)
+                    {
+                        <tr>
+                            <td>@version.FuelType</td>
+                            <td>@version.Transmission</td>
+                            <td>@(!string.IsNullOrEmpty(version.Displacement)?version.Displacement : "-" )</td>
+                            <td>@version.Arai @version.MileageUnit</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>       
+    </section>
+}
+else
+{
+	if (ViewBag.IsMileagePage == true)
+	{
+		<section id="mileage" class="bg-white margin-bottom10 margin-top10 content-inner-block-10">
+		<p>Sorry, Mileage data not available.</p>
+		</section>
+	}
+	
+}
+	

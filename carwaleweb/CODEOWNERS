@@ -1,0 +1,780 @@
+#*       @satishdixit
+
+Carwale/robots.txt       @satishdixit @jssolanki22
+
+#Database
+*.sql				@carwale/database
+
+# JavaScript
+*.js				@carwale/js-owners
+
+#Experience Team
+Carwale/About/*		@carwale/carwale-experience
+Carwale/Api/*		@carwale/carwale-experience
+Carwale/App_Start/* @carwale/carwale-experience
+Carwale/Award/* @carwale/carwale-experience
+Carwale/includes/ @carwale/carwale-experience
+Carwale/ClientBL/* @carwale/carwale-experience
+Carwale/Community/members/* @carwale/carwale-experience
+Carwale/Contact/* @carwale/carwale-experience
+Carwale/Controllers/NewCars/CarModelAdaptiveController.cs @jssolanki22 @cwajaysingh
+Carwale/Controllers/NewCars/PriceInCityController.cs @jssolanki22 @cwajaysingh
+Carwale/Controllers/HomeController.cs @carwale/carwale-experience
+Carwale/Controllers/m/HomeController.cs @carwale/carwale-experience
+Carwale/Controllers/m/NewController.cs @carwale/carwale-experience
+Carwale/Controllers/NewCars/* @carwale/carwale-experience
+Carwale/Controllers/m/CarData/* @carwale/carwale-experience
+Carwale/Controllers/m/NewCars/* @carwale/carwale-experience
+Carwale/Controls/subNavigation.ascx @carwale/carwale-experience
+Carwale/Controls/subNavigation.ascx.cs @carwale/carwale-experience
+Carwale/Filters/* @carwale/carwale-experience
+Carwale/HtmlHelpers/* @carwale/carwale-experience
+Carwale/Jobs/* @carwale/carwale-experience
+Carwale/loading/* @carwale/carwale-experience
+Carwale/magazine/* @carwale/carwale-experience
+Carwale/mobile/* @carwale/carwale-experience
+Carwale/MyCarwale/* @carwale/carwale-experience
+Carwale/NewCars/RecommendCars/* @carwale/carwale-experience
+Carwale/PresentationLogic/HtmlAttributes.cs @carwale/carwale-experience
+Carwale/search/* @carwale/carwale-experience
+Carwale/m/social/* @carwale/carwale-experience
+Carwale/m/users/* @carwale/carwale-experience
+Carwale/Terms/* @carwale/carwale-experience
+Carwale/Users/* @carwale/carwale-experience
+Carwale/Views/NewCar/* @carwale/carwale-experience
+Carwale/Views/m/amp/* @carwale/carwale-experience
+Carwale/Views/m/CarData/* @carwale/carwale-experience
+Carwale/Views/m/New/* @carwale/carwale-experience
+Carwale/Views/Home.cshtml @carwale/carwale-experience
+Carwale/Views/Shared/NewCars/* @carwale/carwale-experience
+Carwale/Views/Shared/ads/*  @carwale/carwale-experience
+Carwale/Views/Shared/m/AMP/* @carwale/carwale-experience
+Carwale/Views/Shared/m/CarData/_Videos.cshtml @carwale/carwale-content
+Carwale/Views/Shared/m/CarData/* @carwale/carwale-experience
+Carwale/Views/Shared/m/_MLayoutV2.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/m/_MLayoutV3.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/m/_MLayout.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/_LayoutV2.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/_Layout.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/_GlobalSearch.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/_KeepMeInformed.cshtml @carwale/carwale-experience
+Carwale/Views/Shared/_GlobalSearch.cshtml @carwale/carwale-experience
+Carwale/Views/Shared/m/_MTopCarsByBodyTypeCarousel.cshtml @carwale/carwale-experience
+Carwale/Views/Shared/m/_MLocationSearch.cshtml @carwale/carwale-experience
+Carwale/Views/Shared/m/_MetaData.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/m/_CityPopup.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/m/_CompareCarList.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/m/_AndroidAppDownload.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/m/_AndroidAppDownload_Home.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/m/_TopComparisons.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/m/_UpcomingCarousel.cshtml       @carwale/carwale-experience
+Carwale/Views/Shared/_BingScriptView.cshtml @carwale/carwale-experience
+Carwale/Views/Shared/_BreadCrumb.cshtml @carwale/carwale-experience
+Carwale/Views/Shared/_GoogleTagManagerNoScript.cshtml @carwale/carwale-experience
+Carwale/Views/Shared/_GoogleTagManagerView.cshtml @carwale/carwale-experience
+Carwale/Views/Shared/_GoogleTagServicesView.cshtml @carwale/carwale-experience
+Carwale/Views/m/MHome/Index.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/CompareCarCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/CompareCarDetailsCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/CompareCarDetailsScripts.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/CompareCarScripts.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/HomePageCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/HomePageScripts.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/MakePageCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/MakePageScripts.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/ModelPageCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/ModelPageScripts.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/NewCarSearchCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/NewCarsPageCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/NewCarsPageScript.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/RecentLaunchesCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/TopCarsByBodyTypeCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/TopCarsByBodyTypeScripts.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/VersionPageCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/VersionPageScripts.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MCompareCarPageCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MCompareCarPageScript.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MCompareDetailCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MCompareDetailScript.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MHomePageCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MHomePageScript.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MmakePageCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MmodelPageCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MmodelPageScript.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MNewCarPageCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MNewCarPageScript.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/ModelComponentScripts.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MVersionPageCss.cshtml       @carwale/carwale-experience
+Carwale/Views/StaticPartials/m/MVersionPageScript.cshtml       @carwale/carwale-experience
+Carwale/Static/m/js/location.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/v2/app/common.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/v2/app/home.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/ui/location.html       @carwale/carwale-experience
+Carwale/Static/js/common.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/globalSearch.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/newcarsmodel.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/newcarsversion.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/newcarsmake.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/model-version-common.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/new-car-make.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/new-car-model.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/new-car-version.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/model-main-menu.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/compareCar.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/cookie-migration.js   @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/lazyloadad.js   @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/model-version-common.js 	@carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/newcar-common.js @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/newcar-landingpage.js @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/newcars.js @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/newcarsearchwidget.js @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/newcarsmake.js @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/newcarsmodel.js  @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/newcarsversion.js  @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/version-table-exp.js  @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/js/upcomingcars.js  @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/ui/* @carwale/carwale-experience
+Carwale/Static/m/js/compareCar.js          @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/compareCarDetail.js    @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/component-model.       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/location.js            @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/model-main-menu.js     @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/new-car-make.js        @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/new-car-model.js       @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/new-car-version.js     @carwale/carwale-experience @carwale/js-owners
+Carwale/Static/m/js/newcar-lead-popup.js   @carwale/carwale-experience @carwale/js-owners
+AppWebApi/Controllers/New\ Cars/CarModelListController.cs         @carwale/carwale-experience
+AppWebApi/Controllers/New\ Cars/CompareCarListController.cs       @carwale/carwale-experience
+AppWebApi/Controllers/New\ Cars/CompareCarsController.cs          @carwale/carwale-experience
+AppWebApi/Controllers/New\ Cars/CompareCarsDetailsController.cs   @carwale/carwale-experience
+AppWebApi/Controllers/New\ Cars/CompareCarVersionsController.cs   @carwale/carwale-experience
+AppWebApi/Controllers/New\ Cars/ModelDetailsController.cs         @carwale/carwale-experience
+AppWebApi/Controllers/New\ Cars/NewCarFilterController.cs         @carwale/carwale-experience
+AppWebApi/Controllers/New\ Cars/UpComingCarDetailController.cs    @carwale/carwale-experience
+AppWebApi/Controllers/New\ Cars/UpComingCarsController.cs         @carwale/carwale-experience
+AppWebApi/Controllers/New\ Cars/NewCarSearchResultController.cs   @carwale/carwale-experience
+AppWebApi/NewCarSearch/*  @carwale/carwale-experience
+AppWebApi/Routes/*  @carwale/carwale-experience
+AppWebApi/Models/CarDetail.cs               @carwale/carwale-experience
+AppWebApi/Models/CarModel.cs                @carwale/carwale-experience
+AppWebApi/Models/CarModelList.cs            @carwale/carwale-experience
+AppWebApi/Models/Color.cs                   @carwale/carwale-experience
+AppWebApi/Models/CompareCarItem.cs          @carwale/carwale-experience
+AppWebApi/Models/CompareCarVersions.cs      @carwale/carwale-experience
+AppWebApi/Models/CompareCars.cs             @carwale/carwale-experience
+AppWebApi/Models/CompareCarsDetails.cs      @carwale/carwale-experience
+AppWebApi/Models/ModelDetails.cs            @carwale/carwale-experience
+AppWebApi/Models/ModelVersion.cs            @carwale/carwale-experience
+AppWebApi/Models/ModelVideoList.cs          @carwale/carwale-experience
+AppWebApi/Models/NewCarFilter.cs            @carwale/carwale-experience
+AppWebApi/Models/NewCarSearchResult.cs      @carwale/carwale-experience
+AppWebApi/Models/NewCarSearchResultV2.cs    @carwale/carwale-experience
+AppWebApi/Models/UpComingCarDetail.cs       @carwale/carwale-experience
+AppWebApi/Models/UpComingCarItem.cs         @carwale/carwale-experience
+AppWebApi/Models/UpComingCars.cs            @carwale/carwale-experience
+AppWebApi/Models/UpCommingCarItem.cs        @carwale/carwale-experience
+Carwale.CacheCore/CarData/* @carwale/carwale-experience
+Carwale.CacheCore/CompareCars/* @carwale/carwale-experience
+Carwale.DataAccessLayer/CarData/* @carwale/carwale-experience
+Carwale.DataAccessLayer/CompareCars/* @carwale/carwale-experience
+Carwale.DataAccessLayer/Customers/* @carwale/carwale-experience
+Carwale.DTOs/Autocomplete/* @carwale/carwale-experience
+Carwale.DTOs/CarData/* @carwale/carwale-experience
+Carwale.DTOs/Home/* @carwale/carwale-experience
+Carwale.DTOs/NewCars/* @carwale/carwale-experience
+Carwale.DTOs/ViewModels/* @carwale/carwale-experience
+Carwale.DTOs/WidgetDTOs/* @carwale/carwale-experience
+Carwale.Entity/AutoComplete/* @carwale/carwale-experience
+Carwale.Entity/CarData/* @carwale/carwale-experience
+Carwale.Entity/CompareCars/* @carwale/carwale-experience
+Carwale.Entity/Customers/* @carwale/carwale-experience
+Carwale.Entity/Elastic/* @carwale/carwale-experience
+Carwale.Entity/ElasticEntities/* @carwale/carwale-experience
+Carwale.Entity/SEO/*           @carwale/carwale-experience
+Carwale.Entity/Security/*      @carwale/carwale-experience
+Carwale.Entity/Login/*         @carwale/carwale-experience
+Carwale.Entity/IPToLocation/*  @carwale/carwale-experience
+Carwale.Entity/XmlFeed/*       @carwale/carwale-experience
+Carwale.Entity/ViewModels/*    @carwale/carwale-experience
+Carwale.Entity/BreadcrumbEntity.cs  @carwale/carwale-experience
+Carwale.Entity/CarModelEntity.cs    @carwale/carwale-experience
+Carwale.Entity/VersionPrice.cs      @carwale/carwale-experience
+Carwale.Entity/AutoComplete/*  @carwale/carwale-experience
+Carwale.Entity/CarData/*       @carwale/carwale-experience
+Carwale.Entity/CompareCars/*   @carwale/carwale-experience
+Carwale.Entity/Customer/*      @carwale/carwale-experience
+Carwale.Entity/Elastic/*       @carwale/carwale-experience
+Carwale.Entity/Home/*          @carwale/carwale-experience
+Carwale.Entity/IPToLocation/*  @carwale/carwale-experience
+Carwale.Entity/NewCars/*       @carwale/carwale-experience
+Carwale.Entity/Users/*         @carwale/carwale-experience
+Carwale.Entity/Security/*      @carwale/carwale-experience
+Carwale.Entity/Geolocation/*   @carwale/carwale-experience
+Carwale.Service/Controllers/CarData/*				@carwale/carwale-experience
+Carwale.Service/Controllers/CustomerVerification/*	@carwale/carwale-experience
+Carwale.Service/Controllers/Home/*                  @carwale/carwale-experience
+Carwale.Service/Controllers/Location/*              @carwale/carwale-experience
+Carwale.Service/Controllers/NewCars/*               @carwale/carwale-experience
+Carwale.Service/Controllers/Users/*                 @carwale/carwale-experience
+Carwale.Service/Controllers/AutoCompleteController.cs 		@carwale/carwale-experience
+Carwale.Service/Controllers/CityByLatLongController.cs      @carwale/carwale-experience
+Carwale.Service/Controllers/CompareCarController.cs         @carwale/carwale-experience
+Carwale.Service/Controllers/DeepLinkingController.cs        @carwale/carwale-experience
+Carwale.Service/Controllers/GeoCityController.cs            @carwale/carwale-experience
+Carwale.Service/Controllers/XMLFeedsController.cs           @carwale/carwale-experience
+Carwale.Service/Controllers/MobileAppAlertController.cs     @carwale/carwale-experience
+Carwale.Service/ModelUrlMapping.cs 							@carwale/carwale-experience
+Cawale.BL/NewCars/*       @carwale/carwale-experience
+Cawale.BL/AutoComplete/*       @carwale/carwale-experience
+Cawale.BL/CarData/*       @carwale/carwale-experience
+Cawale.BL/Customers/*       @carwale/carwale-experience
+Cawale.BL/Experiments/*       @carwale/carwale-experience
+Cawale.BL/Home/*       @carwale/carwale-experience
+Cawale.BL/IPToLocation/*       @carwale/carwale-experience
+Cawale.BL/XmlFeeds/*       @carwale/carwale-experience
+
+#Carwale.Utility/*   @jssolanki22 @satishdixit @sharmasahil1991 @CWRakeshYadav @ashishgoyalcw @sapkalrohan @VickyLund @naveadkazi
+#Carwale/Common/*	@jssolanki22 @satishdixit @sharmasahil1991 @CWRakeshYadav @ashishgoyalcw @sapkalrohan @VickyLund @naveadkazi
+
+#file list owned by Es Tech team Starts here
+Cawale.BL/Accessories/* 			@carwale/es
+Cawale.BL/Advertizing/* 			@carwale/es
+Cawale.BL/CustomerVerification/CustomerVerificationBL.cs 				@carwale/es
+Cawale.BL/ES/* 						@carwale/es
+Cawale.BL/Finance/* 				@carwale/es @carwale/used-cars
+Cawale.BL/Insurance/* 				@carwale/es
+Cawale.BL/PaymentGateway/* 			@carwale/es   
+Cawale.BL/SponsoredCar/* 			@carwale/es   
+Cawale.BL/UserProfiling/* 			@carwale/es
+Carwale.CacheCore/Accessories/*     @carwale/es
+Carwale.CacheCore/Advertizing/*     @carwale/es
+Carwale.CacheCore/ES/*     			@carwale/es
+Carwale.CacheCore/Finance/*     	@carwale/es @carwale/used-cars
+Carwale.CacheCore/SponsoredData/*   @carwale/es
+Carwale.DataAccessLayer/Accessories/*   @carwale/es
+Carwale.DataAccessLayer/Advertizings/*   @carwale/es
+Carwale.DataAccessLayer/CarFinance/*   @carwale/es
+Carwale.DataAccessLayer/ES/*   @carwale/es
+Carwale.DataAccessLayer/Finance/*   @carwale/es  @carwale/used-cars
+Carwale.DataAccessLayer/Insurance/*   @carwale/es
+Carwale.DataAccessLayer/PaymentGateway/*   @carwale/es
+Carwale.DataAccessLayer/SponsoredCar/*   @carwale/es
+Carwale.DTOs/Accessories/*   @carwale/es
+Carwale.DTOs/Advertisment/*   @carwale/es
+Carwale.DTOs/Finance/*   @carwale/es  @carwale/used-cars
+Carwale.DTOs/Insurance/*   @carwale/es
+Carwale.Entity/Accessories/*   @carwale/es
+Carwale.Entity/Advertizings/*   @carwale/es
+Carwale.Entity/ES/*   @carwale/es
+Carwale.Entity/Finance/*   @carwale/es  @carwale/used-cars
+Carwale.Entity/Insurance/*   @carwale/es
+Carwale.Entity/PaymentGateway/*   @carwale/es
+Carwale.Entity/Sponsored/*   @carwale/es
+Carwale.Interface/Accessories/*   @carwale/es
+Carwale.Interface/Advertizings/*   @carwale/es
+Carwale.Interface/ES/*   @carwale/es
+Carwale.Interface/Finance/*   @carwale/es  @carwale/used-cars
+Carwale.Interface/Insurance/*   @carwale/es
+Carwale.Interface/Monetization/*   @carwale/es
+Carwale.Interface/PaymentGateway/*   @carwale/es
+Carwale.Interface/SponsoredCar/*   @carwale/es
+Carwale.Interface/UserProfiling/*   @carwale/es
+Carwale.Service/Controllers/Accessories/*   @carwale/es
+Carwale.Service/Controllers/Advertisment/*   @carwale/es
+Carwale.Service/Controllers/ES/*   @carwale/es
+Carwale.Service/Controllers/Finance/*   @carwale/es  @carwale/used-cars
+Carwale.Service/Controllers/Insurance/*   @carwale/es
+Carwale.Service/Controllers/Monetization/*   @carwale/es
+Carwale.Service/Controllers/PaymentGateway/*   @carwale/es
+Carwale.Service/Controllers/Sponsored/*   @carwale/es
+Carwale.Service/Controllers/UserProfiling/*   @carwale/es
+Carwale/Finance/*   @carwale/es  @carwale/used-cars
+Carwale/Views/BillDesk/*   @carwale/es
+Carwale/Views/ES/*   @carwale/es
+Carwale/Views/Finance/*   @carwale/es
+Carwale/Views/Insurance/*   @carwale/es
+Carwale/Views/m/Accessories/*   @carwale/es
+Carwale/Views/m/TrackDay/*   @carwale/es
+Carwale/Views/Shared/ads/*   @carwale/es
+Carwale/Views/Shared/ES/*   @carwale/es
+Carwale/Views/Shared/m/Accessories/*   @carwale/es
+Carwale/Views/Shared/m/TrackDay/*   @carwale/es
+Carwale/Views/StaticPartials/Finance/*   @carwale/es
+Carwale/Views/StaticPartials/ES/*   @carwale/es
+Carwale/Views/StaticPartials/TyreSection/*   @carwale/es
+Carwale/Views/StaticPartials/TyreSection/*   @carwale/es
+Carwale/Views/StaticPartials/m/TyreSection/*   @carwale/es
+Carwale/Static/js/v2/app/clientCache.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/apply-for-loan.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/common.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/coverfox.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/e2o-script.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/electric-survey-contest.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/emiCalculator.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/emiComparison.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/emiViewChart.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/es-survey-result-script.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/es-survey-script.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/ford-ecosport-script.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/hdfc-loan.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/insurance.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/mahindra-scorpio-script.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/mahindra-tuv-script.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/nissan-terrano-script.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/track-day.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/tyreBrand.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/tyre-detail.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/tyre-section.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/tyres-list.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/volvo-cars-script.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/volvo-v90-confirmation.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/volvo-v90-script.js   @carwale/es @carwale/js-owners
+Carwale/Static/js/vw-ameo-script.js   @carwale/es @carwale/js-owners
+Carwale/Static/m/js/insurance.js   @carwale/es @carwale/js-owners
+Carwale/Static/m/js/insurance3rdParty.js   @carwale/es @carwale/js-owners
+Carwale/Static/m/js/internalinsurance.js   @carwale/es @carwale/js-owners
+Carwale/Static/m/js/track-day.js   @carwale/es @carwale/js-owners
+Carwale/Static/m/js/tyreBrand.js   @carwale/es @carwale/js-owners
+Carwale/Static/m/js/tyre-detail.js   @carwale/es @carwale/js-owners
+Carwale/Static/m/js/tyre-section.js   @carwale/es @carwale/js-owners
+Carwale/Static/m/js/tyres-list.js   @carwale/es @carwale/js-owners
+#file list owned by Es Tech team ends here
+
+
+
+#New car Prices
+Cawale.BL/Dealers/Dealers.cs        @carwale/prices-nc
+Cawale.BL/Dealers/NewCarDealers.cs        @carwale/prices-nc
+Cawale.BL/PriceQuote/CarPriceQuoteAdapter.cs        @carwale/prices-nc
+Cawale.BL/PriceQuote/CarPrices.cs        @carwale/prices-nc
+Cawale.BL/PriceQuote/PQAdapterAndroidV1.cs        @carwale/prices-nc
+Cawale.BL/PriceQuote/PQAdapterAndroidV2.cs        @carwale/prices-nc
+Cawale.BL/PriceQuote/PQAndroidAdapter.cs        @carwale/prices-nc
+Cawale.BL/PriceQuote/PQDesktopAdapterV1.cs        @carwale/prices-nc
+Cawale.BL/PriceQuote/PQMobileAdapter.cs        @carwale/prices-nc
+Cawale.BL/PriceQuote/PriceQuoteBL.cs        @carwale/prices-nc
+Cawale.BL/Offers/* 							@carwale/prices-nc
+Carwale.DataAccessLayer/Dealers/DealerSponsoredAdRespository.cs        @carwale/prices-nc
+Carwale.DataAccessLayer/Dealers/NewCarDealersRepository.cs        @carwale/prices-nc
+Carwale.DataAccessLayer/PriceQuote/*        @carwale/prices-nc
+Carwale.DataAccessLayer/Offers/*        @carwale/prices-nc
+Carwale.CacheCore/Dealers/*        @carwale/prices-nc
+Carwale.CacheCore/PriceQuote/PQRepository.cs        @carwale/prices-nc
+Carwale.CacheCore/PriceQuote/PricesRepository.cs        @carwale/prices-nc
+Carwale.CacheCore/PriceQuote/VersionPrices.cs        @carwale/prices-nc
+Carwale.CacheCore/PriceQuote/PricesCacheRepository.cs        @carwale/prices-nc
+Carwale.CacheCore/Offers/*        @carwale/prices-nc
+Carwale.Service/Controllers/Dealers/*        @carwale/prices-nc
+Carwale.Service/Controllers/PriceQuote/*        @carwale/prices-nc
+Carwale.Service/Containers/Offers.cs			@carwale/prices-nc
+Carwale.Service/Mappers/OfferProfile.cs			@carwale/prices-nc
+Carwale.Service/Mappers/PriceQuoteProfile.cs			@carwale/prices-nc
+Carwale.Service/Mappers/PricesProfile.cs			@carwale/prices-nc
+Carwale.Service/Adapters/PriceQuote/*           @carwale/prices-nc
+Carwale.DTOs/PriceQuote/*        @carwale/prices-nc
+Carwale.Entity/Dealers/*        @carwale/prices-nc
+Carwale.Entity/PriceQuote/CarPriceQuote.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/EMIInformation.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/ModelPrices.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/PQ.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/PQCarDetailsEntity.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/PQInputes.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/PQItem.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/PQItemList.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/PQUserInfoTrackEntity.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/PriceOverview.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/PriceQuoteEntity.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/VersionPriceQuote.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/PriceQuote.cs 		@carwale/prices-nc
+Carwale.Entity/PriceQuote/VersionsPQ.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/PriceQuoteInput.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/ChargeGroupPrice.cs        @carwale/prices-nc
+Carwale.Entity/PriceQuote/ChargePrice.cs        @carwale/prices-nc
+Carwale.Entity/EnumPriceCategory.cs      @carwale/prices-nc
+Carwale.Entity/OffersV1/* 					@carwale/prices-nc
+Carwale.Entity/Enum/RuleModule.cs 		@carwale/prices-nc
+Carwale.Entity/Enum/Charge.cs           @carwale/prices-nc
+Carwale.Entity/Enum/SelectionOption.cs	@carwale/prices-nc
+Carwale.Entity/Rules/*		@carwale/prices-nc
+Carwale.Interface/Dealers/*        @carwale/prices-nc
+Carwale.Interface/PriceQuote/*        @carwale/prices-nc
+Carwale.Interface/Offers/*			 @carwale/prices-nc
+Carwale.Interface/Rules/*			 @carwale/prices-nc	
+Carwale/Controllers/Dealers/*        @carwale/prices-nc
+Carwale/Controllers/PriceQuote/* 	@carwale/prices-nc
+Carwale/NewCars/Dealers/*        @carwale/prices-nc
+Carwale/NewCars/PriceQuote/*        @carwale/prices-nc
+Carwale/NewCars/QuickPQWidget.aspx        @carwale/prices-nc
+Carwale/Static/m/js/quotation.js        @carwale/prices-nc @carwale/js-owners
+Carwale/Static/Src/quotation.js        @carwale/prices-nc
+Carwale/Views/Dealers/*        @carwale/prices-nc
+Carwale/Views/StaticPartials/DealerListCss.cshtml        @carwale/prices-nc
+Carwale/Views/StaticPartials/DealerListScripts.cshtml        @carwale/prices-nc
+Carwale/Views/StaticPartials/ListNewCarDealersByCityCss.cshtml        @carwale/prices-nc
+Carwale/Views/StaticPartials/ListNewCarDealersByCityScripts.cshtml        @carwale/prices-nc
+Carwale/Views/StaticPartials/LocateDealerCss.cshtml        @carwale/prices-nc
+Carwale/Views/StaticPartials/LocateDealerScripts.cshtml        @carwale/prices-nc
+Carwale/Views/Shared/m/PriceQuote/* 						   @carwale/prices-nc
+Carwale/Views/m/New/PriceQuote/*							   @carwale/prices-nc
+Carwale/m/research/DealerDetails.aspx        @carwale/prices-nc
+Carwale/m/research/DealerMicrosite.aspx        @carwale/prices-nc
+Carwale/m/research/DealerMicrosite.aspx.cs        @carwale/prices-nc
+Carwale/m/research/locatedealerpopup.aspx        @carwale/prices-nc
+Carwale/m/research/PriceQuote.aspx        @carwale/prices-nc
+Carwale/m/research/Quotation.aspx        @carwale/prices-nc
+Carwale/m/research/code/DealerDetails.aspx.cs        @carwale/prices-nc
+Carwale/Static/m/css/optional-pricing.css		@carwale/prices-nc
+Carwale/Static/m/js/price-quote.js 	@carwale/prices-nc @carwale/js-owners
+Carwale/Views/StaticPartials/m/MQuotationPageCss.cshtml  @carwale/prices-nc
+Carwale/Views/StaticPartials/m/MQuotationPageScript.cshtml  @carwale/prices-nc
+Carwale/Views/StaticPartials/m/PriceQuote/* 	@carwale/prices-nc
+
+# new car lead monetization
+Cawale.BL/Campaigns/* @carwale/new-cars-web
+Cawale.BL/CarBuyingAssistance/* @carwale/new-cars-web
+Cawale.BL/CrossSell/* @carwale/new-cars-web
+Cawale.BL/Dealers/PQInquiryToDealer.cs @carwale/new-cars-web
+Cawale.BL/PriceQuote/CommonLTS.cs @carwale/new-cars-web
+Cawale.BL/PriceQuote/LeadAndInquirySource.cs @carwale/new-cars-web
+Cawale.BL/PriceQuote/PushToRabbitMQ.cs @carwale/new-cars-web
+Cawale.BL/GRPCFiles/Campaign.cs @carwale/new-cars-web
+Cawale.BL/GRPCFiles/CampaignGrpc.cs @carwale/new-cars-web
+Cawale.BL/GRPCFiles/DealerCampaignChannel.cs @carwale/new-cars-web
+Cawale.BL/GRPCFiles/DealerCampaignClient.cs @carwale/new-cars-web
+Cawale.BL/GRPCFiles/PredictiveScore.cs @carwale/new-cars-web
+Cawale.BL/GRPCFiles/PredictiveScoreGrpc.cs @carwale/new-cars-web
+Cawale.BL/GRPCFiles/PredictiveServiceChannel.cs @carwale/new-cars-web
+Cawale.BL/GRPCFiles/PredictiveServiceClient.cs @carwale/new-cars-web
+Carwale.DataAccessLayer/Campaigns/* @carwale/new-cars-web
+Carwale.DataAccessLayer/ChatManagement/* @carwale/new-cars-web
+Carwale.DataAccessLayer/Dealers/DealerRepository.cs @carwale/new-cars-web
+Carwale.DataAccessLayer/LandingPage/* @carwale/new-cars-web
+Carwale.CacheCore/Campaigns/* @carwale/new-cars-web
+Carwale.CacheCore/ChatManagement/* @carwale/new-cars-web
+Carwale.CacheCore/CrossSell/* @carwale/new-cars-web
+Carwale.CacheCore/LandingPage/* @carwale/new-cars-web
+Carwale.Service/Controllers/Campaigns/* @carwale/new-cars-web
+Carwale.Service/Controllers/NewCars/NewCarLead.cs @carwale/new-cars-web
+Carwale.DTOs/Campaigns/* @carwale/new-cars-web
+Carwale.DTOs/CarBuyingAssistance/* @carwale/new-cars-web
+Carwale.DTOs/LandingPage/* @carwale/new-cars-web
+Carwale.Entity/Campaigns/* @carwale/new-cars-web
+Carwale.Entity/ChatManagement/* @carwale/new-cars-web
+Carwale.Entity/CrossSell/* @carwale/new-cars-web
+Carwale.Entity/LandingPage/* @carwale/new-cars-web
+Carwale.Entity/PriceQuote/LeadSource.cs @carwale/new-cars-web
+Carwale.Interface/Campaigns/* @carwale/new-cars-web
+Carwale.Interface/CarBuyingAssistance/* @carwale/new-cars-web
+Carwale.Interface/CrossSell/* @carwale/new-cars-web
+Carwale.Interface/LandingPage/* @carwale/new-cars-web
+Carwale.Interface/NewCars/* @carwale/new-cars-web
+Carwale/Static/m/js/dealer-popup.js @carwale/new-cars-web @carwale/js-owners
+Carwale/Static/Src/dealer-popup.js @carwale/new-cars-web
+Carwale/Views/StaticPartials/LandingPageCss.cshtml @carwale/new-cars-web
+Carwale/Views/StaticPartials/LandingPageScript.cshtml @carwale/new-cars-web
+Carwale/Views/StaticPartials/m/BuyingAssistance/* @carwale/new-cars-web
+Carwale/Views/StaticPartials/m/MLandingPageCss.cshtml @carwale/new-cars-web
+Carwale/Views/StaticPartials/m/MLandingPageScript.cshtml @carwale/new-cars-web
+Carwale/Views/m/New/LandingPage.cshtml @carwale/new-cars-web
+Carwale/m/controls/CallSlugNumber.ascx @carwale/new-cars-web
+Carwale/m/controls/CallSlugNumber.ascx.cs @carwale/new-cars-web
+Carwale/m/controls/DealerLeadCustomerInfo.ascx @carwale/new-cars-web
+Carwale/m/controls/DealerLeadCustomerInfo.ascx.cs @carwale/new-cars-web
+Carwale/m/controls/DealerLeadCustomerInfoPhotoGallery.ascx @carwale/new-cars-web
+Carwale/m/controls/DealerLeadPopUp.ascx @carwale/new-cars-web
+Carwale/m/controls/DealerLeadPopUp.ascx.cs @carwale/new-cars-web
+Carwale/m/controls/DealerLeadPopupNew.ascx @carwale/new-cars-web
+Carwale/m/includes/new-car-script.aspx @carwale/new-cars-web
+
+#Advantage Files 
+Cawale.BL/Deals/*	@carwale/new-cars-web
+Carwale.Cache/Deals/*	@carwale/new-cars-web
+Carwale.DAL/Deals/*	@carwale/new-cars-web
+Carwale.DTOs/Deals/*	@carwale/new-cars-web
+Carwale.Entity/Deals/*	@carwale/new-cars-web
+Carwale.Interfaces/Deals/*	@carwale/new-cars-web
+Carwale.Service/Controllers/Deals/*	@carwale/new-cars-web
+Carwale/Views/Deals/*	@carwale/new-cars-web
+Carwale/Views/m/Deals/*	@carwale/new-cars-web
+Carwale/Views/StaticPartials/Deals/*	@carwale/new-cars-web
+Carwale/Views/StaticPartials/m/Deals/*	@carwale/new-cars-web
+Carwale/Views/Shared/Deals/*	@carwale/new-cars-web
+Carwale/Views/Shared/m/Deals/*	@carwale/new-cars-web
+Carwale/Static/js/advantageSearch.js	@carwale/new-cars-web @carwale/js-owners
+Carwale/Static/js/deals.js	@carwale/new-cars-web @carwale/js-owners
+Carwale/Static/Css/advantageSearch.css	@carwale/new-cars-web
+Carwale/Static/Css/deals.css	@carwale/new-cars-web
+Carwale/Controllers/Deals/*	@carwale/new-cars-web
+Carwale/Controllers/m/Deals/*	@carwale/new-cars-web
+CarWale.UnitTests/UnitTestAdavantage/*	@carwale/new-cars-web
+Carwale/m/carwaleAdvantageTermsConditions.aspx	@carwale/new-cars-web
+Carwale/m/Deals/faq.html	@carwale/new-cars-web
+
+#Content
+Cawale.BL/CMS/*		@carwale/carwale-content
+Cawale.BL/Authors/*		@carwale/carwale-content
+Cawale.BL/EditCMS/*		@carwale/carwale-content
+Cawale.BL/Forums/*		@carwale/carwale-experience
+Cawale.BL/GrpcEditCMS/*		@carwale/carwale-content
+Carwale.CacheCore/CMS/*		@carwale/carwale-content
+Carwale.CacheCore/Authors/*		@carwale/carwale-content
+Carwale.CacheCore/Forums/*		@carwale/carwale-experience 
+Carwale.DataAccessLayer/CMS/*		@carwale/carwale-content
+Carwale.DataAccessLayer/Forums/*		@carwale/carwale-experience
+Carwale.DTOs/CMS/*		@carwale/carwale-content
+Carwale.DTOs/NewsDTOEntity.cs		@carwale/carwale-content
+Carwale.DTOs/NewsItemDTOEntity.cs		@carwale/carwale-content
+Carwale.Entity/CMS/*		@carwale/carwale-content
+Carwale.Entity/Forums/*		@carwale/carwale-experience
+Carwale.Entity/MobileAppAlerts/*		@carwale/carwale-content
+Carwale.Interface/CMS/*		@carwale/carwale-content
+Carwale.Interface/Author/*		@carwale/carwale-content
+Carwale.Interface/Forums/*		@carwale/carwale-experience
+Carwale.Interface/IMobileAppAlertRepository.cs		@carwale/carwale-content
+Carwale.Service/Containers/CMS.cs		@carwale/carwale-content
+Carwale.Service/Containers/UserReviews.cs		@carwale/carwale-content
+Carwale.Service/Controllers/CMS/*		@carwale/carwale-content
+Carwale.Service/Controllers/MobileAppAlertController.cs		@carwale/carwale-content
+Carwale.Service/Filters/CMS/*		@carwale/carwale-content
+Carwale/Authors/*		@carwale/carwale-content
+Carwale/m/Authors/*		@carwale/carwale-content
+Carwale/m/ajax/forums.cs		@carwale/carwale-experience 
+Carwale/m/datalayer/Forums.cs		@carwale/carwale-experience
+Carwale/Controllers/NewsListing.cs		@carwale/carwale-content
+Carwale/Controllers/Editorial/*		@carwale/carwale-content
+Carwale/Controls/VideoCarousel.ascx		@carwale/carwale-content
+Carwale/Controls/VideoCarousel.ascx.cs		@carwale/carwale-content
+Carwale/Controls/TipsAndAdvices.ascx		@carwale/carwale-content
+Carwale/Controls/TipsAndAdvices_New.ascx		@carwale/carwale-content
+Carwale/Controls/TipsAndAdviceSummary.ascx		@carwale/carwale-content
+Carwale/Editorial/*		@carwale/carwale-content
+Carwale/Forums/*		@carwale/carwale-experience
+Carwale/m/Forums/*		@carwale/carwale-experience
+Carwale/m/Newsletter/*		@carwale/carwale-content
+Carwale/m/social/*		@carwale/carwale-content
+Carwale/m/research/code/UserReviewsDefault.aspx.cs		@carwale/carwale-content
+Carwale/m/research/code/UserReviewsDetails.aspx.cs		@carwale/carwale-content
+Carwale/m/research/PhotoGallery.aspx		@carwale/carwale-content
+Carwale/m/research/UserReviewsDefault.aspx		@carwale/carwale-content
+Carwale/m/research/UserReviewsDetails.aspx		@carwale/carwale-content
+Carwale/Controllers/m/Editorial/*		@carwale/carwale-content
+Carwale/Controllers/m/UserReview/*		@carwale/carwale-content
+Carwale/magazine/*		@carwale/carwale-content
+Carwale/Newsletter/*		@carwale/carwale-content
+Carwale/PresentationLogic/EditorialContent.cs		@carwale/carwale-content
+Carwale/Views/Editorial/*		@carwale/carwale-content
+Carwale/Views/m/amp/partials/_ArticleCarouselAMP.cshtml		@carwale/carwale-content
+Carwale/Views/m/amp/NewsDetail.cshtml		@carwale/carwale-content
+Carwale/Views/m/Editorial/*		@carwale/carwale-content
+Carwale/Views/m/Gallery/*		@carwale/carwale-content
+Carwale/Views/m/UserReview/*		@carwale/carwale-content
+Carwale/Views/Shared/Editorial/*		@carwale/carwale-content
+Carwale/Views/Shared/FRQ/_TopVideos.cshtml		@carwale/carwale-content
+Carwale/Views/Shared/FRQ/_TopLatestNews.cshtml		@carwale/carwale-content
+Carwale/Views/Shared/FRQ/_TopExpertReviews.cshtml		@carwale/carwale-content
+Carwale/Views/Shared/FRQ/_TipsAndAdvices.cshtml		@carwale/carwale-content
+Carwale/Views/Shared/FRQ/_PopularVideoWidget.cshtml		@carwale/carwale-content
+Carwale/Views/Shared/FRQ/_NewsRightWidget.cshtml		@carwale/carwale-content
+Carwale/Views/Shared/FRQ/_EditorialWidget.cshtml		@carwale/carwale-content
+Carwale/Views/Shared/m/Editorial/*		@carwale/carwale-content
+Carwale/Views/Shared/m/_TopVideos.cshtml		@carwale/carwale-content
+Carwale/Views/Shared/m/_TopLatestNews.cshtml		@carwale/carwale-content
+Carwale/Views/Shared/m/_TopExpertReviews.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/editorial/*		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/Editorial/*		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MExpertReviewDetailPageCss.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MGalleryPageCss.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MFeaturesPageScript.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MFeaturesPageCss.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MFeaturesDetailPageScript.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MExpertReviewsPageScript.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MExpertReviewDetailPageScript.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MNewsDetailPageScript.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MNewsDetailsPageCss.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MNewsPageScript.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MTipsAdviceDetailPageScript.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MTipsAdvicePageScript.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MWriteReviewPageCss.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/MWriteReviewPageScript.cshtml		@carwale/carwale-content
+Carwale/Views/StaticPartials/m/Gallery/*		@carwale/carwale-content
+
+#ClassifiedC2B
+Cawale.BL/Classified/UsedSellCar/*    @carwale/classifedc2b
+Cawale.BL/Classified/CarValuation/*    @carwale/classifedc2b
+Cawale.BL/Stock/*    @carwale/classifedc2b
+Carwale.CacheCore/Classified/SellCarCacheRepository.cs    @carwale/classifedc2b
+Carwale.CacheCore/Classified/ValuationCacheRepository.cs    @carwale/classifedc2b
+Carwale.CacheCore/Stock/*    @carwale/classifedc2b
+Carwale.DataAccessLayer/Classified/CarValuation/*    @carwale/classifedc2b
+Carwale.DataAccessLayer/Classified/SellCar/*    @carwale/classifedc2b
+Carwale.DataAccessLayer/Stock/*    @carwale/classifedc2b
+Carwale.DTOs/Classified/CarValuation/*    @carwale/classifedc2b
+Carwale.DTOs/Stock/*    @carwale/classifedc2b
+Carwale.Entity/Classified/CarValuation/*    @carwale/classifedc2b
+Carwale.Entity/Classified/SellCarUsed/*    @carwale/classifedc2b
+Carwale.Entity/Classified/Stock/*    @carwale/classifedc2b
+Carwale.Interface/Classified/CarValuation/*    @carwale/classifedc2b
+Carwale.Interface/Classified/SellCar/*    @carwale/classifedc2b
+Carwale.Interface/Stock/*    @carwale/classifedc2b
+Carwale.Notifications/Classified/ClassifiedMails.cs    @carwale/classifedc2b
+Carwale.Notifications/SMSTemplates/Classified/*    @carwale/classifedc2b
+Carwale.Service/Controllers/Classified/CarValuationController.cs    @carwale/classifedc2b
+Carwale.Service/Controllers/Classified/SellController.cs    @carwale/classifedc2b
+Carwale.Service/Controllers/Classified/ValuationController.cs    @carwale/classifedc2b
+Carwale.Service/Controllers/Classified/SellLeadController.cs    @carwale/classifedc2b
+Carwale.Service/Controllers/Stock/*    @carwale/classifedc2b
+Carwale.Service/Filters/ExceptionFilters/Classified/*    @carwale/classifedc2b
+Carwale.Service/Mappers/StockMappers.cs    @carwale/classifedc2b
+Carwale/Views/Used/SellCarPartial/*   @carwale/classifedc2b
+Carwale/Views/Used/SellCar.cshtml   @carwale/classifedc2b
+Carwale/Views/Used/TermsAndCondition.cshtml   @carwale/classifedc2b
+Carwale/Views/m/Used/SellCarPartial/*    @carwale/classifedc2b
+Carwale/Views/m/Used/SellCar.cshtml    @carwale/classifedc2b
+Carwale/Views/StaticPartials/SellTermsConditionPageCss.cshtml    @carwale/classifedc2b
+Carwale/Views/StaticPartials/SellCarPageScripts.cshtml    @carwale/classifedc2b
+Carwale/Views/StaticPartials/SellCarPageCss.cshtml    @carwale/classifedc2b
+Carwale/Views/Shared/Used/_ValuationReport.cshtml    @carwale/classifedc2b
+Carwale/Views/Shared/m/Used/_ValuationReport.cshtml    @carwale/classifedc2b
+Carwale/ViewModels/Used/SellCar/*    @carwale/classifedc2b
+Carwale/Used/SellCar/*    @carwale/classifedc2b
+Carwale/Used/CarValuation/*    @carwale/classifedc2b
+Carwale/Static/js/used/sellcar/*    @carwale/classifedc2b @carwale/js-owners
+Carwale/Static/m/js/used/sellcar/*    @carwale/classifedc2b @carwale/js-owners
+Carwale/MyCarwale/*    @carwale/classifedc2b
+Carwale/m/used/ValuationRequest.aspx    @carwale/classifedc2b
+Carwale/m/used/code/ValuationRequest.aspx.cs    @carwale/classifedc2b
+Carwale/Controllers/Used/SellController.cs    @carwale/classifedc2b
+Carwale/Controllers/Used/ValuationController.cs    @carwale/classifedc2b
+Carwale/Controllers/Used/ListingPaymentController.cs    @carwale/classifedc2b
+Carwale/Controllers/Used/MyListingsController.cs    @carwale/classifedc2b
+
+#Used
+Carwale/m/used/search.aspx		@sharmasahil1991
+Carwale/m/used/search.aspx.cs		@carwale/used-cars
+Carwale/m/used/search.aspx.designer.cs		@carwale/used-cars
+Carwale/Static/m/js/buyerProcess.js		@carwale/used-cars @carwale/js-owners
+Carwale/Static/m/js/classified_search.js		@carwale/used-cars @carwale/js-owners
+Carwale/Static/js/classified_finance.js		@carwale/used-cars @carwale/js-owners
+Carwale/Static/js/promise-polyfill.min.js		@carwale/used-cars @carwale/js-owners
+Carwale/Static/m/css/usedsearch.css		@carwale/used-cars
+Carwale/Static/m/css/usedcardetails.css		@carwale/used-cars
+Carwale/Static/m/used/PhotoGallery.aspx		@carwale/used-cars
+Carwale/Static/m/used/Buyerprocess.aspx		@carwale/used-cars
+
+Carwale/Used/UsedSearch.aspx		@carwale/used-cars
+Carwale/Used/UsedSearch.aspx.cs		@carwale/used-cars
+Carwale/Used/UsedSearch.aspx.designer.cs		@carwale/used-cars
+Carwale/Static/Src/jquery.obj.min.js		@carwale/used-cars
+Carwale/Static/Src/jquery.ad-gallery.js		@carwale/used-cars
+Carwale/Static/Src/image-gallery.js		@carwale/used-cars
+Carwale/Static/Src/classified_search.js		@carwale/used-cars
+Carwale/Static/Src/buyerprocess.js		@carwale/used-cars
+Carwale/Static/Src/classified_finance.js		@carwale/used-cars
+Carwale/Static/Src/promise-polyfill.min.js		@carwale/used-cars
+Carwale/Static/Src/classified-shortlistcars.js		@carwale/used-cars
+Carwale/Static/Css/jquery.ad-gallery.css		@carwale/used-cars
+Carwale/Static/Css/cw-usedsearch.css		@carwale/used-cars
+Carwale/Static/Css/uc-gallery-style.css		@carwale/used-cars
+Carwale/Static/Used/Buyerprocess.aspx		@carwale/used-cars
+
+Carwale.Service/Controllers/Classified/ClassifiedController.cs		@carwale/used-cars
+Carwale.Service/Controllers/Classified/ElasticSearchController.cs		@carwale/used-cars
+Carwale.BL/Elastic/ElasticSearchManager.cs		@carwale/used-cars
+Carwale.BL/Elastic/Used/ESStockOperations.cs		@carwale/used-cars
+Carwale.BL/Elastic/Used/ESStockQuery.cs		@carwale/used-cars
+Carwale.BL/Elastic/Used/ProcessElasticJson.cs		@carwale/used-cars
+Carwale.BL/Elastic/Used/ProcessFilters.cs		@carwale/used-cars
+Carwale/Common/ClassifiedSearchCommon.cs		@carwale/used-cars
+Carwale.Cache/Classified/CommonOperationsCacheRepository.cs		@carwale/used-cars
+Carwale.DAL/Classified/CommonOperationsRepository.cs		@carwale/used-cars
+Carwale.Interfaces/Classified/ICommonOperationsCacheRepository.cs		@carwale/used-cars
+Carwale.BL/IPToLocation/IPToLocation.cs		@carwale/used-cars
+Carwale.Cache/IPToLocation/IPToLocationCacheRepository.cs		@carwale/used-cars
+Carwale.Interfaces/IPToLocation/IIPToLocationCacheRepository.cs		@carwale/used-cars
+Carwale.DAL/IPToLocation/IPToLocationRepository.cs		@carwale/used-cars
+Carwale.Interfaces/IPToLocation/IIPToLocationRepository.cs		@carwale/used-cars
+Carwale.Cache/CarData/CarModelsCacheRepository.cs		@carwale/used-cars
+Carwale.Interfaces/CarData/ICarModelCacheRepository.cs		@carwale/used-cars
+Carwale.DAL/CarData/CarModelsRepository.cs		@carwale/used-cars
+Carwale.Interfaces/CarData/ICarModelRepository.cs		@carwale/used-cars
+
+
+Carwale/Controllers/Used/ClassifiedDetailsController.cs			@carwale/used-cars
+Carwale/Static/m/js/cardetails.js			@carwale/used-cars @carwale/js-owners
+Carwale/Static/js/classified_finance.js			@carwale/used-cars @carwale/js-owners
+Carwale/Static/js/promise-polyfill.min.js			@carwale/used-cars @carwale/js-owners
+Carwale/Static/m/css/usedcardetails.css			@carwale/used-cars
+Carwale/Views/m/Used/CarDetails.cshtml			@carwale/used-cars
+
+Carwale/Static/Src/jquery.ad-gallery.js			@carwale/used-cars
+Carwale/Static/Src/cardetails_new.js			@carwale/used-cars
+Carwale/Static/Src/classified_finance.js			@carwale/used-cars
+Carwale/Static/Src/promise-polyfill.min.js			@carwale/used-cars
+Carwale/Static/Css/cw-useddetails.css			@carwale/used-cars
+Carwale/Static/Css/jquery.ad-gallery.css			@carwale/used-cars
+Carwale/Static/Css/uc-gallery-style.css			@carwale/used-cars
+Carwale/Views/Used/CarDetails.cshtml			@carwale/used-cars
+
+Carwale.Service/Controllers/Classified/UsedCarDetailsController.cs		@carwale/used-cars
+
+Carwale/Controllers/Used/UsedController.cs			@carwale/used-cars
+Carwale/Static/m/js/useddefault.js					@carwale/used-cars @carwale/js-owners
+Carwale/Static/m/css/cwm-usedcars.css				@carwale/used-cars
+Carwale/Views/m/Used/Default.cshtml					@carwale/used-cars
+
+Carwale/Static/Src/useddefault.js					@carwale/used-cars
+Carwale/Static/Css/usedcars.css						@carwale/used-cars
+Carwale/Views/Used/Default.cshtml					@carwale/used-cars
+
+Carwale/Used/Dealers/*					@carwale/used-cars
+
+Carwale/Used/MissedCallVerification/*					@carwale/used-cars
+
+Carwale/m/used/.htaccess				@carwale/used-cars
+Carwale/Used/.htaccess					@carwale/used-cars
+
+
+Carwale/m/used/CertificationDisclaimer.aspx			@carwale/used-cars
+
+Carwale/m/used/Finance.aspx			@carwale/used-cars
+Carwale/m/used/Finance.aspx.cs			@carwale/used-cars
+Carwale/m/used/Finance.aspx.designer.cs			@carwale/used-cars
+
+Carwale/m/used/map_cities.txt			@carwale/used-cars
+
+Carwale/m/used/PhotoGallery.aspx			@carwale/used-cars
+Carwale/m/used/PhotoGallery.aspx.cs			@carwale/used-cars
+Carwale/m/used/PhotoGallery.aspx.designer.cs			@carwale/used-cars
+
+Carwale/m/used/web.config			@carwale/used-cars
+Carwale/Used/web.config			@carwale/used-cars
+
+Carwale/Used/reportLisitng.aspx			@carwale/used-cars
+Carwale/Used/RequestPhotos.aspx			@carwale/used-cars
+Carwale/Used/UCAUnsubscribe.aspx		@carwale/used-cars
+
+Carwale.Service/Controllers/Classified/UsedCarLeadController.cs		@carwale/used-cars
+
+Carwale.Service/Controllers/Classified/UsedMakesAndCitiesController.cs		@carwale/used-cars
+
+Carwale.Service/Controllers/Finance/CustomerFinanceController.cs		@carwale/used-cars
+Carwale.CacheCore/Finance/CustomerFinanceCacheRepository.cs				@carwale/used-cars
+Carwale.Interface/Finance/ICustomerFinanceCacheRepository.cs        	@carwale/used-cars
+Carwale.Interface/Finance/ICustomerFinanceRepository.cs             	@carwale/used-cars
+Carwale.DataAccessLayer/Finance/CustomerFinanceRepository.cs        	@carwale/used-cars
+Carwale.Entity/Finance/FinanceOffer.cs									@carwale/used-cars
+Carwale.DataAccessLayer/Finance/CustomerFinanceLeadRepository.cs		@carwale/used-cars
+Cawale.BL/Finance/CustomerFinanceLeadBL.cs								@carwale/used-cars
+Carwale.Interface/Finance/ICustomerFinanceLeadRepository.cs				@carwale/used-cars
+Carwale.Interface/Finance/ICustomerFinanceLeadBL.cs						@carwale/used-cars
+Carwale.Entity/Finance/CustomerFinanceLead.cs							@carwale/used-cars
+Carwale.Entity/Finance/CustomerFinanceLeadDetail.cs						@carwale/used-cars
+Carwale.Entity/Finance/CustomerFinanceLeadValidator.cs					@carwale/used-cars
+Carwale.Service/Controllers/Finance/CustomerFinanceLeadsController.cs	@carwale/used-cars
+Carwale.Service/Containers/FinanceTypes.cs								@carwale/used-cars
+
+Carwale.DataAccessLayer/HttpClientManager.cs							@carwale/used-cars 
+Carwale/Views/m/Used/SearchAmp											@carwale/used-cars 
+
+Carwale.Utility/AWSUtils.cs												@carwale/core-tech
+Carwale.DataAccessLayer/CoreDAL/DbConnections.cs						@carwale/core-tech

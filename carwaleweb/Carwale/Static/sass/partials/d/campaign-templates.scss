@@ -1,0 +1,230 @@
+@import '../../mixins/_variables.scss';
+@import '../../mixins/_vendor-utils.scss';
+@import '../../mixins/_sprites.scss';
+@import '../../mixins/_jcarousel.scss';
+
+//model template and offers cotainer css starts here
+.campaign-template-container {
+	width: 100%;
+	border: 1px solid map-get($color-map, 'gainsboro');
+	background-color: map-get($color-map, 'white');
+	border-radius: 4px;
+	padding: 45px 20px 20px;
+	position: relative;
+}
+
+.campaign__ad-icon {
+	font-size: 11px;
+	padding-left: 5px;
+	padding-right: 5px;
+	border-radius: 2px;
+	color: map-get($color-map, 'white');
+	background-color: map-get($color-map, 'light-grey-new');
+	position: absolute;
+	right: 12px;
+	top: 12px;
+}
+
+.campaign-template__title {
+	font-size: 16px;
+	color: map-get($color-map, 'charcoal');
+	font-weight: $font-bold;
+	margin-bottom: 15px;
+	text-transform: uppercase;
+}
+
+.campaign-benefit-container {
+	background-color: map-get($color-map, 'snow-white');
+	padding: 30px 25px;
+	border-radius: 4px;
+	margin-bottom: 20px;
+}
+
+.campaign-benefit__list-item {
+	font-size: 15px;
+	color: map-get($color-map, 'charcoal');
+	margin-bottom: 20px;
+	margin-left: 15px;
+	position: relative;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	&::before {
+		@include tick-7fd7cf-icon;
+		background-position: center;
+		content: '';
+		width: 18px;
+		height: 18px;
+		display: block;
+		position: absolute;
+		left: -30px;
+		top: 3px;
+	}
+}
+
+.campaign-button {
+	&.btn-secondary {
+		font-weight: $font-bold;
+		padding-left: 15px;
+		padding-right: 15px;
+		width: auto;
+	}
+}
+
+//recommended car carousel
+@include carousel-image-wrapper ($prefix: 'recommended', $height: 108, $width: 272);
+
+.recommended-car-container {
+	@include carousel-wrapper($prefix: 'recommended');
+	@include carousel-list-item ($prefix: 'recommended',$width: 284, $height: 315, $margin-right: 20, $border-color: 'gainsboro');
+	@include carousel-control-button($prefix: 'recommended');
+	@include carousel-list($prefix: 'recommended');
+	width: 100%;
+	overflow: hidden;
+	padding: 15px 18px;
+	border-radius: 4px;
+	border: 1px solid map-get($color-map, 'gainsboro');
+	background-color: map-get($color-map, 'snow-white');
+	text-transform: capitalize;
+
+	.recommended-carousel-list-item {
+		&:hover {
+			@include get-vendor-prefixed(transform, translateY(0));
+			box-shadow: none;
+		}
+	}
+
+	.recommended-car-carousel {
+		padding-bottom: 8px;
+	}
+
+	.recommended-carousel-button {
+		background-size: 20px;
+
+		&.carousel-prev-button {
+			left: -23px;
+
+			&:before {
+				bottom: 47%;
+			}
+		}
+	}
+
+	.recommended-carousel-button {
+		&.carousel-next-button {
+			&:before {
+				bottom: 47%;
+			}
+		}
+	}
+}
+
+.recommended-carousel-image-wrapper {
+	margin-top: 5px;
+	cursor: pointer;
+}
+
+.recommended-car__title {
+	font-size: 16px;
+	color: map-get($color-map, 'charcoal');
+	text-transform: uppercase;
+	font-weight: $font-bold;
+}
+
+.recommended__car-data {
+	padding: 0 19px 10px 16px;
+
+	&:last-child {
+		padding-top: 10px;
+		border-top: 1px solid map-get($color-map, 'white-smoke');
+	}
+
+	.car-data__title {
+		font-size: 16px;
+		font-weight: $font-bold;
+		letter-spacing: .7px;
+		color: map-get($color-map, 'charcoal');
+		margin-bottom: 4px;
+	}
+}
+
+.recommended__car-data_details {
+	cursor: pointer;
+}
+
+.car-data__subtitle {
+	font-size: 13px;
+	color: map-get($color-map, 'grey-subtitle');
+}
+
+.car-data__price {
+	font-size: 16px;
+	font-weight: $font-bold;
+	color: map-get($color-map, 'eclipse');
+}
+
+.dealer-info__name {
+	font-size: 16px;
+	font-weight: $font-bold;
+	color: map-get($color-map, 'matterhorn-2');
+	margin-bottom: 5px;
+}
+
+.dealer-info__tag {
+	font-size: 13px;
+	color: map-get($color-map, 'grey-subtitle');
+	letter-spacing: .2px;
+}
+
+.dealer-info-wrapper {
+	margin-bottom: 15px;
+}
+
+.dealer-info__contact-no {
+	font-size: 13px;
+	color: map-get($color-map, 'dim-grey');
+	float: right;
+	position: relative;
+
+	&::before {
+		@include phone-6f6f6f;
+		background-position: center;
+		content: '';
+		width: 16px;
+		height: 16px;
+		display: block;
+		position: absolute;
+		left: -22px;
+		top: -2px;
+	}
+}
+
+.dealer-info__button {
+	&.btn-secondary {
+		padding-left: 20px;
+		padding-right: 20px;
+		font-weight: $font-bold;
+		width: auto;	
+	}
+}
+
+.model-offers-container {
+	width: 100%;
+
+	.offer-container {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+
+//offers setion
+
+.js-offer__tnc {
+	&:hover {
+		.offers-tool-tip {
+			display: block;
+		}
+	}
+}

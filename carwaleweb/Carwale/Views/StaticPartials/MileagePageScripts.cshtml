@@ -1,0 +1,32 @@
+﻿@model Carwale.DTOs.NewCars.MileagePageDTO
+@using Carwale.Utility;
+<script  type="text/javascript"  src="/static/src/quotation.js" defer></script>
+<script type="text/javascript">
+    window.ISVERSIONPAGE = false;
+    var isHashHaveModel = false;
+    var modelId = '@Model.ModelDetails.ModelId';
+    var makeId = '@Model.ModelDetails.MakeId';
+    var IsOverviewPage = false;
+    var PageId = '202';
+    var priceQuoteClicked = false;
+    var modelName = '@Model.ModelDetails.ModelName';
+    var subscriptionCategory = 1;
+    var subscriptionType = @Model.ModelDetails.ModelId;
+    var makename = '@Model.ModelDetails.MakeName';
+    var VersionId = '0';
+    var videoSlider = 1;
+    var CityId = '@ViewBag.CityId' ;
+    var CityName = '@ViewBag.CityName';
+    var isCityPage = @(ViewBag.IsCityPage ? "true" : "false");
+    var SubSegmentId = @Model.ModelDetails.SubSegmentId;
+    var newCarString = '@Model.ModelDetails.New'.toLowerCase();
+    var newCar = (newCarString === "true")
+    var maskingName = '@Model.ModelDetails.MaskingName';
+    var carModelName = '@Model.ModelDetails.ModelName';
+    var isPriceShown = '@ViewBag.IsPriceShown';
+    var USERIP = "@Carwale.Utility.UserTracker.GetUserIp()";
+</script>
+
+<script  type="text/javascript"  src="/static/src/pq-common.js" defer></script>
+<script  type="text/javascript"  src="/static/src/dropdown-menu.min.js" defer></script>
+<script  type="text/javascript"  src="/static/js/model-version-common.js" defer></script>

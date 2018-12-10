@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Carwale.Entity.Dealers.DealerCityEntity>
+
+@if(Model != null && Model.Count() > 0)
+{ 
+<div class="content-box-shadow content-inner-block-10 margin-bottom20 margin-top10">
+    <div class="grid-4 nearest-dealer rounded-corner50 margin-bottom20 margin-top20 margin-left20">
+        <span class="cwsprite cityPopup-icon margin-top20 margin-left15"></span>
+    </div>
+    <div class="grid-8 margin-top20 margin-left20">
+        <h2 class="font20 margin-bottom15 text-light-grey">Locate nearest @ViewBag.MakeName dealers</h2>
+        <div class="nearest-dealer-form">
+            <div class="leftfloat form-control-box nearest-dealer-form-input">
+                <span class="select-box fa fa-angle-down"></span>
+                @Html.DropDownList("locateDealerCities", new SelectList(Model, "CityId", "CityName"), "--Select City--", new { @class = "form-control input-sm" })
+            </div>
+            <div class="leftfloat margin-left10" style="width: 100px;">
+                <a id="btnLocateDealers" class="btn btn-grey btn-md text-uppercase" onclick="locateDealer()">Locate</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+}
+<script type="text/javascript">
+    function locateDealer() {
+
+        var cityId = $("#locateDealerCities").val();
+        var cityName = $("#locateDealerCities option:selected").text();
+        if (Number(cityId) > 0) window.location.href = "/" + '@Carwale.UI.Common.UrlRewrite.FormatSpecial(ViewBag.MakeName.ToLower())-dealer-showrooms/' + cityName.replace(" ", "").toLowerCase() + "-" + cityId;
+        else window.location.href = "/new/" + '@Carwale.UI.Common.UrlRewrite.FormatSpecial(ViewBag.MakeName.ToLower())-dealers/';
+    }
+    </script>

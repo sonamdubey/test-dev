@@ -1,0 +1,484 @@
+﻿@import "../../../mixins/utils";
+@import "../../../mixins/text";
+@import "../../../mixins/sprites";
+@import "../../../partials/_popup.scss";
+@import "../../../mixins/_variables.scss";
+@import "../../../mixins/_tooltip.scss";
+@import "../../../mixins/_flexbox.scss";
+@import '../../../mixins/_scrollbar.scss';
+
+@include close-button($button-color: 'black');
+
+.loan-summary-popup {
+	.emi-calculator-root { 
+		position: relative;
+		display: block;
+		height: auto;
+		padding-bottom: 60px !important;
+	}
+	.emi-pop-div {
+		display: block;
+	}
+	.emi-slider-body {
+		padding-top: 0;
+	}
+	.collapse-section, 
+	.emi-close {
+		display: none;
+	}
+	.cw-tabs-flex {
+		box-shadow: 0 2px 5px 0 rgba(map-get($color-map, 'dark-black'), .1);
+		margin-bottom: 5px;
+
+		ul {
+			margin-bottom:0;
+			border: none;
+			display: flex;
+		}
+
+		li {
+			width: 50%;
+			padding: 15px 5px 11px; 
+			font-size: 13px;
+			text-transform: uppercase;
+			font-weight: $font-bold;
+			color: map-get($color-map, 'charcoal');
+		}
+
+		.active {
+			color: map-get($color-map, 'shamrockGreen');
+			border-color: map-get($color-map, 'shamrockGreen');
+		}
+
+		:hover:not(.disabled){
+			color: map-get($color-map, 'shamrockGreen');
+		}
+	}
+}
+.popup-close-unit {
+	font-size: 16px;
+	padding: 10px 15px;
+	position: relative;
+	background-color: map-get($color-map, 'snow');
+	color: map-get($color-map, 'charcoal');
+}
+
+@include instruction-target;
+@include instruction-tooltip($left: -30px, $position: 'top');
+
+.featured-popup__body {
+	height: calc(100vh - 86px);
+	overflow: auto;
+}
+
+.featured-header__info-bar {
+	font-size: 12px;
+	line-height: 17px;
+	color: map-get($color-map, 'dim-grey');
+	padding: 16px 18px 21px;
+}
+
+.emi-header__info-text {
+	font-size: 12px;
+	margin-bottom: 7px;
+}
+
+.summary-card__wrapper {
+	background-color: map-get($color-map, 'white');
+	padding: 10px 18px;
+}
+.summary-card {
+	border-radius: 3px;
+	background-color: map-get($color-map, 'snow');
+	padding: 18px;
+	margin-top: 10px;
+
+	&:first-child {
+		margin-top: 0;
+	}
+
+	.instruction-icon__wrapper {
+		vertical-align: top;
+		z-index: 4;
+	}
+}
+
+.summary-card__head {
+	font-size: 14px;
+	color: map-get($color-map, 'charcoal');
+	padding-bottom: 23px;
+}
+
+.sumamry-head__price {
+	color: map-get($color-map, 'shamrockGreen');
+
+	> span {
+		font-weight: $font-bold;
+	}
+}
+
+.summary-card-body__wrapper {
+	@include flexbox;
+}
+
+.summary-body-wrapper__item {
+	width: 50%;
+}
+
+.summary-item__label {
+	font-size: 13px;
+	color: map-get($color-map, 'dim-grey');
+	margin-bottom: 9px;
+}
+
+.summary-item__value {
+	font-size: 14px;
+	font-weight: $font-bold;
+	color: map-get($color-map, 'charcoal');
+}
+
+.summary-item__price {
+	> span {
+		font-weight: $font-bold
+	}
+}
+
+.featured-footer {
+	padding: 17px 18px 70px;
+}
+
+.featured-footer-wrapper {
+	@include flexbox;
+	@include justify-content(space-between);
+}
+
+.featured-footer__text {
+    font-size: 11px;
+    letter-spacing: .1px;
+    color: map-get($color-map, 'dim-grey');
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.featured-footer__logo {
+	height: 28px;
+	display: block;
+	position: relative;
+	background-size: contain;
+	background-position: bottom;
+}
+
+.featured-footer__link {
+	@include align-self(flex-end);
+	@include external-link;
+	background-position: right 2px;
+	background-size: 12px;
+	font-size: 13px;
+	font-weight: $font-bold;
+	letter-spacing: .2px;
+	color: map-get($color-map, 'summer-sky');
+	padding-right: 20px;
+}
+
+.featured-footer__logo {
+	height: 35px;
+
+	> img {
+		margin-top: -5px;
+	}
+}
+
+.finacial-services-slug--logo {
+    max-width: 130px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 5px;
+
+    img {
+        max-width: 100%;
+    }
+}
+
+.loan-summary-popup {
+    .finacial-services-slug--logo {
+        img[src*="audi-"] {
+            margin-top: 5px;
+        }
+    }
+}
+
+.instruction-icon--left {
+		left: 40px;
+}
+
+.instruction-icon--right {
+		left: -100px;
+}
+
+.customise-emi-link {
+	&.emi-link {
+		vertical-align: middle;
+		display: inline-block;
+		width: auto;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+    .summary-body__down-payment {
+        .instruction-icon__wrapper {
+			display: none;
+		}
+    }
+
+	.loan-summary-popup {
+		.cw-tabs-flex {
+			li {
+				font-size: 11px;
+			}
+		}
+	}
+
+	.cw-tabs-data {
+		.finacial-services-slug--logo {
+			    max-width: 100px;
+		}
+	}
+}
+
+.summary-loan-tnc {
+	display: none;
+}
+
+@media only screen and (min-width: 768px) {
+	.emi-calculator-root {
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+
+	.loan-summary-popup {
+		.emi-popup_blackout-window {
+			display: none;
+		}
+
+		.collapse-section {
+			display: block;
+		}
+
+		.cw-tabs-flex,
+		.popup-close-unit,
+		.featured-header__info-bar {
+			width: 50%;
+		}
+
+		.popup {
+			position: fixed;
+			background-color: map-get($color-map, 'white');
+			z-index: 10;
+			height: 580px;
+			width: 860px;
+			margin: 4% auto 0;
+			overflow: hidden;
+		}
+
+		.emi-pop-div {
+			margin-top: 0;
+			overflow: visible;
+		}
+
+		.featured-popup__body {
+			overflow: visible;
+		}
+
+		.popup-close-unit {
+			border-top: 5px solid map-get($color-map, 'grey-blue');
+			position: static;
+			font-size: 20px;
+			padding: 12px 28px 13px;
+		}
+
+		.emi-header-container {
+			@include vendor-prefix('box-shadow', inset 2px 0 1px 1px rgba(map-get($color-map, 'grey-2'), .4));
+		}
+
+		.popup-close-button {
+			z-index: 11;
+		}
+		
+		.emi-slider-body {
+			@include vendor-prefix('box-shadow', 6px 0 1px -3px rgba(map-get($color-map, 'grey-2'), .19));
+			top: -5px;
+			height: 367px;
+			overflow: visible;
+			border-top: none;
+		}
+
+		.emi-pop-div {
+			height: 367px;
+		}
+
+		.emi-slider-content {
+			@include scrollbar($width: 4);
+			overflow: auto;
+			height: 367px;
+			padding-bottom: 20px;
+			margin-right: 5px;
+		}
+		
+		.emi-header {
+			width: 50%;
+			float: right;
+			position: relative;
+			margin-top: -214px;
+		}
+
+		.outer-emi-section {
+			float: right;
+			width: 50%;
+			margin-top: -214px;	
+		}
+
+		.summary-loan-tnc {
+			height: 430px;
+			overflow: auto;
+		}
+
+		.summary-emi-outer-section {
+			@include vendor-prefix('box-shadow', 6px 0 4px -3px rgba(map-get($color-map, 'grey-2'), .29));
+			width: 50%;
+			height: 372px;
+			position: relative;
+			top: -5px;
+		}
+
+		.emi-slider-body__title {
+			display: none;
+		}
+
+		.featured-header__info-bar {
+			@include vendor-prefix('box-shadow', 6px 0 4px -3px rgba(map-get($color-map, 'grey-2'), .29));
+			font-size: 14px;
+			line-height: 20px;
+			position: relative;
+			z-index: 11;
+		}
+		.emi-calculator-root {
+			overflow: visible;
+
+			.root {
+				overflow: visible;
+			}
+		}
+
+		.cw-tabs-flex {
+			li {
+				padding-top: 16px;
+				padding-bottom: 14px;
+				font-size: 14px;
+				letter-spacing: .2px;
+			}
+
+			.active {
+				border-bottom: 4px solid;
+			}
+		}
+
+		.summary-card {
+			padding: 21px;
+			margin-top: 20px;
+
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+
+		.summary-loan-tnc {
+			display: block;
+			padding: 15px 30px 30px;
+		}
+
+		.load-tnc-title {
+			font-size: 16px;
+			letter-spacing: .2px;
+			font-weight: $font-bold;
+			color: map-get($color-map, 'dim-grey');
+		}
+
+		.loan-tnc-list {
+			font-size: 13px;
+			letter-spacing: .2px;
+			color: map-get($color-map, 'text-grey');
+			list-style-type: decimal;
+			margin-top: 2px;
+			padding-left: 15px;
+			
+			> li {
+				margin-top: 7px;
+
+				&:last-child {
+					margin-top: 0;
+				}
+			}
+		}
+
+		.summary-card__wrapper,
+		.featured-footer,
+		.featured-header__info-bar {
+			padding-left: 40px;
+			padding-right: 40px;
+		}
+
+		.emi-slider-container,
+		.tenure-interest-slider {
+			padding-right: 40px;
+		}
+
+		.emi-slider-body {
+			&::before {
+				display: block;
+				content: '';
+				position: absolute;
+				left: 40px;
+				right: 40px;
+				top: 0;
+				border-top: 1px solid map-get($color-map, 'smoke-white');
+			}
+		}
+
+		.popup-close-button {
+			@include cross-icon; 
+		}
+
+		.tabHr {
+			display: none;
+		}
+
+        .finacial-services-slug--logo {
+            max-width: 150px;
+            margin-top: 5px;
+        }
+	}
+
+    .finacial-services-slug--logo {
+        margin-top: 0;
+    }
+
+	.featured-header__icon {
+		@include tick-00a0af-circle;
+		position: relative;
+		width: 30px;
+		height: 30px;
+		display: inline-block;
+		margin-right: 15px;
+		background-size: contain;
+	}
+
+	.featured-header__text {
+		display: inline-block;
+		width: 80%;
+	}
+
+	.finacial-services-slug-volkswagen__img {
+		vertical-align: bottom;
+	}
+}

@@ -1,0 +1,81 @@
+﻿@model Carwale.DTOs.CarData.PhotoGalleryDTO_V2
+
+@using System.Configuration;
+@using Carwale.Utility;
+@using Carwale.UI.PresentationLogic;
+
+@{ 
+    string cdnHostUrl = ConfigurationManager.AppSettings["CDNHostURL"].ToString();
+    string noImageImagePath = cdnHostUrl + ImageSizes._0X0 + "/cw/static/png/gallery/no-image.png";
+    string greyGifUrl = cdnHostUrl + ImageSizes._0X0 + "/statics/grey.gif";
+}
+
+<div id="color-carousel" class="jcarousel-wrapper colour-carousel-container bg-white">
+    <div class="jcarousel carousel-stage carousel-target--one carousel-swipe colour-gallery-carousel" >
+        <ul class="swiper-image-container">
+            @for (int i = 0; i < Model.ModelColors.Count; i++)
+            {
+                if (string.IsNullOrWhiteSpace(Model.ModelColors[i].OriginalImgPath))
+                {
+                    <li style="min-height:530px;line-height:normal;" class="text-center no-animation" data-index="@i">
+                        <div class="no-image-container">
+                            <div class="center-container">
+                                <img class="lazy no-image-icon" data-original="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/gallery/desktop_gallery_no_images.svg" src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/gallery/desktop_gallery_no_images.svg" alt="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName @Model.ModelColors[i].Color Colour" title="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName @Model.ModelColors[i].Color Colour" data-url="@EditorialContent.GetColorUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, Model.ModelColors[i].Color, Model.ModelColors[i].ColorId, false)" data-image-id="@Model.ModelColors[i].ColorId" />
+                                <span class="font24 text-bold text-light-grey">No Image Available</span>
+                            </div>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    string url = ImageSizes.CreateImageUrl(cdnHostUrl, ImageSizes._1056X594, Model.ModelColors[i].OriginalImgPath, 80);
+                    <li style="min-height:530px; @( i == 0 ? string.Format("background-image:url('{0}'); background-repeat: no-repeat; background-position: center;", url) : string.Empty)" class="text-center no-animation" data-index="@i">
+                        <img class="lazy" style="max-width:100%;" data-original="@url" src="@(i == 0 ? url : cdnHostUrl + "0x0/adgallery/loader.gif")" alt="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName @Model.ModelColors[i].Color Colour" title="@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName @Model.ModelColors[i].Color Colour" data-url="@EditorialContent.GetColorUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName, Model.ModelColors[i].Color, Model.ModelColors[i].ColorId, false)" data-image-id="@Model.ModelColors[i].ColorId">
+                    </li>
+                }
+            }
+        </ul>
+        <div class="carousel__bottom-container">
+            <div>
+                <div class="leftfloat inline-block-noalign text-white">
+                    <span class="font14 margin-right5 imageCount">(<span>1</span>/<span>@Model.ModelColors.Count</span>)</span>
+                </div>
+                <span class="rightfloat">
+                    <a class="downloadBtn @(string.IsNullOrEmpty(Model.ModelColors[0].OriginalImgPath) ? "hide" : string.Empty)" download href="@ImageSizes.CreateImageUrl(cdnHostUrl, ImageSizes._0X0, Model.ModelColors[0].OriginalImgPath).Split(new string[] { "&q" }, StringSplitOptions.None)[0].Split(new string[] { "?q" }, StringSplitOptions.None)[0]" draggable="false" style="user-select: none;" data-role="click-tracking" data-event="CWInteractive" data-action="color_download" data-cat="desktop_image_gallery" data-label="color_download">
+                        <span class="carousel__download-icon icon-gallery-Download"></span>
+                    </a>
+                </span>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <span class="jcarousel-control-left gallery-carousel__left-control" data-role="click-tracking" data-event="CWInter
+          " data-action="color_prev" data-cat="desktop_image_gallery" data-label="color_prev">
+        <span class="gallery-control-prev icon-gallery-arrow_carousel inactive" data-jcarouselcontrol="true"></span>
+    </span>
+    <span class="jcarousel-control-right gallery-carousel__right-control" data-role="click-tracking" data-event="CWInteractive" data-action="color_next" data-cat="desktop_image_gallery" data-label="color_next">
+        <span class="gallery-control-next  icon-gallery-arrow_carousel" data-jcarouselcontrol="true"></span>
+    </span>
+</div>
+
+<div class="jcarousel-wrapper colour-thumbnail-carousel-container bg-white">
+    <div class="jcarousel carousel-swipe colour-thumbnail-carousel carousel-navigation margin-top10">
+        <ul id="colorThumbnail">
+            @foreach (var color in Model.ModelColors)
+            {
+                <li class="circle no-animation" data-label="@color.Color" style="background-color: #@color.HexCode">
+                    <span class="selected-colour-icon"></span>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="text-center font16 margin-bottom15">
+        <span class="text-light-grey">Colour : </span><span id="colourName" class="text-black text-bold"></span>
+    </div>
+    <span class="jcarousel-control-left color-thumbnail__left-control" data-role="click-tracking" data-event="CWInteractive" data-action="color_thumb_prev" data-cat="desktop_image_gallery" data-label="color_thumb_prev">
+        <span class="gallery-control-prev  icon-gallery-arrow_carousel"></span>
+    </span>
+    <span class="jcarousel-control-right color-thumbnail__right-control" data-role="click-tracking" data-event="CWInteractive" data-action="color_thumb_next" data-cat="desktop_image_gallery" data-label="color_thumb_next">
+        <span class="gallery-control-next  icon-gallery-arrow_carousel"></span>
+    </span>
+</div>

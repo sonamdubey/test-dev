@@ -1,0 +1,11 @@
+@mixin container {
+	.container {
+		margin: 0 auto;
+		@if ($isMobile) {
+			width: 100%;
+		}
+		@else {
+			width: 997px;
+		}
+	}
+}

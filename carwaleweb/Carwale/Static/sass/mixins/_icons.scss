@@ -1,0 +1,21 @@
+﻿@import "_sprites.scss";
+
+@mixin instruction-icon($size: 16, $vertical-align: middle, $background-position: center) {
+	.instruction-icon {
+		@include info-yellow-icon;
+		width: $size * 1px;
+		height: $size * 1px;
+		display: inline-block;
+		vertical-align: $vertical-align;
+		background-position: $background-position;
+		position: relative;
+	}
+
+	.instruction-icon {
+		&:hover {
+			.instruction-tooltip {
+				display: block;
+			}
+		}
+	}
+}

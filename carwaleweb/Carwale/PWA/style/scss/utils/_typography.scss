@@ -1,0 +1,15 @@
+/**
+ * A custom function to get font weight of base selected font
+ *
+ * @parameters:
+ * $weight: Font weight
+ */
+@function font-weight($weight) {
+	@if map-has-key($base-font-weight, $weight) {
+		@return map-get($base-font-weight, $weight);
+	}
+	@else {
+		@warn "Unfortunately, no value could be retrieved from `#{$weight}`. Please make sure it is defined in `$primary-font-weight` map.";
+		@return false;
+	}
+}

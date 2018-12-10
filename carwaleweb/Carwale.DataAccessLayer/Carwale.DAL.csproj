@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9CF1C70B-6EB2-4F13-8FBF-9ED9E5EB5FEF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Carwale.DAL</RootNamespace>
+    <AssemblyName>Carwale.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Carwale.DAL.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Carwale.DAL.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Testing|AnyCPU'">
+    <OutputPath>bin\Testing\</OutputPath>
+    <CodeAnalysisRuleSet>Carwale.DAL.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Staging|AnyCPU'">
+    <OutputPath>bin\Staging\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>Carwale.DAL.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AEPLCore.Logging, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Logging.1.0.2\lib\net452\AEPLCore.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Queue, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Queue.2.0.10-beta-2\lib\net452\AEPLCore.Queue.dll</HintPath>
+    </Reference>
+    <Reference Include="AEPLCore.Utils, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AEPLCore.Utils.1.0.4\lib\net452\AEPLCore.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="APIGatewayLibrary, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\APIGatewayLibrary.2.2.2\lib\net452\APIGatewayLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\libs\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="BhriguServiceCaller, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BhriguServiceCaller.1.3.1\lib\net452\BhriguServiceCaller.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Consul, Version=0.7.2.3, Culture=neutral, PublicKeyToken=20a6ad9a81df1d95, processorArchitecture=MSIL">
+      <HintPath>..\packages\Consul.0.7.2.3\lib\net45\Consul.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper">
+      <HintPath>..\libs\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DapperWrapper">
+      <HintPath>..\libs\DapperWrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\libs\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Gelf4Net, Version=3.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gelf4Net.3.0.0.7\lib\net45\Gelf4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Gelf4Net.UdpAppender, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Gelf4Net.UdpAppender.1.0.0.11\lib\net45\Gelf4Net.UdpAppender.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grpc.Core.1.10.0\lib\net45\Grpc.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Kafka">
+      <HintPath>..\libs\zipkin\Kafka.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net40\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\libs\Microsoft.Practices.Unity.DLL</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\libs\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\libs\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabbitMQ.Client.5.0.1\lib\net451\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="OTPProto, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OTPProto.1.2.0\lib\net452\OTPProto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Interactive.Async, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Interactive.Async.3.1.1\lib\net45\System.Interactive.Async.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ThriftNetStandard, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Apache.Thrift.1.0.2\lib\net451\ThriftNetStandard.dll</HintPath>
+    </Reference>
+    <Reference Include="zipkin4net, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\zipkin4net.1.2.0\lib\net451\zipkin4net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accessories\AccessoryRepository.cs" />
+    <Compile Include="Accessories\Tyres\TyresRepository.cs" />
+    <Compile Include="Advertizings\App\AppSplashRepository.cs" />
+    <Compile Include="ApiGateway\Extensions\CarDataApiGatewayCallerExtensions.cs" />
+    <Compile Include="ApiGateway\Extensions\CmsApiGatewayCallerExtension.cs" />
+    <Compile Include="ApiGateway\Extensions\MmvApiGatewayCallerExtensions.cs" />
+    <Compile Include="ApiGateway\Extensions\OffersApiGatewayCallerExtensions.cs" />
+    <Compile Include="ApiGateway\Extensions\OtpApiGatewayCallerExtensions.cs" />
+    <Compile Include="ApiGateway\Extensions\SimilarCarApiGatewayCallerExtensions.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\CarDataElasticDoc.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\VehicleData\Category.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\VehicleData\Customdatatype.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\Mmv\Mmv.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\VehicleData\DataType.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\VehicleData\ModelItem.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\NewcarConsumer.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\Offers\Offers.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\Offers\OffersCommon.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\Offers\OffersGrpc.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\VehicleData\Item.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\VehicleData\Unittype.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\VehicleData\VehicleData.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\VehicleData\VehicleDataEvent.cs" />
+    <Compile Include="ApiGateway\GrpcClasses\VehicleData\VehicleDataGrpc.cs" />
+    <Compile Include="ApiGateway\Helper\ApiGatewayAdapterBase.cs" />
+    <Compile Include="ApiGateway\Helper\ApiGatewayCaller.cs" />
+    <Compile Include="ApiGateway\Helper\ApiGatewayWidgetAdapterBase.cs" />
+    <Compile Include="ApiGateway\Helper\GateWayException.cs" />
+    <Compile Include="ApiGateway\Helper\Interfaces\IApiGatewayAdapter.cs" />
+    <Compile Include="ApiGateway\Helper\Interfaces\IApiGatewayCaller.cs" />
+    <Compile Include="ApiGateway\Helper\Interfaces\IApiGatewayWidgetAdapter.cs" />
+    <Compile Include="APIVersion\AppFunctions.cs" />
+    <Compile Include="Bhrigu\ApiGatewayExtension.cs" />
+    <Compile Include="Bhrigu\BhriguGrpc.cs" />
+    <Compile Include="Blocking\BlockedCommunicationsRepository.cs" />
+    <Compile Include="Blocking\BlockIPRepository.cs" />
+    <Compile Include="Campaigns\ApiGatewayExtension.cs" />
+    <Compile Include="Campaigns\CampaignRepository.cs" />
+    <Compile Include="CarData\CarDataRepository.cs" />
+    <Compile Include="CarFinance\FinanceLinkDataRepository.cs" />
+    <Compile Include="ChatManagement\ChatManagementRepository.cs" />
+    <Compile Include="Classified\CarValuation\CTValuationClient.cs" />
+    <Compile Include="Classified\CertificationProgramsRepository.cs" />
+    <Compile Include="Classified\Chat\ChatSmsRepository.cs" />
+    <Compile Include="Classified\ClassifiedEmailAlertRepository.cs" />
+    <Compile Include="Classified\CWCTCityMappingRepository.cs" />
+    <Compile Include="Classified\ElasticSearch\AggregationQueryDescriptor.cs" />
+    <Compile Include="Classified\ElasticSearch\AggregationsRepository.cs" />
+    <Compile Include="Classified\ElasticSearch\ESStockQueryRepository.cs" />
+    <Compile Include="Classified\ElasticSearch\FeaturedStockQueryProcessor.cs" />
+    <Compile Include="Classified\ElasticSearch\NearbyCityRepository.cs" />
+    <Compile Include="Classified\ElasticSearch\NonFeaturedStockQueryProcessor.cs" />
+    <Compile Include="Classified\ElasticSearch\ProcessAggregationElasticJson.cs" />
+    <Compile Include="Classified\ElasticSearch\QueryContainerRepository.cs" />
+    <Compile Include="Classified\ElasticSearch\SortDescriptorRepository.cs" />
+    <Compile Include="Classified\EmailAlerts\DailyWeeklyEmailRepository.cs" />
+    <Compile Include="Classified\EmailAlerts\RecommendationEmailRepository.cs" />
+    <Compile Include="Classified\EmailAlerts\ImageUploadReminderRepository.cs" />
+    <Compile Include="Classified\Leads\LeadRepository.cs" />
+    <Compile Include="Classified\Leads\SellerRepository.cs" />
+    <Compile Include="Classified\ListingPayment\ReceiptRepository.cs" />
+    <Compile Include="Classified\MyListings\MyListingsRepository.cs" />
+    <Compile Include="Classified\SellCar\C2BStockRepository.cs" />
+    <Compile Include="Classified\SellCar\CarDetailsRepository.cs" />
+    <Compile Include="Classified\SellCar\CTBuyingIndexClient.cs" />
+    <Compile Include="Classified\SellCar\ListingRepository.cs" />
+    <Compile Include="Classified\Slots\SlotsRepository.cs" />
+    <Compile Include="Classified\UsedCarBuyerRepository.cs" />
+    <Compile Include="Classified\UsedCarPhotos\CarPhotosRepository.cs" />
+    <Compile Include="CMS\ThreeSixty\ThreeSixtyDal.cs" />
+    <Compile Include="CMS\UserReviews\UserReviewsRepository.cs" />
+    <Compile Include="Classified\GetDealerStatus.cs" />
+    <Compile Include="Classified\SellCar\SellCarRepository.cs" />
+    <Compile Include="Classified\UsedDealers\DealerSellInquiryRepository.cs" />
+    <Compile Include="Classified\UsedDealers\DealersForCityRepository.cs" />
+    <Compile Include="Classified\UsedDealers\DealerShowroomCityRepository.cs" />
+    <Compile Include="Classified\UsedDealers\DealerStockDetailsRepository.cs" />
+    <Compile Include="Classified\UsedDealers\PremiumDealerRepository.cs" />
+    <Compile Include="Classified\UsedDealers\UsedCarDealerDetailsRepository.cs" />
+    <Compile Include="Classified\UsedLeads\UsedLeadsRepository.cs" />
+    <Compile Include="CoreDAL\DbConnections.cs" />
+    <Compile Include="CoreDAL\DbFactory.cs" />
+    <Compile Include="CoreDAL\MySqlDatabase.cs" />
+    <Compile Include="CoreDAL\MySqlDatabaseUtility.cs" />
+    <Compile Include="CarData\CarMakesRepository.cs" />
+    <Compile Include="CarData\CarModelRootsRepository.cs" />
+    <Compile Include="CarData\CarModelsRepository.cs" />
+    <Compile Include="CarData\CarVersionsRepository.cs" />
+    <Compile Include="CarData\RecentLaunchedCarRepository.cs" />
+    <Compile Include="Classification\ClassificationRepository.cs" />
+    <Compile Include="Classified\CarDetails\CarDetailRepository.cs" />
+    <Compile Include="Customers\CustomerDetails.cs" />
+    <Compile Include="Dealers\Used\UsedDealerCitiesRepository.cs" />
+    <Compile Include="Dealers\Used\UsedDealerRatingsRepository.cs" />
+    <Compile Include="Dealers\Used\UsedDealerStocksRepository.cs" />
+    <Compile Include="EditCMS\EditCMSChannel.cs" />
+    <Compile Include="ES\PagesRepository.cs" />
+    <Compile Include="ES\SponsoredNavigationRepo.cs" />
+    <Compile Include="ES\BookingEngineRepository.cs" />
+    <Compile Include="ES\EsLeadFormRepository.cs" />
+    <Compile Include="Finance\FinanceOperations.cs" />
+    <Compile Include="Classified\CommonOperationsRepository.cs" />
+    <Compile Include="Classified\StockCountRepository.cs" />
+    <Compile Include="Classified\StockRepository.cs" />
+    <Compile Include="Classified\CarValuation\ValuationRepository.cs" />
+    <Compile Include="CompareCars\CompareCarsRepository.cs" />
+    <Compile Include="CoreDAL\ElasticClientInstance.cs" />
+    <Compile Include="Customers\CustomerRepository.cs" />
+    <Compile Include="Customers\FeedbackRepository.cs" />
+    <Compile Include="CustomerVerification\CustomerVerificationRepository.cs" />
+    <Compile Include="Dealers\DealerRepository.cs" />
+    <Compile Include="Dealers\DealerSponsoredAdRespository.cs" />
+    <Compile Include="Dealers\NewCarDealersRepository.cs" />
+    <Compile Include="Deals\DealsInquiryRepository.cs" />
+    <Compile Include="Deals\DealsRepository.cs" />
+    <Compile Include="ES\SurveyRepository.cs" />
+    <Compile Include="Forums\ForumsDAL.cs" />
+    <Compile Include="Forums\ForumsModeratorDAL.cs" />
+    <Compile Include="Forums\ForumSubscriptionsDAL.cs" />
+    <Compile Include="Forums\NotificationsDAL.cs" />
+    <Compile Include="Forums\PostDAL.cs" />
+    <Compile Include="Forums\ThreadsDAL.cs" />
+    <Compile Include="Forums\UserDAL.cs" />
+    <Compile Include="Geolocation\GeoCities.cs" />
+    <Compile Include="Geolocation\GeoCitiesRepository.cs" />
+    <Compile Include="AdTargeting\Adtargeting.cs" />
+    <Compile Include="AdTargeting\AdTargetingChannel.cs" />
+    <Compile Include="AdTargeting\AdTargetingClient.cs" />
+    <Compile Include="AdTargeting\AdtargetingGrpc.cs" />
+    <Compile Include="Campaigns\Campaign.cs" />
+    <Compile Include="Campaigns\CampaignGrpc.cs" />
+    <Compile Include="Campaigns\Common.cs" />
+    <Compile Include="Campaigns\DealerCampaignChannel.cs" />
+    <Compile Include="Campaigns\DealerCampaignClient.cs" />
+    <Compile Include="Campaigns\Health.cs" />
+    <Compile Include="GrpcEditCMS\EditCms.cs" />
+    <Compile Include="GrpcEditCMS\EditCmsGrpc.cs" />
+    <Compile Include="GrpcEditCMS\GrpcMethods.cs" />
+    <Compile Include="GrpcEditCMS\GrpcToCarWaleConvert.cs" />
+    <Compile Include="Grpc\LoadBalancer.cs" />
+    <Compile Include="Interface\Classified\ElasticSearch\INearbyCityRepository.cs" />
+    <Compile Include="PredictionService\PredictiveScore.cs" />
+    <Compile Include="PredictionService\PredictiveScoreGrpc.cs" />
+    <Compile Include="PredictionService\PredictiveServiceChannel.cs" />
+    <Compile Include="PredictionService\PredictiveServiceClient.cs" />
+    <Compile Include="HttpClientManager.cs" />
+    <Compile Include="Images\Images.cs" />
+    <Compile Include="Geolocation\LatLongCityRepository.cs" />
+    <Compile Include="Insurance\InsuranceRepository.cs" />
+    <Compile Include="IPToLocation\IPToLocationRepository.cs" />
+    <Compile Include="NewCarFinder\NewCarFinderRepository.cs" />
+    <Compile Include="Logs\LoggingRepository.cs" />
+    <Compile Include="Notifications\SMSRepository.cs" />
+    <Compile Include="PaymentGateway\PackageRepository.cs" />
+    <Compile Include="PaymentGateway\TransactionRepository.cs" />
+    <Compile Include="Campaigns\LeadSource.cs" />
+    <Compile Include="PriceQuote\ChargeGroupsRepository.cs" />
+    <Compile Include="PriceQuote\ChargesRepository.cs" />
+    <Compile Include="PriceQuote\ModelSimilarPriceDetailsRepository.cs" />
+    <Compile Include="PriceQuote\OperationsTrackingRepository.cs" />
+    <Compile Include="PriceQuote\PQRepository.cs" />
+    <Compile Include="PriceQuote\PricesRepository.cs" />
+    <Compile Include="PriceQuote\ThirdPartyEmiDetailsRepository.cs" />
+    <Compile Include="ProfanityFilter\BadWordsRepository.cs" />
+    <Compile Include="Blocking\BlockMobileRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryBase.cs" />
+    <Compile Include="Security\SecurityRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SponsoredCar\SponsoredCarRepository.cs" />
+    <Compile Include="Stock\StockCertificationRepository.cs" />
+    <Compile Include="Stock\StockCitiesRepository.cs" />
+    <Compile Include="Stock\StockConditionRepository.cs" />
+    <Compile Include="Stock\StockFinanceRepository.cs" />
+    <Compile Include="Stock\StockImageRepository.cs" />
+    <Compile Include="Stock\StockPackagesRepository.cs" />
+    <Compile Include="Stock\StockRecommendationRepository.cs" />
+    <Compile Include="Stock\StockRegCertificatesRepository.cs" />
+    <Compile Include="Stock\StockRepository.cs" />
+    <Compile Include="Stock\StockScoreRepository.cs" />
+    <Compile Include="Subscription\SubscriptionRepository.cs" />
+    <Compile Include="Template\TemplatesRepository.cs" />
+    <Compile Include="LandingPage\LandingPageRepository.cs" />
+    <Compile Include="UserProfiling\UserProfilingRepo.cs" />
+    <Compile Include="UserReview\UserReviewRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Carwale.DTOs\Carwale.DTOs.csproj">
+      <Project>{71d19ca7-5224-4827-9535-570755738374}</Project>
+      <Name>Carwale.DTOs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Entity\Carwale.Entity.csproj">
+      <Project>{02e68020-d0cf-48a8-9059-48b28c3df144}</Project>
+      <Name>Carwale.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Interface\Carwale.Interfaces.csproj">
+      <Project>{b4e57a71-8ac4-4957-b0cb-82ec72f8d5b7}</Project>
+      <Name>Carwale.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Notifications\Carwale.Notifications.csproj">
+      <Project>{2bd35d9b-e0da-4dab-9234-ebbb75c33001}</Project>
+      <Name>Carwale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Carwale.Utility\Carwale.Utility.csproj">
+      <Project>{7edc7859-19ea-4b79-acc3-0525860b4199}</Project>
+      <Name>Carwale.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Carwale.DAL.ruleset" />
+    <None Include="AdTargeting\Adtargeting.proto" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="DisableAnalyzersForVisualStudioBuild" BeforeTargets="CoreCompile" Condition="'$(BuildingInsideVisualStudio)' == 'True' And '$(BuildingProject)' == 'True'">
+    <!--
+    Disable analyzers when building a project inside Visual Studio. Note that analyzer behavior for IntelliSense
+    purposes is not altered by this.
+  -->
+    <ItemGroup>
+      <Analyzer Remove="@(Analyzer)" />
+    </ItemGroup>
+  </Target>
+  <Import Project="..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grpc.Core.1.10.0\build\net45\Grpc.Core.targets'))" />
+  </Target>
+</Project>

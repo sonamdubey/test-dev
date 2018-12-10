@@ -1,0 +1,33 @@
+﻿@model Carwale.DTO.Dealers.DealerDetails
+@using Carwale.Entity.Enum;
+<section>
+    <div class="authorized-dealer-slug">
+        <h3 class="text-black margin-bottom10 margin-left10">Authorized Dealer: @(ViewBag.IsVersionPage || ViewBag.IsCityPage ? ViewBag.CityName : ViewBag.CityNameForDLSlug)</h3>
+
+        <div class="content-box-shadow dealer-info-slug margin-bottom20 content-inner-block-10">
+            <h3 class="text-black margin-bottom10 font14">@Model.Name</h3>
+            <p class="margin-bottom10">@Model.Address</p>
+            @if (!String.IsNullOrWhiteSpace(ViewBag.DealerMaskingNumber))
+            {
+                <a class="font16 text-black text-bold margin-bottom10" 
+               href="tel:@(ViewBag.DealerMaskingNumber)" data-vars-ea="DealerAddrSlugNumber_click" data-vars-ec="Call-Slug-Behaviour" data-vars-el="@(ViewBag.CallSlugTrackingLabel)">
+                <span class="margin-top10 margin-bottom10"
+					  data-vars-ea="DealerAddrSlugNumber_click"
+					  data-vars-ec="@(ViewBag.IsCityPage ? "MSite-PriceInCityPage-LeadSlug" : (ViewBag.IsVersionPage ? "MSite-VersionPage-LeadSlug" : "MSite-ModelPage-LeadSlug"))"
+					  data-vars-el="@(ViewBag.IsCityPage ? (ViewBag.ModelName + "," + ViewBag.CityName) : (ViewBag.ModelName + "," + ViewBag.CityZone))"
+					  >
+                    <span class="phone-icon"></span>@ViewBag.DealerMaskingNumber
+                </span>
+            </a>
+            }
+
+            <a class="big-red-button" href="@ViewBag.NonAmpUrl?q=lead&cs=@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "ButtonDealer", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleMobile)))"
+			    data-vars-ea="DealerAddrSlugBtn"
+                data-vars-ec="@(ViewBag.IsCityPage ? "MSite-PriceInCityPage-LeadSlug" : (ViewBag.IsVersionPage ? "MSite-VersionPage-LeadSlug" : "MSite-ModelPage-LeadSlug"))"
+                data-vars-el='@(ViewBag.IsCityPage ? (ViewBag.ModelName + "," + ViewBag.CityName) : (ViewBag.ModelName + "," + ViewBag.CityZone))'
+			   >
+                Get Hassle Free Assistance
+            </a>
+</div>
+    </div>
+</section>

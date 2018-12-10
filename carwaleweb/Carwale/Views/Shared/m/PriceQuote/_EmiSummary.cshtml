@@ -1,0 +1,214 @@
+﻿@model Carwale.DTOs.PriceQuote.EmiCalculatorModelData
+@using Carwale.Utility;
+@using Carwale.Entity.Enum;
+
+@{
+    var thirdPartyEmiDetails = Model.ThirdPartyEmiDetails;
+    var thirdPartyTenure = Model.ThirdPartyEmiDetails.Tenure;
+    var thirdPartyEmi = Model.ThirdPartyEmiDetails.Emi;
+    var thirdPartyEmiType = Enum.GetName(typeof(EmiType), thirdPartyEmiDetails.EmiType);
+}
+<div class="featured-popup__body">
+    <p class="featured-header__info-bar">
+        <span class="featured-header__icon"></span>
+        <span class="featured-header__text" id="js-vwfs-calc"
+              data-event="CWNonInteractive"
+              data-cat="@(Model.Platform + "_VWFS")"
+              data-action="@(Model.Platform + "_VWFS_Calculator")"
+              data-label="@(Model.MakeName + "_" + Model.ModelName)">
+            @thirdPartyEmiDetails.EmiTypeDescription @Model.MakeName Financial Services
+        </span>
+    </p>
+    <div class="emi-header">
+        <div class="emi-header-container">
+            <div class="vehicle-name">
+                <p>
+                    <span>@Model.MakeName</span>
+                    <span>@Model.ModelName</span>
+                    <span>@Model.VersionName</span>
+                </p>
+            </div>
+            <div class="emi-cost-container">
+                <p class="emi-text">EMI</p>
+                <p class="emi-total-cost">
+                    <span class="final-emi-text">&#x20b9; @thirdPartyEmiDetails.Emi</span>
+                    <span class="emi-total-year">for <span class="emi-total-year-text">@thirdPartyEmiDetails.Tenure <span class="year-text">Years</span></span></span>
+                </p>
+                <p class="emi-header__info-text">
+                    @Html.Raw(thirdPartyEmiDetails.HeaderText)
+                </p>
+            </div>
+        </div>
+
+        <div class="summary-loan-tnc">
+            <p class="load-tnc-title">
+                Details of the scheme
+            </p>
+            <ol class="loan-tnc-list">
+                @if (thirdPartyEmiType == EmiType.Balloon.ToString())
+                {
+                    <li>Lower monthly payments</li>
+                    <li> One-time lump sum payment at the end of the loan tenure</li>
+                    <li>Customised payment solution to help you upgrade to a bigger car with a similar EMI.</li>
+                    <li>Loan tenure up to 5 years</li>
+                }
+                else if (thirdPartyEmiType == EmiType.Bullet.ToString())
+                {
+                    <li>Lower monthly payments</li>
+                    <li>Fixed lump sum amount every year to match your cash flows</li>
+                    <li>Loan tenure up to 7 years </li>
+                    <li>Customised payment solutions for corporate and salaried professionals</li>
+                }
+                else
+                {
+                    <li>Fixed monthly payments and consistent cash outflows</li>
+                    <li>Loan up to 90% of on road car price</li>
+                    <li>Loan tenure up to 7 years</li>
+                }
+
+            </ol>
+        </div>
+    </div>
+    <div class="summary-emi-outer-section">
+        <div class="summary-card__wrapper">
+            <div class="summary-card">
+                <div class="summary-card__head">
+                    <p>
+                        Your loan amount will be
+                        <span class="sumamry-head__price">
+                            &#x20b9;
+                            <span>
+                                @thirdPartyEmiDetails.LoanAmount
+                            </span>
+                        </span>
+                    </p>
+                </div>
+                <div class="summary-card__body">
+                    <div class="summary-card-body__wrapper">
+                        <div class="summary-body-wrapper__item">
+                            <p class="summary-item__label">
+                                Tenure
+                            </p>
+                            <p class="summary-item__value">
+                                <span class="tenure-value__js">@(thirdPartyEmiDetails.Tenure)</span> Years
+                            </p>
+                        </div>
+                        <div class="summary-body-wrapper__item">
+                            <p class="summary-item__label">
+                                Interest
+                                <span class="instruction-icon__wrapper">
+                                    <span class="instruction-icon instruction-target">
+                                    </span>
+                                    <span class="instruction-tooltip">
+                                        Special interest rate as offered by @Model.MakeName Financial Services
+                                    </span>
+                                </span>
+                            </p>
+                            <p class="summary-item__value">
+                                <span class="interest-value__js">@(thirdPartyEmiDetails.InterestRate)</span>%
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-card__body">
+                    <div class="summary-card-body__wrapper">
+                        @if (thirdPartyEmiDetails.EmiType != EmiType.Regular)
+                        {
+                            <div class="summary-body-wrapper__item">
+                                <p class="summary-item__label">
+                                    @Enum.GetName(typeof(EmiType), thirdPartyEmiDetails.EmiType) Amount
+                                    <span class="instruction-icon__wrapper">
+                                        <span class="instruction-target instruction-icon">
+                                        </span>
+                                        <span class="instruction-tooltip instruction-icon--left">
+                                            @if (thirdPartyEmiDetails.EmiType == EmiType.Balloon)
+                                            {
+                                                <span>This is the amount that you have to pay at the end of the EMI tenure in addition to monthly payments.</span>
+                                            }
+                                            else if (thirdPartyEmiDetails.EmiType == EmiType.Bullet)
+                                            {
+                                                <span>This is the amount that you have to pay at the end of the every year in addition to monthly payments.</span>
+                                            }
+                                        </span>
+                                    </span>
+                                </p>
+                                <p class="summary-item__value summary-item__price">
+                                    &#x20b9;
+                                    <span>
+                                        @thirdPartyEmiDetails.LumpsumAmount
+                                    </span>
+                                </p>
+                            </div>
+                        }
+                        <div class="summary-body-wrapper__item summary-body__down-payment">
+                            <div class="summary-item__label">
+                                Total down payment
+                                <span class="instruction-icon__wrapper">
+                                    <span class="instruction-target instruction-icon">
+                                    </span>
+                                    <span class="@(thirdPartyEmiDetails.EmiType == EmiType.Regular ? "instruction-tooltip instruction-icon--left" : "instruction-tooltip instruction-icon--right")">
+                                        This is the minimum upfront payment that you need to make.
+                                    </span>
+                                </span>
+
+                            </div>
+                            <p class="summary-item__value summary-item__price">
+                                &#x20b9;
+                                <span>
+                                    @thirdPartyEmiDetails.DownPayment
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="featured-footer">
+            <div class="featured-footer-wrapper">
+                <span class="featured-footer__content">
+                    <span class="featured-footer__logo">
+                        <span class="featured-footer__text">
+                            Powered by
+                        </span>
+                        <span class="finacial-services-slug--logo">
+                            <img src=@(thirdPartyEmiDetails != null ? thirdPartyEmiDetails.ImageUrl : "") class="@(Model.MakeId == 15 ? "skoda-logo" : "")" alt="@Model.MakeName Financial Services" />
+
+                        </span>
+                    </span>
+                </span>
+                @if (BrowserUtils.IsAndroidWebView())
+                {
+                    <a href="" title="" target="_blank" rel="noopener nofollow" class="featured-footer__link" onclick="Android.openExternalLink('@(thirdPartyEmiDetails.WebsiteUrl)');return false;">
+                        Visit Website
+                    </a>
+                }
+                else if (BrowserUtils.IsIosWebView())
+                {
+                    <a href="ios:openExternalLink?@(thirdPartyEmiDetails.WebsiteUrl)" title="" target="_blank" rel="noopener nofollow" class="featured-footer__link">
+                        Visit Website
+                    </a>
+                }
+                else
+                {
+                    <a id="js-visit-website-link" href="@thirdPartyEmiDetails.WebsiteUrl" title="" target="_blank" rel="noopener nofollow" class="featured-footer__link"
+                       data-role="click"
+                       data-cat="@(Model.Platform + "_VWFS")"
+                       data-action="@(Model.Platform + "_VisitWebsite")"
+                       data-label="@(Model.MakeName + "_" + Model.ModelName)">
+                        Visit Website
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var thirdPartyTenure = '@(thirdPartyEmiDetails.Tenure)';
+    var thirdPartyEmi = '@(thirdPartyEmiDetails.Emi)';
+    var thirdPartyEmiType = '@Enum.GetName(typeof(EmiType), thirdPartyEmiDetails.EmiType)';
+    var thirdPartyInterestRate = '@thirdPartyEmiDetails.InterestRate';
+    var thirdPartyImageUrl = '@(thirdPartyEmiDetails.ImageUrl)';
+</script>

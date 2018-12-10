@@ -1,0 +1,67 @@
+﻿@model Carwale.DTOs.CarData.CarOverviewDTO
+@using Carwale.UI.PresentationLogic;
+@using Carwale.Utility;
+@using Carwale.Entity;
+@using Carwale.DTOs.CMS.ThreeSixtyView;
+@using Carwale.BL.CMS;
+
+<div class="grid-3 text-center content-inner-block-20 padding-left10">
+	@if (Model.PhotoCount > 1)
+	{
+		<a href="@Carwale.BL.CMS.CMSCommon.GetImageUrl(Model.MakeName, Model.MaskingName)">
+			<img class="price-in-city-car-image" src="@ImageSizes.CreateImageUrl(Model.HostUrl, ImageSizes._310X174, Model.OriginalImage)" alt="@ViewBag.CarName Images" title="@ViewBag.CarName Images" onerror="this.onerror=null;this.src='@(CWConfiguration._imgHostUrl)310x174/cw/cars/no-cars.jpg';" />
+		</a>
+	}
+	else
+	{
+		<img class="price-in-city-car-image" src="@ImageSizes.CreateImageUrl(Model.HostUrl, ImageSizes._310X174, Model.OriginalImage)" alt="@ViewBag.CarName Images" title="@ViewBag.CarName Images" onerror="this.onerror=null;this.src='@(CWConfiguration._imgHostUrl)310x174/cw/cars/no-cars.jpg';" />
+	}
+
+	<div class="margin-top5 pic-custom-select-dropdown">
+		<div class="position-rel">
+			@if (Model.NewCarVersions != null && Model.NewCarVersions.Count > 0)
+			{
+                    <span class="text-grey version-box-label">Version</span>
+						<div class="form-control-box selectcustom-container">
+							<div id="selectcustom-input-box-holder" class="selectcustom-input-box-holder js-selectcustom-input-box-holder">
+								<div class="selectcustom-input">@Model.VersionName</div>
+								<span class="drop-arrow"></span>
+
+							</div>
+                            <div class="selectcustom-content selectcustom-active" id="model-version-dropdown" data-cityid="@ViewBag.CityId" data-modelid="@Model.ModelId" data-makeid="@Model.MakeId" data-iscampaignavailable="@Model.AdAvailable.ToString()" data-makename="@Model.MakeName" data-modelname="@Model.ModelName" data-cityname="@ViewBag.CityName" data-showcampaignlink="@Model.ShowCampaignLink.ToString()" campaignid_dealerid=@String.Format("{0}_{1}", Model.DealerId, Model.ActualDealerId) data-campaignleadcta="@((!string.IsNullOrEmpty(Model.CampaignLeadCTA)) ? Model.CampaignLeadCTA : "Get Offers from Dealer")">
+                                <ul class="selectcustom">
+                                    @foreach (var data in Model.NewCarVersions)
+                                    {
+                                        <li class="@(Model.VersionId == data.Id ? "selected" : string.Empty)">
+                                            <a class="clickcustom">
+                                                <span class="pop-version-name selected" data-versionid="@data.Id">@data.Version</span>
+                                                <span class="pop-version-info">
+                                                    <span class="pop-version-manual selected">@data.CarFuelType</span>
+                                                    <span class="pop-version-manual">@data.TransmissionType</span>
+                                                    <span class="pop-version-price">
+                                                        <span class="price-available">
+                                                            @Html.Raw(data.CarPriceOverview != null && data.CarPriceOverview.PriceStatus != (int)PriceBucket.HaveUserCity ? "Price Not Available" : "<span class='padding-right5 rupeecolor'>₹</span><span class='pricecolor selected'>" + @Format.FormatNumericCommaSep(data.CarPriceOverview.PriceForSorting.ToString()) + "</span>")
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </div>
+						</div>
+			}
+		</div>
+	</div>
+
+
+</div>
+
+<div class="grid-5 alpha padding-right20 margin-top50">
+
+	<div id="price-breakup-section">
+		@{Html.RenderAction("GetPriceBreakUp", "PriceInCity", new { versionId = Model.VersionId, cityId = ViewBag.CityId, modelId = Model.ModelId, isCampaignAvailble = Model.AdAvailable, makeName = Model.MakeName, modelName = Model.ModelName, makeId = Model.MakeId, cityName = ViewBag.CityName, versionName = Model.VersionName, showCampaignLink = Model.ShowCampaignLink, IsPicSnippetExperiment = Model.IsPicSnippetExperiment, campaignDealerId = String.Format("{0}_{1}", Model.DealerId, Model.ActualDealerId), campaignLeadCTA = Model.CampaignLeadCTA });}
+	</div>
+</div>
+

@@ -1,0 +1,55 @@
+﻿@model CarOverviewDTOV2
+@using Carwale.UI.Common;
+@using Carwale.DTOs.CarData;
+
+<section>
+<!--Advantage cars code starts here -->
+    <h2 class="margin-bottom10 margin-left10 m-special-skin-text">@if (!string.IsNullOrWhiteSpace(Model.AdvantageAdData.Offers) && Model.AdvantageAdData.Savings <= 0)
+    { <span>Offer</span> }
+    else
+    { <span>Discount</span> } on @((Model.IsVersionPage && Model.VersionId == Model.AdvantageAdData.Version.ID && CookiesCustomers.MasterCityId > 0) ? @Carwale.Utility.Format.FilterModelName(Model.AdvantageAdData.Model.ModelName) + " " + @Model.AdvantageAdData.Version.Name : Model.AdvantageAdData.Make.MakeName + " " + @Carwale.Utility.Format.FilterModelName(Model.AdvantageAdData.Model.ModelName))</h2>
+    <div class="content-inner-block-10 content-box-shadow margin-bottom20 advt-right-slug">
+        <a data-advantage-link='/m/@UrlRewrite.FormatSpecial(Model.AdvantageAdData.Make.MakeName)-cars/@Model.AdvantageAdData.Model.MaskingName/advantage/?src=@(Model.IsVersionPage ? "m14" : "m13")&cityid='
+           href=@(CookiesCustomers.MasterCityId > 0 ? "/m/" + @UrlRewrite.FormatSpecial(Model.AdvantageAdData.Make.MakeName) + "-cars/" + @Model.AdvantageAdData.Model.MaskingName + "/advantage/?src=" + (@Model.IsVersionPage ? "m14" : "m13") + "&cityId=" + @Model.AdvantageAdData.City.CityId + "&versionId=" + Model.AdvantageAdData.Version.ID : "javascript:void(0)") class="block"
+           data-role="click-tracking" data-event="CWInteractive" data-action="dealsaccess_mobile" data-cat="deals_mobile" data-label='@(!Model.IsVersionPage ? "modelpage_Advantagesection" : "variantpage_Advantagesection")'
+           data-model="@Model.AdvantageAdData.Model.ModelId" data-adv-popup="@(CookiesCustomers.MasterCityId > 0 ? "" : "showAdvantageCityPopup")">
+
+            <div class="imageWrapper margin-bottom10">
+                <img class="img-max-width lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(Model.AdvantageAdData.CarImageDetails.HostUrl, Carwale.Utility.ImageSizes._272X153, Model.AdvantageAdData.CarImageDetails.OriginalImgPath)">
+            </div>
+            <div class="margin-bottom10">
+                <h3>@((Model.IsVersionPage && Model.VersionId == Model.AdvantageAdData.Version.ID && CookiesCustomers.MasterCityId > 0) ? @Carwale.Utility.Format.FilterModelName(Model.AdvantageAdData.Model.ModelName) + " " + @Model.AdvantageAdData.Version.Name : Model.AdvantageAdData.Make.MakeName + " " + @Carwale.Utility.Format.FilterModelName(Model.AdvantageAdData.Model.ModelName))</h3>
+                @if (Model.AdvantageAdData.Savings <= 0 && !string.IsNullOrWhiteSpace(Model.AdvantageAdData.Offers))
+                {
+                    if (Model.AdvantageAdData.OfferValue <= 0)
+                    {
+                        <p class="text-green">Offer available</p>
+                    }
+                    else
+                    {
+                        <div>
+                            <span class="text-green">Offer worth&nbsp;<span>₹ @Carwale.Utility.Format.FormatNumericCommaSep(Model.AdvantageAdData.OfferValue.ToString())</span></span>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="font13 margin-top5 margin-bottom5 text-grey">
+                        <span class="striked-amount position-rel">
+                            <span class="striked-line text-black"></span>
+                            ₹ <span>@Carwale.Utility.Format.FormatNumericCommaSep(Model.AdvantageAdData.OnRoadPrice.ToString())</span>
+                        </span>
+                        <span class="text-green margin-left10">(₹ <span>@Carwale.Utility.Format.FormatNumericCommaSep(Model.AdvantageAdData.Savings.ToString())</span> off)</span>
+                    </div>
+                }
+                <div>
+                    <span class="font18 text-black text-bold">₹ <span>@Carwale.Utility.Format.FormatNumericCommaSep(Model.AdvantageAdData.OfferPrice.ToString())</span></span>
+                    <span class="text-grey font13">On-Road Price @Model.AdvantageAdData.City.CityName</span>
+                </div>
+            </div>
+            <div class="redirect-rt all-offer-link">
+                <span id="advAdBtn" class="click-link btn-orange btn-xs btn-full-width text-center">SHOW OFFER</span>
+            </div>
+        </a>
+    </div>
+</section>

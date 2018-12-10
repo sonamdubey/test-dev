@@ -1,0 +1,303 @@
+﻿
+<div id="emiPopup">
+    <div id="leadpopup" class="pq-img-window dealerPopup full-page-popup modified-full-popup hide">
+        <span id="pq-popup-close" class="pq-popup-close"></span>
+        <!-- Dealer Selct City Pop Up Code Starts here -->
+        <div id="divCity" class="dealer-city-popup-div text-center margin-top20 margin-left10 margin-right10 hide">
+            <div class="cityPopup-box rounded-corner50percent margin-bottom20">
+                <span class="cwmsprite cityPopup-icon margin-top10"></span>
+            </div>
+            <h2 class="font20"><strong>Please tell us your city</strong></h2>
+            <p class="font14">This allows us to provide relevant content for you</p>
+
+            <div class="form-control-box margin-top20">
+                <div class="margin-bottom20 position-rel">
+                    <input type="text" class="form-control padding-right30" name="citySlider" placeholder="Type to select city name, eg: Mumbai" autofocus id="citySlider">
+                    <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
+                    <span class="cwmsprite error-icon hide global-city-error-icon"></span>
+                    <div class="cw-blackbg-tooltip city-error-msg hide">No city match.</div>
+                </div>
+            </div>
+            <div class="margin-bottom10 margin-top20">
+                <input type="button" value="Confirm City" data-role="none" class="text-uppercase btn btn-orange btn-full-width" id="btnCityConfirm">
+            </div>
+
+        </div>
+        <!-- Dealer Selct City Pop Up Code Ends here -->
+        <!-- Dealer Form Pop Up Code Starts here -->
+        <div class="pq-popup-div" id="divCustInfo">
+            <span id="pq-popup-close" class="pq-popup-close pq-popup-cross cross-white "></span>
+            <div id="popup-title" class="pq-popup-desc"><span id="spnPopupTitle" class="pq-popup-title text-bold"></span>
+                <p class="pq-popup-offers">Contact the dealer for scheduling a Test Drive, EMI options, Offers &amp; Exchange Benefits</p>
+       
+            </div>
+            <div id="carDetailsDiv" class="text-center margin-top20 margin-left10 margin-right10 hide">
+                <h3 class="text-unbold padding-left20 padding-right20 margin-bottom10">Get assistance from <span id="dealerName" class="text-bold"></span> for</h3>
+                <div class="car-img-fold margin-top10">
+                    <img id="carImage" class="pq-m-car-img">
+                    <div id="carName" class="font16 margin-top10 margin-bottom10"></div>
+                </div>
+            </div>
+            <div class="text-center">
+                <div id="dealerPopUpWrapper">
+                    <div class="customer-info">
+                        <div class="pq-popup-fields-div custName">
+                            <input class="form-control pq-popup-field" type="text" id="custName" name="" data-role="none" placeholder="Name" />
+                            <span class="cwmsprite error-icon hide"></span>
+                            <div class="cw-blackbg-tooltip hide"></div>
+                        </div>
+                        <div class="pq-popup-fields-div custMobile">
+                            <input type="tel" id="custMobile" name="" data-role="none" placeholder="Mobile +91" class="form-control pq-popup-field" />
+                            <span class="cwmsprite error-icon hide"></span>
+                            <div class="cw-blackbg-tooltip hide"></div>
+                        </div>
+                        <div class="margin-bottom20 position-rel custEmail hide">
+                            <input class="form-control pq-popup-field" type="email" id="custEmail" name="" data-role="none" placeholder="Email" />
+                            <span class="cwmsprite error-icon hide"></span>
+                            <div class="cw-blackbg-tooltip hide"></div>
+                        </div>
+                        <div class="book-test-drive text-left font16 text-green text-bold">
+                            <label><input type="checkbox" class="chkBoxBookTestDrive" name="" /> I'm also interested in taking a test drive</label>
+                        </div>
+                        <div id="cityDealerPopup">
+                            <!--ko if:pqCities().length > 0 -->
+                            <div class="margin-bottom20 position-rel cityDiv">
+                                <select class="form-control" id="drpCityDealerPopup" data-role="none" data-bind='options: pqCities, optionsText: "name", optionsValue: "id", event: { change: dealerPopupCityChange }'></select>
+                                <span class="cwmsprite error-icon hide"></span>
+                                <div class="cw-blackbg-tooltip hide"></div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                        <div class="pq-popup-fields-div dealerDiv show">
+                            <select id="dealerList" class="form-control pq-popup-field pq-popup-dropdown" data-role="none" data-bind='options: dealer, optionsCaption: "Select Your Nearest Dealership", optionsText: "name", optionsValue: "id", event: { change: drpDealerChange }' required></select>
+                            <span class="cwmsprite error-icon hide"></span>
+                            <div class="cw-blackbg-tooltip hide"></div>
+                        </div>
+                        <div class="submit-btn">
+                            <input type="button" id="btnSubmit" value="submit" data-role="none" class="btn btn-orange btn-full-width pq-popup-btn" />
+                        </div>
+                        <input type="hidden" id="hdnDealerId">
+                        <input type="hidden" id="hdnDealerName">
+                        <div class="error-red agreement"></div>
+
+                        <div class="customer-agreement">
+                            <span>By proceeding ahead you agree to CarWale <a href="/visitoragreement.aspx">visitor agreement</a> , <a href="/privacypolicy.aspx">privacy policy</a>  and <a href="/offerTermsAndConditions.aspx" target="_blank">offer terms and conditions</a>.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="other-popup">
+                <div id="postsubmitmsg" class="hide">
+                    <h2 class="thankyou-section">Thank you!</h2>
+                    <p class="thank-you-subheading ">A car consultant will call you soon with more information.</p>
+                </div>
+                <div  class="email-Assist thank-you-msg hide">
+                    <span class="hide msg-with-email"> Meanwhile you can provide your email id to receive the price-list, broucher and other collaterals.</span>
+                    <div class="custEmailOptional hide">
+                        <input class="form-control" type="email" id="custEmailOptional" name="" data-role="none" placeholder="Email" />
+                        <span class="cwmsprite error-icon hide"></span>
+                        <div class="cw-blackbg-tooltip hide"></div>
+                    </div>
+                    <div class="done pq-popup-close pq-popup-done hide btnDone">
+                        <input type="button" value="Done" data-role="none" class="text-uppercase btn btn-orange width100" id="btnDone" />
+                    </div>
+                </div>
+                <!-- Other Dealers Div-->
+                <div id="reqSellerAssist" class="suggestion-box lead-recommend-cars other-dealers-popup hide">
+                    <div id="divSelectRecommendation" class="select-all-recommendation"> 
+                        <div class="suggested-car-slug">
+                            <h2 class="slug-tag">Offers from Nearby Dealers</h2>
+                            <p class="slug-desc">Connecting with multiple dealers gets you the best deal</p>
+                        </div>
+                        <p class="selectAllOptions text-link font14 select-all toggle-selection-view">
+                            <span class="inline-block margin-right10 valign-middle text-bold toggle-selection-txt">Select All</span>
+                            <span class="select-bar select-all-checkbox inline-block valign-middle"></span>
+                        </p>
+                    </div>
+
+                    <ul id="recommedationSellerList" class="listTable other-dealer-list padding10" data-bind="foreach: SellerRecommendation">
+                        <li class="other-dealer-info">
+                            <a href="javascript:void(0)" class="other-dealers-list">
+                                <div class="listCell dealer-info-desc">
+                                    <div class="dealer-name" data-bind="text: $data.dealerDetails.name"></div>
+                                    <div class="dealer-location">
+                                        <span class="dealer-city-name" data-bind="text: $data.dealerDetails.area"></span>
+                                        <!--ko 'if': $data.dealerDetails.distance != -1 -->
+                                        <span class="dealer-distance" data-bind="text: Common.utils.formatNumeric($data.dealerDetails.distance) + ' km away' "></span>
+                                        <!-- /ko -->
+                                    </div>
+                                </div>
+                                <div class="listCell recommended-checkbox"><span class="unchecked" data-bind="attr:{campaignId : $data.campaign.id }"></span></div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="req-assist-button-wrapper">
+                        <p id="selectOption" class="font12 text-red text-bold hide">(Please select atleast one option)</p>
+                        <div class="dealer-submit-btn">
+                            <input type="button" id="reqSellerAsstncBtn" onclick="reqSellerAsstncFun(this)" value="Submit" class="btn btn-orange btn-xs btn-full-width pq-popup-btn multipleDealers" disabled />
+                        </div>
+                        <div id="skipBtn" class="skip-txt hide">
+                            <span class="skip-btn">Skip</span>
+                        </div>
+                    </div>
+                </div>
+                <!--Other Dealers Div end--> 
+
+
+                 <!--Recommendation Cars div-->
+                <div id="reqAssist" class="suggestion-box lead-recommend-cars text-left margin-left10 margin-right10 position-rel hide">
+
+                        <!--ko 'if':CampaignRecommendation().length > 1 -->
+                        <div id="divSelectRecommendation" class="select-all-recommendation">
+                            <div class="suggested-car-slug">
+                                <div class="suggested-slug-heading">Suggested Cars</div>
+                                <div class="suggested-slug-subheading">Based on your research</div>
+                            </div>
+                            <p class="selectAllOptions text-link font14 select-all toggle-selection-view">
+                                <span class="inline-block margin-right10 valign-middle text-bold toggle-selection-txt">Select All</span>
+                                <span class="select-bar select-all-checkbox inline-block valign-middle"></span>
+                            </p>
+                        </div>
+                        <!-- /ko -->
+
+                        <ul id="recommedationList" class="listTable" data-bind="foreach: CampaignRecommendation">
+                            <li class="rounded-corner2">
+                                <a href="javascript:void(0)" class="suggested-car-list">
+                                    <div class="listCell suggested-car-image">
+                                        <img data-bind="attr: { 'src': $data.carData.carImageBase.hostUrl + '110X61' + $data.carData.carImageBase.originalImgPath }" width="100" />
+                                    </div>
+                                    <div class="listCell suggested-car-info">
+                                        <div class="font14 text-bold" data-bind="text: $data.carData.carMake.makeName + ' ' + $data.carData.carModel.modelName"></div>
+                                        <div class="font14"><strong data-bind="text: $data.carPricesOverview.price"></strong></div>
+                                        <div class="font13 text-light-grey" data-bind="text: $data.carPricesOverview.city.name != null ? '(On-Road ' + $data.carPricesOverview.city.name + ')' : '(' + $data.carPricesOverview.priceLabel + ')'"></div>
+                                        <div class="font13" data-bind="text: $data.campaign.contactName"></div>
+                                    </div>
+                                    <div class="listCell recommended-checkbox"><span class="unchecked" data-bind="attr: { 'ModelId': $data.carData.carModel.modelId, 'ModelName': $data.carData.carModel.modelName, 'CampaignId': $data.campaign.id, 'MakeName':$data.carData.carMake.makeName, 'CityName':$data.carPricesOverview.city.name }"></span></div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="clear margin-bottom20 margin-left10 margin-right10 req-assist-button-wrapper">
+                            <p id="selectOption" class="font12 text-red text-bold hide">(Please select atleast one option)</p>
+                            <div class="block margin-auto">
+                                <input type="button" id="reqAsstncBtn" onclick="reqAsstncFun(this)" value="Request Assistance" class="btn btn-orange btn-xs btn-full-width leftfloat multipleDealers" disabled />
+                            </div>
+                        </div>
+                </div>
+                <!--Recommended Car Div end--> 
+                <div id="thanksText" class="thank-box hide">
+                    <div class="advt-recomentdation" id="dealsRecommendationDiv">
+                        <h2 class="font18 similar-car-heading">Similiar cars with Great Savings</h2>
+                        <ul class="advt-rec-list padding-top20 text-center" data-bind="foreach: RecommendedDeals">
+                            <li class="margin-bottom20">
+                                <a data-bind="attr: { 'data-cwtccat': $data.cwtccat ,'data-cwtcact': $data.cwtcact,'data-cwtclbl': 'make:' + $data.carMake.makeName + '|model:' + $data.carModel.modelName + '|city:' + $data.cityName, 'href': '/m/' + formatSpecial($data.carMake.makeName) + '-cars/' + $data.carModel.maskingName + '/advantage/?cityid=' + $data.cityId }" target="_blank">
+                                    <div class="advt-rec-car-image inline-block">
+                                        <img data-bind="attr: { 'src': $data.carImgDetails.hostUrl + '110X61' + $data.carImgDetails.originalImgPath }" alt="" title="" />
+                                    </div>
+                                    <div class="advt-rec-car-details inline-block margin-left15">
+                                        <div class="font14 text-bold margin-bottom5" data-bind="text: $data.carMake.makeName + ' ' + Common.utils.filterModelName($data.carModel.modelName)"></div>
+                                        <div class="font12 margin-top5 margin-bottom5">
+                                            <span class="cancel-price text-grey position-rel">₹ <span data-bind="text: formatNumeric($data.onRoadPrice)"></span></span>
+                                            <span class="off-price text-green margin-left5">(₹ <span data-bind="text: formatNumeric($data.savings)"> </span> off)</span>
+                                        </div>
+                                        <div class="font13 text-light-grey">
+                                            <span class="car-cost-price font16 text-grey text-bold">₹ <span data-bind="text: formatNumeric($data.offerPrice)"></span></span>
+                                            <!-- ko 'if':$data.stockCount == 1 -->
+                                            <span class="text-red car-left-count font12">Only <span data-bind="text: $data.stockCount"></span> car left</span>
+                                            <!-- /ko -->
+                                            <!-- ko 'if':$data.stockCount > 1 && $data.stockCount < 6 -->
+                                            <span class="text-red car-left-count font12">Only <span data-bind="text: $data.stockCount"></span> cars left</span>
+                                            <!-- /ko -->
+                                            <!-- ko 'if':$data.stockCount > 5 -->
+                                            <span class="text-red car-left-count font12">Only <span>few</span> cars left</span>
+                                            <!-- /ko -->
+                                        </div>
+                                        <div class="font12 text-grey margin-top5">Final On-Road Price in <span data-bind="text: $data.cityName"></span></div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="done pq-popup-close pq-popup-done hide btnDone">
+                        <input type="button" value="Done" data-role="none" class="text-uppercase btn btn-orange width100" id="btnDone" />
+                    </div>
+                </div>
+                <!-- /thanks text box -->
+            </div>
+        </div>
+        
+        <!-- Dealer Form Pop Up Code Ends here -->
+        <!-- Dealer Contact info Pop Up Code Starts here -->
+        <div class="dealer-city-popup-div text-center margin-top20 margin-left10 margin-right10 margin-bottom30 hide" id="divDealer">
+            <div class="cityPopup-box rounded-corner50percent margin-bottom20">
+                <span class="cwmsprite contactDealer-icon margin-top10"></span>
+            </div>
+            <h2 class="font20"><strong>For Assistance Contact</strong></h2>
+            <div class="dealer-contact-info margin-top20">
+                <p class="font16"><strong><span id="spnDealerName"></span></strong></p>
+                <a href="#" class="btn-green btn font16 btn-full-width margin-top10">
+                    <span class="fa fa-phone margin-right5"></span> <span id="spnDealerMobile"></span>
+                </a>
+            </div>
+        </div>
+        <!-- Dealer Contact info Pop Up Code Ends here -->
+        <!-- Dealer Sorry Message Pop Up Code Starts here -->
+        <div class="dealer-city-popup-div text-center margin-top20 margin-left10 margin-right10 margin-bottom30 hide" id="divMassage">
+            <span class="pq-popup-close pq-popup-cross cross-white "></span>
+            <div class="cityPopup-box rounded-corner50percent margin-bottom20">
+                <span class="cwmsprite contactDealer-icon margin-top10"></span>
+            </div>
+            <h2 class="font20"><strong>We couldn't find any dealerships in your city</strong></h2>
+        </div>
+        <!-- Dealer Sorry Message Pop Up Code Ends here -->
+        <!-- Bank Bazr Link-->
+        <div class="dealer-city-popup-div text-center margin-top20 margin-left10 margin-right10 margin-bottom30 hide" id="divBankBazarLink">
+            <div class="clear"></div>
+            <div class="clear"></div>
+
+            <div class="offers-dis-section">
+                <h3 class="font18 text-black margin-top10 breakable-text">Looking For Attractive <br /> EMI Options?</h3>
+                <p class="font14 text-black padding-top5 breakable-text">Our Finance Partner Bankbazaar <br /> Can Help You:</p>
+                <div class="emi-option-container">
+                    <div class="emi-options">
+                        <span class="emi-option-image gop-icon-container">
+                            <span class="gop-sprite margin-top10 emi-icon"></span>
+                        </span>
+                        <span class="emi-options-text font13">Get Lowest EMI Quotes In Market</span>
+                    </div>
+
+                    <div class="emi-options">
+                        <span class="emi-option-image gop-icon-container">
+                            <span class="gop-sprite margin-top10 compare-icon"></span>
+                        </span>
+                        <span class="emi-options-text font13">Compare Various Loan Options</span>
+                    </div>
+
+                    <div class="emi-options">
+                        <span class="emi-option-image gop-icon-container">
+                            <span class="gop-sprite margin-top10 apply-icon"></span>
+                        </span>
+                        <span class="emi-options-text font13">Apply Online &amp; Get Instant E-Approval</span>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="margin-top10">
+                        <div id="BtnBBLnkBtn" class="btnSubmit btn-orange btn-xs text-white btn-full-width font14 cur-pointer">Get Lowest EMI Quotes</div>
+                    </div>
+
+                    <div class="sellPricePrivacyContent text-grey font12 margin-top10 text-left">
+                        <label for="userAgreement">By proceeding ahead, you agree to CarWale </label>
+                        <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and
+                        <a target="_blank" href="/privacypolicy.aspx">privacy policy</a>.
+                    </div>
+
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="clear"></div>
+        </div>
+        <!-- End Bank Bazr Link-->
+    </div>
+    <div class="hide pqSponsoredContainer pqCar"></div>
+</div>

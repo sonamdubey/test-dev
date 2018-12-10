@@ -1,0 +1,14 @@
+.no-result__content {
+	text-align: center;
+}
+
+.no-result__title {
+	font-size: 24px;
+	color: #929292; // TODO: add in color map array
+	margin-bottom: 5px;
+}
+
+.no-result__subtitle {
+	font-size: 13px;
+	color: color('dark-gray');
+}

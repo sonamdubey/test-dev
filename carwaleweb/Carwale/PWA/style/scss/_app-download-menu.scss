@@ -1,0 +1,29 @@
+.app-content__title {
+	font-size: 13px;
+	color: color('white');
+	margin-bottom: 10px;
+}
+
+.app-list__item {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 5px;
+
+	&:last-child {
+		margin-right: 0;
+	}
+}
+
+.app-logo__item {
+	width: 115px;
+	height: 40px;
+	display: inline-block;
+}
+
+.app-store-icon {
+	@include app-store-icon;
+}
+
+.play-store-icon {
+	@include play-store-icon;
+}

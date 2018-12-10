@@ -1,0 +1,312 @@
+﻿.readable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.readable th {
+  font-weight: bold;
+  text-align: left;
+  background-color: #EEEEEE;
+  border-bottom: 1px solid #CCCCCC;
+  padding: 5px;
+  color: #5B5B5B;
+}
+
+.readable td {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 8px;
+}
+
+.readable p {
+  padding: 5px 0;
+  margin: 0;
+  text-align: justify;
+}
+
+.readable a {
+  text-decoration: underline;
+}
+
+.readable  h2 {
+  font-size: 18px;
+  font-weight: normal;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+} /* border-bottom: 1px solid #ccc; */
+.readable  h3 {
+  font-weight: normal;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+} /* border-bottom: 1px solid #ccc; */
+
+.readable .disclaimer {
+  font-size: 10px;
+  color: #666;
+  font-weight: normal;
+}
+
+.readable ul {
+  margin: 8px 0;
+}
+
+.readable li {
+  margin-left: 20px;
+}
+
+.lp p {
+  background-color: #f2f2f2;
+  font-size: 11px;
+  color: #666;
+  padding: 5px;
+  text-align: left;
+}
+
+.lp img {
+  margin-top: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.lp p img {
+  background: none;
+  border: 0px;
+  float: left;
+}
+
+.splBox {
+  background-color: #f1f7ff;
+  text-align: justify;
+  float: right;
+  width: 200px;
+  margin: 10px;
+  border: 1px solid #cccccc;
+}
+
+.splBox h2 {
+  font-size: 15px;
+  font-weight: bold;
+  padding: 5px;
+  background-color: #b5c4d9;
+  margin: 0px;
+  border-bottom: solid 1px #ccc;
+}
+
+.splBox p {
+  font-size: 11px;
+  padding: 5px;
+}
+
+.rightln {
+  float: right;
+  margin-left: 10px;
+}
+
+.trh1 {
+  background-color: #eeeeee;
+  font-weight: bold;
+}
+
+.disclaimer {
+  font-size: 10px;
+}
+
+.exterior {
+  width: 312px;
+}
+
+.interior {
+  width: 312px;
+  float: right;
+}
+
+.engine {
+  width: 172px;
+  float: right;
+  padding: 5px;
+}
+
+.verdict {
+  width: 210px;
+  float: right;
+}
+
+.scorecard {
+  width: 420px;
+}
+
+.verdictno {
+  float: left;
+  padding-right: 10px;
+}
+
+.dimensions {
+  border: 0px;
+  ;
+}
+
+.dimensions td {
+  vertical-align: top;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+}
+
+.spl td {
+  padding: 5px;
+  border: 0px;
+  vertical-align: top;
+}
+
+.spl td img {
+  clear: both;
+}
+
+
+/*** CSS used for Tips&advices ****/
+.templateImg330 img {
+  float: left;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  width: 312px;
+  overflow: visible;
+  margin-right: 0px;
+}
+
+.templateRightImg200 {
+  width: inherit;
+}
+
+.templateRightImg200 img {
+  float: right;
+  width: 200px;
+  border: 1px solid #CCC;
+  padding: 2px;
+  margin: 0 10px;
+}
+
+.templateRightImg200 p {
+  float: left;
+  width: 419px;
+  padding: 5px 0;
+  margin: 0;
+  text-align: justify;
+}
+
+.templateImg300 img {
+  float: left;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  width: 300px;
+  overflow: visible;
+  margin-right: 0px;
+}
+
+.templateImg200 img {
+  float: left;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 200px;
+  overflow: visible;
+}
+
+.templateRightImg300 {
+  width: inherit;
+}
+
+.templateRightImg300 img {
+  float: right;
+  width: 300px;
+  border: 1px solid #CCC;
+  padding: 2px;
+  margin: 0 10px;
+}
+
+.templateRightImg300 p {
+  float: left;
+  width: 313px;
+  padding: 5px 0;
+  margin: 0;
+  text-align: justify;
+}
+
+.templateImgDesc200 {
+  float: left;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 200px;
+  overflow: visible;
+}
+
+.templateImgDesc200 div {
+  margin-top: 10px;
+}
+
+.templateImgDesc300 {
+  float: left;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  width: 306px;
+  overflow: visible;
+}
+
+.templateImgDesc300 img {
+  border: 1px solid #CCCCCC;
+  padding: 2px;
+}
+
+.templateRightImg60 {
+  width: inherit;
+}
+
+.templateRightImg60 .imgHolder {
+  float: right;
+  width: 60px;
+  padding: 2px;
+  margin: 0 10px;
+}
+
+.templateRightImg60 img {
+  margin: auto;
+  border: 1px solid #CCC;
+}
+
+.templateRightImg60 p {
+  float: left;
+  width: 549px;
+  padding: 5px 0;
+  margin: 0;
+  text-align: justify;
+}
+
+.templateRightImg160 {
+  width: inherit;
+}
+
+.templateRightImg160 img {
+  float: right;
+  width: 160px;
+  border: 1px solid #CCC;
+  padding: 2px;
+  margin: 0 10px;
+}
+
+.templateRightImg160 p {
+  float: left;
+  width: 459px;
+  padding: 5px 0;
+  margin: 0;
+  text-align: justify;
+}
+
+.clearDiv {
+  clear: both;
+}
+
+.ad-container--fixed {
+    position: fixed;
+    top: 50px;
+    z-index: 1;
+}

@@ -1,0 +1,45 @@
+﻿@model List<Carwale.Entity.CarData.CarModelSummary>
+@using Carwale.Utility;
+@using Carwale.Entity;
+@using Carwale.UI.Common;
+<h2 class="margin-top20 special-skin-text">@string.Format("{0} Car{1}{2}", ViewBag.MakeName, Model.Count > 1 ? "s" : string.Empty, !string.IsNullOrWhiteSpace(ViewBag.CityName) ? " in " + ViewBag.CityName : string.Empty)</h2>
+<div class="jcarousel-wrapper ld-car-alternatives margin-top10 border-solid bg-white clearfix">
+    <div id="mycarousel" class="jcarousel">
+        <ul class="clearfix">
+            @foreach (var currentModel in Model)
+            {
+                <li>
+                    <div class="contentWrapper">
+                        <div class="imageWrapper">
+                            <a href="@ManageCarUrl.CreateModelUrl(ViewBag.MakeName,currentModel.MaskingName)">
+                                <img class="lazy" src="@ImageSizes.CreateImageUrl(currentModel.HostUrl, ImageSizes._272X153, currentModel.OriginalImage)" alt="@currentModel.ModelName">
+                            </a>
+                        </div>
+                        <div class="carDescWrapper">
+                            <a href="@ManageCarUrl.CreateModelUrl(ViewBag.MakeName,currentModel.MaskingName)" title="@ViewBag.MakeName @currentModel.ModelName" class="text-black carTitle font16 text-bold">
+                                @ViewBag.MakeName @currentModel.ModelName
+                            </a>
+                            <div class="margin-top15">
+                                <div>
+                                    <span class="font16 text-black text-bold">₹ @FormatPrice.GetFormattedPriceV2(currentModel.CarPriceOverview.Price.ToString())</span>&nbsp;
+                                    <span class="font13 text-light-grey">@((currentModel.CarPriceOverview.Price != 0) ? "onwards" : "")</span>
+                                    <div class='font13 @(currentModel.CarPriceOverview.PriceStatus == (int)PriceBucket.PriceNotAvailable ? "oliveText" : currentModel.CarPriceOverview.PriceStatus == (int)PriceBucket.CarNotSold ? "redText" : "")'>
+                                        @currentModel.CarPriceOverview.PriceLabel@(currentModel.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity ? ", " + currentModel.CarPriceOverview.City.CityName : "")
+                                        <span>@(currentModel.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity ? Html.Raw("<div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon desk-deals-car-sprite inline-block dealer-locator'></span><p class='average-info-content hide'>" + currentModel.CarPriceOverview.ReasonText + "</p></div>") : Html.Raw(""))</span>
+                                    </div>
+                                </div>
+                                @if (!string.IsNullOrWhiteSpace(ViewBag.CityName) && !string.IsNullOrWhiteSpace(ViewBag.CityMaskingName) && currentModel.CarPriceOverview.Price > 0 && currentModel.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity)
+								{
+                                    <a class="font13 margin-top10 cur-pointer" href="@ManageCarUrl.CreatePriceInCityUrl(ViewBag.MakeName,currentModel.MaskingName,ViewBag.CityMaskingName)" title="@currentModel.ModelName View Detailed Price In @ViewBag.CityName"
+                                       data-role="click-inview-imp" data-cat="Desktop_DealerLocator_ModelCarousal" data-action="viewpricebreakup" data-label="@(string.Format("{0}_{1}", currentModel.ModelName, currentModel.CarPriceOverview.City.CityName))">View Detailed Price In @ViewBag.CityName</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </li>}
+        </ul>
+
+    </div>
+    <span class="jcarousel-control-left"><span class="cwsprite jcarousel-control-prev cur-pointer"></span></span>
+    <span class="jcarousel-control-right"><span class="cwsprite jcarousel-control-next cur-pointer"></span></span>
+</div>

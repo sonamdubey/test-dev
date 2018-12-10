@@ -1,0 +1,56 @@
+//
+// Select
+// --------------------------------------------------
+
+// normalize select
+
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+
+select {
+	font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+	margin: 0; /* 2 */
+
+	&:focus {
+		outline: none;
+	}
+}
+
+.select-box-wrapper {
+	position: relative;
+
+	select {
+		-webkit-appearance: none;
+		appearance: none;
+		background-color: color('white');
+	}
+
+	&:after {
+		@include arrow-down-icon;
+		@include vendor-prefix('transform', translateY(-50%));
+		content: '';
+		display: block;
+		position: absolute;
+		top: 50%;
+		right: 20px;
+		width: 13px;
+		height: 8px;
+	}
+}
+
+.select-box__field {
+	@include vendor-prefix('box-shadow', 0 1px 4px 0 color('light-gray', .8));
+	@include vendor-prefix('border-radius', 4px);
+	width: 100%;
+	height: auto;
+	font-size: 16px;
+	padding: 12px 40px 12px 20px;
+	color: $base-color;
+	border: 1px solid color('light-gray');
+	text-indent: 0;
+	line-height: 1.15;
+}

@@ -1,0 +1,129 @@
+﻿@model Carwale.DTOs.CMS.ContentDetailDTO
+
+@using Carwale.Utility;
+@using Carwale.UI.PresentationLogic;
+
+@functions{
+     public bool ValidArticle(){
+         return (Model != null && Model.Article != null && Model.Article.VehiclTagsList != null && Model.Article.VehiclTagsList.Count > 0);
+     }
+ }
+<div data-role="page">
+    <section class="container">
+@if (!ViewBag.isRelatedArticle)
+{
+        <div id="divAdBar">
+            <div id='div-gpt-ad-1419227721763-0' style='width:320px; height:50px; margin:10px auto 0 auto;'>
+                <script type='text/javascript'>
+                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1419227721763-0'); });
+                </script>
+            </div>
+        </div>
+}
+        <script>
+    var articleTitle = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Article.Title));
+        </script>
+
+        <div class="scroll-container">
+            <div class="inner-container  padding-left15 padding-right15">
+                <div class="margin-top10 margin-bottom10">
+                    <h1 class="margin-top10 margin-bottom10 m-special-skin-text">@Model.Article.Title</h1>
+                    <div class="floatleft margin-right20 m-special-skin-text">
+                        @Html.Raw(Model.Article.DisplayDate.ToString("MMMM dd, yyyy, hh:mm tt") + " IST by " + (!string.IsNullOrEmpty(Model.Article.AuthorMaskingName)
+                            ? "<a href='/authors/" + Model.Article.AuthorMaskingName + "/'>" + Model.Article.AuthorName + "</a>" : Model.Article.AuthorName))
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="article-reading-content bg-white">
+                <div class="content-inner-block-15 margin-bottom10 rounded-corner2 content-details" id="@Model.Article.BasicId" categoryid="@Model.Article.CategoryId" categoryname="@Model.Article.CategoryMaskingName">
+                    <div class="inner-container" id="divDesc">
+                        @if (Model.Article.OriginalImgUrl != "")
+                        {
+                            if (!string.IsNullOrWhiteSpace(Model.Article.MainImgCaption))
+                            {
+                                <div style='text-align:center;'>
+                                    <img width="100%" style="margin-top:10px; min-height:180px; padding:5px; border:1px solid #ccc; background-color:#fff;" title="@Model.Article.Title" alt="@Model.Article.Title" class="margin-top10" src="@Carwale.Utility.ImageSizes.CreateImageUrl(@Model.Article.HostUrl,Carwale.Utility.ImageSizes._566X318,@Model.Article.OriginalImgUrl)" border='0' />
+                                </div>
+                                <div style='background-color:#f2f2f2; font-size:11px; color:#666; padding:5px; text-align:left;'>
+                                    @Model.Article.MainImgCaption
+                                </div>
+                            }
+                            else
+                            {
+                                <div style='text-align:center;'>
+                                    <img style="min-height:180px;" class="margin-top-minus-15" title='@Model.Article.Title' alt='@Model.Article.Title' src="@Carwale.Utility.ImageSizes.CreateImageUrl(@Model.Article.HostUrl,Carwale.Utility.ImageSizes._566X318,@Model.Article.OriginalImgUrl)" border='0' width='100%' />
+                                </div>
+                            }
+                        }
+                        <div class="content-font">
+                            @Html.Raw(Model.Article.Content)
+                        </div>
+                        <div style='clear: both'></div>
+                    </div>
+
+                    <!--Show on road price for news details only if a single model is tagged to the article-->
+                    @if (false)
+                    {
+                        <div class="text-center">
+                            <div class="">
+                                <div>
+                                    <span class="font20 margin-right5">
+                                        ₹
+                                        @ViewBag.CarPrice
+                                    </span>
+                                    <span class="text-light-grey">
+                                        Ex-showroom, @System.Configuration.ConfigurationManager.AppSettings["DefaultCityName"]
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center margin-top10">
+                            <div class="btn btn-orange btn-full-width linkButtonBigBlueNew" modelid="@ViewBag.ModelId" cityname="@System.Configuration.ConfigurationManager.AppSettings["DefaultCityName"]" cityid="@System.Configuration.ConfigurationManager.AppSettings["DefaultCityId"]" pageid="82" onclick="redirectOrOpenPopup(this, 82)">Check On-Road Price</div>
+                        </div>
+                    }
+
+                    @if (string.Join(",", Model.Article.TagsList.ToArray()).Length > 0)
+                    {
+                        <div class="inner-container margin-top10">
+                            <span class="fa fa-tag floatleft"></span>
+                            <span class="">@string.Join(",", Model.Article.TagsList.ToArray())</span>
+                        </div>
+                    }
+                </div>
+
+                <div class="social light-shadow padding-bottom15">
+                    <a href='https://m.facebook.com/sharer.php?u=https://www.carwale.com@(Model.Article.ArticleUrl)?utm_source=share&t=@Model.Article.Title' target="_blank"
+                       data-role="click-tracking" data-event="CWInteractive" data-action="Facebook" data-cat="share" data-label="@("https://www.carwale.com/m" + Model.Article.ArticleUrl)">
+                        <div id="FbCount" class="contentSocial facebook margin-bottom10 margin-left15"></div>
+                    </a>
+                    <a href='https://twitter.com/share?url=https://www.carwale.com@(Model.Article.ArticleUrl)?utm_source=share&t=@Model.Article.Title' target="_blank" style="text-decoration:none;"
+                       data-role="click-tracking" data-event="CWInteractive" data-action="Twitter" data-cat="share" data-label="@("https://www.carwale.com/m" + Model.Article.ArticleUrl)">
+                        <div id="TweetCount" class="contentSocial twitter margin-bottom10"></div>
+                    </a>
+                    <a href='mailto:contact@carwale.com?subject=@Model.Article.Title&body=I was reading https://www.carwale.com@(Model.Article.ArticleUrl)?utm_source=share on CarWale site and thought to share with you.'
+                       data-role="click-tracking" data-event="CWInteractive" data-action="Email" data-cat="share" data-label="@("https://www.carwale.com/m" + Model.Article.ArticleUrl)">
+                        <div class="contentSocial email margin-bottom10"></div>
+                    </a>
+                    <a href="whatsapp://send?text=https://www.carwale.com@(Model.Article.ArticleUrl)?utm_source=share"
+                       data-role="click-tracking" data-event="CWInteractive" data-action="Whatsapp" data-cat="share" data-label="@("https://www.carwale.com/m" + Model.Article.ArticleUrl)">
+                        <div class="contentSocial whatsapp margin-bottom10"></div>
+                    </a>
+                    <div class="clear"></div>
+                </div>
+                @if (ValidArticle() && !(bool)ViewBag.isRelatedArticle)
+                {
+                    <div id="relatedGallery" data-role="impression" data-event="CWNonInteractive" data-cat="msite_image_gallery_linkages" data-action="news_details_card_imp" data-label="news_details_card_imp">
+                        @{ Html.RenderAction("GetModelImageCard", "Gallery", new { modelId = Model.Article.VehiclTagsList[0].ModelBase.ModelId, applicationId = 1 }); }
+                    </div>
+                    <div id="galleryEnd"></div>
+                            }
+            </div>
+        </div>
+    </section>
+</div>
+    
+<div class="clear"></div>
+@(Html.Raw(Carwale.BL.Advertizing.SponsoredCampaignApp.GetScript(Model.Article.BasicId.ToString()+"_m")))
+<div data-page-url="@Model.Article.ArticleUrl"></div>
+<a data-next href='@EditorialContent.GetCompletePageUrl(Request, "/m/emptyResult/")' rel="nofollow"></a>

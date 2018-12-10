@@ -1,0 +1,171 @@
+﻿.next {
+        float: right;
+        width: 60px;
+        height: 35px;
+        text-align: right;
+        padding-right: 5px;
+        color: #353535;
+        font-size: 18px;
+    }
+
+    .prev {
+        float: left;
+        width: 90px;
+        height: 35px;
+        text-align: left;
+        padding-left: 5px;
+        color: #353535;
+        font-size: 18px;
+    }
+
+    .arr-big {
+        color: red;
+        font-size: 25px;
+    }
+
+    #floating-btn-wrapper {
+        height: 60px;
+    }
+
+    .floating-btn {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 8;
+        padding: 10px;
+    }
+
+    .bg-grey-transparent {
+        background: rgba(48,48,48,0.7);
+    }
+
+    /* model pills list */
+    .list-type-pills__item {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        background: #efefef;
+        border-radius: 15px;
+        line-height: 11px;
+        margin-left: 5px;
+    }
+
+        .list-type-pills__item:first-child {
+            margin-left: 0;
+        }
+
+    .item--padding {
+        padding: 5px 11px;
+    }
+
+    .item--360-padding {
+        padding: 3px 13px;
+    }
+
+    .list-type-pills__item span {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .list-type-pills__item a {
+        display: block;
+        text-decoration: none;
+    }
+
+    .list-item__label {
+        font-size: 13px;
+        color: #565a5c;
+        font-weight: 700;
+    }
+
+    .item--icon-right-margin {
+        margin-right: 7px;
+    }
+
+    .media-image-icon {
+        width: 15px;
+        height: 16px;
+        background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/media-image-15.png') no-repeat;
+        display: inline-block;
+    }
+
+    .review-yt-video-icon {
+        position: absolute;
+        top: 18%;
+        left: 40%;
+    }
+
+.thankyou-card__icon {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/review-successful.svg") no-repeat center;
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  margin-right: 10px;
+  display: none;
+}
+
+.review-edit-icon {
+  background: url("https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/010101/edit.svg") no-repeat center;
+  width: 15px;
+  height: 15px;
+  float: right;
+  cursor: pointer;
+  display: none;
+}
+
+@media only screen and (max-width: 720px) {
+  .user-review .review-wrapper {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 720px) {
+  .user-review .review-wrapper {
+    background-color: #fff;
+  }
+
+  .review-header {
+    background-color: #f5f5f5;
+    margin: 0 10px;
+    border: 0;
+    box-shadow: none;
+    padding: 10px;
+  }
+
+  .user-review .review-wrapper .review-car-container {
+    width: 50% !important;
+    display: inline-block
+  }
+
+  .user-review .review-wrapper .review-results {
+    width: 48% !important;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .review-result-wrapper {
+    border: 0;
+    box-shadow: none;
+  }
+
+  .review-submit{
+    width : 30%;  
+  }
+
+  .review-submit .floating-btn{
+    position: initial;
+  }
+
+  .thankyou-card__icon {
+    display: inline-block;
+  }
+
+  .review-edit-icon {
+    display: inline-block;
+  }
+
+  .review-details__content-wrapper {
+    margin-left: 10px;
+  }
+}

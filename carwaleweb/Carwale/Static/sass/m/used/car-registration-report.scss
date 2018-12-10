@@ -1,0 +1,168 @@
+﻿@import "../../mixins/_index.scss";
+@import "../../mixins/_buttons.scss";
+@import "../../mixins/_grid.scss";
+@import "../../mixins/_margin.scss";
+@import "../../mixins/_utils.scss";
+@import "../../mixins/_text.scss";
+@import "../../mixins/_rounded-corner.scss";
+@import "../../mixins/_fontawesome.scss";
+@import "../../mixins/_background.scss";
+@import "../../mixins/_position.scss";
+@import "../../partials/_reset.scss";
+@import "../../partials/_mheader.scss";
+@import "../../partials/_mbreadcrumb.scss";
+@import "../../partials/_androiddownload.scss";
+@import "../../partials/_ratings.scss";
+
+@include blackout-window;
+@include grid-size(12);
+@include margin("bottom",10);
+@include margin("bottom",15);
+@include margin("top",20);
+@include margin("left",110);
+@include content-inner-block(10);
+@include font-size-class(12);
+@include rounded-corner(2);
+@include content-box-shadow;
+@include text-link;
+@include text-bold;
+@include arr-small;
+@include btn-color("white");
+@include text-color("black");
+@include text-color("light-grey");
+@include book-now-thumb;
+@include show;
+@include hide;
+@include get-font-icon("rupee");
+@include bg-color("light-grey");
+@include inline-block;
+@include ad-div;
+@include position("left",10);
+@include position("rel");
+
+/* ----------------- common css for page ----------------- */
+
+.registration-report-body {
+    background-color: map-get($color-map, 'white');
+}
+
+@include btn;
+@include btn-secondary;
+
+/* ----------------- page title css - h1 tag ----------------- */
+.report-title {
+    padding: 15px 20px;
+    color: map-get($color-map, 'charcoal');
+    font-weight: $font-semibold;
+    font-size: 20px;
+}
+
+/* ----------------- page content css ----------------- */
+.report-content {
+    padding: 20px;
+    background: map-get($color-map, 'snow-white');
+    font-size: 16px;
+
+    .report-content-title {
+        color: map-get($color-map, 'charcoal');
+        padding-bottom: 10px;
+        font-size: 16px;
+        font-weight: $font-bold;
+    }
+
+    .report-content-subtitle {
+        color: map-get($color-map, 'dim-grey');
+        padding-bottom: 20px;
+    }
+
+    .report-list__item {
+        color: map-get($color-map, 'dim-grey');
+        padding-bottom: 15px;
+        padding-left: 16px;
+        position: relative;
+
+        &:before {
+            content: '';
+            opacity: .5;
+            background-color: map-get($color-map, 'grey-text');
+            position: absolute;
+            top: 7px;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+}
+
+/* ----------------- form for regitration report css ----------------- */
+.report-registration {
+    padding: 20px;
+    position: relative;
+    max-width: 480px;
+
+    .registration-input-wrapper {
+        padding-bottom: 30px;
+        font-size: 0;
+    }
+
+    .registration-input-medium-box {
+        width: 30%;
+    }
+
+    .registration-input-regular-box {
+        width: 20%;
+    }
+
+    .form-title {
+        font-size: 11px;
+        color: map-get($color-map, 'dim-grey');
+        letter-spacing: 1px;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    .registration-input {
+        border: 1px solid map-get($color-map, 'light-grey-border');
+        border-radius: 3px;
+        font-size: 16px;
+        display: inline-block;
+        padding: 13px 13px 12px 13px;
+        text-align: center;
+        font-weight: $font-bold;
+        text-transform: uppercase;
+        margin-right: 2.5%;
+
+        &:focus {
+            border-color: map-get($color-map, 'sky-blue');
+        }
+
+        &::placeholder {
+            color: map-get($color-map, 'grey-subtitle');
+            font-weight: $font-normal;
+        }
+    }
+
+    .error-message {
+        position: absolute;
+        font-size: 12px;
+        color: map-get($color-map, 'tomato-red');
+        top: 95px;
+    }
+
+    .report-submit-div {
+        width: 100%;
+        text-align: center;
+        padding-bottom: 35px;
+    }
+}
+
+.input-error {
+    .registration-input {
+        border-color: map-get($color-map, 'tomato-red');
+    }
+}

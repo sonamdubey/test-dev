@@ -1,0 +1,21 @@
+﻿<section class="container margin-top15">
+    <!-- Get Final Price code starts here -->
+    <div class="grid-12">
+        <div class="content-inner-block-20 content-box-shadow">
+            <div class="dealer-manufacturer-form">
+                <div class="form-control-box behavior dealer-make-input">
+                    <select data-placeholder="Type to select car manufacturer eg: Audi " class="chosen-select form-control" multiple id="drpDealerMakes" data-bind='options: pqDealerMakes, optionsText: "makeName", optionsValue: "makeId" '></select>
+                    <span class="cwsprite error-icon city-error-icon errCar hide"></span>
+                    <div class="cw-blackbg-tooltip city-err-msg errCar hide">Please select a make</div>
+                </div>
+
+                <div class="form-control-box dealer-city-input">
+                    <select id="drpDealerCity" data-placeholder="Select City" disabled class="chosen-select form-control" multiple></select>
+                </div>
+                <a onclick="redirectToLocateDealer()">
+                    <button class="btn btn-orange text-uppercase  behavior">Find Dealers</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

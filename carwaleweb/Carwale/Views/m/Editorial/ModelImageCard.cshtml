@@ -1,0 +1,31 @@
+﻿
+@model Carwale.Entity.CMS.Media.Media
+@using Carwale.Utility
+@using Carwale.UI.Common
+@if (Model != null && Model.Photos != null && Model.Photos.PhotosList != null && Model.Photos.PhotosList.Count > 0)
+{
+    var modelMaskingName = Model.Photos.PhotosList[0].ModelMaskingName;
+    var modelName = Model.Photos.PhotosList[0].ModelName;
+    var makeName = Model.Photos.PhotosList[0].MakeName;
+    var originalImgPath = Model.Photos.PhotosList[0].OriginalImgPath;
+    var imagesCount = Model.Photos.PhotosList[0].ImageCount;
+    var hostURL = Model.Photos.PhotosList[0].HostURL;
+    var galleryURL = "/m/" + Format.FormatSpecial(makeName) + "-cars/" + modelMaskingName + "/images/";
+    <div class="news-box news-view-box news-hover-list">
+        <div class="news-inner-wrap position-rel min-height0">
+            <div class="news-inner-box">
+                <div class="img-wrap">
+                    <a class="news-title text-black" data-role="click" data-event="CWInteractive" data-cat="msite_image_gallery_linkages" data-action="news_details_card" data-label="news_details_card"  onclick="javascript:window.open('@(galleryURL)')">
+                        <img class="margin-left0" data-original="@(Carwale.Utility.CWConfiguration._imgHostUrl + "0x0/cw/design15/grey.gif")" src="@(hostURL + "310x174" + originalImgPath)" alt="@(makeName + " " + modelName + " Pictures")" title="@(makeName + " " + modelName + " Photos")" onerror="this.onerror=null;this.src='@(Carwale.Utility.CWConfiguration._imgHostUrl + "310x174/cw/cars/no-cars.jpg")';" />
+                    </a>
+                </div>
+                <div class="view-wrap content-inner-block-10">
+                    <span class="image-tag font14 text-uppercase text-white text-center"><span class="fa fa-camera"></span><span>@imagesCount</span></span>
+                    <h2 class="font16 news-title ">
+                        <a class="news-title text-black" data-role="click" data-event="CWInteractive" data-cat="msite_image_gallery_linkages" data-action="news_details_card_label" data-label="news_details_card_label" onclick="javascript:window.open('@(galleryURL)')" rel="bookmark">@(makeName + " " + modelName + " Photos")</a>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+}

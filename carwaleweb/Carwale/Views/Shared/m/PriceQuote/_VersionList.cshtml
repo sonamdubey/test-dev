@@ -1,0 +1,42 @@
+﻿@model Carwale.DTOs.PriceQuote.QuotationPageMobileDTO
+@using Carwale.Utility
+@using Carwale.Entity.Enum;
+
+<div class="select-version-popup hide">
+    <div class="select-version-popup__header">
+        <span class="back-arrow-icon select-version-popup__close"></span>
+        <span class="select-version-popup__title">Select Version</span>
+    </div>
+    <div class="select-version-popup__content">
+        <ul>
+            @foreach (var version in Model.Versions)
+            {
+                <li class="select-version-popup__li">
+                    <div class="pqVersionList" pageid=@((int)SponsoredCarPageId.MsitePQPageCityChange) onclick="priceQuote.getPqByVerionClick(0, @version.ID, @Model.Location.CityId, @Model.Location.AreaId, @(Model.IsCrossSellPriceQuote ? "true" : "false"), this, '@("card" + Model.CardNo)', '@Model.Location.CityName');">
+                        <span class="select-version-popup__versionName">@version.Name</span>
+                        <span class="select-version-popup__versionInfo">
+                            @if (!string.IsNullOrEmpty(version.FuelType))
+                            {
+                                <span class="select-version-popup__fuelType">@version.FuelType</span>
+                            }
+                            @if (!string.IsNullOrEmpty(version.Transmission))
+                            {
+                                <span class="select-version-popup__transmission">@version.Transmission</span>
+                            }
+                            @if (version.OnRoadPrice > 0)
+                            {
+                                <span>₹</span>
+                                <span class="select-version-popup__price">@Format.FormatNumericCommaSep(version.OnRoadPrice.ToString())</span>
+                            }
+                            else
+                            {
+                                <span class="select-version-popup__price">Price not available</span>
+                            }
+                        </span>
+                    </div>
+
+                </li>
+            }
+        </ul>
+    </div>
+</div>

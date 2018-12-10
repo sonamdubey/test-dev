@@ -1,0 +1,295 @@
+@import "../../mixins/_grid.scss";
+@import "../../mixins/_margin.scss";
+@import "../../mixins/_utils.scss";
+@import "../../mixins/_text.scss";
+@import "../../mixins/_buttons.scss";
+@import "../../mixins/_fonts.scss";
+@import "../../mixins/_sprites.scss";
+@import "../../mixins/_benefits-list.scss";
+
+// page specific
+@import "../../mixins/_input-box.scss";
+@import "../../mixins/_button-pill.scss";
+
+// breadcrumb
+@import "../../partials/_breadcrumb-nav-list.scss";
+
+
+.pos-static{
+    position:static;
+}
+.pos-fixed{
+    position:fixed;
+}
+.plans-wrapper-padding14{
+    padding-top: 14px;
+}
+.plans-wrapper-padding80{
+    padding-top: 80px;
+}
+.assisted-sale-header{
+	width: 100%;
+	height: 66px;
+	text-align: left;
+	background: map-get($color-map, "white");
+	box-shadow: #d2d2d2 0 -1px 10px;
+	z-index: 1;
+
+	.back-button {
+		height: 12px;
+		width: 18px;
+		display: inline-block;
+		margin: 10px;
+		margin-left: 10px;
+		@include back-default;
+		background-repeat: no-repeat;
+		@include get-vendor-prefixed("transform", "rotate(90deg)");
+	}
+
+	.title-Container{
+		display: inline-block;
+		margin-left: 5px;
+		text-align: left;
+		padding-top: 15px;
+
+		.assisted-title{
+			font-size: 16px;
+			font-weight: 700;
+			color: map-get($color-map, "charcoal");
+		}
+
+		.assisted-subtitle{
+			font-size: 12px;
+			color: map-get($color-map, "dim-grey");
+		}
+	}
+}
+
+
+.benefit-list-item{
+	@include list-style;
+}
+
+.tick-icon{
+	vertical-align: top;
+	display: inline-block;
+	@include tick-icon;
+	height: 15px;
+	width: 15px;
+}
+
+.provided-benefits-list {
+	margin-top: 15px;
+	text-align: left;
+					
+	.benefits-list-item {
+		padding: 5px 0 5px 26px;
+		display: none;
+	}
+
+	.benefits-list-item:nth-child(-n+5){
+		display: block;
+		}
+	}
+
+.plans-wrapper{
+	.plans-card{
+		margin: 15px 20px 30px 20px;
+		border: 1px solid map-get($color-map, "light-grey-new");
+		border-radius: 4px;
+		background: map-get($color-map, "white");
+	}
+}
+		
+.plans-wrapper{
+	.plans-card--guaranteed-sale{
+		border: 1px solid map-get($color-map, "your-pink");
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+
+.plan-card-header{
+	padding: 15px;
+	border-bottom: 1px solid map-get($color-map, "light-grey-new");
+	background: map-get($color-map, "snow");
+}
+.guaranteed-header{
+	border-bottom: 1px solid #f7c0b7;
+	background: map-get($color-map, "misty-rose");
+}
+
+.plans-wrapper{
+	background: map-get($color-map, "snow-bg");
+
+    input {
+        font-family: 'LatoWeb', sans-serif, Arial;
+    }
+
+	.guarantee__title{
+		font-size: 16px;
+		font-weight: 700;
+		color: map-get($color-map, "charcoal");
+	}
+
+	.guarantee__subtitle{
+		font-size: 12px;
+		color: map-get($color-map, "dim-grey");
+	}
+
+			
+.collapse-items{
+	&.open {
+		.provided-benefits-list {					
+			.benefits-list-item {
+				display: block;
+			}
+		}
+		.toggle-read-more::before {
+			content: none;
+			}
+		}
+				
+
+	.toggle-read-more {
+		text-align: left;
+		padding: 12px 26px;
+		font-size: 14px;
+		font-weight: 700;
+		color: map-get($color-map, "summer-sky");
+		position: relative;
+		cursor: pointer;
+
+			&::before{
+				content: '';
+				display: block;
+				position: absolute;
+				width: 100%;
+				top: -40px;
+				right: 0;
+				height: 40px;
+				background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+				}
+			}
+		}
+
+	.button-orange{
+		@include btn-style;
+		-webkit-appearance: none;
+        display: block;
+        margin: 0 auto;
+	}
+
+	.refund-clause{
+		font-size: 0;
+		color: map-get($color-map, "dark-grey-bg");
+		padding: 10px 24px;
+		text-align: left;
+		margin-bottom: 10px;
+	}
+	.refund-clause__text {
+		font-size: 12px;
+		display: inline-block;
+		vertical-align: top;
+	}
+	.refund-clause__note {
+		font-size: 12px;
+		padding-left: 5px;
+		display: inline-block;
+		vertical-align: top;
+		width: 98%;
+	}
+				
+	.featured-title{
+		font-size: 16px;
+		font-weight: 700;
+		color: map-get($color-map, "charcoal");
+		}
+
+	.featured-subtitle{
+		font-size: 12px;
+		color: map-get($color-map, "dim-grey");
+	}
+			
+
+	.featured-benefits {
+		margin-top: 15px;
+		text-align: left;
+			
+		.featured-benefits-item {
+			padding: 5px 0 5px 26px;
+		}
+	}
+
+	.button-teal{
+		@include btn-style;
+		margin-top: 20px;
+		border-radius: 4px;
+		margin-bottom: 20px;
+		background: map-get($color-map, "white");
+		color: map-get($color-map, "shamrockGreen");
+		border: 1px solid map-get($color-map, "shamrockGreen");
+	}
+}
+
+.free-listing{
+	width: 90%;
+	position: relative;
+	margin: 0 auto;
+	padding: 0 0 20px;
+	background: map-get($color-map, "snow-bg");
+	text-align: center;
+
+	.free-listing__or-text {
+		position: relative;
+		margin-bottom: 20px;
+	}
+	.free-listing__or-text span {
+		display: inline-block;
+		font-size: 16px;
+		color: map-get($color-map, "dim-grey");
+		font-weight: 600;
+		background: map-get($color-map, "white");
+		
+	}
+	.free-listing__or-text span:before,.free-listing__or-text span:after{
+		content:'';
+		display: block;
+		position: absolute;
+		top: 40%;
+		width: 46%;
+		border-top: 2px dashed map-get($color-map, "gainsboro");
+	}
+
+	.free-listing__or-text span:before {
+		left:0
+	}
+	.free-listing__or-text span:after {
+		right:0
+	}
+	.button-teal {
+		margin-top:0
+	}
+
+	 .free-listing__continue-btn {
+		margin: 0 auto;
+		margin-bottom: 20px;
+		padding: 13px 0;
+		color:  map-get($color-map, "shamrockGreen");
+		font-size: 18px;
+		font-weight: 600;
+		border: 1px solid;
+		border-radius: 4px;
+		width: 85%;
+	}
+	.contact-deatils{
+		color:  map-get($color-map, "dim-grey");
+		font-size: 14px;
+	}
+	.contact-deatils__phone-number{
+		color: map-get($color-map, "dim-grey");
+	}
+	.contact-deatils__email-link {
+		color: map-get($color-map, "summer-sky");
+	}
+}

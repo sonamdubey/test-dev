@@ -1,0 +1,59 @@
+﻿@model Carwale.Entity.ViewModels.TopSellingModel
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@using Carwale.Entity;
+@foreach (var item in Model.SponsoredPopularCars)
+{
+    @Html.Raw(item.Ad_Html)
+}
+@foreach (var item in Model.TopSelling)
+{
+    <li>
+        <div class="front">
+            <div class="contentWrapper">
+                <div class="imageWrapper">
+                    <a href="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)" onclick='trackTNU("TopSellingCars", "TopSelling-Click","@item.Model.ModelName");'>
+                        <img width="310" height="174" class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@ImageSizes.CreateImageUrl(item.Image.HostUrl,ImageSizes._310X174,item.Image.ImagePath)" title="@item.Make.MakeName @item.Model.ModelName" alt="@item.Make.MakeName @item.Model.ModelName">
+                    </a>
+                </div>
+                <div class="carDescWrapper">
+                    <div class="carTitle margin-bottom20 text-bold">
+                        <a href="@ManageCarUrl.CreateModelUrl(item.Make.MakeName,item.Model.MaskingName)" title="@item.Make.MakeName @item.Model.ModelName">@item.Make.MakeName @item.Model.ModelName</a>
+                    </div>
+                    <div class="margin-bottom5 font24">
+                        ₹
+                        <span class="font25"> @Html.Raw(FormatPrice.GetFormattedPriceV2(item.PriceOverview.Price.ToString()))</span>
+                        @if (item.PriceOverview.PriceVersionCount > 1)
+                        {
+                            <span class="font24">onwards</span>
+                        }
+                    </div>
+                    <div class='font14 text-light-grey @(item.PriceOverview.PriceStatus == (int)PriceBucket.PriceNotAvailable ? "oliveText" : (item.PriceOverview.PriceStatus==(int)PriceBucket.CarNotSold ? "redText":""))'>@(item.PriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity ? item.PriceOverview.PriceLabel + ", " + item.PriceOverview.City.CityName : item.PriceOverview.PriceLabel)</div>
+                    @if (item.PriceOverview.City == null)
+                    {
+                        <div>
+                            <span class="text-bold font14 text-link carModelPage"
+                                  data-role="click-inview-imp" data-cat="desktop_popularcarousel" data-action="showpriceinmycity" data-label="@item.Model.ModelName"
+                                  onclick="RedirectToModelPage('@Format.FormatSpecial(item.Make.MakeName)','@item.Model.MaskingName', this)">
+                                @CWConfiguration.orpText
+                            </span>
+                        </div>
+
+                    }
+                    else if (item.PriceOverview.PriceStatus == 1)
+                    {
+                        <div>
+                            <span class="text-bold font14 text-link priceInCity"
+                                  data-role="click-inview-imp" data-cat="desktop_popularcarousel" data-action="viewpricebreakup" data-label="@String.Format("{0}_{1}", item.Model.ModelName,item.PriceOverview.City.CityName)"
+                                  onclick="GetPriceQuote('', @item.Model.ModelId, 0, this)">
+                                @CWConfiguration.ViewPriceBreakupText
+                            </span>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+
+    </li>
+}

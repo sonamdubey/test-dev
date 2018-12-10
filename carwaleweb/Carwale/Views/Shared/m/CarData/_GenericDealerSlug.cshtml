@@ -1,0 +1,77 @@
+@model Carwale.Entity.Dealers.SponsoredDealer
+@using Carwale.Entity.Enum;
+
+<section>
+    <div class="dealer-info-slug">
+        <h3 class="text-black margin-bottom10 margin-left10 m-special-skin-text">@ViewBag.ModelName - Best Buying Options</h3>
+        <div class="content-box-shadow dealer-info-slug margin-bottom20 text-center content-inner-block-10">
+            <span class="cwm-circle-icon test-drive-icon margin-bottom10 margin-top5"></span>
+
+            @if (ViewBag.IsVersionPage)
+            {
+                <h3 class="text-black margin-bottom10">Contact @Model.DealerName</h3>
+                <p>Get in touch for the best buying options from your authorized dealer</p>
+                
+                    if (Model.MaskingNumberEnabled && !String.IsNullOrWhiteSpace(Model.DealerMobile))
+                    {
+                        <a href="tel:@(Model.DealerMobile)" class="font16 text-black text-bold margin-top10 margin-bottom10" data-role="click-impression"
+                           data-event="CWNonInteractive"
+                           data-action="GenericSlugNumber"
+                           data-cat="Call-Slug-Behaviour"
+                           data-label="@(ViewBag.CallSlugTrackingLabel)"
+                           data-cwtccat="VersionPage" data-cwtcact="MaskingNumberClick"
+                           data-cwtclbl="make=@ViewBag.MakeName|model=@ViewBag.ModelName|version=@ViewBag.VersionName|city=@ViewBag.CityZone">
+                            <span data-role="click-impression"
+                                  data-event="CWNonInteractive"
+                                  data-action="GenericSlugNumber"
+                                  data-cat="MSite-VersionPage-LeadSlug"
+                                  data-label='@(ViewBag.ModelName + "," + ViewBag.CityZone)'>
+                                <span class="fa fa-phone"></span>@Model.DealerMobile
+                            </span>
+                        </a>
+                    }
+            }
+            else
+            {
+                <h3 class="text-black margin-bottom10">Contact @Model.DealerName</h3>
+                <p>Get in touch with your authorised dealership for the best buying options</p>
+                
+                    if (Model.MaskingNumberEnabled && Model.DealerMobile != "")
+                    {
+                        <a href="tel:@(Model.DealerMobile)" class="font16 text-black text-bold margin-top10 margin-bottom10" data-role="click-impression"
+                           data-event="CWNonInteractive"
+                           data-action="GenericSlugNumber"
+                           data-cat="Call-Slug-Behaviour"
+                           data-label="@(ViewBag.CallSlugTrackingLabel)"
+                           data-cwtccat="@(ViewBag.IsCityPage ? "CityPage" : "ModelPage")" data-cwtcact="MaskingNumberClick"
+                           data-cwtclbl="make=@ViewBag.MakeName|model=@ViewBag.ModelName|city=@ViewBag.CityZone">
+                            <span class="margin-top10 margin-bottom10" data-role="click-impression"
+                                  data-event="CWNonInteractive"
+                                  data-action="GenericSlugNumber"
+                                  data-cat="@(ViewBag.IsCityPage ? "MSite-PriceInCityPage-LeadSlug" : "MSite-ModelPage-LeadSlug")"
+                                  data-label='@(ViewBag.IsCityPage ? (ViewBag.ModelName + "," + ViewBag.CityName) : (ViewBag.ModelName + "," + ViewBag.CityZone))'>
+                                <span class="fa fa-phone"></span>@Model.DealerMobile
+                            </span>
+                        </a>
+                    }
+            }
+            <button class="btn btn-white btn-md btn-full-width margin-bottom10" id="btnGenericSlug"
+                    dealercampaignexist="true"
+                    sourceclick="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "ButtonGeneric", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleMobile)))"
+                    leadinquirysource="@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "ButtonGeneric", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleMobile)))"
+                    page="@(ViewBag.IsCityPage ? "CityPage" : (ViewBag.IsVersionPage ? "VersionPage" : "ModelPage"))"
+                    data-role="click-impression" data-event="CWNonInteractive"
+                    data-action="GenericSlugBtn"
+                    data-cat="@(ViewBag.IsCityPage ? "MSite-PriceInCityPage-LeadSlug" : (ViewBag.IsVersionPage ? "MSite-VersionPage-LeadSlug" : "MSite-ModelPage-LeadSlug"))"
+                    data-label='@(ViewBag.IsCityPage ? (ViewBag.ModelName + "," + ViewBag.CityName) : (ViewBag.ModelName + "," + ViewBag.CityZone))'
+                    recoleadsource='@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-leadclicksource-{0}-{1}-{2}", "RecoButtonGeneric", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleMobile)))'
+                    recoinquirysource='@(Carwale.BL.Campaigns.LeadSource.Get(string.Format("leadsource-adtype-platform-inquirysource-{0}-{1}-{2}", "RecoButtonGeneric", ViewBag.IsCityPage ? (short)LeadSources.PriceInCity : (ViewBag.IsVersionPage ? (short)LeadSources.Version : (short)LeadSources.Model), (short)Platform.CarwaleMobile)))'
+                    data-predictionScore="@(Model.PredictionData != null ? Model.PredictionData.Score: 0)"
+                    data-predictionlabel="@(Model.PredictionData != null ? Model.PredictionData.Label : "")"
+                    data-cwtccat="@(ViewBag.IsCityPage ? "CityPage" : (ViewBag.IsVersionPage ? "VersionPage" : "ModelPage"))" data-cwtcact="SlugButtonClick"
+                    data-cwtclbl="make:@ViewBag.MakeName|model:@ViewBag.ModelName|@(ViewBag.IsVersionPage ? "version:" + ViewBag.VersionName + "|" : "")city:@ViewBag.CityZone">
+                Get The Best Deal
+            </button>
+        </div>
+    </div>
+</section>

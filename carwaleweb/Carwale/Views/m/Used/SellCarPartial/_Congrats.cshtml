@@ -1,0 +1,47 @@
+﻿@model Carwale.UI.ViewModels.Used.SellCar.CongratsViewModel
+
+<a onClick="closeCongrats()" title="" class="voucher__close">
+    <span class="cross-default-15x16"></span>
+</a>
+<span class="congratulation-icon"></span>
+<div class="voucher-body">
+    <p id="congratulations" class="voucher__title">Congratulations</p>
+    <p class="voucher__subtitle">Your Ad is live.</p>    
+    <a onClick="viewAd(@Model.InquiryId)" id="voucherViewAd" class="btn btn-orange voucher-btn margin-top70">View your ad</a>
+</div>
+<script>
+
+    historyObj.replaceHistory('congratsPrev');
+    historyObj.addToHistory('congrats');
+    var sourceId = parentContainer.getSourceId();
+
+    function closeCongrats() {
+        if (sourceId == 74) {
+            Android.closeCongrats();
+        }
+        else {
+            window.location = "/";
+        }
+    }
+
+    function onCongratsBackClick() {
+        closeCongrats();
+    }
+
+    function viewAd(inquiryId) {
+        if (sourceId == 74 && inquiryId != null) {
+            Android.redirectToDetailsView("S"+inquiryId);
+        }
+        else {
+            window.location = "/m/used/cardetails.aspx?car=s" + inquiryId;
+        }
+    }
+
+    if (typeof events !== 'undefined') {
+        events.subscribe("congratsBackClick", onCongratsBackClick);
+    }
+    $('#voucherViewAd').on('click', function () {
+        sellCarTracking.forMobile("viewAd");
+    });
+    window.removeEventListener("beforeunload", parentContainer.onPageUnload);
+</script>

@@ -1,0 +1,116 @@
+﻿@import '../mixins/_variables.scss';
+@import '../mixins/_sprites.scss';
+@import '../mixins/_vendor-utils.scss';
+@import '../mixins/_custom-icon.scss';
+
+@mixin close-button($button-color: 'white') {
+	.popup-close-button {
+		@if ($button-color == 'white') {
+			@include cross-icon;
+		}
+		@else if ($button-color == 'black') {
+			@include cross-icon($color: 'dim-grey');
+		}
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		z-index: 2;
+		cursor: pointer;
+	}
+}
+
+.popup {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	z-index: 11;
+	background-color: map-get($color-map, 'white');
+	display: none;
+}
+
+.popup-container {
+	&.popup-active {
+		.popup {
+			display: block;
+		}
+	}
+}
+
+.popup-container[data-direction='left'] {
+	.popup {
+		@include get-vendor-prefixed('transform', translateX(-110%));
+		@include get-vendor-prefixed('transition', transform 1s);
+		display: block;
+	}
+
+	&.popup-active {
+		.popup {
+			@include get-vendor-prefixed('transform', translateX(0));
+		}
+	}
+}
+
+.popup-container[data-direction='right'] {
+	.popup {
+		@include get-vendor-prefixed('transform', translateX(110%));
+		@include get-vendor-prefixed('transition', transform 1s);
+		display: block;
+	}
+
+	&.popup-active {
+		.popup {
+			@include get-vendor-prefixed('transform', translateX(0));
+		}
+	}
+}
+
+.popup-container[data-direction='down'] {
+	.popup {
+		@include get-vendor-prefixed('transform', translateY(-110%));
+		@include get-vendor-prefixed('transition', transform 1s);
+		display: block;
+	}
+
+	&.popup-active {
+		.popup {
+			@include get-vendor-prefixed('transform', translateY(0));
+		}
+	}
+}
+
+.popup-container[data-direction='up'] {
+	.popup {
+		@include get-vendor-prefixed('transform', translateY(110%));
+		@include get-vendor-prefixed('transition', transform 1s);
+		display: block;
+	}
+
+	&.popup-active {
+		.popup {
+			@include get-vendor-prefixed('transform', translateY(0));
+		}
+	}
+}
+
+.popup-overlay {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(map-get($color-map, 'black'), .8);
+	z-index: 10;
+	display: none;
+}
+
+.popup-active {
+	.popup-overlay {
+		display: block;
+	}
+}

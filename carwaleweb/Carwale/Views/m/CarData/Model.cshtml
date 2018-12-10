@@ -1,0 +1,399 @@
+@model Carwale.DTOs.NewCars.ModelPageDTO_Mobile
+@using Carwale.DTOs.CMS.ThreeSixtyView;
+@using Carwale.BL.CMS;
+@using Carwale.Entity.Enum;
+@using Carwale.UI.HtmlHelpers;
+@using Carwale.Utility;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.UI.Common;
+@using Carwale.Entity.CarData;
+@using Carwale.Entity.CMS.Photos;
+@using System.Linq;
+@using System.Text.RegularExpressions;
+@using Carwale.Entity.CMS;
+
+@{
+    Uri url = new Uri("https://www.carwale.com" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+    string urlWithoutQS = url.GetLeftPart(UriPartial.Path);
+    ViewBag.PageId = 68;
+    ViewBag.PageName = "modelpage";
+    ViewBag.Title = Model.PageMetaTags.Title;
+    ViewBag.Description = Model.PageMetaTags.Description;
+    ViewBag.Canonical = Model.PageMetaTags.Canonical;
+    ViewBag.adPath = System.Configuration.ConfigurationManager.AppSettings["adPathMobile"];
+    ViewBag.CallSlugDisplay = true;
+    ViewBag.Keywords = null;
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MmodelPageCss.cshtml";
+    ViewBag.DeeplinkAlternativesAndroid = url.AbsolutePath;
+    ViewBag.DeeplinkAlternatives = url.AbsolutePath;
+    ViewBag.CustomJs = "~/Views/StaticPartials/m/MmodelPageScript.cshtml";
+    ViewBag.TrackingText = "ModelPage";
+    ViewBag.DefineAdSlots =
+    @"<script type='text/javascript'>
+var AdSlots = {};
+googletag.cmd.push(function () {
+googletag.pubads().disableInitialLoad();
+googletag.pubads().setCentering(true);
+AdSlots['div-gpt-ad-1419227721763-0'] = googletag.defineSlot('/1017752/" + ViewBag.adPath + @"CarWale_Mobile_ROS_320x50', [[320, 50], [320, 100]], 'div-gpt-ad-1419227721763-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+//Ad for Datsun Go versionlist & versiondetials page
+AdSlots['div-gpt-ad-1419228003697-0'] = googletag.defineSlot('/1017752/" + ViewBag.adPath + @"CarWale_Mobile_Model_300x250', [300, 250], 'div-gpt-ad-1419228003697-0').addService(googletag.pubads());
+//Ad for quatation page bottom Ad
+AdSlots['div-gpt-ad-1435297201507-0'] = googletag.defineSlot('/1017752/" + ViewBag.adPath + @"CarWale_Mobile_ROS_300x250', [[300, 250], [300, 350]], 'div-gpt-ad-1435297201507-0').addService(googletag.pubads());
+AdSlots['div-gpt-ad-1517209977800-1'] = googletag.defineSlot('/1017752/" + ViewBag.adPath + @"CarWale_Mobile_Model_BTF_300x250', [300, 250], 'div-gpt-ad-1517209977800-1').addService(googletag.pubads());
+googletag.pubads().setTargeting('Models', '" + Model.ModelDetails.ModelName + @"');
+googletag.pubads().setTargeting('Section', '');
+googletag.pubads().setTargeting('ShowBreadcrubsAd', '" + (Request.Cookies["_abtest"] != null && Convert.ToInt16(Request.Cookies["_abtest"].Value) > 50) + @"');
+googletag.pubads().setTargeting('City', '" + MobileWeb.Common.CookiesCustomers.MasterCity + @"');
+googletag.pubads().collapseEmptyDivs(true);
+googletag.pubads().enableSingleRequest();
+googletag.enableServices();
+});
+</script>";
+    Layout = "~/views/shared/m/_MLayoutV2.cshtml";
+    string label = "modelid=" + Model.ModelDetails.ModelId + "|source=43";
+}
+@section Plugins{
+    <script type="text/javascript" src="/static/m/js/plugins/swiper.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/plugins/beauty-tooltips.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/plugins/flip.js" defer></script>
+}
+@section MetaTags{
+    @Helpers.GetOgTags(urlWithoutQS, ViewBag.Title != null ? ViewBag.Title.ToString() : string.Empty, ViewBag.Description != null ? ViewBag.Description.ToString() : string.Empty, ImageSizes.CreateImageUrl(Model.MobileOverviewDetails.HostUrl, ImageSizes._1280x720, Model.MobileOverviewDetails.OriginalImage, 100))
+    @if (!string.IsNullOrEmpty(Model.PageMetaTags?.Canonical))
+    {
+        <link rel="amphtml" href="@(Model.PageMetaTags?.Canonical + "amp/")" />
+    }
+}
+        <div data-cwticat="ReviewLandingLinkage" data-cwtiact="ModelPageSlugImpression" data-cwtilbl="@label" data-cwtccat="ReviewLandingLinkage" data-cwtcact="ModelPageSlugClick" data-cwtclbl="@label" cwt>@Html.Partial("~/Views/Shared/m/UserReviews/_UserReviewSlug.cshtml")</div>
+@{Html.RenderAction("ModelMenu", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, tab = ModelMenuEnum.Overview, modelDetails = Model.ModelDetails });}
+<section>
+    <div class="grid-12 grid--no-padding clearfix">
+        @if (!Model.ModelDetails.New)
+        {
+            <div id='divAdBar' class="ad-container">@Helpers.GetAdBar("1419227721763", 320, 0, 20, 10, true)</div>
+        }
+        <h1 class="margin-bottom10 margin-left10 margin-top10 m-special-skin-text">@Model.ModelDetails.MakeName @Model.ModelDetails.ModelName</h1>
+        <!--Model Details code starts here -->
+        @{ Html.RenderPartial("m/cardata/_CarOverview", Model); }
+
+        @if (Model.UpgradedModelDetails != null && Model.UpgradedModelDetails.ModelId > 0)
+        {
+            <div class="bg-white content-box-shadow margin-bottom10 margin-top10 content-inner-block-10">
+                <a class="leftfloat margin-right10" href="@ManageCarUrl.CreateModelUrl(Model.ModelDetails.MakeName, Model.UpgradedModelDetails.MaskingName)">
+                    <img class="lazy" data-original="@Carwale.Utility.ImageSizes.CreateImageUrl(Model.UpgradedModelDetails.Image.HostUrl, Carwale.Utility.ImageSizes._110X61, Model.UpgradedModelDetails.Image.ImagePath)" title="@Model.UpgradedModelDetails.MakeName @Model.UpgradedModelDetails.ModelName" alt="@Model.UpgradedModelDetails.MakeName @Model.UpgradedModelDetails.ModelName" width="110" height="61" src="@(CWConfiguration._imgHostUrl)110x61/cw/cars/no-cars.jpg">
+                </a>
+                <a href="@ManageCarUrl.CreateModelUrl(Model.ModelDetails.MakeName, Model.UpgradedModelDetails.MaskingName)" class="font16">Check Out New @Regex.Replace(Model.UpgradedModelDetails.ModelName, "new", string.Empty, RegexOptions.IgnoreCase) @Model.UpgradedModelDetails.LaunchDate.Year</a>
+                <p>Expected Launch: @Model.UpgradedModelDetails.ExpectedLaunch</p>
+                <div class="clear"></div>
+            </div>
+        }
+        @if (Model.ModelDetails.New)
+        {
+            <div id='divAdBar' class="ad-container">@Helpers.GetAdBar("1419227721763", 320, 0, 20, 10, true)</div>
+        }
+        @{bool isNcfSlugShown = false; int ncfPopupDefaultTimeOutExp = 40000;}
+
+        @if (Model.ModelDetails.Futuristic && Model.ModelDetails.ModelId == CWConfiguration.MahindraAlturasModelid)
+        {
+            Html.RenderPartial("m/cardata/_LeadForm", Model.DealerAd);
+        }
+
+        @if (Model.MobileOverviewDetails.AdAvailable && Model.MobileOverviewDetails.MinPrice > 0 && Model.MobileOverviewDetails.New)
+        {
+            <div class="campaign-offer-slug" data-campaignid=@((Model.DealerAd!=null && Model.DealerAd.Campaign!=null) ? Model.DealerAd.Campaign.Id:0)>
+                @{ Html.RenderPartial("~/Views/Shared/m/OfferAndDealerAd/_OfferAndDealerAd.cshtml", Model.OfferAndDealerAd); }
+            </div>
+        }
+        <!--Whats new Details code starts here -->
+        @if (Model.WhatsNew != null && Model.WhatsNew.PageList.IsNotNullOrEmpty())
+        {
+            int oldModelId = (Model.ModelDetails != null ? Model.ModelDetails.ReplacedModelId : 0);
+            <div class="write-review-section-wrapper">
+                @{Html.RenderAction("WhatsNew", "CarWidgets", new { modelId = Model.ModelDetails.ModelId, modelName = Model.ModelDetails.ModelName, whatsNew = Model.WhatsNew, length = 175, canSetLargeDescriptionNull = true });}
+                @if (Model.MobileOverviewDetails.ReplacedModelDetails != null && !string.IsNullOrEmpty(Model.MobileOverviewDetails.ReplacedModelDetails.CompareCarUrl))
+                {
+                    <div class="compare-cars-button">
+                        <a href="@Model.MobileOverviewDetails.ReplacedModelDetails.CompareCarUrl" role="button" tabindex="0" title="Compare new & old @Model.ModelDetails.ModelName" class="whats-new__compare-button" data-role="click-tracking" data-event="CWInteractive"
+                           data-action="comparison_clicked" data-cat="CarWale_Opinion_whats_new_m" data-label="@string.Format("{0}_{1}",Model.ModelDetails.ModelName, Model.MobileOverviewDetails.ReplacedModelDetails.ModelName)"
+                           data-cwtccat="CarWaleOpinionWhatsNew" data-cwtcact="ComparisonClicked" data-cwtclbl="@("modelid=" + Model.ModelDetails.ModelId+ "|oldmodelid=" +oldModelId +"|source="+(uint)Platform.CarwaleMobile)">Compare new &#38; old @(Model.ModelDetails.ModelName)</a>
+                    </div>
+                }
+            </div>
+        }
+        <!--Whats new Details code end here -->
+        @if (!Model.MobileOverviewDetails.AdAvailable)
+        {
+            if (MobileWeb.Common.CookiesCustomers.MasterCityId > 0)
+            {
+                isNcfSlugShown = true;
+                ncfPopupDefaultTimeOutExp = 30000;
+                <div id="nfcWidget" data-pagename="modelPage">
+                    @Html.Partial("~/Views/Shared/m/_NCFSecondarySlug.cshtml")
+                </div>
+            }
+            <div class="campaign-offer-slug" data-campaignid=@((Model.DealerAd!=null && Model.DealerAd.Campaign!=null) ? Model.DealerAd.Campaign.Id:0)>
+                @if (Model.MobileOverviewDetails.New)
+                {
+                    Html.RenderPartial("~/Views/Shared/m/OfferAndDealerAd/_OfferAndDealerAd.cshtml", Model.OfferAndDealerAd);
+                }
+            </div>
+        }
+        @if (Model.Rank > 0)
+        {
+            <div class="model__rank__slug margin-bottom20">
+                <div class="position-abt text-center">
+                    <span class="list-count text-lighter-grey"><span>@Model.Rank</span></span>
+                    <div class="triangle triangle-left"></div>
+                    <div class="triangle triangle-right"></div>
+                </div>
+                <div class="position-rel pos-left10">
+                    <p class="font18 text-bold text-black">No.@Model.Rank in Top@(Model.NoOfTopCarsInBodyType < 10 ? string.Empty : " " + Model.NoOfTopCarsInBodyType) @(((CarBodyStyle)Model.ModelDetails.BodyStyleId).ToFriendlyString() + "s")</p>
+                    <a title="@HtmlAttributes.GetTopBodyTypeLinkTitle(Model.NoOfTopCarsInBodyType, (CarBodyStyle)Model.ModelDetails.BodyStyleId)" href="@ManageCarUrl.CreateTopCarsByBodyTypeUrl(((CarBodyStyle)Model.ModelDetails.BodyStyleId).ToUrlString())" class="font14">View Complete List</a>
+                </div>
+            </div>
+        }
+        @if (Model.ModelDetails != null && Model.MobileOverviewDetails != null && Model.ModelDetails.New && !Model.ModelDetails.Futuristic)
+        {
+            Html.RenderAction("KeyFeatures", "CarWidgets", new { modelId = Model.ModelDetails.ModelId, mileageData = Model.MileageData, transmissionTypes = Model.VariantList.TransmissionTypes, makeName = Model.ModelDetails.MakeName, modelName = Model.ModelDetails.ModelName, price = Model.MobileOverviewDetails.MinPrice.ToString() });
+        }
+        <!--Versions code starts here-->
+        @if (Model.NewCarVersions != null && Model.NewCarVersions.Count > 0)
+        {
+            if (Model.ModelDetails.Futuristic)
+            {
+                Html.RenderPartial("m/cardata/_FuturisticVersionsList", Model);
+            }
+            else
+            {
+                Html.RenderPartial("m/cardata/_VersionsList", Model.VariantList);
+            }
+        }
+
+        <div id="midAdContainer">
+            <div id='div-gpt-ad-1419228003697-0' style='width: 300px; height: 250px; margin: 0 auto 25px auto;'>
+                <script type='text/javascript'>
+                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1419228003697-0'); });
+                    if (document.getElementById("div-gpt-ad-1419228003697-0").children.length < 5) {
+                        document.getElementById("div-gpt-ad-1419228003697-0").style.display = "none";
+                    }
+                </script>
+            </div>
+        </div>
+    @if ((Model.ProsCons != null && Model.ProsCons.PageList.IsNotNullOrEmpty()) || (Model.Verdict != null && Model.Verdict.PageList.IsNotNullOrEmpty()))
+        {
+            <section class="pros-and-cons-wrapper">
+                <div class="pros-and-cons-container">
+                    <h2 class="pros-and-cons__title">CarWale's Take</h2>
+                    @if (Model.ProsCons != null && Model.ProsCons.PageList.IsNotNullOrEmpty())
+                    {
+                        Html.RenderAction("ProsCons", "CarWidgets", new { modelId = Model.ModelDetails.ModelId, prosCons = Model.ProsCons });
+                    }
+
+                    @if (Model.Verdict != null && Model.Verdict.PageList.IsNotNullOrEmpty())
+                    {
+                        Html.RenderAction("Verdict", "CarWidgets", new { modelId = Model.ModelDetails.ModelId, modelName = Model.ModelDetails.ModelName, verdict = Model.Verdict, length = 175, canSetLargeDescriptionNull = true });
+                    }
+                </div>
+
+
+                @if (Model.ExpertReviewOpinion != null)
+                {
+                    Html.RenderAction("FullReviewsV1", "ModelComponent", new {modelId = Model.ModelDetails.ModelId, modelName = Model.ModelDetails.ModelName, isFuturistic = Model.ModelDetails.Futuristic, articlePageDetails = Model.ExpertReviewOpinion, showH2Tag = false});
+                }
+            </section>
+        }
+        else if (Model.ExpertReviewOpinion != null)
+        {
+            Html.RenderAction("FullReviewsV1", "ModelComponent", new {modelId = Model.ModelDetails.ModelId, modelName = Model.ModelDetails.ModelName, isFuturistic = Model.ModelDetails.Futuristic, articlePageDetails = Model.ExpertReviewOpinion, showH2Tag = true });
+        }
+
+
+        <!--Model price in other city partial view -->
+        @if (Model.ModelDetails != null && Model.ModelDetails.New)
+        {
+            { Html.RenderAction("PriceInOtherCities", "CarWidgets", new { cityId = ViewBag.CityId, cityName = ViewBag.CityName ?? string.Empty, modelDetails = Model.ModelDetails, modelId = Model.ModelDetails.ModelId, isMobile = true }); }
+        }
+
+        <!--Versions code ends here-->
+
+        <div class="clear"></div>
+        @if (Model.ModelDetails.Futuristic && Carwale.UI.Common.TestDrive.isFeaturedUpcoming(Model.ModelDetails.ModelId.ToString()))
+        {
+            <!--Show inline lead form for upcoming model -->
+            <div class="keep-informed border-solid-top border-solid-bottom padding-bottom10 margin-bottom20" id="divInlineLead">
+                @{Html.RenderPartial("m/_KeepMeInformed", Model.ModelDetails); }
+            </div>
+        }
+
+        @if (!isNcfSlugShown)
+        {
+            <div id="nfcWidget" data-pagename="modelPage">
+                @Html.Partial("~/Views/Shared/m/_NCFSecondarySlug.cshtml")<br />
+            </div>
+        }
+    </div>
+    <!--Model colors code starts here-->
+    @{Html.RenderAction("ColorsComponent", "ModelComponent", new { modelDetails = Model.ModelDetails, modelId = Model.ModelDetails.ModelId });}
+    <!--Model colors code ends here-->
+    @if (Model.SimilarCars != null && (Model.SimilarCars.SimilarCarModels.IsNotNullOrEmpty() || (Model.SimilarCars.SimilarUpcomingCar != null && Model.SimilarCars.SimilarUpcomingCar.ExpectedLaunchId > 0)))
+    {
+        <section>
+            @{ Html.RenderPartial("m/cardata/_AlternateCars", Model.SimilarCars); }
+        </section>
+    }
+    @if (Model.ModelDetails != null) { Html.RenderAction("MileageComponent", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, data = Model.MileageData, isOverView = true, modelName = ViewBag.modelName, mileageHeading = string.Format("{0} {1} Mileage", Model.ModelDetails.MakeName, Model.ModelDetails.ModelName) }); }
+
+
+    <div class="360LoadElement"></div>
+    @{ Html.RenderPartial("m/Editorial/_ModelImagesSlug", new Tuple<List<ModelImage>, CarModelDetails, bool>(Model.ModelPhotosList, Model.ModelDetails, true)); }
+
+    @if (Model.ModelDetails.New)
+    {
+        <div id='divAdBarMiddle' class="ad-div">
+            @Helpers.GetAdBar("1517209977800", 320, 250, 1, 10, false, 1)
+        </div>
+    }
+
+    @if(Model.ModelVideos.IsNotNullOrEmpty())
+    {
+        {Html.RenderPartial("~/views/shared/m/cardata/_Videos.cshtml",new Tuple<List<Video>, ContentPages>(Model.ModelVideos,ContentPages.ModelPage));}
+    }
+    
+    <!--Model videos code ends here-->
+    @if (Model.ModelDetails.Futuristic)
+    {
+        if (Model.UpcomingCarDetails.Price != null) { Html.RenderAction("SimilarUpcomingCars", "CarWidgets", new { makeId = Model.ModelDetails.MakeId, modelId = Model.ModelDetails.ModelId, launchDate = Model.UpcomingCarDetails.LaunchDate, expectedPrice = Model.UpcomingCarDetails.Price.MinPrice, isMobile = true }); }
+        { Html.RenderAction("ModelsCarousel", "ModelComponent", new { makeId = Model.ModelDetails.MakeId, cityId = MobileWeb.Common.CookiesCustomers.MasterCityId, makeName = Model.ModelDetails.MakeName }); }
+
+
+    }
+
+    <!--Expert reviews code start here-->
+    @if(Model.ExpertReviews.IsNotNullOrEmpty())
+    {
+        {Html.RenderPartial("~/Views/Shared/m/cardata/_ExpertReviews.cshtml",Model.ExpertReviews);}
+    }
+    <!--Expert reviews code ends here-->
+    @{Html.RenderAction("UpcomingModels", "ModelComponent", new { makeId = Model.ModelDetails.MakeId, makeName = Model.ModelDetails.MakeName, modelId = Model.ModelDetails.ModelId });}
+
+
+    <!--News Code start here-->
+    @if(Model.TopNews.IsNotNullOrEmpty())
+    {
+        {Html.RenderPartial("~/views/shared/m/_TopLatestNews.cshtml", Model.TopNews);}
+    }
+    
+    <!--News Code end here--><!--Similar cars code starts here-->
+    <!--Similar cars code end here--><!--User Reviews code starts here-->
+    @{ Html.RenderAction("UserReviews", "ModelComponent", new { modelId = Model.ModelDetails.ModelId, modelDetails = Model.ModelDetails }); }
+    <!--User Reviews code ends here-->
+
+    <div class="compare-widget">
+        <div class="hide" id="divComparePopUp">
+            <div onclick="ToggleCompareCarBox(this)" class="expandCompareCar">
+                <span>Compare Cars</span>
+                <span class="arrowUpGray"></span>
+            </div>
+        </div>
+        <div id="divCompareCarContainer" class="hide">
+            <div class="bg-white" id="divCarHeader">
+                <div class="compareCarContainer position-rel">
+                    <div class="compareCarBox text-center">
+                        <div id="divClose1" onclick="SelectCarRemove(this)" class="hide closeBtnLeft"></div>
+                        <div class="divCompareImage" id="divImgContainer1">
+                            <a href=""></a>
+                        </div>
+                        <div class="margin-bottom5" id="divCarName1">
+                            <a href=""></a>
+                        </div>
+                        <div class="margin-bottom5">Price: <span id="divPrice1"></span></div>
+                    </div>
+                </div>
+                <div class="compareCarContainer position-rel">
+                    <div class="compareCarBox text-center">
+                        <div id="divClose2" onclick="SelectCarRemove(this)" class="hide closeBtnRight"></div>
+                        <div class="divCompareImage" id="divImgContainer2">
+                            <a href=""></a>
+                        </div>
+                        <div class="margin-bottom5" id="divCarName2">
+                            <a href=""></a>
+                        </div>
+                        <div class="margin-bottom5">Price: <span id="divPrice2"></span></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="margin-top5 text-center">
+                <div class="btn btn-orange btn-full-width" onclick="VerifyVersion(@((int)WidgetSource.ModelPageVariantListCompareCarLinkMobile));">&nbsp;&nbsp;Compare&nbsp;&nbsp;</div>
+            </div>
+        </div>
+    </div>
+    </>
+
+    <div id="blackOut-window" class="blackOut-window black-window hide"></div>
+
+    @if (!Model.ModelDetails.Futuristic && Model.ModelDetails.New)
+    {
+        { Html.RenderPartial("m/cardata/_CallSlugNumber", Model.CallSlugInfo); }
+    }
+    @if (Model.ModelDetails.Futuristic && Carwale.UI.Common.TestDrive.isFeaturedUpcoming(Model.ModelDetails.ModelId.ToString()))
+    {
+        <div data-value="modelpage" class="m-call-slug container text-center float-call-slug slug-class" id="callslug">
+            <div class="container" id="divPrice">
+                <a class="req-call-btn ui-link float-call-btn" onclick="ShowEmiCalcPage(this)" href="#">@Carwale.UI.Common.TestDrive.GetFeaturedUpcomingString(Model.ModelDetails.ModelId.ToString())</a>
+            </div>
+        </div>
+        <div id="divEmiWindow" class="hide position-rel">
+            <div style="width: 280px; margin: auto; background-color: white; border-radius: 7px; -moz-border-radius: 7px; -webkit-border-radius: 7px; padding: 10px 10px; -moz-box-shadow: 0 0 3px 3px #888; -webkit-box-shadow: 0 0 3px 3px #888; box-shadow: 0 0 3px 3px #888; position: relative;">
+                <div style="width: 9px; height: 15px; position: absolute; right: 10px; top: 5px; font-weight: bold;" onclick="CloseEmiWindow()">X</div><div id="divProcessingEmi">
+                    <img src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" width="16" height="16" style="position: relative; top: 4px;" />&nbsp;&nbsp;Loading....
+                </div><div id="divEmiCalc">
+                    @Html.Partial("m/_KeepMeInformed", Model.ModelDetails)
+                </div>
+            </div>
+        </div>
+    }
+    <div id="loadingCarImg" class="hide">
+        <div class="m-loading-popup clearfix">
+            <span class="m-loading-icon"></span>
+        </div>
+    </div>
+    <div class="clear"></div>
+
+    <div class="banner-div">
+        <div id="divBottomAdBar" class="ad-div">
+            <div id='div-gpt-ad-1435297201507-0' style='min-height:250px; width:300px;' class="text-center margin-bottom20">
+                <script type='text/javascript'>
+                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1435297201507-0'); });
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="margin-top5 margin-bottom5 margin-left10 m-special-skin-text">
+        <a href="/m/">Home</a> &rsaquo;
+        <a href='/m/@MobileWeb.Common.CommonOpn.FormatSpecial(Model.ModelDetails.MakeName)-cars/'>@Model.ModelDetails.MakeName</a> &rsaquo;
+        <span class="lightgray">@Model.ModelDetails.ModelName</span>
+    </div>
+</section>
+<div class="clear"></div>
+
+@if (Model.MobileOverviewDetails?.EmiCalculatorModelData != null)
+{
+    @Html.Partial("~/Views/Shared/m/PriceQuote/_EmiCalculatorMaster.cshtml", Model.MobileOverviewDetails.EmiCalculatorModelData);
+}
+
+<div id="divEmiPopup">
+    @if (Model.ModelDetails != null && Model.ModelDetails.New)
+    {
+        Html.RenderPartial("~/Views/StaticPartials/LeadformApp.cshtml", Model.LeadFormModelData);
+
+        if (Request.QueryString["q"] == "lead")
+        {
+            <script src="/static/m/js/LoadLeadForm.js" defer></script>
+        }
+    }
+</div>
+<script>
+    var ncfPopUpDefaultTimeOutExp = @ncfPopupDefaultTimeOutExp;
+    var vwGroupMakeIds = [@System.Configuration.ConfigurationManager.AppSettings["VWFSMakeIds"]];
+</script>

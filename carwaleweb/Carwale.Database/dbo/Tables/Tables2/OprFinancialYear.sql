@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[OprFinancialYear] (
+    [ID]         NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [BudgetYear] VARCHAR (10) NOT NULL,
+    CONSTRAINT [PK_oprFinancialYear] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

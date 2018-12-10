@@ -1,0 +1,144 @@
+﻿@model Carwale.Entity.ES.ESSurveyEnity
+@{
+    ViewBag.Title = "Carwale Survey";
+    ViewBag.BodyClass = "bg-white";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+    ViewBag.landingPage = false;
+    ViewBag.Responsive = true;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.Canonical = "";
+    ViewBag.Alternate = "";
+    ViewBag.CustomJS = "~/Views/StaticPartials/ES/ESSurveyScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/ES/ESSurveyCss.cshtml";
+    Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayout.cshtml" : "~/views/shared/_Layout.cshtml");
+}
+
+<div class="kwid-container kwid-landing-bg">
+    <section class="container landing-section hide">
+        <div class="grid-12 landing-padding">
+            <div class="text-default font54">Electric cars Survey</div>
+            <div class="font16 grid-8 alpha omega margin-top10">At CarWale, we are doing a small survey to find out what makes the ideal electric car. Please help us with your views on the same.</div>
+            <div class="clear"></div>
+            <div class="btn btn-orange margin-top20 start-survey">Start Survey</div>
+            </div>
+        <div class="clear"></div>
+    </section>
+    <section class="container kwid-questions position-rel">
+
+        <div class="ques-sec hide font24 grid-8 title-class">
+            <div>Just @Model.Questions.Count() simple questions to help us make CarWale better.</div>
+            <div class="clear"></div>
+        </div>
+
+        @foreach (var question in Model.Questions)
+        {
+            <div class="ques-sec hide font25 grid-8 es-survey-specific questions" id="que@(question.QuestionNumber)" questionid="@question.Id">
+                <div class="text-bold que-box">@question.Question</div>
+                <div class="form-control-box font16">
+                    @if (question.IsFreeText)
+                    {
+                        <div class="survey-textarea">
+                            <textarea class="survey-textarea" name="message" maxlength="256" questionid="@question.Id" placeholder="List as many as you can"></textarea>
+                        </div>
+                    }
+                    else
+                    {
+                    foreach (var option in question.Options)
+                    {
+                        <div>
+                            @if (question.IsMultiselect)
+                            {
+                                <input type="checkbox" name="question@(question.QuestionNumber)" questionid="@question.Id" id="question@(question.QuestionNumber)-opt@(option.OptionNumber)" value="@option.Id">
+                                <label for="question@(question.QuestionNumber)-opt@(option.OptionNumber)" class="margin-left5 margin-top30">@option.OptionValue</label>
+                            }
+                            else
+                            {
+                                <input type="radio" name="question@(question.QuestionNumber)" questionid="@question.Id" id="question@(question.QuestionNumber)-opt@(option.OptionNumber)" value="@option.Id">
+                                <label for="question@(question.QuestionNumber)-opt@(option.OptionNumber)" class="margin-left5 margin-top30">@option.OptionValue</label>
+                            }
+                        </div>
+                    }
+                    }
+                </div>
+                <div class="btn btn-orange margin-top40 kwid-next margin-bottom20" onclick="dataLayer.push({ event: 'CWInteractive', cat: '@(Model.Campaign.GATrackingCategory)', act: '@(ViewBag.isMobile != null && ViewBag.isMobile ? "Survey_click_m" : "Survey_click")', lab: '@(ViewBag.isMobile != null && ViewBag.isMobile ? "Next_m" : "Next")' })">Next</div>
+                <div class="font16 page margin-bottom10 text-center">@question.QuestionNumber of @Model.Questions.Count() Questions</div>
+            </div>
+        }
+
+        <div class="landing-padding font25 grid-8 hide kwid-form">
+            @Html.Raw(!string.IsNullOrEmpty(Model.Campaign.ThankYouText) 
+            ? Model.Campaign.ThankYouText :
+                     "<div class='text-default font32 text-bold'>Thank you!</div><div class='font16 margin-top20 resp-text'>Thanks for participating in our survey.</div>")
+
+            @if (Model.Campaign.ShowLeadForm)
+            {
+                using (Html.BeginForm(null, null, FormMethod.Post, new { @action = "/survey/submit/"+Model.Campaign.Id +"/"}))
+                {
+                <div class="form-control-box grid-6 alpha omega">
+                    <div class="margin-top30 font14">
+                        @Html.TextBoxFor(model => Model.Customer.BasicInfo.Name, new
+                                    {
+                                        @class = "form-control",
+                                        id = "txtName",
+                                        type = "textbox",
+                                        placeholder = "Name",
+                                        @Value = Request.Cookies["_CustomerName"] != null ? Request.Cookies["_CustomerName"].Value : "",
+                                        maxlength = 50
+                                    })
+                        <div id="spntxtName" class="error font13 margin-top5 hide">Please enter name.</div>
+                    </div>
+                    <div class="margin-top10 font14">
+                        @Html.TextBoxFor(model => Model.Customer.BasicInfo.Email, new
+                                    {
+                                        @class = "form-control",
+                                        id = "txtEmailId",
+                                        type = "textbox",
+                                        @Value = Request.Cookies["_CustEmail"] != null ? Request.Cookies["_CustEmail"].Value : "",
+                                        placeholder = "Email",
+                                        maxlength = 100
+                                    })
+                        <div id="spntxtEmail" class="error font13 margin-top5 hide">Please enter email.</div>
+                    </div>
+                    <div class="margin-top10 font14">
+                        @Html.TextBoxFor(model => Model.Customer.BasicInfo.Mobile, new
+                                    {
+                                        @class = "form-control",
+                                        id = "txtMobile",
+                                        type = "textbox",
+                                        @Value = Request.Cookies["_CustMobile"] != null ? Request.Cookies["_CustMobile"].Value : "",
+                                        placeholder = "Mobile",
+                                        maxlength = 10
+                                    })
+                        <div id="spntxtMobile" class="error font13 margin-top5 hide">Please enter mobile number.</div>
+                    </div>
+                    <div>
+                        @Html.HiddenFor(model => Model.Customer.CustomerId, new
+                                    {
+                                        id = "custId",
+                                        type = "hidden",
+                                        @Value = "",
+                                    })
+                    </div>
+                    <div class="margin-top30 font16"><input type="submit" id="btnSubmit" class="btn btn-orange" value="Submit"><a href="/" class="margin-left20">Skip & Exit</a></div>
+                </div>
+                }
+            }
+        </div>
+        <div class="clear"></div>
+        <div class="position-rel que-nav-margin hide">
+            <div class="question-nav hide">
+                @foreach (var question in Model.Questions)
+                {
+                    <div class="round-container question-nav@(question.QuestionNumber)" data-id="que@(question.QuestionNumber)">
+                        <div class="ques-comm"></div>
+                        <div class="nav-car"></div>
+                    </div>
+                }
+
+                <div class="clear"></div>
+                <div class="middle-line"></div>
+            </div>
+        </div>
+    </section>
+</div>

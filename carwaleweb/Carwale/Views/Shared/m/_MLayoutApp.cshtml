@@ -1,0 +1,128 @@
+﻿@using System.Configuration;
+@using Carwale.BL.Experiments;
+@using Carwale.UI.Common;
+
+@{
+    //ViewBag.stagingPath = System.Configuration.ConfigurationManager.AppSettings["stagingPath"];
+    string jsPath = "", cssPath = "", staticPath = System.Configuration.ConfigurationManager.AppSettings["staticPath"];
+    if (System.Configuration.ConfigurationManager.AppSettings["staticHostUrl"] != "")
+    {
+        cssPath = "https://st.aeplcdn.com" + staticPath;
+        jsPath  = "https://st.aeplcdn.com" + staticPath;
+    }
+    bool showExperimentalColor = ProductExperiments.IsShowExperimentalColor(CookiesCustomers.AbTest);
+}
+
+<!doctype html>
+<html amp itemscope itemtype="http://www.schema.org/WebPage" lang="en">
+<!-- you can use "amp" or "AMP" or "⚡" -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title itemprop="name">@ViewBag.Title - CarWale</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content=@(ViewBag.Keywords ?? "") />
+    <meta itemprop="description" name="description" content="@ViewBag.Description" />
+    <meta name="google-site-verification" content="y33JBqCALrAtfZBeI-VVHz7jyLJrZqpOsggckAZlBj8" />
+    <link rel="canonical" href="@ViewBag.Canonical" />
+    @if (showExperimentalColor)
+    {
+    <style>.btn-abtest .btn-orange {background: #e53012;}.btn-abtest .btn-green {background: #00afa0;}.btn-abtest .m-call-slug .btn {border-radius: 6px;font-size: 18px;font-weight: 700;}.btn-abtest .m-call-slug {background: rgba(255, 255, 255, 0.9) none repeat scroll 0 0;bottom: 0;color: #fff;padding: 5px;position: fixed;width: 100%;z-index: 5;box-shadow: #d2d2d2 0 -1px 10px;}</style>
+    }
+    @if (ViewBag.Amphtml != null && ViewBag.Amphtml != "")
+    {
+        <link rel="amphtml" href="@ViewBag.Amphtml" />
+    }
+    @if (ViewBag.DeeplinkAlternativesAndroid != null)
+    {
+        <link rel="alternate" href="android-app://com.carwale/carwaleandroid1/www.carwale.com@(ViewBag.DeeplinkAlternativesAndroid)" />
+    }
+    @if (ViewBag.DeeplinkAlternatives != null)
+    {
+        @*<link rel="alternate" href="ios-app://910137745/ioscarwale/www.carwale.com@(ViewBag.DeeplinkAlternatives)" />*@
+    }
+    @if (!String.IsNullOrWhiteSpace(ViewBag.Prev))
+    {
+        <link rel="prev" href="@ViewBag.Prev" />
+    }
+    @if (!String.IsNullOrWhiteSpace(ViewBag.Next))
+    {
+        <link rel="next" href="@ViewBag.Next" />
+    }
+    <link rel="SHORTCUT ICON" href="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/design15/carwale.png?v=1.1" />
+    <link rel="stylesheet" href="/static/m/css/cwm-common-style.css" type="text/css" >
+	<link rel="stylesheet" href="/static/cwfontawesome/cw-font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="/static/m/css/easy-autocomplete.css" type="text/css">
+    @if (ViewBag.CustomCss != null)
+    {
+        if (ViewBag.CustomCss.IndexOf(".css") > 0)
+        {
+            <link href="@ViewBag.CustomCss" rel="stylesheet" type="text/css">
+        }
+        else
+        {
+            Html.RenderPartial((string)ViewBag.CustomCss);
+        }
+    }
+    @RenderSection("Styles", false)
+    @{
+        Html.RenderPartial("~/Views/Shared/_GoogleTagManagerView.cshtml");
+        Html.RenderPartial("~/Views/Shared/_GoogleTagServicesView.cshtml");
+    }
+    <script  type="text/javascript"  src="/static/m/js/frameworks.js" ></script>    
+    @{if (ViewBag.DefineAdSlots != null)
+    {
+        @Html.Raw(ViewBag.DefineAdSlots);
+    }
+    }
+</head>
+<body class="@ViewBag.BodyClass bg-light-grey m-special-skin-body m-no-bg-color @(showExperimentalColor ? "btn-abtest" : "")">
+    @{
+        Html.RenderPartial("~/Views/Shared/_GoogleTagManagerNoScript.cshtml");
+    }
+    @RenderBody()
+
+    <script type="text/javascript">
+        var cwTrackingPath = '@ConfigurationManager.AppSettings["HostUrl"]';
+        var insuranceKeys = {
+            cholaStates: [@System.Configuration.ConfigurationManager.AppSettings["InsuranceStates"]],
+        }
+        var defaultCookieDomain = '@Carwale.UI.Common.CookiesCustomers.CookieDomain';
+        var isEligibleForORP = ('@CookiesCustomers.IsEligibleForORP' === 'True');
+        var abTestKey = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestVersion"])";
+        var abTestKeyMaxValue = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMaxValue"])";
+        var abTestKeyMinValue = "@(System.Configuration.ConfigurationManager.AppSettings["AbTestKeyMinValue"])";
+        var askingAreaCityId = [@System.Configuration.ConfigurationManager.AppSettings["AskingAreaCityIds"]];
+        var testDriveCampaignIds = [@System.Configuration.ConfigurationManager.AppSettings["TestDriveCampaignIds"]];
+    </script>
+    <script type="text/javascript" src="/static/m/js/plugins.js"></script>
+    <script type="text/javascript" src="/static/js/adsense.js"></script>
+    <script type="text/javascript" src="/static/js/v2/app/clientcache.js"></script>
+    <script type="text/javascript" src="/static/js/globalSearch.js"></script>
+    <script type="text/javascript" src="/static/js/error-logger.js"></script>
+    <script type="text/javascript" src="/static/m/js/v2/app/common.js"></script>
+    <script type="text/javascript" src="/static/m/js/location.js"></script>
+    <script type="text/javascript" src="/static/js/advantage-citypopup.js"></script>
+    <script type="text/javascript" src="/static/js/cookie-migration.js"></script>
+    <script type="text/javascript" src="/static/m/js/v2/app/new-car-common.js"></script>
+    <script type="text/javascript" src="/static/js/v2/app/cwTracking.js"></script>
+    @if (ViewBag.CustomJs != null)
+    {
+        if (ViewBag.CustomJs.IndexOf(".js") > 0)
+        {
+            <script type="text/javascript" src="@ViewBag.CustomJS"></script>}
+        else
+        {
+            Html.RenderPartial((string)ViewBag.CustomJs);
+        }
+    }
+    @RenderSection("Scripts", false)
+    @RenderSection("LoadScript", false)
+    @{
+        Html.RenderPartial("~/Views/Shared/_FacebookScriptView.cshtml");
+        Html.RenderPartial("~/Views/Shared/_OutbrainScriptView.cshtml");
+        Html.RenderPartial("~/Views/Shared/_BingScriptView.cshtml");
+        Html.RenderPartial("~/Views/Shared/_CrazyEggView.cshtml");
+    }
+</body>
+</html>

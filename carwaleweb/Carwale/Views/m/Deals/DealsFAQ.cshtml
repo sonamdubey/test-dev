@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.PageTag = "mA-5";
+    ViewBag.Title = "CarWale Advantage";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/Deals/MDealsCss.cshtml";
+    ViewBag.CustomJs = "~/Views/StaticPartials/m/Deals/MDealsScript.cshtml";
+    Layout = "~/views/shared/m/_MLayout.cshtml";
+}
+
+
+
+<div class="padding-top60">
+    <div >
+        <h2 class="text-center">CARWALE ADVANTAGE</h2>
+        @{Html.RenderPartial("~/Views/Shared/m/Deals/_DealFaq.cshtml");}
+    </div>
+    <div class="clear"></div>
+</div>

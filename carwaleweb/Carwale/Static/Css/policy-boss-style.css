@@ -1,0 +1,252 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.insurance-cars-top-banner {
+  background: #161209 url(https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/d/insurance-banner.jpg) no-repeat right top;
+  background-size: cover;
+  height: 285px;
+  padding-top: 1px;
+}
+
+.cw-circle-icon {
+  width: 92px;
+  height: 92px;
+}
+
+.img-damage {
+  background-position: -1014px 0;
+}
+
+.img-bumper {
+  background-position: -1115px 0;
+}
+
+.img-breakdown {
+  background-position: -1216px 0;
+}
+
+.img-accident {
+  background-position: -1318px 0;
+}
+
+.img-thank {
+  background-position: -913px 0;
+}
+
+.img-error {
+  background-position: -812px 0;
+}
+
+.text-default-color {
+  color: #565a5c;
+}
+
+.line-height32 {
+  line-height: 32px;
+}
+
+.ins-tabs {
+  border: 0px;
+  margin-top: 0px;
+}
+
+.ui-content {
+  padding: 0;
+}
+
+.custSelect {
+  background: none;
+  -webkit-appearance: none;
+  padding: 8px;
+  width: 100%;
+}
+
+.perText {
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  margin-top: -5px;
+}
+
+.car-to-buy-tabs ul li {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+  width: 250px;
+  height: 75px;
+  background: #fff;
+  text-align: center;
+}
+
+.car-buy-part {
+  width: 100px;
+  height: 80px;
+  display: inline-block;
+}
+
+.car-buy-title {
+  width: 120px;
+  height: 20px;
+  display: inline-block;
+}
+
+.car-buy-image {
+  width: 120px;
+  height: 45px;
+  position: relative;
+}
+
+.car-buy-image > span {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.newcars-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/newcars-sprite.png?static1fix) no-repeat;
+  display: inline-block;
+}
+
+.usage-icon-grey, .getQuoteWrap {
+  width: 28px;
+  height: 28px;
+}
+
+.getQuoteWrap {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 100%;
+}
+
+.usage-icon-grey {
+  background-position: -52px -37px;
+}
+
+.car-to-buy-tabs .fa-circle-thin {
+  background: #fff;
+  color: #e5e5e5;
+  font-size: 10px;
+  position: relative;
+  top: 32px;
+}
+
+.horizontal-line {
+  width: 500px;
+  height: 0;
+  border-bottom: 1px dashed #e5e5e5;
+  top: 43px;
+}
+
+input[type="text"][disabled] {
+  border-color: #e2e2e2;
+}
+
+input[type="text"][disabled]::-webkit-input-placeholder {
+  color: #e2e2e2;
+}
+
+input[type="text"][disabled]:-moz-placeholder {
+  color: #e2e2e2;
+  opacity: 1;
+}
+
+input[type="text"][disabled]::-moz-placeholder {
+  color: #e2e2e2;
+  opacity: 1;
+}
+
+input[type="text"][disabled]:-ms-input-placeholder {
+  color: #a8afb3;
+}
+
+.chosen-select.form-control {
+  overflow: hidden;
+  height: 10px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  width: 100%;
+  cursor: text;
+  height: auto !important;
+  display: none;
+  margin: 0;
+}
+
+.chosen-container {
+  display: block;
+  width: 100% !important;
+}
+
+.chosen-choices {
+  width: 100% !important;
+}
+
+.chosen-select.border-red + .chosen-container-single .chosen-single {
+  border: 1px solid #F00;
+}
+
+.cross-lg-dark-grey {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/cwsprite.png?201608081724251272) no-repeat;
+  background-position: -36px -226px;
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  right: 10px;
+  z-index: 5;
+  display: inline-block;
+}
+
+#m-blackOut-window {
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: .5;
+  z-index: 99;
+  -ms-filter: "alpha(opacity=50)";
+  filter: alpha(opacity=50);
+  -moz-opacity: .5;
+  -khtml-opacity: .5;
+}
+
+.buyerProcess {
+  background: #fff;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px;
+  padding: 20px 20px 30px;
+  position: fixed;
+  left: 5%;
+  right: 5%;
+  top: 25%;
+  max-width: 340px;
+  min-height: 300px;
+  margin: auto;
+  z-index: 99;
+}
+
+.buyer-or-text {
+  margin: 20px 0;
+}
+
+.buyer-or-text:before,.buyer-or-text:after {
+  content: "";
+  position: relative;
+  border-bottom: 1px solid #ccc;
+}
+
+.input-txt {
+  width: 100%;
+  min-height: 30px;
+  background: transparent;
+  padding-bottom: 4px;
+  color: #555;
+  border-bottom: 1px solid #ccc;
+}

@@ -1,0 +1,18 @@
+
+
+@mixin position($direction:"top",$length:5){
+    @if $direction=="rel" {
+       .position-rel { position: relative; }
+    }
+    @else if $direction=="abt"{
+        .position-abt { position: absolute; }
+    }
+    @else if unitless($length){
+    .pos-#{$direction}#{$length}{
+        #{$direction} : $length+px;
+    }
+    }
+    @else{
+        @warn "Please provide unitless length";
+    }
+}

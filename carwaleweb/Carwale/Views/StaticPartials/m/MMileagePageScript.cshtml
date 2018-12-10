@@ -1,0 +1,30 @@
+﻿@model Carwale.DTOs.NewCars.MileagePageDTO
+@using Carwale.Entity.Enum;
+@using MobileWeb.Common;
+@using Carwale.Utility;
+@{
+	ViewBag.CityId = ViewBag.CityId ?? CookiesCustomers.MasterCityId; // what's need of assigning viewbag at client side
+	ViewBag.CityName = ViewBag.CityName ?? CookiesCustomers.MasterCity;
+	Uri url = new Uri("https://www.carwale.com" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+}
+<script>
+
+	var CarDetails =
+	{
+		carMakeId : @Model.ModelDetails.MakeId,
+		carMakeName : "@Model.ModelDetails.MakeName" ,
+		carMaskingName : "@Model.ModelDetails.MaskingName",
+		carModelName : "@Model.ModelDetails.ModelName",
+		carModelId : @Model.ModelDetails.ModelId ,
+	};
+</script><script type="text/javascript">
+	var zoneNameForModelVersion = '@ViewBag.CityZone';
+    var carName =  '@Model.ModelDetails.MakeName' + ' ' + '@Model.ModelDetails.ModelName';
+	var USERIP = '@(Carwale.Utility.UserTracker.GetUserIp())';
+    var redirectURL = '@url.AbsolutePath'
+    var isAreaPopupShown = @(Model.ModelDetails.New?"true":"false");
+    var isMileagePage = true;
+</script>
+
+<script  type="text/javascript"  src="/static/m/js/component-model.js"  defer></script>
+<script type="text/javascript" src="/static/m/js/model-main-menu.js" defer></script>

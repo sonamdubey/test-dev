@@ -1,0 +1,37 @@
+﻿@model Carwale.DTOs.CarData.ModelCarousel
+@using Carwale.Utility;
+@using Carwale.Entity;
+<h2 class="section-heading">@Model.MakeName Cars</h2>
+<amp-carousel height="320" layout="fixed-height" type="carousel">
+    @foreach (var item in Model.Cars)
+    {
+        string modelUrl = ManageCarUrl.CreateModelUrl(Model.MakeName, item.MaskingName);
+        <div class="contentWrapper">
+            <div class="imageWrapper">
+                <a href="@modelUrl" class="text-black text-no-decoration" title="@Model.MakeName @item.ModelName">
+                    <amp-img class="max-width-100-percent" src=@ImageSizes.CreateImageUrl(item.HostUrl,ImageSizes._272X153, item.OriginalImage) alt="@Model.MakeName @item.ModelName" width="278" height="160" layout="responsive"></amp-img>
+                </a>
+            </div>
+            <div class="carDescWrapper">
+                <h3 class="text-black margin-bottom10 font16">
+                    <a title="@Model.MakeName @item.ModelName" href="@modelUrl">@Model.MakeName @item.ModelName</a>
+                </h3>
+                <p class="font16">
+                    @item.CarPriceOverview.PricePrefix @item.CarPriceOverview.Price
+                    <span class="font13">@item.CarPriceOverview.PriceSuffix</span>
+                </p>
+                @if (item.CarPriceOverview.PriceStatus == (int)PriceBucket.HaveUserCity)
+                {
+                    <span class="font10">@((item.CarPriceOverview.PriceLabel ?? string.Empty) + ", " + item.CarPriceOverview.City.Name)</span>
+                }
+                else
+                {
+                    <span class="font10">@item.CarPriceOverview.PriceLabel</span>
+                    <div class="margin-top10">
+                        <a href="@modelUrl?q=globalcity">Show price in my city</a>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</amp-carousel>

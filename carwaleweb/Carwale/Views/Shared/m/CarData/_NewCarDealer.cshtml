@@ -1,0 +1,23 @@
+﻿@model List<Carwale.Entity.Dealers.NewCarDealer>
+@using Carwale.UI.Common;
+
+<div id="divFAQ" class="mid-box blue-block">
+	<h2 class="hd2 margin-left10 m-special-skin-text">@ViewBag.MakeName Dealers in @ViewBag.CityName</h2>
+	<p class="text-grey font11 margin-left10 m-special-skin-text">@ViewBag.MakeName car company has @Model.Count new car dealers/showrooms in @ViewBag.CityName.</p>
+	<div class="content-box-shadow content-inner-block-10 margin-top10 margin-bottom10">
+			<ul class="margin-top5 margin-bottom5 text-left">
+				
+					@foreach (var eachdealer in Model)
+					{
+						
+							<li class="margin-bottom5">
+								<strong>@eachdealer.Name</strong>
+								@Html.Raw(Carwale.Utility.Format.GetAddress(eachdealer.Address,"",eachdealer.CityName,eachdealer.State,eachdealer.PinCode))
+							</li>
+						
+					}
+				
+			</ul>
+		<a href="/m/@(UrlRewrite.FormatSpecial(ViewBag.MakeName) + "-dealer-showrooms/" + UrlRewrite.FormatSpecial(ViewBag.CityName) + "-" + UrlRewrite.FormatSpecial(ViewBag.CityId.ToString())+"/")">View contact details of all @ViewBag.MakeName Dealers in @ViewBag.CityName</a>
+	</div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model Carwale.Entity.ViewModels.CarData.ImageCarousal
+@using Carwale.Utility;
+@{
+    int position = 1;
+}
+    <h2 class="image-swiper-container__heading m-special-skin-text">@Model.Title</h2>
+    <amp-carousel height="370" layout="fixed-height" type="carousel" class="image-swiper-carousel">
+        @foreach (var carModel in Model.ModelPhotos)
+{
+    if (carModel.Images.Count > 0)
+    {
+    <div class="contentWrapper swiper-slide swiper-wrapper__list-item make-images-carousel">
+        <a href="@carModel.ModelImagePageUrl" title="@carModel.ImageSwiperTitle" class="image-grid__link">
+            <div class="image-grid-container">
+                <div class="image-grid__content-wrapper">
+                    <div class="image-grid-wrapper">
+                        <ul class="image-grid-list" data-grid="@carModel.Images.Count" data-vars-ea="position_@position" data-vars-ec='Make_Images_slug_m' data-vars-el='@string.Format("{0}_{1}", carModel.MakeName, carModel.ModelName)'>
+                            @foreach (var modelPhoto in carModel.Images)
+                            {
+                                <li class="image-grid__list-item">
+                                    <amp-img class="lazy" src="@ImageSizes.CreateImageUrl(modelPhoto.HostUrl, ImageSizes._211x211, modelPhoto.OriginalImgPath)"
+                                                alt="@modelPhoto.ModelBase.MaskingName image" width="79" height="79" layout="responsive">
+                                    </amp-img>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="image-grid__info-wrapper">
+                        <h3 class="image-grid-info__model-name">
+                            <span class="make-name">@carModel.MakeName</span>
+                            <span class="model-name">@carModel.ModelName</span>
+                        </h3>
+                        <div class="image-grid-info__image-count">
+                            <span class="image-icon"></span>
+                            <span class="image-count">@carModel.RecordCount</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    position++;
+    }
+}
+    </amp-carousel>
+<div class="view-all-images-container">
+    <a href="@Model.LandingUrl" data-vars-ea="Make-Page-Image-Link-Click" data-vars-ec="Make_Images_slug_m" data-vars-el="@Model.MakeName" title="All @Model.Title" class="view-all-images__link">All @Model.Title</a>
+</div>

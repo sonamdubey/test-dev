@@ -1,0 +1,345 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.new-cars-top-banner {
+  background: #161209 url('https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/d/new-cars-banner.jpg') no-repeat left top;
+  background-size: cover;
+  height: 285px;
+  padding-top: 1px;
+}
+
+/* Car to Buy Section */
+.car-to-buy-wrapper {
+  background: #fff;
+  padding: 30px;
+}
+
+.car-to-buy-tabs ul li {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+  width: 250px;
+  height: 75px;
+  background: #fff;
+  margin-left: 20px;
+  margin-right: 20px;
+  text-align: center;
+}
+
+.budget-usage-form-container {
+  margin: 40px auto;
+  width: 540px;
+}
+
+.car-buy-part {
+  width: 100px;
+  height: 80px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.car-buy-title {
+  width: 120px;
+  height: 20px;
+  display: inline-block;
+  margin-bottom: 7px;
+}
+
+.car-buy-image {
+  width: 120px;
+  height: 45px;
+  position: relative;
+}
+
+.car-buy-image span {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.get-budget-price {
+  margin: 0 auto;
+  width: 540px;
+}
+
+.get-monthly-usage {
+  margin: 0 auto;
+  width: 540px;
+}
+
+.disabled-tab {
+  cursor: not-allowed;
+}
+
+.newcars-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/newcars-sprite.png?static1fix) no-repeat;
+  display: inline-block;
+}
+
+.budget-icon-selected, .usage-icon-selected, .preference-icon-selected {
+  width: 42px;
+  height: 42px;
+}
+
+.budget-icon-selected {
+  background-position: 0 0;
+}
+
+.usage-icon-selected {
+  background-position: 0 -52px;
+}
+
+.preference-icon-selected {
+  background-position: 0 -103px;
+}
+
+.rc-tick-blue, .usage-icon-grey, .preference-icon-grey {
+  width: 28px;
+  height: 28px;
+}
+
+.rc-tick-blue {
+  background-position: -52px 0;
+}
+
+.usage-icon-grey {
+  background-position: -52px -37px;
+}
+
+.preference-icon-grey {
+  background-position: -52px -73px;
+}
+
+.horizontal-line {
+  width: 600px;
+  height: 1px;
+  background: #ccc;
+  top: 51px;
+}
+
+.preference-icons-container ul li {
+  margin: 0 10px;
+  text-align: center;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+.preference-icons-container ul li a {
+  padding-top: 25px;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  width: 120px;
+  height: 120px;
+  text-align: center;
+  background: #fff;
+  color: #565a5c;
+  font-size: 14px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -o-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+.preference-icons-container ul li a span.title-box {
+  display: block;
+}
+
+.preference-icons-container ul li a:hover {
+  background: #fafafa;
+  font-weight: bold;
+  text-decoration: none;
+  -webkit-box-shadow: 0 2px 3px #e2e2e2;
+  box-shadow: 0 2px 3px #e2e2e2;
+}
+
+.preference-icons-container ul li a:focus {
+  -webkit-box-shadow: 0 2px 3px #ccc inset;
+  box-shadow: 0 2px 3px #ccc inset;
+}
+
+.daily-travel-icon {
+  width: 25px;
+  height: 36px;
+  background-position: 0 -151px;
+}
+
+.weekend-trips-icon {
+  width: 26px;
+  height: 36px;
+  background-position: -1px -196px;
+}
+
+.high-performance-icon {
+  width: 47px;
+  height: 36px;
+  background-position: -35px -147px;
+}
+
+.utility-icon {
+  width: 25px;
+  height: 36px;
+  background-position: -35px -197px;
+}
+
+.cw-tabs.home-tabs.newcars-rc-tabs {
+  background: #f2f2f2;
+}
+
+.newcars-rc-tabs li {
+  opacity: .4;
+}
+
+.newcars-rc-tabs li.active {
+  opacity: 1;
+}
+
+.newcars-rc-tabs li span.newcars-rc-tabs-title {
+  padding-left: 5px;
+}
+
+.newcars-rc-tabs li.active span.newcars-rc-tabs-title {
+  font-weight: bold;
+}
+
+/* discover cars */
+.newcar-discover-car-container {
+  background-color: #fff;
+}
+
+.newcar-discover-car-container .jcarousel {
+  width: 940px;
+  overflow: hidden;
+  left: 20px;
+}
+
+.newcar-discover-car-container .jcarousel .imageWrapper {
+  width: 298px;
+}
+
+.upComingCars-newcars .jcarousel li {
+  width: 298px;
+}
+
+.newLaunches-newcars .jcarousel li, .topSelling-newcars .jcarousel li {
+  width: 298px;
+}
+
+/* compare cars */
+.newcars-compare-car-container {
+  background-color: #fff;
+}
+
+/* tools you may required */
+.tools-may-need-wrapper {
+  background: #fff;
+}
+
+.final-price-logo {
+  margin: 0 auto;
+}
+
+.margin-bottom40 {
+  margin-bottom: 40px;
+}
+
+.final-price-search-container {
+  margin: 0 auto;
+  width: 790px;
+  height: 45px;
+}
+
+.locate-dealer-search-container {
+  margin: 0 auto;
+  width: 790px;
+  height: 45px;
+}
+
+.final-price-search, .locate-dealer-search {
+  width: 588px;
+  float: left;
+  background: #fff;
+  border: 1px solid #cccccc;
+  border-right: 0;
+  height: 45px;
+}
+
+.final-price-carSelect, .locate-dealer-carSelect {
+  width: 290px;
+  height: 45px;
+  float: left;
+}
+
+.final-price-carSelect input[type="text"], .locate-dealer-carSelect input[type="text"], .final-price-citySelect input{
+  width: 290px;
+  height: 43px;
+}
+.final-price-citySelect input {
+    border: none;
+}
+
+.final-price-citySelect, .locate-dealer-citySelect {
+  border-left: 1px solid #ccc;
+  height: 44px;
+  width: 296px;
+  float: left;
+}
+
+.final-price-citySelect select, .locate-dealer-citySelect select {
+  width: 296px;
+  border: none;
+  color: #555;
+  height: 43px;
+}
+
+.get-final-price-btn, .locate-dealer-btn {
+  float: left;
+}
+
+/* Popular review */
+.popular-review-container {
+  padding: 0 20px;
+}
+
+.user-review-search-container {
+  margin: 0 auto;
+  width: 640px;
+}
+
+.car-review-search {
+  width: 460px;
+  float: left;
+  background: #fff;
+  border: 1px solid #cccccc;
+  border-right: 0;
+  height: 45px;
+}
+
+.rupee-input {
+  position: absolute;
+  top: 13px;
+  left: 10px;
+  color: #9a9a9b;
+  line-height: 1;
+}
+
+@-moz-document url-prefix() {
+ 
+  .rupee-input {
+    top: 15px;
+  }
+}
+
+.upComingCars-newcars .formWrapper h2 {
+  font-size: 22px;
+}
+
+.gst-applied-section .jcarousel li {
+  height: 350px;
+}

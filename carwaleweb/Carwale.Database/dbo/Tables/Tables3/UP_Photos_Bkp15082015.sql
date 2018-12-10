@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[UP_Photos_Bkp15082015] (
+    [ID]              NUMERIC (18)  IDENTITY (1, 1) NOT NULL,
+    [Title]           VARCHAR (200) NULL,
+    [Name]            VARCHAR (200) NULL,
+    [Description]     VARCHAR (500) NULL,
+    [EntryDate]       DATETIME      NULL,
+    [AlbumId]         NUMERIC (18)  NULL,
+    [Views]           NUMERIC (18)  NULL,
+    [Rating]          NUMERIC (18)  NULL,
+    [Size500]         BIT           NOT NULL,
+    [Size800]         BIT           NOT NULL,
+    [Size1024]        BIT           NOT NULL,
+    [IsActive]        BIT           NULL,
+    [MarkAbuse]       BIT           NULL,
+    [IsReplicated]    BIT           NULL,
+    [HostURL]         VARCHAR (100) NULL,
+    [DirectoryPath]   VARCHAR (100) NULL,
+    [Small]           VARCHAR (200) NULL,
+    [Thumbnail]       VARCHAR (200) NULL,
+    [Medium]          VARCHAR (200) NULL,
+    [Large]           VARCHAR (200) NULL,
+    [XL]              VARCHAR (200) NULL,
+    [XXL]             VARCHAR (200) NULL,
+    [StatusId]        SMALLINT      NULL,
+    [OriginalImgPath] VARCHAR (300) NULL
+);
+

@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+<div class="margin-bottom30 text-center">
+    <span class="back-arrow-unit"><img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/usedcar/editcar/back-arrow.svg"></span>
+    <h1 class="font16 screen-head__title edit-otp__title m-special-skin-text">Please enter OTP</h1>
+</div>
+
+<div id="formOtp" class="">
+    <div class="form__field-box otp-no-field skin-extra-bg">
+        <div id="otpInputBox" class="input-box field-box margin-bottom20">
+            <input type="tel" class="get-otp noScrollToTop" maxlength="5" autocomplete="off">
+            <label for="getMobile">OTP sent to your mobile</label>
+            <span class="boundary"></span>
+            <span class="error-text error-text-position error-text-width"></span>
+            <div class="resend-text text-right margin-bottom15">
+                <a href="javascript:void(0)" tabindex="3">Resend OTP<span class="counter-text"> in <span class="timeBox">30</span>s</span></a>
+                <span class="resend-prevent-text hide">OTP sent to mobile</span>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+    <div class="text-center btn-section">
+        <div class="sell-car-loader hide"><img src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" alt="" title=""></div>
+        <input type="button" id="verify-otp" value="VERIFY" class="btn btn-orange btn-fullwidth-48 otp-btn margin-bottom15">
+    </div>
+</div>

@@ -1,0 +1,74 @@
+@import "../mixins/_variables.scss";
+
+.breadcrumb-list {
+	width: 100%;
+	display: table;
+	background: map-get($color-map, "white");
+	margin-bottom: 4px;
+	box-shadow: 0 1px 4px 0 #ccc;
+}
+
+.breadcrumb-list__item {
+	width: auto;
+	padding: 10px 6px 10px 15px;
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 12px;
+	line-height: 16px;
+	color: map-get($color-map, "default");
+	text-align: center;
+	position: relative;
+	cursor: pointer;
+
+	&:first-child {
+		padding-left: 10px;
+	}
+
+	&:after {
+		content: '';
+		display: block;
+		border-top: 18px solid transparent;
+		border-bottom: 18px solid transparent;
+		border-left: 10px solid transparent;	
+		position: absolute;
+		left: 100%;
+		top: 0;
+		z-index: 1;
+	}
+
+	&:last-child:after {
+		content: none;
+	}
+}
+
+/* status: active */
+.breadcrumb-list__item {
+	&.active {
+		color: map-get($color-map, "white");
+		background: map-get($color-map, "shamrockGreen");
+
+		&:after {
+			border-left-color: map-get($color-map, "shamrockGreen");
+		}
+	}
+}
+
+/* status: done */
+.breadcrumb-list__item {
+	&.done {
+		color: map-get($color-map, "white");
+		background: map-get($color-map, "midGray");
+
+		&:after {
+			border-left-color: map-get($color-map, "midGray");
+		}
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	.breadcrumb-list__item {
+		font-size: 11px;
+		padding-right: 2px;
+		padding-left: 12px;
+	}
+}

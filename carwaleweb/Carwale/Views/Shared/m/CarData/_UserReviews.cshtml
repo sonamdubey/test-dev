@@ -1,0 +1,56 @@
+﻿@model List<Carwale.Entity.CMS.UserReviews.UserReviewEntity>
+@using Carwale.Utility;
+@using Carwale.UI.PresentationLogic;
+@using Carwale.UI.Common;
+@using Carwale.Entity.Enum;
+@{Layout = null;}
+@if (Model != null && Model.Count > 0)
+{
+	<section>
+		<h2 class="margin-bottom10 margin-left10 m-special-skin-text">@ViewBag.ModelName User Reviews</h2>
+		<ul id="divUserReviews">
+			@foreach (var userReview in Model)
+            {
+				<li>
+					<article>
+						<a title="User Review of @userReview.MakeName @userReview.ModelName-@userReview.Title" class="block text-black content-inner-block-10 content-box-shadow margin-bottom10 text-no-decoration" href='/m/@UrlRewrite.FormatSpecial(userReview.MakeName)-cars/@userReview.MaskingName/userreviews/@userReview.ReviewId@Html.Raw(".html")'>
+							<header class="margin-bottom5">
+								<b>@userReview.Title</b>
+							</header>
+							<footer class="margin-bottom5">
+								@userReview.ReviewDate.ConvertDateToDays() | @(string.IsNullOrEmpty(userReview.HandleName) ? userReview.CustomerName : userReview.HandleName)
+							</footer>
+							@if (!string.IsNullOrWhiteSpace(userReview.ReviewRate))
+              {					
+								  <span class="valign-middle rating-sprite @MobileWeb.Common.CommonOpn.GetRateImage(Convert.ToDouble(userReview.ReviewRate))"></span>
+							    <span class="inline-block">@userReview.Comments Comments</span>
+              }
+						</a>
+					</article>
+				</li>
+            }
+		</ul>
+               @if (ViewBag.IsVersionPage)
+			   {
+				<a class='block text-center margin-right10 margin-left10 margin-bottom10' href="@ManageCarUrl.CreateRatingPageUrl(ViewBag.ModelId, ViewBag.VersionId)" data-cwtccat="RatingLinkage" data-cwtcact="@($"{CwPages.VersionMsite}ButtonClick")" data-cwtclbl="model=@ViewBag.ModelId|version=@ViewBag.VersionId"
+				   data-role="click" data-event="CWInteractive" data-cat="msite_user_review" data-action='variant_write_review_button' data-label="@(UrlRewrite.FormatSpecial(Model.First().MakeName)+'_'+Model.First().MaskingName)">
+					<span class="btn-xs btn-white btn-full-width btn-transparent text-bold">Write Review</span>
+				</a>
+			   }
+			   else
+			   {
+				<a class='block text-center margin-right10 margin-left10' href="@ManageCarUrl.CreateRatingPageUrl(ViewBag.ModelId, -1)" data-cwtccat="RatingLinkage" data-cwtcact="@($"{CwPages.ModelMsite}ButtonClick")" data-cwtclbl="model=@ViewBag.ModelId"
+				   data-role="click" data-event="CWInteractive" data-cat="msite_user_review" data-action='model_write_review_button' data-label="@(UrlRewrite.FormatSpecial(Model.First().MakeName)+'_'+Model.First().MaskingName)">
+					<span class="btn-xs btn-white btn-full-width btn-transparent text-bold">Write Review</span>
+				</a>
+			   }
+        
+        @if (!ViewBag.IsVersionPage)
+        {
+            <a class="block text-center margin-bottom10" href="/m/@UrlRewrite.FormatSpecial(Model.First().MakeName)-cars/@Model.First().MaskingName/userreviews/">
+                <span class="box-footer-text text-bold">View All @ViewBag.ModelName User Reviews</span>&nbsp;<span class="arr-big">&raquo;</span>
+            </a>
+        }
+
+	</section>
+}

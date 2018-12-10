@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[LDExtraFields] (
+    [ID]         NUMERIC (18)  IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [LDID]       NUMERIC (18)  NOT NULL,
+    [FieldId]    NUMERIC (18)  NOT NULL,
+    [FieldValue] VARCHAR (500) NULL,
+    CONSTRAINT [PK_LDExtraFields] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+

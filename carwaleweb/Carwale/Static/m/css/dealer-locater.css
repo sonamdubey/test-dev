@@ -1,0 +1,900 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.padding5 {
+  padding: 5px;
+}
+
+.padding10 {
+  padding: 10px;
+}
+
+.cw-m-dl-border-bottom {
+  border-bottom: solid 1px #cccccc;
+  margin: 0px 0px;
+}
+
+.cw-m-dealer-locater-page .pgsubhead {
+  padding: 0px 0px 5px 0px;
+}
+
+.cw-m-dlp-img-div img {
+  vertical-align: middle;
+  border-radius: 3px 3px 0px 0px;
+  -moz-border-radius: 3px 3px 0px 0px;
+  -ms-border-radius: 3px 3px 0px 0px;
+  -o-border-radius: 3px 3px 0px 0px;
+  -webkit-border-radius: 3px 3px 0px 0px;
+}
+
+.border-gray {
+  border: solid 1px #cccccc;
+}
+
+.border-radius3 {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+a.cw-m-dlp-hd, .cw-m-dlp-hd {
+  text-decoration: none;
+  color: #333333;
+  padding: 5px;
+  display: block;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+a.cw-m-dlp-info, .cw-m-dlp-info {
+  text-decoration: none;
+  color: #666666;
+  padding: 0px 5px 5px 5px;
+  display: block;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.cw-m-dlp-info .ui-link {
+  color: #666666;
+}
+
+.cw-m-dlp-button-group-list {
+  margin: 5px 5px 5px 5px;
+}
+
+.cw-m-dlp-button-group-fix {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  right: 0px;
+  background: #fff;
+  border-top: solid 1px #cccccc;
+  z-index: 111 !important;
+}
+
+.cw-m-dealer-locater-page a.cw-m-dlp-button {
+  padding: 10px 15px;
+  display: inline-block;
+  border: solid 1px #cccccc;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  text-decoration: none;
+  color: #666666;
+  margin: 0px 5px 0px 0px;
+  font-size: 13px;
+}
+
+.cw-m-dealer-locater-page .cw-m-dlp-button-group .ui-btn input {
+  padding: 10px 20px 10px 20px;
+  display: inline-block;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cw-m-dealer-locater-page .cw-m-dlp-button-group .ui-btn {
+  background: #ec584c !important;
+  color: #fff !important;
+  text-shadow: none;
+}
+
+.cw-m-dealer-locater-page .cw-m-dlp-button-group .ui-btn:hover {
+  text-shadow: none;
+}
+
+.cw-m-dealer-locater-page .cw-m-dlp-button-group .ui-btn:focus {
+  background: #f86c60;
+  color: #fff !important;
+}
+
+.panel-group {
+  color: #666666;
+}
+
+.cw-m-dlp-tabs ul {
+  display: table;
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  width: 100%;
+}
+
+.cw-m-dlp-tabs li {
+  display: table-cell;
+  padding: 10px 0px;
+  position: relative;
+  cursor: pointer;
+  color: #82888b;
+  font-size: 14px;
+  text-align: center;
+  border-bottom: solid 1px #ccc;
+}
+
+.cw-m-dlp-tabs li.active {
+  border-bottom: solid 3px #ef3f30;
+  color: #565a5c;
+}
+
+.cw-m-dlp-tabs li:hover {
+  color: #565a5c;
+}
+
+.cw-m-dlp-data {
+  background: #fff;
+  margin-bottom: 10px;
+/*<!-- padding:5px;-->*/;
+}
+
+.cw-m-dlp-tabs li.sep {
+  padding: 10px 0px;
+  width: 1px;
+  color: #d9d9d9;
+}
+
+.cw-m-dlp-tabs li.active span.dlp-tabs-arrow {
+  background-position: -67px -513px;
+  height: 7px;
+  width: 14px;
+  margin: 3px auto 0;
+  display: block;
+}
+
+/* modified classes starts here  - Ganesh */
+#cw-m-dlp-accordian {
+  margin-top: 10px;
+}
+
+.cw-m-dlp-ac-press {
+  padding: 10px;
+  cursor: pointer;
+  color: #666666;
+  display: block;
+  font-weight: bold;
+  border: solid 1px #cccccc;
+  background: #fff;
+  border-radius: 3px;
+}
+
+.cw-m-dlp-ac-info {
+  border: 1px solid #cccccc;
+  background: #fff;
+  margin-top: -2px;
+  border-radius: 0 0 3px 3px;
+}
+
+.cw-m-dlp-ac-info li {
+  display: block;
+  border-top: 1px solid #ececec;
+  margin-bottom: 0;
+}
+
+.cw-m-dlp-ac-info li:first-child {
+  border-top: 0;
+}
+
+.cw-m-dlp-ac-info li a {
+  display: block;
+  color: #606060;
+  text-decoration: none;
+  padding: 8px 10px;
+}
+
+.cw-m-dlp-ac-info li a:hover {
+  color: #333;
+}
+
+.cw-m-dlp-ac-info.info-check-box {
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.cw-m-dlp-ac-info.contactForm {
+  border-top: 1px solid #fff;
+  position: relative;
+}
+
+/* new classes for dealer locator */
+.cw-m-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/m-icons.png?16042015-v9999) no-repeat;
+  display: inline-block;
+}
+
+.dl-title {
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 235px;
+  font-size: 16px;
+}
+
+.blue-text-dark {
+  color: #016296;
+}
+
+.select-car-icon, .select-car-icon-selected {
+  background-position: 0 -864px;
+  width: 26px;
+  height: 18px;
+}
+
+.select-car-icon-selected {
+  background-position: 0 -884px;
+}
+
+.contact-detail-icon, .contact-detail-icon-selected {
+  background-position: -36px -868px;
+  width: 21px;
+  height: 21px;
+}
+
+.contact-detail-icon-selected {
+  background-position: -65px -868px;
+}
+
+.service-detail-icon, .service-detail-icon-selected {
+  background-position: -69px -830px;
+  width: 21px;
+  height: 21px;
+}
+
+.service-detail-icon-selected {
+  background-position: -96px -830px;
+}
+
+.filled-tick-blue {
+  background-position: -124px -829px;
+  width: 20px;
+  height: 20px;
+}
+
+.cw-m-dlp-call-icon {
+  background-position: 0 -513px;
+  height: 13px;
+  width: 11px;
+  margin-right: 5px;
+}
+
+.cw-m-dlp-direction-icon {
+  background-position: -33px -513px;
+  height: 14px;
+  margin-right: 5px;
+  width: 12px;
+}
+
+
+.relt-position {
+  position: relative;
+}
+
+.abt-position-left, .abt-position-right {
+  position: absolute;
+  top: 25%;
+}
+
+.abt-position-left {
+  left: 8px;
+}
+
+.abt-position-right {
+  right: 8px;
+}
+
+.cw-m-blackbg-tooltip {
+  font-weight: normal;
+  background: #000;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 12px;
+  padding: 3px 5px;
+  position: absolute;
+  right: 0;
+  top: 37px;
+  z-index: 1;
+}
+
+.cw-m-blackbg-tooltip:before {
+  border-bottom: 5px solid #000;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: -5px;
+  z-index: 1;
+}
+
+.field-box {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.field-box input[type="text"] {
+  font-family: LatoWeb,sans-serif,Arial;
+  padding: 12px 35px;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.field-box input[type="text"].field-box-mobile {
+  padding-left: 62px;
+}
+
+.plusNum {
+  position: absolute;
+  top: 11px;
+  left: 35px;
+  color: #999;
+  z-index: 999;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.box-bot {
+  text-align: center;
+  background: #ffffff;
+  border: solid 1px #cccccc;
+  border-radius: 2px;
+  padding: 5px 10px;
+  position: relative;
+  margin: 20px 10px 0px 10px;
+}
+
+.right-tick {
+  background-position: -104px -550px;
+  width: 15px;
+  height: 11px;
+  position: relative;
+  top: 1px;
+  left: 1px;
+}
+
+.right-tick-bg-gree {
+  background: #499808;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}
+/* end here  */
+
+/*.cw-m-dlp-ac-press:hover, */
+.ac-dlp-active {
+  color: #f5f5f5;
+  background: #6ebdf5;
+}
+
+.cw-m-dlp-ac-active, .cw-m-dlp-ac-press.active {
+  color: #f5f5f5;
+  background: #6ebdf5;
+}
+
+.cw-m-dlp-ac-inactive {
+  color: #666 !important;
+  background: #fff !important;
+}
+
+.cw-m-dlp-ac-info .ui-checkbox label.ui-btn {
+  font-size: 14px;
+  color: #666;
+  font-weight: normal;
+  background: #fff;
+}
+
+.cw-m-dlp-ac-info .ui-checkbox label.ui-btn.ui-checkbox-on {
+  border-radius: 0px;
+  background: #fff;
+}
+
+.cw-m-dlp-ac-info .ui-btn.ui-checkbox-on:after, .cw-m-dlp-ac-info .ui-btn.ui-checkbox-off:after {
+  margin: -14px 0 0 12px;
+}
+
+.cw-m-dlp-ac-info .ui-btn.ui-checkbox-on:after, .cw-m-dlp-ac-info .ui-btn.ui-radio-on:after, 
+.cw-m-dlp-ac-info .ui-btn.ui-checkbox-off:after, .cw-m-dlp-ac-info .ui-btn.ui-radio-off:after,
+.cw-m-dlp-ac-info .ui-btn.ui-checkbox-on.ui-checkbox-on:after {
+  background: url("https://www.carwale.comhttps://imgd.aeplcdn.com/0x0/cw/static/sprites/m/icons-sheet.png?v=5.2") no-repeat;
+  width: 24px;
+  height: 26px;
+}
+
+.cw-m-dlp-ac-info .ui-btn.ui-checkbox-on:after, .cw-m-dlp-ac-info .ui-btn.ui-radio-on:after {
+  background-position: -3px -1619px;
+}
+
+.cw-m-dlp-ac-info .ui-btn.ui-checkbox-off:after, .cw-m-dlp-ac-info .ui-btn.ui-radio-off:after {
+  background-position: -3px -1619px;
+}
+
+.cw-m-dlp-ac-info .ui-btn.ui-checkbox-on.ui-checkbox-on:after {
+  background-position: -3px -1671px;
+}
+
+.ui-btn-icon-left::after {
+  right: 0.5625em;
+  left: auto;
+}
+
+.ui-btn.ui-radio-off::after, .ui-checkbox-off::after {
+  opacity: .8;
+}
+
+.hide-div {
+  display: none;
+}
+
+.show-div {
+  display: block;
+}
+
+.cw-m-dealer-locater-page .ui-body-inherit {
+  border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  margin-top: 10px;
+  padding: inherit;
+  background-color: none;
+  border: 0px;
+}
+
+.cw-m-dealer-locater-page .ui-input-text input {
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  padding: 0.5em;
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.cw-m-dealer-locater-page .ui-focus {
+  background-color: #fff;
+}
+
+.dlp-icon-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/m/dlp-input-icon-sprite.png?29052015) no-repeat;
+  display: inline-block;
+}
+
+.dlp-name-icon {
+  background-position: 0 0;
+  width: 19px;
+  height: 19px;
+}
+
+.dlp-mail-icon {
+  background-position: -1px -34px;
+  width: 17px;
+  height: 18px;
+}
+
+.dlp-mobile-icon {
+  background-position: 2px -70px;
+  width: 17px;
+  height: 19px;
+}
+
+/* new sprite classes - ganesh  */
+.dlp-error-icon {
+  background-position: 0px -131px;
+  width: 19px;
+  height: 19px;
+}
+
+@media all and (min-width:150px) and (max-width:239px) {
+  .cw-m-dealer-locater-page a.cw-m-dlp-button {
+    margin-bottom: 10px;
+    width: 60%;
+  }
+
+  .cw-m-dealer-locater-page .cw-m-dlp-button-group-fix a.cw-m-dlp-button {
+    margin-bottom: 10px;
+  }
+
+  .cw-m-dealer-locater-page .dlp-single-btn a.cw-m-dlp-button {
+    margin-bottom: 0px;
+  }
+
+  .cw-m-dlp-data {
+    padding-bottom: 120px;
+  }
+}
+
+@media all and (min-width:240px) and (max-width:319px) {
+  .cw-m-dealer-locater-page a.cw-m-dlp-button {
+    margin-bottom: 0px;
+  }
+
+  .cw-m-dealer-locater-page .cw-m-dlp-button-group-fix a.cw-m-dlp-button {
+    margin-bottom: 10px;
+  }
+
+  .cw-m-dealer-locater-page .dlp-single-btn a.cw-m-dlp-button {
+    margin-bottom: 0px;
+  }
+
+  .cw-m-dlp-data {
+    padding-bottom: 120px;
+  }
+
+  .cw-m-dlp-tabs li {
+    font-size: 12px;
+  }
+
+  .dl-title {
+    max-width: 130px;
+  }
+}
+
+@media all and (width:240px) {
+ 
+  .cw-m-dealer-locater-page .border-gray a.cw-m-dlp-button {
+    padding: 6px 2px;
+  }
+}
+
+@media all and (min-width:320px) and (max-width:639px) {
+  .cw-m-dealer-locater-page a.cw-m-dlp-button {
+    margin-bottom: 10px;
+  }
+
+  .cw-m-dealer-locater-page .cw-m-dlp-button-group-fix a.cw-m-dlp-button {
+    margin-bottom: 0px;
+  }
+
+  .cw-m-dealer-locater-page .dlp-single-btn a.cw-m-dlp-button {
+    margin-bottom: 0px;
+  }
+
+  .cw-m-dlp-data {
+    padding-bottom: 120px;
+  }
+}
+
+.cw-m-dlp-ac-info .ui-select .ui-btn {
+  color: #666;
+  text-align: left;
+  font-weight: normal;
+}
+
+.cw-m-select-arrow {
+  background-position: right -89px;
+  display: block;
+  background-color: #f6f6f6;
+  border: 1px solid  #ddd;
+  color: #333;
+  text-shadow: 0 1px 0 #f3f3f3;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.ui-select .ui-btn:hover, .ui-select .ui-btn:focus, .ui-select .ui-btn:visited {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #666 !important;
+  font-weight: normal !important;
+  text-shadow: none;
+}
+
+.cw-m-dlp-ac-info .border-bottom-width {
+  border-bottom-width: 1px !important;
+}
+
+.cw-m-dlp-ac-info .ui-controlgroup-vertical .ui-controlgroup-controls .ui-btn {
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-color: #ddd;
+}
+
+.cw-m-dlp-ac-info .ui-btn-icon-left {
+  padding-right: 3.7em;
+  padding-left: 10px;
+}
+
+.cw-m-dlp-call-iconbtn {
+  background-position: -17px -513px;
+  height: 13px;
+  width: 11px;
+  margin-right: 5px;
+}
+
+.cw-m-dlp-address-l {
+  float: left;
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.cw-m-dlp-address-r {
+  display: table-cell;
+}
+
+a.cw-m-dlp-button-callbtn {
+  background: #ec584c !important;
+  color: #fff !important;
+}
+
+a.cw-m-dlp-button-1 {
+  width: 40px;
+}
+
+a.cw-m-dlp-button-2 {
+  box-shadow: 1px 1px 2px #ccc;
+  -moz-box-shadow: 1px 1px 2px #ccc;
+  -webkit-box-shadow: 1px 1px 2px #ccc;
+  -o-box-shadow: 1px 1px 2px #ccc;
+  -ms-box-shadow: 1px 1px 2px #ccc;
+}
+
+a.cw-m-dlp-button-3 {
+  width: 30px;
+}
+
+.cw-m-dealer-locater-page .ui-input-text input.dlp-required {
+  border: 1px solid #ec584c;
+}
+
+.cw-m-dealer-locater-page .ui-input-text input.dlp-error-ico {
+  background-position: right -120px;
+}
+
+.dlp-error-call-ico {
+  background-position: 0 -155px;
+  height: 24px;
+  width: 22px;
+  float: left;
+  margin-right: 5px;
+}
+
+.dlp-error-number {
+  font-weight: normal;
+  color: #686765;
+  font-size: 20px;
+}
+
+.dlp-thanks-head {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.dlp-thanks-head > strong {
+  display: inline-block;
+  margin-left: 5px;
+  position: relative;
+  top: 3px;
+}
+
+.dlp-req-red {
+  color: #ec584c;
+}
+
+.ui-input-btn input.dlp-locator-icon {
+  background-position: 13px -151px;
+  opacity: 100;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  background-color: #cf4536;
+  border-radius: 0;
+  width: 40px !important;
+}
+
+.cw-m-dealer-locater-page .footer {
+  padding-bottom: 80px;
+  border: 1px solid red;
+}
+/*Gallery css starts here*/
+.cw-m-dealer-Gallery .thumbDiv {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cw-m-dealer-Gallery li.thumbDiv {
+  display: inline-block;
+  _float: left;
+  margin: 0 5px 5px 0;
+}
+
+.cw-m-dealer-Gallery .thumbDiv img {
+  width: 132px;
+  min-height: 96px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cw-m-dealer-Gallery .prev {
+  position: absolute;
+  top: 43%;
+  left: 10px;
+  background-position: 5px -20px;
+  width: 25px;
+  height: 31px;
+  cursor: pointer;
+}
+
+.cw-m-dealer-Gallery .next {
+  position: absolute;
+  top: 43%;
+  right: 10px;
+  background-position: -28px -20px;
+  width: 25px;
+  height: 31px;
+  cursor: pointer;
+}
+
+.cw-m-dealer-Gallery .next:nth-last-child(2) {
+  display: none;
+}
+
+.cw-m-dealer-Gallery .close-btn {
+  position: absolute;
+  top: 0;
+  right: 0px;
+  background-position: -28px -541px;
+  width: 32px;
+  height: 34px;
+  z-index: 0;
+  cursor: pointer;
+}
+
+.cw-m-dealer-Gallery #divPhotos {
+  text-align: center;
+}
+
+.cw-m-dealer-Gallery .ui-content {
+  background: #000;
+}
+
+.cw-m-dealer-Gallery .divLargeImg img {
+  max-width: 99%;
+  max-height: 99%;
+}
+
+.ui-overlay-b, .ui-page-theme-b, .ui-page-theme-b .ui-panel-wrapper {
+  z-index: -1;
+  background-color: #808080;
+}
+
+.cw-m-dealer-Gallery .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #808080;
+  filter: alpha(opacity=80);
+  opacity: 0.80;
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/design15/m/cw-loader.gif');
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+/*Gallery css ends here*/
+
+/* Dealer Locator Microsite Tab Form and Button Style Starts Here */
+.car-icon {
+  position: relative;
+  top: -5px;
+}
+
+.arrow-icon {
+  position: absolute;
+  right: 15px;
+  top: 25%;
+}
+
+.arrow-icon:before {
+  font-size: 17px;
+}
+
+.dl-microsite-tab .cw-m-dlp-ac-press {
+  padding: 13px 10px 8px;
+  font-weight: normal;
+}
+
+.dl-title {
+  font-size: 14px;
+}
+
+.dl-microsite-tab li .fa-mobile, .dl-microsite-tab li .fa-user, .dl-microsite-tab li .fa-wrench {
+  left: 10px;
+  top: 25%;
+  position: absolute;
+}
+
+.dl-microsite-tab li .fa-user {
+  top: 31%;
+}
+
+.dl-microsite-tab li .fa-mobile:before {
+  font-size: 22px;
+}
+
+.dl-microsite-tab li .fa-wrench:before {
+  font-size: 18px;
+}
+
+.dl-microsite-tab li .fa-user:before {
+  font-size: 17px;
+}
+
+.dl-microsite-tab li .fa-plus {
+  right: 10px;
+  position: absolute;
+  top: 18px;
+}
+
+.dl-microsite-tab li .fa-minus {
+  right: 10px;
+  position: absolute;
+  top: 18px;
+  display: none;
+}
+
+.dl-microsite-tab .plusNum {
+  top: 13px;
+}
+
+.dl-microsite-tab .field-box input[type="text"] {
+  background: none;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.fix-call-section {
+  background-color: rgba(48,48,48,0.9);
+}
+
+#contact-fixed.contact-fixed {
+  background-color: rgba(48,48,48,0.9);
+  position: fixed;
+  bottom: 0;
+  top: auto;
+}
+
+#contact-fixed {
+  position: relative;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  display: none;
+}
+
+.extraDivHt {
+  display: none;
+  height: 59px;
+}
+/* Dealer Locator Microsite Tab Form and Button Style Ends Here */

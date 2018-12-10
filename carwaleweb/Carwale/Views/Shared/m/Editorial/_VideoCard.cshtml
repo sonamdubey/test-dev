@@ -1,0 +1,38 @@
+﻿@model Carwale.DTOs.CarData.VideoDTO_V1
+
+@using Carwale.BL.CMS
+@using Carwale.UI.PresentationLogic;
+
+<div id="divVideosTempalte" class="startvideo">
+    <div class="scroll-container margin-top20">
+        <div class="inner-container">
+            <a class="hover-no-underline" data-role="click-tracking" data-event="CWInteractive" data-cat="msite_video_linkages" data-label="@Model.MakeName @Model.ModelName" data-action="expert_review_video_slug" href="@CMSCommon.GetVideoUrl(Model.MakeName, Model.MaskingName, Model.SubCatName, Model.BasicId, true)" target="_blank">
+                <div class="margin-top10 margin-bottom10" data-role="inview-imp" data-event="CWNonInteractive" data-cat="msite_video_linkages" data-label="@Model.MakeName @Model.ModelName" data-action="expert_review_video_slug_impression">
+                    <div>
+                        <h1 class="margin-top10 margin-bottom10 padding-left15 m-special-skin-text">@Model.VideoTitle</h1>
+                    </div>
+                    <div class="contentWrapper videowrapper">
+                        <img class="lazy" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" data-original="@("https://img.youtube.com/vi/"+Model.VideoId+"/mqdefault.jpg")" border="0"
+                             title="@Model.VideoTitle" alt="@Model.VideoTitle" width="100%" />
+                        <span class="youtube-video-icon carousel-yt-icon"></span>
+                        <div class="carDescWrapper">
+                            <div class="margin-bottom10 text-light-grey" style="float:left">
+                                <span class="cwmsprite review-sm-lgt-grey"></span> Views <span>@Model.Views</span>
+                            </div>
+                            <div class="text-light-grey floatright" style="float:right">
+                                <span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span>@Model.Likes</span>
+                            </div>
+                        </div>
+                        <div class="seturlandtitle"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="socialvideo"></div>
+    </div>
+</div>
+<div data-page-url="@Model.VideoTitleUrl"></div>
+<a data-next href='@EditorialContent.GetCompletePageUrl(Request, "/m/emptyResult/")' rel="nofollow"></a>
+<script>
+    var articleTitle = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.VideoTitle));
+</script>

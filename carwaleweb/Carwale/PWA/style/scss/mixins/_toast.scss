@@ -1,0 +1,21 @@
+@mixin toast-box($type: "") {
+	// default values
+	$color: #fff;
+	$background: #5a5a5a;
+
+	.toast-box {
+		@include vendor-prefix('border-radius', 3px);
+		position: fixed;
+		bottom: 50px;
+		left: 0;
+		right: 0;
+		max-width: 260px;
+		margin: 0 auto;
+		padding: 12px 20px;
+		font-size: 13px;
+		line-height: 15px;
+		color: $color;
+		background-color: $background;
+		z-index: 5;
+	}
+}

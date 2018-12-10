@@ -1,0 +1,145 @@
+﻿@using Carwale.UI.Common;
+<script>
+    var FACEBOOKAPPID = "@System.Configuration.ConfigurationManager.AppSettings["FacebookAppId"]"
+    var CLIENTID = "@System.Configuration.ConfigurationManager.AppSettings["GoogleClientId"]"
+    var SCOPE = "@System.Configuration.ConfigurationManager.AppSettings["GoogleProjectScope"]"
+    var REDIRECT = "@System.Configuration.ConfigurationManager.AppSettings["GoogleRedirectURL"]"
+</script>
+<div class="loginPopUpWrapper" id="loginPopUpWrapper">
+    <!-- login code starts here -->
+    <div class="loginBoxContent" id="Testlogin-box">
+        <div class="loginCloseBtn position-abt pos-top10 pos-left10 infoBtn cwsprite cross-md-dark-grey cur-pointer"></div>
+        <div class="loginStage">
+            <div class="loginWithCW margin-bottom40">
+                <p class="margin-bottom30 font25 text-black">Log in to CarWale</p>
+                <div class="form-control-box margin-bottom20 login-box-form">
+                    <input type="text" class="form-control border-red" name="email id" id="txtloginemail" placeholder="Email">
+                    <span class="cwsprite error-icon"></span>
+                    <div class="cw-blackbg-tooltip">Please enter your name</div>
+                </div>
+                <div class="form-control-box margin-bottom20 password-box-form">
+                    <input type="password" class="form-control" id="txtpasswordlogin" placeholder="Password">
+                    <span class="cwsprite error-icon hide"></span>
+                    <div class="cw-blackbg-tooltip hide">Please enter your password</div>
+                </div>
+                <div class="margin-bottom20 font12">
+                    <input id="chkRemMe" type="checkbox">
+                    <label for="chkRemMe">Remember me</label>
+                </div>
+                <button type="button" id="btnLogin" class="btn btn-orange text-uppercase margin-bottom15 margin-right10" onclick="doLoginCustomer();">log in</button>
+                <button type="button" class="loginBtnSignUp btn btn-white btn-md text-uppercase margin-bottom15">sign up</button>
+                <div><a class="cur-pointer font12" id="forgotpass">Forgot password?</a></div>
+                <!-- Forget Password -->
+                <div id="forgotpassdiv">
+                    <div class="hide margin-top20 margin-bottom30" id="forgotpassbox">
+                        <div class="form-control-box margin-bottom20">
+                            <input type="text" class="form-control" name="emailId" id="txtForgotPass" placeholder="Enter your registered email">
+                            <span class="cwsprite error-icon hide"></span>
+                            <div class="cw-blackbg-tooltip hide">Please enter your registered email</div>
+                        </div>
+                        <button type="button" id="frgPwd" class="btn btn-orange text-uppercase" onclick="forgotPwdTrigger()">send</button>
+                    </div>
+                </div>
+            </div>
+            <div class="loginWithFbGp">
+                <p class="font14 margin-bottom20">Or Login with</p>
+                <a onclick="fb_login_main()" class="btn fbLoginBtn margin-bottom30">
+                    <span class="fbIcon">
+                        <span class="cwsprite fb-login-icon"></span>
+                    </span>
+                    <span class="textWithFbGp">Sign in with facebook</span>
+                </a>
+                <a onclick="gplus_login()"  class="btn gplusLoginBtn">
+                    <span class="gplusIcon">
+                        <span class="cwsprite gplus-login-icon"></span>
+                    </span>
+                    <span class="textWithFbGp">Sign in with Google</span>
+                </a>
+            </div>
+        </div>
+        <div class="signUpStage">
+            <div class="signUpWithCW">
+                <p class="margin-bottom30 font25 text-black">Sign up to CarWale</p>
+                <div class="form-control-box margin-bottom20 name-box-form">
+                    <input type="text" class="form-control" name="name" placeholder="Name" id="txtnamelogin">
+                    <span class="cwsprite error-icon hide"></span>
+                    <div class="cw-blackbg-tooltip hide">Please enter your name</div>
+                </div>
+                <div class="form-control-box margin-bottom20 email-box-form">
+                    <input type="text" class="form-control" name="emailId" id="txtemailsignup" placeholder="Email Id">
+                    <span class="cwsprite error-icon hide"></span>
+                    <div class="cw-blackbg-tooltip hide">Please enter your email id</div>
+                </div>
+                <div class="form-control-box margin-bottom20 mobile-box-form">
+                    <span class="form-mobile-prefix">+91</span>
+                    <input type="text" class="form-control padding-left40" name="mobile" placeholder="Mobile no." id="txtmobilelogin">
+                    <span class="cwsprite error-icon hide"></span>
+                    <div class="cw-blackbg-tooltip hide">Please enter your mobile number</div>
+                </div>
+                <div class="form-control-box margin-bottom20 pw-box-form">
+                    <input type="password" class="form-control" name="password" placeholder="Password" id="txtRegPasswd">
+                    <span class="cwsprite error-icon hide"></span>
+                    <div class="cw-blackbg-tooltip hide">Please enter your password</div>
+                </div>
+                <div class="form-control-box margin-bottom20 confrm-pw-box-form">
+                    <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" id="txtConfPasswdlogin">
+                    <span class="cwsprite error-icon hide"></span>
+                    <div class="cw-blackbg-tooltip hide">Please enter your password</div>
+                </div>
+                <div class="margin-bottom30 font12">
+                    <label for="agreecheck">
+                        By signing up, you agree with the 
+                        <a href="/visitoragreement.aspx">User Agreement</a> & <a href="/privacypolicy.aspx">Privacy Policy</a>
+                    </label>
+                </div>
+                <button type="button" id="btnSignUp" class="signupBtnLogin btn btn-orange text-uppercase margin-bottom15 margin-right10" onclick="initRegisterCust();">sign up</button>
+                <button type="button" id="btnSignUpBack" class="btn btn-white btn-md text-uppercase margin-bottom15">back</button>
+            </div>
+        </div>
+    </div>
+</div><!-- ends here -->
+<div class="loggedinProfileWrapper" id="loggedinProfileWrapper">
+    <!-- Logged in user profile code starts here -->
+    <div class="profileBoxContent">
+        <div class="loginCloseBtn afterLoginCloseBtn position-abt pos-top10 pos-left10 infoBtn cwsprite cross-md-dark-grey cur-pointer"></div>
+        <div class="user-profile-banner">
+            <div class="user-profile-details padding-left10 padding-top70">
+                <div class="user-profile-image rounded-corner50 text-center">
+                    <span class="cwsprite login-no-photo-icon margin-top5"></span>
+                </div>
+                <div class="user-profile-name">
+                    <p class="font16 text-white padding-left10">@CurrentUser.Name</p>
+                    <a href="/mycarwale/MyContactDetails.aspx" class="font12 text-white padding-left10">Edit profile</a>
+                </div>
+            </div>
+        </div>
+        <div class="user-profile-option-list padding-top20">
+            <ul class="profileUL">
+                <li>
+                    <a href="/mycarwale/myinquiries/mysellinquiry.aspx">
+                        <span class="margin-left15 cwsprite login-edit-icon"></span>
+                        <span class="margin-left20 profile-option-title">Manage my car listing</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/mycarwale/">
+                        <span class="margin-left15 cwsprite login-garage-icon"></span>
+                        <span class="margin-left20 profile-option-title">My Carwale</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/users/changePassword.aspx">
+                        <span class="margin-left15 cwsprite login-password-icon"></span>
+                        <span class="margin-left20 profile-option-title">Change password</span>
+                    </a>
+                </li>
+                <li onclick="clicklogout();">
+                    <a>
+                        <span class="margin-left15 cwsprite login-logout-icon"></span>
+                        <span class="margin-left20 profile-option-title">Log out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

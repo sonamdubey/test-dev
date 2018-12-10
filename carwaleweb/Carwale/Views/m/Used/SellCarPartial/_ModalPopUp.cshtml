@@ -1,0 +1,18 @@
+﻿@model Carwale.UI.ViewModels.Used.SellCar.ModalPopUpViewModel
+
+<span class="modal__close cross-default-15x16"></span>
+<p class="modal__header">@Model.Heading</p>
+@if (!string.IsNullOrWhiteSpace(Model.Description))
+{
+    <p class="modal__description">@Model.Description</p>
+}
+@if (Model.IsNoButtonActive)
+{
+    <a href="@Model.NoButtonLink" class="btn btn-white btn-124-36">@Model.NoButtonText</a>
+}
+@if (Model.IsYesButtonActive)
+{
+    <a href="@Model.YesButtonLink" class="btn btn-orange btn-124-36 modal__close">@Model.YesButtonText</a>
+}
+
+

@@ -1,0 +1,89 @@
+﻿@model Carwale.Entity.CarData.CarModelDetails
+@{Layout = null;}
+
+@using Carwale.UI.PresentationLogic;
+
+<style>
+.color-table{display:table;border-collapse: collapse; border:1px solid #ccc;margin:10px 0px;background:#fff}.color-table thead tr td, .color-table tbody tr td{padding:6px 10px;width:17%;display:table-cell;}.color-table thead tr td{background:#e2e2e2;font-weight:bold;}.color-table tbody tr td{background:#fff;}.color-box{width:100px;height:25px;display:block;border:1px solid #ccc;margin:0 auto;border-radius:3px;overflow:hidden;}.color-table thead tr td, .color-table tbody tr td{width:19%;}.color-table thead tr td:nth-child(2){text-align:center;}.colorinfo { border: 1px solid #ccc;border-radius: 3px;box-shadow: 0 0 3px #fff;width: 110px;margin: 0 auto;padding: 3px;}.color-span {display: block;width: 100%;}.color-expandable {text-overflow: ellipsis;width: 160px;display: block;}.color-truncated  {overflow: hidden;white-space: nowrap; }.grid--no-padding{padding-right:0px !important;padding-left:0px !important;}
+    @@media all and (max-width: 360px) {
+	    .color-table thead tr td, .color-table tbody tr td{width:30%;}
+    }
+    @@media all and (min-width: 700px) {
+        .color-table thead tr td, .color-table tbody tr td {width: 12%;}
+    }
+</style>
+@if (Model != null && Model.ModelColors != null && Model.ModelColors.Count > 0)
+{
+<div class="clear"></div>
+<section class="clearfix" id="colours">
+	<div class="margin-left10 margin-right10">
+		<h2 class="m-special-skin-text">@Model.ModelName Colours</h2>
+		<p class="text-grey m-special-skin-text">
+			@Model.MakeName @Model.ModelName is available/sold in the following colour@(Model.ModelColors.Count > 1 ? "s" : "") in India.
+		</p>
+	</div>
+    <table class="color-table">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Colour</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var modelColor in Model.ModelColors)
+            {
+                var colorLink = EditorialContent.GetColorUrl(Model.MakeName, Model.MaskingName, modelColor.Color, modelColor.ColorId, true);
+                var hexList = modelColor.HexCode.Split(',').ToList();
+                <tr>
+                    <td>
+                        @if (Model.IsModelColorPhotosAvailable)
+                        {
+                            <a class="text-decoration text-grey" href="@colorLink"
+                                data-role="click-tracking" data-event="CWInteractive" data-cat="msite_colour_linkages" data-action="model_page_colour_pallet" data-label="@Model.MakeName @Model.ModelName @modelColor.Color">
+                                <span data-role="inview-imp" data-event="CWNonInteractive" data-cat="msite_colour_linkages" data-action="model_page_colour_pallet_impression" data-label="@Model.MakeName @Model.ModelName @modelColor.Color"
+                                       class='@(modelColor.Color.Length > 20 ? "color-expandable color-truncated" : "")'>@modelColor.Color</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <span class='@(modelColor.Color.Length > 20 ? "color-expandable color-truncated" : "")'>@modelColor.Color</span>
+                        }
+
+                    </td>
+                    <td>
+                        @if (Model.IsModelColorPhotosAvailable)
+                        {
+                            <a href="@colorLink"
+                                data-role="click-tracking" data-event="CWInteractive" data-cat="msite_colour_linkages" data-action="model_page_colour_pallet" data-label="@Model.MakeName @Model.ModelName @modelColor.Color">
+                                <div class="colorinfo">
+                                    <div class="color-box">
+                                        @foreach (var hex in hexList)
+                                        {
+                                            <span class="color-span" style='background-color:#@hex.Trim();height:@(25 / hexList.Count)px'></span>
+                                        }
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        else
+                        {
+                            <div class="colorinfo">
+                                <div class="color-box">
+                                    @foreach (var hex in hexList)
+                                    {
+                                        <span class="color-span" style='background-color:#@hex.Trim();height:@(25 / hexList.Count)px'></span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+            @if (Model.IsModelColorPhotosAvailable)
+            {
+                <tr data-role="inview-imp" data-cat="msite_colour_linkages" data-action="model_page_color_slug_impression" data-label="@Model.MakeName @Model.ModelName"><td colspan="2" style="text-align:center"><a data-role="click-tracking" data-event="CWInteractive" data-action="model_page_color_slug" data-cat="msite_colour_linkages" data-label="@Model.MakeName @Model.ModelName" href="@EditorialContent.GetColorUrl(Model.MakeName, Model.MaskingName, null, 0, true)">View All Colour Images</a></td></tr>
+            }
+        </tbody>            
+    </table>    
+</section>
+}

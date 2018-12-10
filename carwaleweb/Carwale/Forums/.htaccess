@@ -1,0 +1,24 @@
+RewriteEngine On
+
+RewriteMap	mapfile txt:../UrlMappings/mapcats.txt
+RewriteRule ^rss.aspx(.*)						https://%{HTTP_HOST}/forums/? [R=301,NC,L]
+RewriteRule ^product.aspx(.*)					https://%{HTTP_HOST}/forums/? [R=301,NC,L]
+
+# View thread 
+RewriteRule	^viewthread-(.*)-p(.*)\.html	viewthread.aspx?thread=$1&page=$2 [NC,L]
+RewriteRule	^viewthread-([\d]+)\.html		viewthread.aspx?thread=$1 [NC,L]
+RewriteRule	^([\d]+)-(.*)-p([\d]+)\.html	viewthread.aspx?thread=$1&page=$3	[NC,L]
+RewriteRule	^([\d]+)-(.*)\.html				viewthread.aspx?thread=$1	[NC,L]
+
+# sub category mapping
+RewriteRule	^ViewForum-(.*)\.html			viewforums.aspx?forum=$1 [NC,L]
+
+# sub categories
+RewriteRule ^([a-zA-Z1-9-]+)-p([\d]+)/$		viewforums.aspx?forum=${mapfile:$1}&page=$2 [NC,L]
+RewriteRule	^([a-zA-Z1-9-]+)/$				viewforums.aspx?forum=${mapfile:$1} [NC, L]
+
+
+
+
+
+

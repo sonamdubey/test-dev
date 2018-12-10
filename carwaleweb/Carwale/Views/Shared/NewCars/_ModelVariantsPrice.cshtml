@@ -1,0 +1,50 @@
+﻿@model List<Carwale.DTOs.NewCars.NewCarVersionsDTOV2>
+@using Carwale.Entity;
+@using Carwale.Utility;
+
+	<table class="model-section-table version-price-table" id="variants">
+		<thead><tr><th>Variant</th> 
+            @switch (Model[0].CarPriceOverview.PriceStatus) {
+	         case (int)PriceBucket.HaveUserCity:
+		         <th>On-Road@(!string.IsNullOrWhiteSpace(Model[0].CarPriceOverview.City.Name) ? ", " + Model[0].CarPriceOverview.City.Name : string.Empty)<br/>(GST Price)</th>
+		         break;
+	         default:
+		         <th>Ex-Showroom@(!string.IsNullOrWhiteSpace(ViewBag.CityName) ? ", " + ViewBag.CityName : string.Empty)<br/>(GST Price)</th>
+		         break;
+         } 
+            @if(Model.Count > 1 || ViewBag.IsMobile){<th @(ViewBag.IsMobile?"class=comparehead":string.Empty)>Compare</th>}</tr></thead>
+		<tbody>
+			@foreach (var version in Model)
+			{
+					<tr>
+						<td><a title="@ViewBag.ModelName @version.Version:@(!string.IsNullOrWhiteSpace(version.CarFuelType)? version.CarFuelType+", ":string.Empty)@version.TransmissionType"  href="@ManageCarUrl.CreateVersionUrl(ViewBag.MakeName, version.MaskingName, version.VersionMaskingName, ViewBag.IsMobile)">@version.Version</a></td>
+						<td>
+							@version.CarPriceOverview.Price
+							<span class="text-light-grey font14">
+								@if (version.CarPriceOverview.PriceStatus > (int)PriceBucket.HaveUserCity)
+								{
+									@Html.Raw(" <div class='inline-block'><span class='average-info-tooltip class-ad-tooltip info-icon desk-deals-car-sprite deals-car-sprite inline-block'></span><p class='average-info-content hide'>" + version.CarPriceOverview.ReasonText + "</p></div>")
+								}
+							</span>
+						</td>
+						@if (ViewBag.IsMobile)
+						{
+							<td name="tdVersion" class="containerTd comparetd">
+								<div name="chkVersion" imgurl="@ViewBag.ModelSmallImgUrl" versionid="@version.Id" versionname="@version.Version" price='@version.CarPriceOverview.Price.ToString()' onclick="VersionSelectByChkBox(this)" class="divUnCheck chkbox__img"></div>
+							</td>
+						}
+						else if (Model.Count > 1 )
+						{
+							
+								<td  class="compare__chkbox text-center"><input data-version__name="@version.Version" class="chkCompare" value="@version.Id" type="checkbox" /></td>
+						}
+					</tr>
+				}
+		</tbody>
+	</table>
+	@if (Model.Count > 1 && !ViewBag.IsMobile){
+	<div class="margin-top10 margin-bottom10 text-right">
+		<span class="text-grey">Select upto 4 @ViewBag.ModelName variants to compare.</span>
+		<input id="btnCompBottom" type="button" class="btn btn-white text-uppercase" value="Compare" onclick="CompareCars(@ViewBag.WidgetSource);" />
+	</div>
+	}

@@ -1,0 +1,34 @@
+﻿<div class="cw-tabs-data" id="upComingCars">
+	<div class="jcarousel-wrapper upComingCars">
+		<div class="jcarousel">
+			<ul>
+				@{Html.RenderAction("UpcomingCarsHomeScreen", "CarWidgets", new { pageNo = 1, pageSize = 9 });}
+			</ul>
+		</div>
+		<span class="jcarousel-control-left"><span class="cwsprite jcarousel-control-prev"></span></span>
+		<span class="jcarousel-control-right"><span class="cwsprite jcarousel-control-next"></span></span>
+	</div>
+</div>
+<div class="cw-tabs-data hide gst-applied-section" id="topSelling">
+    <div class="jcarousel-wrapper">
+        <div class="jcarousel">
+            <ul>
+                @{Html.RenderAction("PopularCars", "CarWidgets", new { cityId = ViewBag.CityId, pageNo = 1, pageSize = 9 });}
+            </ul>
+        </div>
+        <span class="jcarousel-control-left"><span class="cwsprite jcarousel-control-prev"></span></span>
+        <span class="jcarousel-control-right"><span class="cwsprite jcarousel-control-next"></span></span>
+    </div>
+
+</div>
+<div class="cw-tabs-data hide gst-applied-section" id="newLaunches">
+	<div class="jcarousel-wrapper">
+		<div class="jcarousel">
+			<ul>
+				@{Html.RenderAction("JustLaunchedCars", "CarWidgets", new { cityId = ViewBag.CityId, pageNo = 1, pageSize = 9 });}
+			</ul>
+		</div>
+		<span class="jcarousel-control-left"><span class="cwsprite jcarousel-control-prev"></span></span>
+		<span class="jcarousel-control-right"><span class="cwsprite jcarousel-control-next"></span></span>
+	</div>
+</div>

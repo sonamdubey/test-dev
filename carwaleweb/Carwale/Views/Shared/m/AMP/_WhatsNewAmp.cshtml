@@ -1,0 +1,53 @@
+﻿@model Carwale.DTOs.NewCars.ModelPageDTO_Mobile
+<amp-analytics type="googleanalytics">
+    <script type="application/json">
+        {
+        "vars":{
+        "account":"UA-337359-1"
+        },
+        "triggers":{
+        "OpinionImpression":{
+        "on":"visible",
+        "selector":"#whatsNewAmpModelPageImage",
+        "request":"event",
+        "vars":{
+        "eventCategory": "${ec}",
+        "eventAction": "${ea}",
+        "eventLabel": "${el}"
+        }
+        }
+        }
+        }
+    </script>
+</amp-analytics>
+<div id="whatsNewAmpModelPage" class="whats-new-container">
+    <section>
+        <h2 style=" margin-bottom: -27px;" class=" whats-new-container__title">What's New in @Model.ModelDetails.ModelName</h2>
+    </section>
+    <div style="margin-bottom: 19px;">
+        <amp-img id="whatsNewAmpModelPageImage" data-vars-ec="CarWale_Opinion_whats_new_amp" data-vars-ea="Impression" data-vars-el="@Model.ModelDetails.ModelName" src="https://imgd.aeplcdn.com/0x0/statics/grey.gif" alt="" height="1" width="1">
+        </amp-img>
+    </div>
+    <div class="whats-new__description">
+        <div class="read-more-collapse-container">
+            <div id="shortReviewText">
+                @Html.Raw(Model.WhatsNew.SmallDescription)
+                @{
+                    var showWhatsNewFullDescription = (Model.WhatsNew.PageList[0].Content.Replace("<p>", string.Empty).Replace("</p>", string.Empty)).Length > 175;
+                }
+                @if (showWhatsNewFullDescription)
+                {
+                    <span data-vars-ec="CarWale_Opinion_whats_new_amp" data-vars-ea="more_clicked" data-vars-el="@Model.ModelDetails.ModelName" class=" read-more-collapse-link" on="tap: shortReviewText.hide, fullReviewText.show" role="button" tabindex="0">...More</span>
+                }
+            </div>
+            @if (showWhatsNewFullDescription)
+            {
+                <div id="fullReviewText" hidden>
+                    @Html.Raw(Model.WhatsNew.PageList[0].Content)
+                    <span data-vars-ec="CarWale_Opinion_whats_new_amp" data-vars-ea="collapse_clicked" data-vars-el="@Model.ModelDetails.ModelName" class="read-more-collapse-link" on="tap: shortReviewText.show, fullReviewText.hide" role="button" tabindex="0">Collapse</span>
+                </div>
+            }
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>

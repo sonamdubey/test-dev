@@ -1,0 +1,92 @@
+﻿@import 'variables.scss';
+
+@mixin section {
+	.section {
+		background-color: map-get($color-map, 'white');
+
+		> {
+			* {
+				&:first-child {
+					padding-top: 15px;
+					margin-top: 0;
+				}
+
+				&:last-child {
+					padding-bottom: 25px;
+				}
+			}
+		}
+	}
+}
+
+@mixin section-head {
+	.section-head {
+		padding: 15px 15px 7.5px;
+	}
+}
+
+@mixin section-primary-title($text-transform: none) {
+	.section-primary-title {
+		color: map-get($color-map, 'charcoal');
+		font-size: 18px;
+		font-weight: $font-bold;
+		text-transform: $text-transform;
+	}
+}
+
+@mixin section-supporting-text {
+	.section-supporting-text {
+		margin-top: 10px;
+		color: map-get($color-map, 'text-grey');
+		font-size: 15px;
+	}
+}
+
+@mixin section-body {
+	.section-body {
+		margin-top: 7.5px;
+		padding-bottom: 15px;
+	}
+}
+
+@mixin section-footer {
+	.section-footer {
+		padding: 0 15px 25px;
+		text-align: center;
+
+		.btn-secondary,
+		.button-white {
+			width: 100%;
+		}
+
+		.view-all-link {
+			font-size: 15px;
+		}
+	}
+}
+
+.section--snow {
+	.section-body,
+	.section-footer {
+		background-color: map-get($color-map, 'snow-bg');
+	}
+}
+
+.section--white-smoke {
+	.section-body,
+	.section-footer {
+		background-color: map-get($color-map, 'grey-bg');
+	}
+}
+
+.section {
+    &.section--table {
+        .section-body {
+            padding-bottom: 15px;
+        }
+
+        table {
+            background-color: map-get($color-map, 'snow-bg');
+        }
+    }
+}

@@ -1,0 +1,370 @@
+﻿@model Carwale.UI.ViewModels.Used.SellCar.StockConditionViewModel
+
+<div id="formCarCondition" class="car-condition-form">
+	<p class="condition-carousel__title">The more details you provide, the more responses you will get</p>
+
+	<div class="jcarousel-wrapper jcarousel--car-condition">
+		<div id="carConditionCarousel" class="jcarousel">
+			<ul class="screen__body body-group">
+
+				<li class="body__item" data-questiontype="accidentalQuestion">
+					<div class="screen-head__banner">
+						<span class="screen-head__icon condition-accident-icon"></span>
+					</div>
+
+					<p class="screen-body__title">Has your vehicle ever met with an accident?</p>
+					<div class="btn-pill-group pill-group--type-input field--bottom-space item__radio-group">
+						<div class="list-group__item">
+							<input type="radio" name="accidentCondition" id="accident1" value="true">
+							<label for="accident1" class="btn-pill pill--150-14">Yes</label>
+						</div>
+						<div class="list-group__item">
+							<input type="radio" name="accidentCondition" id="accident0" value="false">
+							<label for="accident0" class="btn-pill pill--150-14">No</label>
+						</div>
+					</div>
+
+					<div class="item__condition-body body--width-320">
+						<div class="input-box field-box">
+							<input type="text" id="getAccidentDetails" maxlength="200">
+							<label for="getAccidentDetails">Please fill details</label>
+							<span class="boundary"></span>
+							<span class="error-text"></span>
+						</div>
+
+						<input type="button" class="btn btn-orange btn--next" value="Next">
+					</div>
+				</li>
+
+				<li class="body__item" data-questiontype="partsReplacedQuestion">
+					<div class="screen-head__banner">
+						<span class="screen-head__icon condition-body-parts-icon"></span>
+					</div>
+
+					<p class="screen-body__title">Any body parts replaced from the original assembly?</p>
+					<div class="btn-pill-group pill-group--type-input field--bottom-space item__radio-group">
+						<div class="list-group__item">
+							<input type="radio" name="partsAssembly" id="assembly1" value="true">
+							<label for="assembly1" class="btn-pill pill--150-14">Yes</label>
+						</div>
+						<div class="list-group__item">
+							<input type="radio" name="partsAssembly" id="assembly0" value="false">
+							<label for="assembly0" class="btn-pill pill--150-14">No</label>
+						</div>
+					</div>
+
+					<div class="item__condition-body">
+						<p class="screen-body__subtitle margin-bottom15">If Yes, Which parts did you get replaced?</p>
+						<div class="input-box field-box">
+							<input type="text" id="getReplacedParts" maxlength="50">
+							<label for="getReplacedParts">Parts</label>
+							<span class="boundary"></span>
+							<span class="error-text"></span>
+						</div>
+
+						<p class="body-item__note margin-bottom10">Here are some parts you've replaced</p>
+						<div id="replacedParts" class="btn-pill-group pill-group--type-input btn-group--checkbox">
+                            @foreach (var part in Model.ListParts)
+                            {
+                                <div class="list-group__item">
+                                    <input type="checkbox" name="replacedPart" id="replacedPart@(part.SubCategoryId)" value="@(part.SubCategoryId)">
+                                    <label for="replacedPart@(part.SubCategoryId)" class="btn-inv-teal">@(part.SubCategoryName)</label>
+                                </div>
+                            }
+						</div>
+
+						<input type="button" class="btn btn-orange btn--next" value="Next">
+						
+					</div>
+				</li>
+
+				<li class="body__item" data-questiontype="insuranceClaimedQuestion">
+					<div class="screen-head__banner">
+						<span class="screen-head__icon condition-insurance-icon"></span>
+					</div>
+
+					<p class="screen-body__title">Has an insurance claim ever been filed on this vehicle?</p>
+					<div class="btn-pill-group pill-group--type-input field--bottom-space item__radio-group">
+						<div class="list-group__item">
+							<input type="radio" class="condition" name="insuranceClaim" id="insuranceClaim1" value="true">
+							<label for="insuranceClaim1" class="btn-pill pill--150-14">Yes</label>
+						</div>
+						<div class="list-group__item">
+							<input type="radio" class="condition" name="insuranceClaim" id="insuranceClaim0" value="false">
+							<label for="insuranceClaim0" class="btn-pill pill--150-14">No</label>
+						</div>
+					</div>
+
+					<div class="item__condition-body body--width-320">
+						<p class="screen-body__subtitle">How much were the total claims?</p>
+						<div class="input-box field-box input-prefix--rupee prefix-default--inr">
+						<input type="tel" id="getTotalClaims" class="input--format-value" maxlength="12">
+						<span class="boundary"></span>
+						<span class="error-text"></span>
+					</div>
+
+						<input type="button" class="btn btn-orange btn--next" value="Next">
+					</div>
+				</li>
+
+				<li class="body__item" data-questiontype="serviceQuestion">
+					<div class="screen-head__banner">
+						<span class="screen-head__icon condition-service-icon"></span>
+					</div>
+
+					<p class="screen-body__title">Has your car been regularly serviced through authorized service centre?</p>
+					<div class="btn-pill-group pill-group--type-input field--bottom-space item__radio-group">
+						<div class="list-group__item">
+							<input type="radio" name="serviceCenter" id="serviceCenter1" value="true">
+							<label for="serviceCenter1" class="btn-pill pill--150-14">Yes</label>
+						</div>
+						<div class="list-group__item">
+							<input type="radio" name="serviceCenter" id="serviceCenter0" value="false">
+							<label for="serviceCenter0" class="btn-pill pill--150-14">No</label>
+						</div>
+					</div>
+				</li>
+
+				<li class="body__item" data-questiontype="loanQuestion">
+					<div class="screen-head__banner">
+						<span class="screen-head__icon condition-loan-icon"></span>
+					</div>
+
+					<p class="screen-body__title">Is there any existing loan on the car?</p>
+					<div class="btn-pill-group pill-group--type-input field--bottom-space item__radio-group">
+						<div class="list-group__item">
+							<input type="radio" name="hypothecate" id="hypothecate1" value="true">
+							<label for="hypothecate1" class="btn-pill pill--150-14">Yes</label>
+						</div>
+						<div class="list-group__item">
+							<input type="radio" name="hypothecate" id="hypothecate0" value="false">
+							<label for="hypothecate0" class="btn-pill pill--150-14">No</label>
+						</div>
+					</div>
+
+					<div class="item__condition-body body--width-320">
+						<p class="margin-bottom30">Outstanding Loan Amount &#x20b9; <input type="tel" id="getLoanAmount" class="input--format-value" maxlength="12">
+						</p>
+
+						<input type="button" class="btn btn-orange btn--next" value="Next">
+					</div>
+				</li>
+
+				<li class="body__item" data-questiontype="tyreConditionQuestion">
+					<div class="screen-head__banner">
+						<span class="screen-head__icon condition-tyre-icon"></span>
+					</div>
+
+					<p class="screen-body__title">Tyre Condition?</p>
+					<div class="btn-pill-group pill-group--type-input field--bottom-space item__radio-group">
+						<div class="list-group__item">
+							<input type="radio" name="tyreCondition" id="tyreCondition0" value="true">
+							<label for="tyreCondition0" class="btn-pill pill--150-14">Original Fitted</label>
+						</div>
+						<div class="list-group__item">
+							<input type="radio" name="tyreCondition" id="tyreCondition1" value="false">
+							<label for="tyreCondition1" class="btn-pill pill--150-14">Changed</label>
+						</div>
+					</div>
+
+					<div class="item__condition-body body--width-320">
+						<p class="screen-body__subtitle margin-bottom15">Changed tyres at</p>
+						<div class="input-box field-box">
+							<input type="tel" id="getChangedTyresKms" class="input--format-value" maxlength="8">
+							<label for="getChangedTyresKms">Kms</label>
+							<span class="boundary"></span>
+							<span class="error-text"></span>
+						</div>
+
+						<input type="button" class="btn btn-orange btn--next" value="Next">
+					</div>
+				</li>
+
+				<li class="body__item" data-questiontype="wearTearQuestion">
+					<div class="screen-head__banner">
+						<span class="screen-head__icon condition-wear-tear-icon"></span>
+					</div>
+
+					<p class="screen-body__title">Signs of Wear and Tear?</p>
+					<div class="btn-pill-group pill-group--type-input field--bottom-space item__radio-group">
+						<div class="list-group__item">
+							<input type="radio" name="wearAndTear" id="wearAndTear1" value="true">
+							<label for="wearAndTear1" class="btn-pill pill--150-14">Yes</label>
+						</div>
+						<div class="list-group__item">
+							<input type="radio" name="wearAndTear" id="wearAndTear0" value="false">
+							<label for="wearAndTear0" class="btn-pill pill--150-14">No</label>
+						</div>
+					</div>
+
+					<div class="item__condition-body validate-nested-body">
+						<div class="margin-bottom10">
+							<p class="condition-body__heading">Minor Scratches</p>
+							<div id="getScratches" class="btn-pill-group pill-group--type-input btn-group--checkbox">
+                                @foreach (var part in Model.ListMinorScratches)
+                                {
+								    <div class="list-group__item">
+									    <input type="checkbox" name="scratch" id="scratch@(part.SubCategoryId)" value="@(part.SubCategoryId)">
+									    <label for="scratch@(part.SubCategoryId)" class="btn-inv-teal">@(part.SubCategoryName)</label>
+								    </div>
+                                }
+							</div>
+
+							<div id="otherMinorScratches" class="item__subcondition-body validate-body">
+								<div class="input-box field-box validate-type-input">
+									<input type="text" id="getOtherScratch" maxlength="50">
+									<label for="getOtherScratch">Please fill other details</label>
+									<span class="boundary"></span>
+									<span class="error-text"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="margin-bottom10">
+							<p class="condition-body__heading">Dents</p>
+							<div id="getDents" class="btn-pill-group pill-group--type-input btn-group--checkbox">
+                                @foreach (var part in Model.ListDents)
+                                {
+								    <div class="list-group__item">
+									    <input type="checkbox" name="signDent" id="signDent@(part.SubCategoryId)" value="@(part.SubCategoryId)">
+									    <label for="signDent@(part.SubCategoryId)" class="btn-inv-teal">@(part.SubCategoryName)</label>
+								    </div>
+                                }
+							</div>
+
+							<div id="otherDents" class="item__subcondition-body validate-body">
+								<div class="input-box field-box validate-type-input">
+									<input type="text" id="getOtherDent" maxlength="50">
+									<label for="getOtherDent">Please fill other details</label>
+									<span class="boundary"></span>
+									<span class="error-text"></span>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<p class="condition-body__heading margin-bottom10">Car Repainted</p>
+							<div class="btn-pill-group pill-group--type-input item__radio-group">
+								<div class="list-group__item">
+									<input type="radio" name="carRepaint" id="carRepaint1" value="true">
+									<label for="carRepaint1" class="btn-pill pill--auto-12">Yes</label>
+								</div>
+								<div class="list-group__item">
+									<input type="radio" name="carRepaint" id="carRepaint0" value="false">
+									<label for="carRepaint0" class="btn-pill pill--auto-12">No</label>
+								</div>
+							</div>
+						</div>
+
+						<input type="button" class="btn btn-orange btn--next" value="Next">
+					</div>
+				</li>
+
+				<li class="body__item" data-questiontype="mechanicalIssueQuestion">
+					<div class="screen-head__banner">
+						<span class="screen-head__icon condition-mechanic-icon"></span>
+					</div>
+
+					<p class="screen-body__title">Mechanical Issues?</p>
+					<div class="btn-pill-group pill-group--type-input field--bottom-space item__radio-group">
+						<div class="list-group__item">
+							<input type="radio" name="mechIssue" id="mechIssue1" value="true">
+							<label for="mechIssue1" class="btn-pill pill--150-14">Yes</label>
+						</div>
+						<div class="list-group__item">
+							<input type="radio" name="mechIssue" id="mechIssue0" value="false">
+							<label for="mechIssue0" class="btn-pill pill--150-14">No</label>
+						</div>
+					</div>
+
+					<div class="item__condition-body validate-nested-body">
+						<div class="margin-bottom10">
+							<p class="condition-body__heading">Engine</p>
+							<div id="getEngineIssue" class="btn-pill-group pill-group--type-input btn-group--checkbox">
+                                @foreach (var part in Model.ListEngineIssues)
+                                {
+								    <div class="list-group__item">
+									    <input type="checkbox" name="issueEngine" id="issueEngine@(part.SubCategoryId)" value="@(part.SubCategoryId)">
+									    <label for="issueEngine@(part.SubCategoryId)" class="btn-inv-teal">@(part.SubCategoryName)</label>
+								    </div>
+                                }
+                            </div>
+
+							<div id="otherEngineIssue" class="item__subcondition-body validate-body">
+								<div class="input-box field-box validate-type-input">
+									<input type="text" id="getOtherEngineIssue" maxlength="50">
+									<label for="getOtherEngineIssue">Please fill other issues</label>
+									<span class="boundary"></span>
+									<span class="error-text"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="margin-bottom10">
+							<p class="condition-body__heading">Electrical System</p>
+							<div id="getElectricIssue" class="btn-pill-group pill-group--type-input btn-group--checkbox">
+                                @foreach (var part in Model.ListElectricalIssues)
+                                {
+								    <div class="list-group__item">
+									    <input type="checkbox" name="issueElectric" id="issueElectric@(part.SubCategoryId)" value="@(part.SubCategoryId)">
+									    <label for="issueElectric@(part.SubCategoryId)" class="btn-inv-teal">@(part.SubCategoryName)</label>
+								    </div>
+                                }
+                            </div>
+							<div id="otherElectricIssue" class="item__subcondition-body validate-body">
+								<div class="input-box field-box validate-type-input">
+									<input type="text" id="getOtherElectricIssue" maxlength="50">
+									<label for="getOtherElectricIssue">Please fill other issues</label>
+									<span class="boundary"></span>
+									<span class="error-text"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="margin-bottom10">
+							<p class="condition-body__heading">Suspension needs replacement?</p>
+							<div class="btn-pill-group pill-group--type-input">
+								<div class="list-group__item">
+									<input type="radio" name="suspensionReplace" id="suspensionReplace1" value="true">
+									<label for="suspensionReplace1" class="btn-pill pill--auto-12">Yes</label>
+								</div>
+								<div class="list-group__item">
+									<input type="radio" name="suspensionReplace" id="suspensionReplace0" value="false">
+									<label for="suspensionReplace0" class="btn-pill pill--auto-12">No</label>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<p class="condition-body__heading">Is A/C working?</p>
+							<div class="btn-pill-group pill-group--type-input">
+								<div class="list-group__item">
+									<input type="radio" name="acWorking" id="acWorking1" value="true">
+									<label for="acWorking1" class="btn-pill pill--auto-12">Yes</label>
+								</div>
+								<div class="list-group__item">
+									<input type="radio" name="acWorking" id="acWorking0" value="false">
+									<label for="acWorking0" class="btn-pill pill--auto-12">No</label>
+								</div>
+							</div>
+						</div>
+						
+						<input type="button" class="btn btn-orange btn--next" value="Next">
+					</div>
+				</li>
+
+				
+				<li class="body__item" data-questiontype="fuelEconomyQuestion">
+                    @{ Html.RenderPartial("~/Views/Used/SellCarPartial/_FuelEconomy.cshtml");}
+				</li>		
+
+			</ul>
+		</div>
+		<span class="jcarousel-control-left">
+			<span class="cwsprite jcarousel-control-prev"></span>
+		</span>
+		<span class="jcarousel-control-right">
+			<span class="cwsprite jcarousel-control-next"></span>
+		</span>
+	</div>
+</div>

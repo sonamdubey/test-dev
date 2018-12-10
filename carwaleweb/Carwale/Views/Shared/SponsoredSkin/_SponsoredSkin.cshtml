@@ -1,0 +1,48 @@
+﻿@model Int32
+@{
+    var sponsoredBackground = Carwale.UI.PresentationLogic.SponsoredCampaignLogic.GetSponsoredBackground(14, Model, 12, "", 1);
+}
+
+@if (sponsoredBackground != null)
+{
+    if (!string.IsNullOrWhiteSpace(sponsoredBackground.Ad_Html))
+    {
+        <style type="text/css">
+                @sponsoredBackground.Ad_Html
+        </style>
+    }
+    else if(Model==43){
+
+    <style>
+        /* Mobile Background skin change style */
+        body.m-special-skin-body { background: url("https://imgd.aeplcdn.com/0x0/cw/es/marazzo-skin/m-model-page-skin-bg.jpg?10092018") top center repeat-y #05262e; }
+        body.m-home-special-page.m-special-skin-body { background-image: url("https://imgd.aeplcdn.com/0x0/cw/es/marazzo-skin/m-homepage-skinbg-01.jpg?20180910"), url("https://imgd.aeplcdn.com/0x0/cw/es/marazzo-skin/m-homepage-skinbg-02.jpg?20180910"); background-repeat: no-repeat, repeat-y; background-position: center 330px, center 600px; background-color: #05262e; background-size: auto; }
+        body.m-special-skin-body .skin-extra-bg, body.m-special-skin-body .skin-extra-bg.otp-no-field, body.m-special-skin-body .edit-flow-form { background: #fff; }
+        body.m-special-skin-body .skin-extra-bg { padding-top: 20px;  margin-bottom: 10px; }
+        body.m-special-skin-body .skin-extra-bg.otp-no-field { padding: 15px; margin-bottom: 10px; }
+        body.m-special-skin-body .edit-flow-form {padding-top:20px;}
+        .app-banner{display:none;}
+   </style>
+    
+    }
+    else
+    {
+    <style type="text/css">
+        /* Desktop Background skin change style */
+        body.special-skin-body { background: url("https://imgd.aeplcdn.com/0x0/cw/es/marazzo-skin/model-page-skin-bgimage.jpg?10092018") center top repeat-y #05262e; }
+        body.home-special-page { background-color: #05262e; background-image: url("https://imgd.aeplcdn.com/0x0/cw/es/marazzo-skin/marazzo-homepage-skinbg-01.jpg?10092018"), url("https://imgd.aeplcdn.com/0x0/cw/es/marazzo-skin/marazzo-homepage-skinbg-02.jpg?10092018"); background-repeat: no-repeat,no-repeat; background-position: center 580px, center 2687px; }            
+        body.special-landing-page.special-skin-body { background-position: center 130px; }
+        .update-skin-change-bg .cw-tabs-data, body.special-skin-body .special-padding { padding-left: 10px; padding-right: 10px; }
+        #divFullDesc p{color: #fff;}
+    </style>    
+    }
+    <style>
+        /* Mobile & Desktop Common Style */
+        body .m-no-bg-color, body .no-bg-color, .m-no-bg-color, .no-bg-color { background: none; border: none; box-shadow: none; }
+        body.m-special-skin-body .m-special-skin-text, body.special-skin-body .special-skin-text {color: #ffffff !important;    }
+        .m-update-skin-change-bg .cw-tabs-panel, .update-skin-change-bg .cw-tabs-panel {background: #fff;}
+        body.m-home-special-page .section-hide, body.home-special-page .section-hide {display: none;}
+        body.m-special-skin-body .offer-container {background: transparent;}
+        body.m-special-skin-body .offer-footer {background: #033745; margin-left: -10px; margin-right: -10px; padding: 10px;}
+    </style>
+}

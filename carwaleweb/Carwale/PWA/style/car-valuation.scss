@@ -1,0 +1,76 @@
+// Core variables and mixins
+@import 'scss/partials/utils';
+@import 'scss/partials/mixins';
+@import 'scss/partials/variables';
+@import 'scss/partials/typography';
+@import 'scss/partials/button';
+@import 'scss/partials/input';
+
+// Reset and dependencies
+@import 'scss/normalize';
+
+// Core CSS
+@import 'scss/base';
+
+$isMobile: true;
+
+@import 'scss/header';
+@import 'scss/ripple';
+
+@import 'scss/navigation-drawer';
+@import 'scss/footer';
+@import 'scss/refresh-bar';
+
+// valuation
+.valuation__content {
+	background: color('snow-2');
+}
+
+// valuation head
+.valuation-content__head {
+	padding: 20px;
+}
+
+.valuation__heading {
+	color: $base-color;
+	font-size: 18px;
+	font-weight: $font-bold
+}
+
+// valuation body
+.valuation-content__body {
+	background: color('white');
+}
+
+// owners
+@import 'scss/owners';
+
+
+// switch
+@import 'scss/valuation-type-switch';
+@include valuation-switch__togglewrapper;
+
+// manufacturing date
+@import 'scss/date-input';
+
+// make
+@import 'scss/car-selection';
+@import 'scss/filter-item';
+
+@include filter-item;
+
+// city selection
+@import 'scss/city-selection';
+@include location-popup(right);
+// km driven
+@import 'scss/_kilometer-driven';
+
+// btn
+@import 'scss/partials/button';
+
+.valuation-button__container {
+    padding: 25px 20px;
+}
+@include btn('primary');
+
+@import 'scss/valuation-report'

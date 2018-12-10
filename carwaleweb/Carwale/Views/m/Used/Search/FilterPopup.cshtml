@@ -1,0 +1,411 @@
+﻿@model IEnumerable<Carwale.Entity.CarData.CarMakeEntityBase>
+
+<div class="filter-popup__header">
+    <div class="popup-head__left-content">
+        <button id="filterBack" class="filter-popup__back" data-role="click-tracking" data-event="CWNonInteractive" data-action="FilterBackButtonClicked" data-cat="MSite_UsedCarSearch">
+        </button>
+        <h2 class="filter-popup-head__title">Filters</h2>
+        @*<span class="filter-car__count">10 car(s) found</span>*@
+    </div>
+    <div class="popup-head__right-content">
+        <button id="clearFilter" class="filter-popup__clear-btn">Clear</button>
+    </div>
+</div>
+<ul class="accordion__list filter__list filter-alert-points">
+    @*<!-- City section starts here -->*@
+    <li class="accordion-list__item accordion-list--active">
+        <div class="accordion__head">
+            <div class="accordion-head__content">
+                <h3 class="accordion-head__title">City</h3>
+                <p id="cityAccordionHead" class="accordion-head__selected-item"></p>
+            </div>
+        </div>
+        <div class="accordion__body accordion-body__default-show">
+            <div class="accordion-body__content">
+                <div class="body-content__item">
+                    <div id="citySelection" class="body-content__input-field">
+                        <div id="selectCity" cityid="0">
+                            <span id="cityLabel" class="selected-text input-field-state">Search for all Cities</span>
+                            <span id="areaLabel" class="selected-text input-field-state">Ghatkopar(W)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    @*<!-- Budget starts here -->*@
+    <li class="accordion-list__item">
+        <div class="accordion__head">
+            <div class="accordion-head__content">
+                <span id="budgetValues" class="hide"></span>
+                <h3 class="accordion-head__title">Budget</h3>
+                <p class="accordion-head__selected-item" id="budgetText">All Range</p>
+            </div>
+        </div>
+        <div class="accordion__body">
+            <div class="slider-box accordion-body__content">
+                <div class="body-content__item filter-item__slider">
+                    <div id="mSlider-budget" class="ui-corner-all filter-slider__container">
+                        <span class="ui-slider-handle filter-slider__bullets" tabindex="0">
+                            <span class="slider__value-tooltip slider-tooltip--min-value"></span>
+                        </span>
+                        <span class="ui-slider-handle filter-slider__bullets" tabindex="0">
+                            <span class="slider__value-tooltip slider-tooltip--max-value"></span>
+                        </span>
+                    </div>
+                    <span class="slider__value slider__min-value">Any</span>
+                    <span class="slider__value slider__max-value">20 + Lakhs</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    @*<!-- Manufacturer starts here -->*@
+    <li class="accordion-list__item">
+        <div class="accordion__head">
+            <div class="accordion-head__content">
+                <h3 class="accordion-head__title">Manufacturer</h3>
+                <p id="manufacturerAccordionHead" class="accordion-head__selected-item"></p>
+            </div>
+        </div>
+        <div class="accordion__body">
+            <div class="accordion-body__content">
+                <div class="body-content__item">
+                    <div id="manufacturerSelection" class="body-content__input-field">
+                        <div class="input-field-state">Select another car</div>
+                    </div>
+                </div>
+                <div class="selected-car hide">
+                    <ul id="carLabel"></ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </li>
+    @*<!-- age slider starts here -->*@
+    <li class="accordion-list__item">
+        <div class="accordion__head">
+            <div class="accordion-head__content">
+                <span id="ageValues" class="hide"></span>
+                <h3 class="accordion-head__title">Car Age</h3>
+                <p class="accordion-head__selected-item" id="ageText">All Range</p>
+            </div>
+        </div>
+        <div class="accordion__body">
+            <div class="slider-box accordion-body__content">
+                <div class="body-content__item filter-item__slider">
+                    <div id="mSlider-age" class="ui-corner-all filter-slider__container">
+                        <span class="ui-slider-handle filter-slider__bullets" tabindex="0">
+                            <span class="slider__value-tooltip slider-tooltip--min-value"></span>
+                        </span>
+                        <span class="ui-slider-handle filter-slider__bullets" tabindex="0">
+                            <span class="slider__value-tooltip slider-tooltip--max-value"></span>
+                        </span>
+                    </div>
+                    <span class="slider__value slider__min-value">0 year</span>
+                    <span class="slider__value slider__max-value">8 + year</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    @*<!-- kilometer slider starts here -->*@
+    <li class="accordion-list__item">
+        <div class="accordion__head">
+            <div class="accordion-head__content">
+                <span id="kmsValues" class="hide"></span>
+                <h3 class="accordion-head__title">Kilometer</h3>
+                <p class="accordion-head__selected-item" id="kmText">All Range</p>
+            </div>
+        </div>
+        <div class="accordion__body">
+            <div class="slider-box accordion-body__content">
+                <div class="body-content__item filter-item__slider">
+                    <div id="mSlider-km" class="ui-corner-all filter-slider__container">
+                        <span class="ui-slider-handle filter-slider__bullets" tabindex="0">
+                            <span class="slider__value-tooltip slider-tooltip--min-value"></span>
+                        </span>
+                        <span class="ui-slider-handle filter-slider__bullets" tabindex="0">
+                            <span class="slider__value-tooltip slider-tooltip--max-value"></span>
+                        </span>
+                    </div>
+                    <span class="slider__value slider__min-value">0 kms</span>
+                    <span class="slider__value slider__max-value">80,000 + kms</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    @*<!-- show cars starts here -->*@
+    <li class="accordion-list__item">
+        <div class="accordion__head">
+            <div class="accordion-head__content">
+                <h3 class="accordion-head__title">Only Show Cars With</h3>
+                <p class="accordion-head__selected-item"></p>
+            </div>
+        </div>
+        <div class="accordion__body">
+            <div class="accordion-body__content chkbox-list">
+                <ul id="additional" class="checkbox__list">
+                    <li class="checkbox-list__item" filterid="2" data-item-name="Photos">
+                        <div class="checkbox-list-item__name">Photos
+                            <div class="item-selection__indicator"></div>
+                        </div>
+                    </li>
+                    <li class="checkbox-list__item" filterid="1" data-item-name="Certified Cars">
+                        <div class="checkbox-list-item__name">Certified Cars
+                            <div class="item-selection__indicator"></div>
+                        </div>
+                    </li>
+                    @*<!-- To be uncommented when enough franchise stocks are added.
+                        <li class="checkbox-list__item" filterid="3" data-item-name="Franchisee">
+                            <div class="checkbox-list-item__name">Franchisee
+                                <div class="item-selection__indicator"></div>
+                            </div>
+                        </li>
+                    -->*@
+                </ul>
+             </div>
+        </div>
+    </li>
+    @*<!-- Fuel code starts here -->*@
+    <li class="accordion-list__item">
+        <div class="accordion__head">
+            <div class="accordion-head__content">
+                <h3 class="accordion-head__title">Fuel</h3>
+                <p class="accordion-head__selected-item"></p>
+            </div>
+        </div>
+        <div class="accordion__body">
+            <div>
+                <ul id="fuel" class="filter-body__icon-list">
+                    <li filterid="1" class="icon-list__item" data-item-name="Petrol">
+                        <div class="fuel-type__img-container">
+                            <img class="list-item__img fuel-type__img" src="https://imgd.aeplcdn.com/0x0/cw/fuel/svg/petrol.svg" alt="Petrol">
+                        </div>
+                        <p class="list-item__name">Petrol</p>
+                    </li>
+                    <li filterid="2" class="icon-list__item" data-item-name="Diesel">
+                        <div class="fuel-type__img-container">
+                            <img class="list-item__img fuel-type__img" src="https://imgd.aeplcdn.com/0x0/cw/fuel/svg/diesel.svg" alt="Diesel">
+                        </div>
+                        <p class="list-item__name">Diesel</p>
+                    </li>
+                    <li filterid="3" class="icon-list__item" data-item-name="CNG">
+                        <div class="fuel-type__img-container">
+                            <img class="list-item__img fuel-type__img" src="https://imgd.aeplcdn.com/0x0/cw/fuel/svg/cng.svg" alt="CNG">
+                        </div>
+                        <p class="list-item__name">CNG</p>
+                    </li>
+                    <li filterid="4" class="icon-list__item" data-item-name="LPG">
+                        <div class="fuel-type__img-container">
+                            <img class="list-item__img fuel-type__img" src="https://imgd.aeplcdn.com/0x0/cw/fuel/svg/lpg.svg" alt="CNG">
+                        </div>
+                        <p class="list-item__name">LPG</p>
+                    </li>
+                    <li filterid="5" class="icon-list__item" data-item-name="Electric">
+                        <div class="fuel-type__img-container">
+                            <img class="list-item__img fuel-type__img" src="https://imgd.aeplcdn.com/0x0/cw/fuel/svg/electric.svg" alt="Electric">
+                        </div>
+                        <p class="list-item__name">Electric</p>
+                    </li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+        </div>
+    </li>
+    @*<!-- ownership code starts here -->*@
+    <li class="accordion-list__item">
+        <div class="accordion__head">
+            <div class="accordion-head__content">
+                <h3 class="accordion-head__title">Ownership</h3>
+                <p class="accordion-head__selected-item"></p>
+            </div>
+        </div>
+        <div class="accordion__body">
+            <div>
+                <ul id="ownership" class="filter-body__icon-list">
+                    <li filterid="1" class="icon-list__item" data-item-name="First">
+                        <div class="icon-list-item__img-container ownership-list__item">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/owner/svg/first.svg" alt="First" class="list-item__img ownership-list-item__img">
+                        </div>
+                        <p class="list-item__name">First</p>
+                    </li>
+                    <li filterid="2" class="icon-list__item" data-item-name="Second">
+                        <div class="icon-list-item__img-container ownership-list__item">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/owner/svg/second.svg" alt="Second" class="list-item__img ownership-list-item__img">
+                        </div>
+                        <p class="list-item__name">Second</p>
+                    </li>
+                    <li filterid="3" class="icon-list__item" data-item-name="Third">
+                        <div class="icon-list-item__img-container ownership-list__item">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/owner/svg/third.svg" alt="Third" class="list-item__img ownership-list-item__img">
+                        </div>
+                        <p class="list-item__name">Third</p>
+                    </li>
+                    <li filterid="6" class="icon-list__item" data-item-name="Unregistered">
+                        <div class="icon-list-item__img-container ownership-list__item">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/owner/svg/unregistered.svg" alt="Unregistered" class="list-item__img ownership-list-item__img">
+                        </div>
+                        <p class="list-item__name">Unregistered</p>
+                    </li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+        </div>
+    </li>
+    @*<!-- body type code starts here -->*@
+    <li class="accordion-list__item">
+        <div class="accordion__head">
+            <div class="accordion-head__content">
+                <h3 class="accordion-head__title">Body Type</h3>
+                <p class="accordion-head__selected-item"></p>
+            </div>
+        </div>
+        <div class="accordion__body">
+            <div>
+                <ul id="bodyType" class="filter-body__icon-list">
+                    <li filterid="3" class="icon-list__item" data-item-name="Hatchback">
+                        <div class="icon-list-item__img-container">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/body/svg/hatchback_clr.svg" alt="Hatchback" class="list-item__img">
+                        </div>
+                        <p class="list-item__name">Hatchback</p>
+                    </li>
+                    <li filterid="1" class="icon-list__item" data-item-name="Sedan">
+                        <div class="icon-list-item__img-container">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/body/svg/sedan_clr.svg" alt="Sedan" class="list-item__img">
+                        </div>
+                        <p class="list-item__name">Sedan</p>
+                    </li>
+                    <li filterid="6" class="icon-list__item" data-item-name="Muv/Suv">
+                        <div class="icon-list-item__img-container">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/body/svg/suv_clr.svg" alt="SUV/MUV" class="list-item__img">
+                        </div>
+                        <p class="list-item__name">Muv/Suv</p>
+                    </li>
+                    <li filterid="7" class="icon-list__item" data-item-name="Truck">
+                        <div class="icon-list-item__img-container">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/body/svg/truck_clr.svg" alt="Truck" class="list-item__img">
+                        </div>
+                        <p class="list-item__name">Truck</p>
+                    </li>
+                    <li filterid="5" class="icon-list__item" data-item-name="Convertible">
+                        <div class="icon-list-item__img-container">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/body/svg/convertible_clr.svg" alt="Convertible" class="list-item__img">
+                        </div>
+                        <p class="list-item__name">Convertible</p>
+                    </li>
+                    <li filterid="8" class="icon-list__item" data-item-name="Station Wagon">
+                        <div class="icon-list-item__img-container">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/body/svg/wagon_clr.svg" alt="Station Wagon" class="list-item__img">
+                        </div>
+                        <p class="list-item__name">Station Wagon</p>
+                    </li>
+                    <li filterid="2" class="icon-list__item" data-item-name="Coupe">
+                        <div class="icon-list-item__img-container">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/body/svg/coupe_clr.svg" alt="Coupe" class="list-item__img">
+                        </div>
+                        <p class="list-item__name">Coupe</p>
+                    </li>
+                    <li filterid="4" class="icon-list__item" data-item-name="Mini Van">
+                        <div class="icon-list-item__img-container">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/body/svg/van_clr.svg" alt="Minivan/Van" class="list-item__img">
+                        </div>
+                        <p class="list-item__name">Mini Van</p>
+                    </li>
+                    <li filterid="9" class="icon-list__item" data-item-name="Compact Sedan">
+                        <div class="icon-list-item__img-container">
+                            <img src="https://imgd.aeplcdn.com/0x0/cw/body/svg/compactsedan_clr.svg" alt="Compact Sedan" class="list-item__img">
+                        </div>
+                        <p class="list-item__name">Compact Sedan</p>
+                    </li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+        </div>
+    </li>
+    @*<!-- transmission code starts here -->*@
+    <li class="accordion-list__item">
+        <div class="accordion__head">
+            <div class="accordion-head__content">
+                <h3 class="accordion-head__title">Transmission</h3>
+                <p class="accordion-head__selected-item"></p>
+            </div>
+        </div>
+        <div class="accordion__body">
+            <div>
+                <ul id="transmission" class="filter-body__icon-list">
+                    <li filterid="2" class="icon-list__item transmission-type__list-item" data-item-name="Manual">
+                        <div class="icon-list-item__img-container">
+                            <img class="list-item__img" src="https://imgd.aeplcdn.com/0x0/cw/transmission/svg/manual_clr.svg?v=1" alt="Manual">
+                        </div>
+                        <p class="list-item__name">Manual</p>
+                    </li>
+                    <li filterid="1" class="icon-list__item transmission-type__list-item" data-item-name="Automatic">
+                        <div class="icon-list-item__img-container">
+                            <img class="list-item__img" src="https://imgd.aeplcdn.com/0x0/cw/transmission/svg/automatic_clr.svg?v=1" alt="Automatic">
+                        </div>
+                        <p class="list-item__name">Automatic</p>
+                    </li>
+                    <div class="clear"></div>
+                </ul>
+            </div>
+        </div>
+    </li>
+</ul>
+<div id="btnApplyFilter" class="apply-filters bg-white">
+    <button class="btn btn-orange btn-full-width text-uppercase " href="javascript:void(0)">Apply</button>
+</div>
+
+@*<!-- select car starts here -->*@
+<div id="makeList" class="city-car-filter hide" >
+    <div class="top-corner">
+        <span id="btnMakeBack" class="content-inner-block-10 padding-right30">
+            <span popupname="filterpopup" class="cwmsprite back-long-arrow-left-white margin-top5"></span>
+        </span>
+        <span class="margin-left10">Select Car</span>
+    </div>
+    <ul class="popup_content makeSelection">
+        @if (Model != null)
+        {
+            foreach (var make in Model)
+            {
+                <li value=@make.MakeId>@make.MakeName</li>
+            }
+        }
+    </ul>
+</div>
+
+@*<!-- select vesion starts here -->*@
+<div id="ucModelListDiv" class="version-selection hide" >
+    <div class="top-corner">
+        <span id="btnModelBack" class="content-inner-block-10 padding-right30">
+            <span popupname="filterpopup" class="cwmsprite back-long-arrow-left-white margin-top5"></span>
+        </span>
+        <span class="margin-left10">Select Model</span>
+    </div>
+    <ul class="popup_content">
+        <li><a id="chkAllModels">All Models</a> </li>
+    </ul>
+    <ul id="modelListing" class="popup_content"></ul>
+    <!--Submit btn starts here-->
+    <div id="btnSubmit" class="apply-filters bg-white">
+        <a class="btn btn-orange btn-full-width text-uppercase" href="javascript:void(0)">Submit</a>
+    </div>
+</div>
+
+@*<!--City Popup starts here-->*@
+<div id="cityList" class="city-car-filter fixedSearchPopup hide" >
+    <div data-role="header" class="ui-corner-top top-corner">
+        <span id="btnCityBack" class="content-inner-block-10 padding-right30">
+            <span popupname="filterpopup" class="cwmsprite back-long-arrow-left-white margin-top5"></span>
+        </span>
+        <span class="margin-left10">Select City</span>
+    </div>
+    <div class="bg-grey content-inner-block-10 search-box cross-box-wrap">
+        <span class="cross-box hide" id="search-cross" onclick="clearSearchText(this)">
+            <span class="cwmsprite cross-md-dark-grey"></span>
+        </span>
+        <input class="form-control" type="text" id="popupCityTextBox" placeholder="Filter cities here">
+    </div>
+    <div class="popup_content">
+        <ul id="popupCityList" class="ui-content" popupname="citypopup"></ul>
+    </div>
+</div>

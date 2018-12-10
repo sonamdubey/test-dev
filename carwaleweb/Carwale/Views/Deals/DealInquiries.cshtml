@@ -1,0 +1,165 @@
+﻿@model Carwale.DTOs.Deals.DealsStockDTO
+
+@{
+    ViewBag.PageTag = "A-3";    
+    ViewBag.BodyClass = "bg-white header-fixed-inner";
+    ViewBag.Title = "Thank You | CarWale Advantage";
+    ViewBag.Description = "";
+    ViewBag.CustomCss = "~/Views/StaticPartials/Deals/DealsCSS.cshtml";
+    ViewBag.CustomJS = "~/Views/StaticPartials/Deals/DealsScript.cshtml";
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.Canonical = "https://www.carwale.com" + Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+}
+
+<section class="container">
+    <div class="grid-12 padding-left5 padding-right5 padding-top10">
+      
+        <div class="content-inner-block-10 content-box-shadow rounded-corner2 margin-bottom30">
+            @if (ViewBag.Success != null && ViewBag.Success)
+            {
+                <div id="successSection" class="thanks-details">
+                    <div class="text-center padding-top5 padding-bottom15">
+                        <span class="green-thanks-icon"></span>
+                        <br />
+                        <span class="font20 padding-top10 text-black text-bold">Congratulations!</span>
+                        <p class="text-light-grey margin-top20 text-center font18 text-bold">You've successfully completed transaction against following car:</p>
+                    </div>
+
+                    <div class="grid-12 border-solid margin-bottom20">
+                        @if (Model != null && Model.StockCount > 0)
+                        {
+                            <div class="padding-top10 padding-bottom10 show">
+                                <div class="aged-final-product-img grid-5 text-center">
+                                    <img src="@Carwale.Utility.ImageSizes.CreateImageUrl(Model.CarImageDetails.HostUrl, Carwale.Utility.ImageSizes._310X174, Model.CarImageDetails.OriginalImgPath)?wm=0" alt="" title="" onerror="this.src = '@Carwale.Utility.ImageSizes.CreateImageUrl(Model.CarImageDetails.HostUrl, Carwale.Utility.ImageSizes._310X174, Model.CarImageDetails.OriginalImgPath)'" />
+                                </div>
+                                <div class="aged-final-product-img grid-7">
+                                    <div class="grid-12 margin-bottom20 alpha omega">
+                                        <div class="grid-5"><span class="font14 text-light-grey">Transaction Id :</span></div>
+                                        <div class="grid-7 alpha">
+                                            <span class="font14 text-black text-bold">@ViewBag.TransactionId</span><br />
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="grid-12 margin-bottom20 alpha omega">
+                                        <div class="grid-5"><span class="font14 text-light-grey">Car :</span></div>
+                                        <div class="grid-7 alpha">
+                                            <span class="font14 text-black text-bold">@(Model.Make.MakeName) @(Model.Model.ModelName.Split('[')[0])</span><br />
+                                            <span class="font12">@Model.Version.Name</span><br />
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+
+                                    <div class="grid-12 margin-bottom20 alpha omega">
+                                        <div class="grid-5"><span class="font14 text-light-grey">Colour :</span></div>
+                                        <div class="grid-7 alpha">
+                                            <span class="color-code-circle-sm" style="background-color:#@(Model.Color.HexCode);"></span>
+                                            <span class="font14 text-black padding-left5 text-bold">@Model.Color.ColorName</span>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="grid-12 margin-bottom20 alpha omega">
+                                        <div class="grid-5"><span class="font14 text-light-grey">Year :</span></div>
+                                        <div class="grid-7 alpha">
+                                            <span class="font14 text-black text-bold">@Model.ManufacturingYear</span>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <h3 class="font18 margin-top20 margin-bottom10 text-center text-grey">Next steps</h3>
+                    <div class="content-inner-block-20 border-solid show font14 text-light-grey bullet-confirmation">
+                        <p class="margin-bottom20 font14 position-rel"><span class="fa fa-circle position-abt pos-top5 text-grey"></span><span class="font14 padding-left20 block">You will be notified once the booking is confirmed by the partner dealer.</span></p>
+                        <p class="margin-top10 font14 position-rel"><span class="fa fa-circle position-abt pos-top5 text-grey"></span><span class="font14 padding-left20 block">Once confirmed, please visit the dealership for completion of transaction.</span></p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+
+            <!-- /successSection -->
+            }
+            else
+            {
+                <div id="failureSection" class="thanks-details">
+                    <div class="text-center padding-top5 padding-bottom15">
+                        <span class="cw-circle-icon failure-icon"></span>
+                        <br />
+                        <span class="font20 padding-top10 text-black text-bold">Oops !</span>
+                        <p class="text-light-grey margin-top20 text-center font18 text-bold">Your transaction could not be completed</p>
+
+
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = "/deals/retrypayment/" + Model.StockId + "/" }))
+                        {
+                            <div class="text-center margin-top20">
+                                <input type="submit" value="retry" id="retryBtn" class="btn btn-orange text-uppercase" />
+                            </div>
+                        }
+                    </div>
+
+                    <div class="grid-12 border-solid margin-bottom20">
+                        @if (Model != null && Model.StockCount > 0)
+                        {
+                            <div class="padding-top10 padding-bottom10 show">
+                                <div class="aged-final-product-img grid-5 text-center">
+                                    <img src="@Carwale.Utility.ImageSizes.CreateImageUrl(Model.CarImageDetails.HostUrl, Carwale.Utility.ImageSizes._310X174, Model.CarImageDetails.OriginalImgPath)?wm=0" alt="" title="" onerror="this.src = '@Carwale.Utility.ImageSizes.CreateImageUrl(Model.CarImageDetails.HostUrl, Carwale.Utility.ImageSizes._310X174, Model.CarImageDetails.OriginalImgPath)'" />
+                                </div>
+                                <div class="aged-final-product-img grid-7">
+                                    <div class="grid-12 margin-bottom20 alpha omega">
+                                        <div class="grid-5"><span class="font14 text-light-grey">Transaction Id :</span></div>
+                                        <div class="grid-7 alpha">
+                                            <span class="font14 text-black text-bold">@ViewBag.TransactionId</span><br />
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="grid-12 margin-bottom20 alpha omega">
+                                        <div class="grid-5"><span class="font14 text-light-grey">Car :</span></div>
+                                        <div class="grid-7 alpha">
+                                            <span class="font14 text-black text-bold">@(Model.Make.MakeName) @(Model.Model.ModelName.Split('[')[0])</span><br />
+                                            <span class="font12">@Model.Version.Name</span><br />
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+
+                                    <div class="grid-12 margin-bottom20 alpha omega">
+                                        <div class="grid-5"><span class="font14 text-light-grey">Colour :</span></div>
+                                        <div class="grid-7 alpha">
+                                            <span class="color-code-circle-sm" style="background-color:#@(Model.Color.HexCode);"></span>
+                                            <span class="font14 text-black padding-left5 text-bold">@Model.Color.ColorName</span>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="grid-12 margin-bottom20 alpha omega">
+                                        <div class="grid-5"><span class="font14 text-light-grey">Year :</span></div>
+                                        <div class="grid-7 alpha">
+                                            <span class="font14 text-black text-bold">@Model.ManufacturingYear</span>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            <!-- /failureSection -->
+            }
+
+
+
+
+            <div class="text-center aged-call-details margin-top25 margin-bottom10">
+                <p class="font20 text-bold text-grey margin-bottom10">For Further Queries</p>
+                <p class="font16 text-grey margin-bottom10">Reach out to us at</p>
+                <p class="font20 aged-phone-no"><span class="fa fa-phone"></span>@(System.Configuration.ConfigurationManager.AppSettings["CarwaleAdvantageMaskingNumber"] ?? "1800 2090 230")</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+<!-- /thankyou-section -->
+@{Html.RenderPartial("~/Views/Shared/Deals/_DealFaq.cshtml");}
+<script>
+    $(document).ready(function(){Deals.utils.bindNumberSlug();});
+</script>

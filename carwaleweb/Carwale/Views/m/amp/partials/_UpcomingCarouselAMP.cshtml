@@ -1,0 +1,42 @@
+﻿@model List<Carwale.Entity.CarData.UpcomingCarModel>
+@using Carwale.UI.Common;
+
+@if (Model != null && Model.Any())
+{
+<section>
+    <h2>Upcoming @ViewBag.MakeName cars</h2>
+    <amp-carousel height="300"
+                  layout="fixed-height"
+                  type="carousel">
+    
+            @foreach (var item in Model)
+    {
+                <div class="carousel__item">
+                    <a href="@Carwale.Utility.ManageCarUrl.CreateModelUrl(item.MakeName,item.MaskingName)">
+                        @if (!string.IsNullOrEmpty(item.Image.ImagePath))
+                        {
+                            <amp-img src="@Carwale.Utility.ImageSizes.CreateImageUrl(item.Image.HostUrl, Carwale.Utility.ImageSizes._272X153, item.Image.ImagePath)"
+                                     width="272"
+                                     height="153"
+                                     alt="@item.MakeName @item.ModelName"></amp-img>
+                        }
+                        else
+                        {
+                            <amp-img src="https://imgd.aeplcdn.com/272X153/cw/cars/no-cars.jpg" title="@item.MakeName @item.ModelName" alt="@item.MakeName @item.ModelName"
+                                     width="272"
+                                     height="153"
+                                     layout="responsive">
+                            </amp-img>
+                        }
+                        <div class="carousel__item__text">
+                            <h3><b>@item.MakeName  @item.ModelName</b></h3>
+                            <p class="margin-bottom10">Estimated price: <b>₹ @Html.Raw(item.Price.MaxPrice == item.Price.MinPrice ? FormatPrice.GetFormattedPriceV2(item.Price.MinPrice.ToString()) : FormatPrice.GetFormattedPriceV2(item.Price.MinPrice.ToString(), item.Price.MaxPrice.ToString()))</b></p>
+                            <p class="margin-bottom10">Expected launch: <b>@item.ExpectedLaunch</b></p>
+                        </div>
+                    </a>
+                </div>
+           
+        }
+    </amp-carousel>
+</section>
+}

@@ -1,0 +1,89 @@
+﻿@model Carwale.UI.ViewModels.Used.MyListings.LandingPageViewModel
+@using Carwale.Entity.Enum;
+
+@{
+    Layout = Model.Source == Platform.CarwaleMobile ? "~/views/shared/m/_MLayoutV3.cshtml" : "~/views/shared/m/_MLayoutAppV3.cshtml";
+    ViewBag.BodyClass = "bg-white";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MUsedHomePageCss.cshtml";
+    ViewBag.CustomJS = "~/Views/StaticPartials/m/MUsedHomePageScript.cshtml";
+}
+
+@section Plugins{
+    <script type="text/javascript" src="/static/m/js/plugins/chosen-mobile.js" defer></script>
+}
+
+@section atfcss{
+    <link rel="stylesheet" href="/static/sass/m/css/common-atf.css" type="text/css" inline>
+    <link rel="stylesheet" href="/static/sass/m/css/sell-car-listing-atf.css" type="text/css" inline />
+}
+@section btfcss{   
+    <link rel="stylesheet" href="/static/sass/m/css/sell-car-editflow.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/globalcitypopup.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/globalcarsearch.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/nav.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/footer.css" type="text/css">
+    <link rel="stylesheet" href="/static/sass/m/css/sell-car-listing-btf.css" type="text/css" />
+}
+
+@section MetaData{
+    @{Html.RenderAction("MetaData", "ModelComponent", Model.MetaData);}
+}
+
+@section Scripts{
+    <script type="text/javascript" src="/static/m/js/used/sellcar/validation.js" defer></script>
+    <script type="text/javascript" src="~/Static/js/used/sellcar/editCarTracking.js"></script>
+    <script type="text/javascript" src="~/Static/m/js/used/sellcar/editCarCommon.js"></script>
+    <script type="text/javascript" src="/static/m/js/used/sellcar/editFlow.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/used/sellcar/edit-flow-listing.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/misc.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/form-misc.js" defer></script>
+    <script type="text/javascript" src="/static/m/js/chosen-selection-misc.js" defer></script>
+}
+
+<section class="container">
+    <div class="grid-12">
+       @{int platform = (int)Model.Source;}
+        <div class="edit-search-form" data-platform="@platform">
+            <div class="margin-bottom15 banner-img">
+                <img src="https://imgd.aeplcdn.com/0x0/cw/static/icons/svg/usedcar/editcar/edit-sell-car-banner.png" alt="" title="">
+            </div>
+            <h1 class="text-center font16 screen-head__title margin-bottom20 m-special-skin-text">Search your car listing by</h1>
+            <div class="cw-tabs-panel button-tab padding-left10 padding-right10 skin-extra-bg">
+                <div class="cw-tabs cw-tabs-flex cw-tabs-inner-margin40 cw-model-tabs">
+                    <ul>
+                        <li class="active" data-tabs="EditMobile"><span class="font14">Mobile</span></li>
+                        <li data-tabs="EditProfileId"><span class="font14">Profile Id</span></li>
+                    </ul>
+                </div>
+                <div class="cw-tabs-data" id="EditMobile">
+                    <div id="MobileSearch" class="input-box field-box form-control-box">
+                        <input type="tel" id="MobSearch" autocomplete="off" autofocus maxlength="10">
+                        <label for="MobSearch">Mobile </label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                        <span class="fa fa-spinner fa-spin hide"></span>
+                    </div>
+                </div>
+                <div id="EditProfileId" class="cw-tabs-data hide">
+                    <div id="ProfileSearch" class="input-box field-box form-control-box">
+                        <input type="text" id="ProIdSearch" autocomplete="off" autofocus maxlength="10">
+                        <label for=" proidsearch">Profile Id </label>
+                        <span class="boundary"></span>
+                        <span class="error-text"></span>
+                        <span class="fa fa-spinner fa-spin hide"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center btn-section padding-left10 padding-right10">
+                <input type="button" id="submitEditSearch" class="btn btn-orange btn-fullwidth-48 margin-bottom15" value="Continue">
+            </div>
+        </div>
+        <div class="edit-otp-form listings searchresult hide">
+        </div>
+        </div>
+    <div id="loadingScreen" class="loader-bg"><span class="loader__spin loader--fixed"></span></div>
+    <div class="clear"></div>
+    <div id="modalPopUp" class="modal-box" data-current=""></div>
+    <div id="modalBg" class="modal-bg-layout"></div>
+</section>
+<div class="clear"></div>

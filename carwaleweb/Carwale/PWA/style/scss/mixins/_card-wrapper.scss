@@ -1,0 +1,35 @@
+﻿@mixin card-wrapper($card-spacing: 6px,$end-paddigns: 15px) {
+	.card-wrapper__item {
+		padding-left: $card-spacing;
+		padding-right: $card-spacing;
+		display: inline-block;
+		vertical-align: top;
+	}
+
+	.card-wrapper {
+		position: relative;
+		width: 100%;
+		overflow-x: auto;
+		white-space: nowrap;
+		z-index: 1;
+
+		.card-wrapper__item {
+			&:first-child {
+				padding-left: $end-paddigns;
+			}
+
+			&:last-child {
+				padding-right: $end-paddigns;
+			}
+
+			&:only-child {
+				width: 100%;
+
+				.cw-card {
+					height: 100%;
+					width: 100%;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,1935 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/* aged car sprite */
+.desk-deals-car-sprite {
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/sprites/desk-aged-car-sprite.png?v2=19022016) no-repeat 0 0;
+  display: inline-block;
+}
+
+/* Booking details pages css*/
+/* booking sprite */
+.desk-aged-car-sprite + span.iconTtl {
+  display: block;
+  margin: 10px 0 0 0;
+}
+
+span.iconTtl {
+  display: block;
+}
+
+.car-icon, .personal-icon, .payment-icon {
+  width: 58px;
+  height: 58px;
+}
+
+.car-icon {
+  background-position: 0 -79px;
+}
+
+.personal-icon {
+  background-position: 0 -112px;
+}
+
+.payment-icon {
+  background-position: 0 -182px;
+}
+
+.details-tabs.active-tab .car-icon {
+  background-position: -72px -45px;
+}
+
+.details-tabs.active-tab .personal-icon {
+  background-position: -72px -112px;
+}
+
+.details-tabs.active-tab .payment-icon {
+  background-position: -72px -182px;
+}
+
+.details-tabs.active-tab span.iconTtl {
+  font-weight: bold;
+}
+
+.booking-tabs ul {
+  display: table;
+  margin: 0 auto 10px;
+}
+
+.booking-tabs ul li {
+  display: inline-block;
+  vertical-align: top;
+  width: 190px;
+  text-align: center;
+  position: relative;
+}
+
+.details-tabs {
+  cursor: pointer;
+}
+
+.details-icon-wrap {
+  position: relative;
+}
+
+.details-icon-wrap:after, .details-icon-wrap:before {
+  border-top: 2px dotted #ccc;
+  top: 26px;
+  position: absolute;
+  content: "";
+  width: 35%;
+  z-index: 0;
+}
+
+.details-icon-wrap:after {
+  right: -2px;
+}
+
+.details-icon-wrap:before {
+  left: 0;
+}
+
+.first .details-icon-wrap:before, .last .details-icon-wrap:after {
+  display: none;
+}
+
+.ticked .details-icon-wrap:before {
+  border-color: #565a5c;
+}
+
+.ticked .first-tick.details-icon-wrap:after,.ticked .center-tick.details-icon-wrap:after {
+  border-color: #565a5c;
+}
+
+.color-code-circle-sm {
+  background: #ccbfac;
+  width: 24px;
+  height: 24px;
+  display: block;
+  border: 1px solid #ccc;
+}
+
+.color-code-circle-sm {
+  width: 20px;
+  height: 20px;
+}
+
+.color-code-circle-sm, .color-code-circle-sm + span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.booking-steps {
+  width: 40%;
+  display: inline-block;
+  vertical-align: top;
+  min-height: 240px;
+  margin: 0 10px;
+  padding: 0 10px;
+}
+
+.disabled-tab {
+  cursor: not-allowed !important;
+}
+
+.fa.payment-rs-icon {
+  font-weight: normal;
+}
+
+.agree-terms-text {
+  font-weight: bold;
+}
+
+.agree-checkbox {
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+.agree-text {
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+
+#carDetails .tooltip {
+  min-width: 130px;
+  left: -250%;
+}
+
+.personal-detail-form .form-control-box {
+  width: 30%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.booking-details .color-details-outer,.booking-details .year-type {
+  display: inline-block;
+}
+
+.final-price-text {
+  line-height: 34px;
+}
+
+.final-amt-text {
+  vertical-align: top;
+  padding-bottom: 1px;
+}
+
+.booking-details .year-type {
+  margin-top: 12px;
+}
+
+.booking-details .offer-details-slab {
+  width: 60%;
+}
+
+.booking-details .aged-phone-no .fa-phone {
+  margin: 2px 0 2px 0;
+}
+
+.booking-details .note-text {
+  display: block;
+}
+
+.car-left {
+  vertical-align: top;
+  padding: 8px 0 0 0;
+}
+
+/* thank you and failure screen style */
+.bullet-confirmation .fa-circle {
+  font-size: 10px;
+  color: #a8afb3;
+}
+
+.thanks-details {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.aged-phone-no {
+  font-weight: 600;
+}
+
+.aged-phone-no .fa-phone {
+  color: #2fa70a;
+  margin: 2px 5px 0 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.failure-icon {
+  width: 96px;
+  height: 93px;
+  background-position: -1721px 0;
+}
+
+/* aged car sprite */
+.advantage-logo {
+  background-position: 0 -332px;
+  width: 90px;
+  height: 16px;
+  position: relative;
+  top: 2px;
+}
+
+.bullet-lg {
+  background-position: -82px -2px;
+  width: 10px;
+  height: 10px;
+}
+
+.bullet-sm {
+  background-position: -82px -20px;
+  width: 8px;
+  height: 8px;
+  position: relative;
+  top: -2px;
+}
+
+.dealer-ic {
+  background-position: 0 -250px;
+  width: 20px;
+  height: 25px;
+}
+
+.manufactured-ic {
+  background-position: -29px -250px;
+  width: 20px;
+  height: 24px;
+}
+
+.fuel-type {
+  background-position: -59px -250px;
+  width: 41px;
+  height: 30px;
+}
+
+.petrol-fuel {
+  background-position: -146px -51px;
+  width: 32px;
+  height: 43px;
+}
+
+.diesel-fuel {
+  background-position: -146px 0;
+  width: 32px;
+  height: 43px;
+}
+
+.cng-fuel {
+  background-position: -142px -105px;
+  width: 57px;
+  height: 43px;
+}
+
+.mileage {
+  background-position: -146px -164px;
+  width: 39px;
+  height: 41px;
+}
+
+.transmission {
+  background-position: -41px -292px;
+  width: 32px;
+  height: 33px;
+}
+
+.manual-transmission {
+  background-position: -86px -292px;
+  width: 32px;
+  height: 33px;
+}
+
+/* Aged Car Product Details Left Section Style */
+.left-section {
+  float: left;
+  width: 310px;
+  height: auto;
+  overflow: hidden;
+  margin: 20px 20px 0 0;
+}
+
+.carThumb img {
+  max-width: 100%;
+  min-height: 100px;
+}
+
+.carDetails {
+  float: left;
+  width: 620px;
+}
+
+.reducedTxt:before {
+  border-top: 1px solid #565a5c;
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+}
+
+/* Aged Car Product Details Right Section Style */
+.car-title-name .fa-pencil {
+  color: #82878b;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.pq-map-pointer {
+  position: absolute;
+  top: 3px;
+  z-index: 3;
+  left: 4px;
+  font-size: 18px;
+  margin: 0 4px 0 4px;
+}
+
+select.aged-city-dropdown {
+  padding-left: 20px;
+}
+
+select.aged-version-dropdown {
+  padding-left: 5px;
+  width: 30%;
+}
+
+.color-detail-section {
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+}
+
+.color-detail-section:last-child {
+  margin-right: 0;
+}
+
+.active-color-shade .color-shade {
+  width: 30px;
+  height: 20px;
+}
+
+.color-shade {
+  width: 30px;
+  height: 20px;
+  margin: 3px 2px 0 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.display-inline {
+  display: inline-block;
+}
+
+.color-detail-section .color-name {
+  margin: 4px 0 0 0;
+  vertical-align: top;
+  display: block;
+  font-size: 12px;
+}
+
+.tick-color {
+  cursor: pointer;
+  font-size: 20px;
+  color: #ffffff;
+  position: absolute;
+  left: 5px;
+  top: 3px;
+  font-weight: normal;
+  background-position: -115px -254px;
+  width: 20px;
+  height: 20px;
+}
+
+.color-name-tooltip.tool-tip-info {
+  display: inline-block;
+  cursor: pointer;
+  margin: 5px auto;
+  position: absolute;
+  text-align: center;
+  width: auto;
+  -webkit-transform: translateZ(0);
+ /* webkit flicker fix */
+  -webkit-font-smoothing: antialiased;
+  z-index: 1;
+}
+
+.color-name-tooltip.tool-tip-info .tooltip {
+  border: 1px solid #cccccc;
+  font-size: 12px;
+  font-weight: normal;
+  width: 205px;
+  background: #ffffff;
+  top: 24px;
+  color: #fff;
+  display: block;
+  left: 37px;
+  right: 0;
+  margin-bottom: 15px;
+  opacity: 0;
+  padding: 15px 10px 5px 10px;
+  pointer-events: none;
+  position: absolute;
+  -webkit-transform: translate(-115px, 0);
+  -moz-transform: translate(-115px, 0);
+  -ms-transform: translate(-115px, 0);
+  -o-transform: translate(-115px, 0);
+  transform: translate(-115px, 0);
+  -webkit-transition: all .25s ease-out;
+  -moz-transition: all .25s ease-out;
+  -ms-transition: all .25s ease-out;
+  -o-transition: all .25s ease-out;
+  transition: all .25s ease-out;
+}
+
+.color-name-tooltip.tool-tip-info .tooltip:after {
+  bottom: -20px;
+  content: " ";
+  display: block;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.color-name-tooltip.tool-tip-info .tooltip:before {
+  border-left: solid transparent 10px;
+  border-right: solid transparent 10px;
+  border-bottom: solid #cccccc 10px;
+  top: -10px;
+  content: " ";
+  height: 0;
+  left: 50%;
+  margin-left: -13px;
+  position: absolute;
+  width: 0;
+}
+
+.color-name-tooltip.tool-tip-info .tooltip.tooltip-details {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translate(-115px, 0px);
+  -moz-transform: translate(-115px, 0px);
+  -ms-transform: translate(-115px, 0px);
+  -o-transform: translate(-115px, 0px);
+  transform: translate(-115px, 0px);
+}
+
+.color-name-tooltip.tool-tip-info .color-detail-section {
+  vertical-align: top;
+  text-align: center;
+}
+
+.color-name-tooltip.tool-tip-info .color-detail-section .color-name {
+  display: block;
+  color: #000;
+  font-size: 12px;
+  margin-top: 0;
+}
+
+.color-name-tooltip.tool-tip-info .color-detail-section .color-shade {
+  width: 30px;
+  height: 30px;
+}
+
+/*.year-type ul {display:inline-block; margin-top:5px; background:#ffffff; font-size:13px; padding:2px 2px; color:#82888b; border:1px solid #104564; border-radius:22px;}*/
+.year-type ul {
+  display: inline-block;
+}
+
+.year-type li {
+  display: inline-block;
+  width: 65px;
+  padding: 5px 0;
+  text-align: center;
+  margin: 0;
+}
+/*.year-type li.active {background:#104564; color:#fff; border-radius:22px; font-weight:bold;}*/
+.year-type select {
+  border: 1px solid #ccc;
+  padding: 3px 20px 3px 2px;
+  display: inline-block;
+  width: auto;
+  font-size: 13px;
+  background-position: 90% 50%;
+}
+
+.year-type select[disabled] {
+  border: 1px solid #fff;
+  background: none;
+  font-family: 'Open Sans', sans-serif, Arial;
+  padding: 3px 0px 3px 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(255,255,255,.075);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,.075);
+}
+
+.offer-details-slab {
+  border: 1px dashed #cccccc;
+  padding: 2px 0 0 0;
+  width: 90%;
+}
+
+.offer-details-slab ul {
+  padding: 2px 10px 5px 10px;
+}
+
+.offer-details-slab li {
+  padding: 0 0 7px 0;
+}
+
+.offer-details-slab li .fa-circle {
+  color: #e2e2e2;
+  margin: 0 3px 0 0;
+  font-size: 12px;
+}
+
+h2 .small-text {
+  font-weight: normal;
+  font-size: 13px;
+  vertical-align: middle;
+}
+
+.product-amt-details {
+  display: block;
+}
+
+.agedbtn-section {
+  display: block;
+  vertical-align: top;
+}
+
+.agedbtn-section .btn {
+  display: inline-block;
+  width: auto;
+}
+
+.more-link:hover {
+  text-decoration: none;
+}
+
+.note-text {
+  display: inline-block;
+}
+
+.not-available-error {
+  display: flex;
+}
+
+.not-available-error .fa-exclamation-triangle {
+  color: #888d91;
+  font-size: 50px;
+  margin-right: 10px;
+}
+
+/* Feature Specification Tabs Style */
+.engineDetails li:first-child {
+  margin: 0;
+}
+
+.engineDetails {
+  width: 750px;
+  margin: 0 auto;
+}
+
+.engineDetails li {
+  width: 250px;
+  display: block;
+  float: left;
+  border-left: 1px solid #ccc;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.engineDetails li:first-child {
+  border: 0 none;
+}
+
+#features li, #specifications li, #overview li {
+  display: inline-block;
+  vertical-align: top;
+  font-size: 16px;
+  margin: 0 0 20px 0;
+  padding: 0 0 25px 15px;
+  border-bottom: 1px solid #F5F5F5;
+  width: 100%;
+}
+
+#overview li {
+  margin: 0 0 0 0;
+  padding: 5px 0 10px 15px;
+}
+
+#features li .featureList li, #specifications li .specList li {
+  margin: 20px 0 0;
+  width: 450px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0;
+  border: none;
+}
+
+#overview li .overviewList li {
+  margin: 5px 0 0;
+  width: 450px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 0;
+  border: none;
+}
+
+.featureList, .specList, .overviewList {
+  display: inline-block;
+}
+
+#specsFeaturesSection .cw-tabs > ul {
+}
+
+/* Make Model PopUp Style */
+.make-model-popup {
+  width: 400px;
+  height: auto;
+  background: #fff;
+  margin: 0 auto;
+  overflow-y: auto;
+  position: fixed;
+  top: 28%;
+  right: 5%;
+  left: 5%;
+  z-index: 10;
+}
+
+/* Common Classes */
+.word-break {
+  word-break: break-all;
+}
+
+.text-default {
+  color: #565a5c;
+}
+
+.text-green {
+  color: #1a9e08;
+}
+
+.text-linethrough {
+  text-decoration: line-through;
+}
+
+.margin-top-min5 {
+  margin-top: -5px;
+}
+
+.hideImportant {
+  display: none!important;
+}
+
+.pd-blackwindow {
+  display: block;
+}
+
+.adv-left-column {
+  width: 310px;
+  float: left;
+}
+/*.aged-offer-color-slab{width:350px;float:left;}*/
+.advantage-right-column {
+  float: right;
+  width: 300px;
+}
+
+/* Advantage PopUp Style */
+.book-now-thumb {
+  width: 32px;
+  height: 32px;
+  background-position: -123px -317px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 2px 4px 0;
+}
+
+.advantage-left-popup {
+  display: inline-block;
+  width: 340px;
+  vertical-align: top;
+  height: 350px;
+}
+
+.advantage-right-popup {
+  display: inline-block;
+  width: 340px;
+  vertical-align: top;
+}
+
+.advantage-logo-section {
+  text-align: left;
+}
+
+.advantage-icon {
+  width: 146px;
+  height: 25px;
+  background-position: 0 -355px;
+  vertical-align: middle;
+  margin: -4px 0 0 0;
+}
+
+#advantage-detail-popup.globalcity-popup {
+  width: 720px;
+  height: 350px;
+}
+
+.advantage-left-popup {
+  -moz-box-shadow: 0 0 9px #cccccc;
+  -webkit-box-shadow: 0 0 9px #cccccc;
+  -o-box-shadow: 0 0 9px #cccccc;
+  -ms-box-shadow: 0 0 9px #cccccc;
+  box-shadow: 0 0 9px #cccccc;
+}
+
+.advantage-left-popup ul .fa-circle {
+  font-size: 10px;
+  vertical-align: top;
+  margin: 7px 5px 0 0;
+}
+
+.form-helper-content li .fa {
+  font-size: 30px;
+  color: #666;
+  vertical-align: top;
+  display: inline-block;
+  width: 25px;
+  padding: 4px 0 0 0;
+}
+
+.what-you-get-text {
+  display: inline-block;
+  padding: 0px 0 0 12px;
+  width: 82%;
+  text-align: left;
+  vertical-align: top;
+}
+
+.advantage-coachmark {
+  width: 350px;
+  left: -107px;
+  top: 40px;
+}
+
+.coachmark-arrow-top {
+  border-left: 8px solid rgba(0, 0, 0, 0);
+  border-right: 8px solid rgba(0, 0, 0, 0);
+  border-bottom: 8px solid #333333;
+  border-top: none;
+  top: -9px;
+  left: 45%;
+}
+
+.coachmark-arrow-top:before {
+  border-left: 8px solid rgba(0, 0, 0, 0);
+  border-right: 8px solid rgba(0, 0, 0, 0);
+  border-bottom: 8px solid #ffffff;
+  border-top: none;
+  content: " ";
+  height: 0;
+  left: -8px;
+  position: absolute;
+  top: 1px;
+  width: 0;
+}
+
+.advantage-coach-info {
+  width: 75%;
+}
+
+/* Car Details Section Style */
+.left-cardetail-section {
+  width: 55%;
+}
+
+.right-cardetail-section {
+  width: 45%;
+}
+
+.right-cardetail-section ul .fa-circle {
+  font-size: 9px;
+  color: #a9afb4;
+}
+
+.aged-phone-no span {
+  font-weight: normal;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.onroad-Price {
+  display: inline-block;
+}
+
+.aged-year-dropdown {
+  display: inline-block;
+  width: auto;
+}
+
+
+/* Offer Section Style */
+.offers-title .offers-text {
+  padding: 0 0 0 5px;
+  line-height: 16px;
+}
+
+.offers-title .offers-top-shadow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 8px 12px;
+  border-color: transparent transparent #0a2838 transparent;
+  position: absolute;
+  top: -8px;
+  left: 0px;
+}
+
+.offers-right-ribbon {
+  position: absolute;
+  top: -11px;
+  right: 0;
+}
+
+.ribbon {
+  height: 13px !important;
+  position: absolute;
+  z-index: 2;
+  width: 0;
+  height: 0;
+}
+
+.ribbon.top {
+  border-bottom: 12px solid transparent;
+  top: 11px;
+  border-top: 0px solid transparent;
+  border-left: 14px solid #12415b;
+  border-right: none;
+}
+
+.ribbon.bottom {
+  top: 20px;
+  border-top: 12px solid transparent;
+  border-bottom: 0px solid transparent;
+  border-left: 14px solid #12415b;
+}
+
+/* Year ToolTip Style */
+.year-info-icon {
+  padding: 2px 5px 2px 5px;
+  border-radius: 50px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-position: -6px -333px;
+  vertical-align: top;
+  margin: 1px 0 0 0;
+}
+
+.year-tooltip.tool-tip-info {
+  display: inline-block;
+  cursor: pointer;
+  margin: 5px auto;
+  text-align: center;
+  width: auto;
+  -webkit-transform: translateZ(0);
+ /* webkit flicker fix */
+  -webkit-font-smoothing: antialiased;
+  z-index: 1;
+}
+
+.year-tooltip.tool-tip-info .tooltip {
+  border: 1px solid #cccccc;
+  font-size: 12px;
+  font-weight: normal;
+  width: 220px;
+  background: #ffffff;
+  left: 142px;
+  top: -17px;
+  display: block;
+  opacity: 0;
+  padding: 5px 10px 5px 10px;
+  pointer-events: none;
+  position: absolute;
+  -webkit-transform: translate(-115px, 0);
+  -moz-transform: translate(-115px, 0);
+  -ms-transform: translate(-115px, 0);
+  -o-transform: translate(-115px, 0);
+  transform: translate(-115px, 0);
+  -webkit-transition: all .25s ease-out;
+  -moz-transition: all .25s ease-out;
+  -ms-transition: all .25s ease-out;
+  -o-transition: all .25s ease-out;
+  transition: all .25s ease-out;
+}
+
+.year-tooltip.tool-tip-info .tooltip:after {
+  bottom: -20px;
+  content: " ";
+  display: block;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.year-tooltip.tool-tip-info .tooltip:before {
+  border-top: solid transparent 10px;
+  border-bottom: solid transparent 10px;
+  border-right: solid #cccccc 10px;
+  top: 14px;
+  content: " ";
+  height: 0;
+  left: -0px;
+  margin-left: -10px;
+  position: absolute;
+  width: 0;
+}
+
+.year-tooltip.tool-tip-info .tooltip.tooltip-details {
+  opacity: 1;
+  pointer-events: auto;
+  -webkit-transform: translate(-115px, 0px);
+  -moz-transform: translate(-115px, 0px);
+  -ms-transform: translate(-115px, 0px);
+  -o-transform: translate(-115px, 0px);
+  transform: translate(-115px, 0px);
+}
+
+/* How it works Style */
+.advantage-work-slug {
+  text-align: center;
+}
+
+.advantage-work-slug .work-steps, .advantage-work-slug .work-arrow-section {
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px 26px 0 26px;
+}
+
+.advantage-work-slug .work-steps {
+  max-width: 240px;
+  text-align: center;
+}
+
+.work-steps p {
+  display: block;
+  margin: 15px auto 10px;
+}
+
+.work-steps h2 span {
+}
+
+.work-arrow {
+  width: 16px;
+  height: 21px;
+  background-position: -27px -330px;
+}
+
+.book-car {
+  width: 88px;
+  height: 52px;
+  background-position: -152px -355px;
+}
+
+.provide-doc {
+  width: 46px;
+  height: 52px;
+  background-position: -166px -287px;
+}
+
+.get-car {
+  width: 39px;
+  height: 52px;
+  background-position: -151px -224px;
+}
+
+/* FAQ Section Style */
+.aged-car-faq-section {
+}
+
+.aged-car-faq-section ul {
+  padding: 0 10px 10px 10px;
+}
+
+.aged-car-faq-section ul li {
+  padding: 4px 0 4px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.faq-details {
+  background: #ffffff;
+}
+
+.faq-ques {
+  width: 93%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.stepStrip {
+  color: #565a5c;
+  font-size: 14px;
+  padding: 6px 10px 6px 10px;
+  min-height: 33px;
+  cursor: pointer;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  position: relative;
+}
+
+.stepStrip .icon {
+  float: right;
+}
+
+.stepStrip .icon .fa {
+  font-size: 13px;
+}
+
+.accordion.open .stepStrip {
+  color: #565a5c;
+  background-color: #fafafa;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.stepStrip.disabled {
+  cursor: not-allowed;
+  background-color: #fff;
+}
+
+li.disabled {
+  cursor: not-allowed;
+  background-color: #fff;
+}
+
+.keySpecsDiv {
+  text-align: center;
+}
+
+.advantage-landing-banner {
+  background: #161209 url(https://imgd.aeplcdn.com/0x0/cw/static/landing-banners/d/d-adv-landing-banner.jpg?v=1) no-repeat right top;
+  background-size: cover;
+  height: 200px;
+  padding-top: 1px;
+}
+
+.banner-img {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.welcome-box {
+  margin-top: 80px;
+}
+
+.advt-tab-wrapper .cw-tabs-flex ul {
+  margin-bottom: 0;
+}
+
+.advt-tab-wrapper .tabHr {
+  bottom: 1px;
+}
+
+.advantage-tab-details {
+  width: 43%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.advantage-tab-details ul .fa-circle {
+  font-size: 8px;
+  color: #969696;
+  vertical-align: top;
+  padding-top: 6px;
+}
+
+#advt-best-saving .jcarousel-wrapper {
+  width: 976px;
+}
+
+#advt-best-saving .jcarousel {
+  width: 934px;
+  overflow: hidden;
+  left: 20px;
+  padding: 10px 0 20px 0;
+}
+
+.best-saving-car ul {
+  margin: 0 3px;
+}
+
+.best-saving-car li {
+  height: 300px;
+  width: 296px;
+  margin: 10px;
+}
+
+.best-saving-car .imageWrapper {
+  width: 296px;
+  height: 166px;
+}
+
+.best-saving-car a {
+  text-decoration: none;
+}
+
+.carTitle a {
+  font-size: 16px;
+}
+
+.advt-find-cars .form-control-box {
+  width: 30%;
+  display: inline-block;
+}
+
+.relevant-offers .best-saving-car li {
+  width: 311px;
+  height: 297px;
+}
+
+.relevant-offers .best-saving-car .imageWrapper {
+  width: 311px;
+  height: 160px;
+}
+
+.relevant-offers .jcarousel {
+  padding: 10px 0 30px 0;
+}
+/*.relevant-offers .jcarousel-wrapper{width:945px;}*/
+.jcarousel a:hover {
+  text-decoration: none;
+}
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.visibility-visible {
+  visibility: visible;
+}
+/* Variant Section Style Starts Here*/
+.variant-fuel-info,.variant-price-info, .variant-discount-info, .variant-final-info, .variant-btn-info, .variant-info-header .variant-fuel-info p {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.variant-fuel-info {
+  width: 40%;
+}
+
+.variant-price-info {
+  width: 15%;
+}
+
+.variant-discount-info {
+  width: 15%;
+}
+
+.variant-final-info {
+  width: 15%;
+}
+
+.variant-btn-info {
+  width: 11%;
+}
+
+.variant-fuel-info p, .variant-price-info p, .variant-discount-info p, .variant-final-info p, .variant-btn-info p {
+  display: block;
+  vertical-align: middle;
+}
+
+.select-checkbox {
+  display: inline-block;
+  vertical-align: sub;
+}
+
+.select-checkbox input {
+  vertical-align: baseline;
+}
+
+.lock-icon, .lock-icon:before {
+  font-size: 15px;
+  color: #666;
+  vertical-align: middle;
+  margin-right: 0;
+}
+
+.lock-text.what-you-get-text {
+  padding-left: 5px;
+  width: 90%;
+}
+
+.user-agreement.photo-cust-agreement {
+  position: absolute;
+  bottom: 10px;
+}
+
+.center-divider {
+  width: 90%;
+  text-align: center;
+  border: none;
+  height: 1px;
+  background: #e2e2e2;
+}
+
+.click-photos-link {
+  background: none repeat scroll 0 0 rgba(255, 255, 255, 0.7);
+  filter: alpha(opacity=70);
+  padding: 6px 8px;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.click-photos-link a {
+  color: #565a5c;
+  font-size: 14px;
+}
+
+.click-photos-link a:hover {
+  text-decoration: none;
+}
+
+.click-photos-link .fa-search-plus:before {
+  font-size: 30px;
+}
+
+.select-checkbox label {
+  vertical-align: middle;
+  margin-right: 12px;
+}
+
+.select-checkbox span {
+  vertical-align: text-bottom;
+}
+
+.variant-fuel-info:hover a {
+  text-decoration: none;
+}
+/* Variant Section Style Ends Here*/
+
+/* filter box classes */
+.main-filter-list {
+  width: 229px;
+  z-index: 0;
+}
+
+.filter-set h3, .manufacture-box h3 {
+  display: block;
+  position: relative;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sub-values .fa-angle-up, .sub-values .fa-angle-down {
+  position: absolute;
+  top: 3px;
+  right: 0px;
+  font-size: 20px;
+  -moz-transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+  -ms-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+}
+
+.slider-box ul li {
+  display: block;
+  float: left;
+  width: 80px;
+}
+
+.list-points-makes .parentCheck, .list-points-makes .list-points-models li {
+  background: url(https://img.aeplcdn.com/design15/d/inputunchecked.png) no-repeat scroll 0 3px;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 8px;
+  padding-left: 30px;
+  position: relative;
+}
+
+.list-points-makes .parentCheck.active, .list-points-makes .list-points-models li.active {
+  background: url(https://img.aeplcdn.com/design15/d/inputChecked.png) no-repeat scroll 0 3px;
+}
+
+.list-points-models {
+  padding-left: 30px;
+}
+
+.ul-makes2 {
+  height: 260px;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.sort-filter-div {
+  padding: 0 0 5px;
+}
+
+.sort-filter-div a {
+  font-size: 14px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.sort-filter-div a:hover {
+  text-decoration: none;
+}
+
+.sort-filter-div .sort-dark-arrow, .sort-filter-div .sort-light-arrow, .sort-filter-div .sort-dark-up-arrow, .sort-filter-div .sort-dark-down-arrow {
+  width: 13px;
+  height: 13px;
+  position: relative;
+  top: 2px;
+}
+
+.sort-filter-div .sort-dark-arrow {
+  background-position: -107px -1px;
+}
+
+.sort-filter-div .sort-light-arrow {
+  background-position: -124px -1px;
+}
+
+.sort-filter-div .sort-dark-up-arrow {
+  background-position: -43px -19px;
+}
+
+.sort-filter-div .sort-dark-down-arrow {
+  background-position: -61px -19px;
+}
+
+.transform {
+  -moz-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  -webkit-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+  -moz-transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+  -ms-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+}
+
+.transformy {
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+  -moz-transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+  -ms-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+}
+
+.go-btn-box {
+  float: left;
+  margin-left: -2px;
+}
+
+/*----------------------------------------------filter icons Sprite-----------------------------------------------------------------------------*/
+.more-filters-list li {
+  display: block;
+  float: left;
+  width: 33.33%;
+  text-align: center;
+  margin: 10px 0 5px;
+}
+
+.more-filters-list li a {
+  color: rgb(102, 102, 102);
+  text-decoration: none;
+}
+
+.cw-right-slider.ui-slider .ui-slider-range {
+  right: 0;
+}
+
+.more-filter-icons {
+  background: url(https://img.aeplcdn.com/design15/m/Filter-icons-sprite.png) no-repeat;
+  display: block;
+  margin: auto;
+}
+/*--Fuel--*/
+a .petrol-gray {
+  background-position: 0px -10px;
+  width: 23px;
+  height: 27px;
+}
+
+.petrol-gray.active-blue {
+  background-position: 0px -46px;
+}
+
+a .diesel-gray {
+  background-position: 0 -81px;
+  width: 23px;
+  height: 27px;
+}
+
+.diesel-gray.active-blue {
+  background-position: 0 -118px;
+}
+
+a .cng-gray {
+  background-position: 0px -153px;
+  width: 38px;
+  height: 28px;
+}
+
+.cng-gray.active-blue {
+  background-position: 0 -190px;
+}
+
+a .lpg-gray {
+  background-position: 0 -227px;
+  width: 38px;
+  height: 28px;
+}
+
+.lpg-gray.active-blue {
+  background-position: 0 -265px;
+}
+/*--Ownership--*/
+a .first-gray {
+  background-position: 0 -303px;
+  width: 22px;
+  height: 23px;
+}
+
+.first-gray.active-blue {
+  background-position: 0 -335px;
+}
+
+a .second-gray {
+  background-position: 0 -367px;
+  width: 31px;
+  height: 23px;
+}
+
+.second-gray.active-blue {
+  background-position: 0 -399px;
+}
+
+a .third-gray {
+  background-position: 0 -431px;
+  width: 45px;
+  height: 23px;
+}
+
+.third-gray.active-blue {
+  background-position: 0 -463px;
+}
+
+a .unregistered-gray {
+  background-position: 0 -495px;
+  width: 26px;
+  height: 26px;
+}
+
+.unregistered-gray.active-blue {
+  background-position: 0 -530px;
+}
+/*--Body Type--*/
+a .hatchback-gray {
+  background-position: 0px -565px;
+  width: 48px;
+  height: 20px;
+}
+
+.hatchback-gray.active-blue {
+  background-position: 0 -594px;
+}
+
+a .sedan-gray {
+  background-position: 0 -624px;
+  width: 53px;
+  height: 18px;
+}
+
+.sedan-gray.active-blue {
+  background-position: 0 -650px;
+}
+
+a .muv-gray {
+  background-position: 0 -677px;
+  width: 52px;
+  height: 20px;
+}
+
+.muv-gray.active-blue {
+  background-position: 0 -705px;
+}
+
+a .truck-gray {
+  background-position: 0 -734px;
+  width: 53px;
+  height: 20px;
+}
+
+.truck-gray.active-blue {
+  background-position: 0 -761px;
+}
+
+a .convertible-gray {
+  background-position: 0px -788px;
+  width: 53px;
+  height: 18px;
+}
+
+.convertible-gray.active-blue {
+  background-position: 0px -814px;
+}
+
+a .mini-van-gray {
+  background-position: 0 -839px;
+  width: 48px;
+  height: 20px;
+}
+
+.mini-van-gray.active-blue {
+  background-position: 0 -867px;
+}
+
+a .coupe-gray {
+  background-position: 0 -949px;
+  width: 53px;
+  height: 19px;
+}
+
+.coupe-gray.active-blue {
+  background-position: 0 -976px;
+}
+
+a .wagon-gray {
+  background-position: 0 -895px;
+  width: 53px;
+  height: 20px;
+}
+
+.wagon-gray.active-blue {
+  background-position: 0 -922px;
+}
+/*--Transmission--*/
+a .all-gray {
+  background-position: 0px -222px;
+  width: 24px;
+  height: 24px;
+}
+
+.all-gray.active-blue {
+  background-position: 0px -251px;
+}
+
+a .manual-gray {
+  background-position: 0 -1004px;
+  width: 26px;
+  height: 26px;
+}
+
+.manual-gray.active-blue {
+  background-position: 0 -1040px;
+}
+
+a .automatic-gray {
+  background-position: 0 -1076px;
+  width: 26px;
+  height: 26px;
+}
+
+.automatic-gray.active-blue {
+  background-position: 0 -1112px;
+}
+
+.emptyDiv {
+  display: block;
+}
+/* stock list classes */
+.soldout-box {
+  background: #fff;
+  padding: 2px 0;
+  position: relative;
+  border-bottom: 1px solid #E2E2E2;
+}
+
+.soldout-content {
+  background: #F9F3D3;
+}
+
+.aged-car-listing {
+  border-bottom: 1px solid #ccc;
+  width: 230px;
+  display: inline-block;
+  margin-right: 15px;
+  vertical-align: top;
+  min-height: 365px;
+  background:#fff;
+}
+
+.aged-car-listing .carDescWrapper {
+  padding-bottom: 5px;
+}
+
+.aged-car-listing:nth-child(3n) {
+  margin-right: 0;
+}
+/*.aged-car-listing:last-child {border-bottom:0 none}*/
+.aged-car-listing:hover a {
+  text-decoration: none;
+}
+
+/* Car Thumb Image Style */
+.aged-car-listing .carThumb {
+  width: 230px;
+}
+
+.aged-car-listing .imageWrapper {
+  width: 100%;
+  height: 125px;
+}
+
+.aged-car-listing  .imageWrapper img {
+  max-width: 100%;
+  height: 100%;
+}
+/* Scrollable Content Managing Style on Product Details */
+.filter-lists {
+  display: inline-block;
+  vertical-align: top;
+  width: 230px;
+  padding: 0 10px 13px 0;
+  position: relative;
+}
+
+.scrollable-content {
+  float: right;
+}
+
+.floating-div {
+  position: fixed;
+  top: 56px;
+  width: 230px;
+}
+
+.floating-div-middle {
+  width: 230px;
+  position: absolute;
+  bottom: 0;
+}
+
+.bottom-stick {
+  position: absolute;
+  bottom: 0;
+  top: auto;
+}
+
+/* Pagination Style Starts Here */
+ul.pagination {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+ul.pagination li {
+  display: inline;
+}
+
+ul.pagination li a {
+  color: black;
+  float: left;
+  padding: 6px 18px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+}
+
+ul.pagination li.active a, #pager .active a {
+  background-color: #ddd;
+  border: 1px solid #ccc;
+}
+
+ul.pagination li a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+ul.pagination li.disabled a {
+  background: #fff;
+}
+
+ul.pagination li.disabled:hover a {
+  background: #fff;
+  cursor: not-allowed;
+}
+
+#header .global-location {
+  display: none;
+}
+
+.margin-left2 {
+  margin-left: 2px;
+}
+
+@media only screen and (max-width:800px) {
+  .outer-product-container .scrollable-content {
+    width: 70%;
+  }
+}
+
+.no-offer-link {
+  visibility: hidden;
+}
+
+.week-offer-img {
+  max-width: 320px;
+}
+
+.week-offer-img img {
+  width: 100%;
+}
+
+.week-offer-content {
+  width: 67.4%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.week-offer-car-info {
+  float: left;
+}
+
+.week-offer-discount-info {
+  float: right;
+  width: 35%;
+}
+
+.week-offer-content a:hover {
+  text-decoration: none;
+}
+
+.advantage-red-logo {
+  background-position: 0 -356px;
+  width: 145px;
+  height: 23px;
+  top: 8px;
+  position: relative;
+}
+
+.advantage-brand-logo .book-now-thumb {
+  margin: 0;
+}
+
+.used-budget-box {
+  width: 166px;
+}
+
+#budgetBtn {
+  width: 113px;
+}
+
+#userBudgetInput .priceBox {
+  width: 58px;
+}
+
+#budgetListContainer {
+  width: 99%;
+}
+
+#budgetListContainer li {
+  float: none;
+  width: auto;
+}
+
+#budgetListContainer {
+  margin-left: 0;
+}
+
+.filter-set h3, .manufacture-box h3 {
+  display: block;
+  position: relative;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sub-values .fa-angle-up, .sub-values .fa-angle-down {
+  position: absolute;
+  top: 3px;
+  right: 0px;
+  font-size: 20px;
+  -moz-transition: all ease 0.5s;
+  -o-transition: all ease 0.5s;
+  -webkit-transition: all ease 0.5s;
+  -ms-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+}
+
+.slider-box ul li {
+  display: block;
+  float: left;
+  width: 80px;
+}
+
+.list-points li .parentCheck {
+  background: url(https://img1.aeplcdn.com/design15/d/inputunchecked.png?v1=04032016) no-repeat scroll 0 3px;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 8px;
+  padding-left: 30px;
+  position: relative;
+}
+
+.list-points li .parentCheck.active {
+  background: url(https://img2.aeplcdn.com/design15/d/inputChecked.png?v1=04032016) no-repeat scroll 0 3px;
+}
+
+.ul-makes2 {
+  height: 260px;
+  overflow-y: scroll;
+  position: relative;
+}
+
+#budgetListContainer {
+  z-index: 5;
+}
+
+#btnSetBudget {
+  z-index: 2;
+  position: relative;
+}
+
+#advantage-version-popup.globalcity-popup {
+  width: 750px;
+  height: 350px;
+}
+
+.version-list-left-popup {
+  width: 280px;
+}
+
+.version-list-left-popup .imageWrapper {
+  width: 210px;
+  height: 125px;
+  margin: 0 auto;
+}
+
+.version-list-left-popup .imageWrapper img {
+  max-width: 100%;
+}
+
+.version-list-right-popup {
+  width: 465px;
+  height: 350px;
+  overflow-y: auto;
+}
+
+.version-section {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.roadprice-section {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.version-section, .roadprice-section {
+}
+
+.version-heading, .roadprice-heading {
+  padding: 10px 10px 10px 20px;
+  font-weight: bold;
+  background: #f5f5f5;
+}
+
+.roadprice-heading {
+  padding: 10px 10px 10px 0;
+}
+
+.version-and-price {
+  width: 100%;
+}
+
+#bestDeal .imageWrapper img {
+  height: 100%;
+}
+
+#bestDeal .carDescWrapper {
+  padding: 0;
+}
+
+#bestDeal {
+  text-decoration: none;
+}

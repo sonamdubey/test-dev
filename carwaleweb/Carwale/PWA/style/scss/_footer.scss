@@ -1,0 +1,100 @@
+#footer {
+	padding: 30px 10px 15px;
+	background-color: #323434;
+}
+
+.footer-logo__list {
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.logo-list__item {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 20px;
+
+	&:first-child {
+		margin-left: 0;
+	}
+}
+
+.logo__item {
+	height: 20px;
+	display: inline-block;
+	background-position: center;
+	background-size: contain;
+}
+
+.cw-logo-white {
+	@include cw-logo-white;
+	width: 94px;
+}
+
+.ct-logo-white {
+	@include ct-logo-white;
+	width: 98px;
+}
+
+.bw-logo-white {
+	@include bw-logo-white;
+	width: 70px;
+}
+
+.cw-logo-tag {
+	font-size: 11px;
+	color: #999;
+	text-align: right;
+}
+
+// link section
+.footer-link__content {
+	border-top: 1px solid #ccc;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+.social-link__list {
+	margin-bottom: 5px;
+}
+
+.social-link-list__item {
+	display: inline-block;
+	vertical-align: top;
+	
+	a {
+		color: #999;
+		font-size: 13px;
+		display: inline-block;
+		padding: 10px;
+	}
+}
+
+// footer app section
+@import 'scss/app-download-menu';
+
+// footer about section
+.footer-about__content {
+	font-size: 11px;
+	padding-top: 10px;
+	color: color('white');
+	border-top: 1px solid #ccc;
+
+	&:after {
+		content: '';
+		display: block;
+		clear: both;
+	}
+
+	a {
+		color: color('white');
+	}
+}
+
+.footer-about__left-column {
+	float: left;
+}
+
+.footer-about__right-column {
+	float: right;
+}

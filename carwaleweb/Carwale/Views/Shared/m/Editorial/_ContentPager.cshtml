@@ -1,0 +1,43 @@
+﻿@model Carwale.DTOs.CMS.PageListDTO
+
+<div class="margin-bottom10 font14">
+    <table style="width: 100%;" cellspacing="0" cellpadding="0" border="0" class="m-special-skin-text">
+        <tr>
+            <td style="width: 60px;">
+                @if (Model.CurrentPageNo > 1)
+                {
+                    <a class="normal" onclick="pageChanged(@(Model.CurrentPageNo) - 1)">
+                        <span style="position: relative; top: -2px;" class="m-special-skin-text"><span class="arr-big">&laquo;</span>&nbsp;Prev</span>
+                    </a>
+                }
+            </td>
+            <td class="text-black text-center">
+                @if (Model.Pages.Count > 1)
+{
+    <p class="m-special-skin-text">
+        Page
+        <select id="ddlPages" onchange="pageChanged(-1)" data-role="none">
+            @for (int i = 1; i <= Model.Pages.Count; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </select>
+        of @Model.Pages.Count
+    </p>
+}
+            </td>
+            <td style="width: 60px;" class="text-right">
+                @if (Model.CurrentPageNo != Model.Pages.Count && Model.Pages.Count != 0)
+                {
+                    <a class="normal" onclick="pageChanged(@(Model.CurrentPageNo) + 1)">
+                        <span style="position: relative; top: -2px;" class="m-special-skin-text">Next<span class="arr-big">&nbsp;&raquo;</span></span>
+                    </a>
+                }
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    var currentPageNo = @Model.CurrentPageNo;
+</script>
+

@@ -1,0 +1,50 @@
+﻿@charset "utf-8";
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  line-height: 1.42857143;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  font-size: 13px;
+  font-family: 'LatoWeb', sans-serif, Arial;
+  color: #565a5c;
+  background: #f4f3f3;
+  font-style: normal;
+  -webkit-overflow-scrolling: touch;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, label {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a img {
+  border: none;
+}
+
+a {
+  color: #0288d1;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+*, :after, :before, #globalCity-input input[type="text"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}

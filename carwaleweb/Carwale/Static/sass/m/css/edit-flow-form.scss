@@ -1,0 +1,217 @@
+@import "../../mixins/_grid.scss";
+@import "../../mixins/_margin.scss";
+@import "../../mixins/_padding.scss";
+@import "../../mixins/_utils.scss";
+@import "../../mixins/_text.scss";
+@import "../../mixins/_buttons.scss";
+@import "../../mixins/_fonts.scss";
+@import "../../mixins/_sprites.scss";
+@import "../../mixins/_button-pill.scss";
+@import "../../mixins/_input-box.scss";
+@import "../../partials/_button-tab.scss";
+
+@import "../../mixins/_chosen.scss";
+
+@include font-size-class(18);
+@include margin("bottom", 30);
+@include margin("top", 70);
+@include margin("bottom", 20);
+@include btn-color("white");
+@include padding("left", 10);
+@include padding("right", 10);
+
+.font-semibold {
+	font-weight: 600;
+}
+
+input {
+	font-weight: normal;
+}
+
+img{max-width:100%;}
+
+.cross-default-15x16 {
+	width: 25px;
+	height: 25px;
+	@include cross-default-15x16();
+	background-position: center;
+	cursor: pointer;
+}
+
+.input-box {
+	height: auto;
+	position:relative;         
+}
+
+.labeled-mob-no.input-box label {
+	font-size: 11px;
+} 
+.labeled-mob-no input {
+	display: inline-block;
+	width: 100px;
+	border: none;
+	pointer-events: none;      
+}
+.input-box label:not(.label-icon).active {
+	top: 0;
+	-webkit-transform: translateY(-14px) scale(1);
+	transform: translateY(-14px) scale(1);
+	-webkit-transform-origin: 0 0;
+	transform-origin: 0 0;
+}
+
+
+.fixed-ans-label{
+    width: 100%;
+    display: block;
+    padding: 7px 0;
+    font-size: 14px;
+    color: #565a5c;
+}
+
+// floating buttons
+.form-float-buttons {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	font-size: 0;
+	box-shadow: -2px 0 4px 0 #999;
+	z-index: 2;
+
+	.btn {
+		font-size: 14px;
+		text-transform: uppercase;
+		padding: 13px 5px;
+		border-radius: 0;
+		cursor:pointer;
+	}
+
+	.btn-white {
+		width: 33.33%;
+		border-color: #fff;
+
+		&:hover {
+			border-color: #fff;
+			background: #fff;
+			color: #ef402f;
+		}
+	}
+
+	.btn-orange {
+		width: 66.66%;
+	}
+
+    &.prev-btn-inactive {
+        #prevBtn {
+            display: none;
+        }
+
+        #nextBtn {
+            width: 100%;
+        }
+    }
+
+    &.next-btn-inactive {
+        #nextBtn {
+            display: none;
+        }
+
+        #prevBtn {
+            width: 100%;
+        }
+    }
+}
+
+.prefix-focus--inr.done input,.prefix-focus--inr input:focus, .prefix-default--inr input {
+	background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/82888b/rupee-8x12.png) no-repeat 7px center;
+}
+.input-prefix--rupee input {
+	padding-left: 20px;
+}
+
+.edit-flow-form .select-box .chosen-container{
+	z-index:auto;
+}
+
+.edit-flow-form-container{
+	position:relative;
+}
+
+.floating-container.float-fixed {
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    right: 0;
+    float: none;
+}
+.floating-container.float {
+    position: relative;
+    bottom: 0;
+    z-index: 1;
+    right: 0;
+    float: none;
+}
+
+.select-box.no-dropdown-icon .chosen-container{
+    background: transparent url(https://imgd.aeplcdn.com/0x0/cw/static/icons/82888b/arrow-down-14x9.png) 95% 50% no-repeat;
+}
+
+.edit-flow-form .chosen-container-single .chosen-single span{
+	font-weight:normal;
+	font-size:14px;
+}
+
+.select-box.no-dropdown-icon .chosen-container{
+	font-size:14px;
+}
+
+.edit-flow-form .form-control-box{
+	height:60px;
+}
+.field-box.form-control-box{
+	height: 50px;
+}
+
+.lock-browser-scroll {
+	overflow-y: hidden;
+	width: 100%;
+}
+// modal popup
+
+	#modalBg {
+		width: 100%;
+		height: 100%;
+		display: none;
+		background: rgba(0, 0, 0, 0.6);
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 5;
+	}
+
+	.modal-box {
+		width: 320px;
+		min-height: 170px;
+		padding:30px 10px;
+		text-align: center;
+		display: none;
+		position: fixed;
+		top: 30%;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		background: #fff;
+		border-radius: 4px;
+		z-index: 6;
+
+		.btn {
+			margin: 20px 0 0;
+		}
+    
+		.cross-default-15x16 {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+	}

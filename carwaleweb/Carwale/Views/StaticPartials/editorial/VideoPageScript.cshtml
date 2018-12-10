@@ -1,0 +1,48 @@
+﻿@model Carwale.DTOs.CarData.PhotoGalleryDTO_V2
+
+@using Carwale.Utility;
+
+<script>
+	var loadDeferredStyles = function () {
+		var addStylesNode = document.getElementsByClassName("deferred-styles"), replacement = document.createElement("div"), styleLinks = "";
+		var maxStylesNodes = addStylesNode.length;
+		for (var i = 0; i < maxStylesNodes; i++) { styleLinks += addStylesNode[i].textContent; }
+		replacement.innerHTML = styleLinks;
+		document.body.appendChild(replacement)
+	};
+	var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame;
+	if (raf) raf(function () { window.setTimeout(loadDeferredStyles, 0); });
+	else window.addEventListener('load', loadDeferredStyles);
+
+	var modelInfo = {
+	    modelId: '@Model.ModelDetails.ModelId',
+	    makeId: '@Model.ModelDetails.MakeId',
+	    makeName: '@Model.ModelDetails.MakeName',
+	    modelName: '@Model.ModelDetails.ModelName',
+	    modelMaskingName: '@Model.ModelDetails.MaskingName',
+	    isNew: '@Model.ModelDetails.New' == 'True',
+	    isFuturistic: '@Model.ModelDetails.Futuristic' == 'True',
+	    activeVideo: 0
+	}
+    var videosData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.ModelVideos));
+	var modelPageUrl = '@(String.IsNullOrEmpty(Model.ModelDetails.MakeName) ? "/videos" : ManageCarUrl.CreateModelUrl(Model.ModelDetails.MakeName, Model.ModelDetails.MaskingName))';
+	function ready(fn) {
+	    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+	        fn();
+	    } else {
+	        document.addEventListener('DOMContentLoaded', fn);
+	    }
+	}
+	ready(function () {
+	    setTimeout(function () {
+	        mediaGallery.showVideoGallery(modelInfo);
+	        Common.googleApiKey = "@(System.Configuration.ConfigurationManager.AppSettings["APIKey"] ?? "")";
+	    }, 0)
+	});
+</script>
+
+<script>var cwTrackingPath = '@System.Configuration.ConfigurationManager.AppSettings["HostUrl"]';</script>
+<script type="text/javascript" src="/static/js/frameworks.js" defer></script>
+<script type="text/javascript" src="https://www.youtube.com/iframe_api" defer></script>
+<script type="text/javascript" src="/static/js/media-gallery-d.js" defer></script>
+<script type="text/javascript" src="/static/js/videosTracking.js" defer></script>

@@ -1,0 +1,10 @@
+
+
+@mixin border-solid($direction:"all"){
+    @if $direction=="all"{
+        .border-solid { border: 1px solid #ccc; }
+    }
+    @else{
+        .border-solid-#{$direction} { border-#{$direction}: 1px solid #ccc; }
+    }
+}

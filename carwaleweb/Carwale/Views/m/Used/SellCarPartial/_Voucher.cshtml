@@ -1,0 +1,74 @@
+﻿@model Carwale.UI.ViewModels.Used.SellCar.VoucherViewModel
+@using Carwale.Utility;
+
+<a onClick="closeCongrats()" title="" class="voucher__close">
+    <span class="cross-default-15x16"></span>
+</a>
+<span class="congratulation-icon"></span>
+<div class="voucher-body">
+    <p id="congratulations" class="voucher__title">Congratulations</p>
+    <p class="voucher__subtitle">Your Ad is live.</p>
+    @if (Model.IsC2bCity && Model.BuyingIndexPrice > 0)
+    {
+        <p class="voucher__subtitle" >We can help you sell car your car right now at</p>
+        <p class="voucher__amount">&#x20b9;&nbsp;<span class="text-bold" id="buyerindexprice" data-buyerindexprice="@Model.BuyingIndexPrice">@Format.FormatNumericCommaSep(Model.BuyingIndexPrice.ToString())</span></p>
+        <input type="button" value="Help me sell my car" class="btn btn-white voucher-btn" id="helpsellcar">
+        <div id="thankyoutext" style="display: none;font-size: 14px;margin-bottom: 20px;">Thank You, We will call you from @Model.VoucherHelplineNumber</div>
+        <div id="thankyouLoading" style="display: none;font-size: 14px;margin-bottom: 20px;">Processing...</div>
+    }
+    <a onClick="viewAd(@Model.InquiryId)" id="voucherViewAd" class="btn btn-orange voucher-btn @(Model.IsC2bCity && Model.BuyingIndexPrice > 0 ? "" : "margin-top70")">View your ad</a>
+</div>
+<script>
+    historyObj.replaceHistory('congratsPrev');
+    historyObj.addToHistory('congrats');
+    var sourceId = parentContainer.getSourceId();
+    function closeCongrats() {
+        if (sourceId == 74) {
+            Android.closeCongrats();
+        }
+        else {
+            window.location = "/";
+        }
+    }
+    function onCongratsBackClick() {
+        closeCongrats();
+    }
+    function viewAd(inquiryId) {
+        if (sourceId == 74 && inquiryId != null) {
+            Android.redirectToDetailsView("S"+inquiryId);
+        }
+        else {
+            window.location = "/m/used/cardetails.aspx?car=s" + inquiryId;
+        }
+    }
+    if (typeof events !== 'undefined') {
+        events.subscribe("congratsBackClick", onCongratsBackClick);
+    }
+    if ($("#helpsellcar").length > 0) {
+        sellCarTracking.forMobile("voucherShown");
+    }
+    $('#helpsellcar').on('click', function (e) {
+        e.preventDefault();
+        sellCarTracking.forMobile("voucherClicked");
+        $('#helpsellcar').hide();
+        $('#thankyouLoading').show();
+        var biPrice = $('#buyerindexprice').data('buyerindexprice');
+        var settings = {
+            url: '/api/selllead/',
+            type: "POST",
+            data: '=' + biPrice
+        }
+        $.ajax(settings).done(function () {
+            $('#thankyouLoading').hide();
+            $('#thankyoutext').show();
+        }).fail(function () {
+            $('#helpsellcar').show();
+            $('#thankyouLoading').hide();
+        });
+        
+    });
+    $('#voucherViewAd').on('click', function () {      
+        sellCarTracking.forMobile("viewAd");
+    });
+    window.removeEventListener("beforeunload", parentContainer.onPageUnload);
+</script>

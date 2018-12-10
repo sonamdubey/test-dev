@@ -1,0 +1,59 @@
+﻿@import "../mixins/_rounded-corner.scss";
+@import  "../mixins/_text.scss";
+@import "../mixins/_sprites.scss";
+@import "../mixins/_utils.scss";
+@import "../mixins/_position.scss";
+@import "../mixins/_margin.scss";
+@import "../mixins/_fonts.scss";
+@import "../mixins/_form.scss";
+
+@include rounded-corner(2);
+@include rounded-corner-percent(50);
+@include text-align("center");
+@include text-transform("capitalize");
+@include text-bold;
+@include text-color("black");
+@include text-color("grey");
+@include cross-lg-lgt-grey;
+@include cityPopup-icon;
+@include cur-pointer;
+@include position("abt");
+@include position("top",10);
+@include position("right",10);
+@include margin("bottom",25);
+@include margin("bottom",15);
+@include margin("top",20);
+@include margin("top",5);
+@include margin("top",10);
+@include font-size-class(16);
+@include input-size-class("xs");
+@include select;
+@include form-control;
+@include clear;
+
+
+
+.advantage-city-popup {
+    background: #fff;
+    margin: -50px 0;
+    overflow-y: auto;
+    position: fixed;
+    top: 25%;
+    bottom: 25%;
+    right: 5%;
+    left: 5%;
+    z-index: 10;
+    max-height: 265px;
+
+   .globalcity-popup-data {
+     padding: 20px 20px 10px;
+    }
+}
+
+.cityPopup-box {
+    background: #565a5c;
+    width: 65px;
+    height: 65px;
+    display: inline-block;
+    line-height: 2;
+}

@@ -1,0 +1,509 @@
+﻿
+@{
+    ViewBag.Title = "All About Electric";
+    ViewBag.BodyClass = "bg-light-grey special-landing-page long-landing-page";
+    ViewBag.Keywords = "";
+    ViewBag.Description = "";
+    ViewBag.landingPage = false;
+    ViewBag.Responsive = true;
+    ViewBag.DeeplinkAlternatives = Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString();
+    ViewBag.Canonical = "";
+    ViewBag.Alternate = "";
+    ViewBag.CustomJS = "~/Views/StaticPartials/ES/ElectricCarsScripts.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/ES/ElectricCarsCss.cshtml";
+    Layout = (ViewBag.isMobile != null && ViewBag.isMobile ? "~/views/shared/m/_MLayout.cshtml" : "~/views/shared/_Layout.cshtml");
+}
+
+<div id="fb-root"></div>
+<script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.6";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+
+<div class="e2o-main">
+    <section class="full-width-carousel banner">
+        <div class="banner1"></div>
+        <div class="position-rel">
+            <div class="position-abt">
+                <script type='text/javascript' src='https://www.googletagservices.com/tag/js/gpt.js'>
+                                    googletag.pubads().definePassback('/1017752/Homepage_Wallpaper_1x1', [1, 1]).display();
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <div class="mb-margin">
+
+
+        <div id="gallery-close-btn" class="cwsprite cur-pointer cross-lg-white"></div>
+        <div id="gallery-blackOut-window"></div>
+        <div class="clear"></div>
+
+        <section class="container">
+            <div class="grid-12">
+                <h2 class="text-uppercase text-center margin-bottom20 margin-top30 special-skin-text m-special-skin-text">Electric Cars Personified</h2>
+                <div class="position-rel about-e2o font14 content-box-shadow">
+                    As we become more environmentally conscious, eco-friendly vehicles have emerged as an attractive alternative to regular fuel vehicles. These not only let users enjoy high fuel efficiency but also allow them to leave a smaller carbon footprint. Global electric vehicle sales figures for Quarter 1 2016 highlight that plug-in sales in 2016 totaled to 180,500 units till date. This is approximately an increase of 42% as compared to the same period of time in 2015.
+                    <div class="infographic">
+                        <div class="grid-12 margin-top10">
+                            <div class="infographic-right">
+                                <h2>Advantages of Electric Vehicles</h2>
+                                <ul>
+                                    <li>
+                                        <div class="infographic-sprite carbon margin-right10"></div>
+                                        <div class="margin-top10">
+                                            <h3>Reducing Carbon Footprint</h3>
+                                            <div>The environmental impact of an electric car is zero which means you're reducing your carbon footprint</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="infographic-sprite cost margin-right10"></div>
+                                        <div class="margin-top10">
+                                            <h3>Cost Saving</h3>
+                                            <div>Being green, efficient and clean does not mean that the 'mileage' of  Evs is compromised.</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="infographic-sprite sound margin-right10"></div>
+                                        <div class="margin-top10">
+                                            <h3>Clean Environment</h3>
+                                            <div>Electric cars put curb on noise pollution. Electric vehicles do not have a tail pipe, they give off no emissions.</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                @*<div class="text-right">
+                                        <span class="infographic-sprite infographic-car"></span>
+                                    </div>*@
+                            </div>
+                        </div>
+                        <div class="infographic-top">
+                            <div class="grid-12 margin-top10">
+                                <div class="infographic-left">
+                                    <h2>Increase in no. of EVs sold over the period of 5-10 years (Global) </h2>
+                                    <div class="text-center">
+                                        <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/graph-new.png" alt="graph" border="0" />
+                                    </div>
+                                    <div class="infographic-small">The above figures, it should be noted, are with regard to all-electrics (EVs), plug-in hybrids (PHEVs), and also light-commercial electric vehicles.</div>
+                                </div>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+                        @*<div class="infographic-bottom text-center">
+                                <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/infographic-bottom.jpg" border="0" />
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+        <section>
+            <div class="container mb-view electric-vehicles">
+                <div class="grid-12">
+                    <h2 class="text-uppercase text-center margin-top40 margin-bottom30 special-skin-text m-special-skin-text">World Environment Day Specials - An Electric Expedition</h2>
+                    <div class="font14 content-box-shadow">
+                        <p class="edrive-title">We drove the most environment friendly car to two of the most environment friendly destinations in India. <span class="desktop-only-text"> Join us in the coffee and tea estates, uncover the adventure of the jungle and explore the victorian architecture these places have to offer and yes all of this in an Electric car. </span> Relive the adventure of driving the Mahindra e2oPlus in the two southern states of India - Kerala and Karnataka.</p>
+                        <div class="cw-tabs-panel text-center">
+                            <div id="edirve-cw-tabs" class="edirve-cw-tabs cw-tabs cw-tabs-flex">
+                                <ul>
+                                    <li class="active" data-tabs="story1" data-role="click-tracking" data-event="CWInteractive" data-cat="AllAboutElectric" data-action="Electric Expedition_Kerala" data-label="Kerala"><span class="state-text">Kerala </span> <span class="drive-sprite kerala-icon"></span></li>
+                                    <li data-tabs="story2" class="story2-tab" data-role="click-tracking" data-event="CWInteractive" data-cat="AllAboutElectric" data-action="Electric Expedition_Karnataka" data-label="karnataka"> <spna class="state-text">Karnataka </spna> <span class="drive-sprite karnatka-icon"></span></li>
+                                </ul>
+                            </div>
+                            <div id="story1" class="cw-tabs-data">
+                                <img class="responsive-img lazy beauty-shot1" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="https://imgd.aeplcdn.com/0x0/cw/es/e2o/electric-expedition/beauty-shot1.jpg?q=85" />
+                                <div class="story-box grid-12 margin-top20 margin-bottom20">
+                                    <div class="content-img grid-6"><img class="lazy responsive-img margin-auto" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original ="https://imgd.aeplcdn.com/0x0/cw/es/e2o/electric-expedition/article1.jpg?q=85" /></div>
+                                    <div class="content-text grid-6 text-left">
+                                        <p class="text-bold font16">Mahindra e2oPlus in God's own country</p>
+                                        <p class="font14">The Airbus A380 swayed and shook, dropped and rolled as it started its descent into God’s own country. The little droplets of rain on the panes made me smile with glee.<span class="desktop-only-text"> And that was not only because after taking off from the sweltering Bombay heat, Kochi decided to be good to me. For in Kochi I had something special waiting. The lush green locale of the Cochin airport set the tone and so did the acres of solar panels around it. We were out to celebrate the World Environment Day and Mahindra Electric had the perfect car for us – the Mahindra e2oPlus.</span></p>
+                                        <a href="https://www.carwale.com/features/mahindra-e2o-plus-in-gods-own-country-29383/" target="_blank" class="read-story margin-bottom20 margin-top20 btn btn-sm btn-orange text-uppercase font14" data-role="click-tracking" data-event="CWInteractive" data-cat="AllAboutElectric" data-action="Electric Expedition_Kerala" data-label="Read Full Story">Read Full Story</a>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="collage-box text-center content-inner-block-15lr">
+                                    <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="https://imgd.aeplcdn.com/0x0/cw/es/e2o/electric-expedition/collage1.jpg?q=85" />
+                                </div>
+                                <a href="https://www.carwale.com/features/mahindra-e2o-plus-in-gods-own-country-29383/" target="_blank" class="see-photos" data-role="click-tracking" data-event="CWInteractive" data-cat="AllAboutElectric" data-action="Electric Expedition_Kerala" data-label="See All Photos">See All Photos</a>
+                            </div>
+                            <div id="story2" class="cw-tabs-data hide">
+                                <img class="responsive-img lazy beauty-shot2" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="https://imgd.aeplcdn.com/0x0/cw/es/e2o/electric-expedition/beauty-shot2.jpg?q=85" />
+                                <div class="story-box grid-12 margin-top20 margin-bottom20">
+                                    <div class="content-img grid-6"><img class="lazy responsive-img margin-auto" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="https://imgd.aeplcdn.com/0x0/cw/es/e2o/electric-expedition/article2.jpg?q=85" /></div>
+                                    <div class="content-text grid-6 text-left">
+                                        <p class="text-bold font16">e2oPlus drives to Chikmagalur</p>
+                                        <p class="font14">‘550kms in the Mahindra e2oPlus car? Are you kidding me? It runs a maximum of 140kms in a charge, that too in ideal conditions. You must be crazy’ concluded my colleague Venkat when I told him what I was about to embark upon.<span class="desktop-only-text">And yes, I am not crazy for I have a 350km round trip under my belt already (you can read about that here) and I was confident of returning triumphant from this one as well. Bangalore is the best city in India to live if you have an electric car and that is because of the infrastructure that has been built by Mahindra Electric, India’s only electric car maker.</span> </p>
+                                        <a href="https://www.carwale.com/features/e2o-plus-drives-to-coffee-country-chikmagalur-29386/" target="_blank" class="read-story margin-bottom20 margin-top20 btn btn-sm btn-orange text-uppercase font14" data-role="click-tracking" data-event="CWInteractive" data-cat="AllAboutElectric" data-action="Electric Expedition_Karnataka" data-label="Read Full Story">Read Full Story</a>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="collage-box text-center content-inner-block-15lr">
+                                    <img class="lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="https://imgd.aeplcdn.com/0x0/cw/es/e2o/electric-expedition/collage2.jpg?q=85" />
+                                </div>
+                                <a href="https://www.carwale.com/features/e2o-plus-drives-to-coffee-country-chikmagalur-29386/" target="_blank" class="see-photos" data-role="click-tracking" data-event="CWInteractive" data-cat="AllAboutElectric" data-action="Electric Expedition_Karnataka" data-label="See All Photos">See All Photos</a>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <section>
+            <div class="position-rel font14 container">
+                <div class="clear"></div>
+                <div class="grid-12">
+                    <h2 class="text-uppercase text-center margin-bottom30 margin-top30 special-skin-text m-special-skin-text">Switch to Electric - Gallery</h2>
+                    <div class="content-box-shadow position-rel">
+                        <div class="cw-tabs-panel">
+                            <div class="cw-tabs-data">
+                                <div class="connected-carousels-photos">
+                                    <div class="clear"></div>
+                                    <div class="stage-photos stage-photos-wd">
+                                        <div class="swiper-container noSwiper carousel-photos carousel-stage-photos-wd carousel-stage-photos1 swiper-container-horizontal swiper-container-android">
+                                            <div class="swiper-wrapper">
+                                                <div class="swiper-slide swiper-slide-visible swiper-slide-active" style="width: 329px; margin-right: 10px;">
+                                                    <img class="swiper-lazy swiper-lazy-loaded" src="https://imgd.aeplcdn.com/0x0/cw/es/e2o/contest-gallery/01-new-v1.jpg?q=85" alt="Switch to Electric - Gallery">
+                                                </div>
+                                                <div class="swiper-slide swiper-slide-next">
+                                                    <img class="swiper-lazy swiper-lazy-loaded " src="https://imgd.aeplcdn.com/0x0/cw/es/e2o/contest-gallery/02.jpg?q=85" alt="Switch to Electric - Gallery">
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/0x0/cw/es/e2o/contest-gallery/03.jpg?q=85" alt="Switch to Electric - Gallery">
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/0x0/cw/es/e2o/contest-gallery/04.jpg?v=201705221420351385?q=85" alt="Switch to Electric - Gallery">
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/0x0/cw/es/e2o/contest-gallery/05.jpg?q=85" alt="Switch to Electric - Gallery">
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/0x0/cw/es/e2o/contest-gallery/06.jpg?q=85" alt="Switch to Electric - Gallery">
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/0x0/cw/es/e2o/contest-gallery/07.jpg?q=85" alt="Switch to Electric - Gallery">
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/0x0/cw/es/e2o/contest-gallery/08.jpg?q=85" alt="Switch to Electric - Gallery">
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <img class="swiper-lazy" data-src="https://imgd.aeplcdn.com/0x0/cw/es/e2o/contest-gallery/09.jpg?q=85" alt="Switch to Electric - Gallery">
+                                                    <span class="swiper-lazy-preloader"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cwsprite swiper-button-next wd-btn-next click_track" data-role="click-tracking" data-event="CWInteractive" data-cat="AllAboutElectric" data-action="Switch to electric_gallery" data-label="image-right-click"></div>
+                                        <div class="cwsprite swiper-button-prev wd-btn-prev click_track swiper-button-disabled" data-role="click-tracking" data-event="CWInteractive" data-cat="AllAboutElectric" data-action="Switch to electric_gallery" data-label="image-left-click"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <section>
+            <div class="container mb-view history-electric-cars">
+                <div class="grid-12">
+                    <h2 class="text-uppercase text-center margin-top20 margin-bottom30 special-skin-text m-special-skin-text">Featured Articles</h2>
+                    <div class="font14 content-box-shadow content-inner-block-15lr padding-bottom20">
+                        <div class="grid-12 alpha omega responsive-art-content">
+                            <h2 class="font18 text-bold margin-top20">Indian Government finally embarks on electrification push</h2>
+                            <img class="lazy rightfloat margin-bottom20 margin-top10 margin-left20" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-original="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/e2oplus/article-electrification-push.jpg?q=85" alt="Indian Government finally embarks on electrification push" title="Indian Government finally embarks on electrification push" style="max-width:100%; width:auto;" />
+                            <p class="font14 margin-top10 margin-bottom15">The electric future is a global phenomenon and it is realising faster than ever. Major carmakers around the world are gearing up towards the new powertrain for sustenance before the exhaustion of fossil fuels. While the developed countries are adapting faster and applying various regulations to ensure their streets are emission free in coming years, the Indian Government so far has been discerningly quiet on the electrification push. But now, it seems that the trends are shifting.</p>
+                            <p class="font14 margin-top10 margin-bottom15">As per the latest announcement by the NITI Aayog, the government plans to initiate the electrification push with a completely different kind of approach unlike the developed countries. Instead of relying on heavy subsidies for the electric vehicles, the plan is to sell the car without battery (thus bringing down the cost by up to 70 per cent since it constitutes the major cost of an EV) and lease out the battery pack separately. The scheme, which should kick off by 2020, would initially involve public transport and then slowly move towards private passenger cars. The battery can be leased at the stations and replenished for another when one pack is consumed. The government would control the industry for a couple of years initially until it stabilises.</p>
+                            <p class="font14 margin-top10 margin-bottom15">This unique plan is still in the early stages of drafting and will be penned down soon. The government intends to replace all the vehicles on Indian roads with no-emission electric vehicles by the year 2030. The taxis, two-wheelers, three-wheelers and non-air-conditioned city buses would have specific filling stations with quick replacement and charging facilities for city commute. The specifications, rules, plans, infrastructure and other minute details of the plans are being worked out. A formal policy is expected to roll out in about six months.</p>
+                            <p class="font14 margin-top10 margin-bottom15">Pioneers of the Indian EV industry, Mahindra Electric are at the forefront with new investments in EV technology and ever expanding EV portfolio. Other Indian car makers are expected to join the movement sooner than later helping the much-needed transition to electric mobility.</p>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                        <p class="font18 text-bold margin-top10">More articles on electric cars</p>
+                        <div class="card-jcarousel margin-bottom10 position-rel">
+                            <div class="swiper-container noSwiper carousel-stage-article">
+                                <ul class="swiper-wrapper">
+                                    <li class="swiper-slide">
+                                        <div class="carousel-box">
+                                            <div class="image-container">
+                                                <a href="/news/demystifying-evs-the-fear-of-running-out-of-charge/" title="Demystifying EVs: The fear of running out of charge">
+                                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/e2oplus/more-article-running-out-of-charge.jpg?q=85" alt="Demystifying EVs: The fear of running out of charge" title="Demystifying EVs: The fear of running out of charge" />
+                                                </a>
+                                            </div>
+                                            <div class="content-inner-block-15nr">
+                                                <div class="article-content">
+                                                    <p class="font18 text-dark-grey">Demystifying EVs: The fear of running out of charge</p>
+                                                    <p class="font14 text-light-grey margin-top5 mb-height lineht-pt8">With the advent of smartphones and unlimited connectivity ...</p>
+                                                </div>
+                                                <a href="/news/demystifying-evs-the-fear-of-running-out-of-charge/" class="margin-top15 btn btn-white btn-sm text-uppercase font14" title="Demystifying EVs: The fear of running out of charge">Read More</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <div class="carousel-box">
+                                            <div class="image-container">
+                                                <a href="/news/demystifying-evs-are-they-really-economical/" title="Demystifying EVs: Are they really economical">
+                                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/e2oplus/more-article-are-they-really-economical.jpg?q=85" alt="Demystifying EVs: Are they really economical" title="Demystifying EVs: Are they really economical" />
+                                                </a>
+                                            </div>
+                                            <div class="content-inner-block-15nr">
+                                                <div class="article-content">
+                                                    <p class="font18 text-dark-grey">Demystifying EVs: Are they really economical</p>
+                                                    <p class="font14 text-light-grey margin-top5 mb-height lineht-pt8">There is no doubt that electric vehicles are the future...</p>
+                                                </div>
+                                                <a href="/news/demystifying-evs-are-they-really-economical/" class="margin-top15 btn btn-white btn-sm text-uppercase font14" title="Demystifying EVs: Are they really economical">Read More</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <div class="carousel-box">
+                                            <div class="image-container">
+                                                <a href="/news/the-electric-car-scenario-india/" title="The Electric Car Scenario – India">
+                                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/e2oplus/more-article-the-electric-car-scenario-india.jpg?q=85" alt="The Electric Car Scenario – India" title="The Electric Car Scenario – India" />
+                                                </a>
+                                            </div>
+                                            <div class="content-inner-block-15nr">
+                                                <div class="article-content">
+                                                    <p class="font18 text-dark-grey">The Electric Car Scenario – India</p>
+                                                    <p class="font14 text-light-grey margin-top5 mb-height lineht-pt8">The electric car market is still in its primary stages...</p>
+                                                </div>
+                                                <a href="/news/the-electric-car-scenario-india/" title="The Electric Car Scenario – India" class="margin-top15 btn btn-white btn-sm text-uppercase font14">Read More</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <div class="carousel-box">
+                                            <div class="image-container">
+                                                <a href="/news/mahindra-e2oplus-the-everyday-car/" title="Mahindra e2oPlus – The everyday car">
+                                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/e2oplus/more-article-electric-the-everyday-car.jpg?q=85" alt="Mahindra e2oPlus – The everyday car" title="Mahindra e2oPlus – The everyday car" />
+                                                </a>
+                                            </div>
+                                            <div class="content-inner-block-15nr">
+                                                <div class="article-content">
+                                                    <p class="font18 text-dark-grey">Mahindra e2oPlus – The everyday car</p>
+                                                    <p class="font14 text-light-grey margin-top5 mb-height lineht-pt8">Electric vehicles are turning out to be the future...</p>
+                                                </div>
+                                                <a href="/news/mahindra-e2oplus-the-everyday-car/" title="Mahindra e2oPlus – The everyday car" class="margin-top15 btn btn-white btn-sm text-uppercase font14">Read More</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <div class="carousel-box">
+                                            <div class="image-container">
+                                                <a href="/news/the-electric-car-scenario-global/" title="The Electric car scenario: Global">
+                                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/e2oplus/more-article-scenario-global.jpg?q=85" alt="The Electric car scenario: Global" title="The Electric car scenario: Global" />
+                                                </a>
+                                            </div>
+                                            <div class="content-inner-block-15nr">
+                                                <div class="article-content">
+                                                    <p class="font18 text-dark-grey">The Electric car scenario: Global</p>
+                                                    <p class="font14 text-light-grey margin-top5 mb-height lineht-pt8">This decade has seen a paradigm shift in car makers...</p>
+                                                </div>
+                                                <a href="/news/the-electric-car-scenario-global/" title="The Electric car scenario: Global" class="margin-top15 btn btn-white btn-sm text-uppercase font14">Read More</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <div class="carousel-box">
+                                            <div class="image-container">
+                                                <a href="/news/advantages-of-using-an-ev/" title="Advantages of using an EV">
+                                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/e2oplus/more-article-advantages-ev.jpg?q=85" alt="Advantages of using an EV" title="Advantages of using an EV" />
+                                                </a>
+                                            </div>
+                                            <div class="content-inner-block-15nr">
+                                                <div class="article-content">
+                                                    <p class="font18 text-dark-grey">Advantages of using an EV</p>
+                                                    <p class="font14 text-light-grey margin-top5 mb-height lineht-pt8">Electric vehicles today have become more than just...</p>
+                                                </div>
+                                                <a href="/news/advantages-of-using-an-ev/" title="Advantages of using an EV" class="margin-top15 btn btn-white btn-sm text-uppercase font14">Read More</a>
+                                            </div>
+                                        </div>
+                                    </li>
+
+
+
+
+                                    <li class="swiper-slide">
+                                        <div class="carousel-box">
+                                            <div class="image-container">
+                                                <a href="/news/progress-of-ev-technology-advanced-equipment/">
+                                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/e2oplus/more-articles-300x180.jpg?q=85" alt="Progress of EV technology – Advanced Equipment" title="Progress of EV technology – Advanced Equipment" />
+                                                </a>
+                                            </div>
+                                            <div class="content-inner-block-15nr">
+                                                <div class="article-content">
+                                                    <p class="font18 text-dark-grey">Progress of EV technology – Advanced Equipment</p>
+                                                    <p class="font14 text-light-grey margin-top5 mb-height lineht-pt8">We have discussed the two pillars of EV technology...</p>
+                                                </div>
+                                                <a href="/news/progress-of-ev-technology-advanced-equipment/" class="margin-top15 btn btn-white btn-sm text-uppercase font14" title="Progress of EV technology – Advanced Equipment">Read More</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <div class="carousel-box">
+                                            <div class="image-container">
+                                                <a href="/news/progress-of-ev-technology-the-chip-revolution/">
+                                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/chip-revolution-s.jpg?q=85" alt="Progress of EV technology – the Chip Revolution" title="Advantages of using an EV" />
+                                                </a>
+                                            </div>
+                                            <div class="content-inner-block-15nr">
+                                                <div class="article-content">
+                                                    <p class="font18 text-dark-grey">Progress of EV technology – the Chip Revolution</p>
+                                                    <p class="font14 text-light-grey margin-top5 mb-height lineht-pt8">Now that we know how the batteries have shaped up...</p>
+                                                </div>
+                                                <a href="/news/progress-of-ev-technology-the-chip-revolution/" title="Advantages of using an EV" class="margin-top15 btn btn-white btn-sm text-uppercase font14">Read More</a>
+                                            </div>
+                                        </div>
+                                    </li>
+
+
+                                    <li class="swiper-slide">
+                                        <div class="carousel-box">
+                                            <div class="image-container">
+                                                <a href="/news/progress-of-ev-technology-evolution-of-batteries/" title="Progress of EV technology - Evolution of Batteries">
+                                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/progress-of-ev-technology-s.jpg?q=85" alt="Progress of EV technology - Evolution of Batteries" title="Progress of EV technology - Evolution of Batteries" />
+                                                </a>
+                                            </div>
+                                            <div class="content-inner-block-15nr">
+                                                <div class="article-content">
+                                                    <p class="font18 text-dark-grey">Progress of EV technology - Evolution of Batteries</p>
+                                                    <p class="font14 text-light-grey margin-top5 mb-height lineht-pt8">It is evident that electric vehicles are going to be future...</p>
+                                                </div>
+                                                <a href="/news/progress-of-ev-technology-evolution-of-batteries/" class="margin-top15 btn btn-white btn-sm text-uppercase font14" title="Progress of EV technology - Evolution of Batteries">Read More</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <div class="carousel-box">
+                                            <div class="image-container">
+                                                <a href="/news/history-of-evs-surging-ahead/" title="History of EVs – Surging ahead">
+                                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/history-of-evs-early-days-s.jpg?q=85" alt="History of EVs – Surging ahead" title="History of EVs – Surging ahead" />
+
+                                                </a>
+                                            </div>
+                                            <div class="content-inner-block-15nr">
+                                                <div class="article-content">
+                                                    <p class="font18 text-dark-grey">History of EVs – Surging ahead</p>
+                                                    <p class="font14 text-light-grey margin-top5 mb-height lineht-pt8">It was in the 90s that the focus was back on electric cars after almost three quarters of the 20th century...</p>
+                                                </div>
+                                                <a href="/news/history-of-evs-surging-ahead/" title="History of EVs – Surging ahead" class="margin-top15 btn btn-white btn-sm text-uppercase font14">Read More</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="swiper-slide">
+                                        <div class="carousel-box">
+                                            <div class="image-container">
+                                                <a href="/news/history-of-evs-early-days/" title="History of EVs - Early days">
+                                                    <img class="swiper-lazy" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/static/circle-loader.gif" data-src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/history-of-electric-cars-s.jpg?q=85" alt="History of EVs - Early days" title="History of EVs - Early days" />
+                                                </a>
+                                            </div>
+                                            <div class="content-inner-block-15nr">
+                                                <div class="article-content">
+                                                    <p class="font18 text-dark-grey">History of EVs - Early days</p>
+                                                    <p class="font14 text-light-grey margin-top5 mb-height lineht-pt8">Did you know that the first electric car was productionised in 1884 when English inventor Thomas Parker beat Karl Benz...</p>
+                                                </div>
+                                                <a href="/news/history-of-evs-early-days/" title="History of EVs - Early days" class="margin-top15 btn btn-white btn-sm text-uppercase font14">Read More</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="cwsprite article-slides swiper-button-next feature-btn-next click_track" data-role="click-tracking" data-event="CWInteractive" data-cat="AllAboutElectric" data-action="Switch to electric_gallery" data-label="image-right-click"></div>
+                            <div class="cwsprite article-slides swiper-button-prev feature-btn-prev click_track swiper-button-disabled" data-role="click-tracking" data-event="CWInteractive" data-cat="AllAboutElectric" data-action="Switch to electric_gallery" data-label="image-left-click"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </section>
+        <section class="position-rel">
+            <h2 class="text-uppercase text-center margin-top40 margin-bottom30 special-skin-text m-special-skin-text">News Around the Globe for Electric</h2>
+
+            <div class="container mb-view bg-white content-box-shadow news-electric-section">
+                <div class="grid-12 alpha omega">
+                    <div class="padding-top20 padding-right20 padding-bottom20 padding-left20">
+                        <div class="grid-6 alpha omega">
+                            <div class="text-bold font16 switch-m hide">Audi Q3 might go all-electric</div>
+                            <div class="font15 switch-m hide">Mar 29 2017</div>
+                            <img class="responsive-img margin-auto" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/electric-news-2.jpg?v=85" />
+                        </div>
+                        <div class="grid-6">
+                            <div class="text-bold font16 switch-d">Audi Q3 might go all-electric</div>
+                            <div class="font15 switch-d">Mar 29 2017</div>
+                            <div class="font15">Audi’s offering in the compact crossover segment, the Q3, is about to receive an update sometime this year. It is speculated that after the new Q3 is revealed and goes on sale in 2018, it will be followed by an all-electric or a plug-in hybrid variant, or both.</div>
+                            <div class="font15">The compact crossover will make use of the new Volkswagen e-Golf’s platform when it comes in all-electric guise. That will provide the electric Q3 with an electric powertrain of 115bhp and 290 Nm of torque...<a href="https://www.carwale.com/news/audi-q3-might-go-allelectric-28385/" target="_blank">Read More</a>  </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="grid-12 alpha omega margin-bottom20">
+                    <div class="grid-6 alpha omega">
+                        <div class="custom-pad">
+                            <div class="grid-5">
+                                <div class="text-bold font16 switch-m hide">Toyota might start mass-production of EVs from 2020</div>
+                                <img class="responsive-img margin-auto" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/electric-news-1.jpg?v=85" />
+                            </div>
+                            <div class="grid-7 alpha omega">
+                                <div class="text-bold font16 switch-d">Toyota might start mass-production of EVs from 2020</div>
+                                <div class="font15">Sources reveal that Toyota...<a href="https://www.carwale.com/news/toyota-might-start-mass-production-28383/" target="_blank">Read More</a></div>
+                                <div class="font15">Mar 27 2017</div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="grid-6 alpha omega">
+                        <div class="custom-pad">
+                            <div class="grid-5">
+                                <div class="text-bold font16 switch-m hide">This is the world’s fastest electric car – NextEV Nio EP9</div>
+                                <img class="responsive-img margin-auto" src="@( Carwale.Utility.CWConfiguration._imgHostUrl)0x0/cw/es/e2o/electric-news-3.jpg?v=85" />
+                            </div>
+                            <div class="grid-7 alpha omega">
+                                <div class="text-bold font16 switch-d">This is the world’s fastest electric car – NextEV Nio EP9</div>
+                                <div class="font15">Chinese electric car...<a href="https://www.carwale.com/news/this-is-the-worlds-fastest-electric-car-nextev-nio-ep9-28384/" target="_blank">Read More</a></div>
+                                <div class="font15">Mar 28 2017</div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <section>
+            <div class="container mb-view margin-bottom30">
+                <div class="grid-12">
+                    <h2 class="text-uppercase text-center margin-top40 margin-bottom30 special-skin-text m-special-skin-text">Buzz On Social Media</h2>
+                    <div class="content-box-shadow margin-top20 content-inner-block-15lr">
+                        @*<div class="grid-6 alpha text-center margin-top20 margin-bottom20" id="pageFbContainer">
+                                <div class="fb-page" data-href="https://www.facebook.com/carwale" data-tabs="timeline" data-width="462" data-height="430" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/carwale" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/carwale">CarWale</a></blockquote></div>
+                            </div>*@
+                        <div class="grid-12 omega text-center margin-top20">
+                            <div class="twitter-border">
+                                <a class="twitter-timeline" href="https://twitter.com/search?q=allaboutelectric" data-widget-id="780689872969355264" width="100%" height="421px">Tweets about allaboutelectric</a>
+                                <script>!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https'; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } }(document, "script", "twitter-wjs");</script>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    </div>
+</div>

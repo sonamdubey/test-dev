@@ -1,0 +1,212 @@
+﻿@model Carwale.Entity.Insurance.InsuranceLead
+@{
+    ViewBag.BodyClass = "bg-light-grey";
+    ViewBag.Title = "Buy or renew car insurance policy in India";
+    ViewBag.Keywords = "Auto insurance, car insurance, renew car insurance, buy car insurance, insurance calculator, used car insurance, insurance policy, renew insurance policy online, get insurance quotes, know insurance premium, claim, carwale, commercial car insurance, car insurance quotes, online insurance, insurance for car.";
+    ViewBag.Description = "Buy or renew your car insurance policy. Get insurance premium quotes from CarWale. Calculate auto insurance premium in India.";
+    ViewBag.landingPage = true;
+
+    ViewBag.Canonical = "https://www.carwale.com/insurance/";    
+    ViewBag.AdId = "1396439875513";
+    ViewBag.AdPath = "/1017752/Insurance_";
+    ViewBag.ShowAskTheExpert = false;
+    ViewBag.CustomJS = "~/Views/StaticPartials/InsuranceScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/InsuranceCss.cshtml";
+    ViewBag.DefineAdSlots =
+        @"<script type='text/javascript'>
+        
+        </script>";
+    ViewBag.HeaderClass = "header-landing";
+}
+<header class="insurance-cars-top-banner">
+    <div class="container">
+        <div class="welcome-box">
+            <h1 class="text-uppercase margin-bottom10">Buy or Renew your car insurance</h1>
+        </div>
+    </div>
+</header>
+
+<section class="container">
+    <div class="grid-12">
+        <div class="bg-white content-inner-block-10 content-box-shadow margin-minus50">
+            <div id="enquiry-form">
+                <h2 class="font16 text-center text-black text-bold margin-top20 margin-bottom30">My car details are</h2>
+
+                <div id="carDetails">
+
+                    <div class="grid-4 margin-bottom30">
+                        <div class="form-control-box">
+                            <span class="select-box fa fa-angle-down"></span>
+                            <select id="drpMake" class="form-control">
+                                <option value="0">Select Make</option>
+                            </select>
+                            <span class="cwsprite error-icon hide"></span>
+                            <div class="cw-blackbg-tooltip hide">Please select make.</div>
+                        </div>
+                    </div>
+
+                    <div class="grid-4 margin-bottom30">
+                        <div class="form-control-box">
+                            <span class="select-box fa fa-angle-down"></span>
+                            <select id="drpModel" class="form-control" disabled="disabled">
+                                <option value="0">Select Model</option>
+                            </select>
+                            <span class="cwsprite error-icon hide"></span>
+                            <div class="cw-blackbg-tooltip hide">Please select model.</div>
+                        </div>
+                    </div>
+
+                    <div class="grid-4 margin-bottom30">
+                        <div class="form-control-box">
+                            <span class="select-box fa fa-angle-down"></span>
+                            <select id="drpVersion" class="form-control" disabled="disabled">
+                                <option value="0">Select Version</option>
+                            </select>
+                            <span class="cwsprite error-icon hide"></span>
+                            <div class="cw-blackbg-tooltip hide">Please select version.</div>
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+
+                    <div class="grid-4 margin-bottom30">
+                        <div class="form-control-box">
+                            <span class="select-box fa fa-angle-down"></span>
+                            <input type="text" id="drpCity" placeholder="--Type to Select City--" class="form-control ui-autocomplete-input" data-role="none" />                                                        
+                            <span class="cwsprite error-icon hide"></span>
+                            <div class="cw-blackbg-tooltip hide">Please enter city.</div>
+                            <input type="hidden" id="hdn_drpCityId" value="" />
+                        </div>
+                    </div>
+
+                    <div id="RegistrationDate" class="grid-4 position-rel margin-bottom30">
+
+                        <div class="form-control-box">
+                            <input type="text" id="txtsDate" class="form-control" placeholder="Registration date" />
+                            <span id="checkRegistered" class="text-link cur-pointer padding-top10 padding-bottom10 position-abt pos-right10 pos-top0">Not registered yet</span>
+                            <span class="cwsprite error-icon hide"></span>
+                            <div class="cw-blackbg-tooltip hide">Please enter date.</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+
+                <p class="font15 text-center margin-bottom10 padding-left10 text-black text-bold line-height">
+                    Please fill your details so that our insurance partner may contact you regarding your enquiry.
+                </p>
+
+                <div class="formBox clearfix">
+
+                    <div class="margin-top10 grid-4">
+                        <div class="form-control-box">
+                            <input type="text" id="txtName" maxlength="50" placeholder="Enter Name" class="form-control" data-role="none" />
+                            <span class="cwsprite error-icon hide"></span>
+                            <div id="spntxtName" class="cw-blackbg-tooltip hide">Please enter name.</div>
+                        </div>
+                    </div>
+
+                    <div class="margin-top10 grid-4">
+                        <div class="form-control-box">
+                            <input type="text" id="txtEmail" maxlength="50" placeholder="Enter Email" class="form-control" data-role="none" />
+                            <span class="cwsprite error-icon hide"></span>
+                            <div id="spntxtEmail" class="cw-blackbg-tooltip hide">Please enter email.</div>
+                        </div>
+                    </div>
+
+                    <div class="margin-top10 main-select-div grid-4">
+                        <div class="form-control-box">
+                            <span class="form-mobile-prefix">+91</span>
+                            <input id="txtMobile" type="text" placeholder="Enter Mobile Number" class="form-control padding-left40" data-role="none" maxlength="10" />
+                            <span class="cwsprite error-icon hide"></span>
+                            <div id="spntxtMobile" class="cw-blackbg-tooltip hide">Please enter mobile number.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center margin-top20 margin-bottom20 clear">
+                    <input id="btnSubmit" type="button" class="text-uppercase btn btn-orange"  data-role="click-tracking" data-event="CWInteractive" data-action="Submit_clicked" data-cat="Insurance OTP_lead drop_d" data-label="Submit_clicked" value="Request a Callback" />
+                </div>
+
+            </div>
+            <!-- /form -->
+
+            <div id="thankYou" class="text-center padding-top20 padding-bottom70 hide">
+                <span class="cw-circle-icon img-thank"></span>
+                <p class="font16 text-black text-bold margin-top10 margin-bottom5">Thank you for providing your details.</p>
+                <p id="clientMsg" class="font14">
+                    @ViewBag.insuranceThankYouMsg
+                </p>
+                <p id="showQuote" class="font14 margin-top20 hide">
+                    Insurance offers from <span class="font16 padding-left5 padding-right5">₹ <strong class="font18">NA</strong></span> available for your car
+                </p>
+            </div>            
+            <!-- /Thank You -->
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+<!-- otp popup code start -->
+<div id="m-blackOut-window" class="hide"></div>
+<div id="buyerForm" class="buyerProcess padding-top10 text-center hide">
+    <span id="otp-close" class="cur-pointer cwmsprite cross-lg-dark-grey otp-close"></span>
+    <div class="screen2 hide">
+        <div class="upeer-box">
+            <h2 class="text-black text-bold">Enter OTP here</h2>
+            <p class="font12 text-light-grey padding-bottom10">(you will receive OTP within 5 sec.)</p>
+            <div class="position-rel">
+                <input type="tel" class="input-txt padding-right60 " placeholder="Enter 5 digit OTP" id="txtOTP" maxlength="5">
+                <a class="font14 text-uppercase text-link padding-top5 position-abt pos-right0 pos-top0" id="btnVerify" data-role="click-tracking" data-event="CWInteractive" data-action="Verify_clicked" data-cat="Insurance OTP_lead drop_d" data-label="Verify_clicked" >verify</a>
+                <img id="imgLoadingBtnVerify" class="position-abt hide" src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" width="16" height="16">
+            </div>
+            <div class="error hide padding-top5 padding-bottom5" id="otpError">Please enter 5 digit OTP</div>
+        </div>
+        <div class="otp-call">
+            <div class="buyer-or-text">
+                <div><span>or</span></div>
+            </div>
+            <p class="font14 padding-bottom10">Give a missed call for verification</p>
+            <a id="btnMissCallAnchorTag" class="btn btn-green font24 buyer-call-btn" data-role="click-tracking" data-event="CWInteractive" data-action="MissCall_clicked" data-cat="Insurance OTP_lead drop_d" data-label="MissCall_clicked" >
+                <span class="fa fa-phone margin-right10 position-rel pos-top3">
+                </span><span id="btnMissCall" class="font18"></span>
+            </a>
+            <img id="imgLoadingBtnMissCall" src="https://imgd.aeplcdn.com/0x0/statics/loader.gif" class="position-rel pos-top5 pos-left5 hide" width="16" height="16">
+        </div>
+    </div>
+</div>
+<!-- otp popup code end -->
+
+<section class="container">
+    <div class="grid-12">
+        <h2 class="text-center margin-top50 margin-bottom30 special-skin-text">FAQs</h2>
+
+        <div class="content-box-shadow content-inner-block-10 margin-bottom20">
+
+            <p class="font16 text-default-color text-bold margin-top5">What is car insurance?</p>
+            <p class="font14 text-default-color margin-top10 margin-bottom30">
+                Car insurance provides protection to the car's owner against third-party liabilities, theft or damage to the car. It also provides cover against
+                accidental injuries. There are two types of car insurance. 1. Third Party only. 2. Comprehensive or Package policy.
+            </p>
+
+            <p class="font16 text-default-color text-bold">Is insurance mandatory to have?</p>
+            <p class="font14 text-default-color margin-top10 margin-bottom30">
+                As per law, it's mandatory to have third-party insurance for your car. Opting for a comprehensive policy is a matter of choice. CarWale
+                recommends you a comprehensive policy, though.
+            </p>
+
+            <p class="font16 text-default-color text-bold">Benefits of comprehensive car insurance?</p>
+            <p class="font14 text-default-color margin-top10 margin-bottom30">
+                Comprehensive car insurance not only protects you against third party liabilities but also helps you avoid unnecessary expenses that might occur
+                due to accidents or theft.
+            </p>
+
+            <p class="font16 text-default-color text-bold">What is No Claim Bonus (NCB)?</p>
+            <p class="font14 text-default-color margin-top10 margin-bottom15">
+                It is a benefit offered by the insurer to those who have not claimed insurance during the previous year of cover. It means that the next premium
+                amount to be paid would be lower.
+            </p>
+
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>

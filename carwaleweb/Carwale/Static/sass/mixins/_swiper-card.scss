@@ -1,0 +1,37 @@
+@import '_variables.scss';
+@import '_vendor-utils.scss';
+@import '_sprites.scss';
+
+@mixin card($height: 320 ,$perspective: 560) {
+    height: $height * 1px;
+    perspective: $perspective * 1px; 
+    position: relative;
+}
+
+@mixin front($height: 320 , $min-width: 278, $border-color: 'grey-btn-border') {
+    @include get-vendor-prefixed('backface-visibility','hidden');
+    height: $height * 1px;
+    background: map-get($color-map, 'white');
+    overflow: visible; 
+    min-width: $min-width * 1px;
+    display: table; 
+    border-radius: 3px; 
+    border: 1px solid map-get($color-map, $border-color);
+    width: 100%; 
+}
+
+@mixin content-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+@mixin image-wrapper($height) {
+    width: 100%;
+    height: $height;
+    overflow: hidden;
+    text-align: center;
+}
+
+@mixin swiper-image-loader {
+    @include swiper-loader;
+}

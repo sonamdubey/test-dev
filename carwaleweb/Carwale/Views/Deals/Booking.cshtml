@@ -1,0 +1,348 @@
+﻿@model Carwale.Entity.DealsInquiryDetail
+@using Carwale.UI.Common;
+@using Carwale.Utility;
+@{
+    ViewBag.PageTag = "A-2";
+    ViewBag.Title = "CarWale Advantage -" + @ViewBag.StockDetails.Make.MakeName + " " + @ViewBag.StockDetails.Model.ModelName + " " + "Booking";
+    ViewBag.Description = "";
+    ViewBag.Canonical = "";
+    ViewBag.CallSlugDisplay = true;
+    ViewBag.BodyClass = "header-fixed-inner";
+    ViewBag.CustomJs = "~/Views/StaticPartials/Deals/DealsScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/Deals/DealsCss.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="container">
+    <div class="grid-12">
+        <div class="padding-bottom15 text-center">
+            <div id='div-gpt-ad-1396440106184-2'>
+                <script type='text/javascript'>
+                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1396440106184-2'); });
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</section>
+<div class="clear"></div>
+
+<div class="container">
+    <div class="grid-12">
+        @*<div class="breadcrumb margin-bottom15">
+                <ul class="breadcrumb">
+                    <li><a href="/"><span>Home</span></a> › </li>
+                    <li><a href="/@ViewBag.MakeName-cars/"><span>@ViewBag.StockDetails.DealsData[0].Make.MakeName</span></a> › </li>
+                    <li><a href="/@ViewBag.MakeName-cars/@ViewBag.ModelName/"><span>@ViewBag.StockDetails.DealsData[0].Model.ModelName</span></a> › </li>
+                    <li class="current"><span>Booking</span></li>
+                </ul>
+                <div class="clear"></div>
+            </div>*@
+
+        <h1 class="font20 text-light-gray margin-bottom15">Final Offer - Reserve <span>@ViewBag.StockDetails.Make.MakeName @Format.FilterModelName(ViewBag.StockDetails.Model.ModelName)</span> for&nbsp;₹ @Format.FormatNumericCommaSep(System.Configuration.ConfigurationManager.AppSettings["AgedCarBlockingAmount"])</h1>
+
+        <div class="content-box-shadow rounded-corner2 margin-bottom20">
+
+
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @action = "/deals/initpayment/" + @ViewBag.StockId + "/?cityId=" + ViewBag.StockDetails.City.CityId }))
+            {
+                <div id="carDetails">
+                    <!-- City DropDown Code Ends Here -->
+                    <div class="left-section">
+                        <!-- Car Image Section Code Starts Here -->
+                        <div class="carThumb">
+                            <img class="car-pic" src="@Carwale.Utility.ImageSizes.CreateImageUrl(ViewBag.StockDetails.CarImageDetails.HostUrl, Carwale.Utility.ImageSizes._559X314, ViewBag.StockDetails.CarImageDetails.OriginalImgPath)" alt="" title="" />
+                            <div class="personal-details content-inner-block-15 margin-top15">
+                                <p class="font16 text-bold padding-bottom20">Confirm Personal details</p>
+                                <div class="personal-details-form font14 position-rel">
+                                    <div class="customerDetails position-rel customerNameBox">
+                                        @Html.TextBoxFor(Model => Model.CustomerName, new
+                                    {
+                                        @class = "form-control padding-bottom5 margin-bottom20",
+                                        data_val_required = "Please enter Name",
+                                        id = "personName",
+                                        type = "textbox",
+                                        placeholder = "Name",
+                                        @Value = Request.Cookies["_CustomerName"] != null ? Request.Cookies["_CustomerName"].Value : "",
+                                        maxlength = 50
+                                    })
+                                        <span class="cwsprite error-icon hide"></span>
+                                        <div class="cw-blackbg-tooltip global-city-error-msg hide">Please enter Name</div>
+                                    </div>
+                                    <div class="customerDetails position-rel customerEmailBox">
+                                        @Html.TextBoxFor(Model => Model.CustomerEmail, new
+                                    {
+                                        @class = "form-control padding-bottom5 margin-bottom20",
+                                        data_val_required = "Please enter email id",
+                                        id = "personEmail",
+                                        type = "textbox",
+                                        @Value = Request.Cookies["_CustEmail"] != null ? Request.Cookies["_CustEmail"].Value : "",
+                                        placeholder = "Email",
+                                        maxlength = 100
+                                    })
+                                        <span class="cwsprite error-icon hide"></span>
+                                        <div class="cw-blackbg-tooltip hide">Please enter email id</div>
+                                    </div>
+                                    <div class="customerDetails position-rel customerMobileBox">
+                                        @Html.TextBoxFor(Model => Model.CustomerMobile, new
+                                    {
+                                        @class = "form-control padding-bottom5 margin-bottom20",
+                                        data_val_required = "Please enter mobile number",
+                                        id = "personMob",
+                                        type = "textbox",
+                                        @Value = Request.Cookies["_CustMobile"] != null ? Request.Cookies["_CustMobile"].Value : "",
+                                        placeholder = "Mobile No.",
+                                        maxlength = 10
+                                    })
+                                        <span class="cwsprite error-icon hide"></span>
+                                        <div class="cw-blackbg-tooltip hide">Please enter mobile number</div>
+                                    </div>
+                                </div>
+                                <p>Confirmation will be sent on above email id and phone number</p>
+                            </div>
+                        </div>
+                        <!-- Car Image Section Code Ends Here -->
+                    </div>
+                    <!-- CarDetails Section Code Starts Here -->
+                    <div class="carDetails booking-details">
+                        <h1 class="font20 text-black car-title-name margin-top10">
+                            <span>@ViewBag.StockDetails.Make.MakeName @Format.FilterModelName(ViewBag.StockDetails.Model.ModelName)</span>
+                            <span>@ViewBag.StockDetails.Version.Name</span>
+                        </h1>
+                        <!-- Aged Offer Color Section Slab Code Starts Here -->
+                        <div class="aged-offer-color-slab">
+                            <div class="color-year-section position-rel">
+                                <div class="color-details-outer leftfloat">
+                                    <div class="margin-top10 margin-bottom5">
+                                        <div class="active-color-shade color-detail-section margin-right5 position-rel font16">
+                                            <span>
+                                                <span class="color-code-circle-sm" style="background:#@ViewBag.StockDetails.Color.HexCode"></span>
+                                                <span class="padding-left5">@ViewBag.StockDetails.Color.ColorName</span>,
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="year-type leftfloat margin-left10">
+                                    <span class="font16">@ViewBag.StockDetails.ManufacturingYear</span>
+                                    <span class="year-title font16"> manufactured </span>
+                                </div>
+                                <div class="clear"></div>
+                                <p class="clear margin-top10 margin-bottom10">Sold by authorised <b>@ViewBag.StockDetails.Make.MakeName</b> dealer. Below price is for <b>@ViewBag.StockDetails.City.CityName</b>.</p>
+
+                                @if (ViewBag.StockDetails.BreakUpList != null)
+                                {
+                                    <div>
+                                        @foreach (var car in ViewBag.StockDetails.BreakUpList)
+                                        {
+                                            if (car.Key == "Additional Comments")
+                                            {
+                                                <div class="grid-8 alpha padding-right5 padding-bottom5">
+                                                    <span class="font14 text-black"></span> @car.Value
+                                                </div>
+                                                <div class="clear"></div>
+                                            }
+                                            else
+                                            {
+                                                <div class="grid-4 alpha padding-bottom10"><span class="font14 text-light-grey">@car.Key:</span></div>
+                                                <div class="grid-8 alpha padding-right5 padding-bottom10">
+                                                    <span class="font14 text-black "><span class="text-grey">₹ </span>@car.Value</span>
+                                                </div>
+                                                <div class="clear"></div>
+                                            }
+                                        }
+                                        <div class="grid-6 alpha omega"><hr></div>
+                                    </div>
+                                }
+                                <div class="car-tabular-data">
+
+                                    <div class="padding-top20">
+                                        <div class="grid-4 alpha"><span class="font14 text-light-grey">On Road Price:</span></div>
+                                        <div class="grid-8 alpha padding-right5">
+                                            <span class="font14 text-black text-bold">₹ @Carwale.Utility.Format.FormatNumericCommaSep(ViewBag.StockDetails.OnRoadPrice.ToString())</span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    @if (CustomParser.parseIntObject(ViewBag.StockDetails.Savings) > 0)
+                                    {
+
+                                        <div class="padding-top10">
+                                            <div class="grid-4 alpha"><span class="font14 text-light-grey">Savings:</span></div>
+                                            <div class="grid-8 alpha padding-right5">
+                                                <span class="font14 text-green text-bold">₹ @Carwale.Utility.Format.FormatNumericCommaSep(ViewBag.StockDetails.Savings.ToString())</span>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    }
+
+                                    <div class="padding-top10">
+                                        <div class="grid-4 alpha"><span class="font14 text-light-grey text-bold final-price-text">Final On-Road Price:</span></div>
+                                        <div class="grid-8 alpha padding-right5">
+                                            <span class="font25 text-black text-bold">₹ @Carwale.Utility.Format.FormatNumericCommaSep(ViewBag.StockDetails.OfferPrice.ToString())</span>
+                                            @if ((ViewBag.StockDetails.StockCount == 1))
+                                            {
+                                                <span class="text-red font14 inline-block car-left">(Only @ViewBag.StockDetails.StockCount car left)</span>
+                                            }
+                                            else if ((ViewBag.StockDetails.StockCount > 1) && (ViewBag.StockDetails.StockCount <= 3))
+                                            {
+                                                <span class="text-red font14 inline-block car-left">(Only @ViewBag.StockDetails.StockCount cars left)</span>
+                                            }
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+
+                                    <div class="padding-top10 padding-bottom10">
+                                        <div class="grid-4 alpha"><span class="font14 text-light-grey">Booking Amount:</span></div>
+                                        <div class="grid-8 alpha padding-right5">
+                                            <span class="font14 text-bold">₹ @Format.FormatNumericCommaSep(System.Configuration.ConfigurationManager.AppSettings["AgedCarBlockingAmount"])</span>
+                                            <small class="text-light-grey inline-block font13 final-amt-text">&nbsp;This amount will be adjusted against your final payment.</small>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+
+                                </div>
+                                @*@if ((ViewBag.StockDetails.Offers != null) && (ViewBag.StockDetails.OfferValue != 0))
+                                {
+                                    <div class="margin-bottom5">
+                                        <span class="font14 text-light-grey">Additional offers worth </span>₹<span class="font14 text-bold"> @Carwale.Utility.Format.FormatNumericCommaSep(ViewBag.StockDetails.OfferValue.ToString())</span>
+                                    </div>
+                                }*@
+                                <!-- Offer Section Code Starts Here -->
+                                @if (ViewBag.StockDetails.OfferList != null && ViewBag.StockDetails.OfferList.Count > 0)
+                                {
+                                    <div class="offer-details-slab leftfloat position-rel">
+                                   @foreach (var car in ViewBag.StockDetails.OfferList)
+                                        {
+                                        <div class="content-inner-block-10">
+                                            <ul class="offerUlCont">
+                                                <li><span class="desk-deals-car-sprite @car.Key"></span><span class="offerUl-text">@car.Value</span></li>
+                                            </ul>
+                                        </div>
+                                        }
+                                    </div>
+                                    <div class="clear"></div>
+                                }
+                                else if ((ViewBag.StockDetails.Offers != null) && (ViewBag.StockDetails.Offers != ""))
+                                {
+                                    <div class="offer-details-slab leftfloat position-rel">
+                                        <div class="offers-title text-white font11 text-uppercase">
+                                            <span class="offers-top-shadow"></span>
+                                            <span class="offers-text">Offers</span>
+                                            <span class="offers-right-ribbon">
+                                                <span class="ribbon top"></span>
+                                                <span class="ribbon bottom"></span>
+                                            </span>
+                                        </div>
+                                        <div class="content-inner-block-10">@ViewBag.StockDetails.Offers</div>
+                                    </div>
+                                    <div class="clear"></div>
+                                        
+                                }
+                                @if (!String.IsNullOrEmpty(ViewBag.StockDetails.TermsConditions))
+                                {
+                                    <p class="margin-top5">@ViewBag.StockDetails.TermsConditions</p>
+                                }
+
+                                <div class="clear"></div>
+                                <!-- Offer Section Code Ends Here -->
+
+                                <div class="clear">
+                                    <div class="leftfloat">
+                                        <!-- Button Section Code Starts Here -->
+                                        <div class="agedbtn-section margin-top20 leftfloat">
+                                            <button class="btn-orange btn btn-full-width btn-orange text-white font16 cur-pointer text-uppercase" id="payBtn">Proceed to pay <span class="payment-rs-icon">₹</span> @Format.FormatNumericCommaSep(System.Configuration.ConfigurationManager.AppSettings["AgedCarBlockingAmount"])</button>
+                                            <p class="font14 text-light-grey margin-bottom5 note-text margin-top5 text-bold">(100% refund, no questions asked)</p>
+                                        </div>
+                                        <!-- Button Section Code Starts Here -->
+                                    </div>
+                                    <div class="leftfloat margin-left20">
+                                        <p class="font13 text-grey margin-top20">For any queries, call CarWale at</p>
+                                        <p class="font20 aged-phone-no">
+                                            <span class="fa fa-phone"></span>
+                                            @System.Configuration.ConfigurationManager.AppSettings["CarwaleAdvantageMaskingNumber"] <span class="text-gray font13 margin-bottom5">(Toll free)</span>
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="clear"></div>
+                            <div class="margin-top5 font11 padding-right10 margin-bottom10">
+                                <span>By proceeding, you agree to CarWale Advantage <a href="/visitoragreement.aspx" target="_blank">visitor agreement</a> , <a href="/privacypolicy.aspx" target="_blank">privacy policy</a>  and <a href="/carwaleAdvantageTermsConditions.aspx" target="_blank">Terms and conditions</a>.</span>
+                            </div>
+                            @if (!ViewBag.StockDetails.PriceUpdated)
+                            {
+                                <div class="margin-top5 font15 padding-right10 margin-bottom20">
+                                    <span><b> @ViewBag.StockDetails.DisclaimerText </b></span>
+                                </div>
+                            }                            
+                            <div class="clear"></div>
+                        </div>
+                        <!-- Aged Offer Color Section Slab Ends Starts Here -->
+                        <div class="clear"></div>
+
+
+
+                        <div class="clear"></div>
+
+
+                    </div>
+
+                    <div class="clear"></div>
+                    <!-- CarDetails Section Code Ends Here -->
+                </div>
+            }
+
+            <div id="payDetails" class="hide">
+                <div class="content-inner-block-15">
+                    Payment
+
+                </div>
+            </div>
+            <!-- /payDetails -->
+            <div class="clear"></div>
+        </div>
+
+    </div>
+</div>
+
+<!-- How it Works Slug Starts-->
+<div class="container margin-bottom20">
+    <div class="grid-12">
+        <h2 class="text-center margin-top10 margin-bottom15 font25 text-black text-uppercase">3 Easy steps to own your dream car!</h2>
+        <div class="content-box-shadow rounded-corner2 margin-bottom20">
+            <div class="content-inner-block-10 advantage-work-slug">
+                <div class="work-steps">
+                    <h2 class="how-itwork-title font18 text-bold"><span>1.</span> Reserve your car online</h2>
+                    <p class="font13">Just pay online booking amount of<br /> <span class="margin-left5">₹</span> @Format.FormatNumericCommaSep(System.Configuration.ConfigurationManager.AppSettings["AgedCarBlockingAmount"]) and reserve the car</p>
+                </div>
+                <div class="work-arrow-section">
+                    <span class="desk-deals-car-sprite work-arrow"></span>
+                </div>
+                <div class="work-steps">
+                    <h2 class="how-itwork-title font18 text-bold"><span>2.</span> Visit dealership</h2>
+                    <p class="font13">Take a test drive. Provide documents & make remaining payment.</p>
+                </div>
+                <div class="work-arrow-section">
+                    <span class="desk-deals-car-sprite work-arrow"></span>
+                </div>
+                <div class="work-steps">
+                    <h2 class="how-itwork-title font18 text-bold"><span>3.</span> Get delivery of car</h2>
+                    <p class="font13">Drive home in your dream car</p>
+                </div>
+
+                <div class="padding-top20 padding-bottom10">
+                    <p class="text-grey font16 text-bold">100% Moneyback Guarantee</p>
+                    <p class="font14">100% refund of online booking amount in case you change your mind. No questions asked.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- How it Works Slug Ends-->
+<div class="clear"></div>
+
+
+<!-- FAQ Section Starts-->
+@{Html.RenderPartial("~/Views/Shared/Deals/_DealFaq.cshtml");}
+
+<!-- FAQ Section Ends-->

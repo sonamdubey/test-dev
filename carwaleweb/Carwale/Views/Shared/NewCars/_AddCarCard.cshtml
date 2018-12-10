@@ -1,0 +1,8 @@
+﻿<ul id="ulQuickResearch" class="qr-ver">
+    <li><select class="selectCar" id="drpMake" data-bind="foreach: Makes"><option data-bind="value: makeId, text: makeName"></option></select></li>
+    <li><select class="selectCar" id="drpModel" data-bind="foreach: Models"><option data-bind="value: ModelId, text: ModelName, attr: { 'mask': MaskingName }"></option></select></li>
+    <li><select class="selectCar" id="drpVersion" data-bind="foreach: Versions"><option data-bind="value: ID, text: Name"></option></select></li>
+    <li class="margin-top5">
+        <input type="button" class="action-button btn btn-xs btn-orange xs" id="btnAddCar" value="Add a Car" onclick="AddCar($('#drpVersion').val())" />
+    </li>
+</ul>

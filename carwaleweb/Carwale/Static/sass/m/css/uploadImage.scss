@@ -1,0 +1,366 @@
+﻿@import "../../mixins/_buttons.scss";
+@include btn-color("white");
+
+#formCarImage {
+    padding: 0;
+	
+	.screen-group--item {
+		padding: 10px 20px 50px;
+		margin-top: 2px;
+
+			&.always-active {
+				right: 0;
+		}
+
+		.screen__head {
+			margin-bottom: 5px;
+		}
+	}
+	.screen-head__title {
+		margin-bottom: 0;
+	}
+    .screen-body__title {
+		font-size: 16px;
+        font-weight:700;
+	}
+}
+.form-screen {
+    width: 100%;
+    min-height: 350px;
+    padding: 10px 20px 50px;
+    background: #fff;
+}
+.screen-group--item .screen__body {
+    min-height: 280px;
+}
+.category-upload-subtitle {
+    font-size: 11px;
+    color: #82888b;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.option-list{
+    text-align:center;
+}
+.option-list__item{
+    display: inline-block; 
+    vertical-align: top; 
+    text-align: center; 
+    margin-right: 10px; 
+}
+.option-list__item.dropzone {
+    width: 90px;
+}
+.dropzone-placeholder {
+    position: relative;
+    display: inline-block;
+}
+
+.cw-dropzone {
+	.dz-default {
+		display: none;
+	}
+}
+.list-item__upload-icon {
+    width: 67px;
+    height: 67px;
+    display: block;
+    margin: 0 auto 15px;
+}
+.front-right-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/used/car-view/67x67/front-right-corner.png) no-repeat center;
+}
+.list-item__upload-label {
+    line-height: 16px;
+}
+.front-view-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/used/car-view/67x67/front-view.png) no-repeat center;
+}
+.left-side-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/used/car-view/67x67/left-side-view.png) no-repeat center;
+}
+.rear-view-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/used/car-view/67x67/rear-view.png) no-repeat center;
+}
+.odometer-icon {
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/used/car-view/67x67/odometer-reading.png) no-repeat center;
+}
+.others-upload-list {
+    text-align: center;
+    min-height: 160px;
+}
+.others-upload-list {
+	.dz-preview {
+		width: 90px;
+		margin: 0 8px 20px;
+		background: none;
+	}
+	.dz-success-mark {
+		top: 28%; 
+	}
+	.dz-progress {
+		top: 38%;
+	}
+
+}
+#add-more-photos {
+    width: 90px;
+    height: 136px;
+    text-align: center;
+    background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ccc/multiple-image-27x28.png) no-repeat center 25%;
+}
+.more-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px;
+    display: block;
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 22px;
+    background: rgba(0, 0, 0, 0.4);
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -o-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.info-list__title {
+	font-size: 14px;
+	color: #565a5c;
+	font-weight: 600;
+	margin-bottom: 5px;
+}
+
+.info-list {
+	font-size: 0;
+
+	li {
+		position: relative;
+		vertical-align: top;
+		margin-top: 10px;
+		padding-left: 15px;
+		padding-right: 20px;
+		font-size: 12px;
+		color: #82888b;
+
+		&:before {
+			content: '\2022';
+			font-size: 16px;
+			position: absolute;
+			color: #82888b;
+			left: 0;
+			top: -4px;
+		}
+	}
+}
+
+.dz-preview {
+  width: 67px;
+  height: 85px;
+  margin: 0 20px 15px 18px;
+  background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/ccc/multiple-image-27x28.png) no-repeat center;
+  overflow: hidden;
+  .dz-image {
+		overflow: hidden;
+		width: 67px;
+		height: 67px;
+		border-radius: 50%;
+		background: #eee;
+		border: 1px solid #ccc;
+		text-align: center; 
+	}
+    .dz-image:after {
+		  content: '';
+		  width: 65px;
+		  height: 65px;
+		  display: block;
+		  position: absolute;
+		  left: 0;
+		  top: 0;
+		  border: 2px solid #fff;
+		  border-radius: 50%;
+		  z-index: 1; 
+	  }
+  .dz-image-thumbnail {
+	    background: #f5f5f5; 
+	}
+    .dz-image-thumbnail:before {
+		  content: "";
+		  width: 100%;
+		  height: 100%;
+		  display: block;
+		  background: rgba(42, 42, 42, 0.4);
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  z-index: 1; 
+	  }
+	 .dz-error-message {
+			font-size: 9px;
+		 }
+
+	}
+
+.category-upload-list {
+	.dz-preview {
+		width: 100%;
+		height: 120px;
+		margin: 0;
+		background: none;
+	}
+	.dz-success-mark {
+		top: 23%; 
+	}
+	.option-list__item {
+		margin-bottom: 20px;
+	}
+	.dz-progress {
+		top: 30%; 
+	}
+}
+.cw-dropzone {
+	 .dz-preview {
+		.dz-error-message {
+			height: 15px;
+			line-height: 15px;
+			display: block;
+			font-size: 9px;
+		}
+		.dz-progress {
+			width: 40%;
+		}
+		.dz-error-mark {
+			width: 65px;
+			height: 65px;
+			padding-top: 24px;
+			background: rgba(0, 0, 0, 0.3);
+			top: 0;
+			-moz-border-radius: 50%;
+			-webkit-border-radius: 50%;
+			-o-border-radius: 50%;
+			-ms-border-radius: 50%;
+			border-radius: 50%;
+		}
+		.dz-remove {
+			width: 30px;
+			height: 30px;
+			top: -5px;
+			right: 5px;
+			background: url(https://imgd.aeplcdn.com/0x0/cw/static/icons/565a5c/cancel-16x16.png) no-repeat center;
+			display: inline-block;
+		}
+	}
+
+}
+// floating buttons
+.form-float-buttons {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	font-size: 0;
+	box-shadow: -2px 0 4px 0 #999;
+	z-index: 2;
+
+	.btn {
+		font-size: 14px;
+		text-transform: uppercase;
+		padding: 13px 5px;
+		border-radius: 0;
+		cursor:pointer;
+	}
+
+	.btn-white {
+		width: 33.33%;
+		border-color: #fff;
+
+		&:hover {
+			border-color: #fff;
+			background: #fff;
+			color: #ef402f;
+		}
+	}
+
+	.btn-orange {
+		width: 66.66%;
+	}
+
+    &.prev-btn-inactive {
+        #prevBtn {
+            display: none;
+        }
+
+        #nextBtn {
+            width: 100%;
+        }
+    }
+
+    &.next-btn-inactive {
+        #nextBtn {
+            display: none;
+        }
+
+        #prevBtn {
+            width: 100%;
+        }
+    }
+}
+.floating-container.float-fixed {
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    right: 0;
+    float: none;
+}
+.floating-container.float {
+    position: relative;
+    bottom: 0;
+    z-index: 1;
+    right: 0;
+    float: none;
+}
+
+.lock-browser-scroll {
+	overflow-y: hidden;
+	width: 100%;
+}
+// modal popup
+
+	#modalBg {
+		width: 100%;
+		height: 100%;
+		display: none;
+		background: rgba(0, 0, 0, 0.6);
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 5;
+	}
+
+	.modal-box {
+		width: 320px;
+		min-height: 170px;
+		padding:30px 10px;
+		text-align: center;
+		display: none;
+		position: fixed;
+		top: 30%;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		background: #fff;
+		border-radius: 4px;
+		z-index: 6;
+
+		.btn {
+			margin: 20px 0 0;
+		}
+    
+		.cross-default-15x16 {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+	}

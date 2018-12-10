@@ -1,0 +1,174 @@
+﻿
+@import "../mixins/_vendor-utils.scss";
+@import "../mixins/_opacity.scss";
+
+@mixin leftfloat{
+    .leftfloat{
+        float: left;
+    }
+}
+
+@mixin rightfloat{
+    .rightfloat{
+        float:right;
+    }
+}
+
+@mixin content-inner-block($length:5){
+    @if unitless($length){
+    .content-inner-block-#{$length}{
+        padding: #{$length+px};
+    }
+    }
+    @else{
+        @warn "Please provide unitless length";
+    }
+}
+
+@mixin content-box-shadow{
+    .content-box-shadow { 
+        background: #fff;
+        border: 1px solid #e2e2e2;
+        @include get-vendor-prefixed("box-shadow","0 1px 2px #e5e5e5");
+        @include get-vendor-prefixed("border-radius","2px");
+    }
+}
+
+@mixin arr-small{
+    .arr-small { 
+        font-size: 15px; 
+        color: red; 
+    }
+}
+
+@mixin arr-big{
+    .arr-big { 
+        font-size: 20px; 
+        color: red; 
+    }
+}
+
+@mixin container{
+    .container { 
+        width: 100%; 
+        margin: 0 auto;
+    }
+}
+
+@mixin clear{
+    .clear { 
+        clear: both; 
+    }
+}
+
+@mixin show{
+    .show{
+        display:block;
+    }
+}
+
+@mixin hide{
+    .hide{
+       display:none;
+    }
+}
+
+@mixin table{
+    .table{
+        display:table;
+    }
+}
+
+@mixin inline-block{
+    .inline-block{
+        display:inline-block;
+    }
+}
+
+@mixin cur-pointer{
+    .cur-pointer { cursor: pointer; }
+}
+
+@mixin cur-default{
+    .cur-default { cursor: default; }
+}
+
+@mixin ad-div{
+    .ad-div {
+    width: 320px;
+    margin: auto;
+    text-align: center;
+}
+}
+
+
+%blackout{
+    background: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+}
+
+@mixin blackout-window{
+    @include opacity-class(50);
+    .blackOut-window{
+        display:none;
+        @extend %blackout;
+        @extend .opacity50;
+    }
+}
+
+@mixin global-loc-blackout{
+    @include opacity-class(50);
+    .globalLocBlackOut {
+        display:none;
+         @extend %blackout;
+         @extend .opacity50;
+    }
+}
+
+@mixin m-defaultAlert-window{
+    @include opacity-class(50);
+    .m-defaultAlert-window,.m-defaultAlert-window-CustInfo{
+        @extend %blackout;
+        @extend .opacity50;
+        z-index:99;
+    }
+}
+
+@mixin m-loading-popup{
+    .m-loading-popup {
+    background: 0 0;
+    width: 90px;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 9999999;
+}
+}
+
+
+%loading-icon{
+    background: url(https://imgd.aeplcdn.com/0x0/cw/design15/m/cw-loader.gif) no-repeat;
+    width: 90px;
+    height: 61px;
+    display: block;
+    float: left;
+    margin: -30px 0 0 -46px;
+}
+
+@mixin m-loading-icon{
+    .m-loading-icon{
+        @extend %loading-icon;
+    }
+}
+
+@mixin ui-icon-loading{
+    .ui-icon-loading{
+        @extend %loading-icon;
+    }
+}

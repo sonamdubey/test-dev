@@ -1,0 +1,55 @@
+//
+// Variables
+// --------------------------------------------------
+
+//== Colors
+//
+//## Brand colors
+$color-map: (
+  "blue-whale": #0b2e40,
+  "green-vogue": #0e3a50,
+  "hd-orange": #bf331c,
+  "orange-red": #e53012,
+  "shamrock-green": #00afa0,
+  "spring-green": #23efab,
+  "golden-brown": #a25a00,
+  "carrot-orange": #ef9423,
+  "orange": #ff653f,
+  "cinnabar": #ef4b23,
+  "summer-sky": #3fbfff,
+  "lynch": #65818f,
+  "charcoal": #484848,
+  "dim-gray": #6f6f6f,
+  "dark-gray": #aaa,
+  "light-gray": #d5d5d5,
+  "white-smoke": #efefef,
+  "snow": #fbfbfb,
+  "white": #fff,
+  "black": #000,
+  "broken-white": #f2f2f2,
+  "coral": #f97e5f,
+  "gainsboro": #e2e2e2,
+  "snow-2": #f9f9f9,
+  "nobel": #9f9f9f,
+  "trout-grey": #54585a,
+  "pacific-blue": #0288d1,
+  "medium-grey": #999,
+  "light-sea-green": #24c0b3,
+  "very-light-grey": #ccc,
+  "nile-blue": #2d4552,
+  "dodger-blue": #1a9be5,
+  "grey": #666,
+  "aluminium": #82888b,
+  "lochmara": #317c9b
+);
+
+//## Set color theme
+$base-color: color("charcoal");
+
+$focus-color: color("summer-sky");
+$success-color: color("spring-green");
+$error-color: color("cinnabar");
+$link-color: color("lynch");
+
+$font-bold: 700;
+$font-normal: 400;

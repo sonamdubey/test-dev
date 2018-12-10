@@ -1,0 +1,93 @@
+@import "../../../style/scss/mixins/_flex.scss";
+
+.additional-suggested-list .oxygen-btn {
+  margin: 5px 0px;
+}
+
+.suggested-list {
+  .oxygen-checkbox-group-item {
+    @include flexbox;
+    @include align-items(center);
+  }
+
+  .oxygen-checkbox-content {
+    @include flex-grow;
+    padding-left: 0;
+  }
+}
+
+.suggested-list-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: 0 -1px 4px 0 #999;
+}
+
+.list-heading {
+  display: inline-block;
+  width: 60%;
+}
+.list-heading__title {
+  color: map-get($color-map, "charcoal");
+  font-size: 15px;
+  font-weight: $font-bold;
+  margin: 0;
+}
+.list-heading__subtitle {
+  color: map-get($color-map, "charcoal");
+  font-size: 12px;
+  margin: 0;
+}
+
+.padding-bottom20 {
+  padding-bottom: 20px;
+}
+
+.select-all-option {
+  float: right;
+  margin-right: 20px;
+  padding-top: 5px;
+
+  .oxygen-checkbox-content {
+    font-size: 13px;
+  }
+}
+
+.check-box {
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  & {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.dealer-skip-button {
+  &.oxygen-btn {
+    font-weight: 700;
+    padding-bottom: 0;
+    color: map-get($color-map, "summer-sky");
+    border: 0;
+  }
+}
+
+@media only screen and (min-width: 780px) {
+  .suggested-list-footer {
+    position: relative;
+    box-shadow: none;
+  }
+
+  .dealer-skip-button {
+    &.oxygen-btn {
+      color: #f85649;
+      border: 1px solid #f85649;
+      padding: 11px 20px;
+      margin-top: 20px;
+      border-radius: 3px;
+    }
+  }
+}

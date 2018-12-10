@@ -1,0 +1,113 @@
+﻿@model Carwale.DTOs.CMS.ThreeSixtyView.ThreeSixtyDTO
+
+@using System.Configuration;
+@using Carwale.Entity.CarData;
+@using Carwale.Entity.CMS.Photos;
+@using Carwale.Utility;
+@{
+    string cdnHostUrl = ConfigurationManager.AppSettings["CDNHostURL"].ToString();
+    string loadingImagePath = "559x314/cw/360/" + Format.FormatSpecial(Model.ModelDetails.MakeName) + "/" + Model.ModelDetails.ModelId;
+    bool isExteriorAvailable = Model.ModelDetails.Is360ExteriorAvailable;
+    bool isOpenAvailable = Model.ModelDetails.Is360OpenAvailable;
+    bool isInteriorAvailable = Model.ModelDetails.Is360InteriorAvailable;
+    string activeState = Model.ActiveState;
+
+    ViewBag.BodyClass = "bg-white header-fixed-inner";
+    ViewBag.Title = string.Format("{0} {1} 360° View", Model.ModelDetails.MakeName, Model.ModelDetails.ModelName);
+    ViewBag.Description = string.Format("See high quality 360° view of {0} {1}, view it from every angle. Take a virtual tour of {2} {3}.", Model.ModelDetails.MakeName, Model.ModelDetails.ModelName, Model.ModelDetails.MakeName, Model.ModelDetails.ModelName);
+    ViewBag.Canonical = string.Format("https://www.carwale.com/{0}-cars/{1}/360-view/", Carwale.Utility.Format.FormatSpecial(Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName);
+    ViewBag.Alternate = string.Format("https://www.carwale.com/m/{0}-cars/{1}/360-view/", Carwale.Utility.Format.FormatSpecial(Model.ModelDetails.MakeName), Model.ModelDetails.MaskingName);
+    ViewBag.CustomJS = "~/Views/StaticPartials/editorial/360ViewPageScript.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/editorial/360ViewPageCss.cshtml";
+    Layout = "~/views/shared/_LayoutV2.cshtml";
+}
+
+<div class="landscape bg-light-grey padding-top10 padding-bottom20 no-bg-color">
+    <div class="container">
+        <section class="grid-12">
+            @{ Html.RenderPartial("~/Views/Shared/_BreadCrumb.cshtml", Model.BreadcrumbEntitylist); }
+
+            <h1 class="font30 text-black special-skin-text">
+                <span itemprop="name">@string.Format("{0} {1} 360° View", Model.ModelDetails.MakeName, Model.ModelDetails.ModelName)</span>
+            </h1>
+            <div class="border-solid-bottom margin-top10 margin-bottom5"></div>
+        </section>
+        <div id="player" class="grid-12 three-sixty-main">
+            <div class="loading"></div>
+            <img style="min-height:550px" id="loadingClosedDoor" class="@((activeState == "closed") ? "" : "hide")" src="@(cdnHostUrl + loadingImagePath + "/closed-door/1.jpg?q=20&v=20171024122425")" />
+            <img style="min-height:550px" id="loadingOpenDoor" class="@((activeState == "open") ? "" : "hide")" src="@(cdnHostUrl + loadingImagePath + "/open-door/1.jpg?q=20&v=20181030122425")" />
+            <div id="tempLoadingImage" class="loading-single-image hide">
+                <span id="loadingProgress"></span>
+            </div>
+
+            <div id="wr360PlayerId" class="no-select hide"></div>
+            <div id="pano2vr-container" class="interior-cars pos-relative hide">
+                <div id="pano2vr360Player"></div>
+                <div class="gradient-shade"></div>
+            </div>
+
+
+            <a class="three-sixty-full-screen-close hide" onclick="ThreeSixtyView.plugin.toggleFullScreen()" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_button_clicks" data-action="cross_fullscreen" data-label="cross_fullscreen">
+                <span class="fa fa-times-thin fa-4x three-sixty-cross"></span>
+            </a>
+
+            <a class="three-sixty-full-screen hide" onclick="ThreeSixtyView.plugin.toggleFullScreen()" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_button_clicks" data-action="full_screen" data-label="full_screen">
+                <img src="@(cdnHostUrl + "0x0/cw/static/360icons/fullscreen-new.png")" alt="" title="">
+            </a>
+            <div class="option-buttons hide">
+                <ul class="buttons-unit">
+                    @if (isExteriorAvailable)
+                    {
+                        <li class="three-sixty-exterior @(activeState == "closed" ? "three-sixty-active" : "")" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_button_clicks" data-action="exterior" data-label="exterior">
+                            <span>Exterior</span>
+                        </li>
+                    }
+                    @if (isOpenAvailable)
+                    {
+                        <li class="three-sixty-open @(activeState == "open" ? "three-sixty-active" : "")" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_button_clicks" data-action="open_door" data-label="open_door">
+                            <span>Open</span>
+                        </li>
+                    }
+                    @if (isInteriorAvailable)
+                    {
+                        <li class="three-sixty-interior @(activeState == "interior" ? "three-sixty-active" : "")" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_button_clicks" data-action="interior" data-label="interior">
+                            <span>Interior</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="player-nav-container">
+                <div id="exterior-player" class="player-nav hide">
+                    <img class="left-pan" src="@(cdnHostUrl + "0x0/cw/static/360icons/exterior/carousel-left-arrow.png")" onclick="ThreeSixtyView.plugin.panLeft()" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_exterior_player" data-action="prev" data-label="prev" />
+                    <img class="auto-play" src="@(cdnHostUrl + "0x0/cw/static/360icons/exterior/replay.png")" onclick="ThreeSixtyView.plugin.autoPlay()" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_exterior_player" data-action="play" data-label="play" />
+                    <img class="right-pan" src="@(cdnHostUrl + "0x0/cw/static/360icons/exterior/carousel-right-arrow.png")" onclick="ThreeSixtyView.plugin.panRight()" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_exterior_player" data-action="next" data-label="next" />
+                </div>
+                <div id="interior-player" class="player-nav hide">
+                    <img class="up-pan" src="@(cdnHostUrl + "0x0/cw/static/360icons/interior/up.png")" onclick="ThreeSixtyView.plugin.panVertical(1)" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_interior_player" data-action="up" data-label="up" />
+                    <img class="down-pan" src="@(cdnHostUrl + "0x0/cw/static/360icons/interior/down.png")" onclick="ThreeSixtyView.plugin.panVertical(-1)" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_interior_player" data-action="down" data-label="down" />
+                    <img class="left-pan" src="@(cdnHostUrl + "0x0/cw/static/360icons/interior/carousel-left-arrow.png")" onclick="ThreeSixtyView.plugin.panLeft()" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_interior_player" data-action="prev" data-label="prev" />
+                    <img class="auto-play" src="@(cdnHostUrl + "0x0/cw/static/360icons/interior/replay.png")" onclick="ThreeSixtyView.plugin.autoPlay()" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_interior_player" data-action="play" data-label="play" />
+                    <img class="right-pan" src="@(cdnHostUrl + "0x0/cw/static/360icons/interior/carousel-right-arrow.png")" onclick="ThreeSixtyView.plugin.panRight()" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_interior_player" data-action="next" data-label="next" />
+                    <img class="zoom-in" src="@(cdnHostUrl + "0x0/cw/static/360icons/interior/zoom-in.png")" onclick="ThreeSixtyView.plugin.zoom(-1)" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_interior_player" data-action="zoom_in" data-label="zoom_in" />
+                    <img class="zoom-out" src="@(cdnHostUrl + "0x0/cw/static/360icons/interior/zoom-out.png")" onclick="ThreeSixtyView.plugin.zoom(1)" data-role="click-tracking" data-event="CWInteractive" data-cat="desktop_360_interior_player" data-action="zoom_out" data-label="zoom_out" />
+                </div>
+            </div>
+
+
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="grid-8 images-slug bg-light-grey no-bg-color">
+            @{ Html.RenderPartial("~/Views/Shared/Editorial/_ModelImagesSlug.cshtml", new Tuple<List<ModelImage>, CarModelDetails, bool>(Model.ModelImagesList, Model.ModelDetails, false));}
+        </div>
+        <div class="videos-slug">
+            @{ Html.RenderPartial("~/Views/Shared/Editorial/_ModelVideosSlug.cshtml", Model.ModelVideos);}
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    @{ Html.RenderPartial("~/Views/Shared/_GoogleTagManagerView.cshtml");}
+
+    @{ Html.RenderPartial("~/Views/Shared/_CrazyEggView.cshtml");}
+</div>
+

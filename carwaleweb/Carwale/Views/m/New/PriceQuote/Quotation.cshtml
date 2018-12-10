@@ -1,0 +1,94 @@
+﻿@model List<Carwale.DTOs.PriceQuote.QuotationPageMobileDTO>
+
+@using Carwale.Utility;
+@using Carwale.DTOs.PriceQuote;
+@using System.Configuration;
+@{
+    ViewBag.IsNewPQPage = true;
+    ViewBag.Title = "Quotation Page";
+    ViewBag.Description = "Quotation Page";
+    ViewBag.Keywords = "";
+    Layout = Model[0].Source == Carwale.Entity.Enum.Platform.CarwaleMobile ? "~/views/shared/m/_MLayoutV2.cshtml" : "~/views/shared/m/_MLayoutAppV2.cshtml";
+    ViewBag.CustomCss = "~/Views/StaticPartials/m/MQuotationPageCss.cshtml";
+    ViewBag.CustomJS = "~/Views/StaticPartials/m/MQuotationPageScript.cshtml";
+    ViewBag.Canonical = "";
+
+    if (Model.Count > 0)
+    {
+        ViewBag.DefineAdSlots =
+        @"<script type='text/javascript'>
+                var AdSlots = {};
+			    googletag.cmd.push(function () {
+			    googletag.pubads().disableInitialLoad();
+			    googletag.pubads().setCentering(true);
+			    AdSlots['div-gpt-ad-1496641110753-0'] = googletag.defineSlot('/1017752/" + ViewBag.adPath + @"Carwale_Mobile_PriceQuote_320x50', [[320, 50], [300, 50]], 'div-gpt-ad-1496641110753-0').addService(googletag.pubads()).setCollapseEmptyDiv(true);
+			    googletag.pubads().setTargeting('Models', '" + Model[0].CarDetails.ModelName + @"');
+			    googletag.pubads().setTargeting('City', '" + Model[0].Location.CityName + @"');
+			    googletag.pubads().collapseEmptyDivs(true);
+			    googletag.pubads().enableSingleRequest();
+			    googletag.enableServices();
+			    });
+		    </script>";
+    }
+}
+
+@section MetaTags{
+    <meta name="robots" content="noindex" />
+}
+
+<div id="m-newLoading" style="display: none;">
+    <div class="m-loading-popup">
+        <span class="m-loading-icon"></span>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="pq-new">
+    <!-- Floating Header -->
+    <section class="fixed-model-name floating-container hide">
+        <div></div>
+    </section>
+    <!-- Tool Tip -->
+    <section class="pq-tool-tip">
+        <p class="pq-tool-tip__content"></p>
+    </section>
+    @{
+        Carwale.DTOs.PriceQuote.EmiCalculatorModelData firstCardEmiCalculatorData = null;
+        if (Model.Count > 0 && Model[0].EmiCalculatorModelData.IsNotNullOrEmpty())
+        {
+            firstCardEmiCalculatorData = Model[0].EmiCalculatorModelData[0];
+        }
+    }
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        var currentVersion = Model[i];
+        currentVersion.CardNo = (i + 1);
+        Html.RenderPartial("~/Views/Shared/m/PriceQuote/_PriceQuoteCard.cshtml", currentVersion);
+    }
+
+    @if (Model.Count > 0 && Model[0].Source == Carwale.Entity.Enum.Platform.CarwaleMobile)
+    {
+        Html.RenderPartial("~/Views/Shared/m/PriceQuote/_DfpAd.cshtml");
+
+        if (Model[0].ShowSellCarLink)
+        {
+            Html.RenderPartial("~/Views/Shared/m/PriceQuote/_SellCarSlug.cshtml");
+        }
+    }
+
+    @if (firstCardEmiCalculatorData != null && firstCardEmiCalculatorData.IsEligibleForThirdPartyEmi)
+    {
+        if (firstCardEmiCalculatorData.ThirdPartyEmiDetails != null)
+        {
+            Html.RenderPartial("~/Views/Shared/m/PriceQuote/_EmiCalculatorVolkswagen.cshtml", firstCardEmiCalculatorData);
+        }
+    }
+    else
+    {
+        <div id="root-container" class="emi-calculator-root"><div id="root"></div></div>
+    }
+</div>
+
+<div id="modelChangeDiv">
+</div>

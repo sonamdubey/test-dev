@@ -1,0 +1,465 @@
+﻿.right-price-box {
+  width: 100%;
+  background-color: #fff;
+  text-align: center;
+  padding: 0 15px 15px 15px;
+  overflow: auto;
+  margin-bottom: 15px;
+}
+
+.right-price-box .horizontal-bar {
+  width: 268px;
+  height: 9px;
+  background-image: url('https://imgd.aeplcdn.com/0x0/cw/design15/price-bar.png');
+  position: relative;
+  display: inline-block;
+  margin-top: 60px;
+}
+
+.right-price-box .bar-pointer {
+  width: 100px;
+  text-align: center;
+  background-color: transparent;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+}
+
+.right-price-box .fair-pointer {
+  left: 20%;
+  top: -50px;
+}
+
+.right-price-box .good-pointer {
+  left: 80%;
+  top: -50px;
+}
+
+.right-price-box .fair-price {
+  left: 50%;
+  top: -10px;
+  z-index: 1;
+  width: 100px;
+}
+
+.right-price-box .border-mark {
+  width: 1px;
+  border-right: 1px solid #565a5d;
+  height: 10px;
+  display: inline;
+  top: 6px;
+  position: relative;
+}
+
+.right-price-box .fair-mark {
+  width: 26px;
+  height: 33px;
+  margin: auto;
+  top: 0px;
+  position: relative;
+  background-image: url("https://imgd.aeplcdn.com/0x0/cw/design15/price-pointer.png");
+}
+
+.right-price-box .price-pos {
+  position: relative;
+  top: 5px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.right-price-box .right-price-title {
+  text-align: center;
+  font-weight: 700;
+}
+
+.right-price-box table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+.right-price-box td, th {
+  width: 1%;
+  padding: 12px;
+  border-bottom: 1px solid #e5e5e5;
+  text-align: center;
+}
+
+.right-price-box tr {
+  background-color: #fff;
+}
+
+.right-price-box .fair-price .price-pos {
+  top: 0px;
+  font-weight: 700;
+}
+
+.right-price-box .top-corner {
+  background: #565a5c;
+  color: #fff;
+  font-size: 18px;
+}
+
+.right-price-box .top-corner .back-long-arrow-left-white {
+  position: relative;
+  top: 3px;
+}
+
+.right-price-box .right-price-not-available {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.right-price-box .not-avlbl-text {
+  font-weight: 600;
+  font-size: 18px;
+  color: black;
+  margin-top: 15px;
+}
+
+.right-price-box .not-avlbl-icon {
+  width: 38px;
+  height: 50px;
+  background-position: 0 -700px;
+  margin: auto;
+}
+
+.top-bar {
+  background: #fff;
+  border: none;
+  padding: 15px 15px 0 15px;
+}
+
+/* valuation-popup-content */
+.valuation-popup-content {
+  width: 100%;
+  height: 400px;
+  background: #fff;
+  position: relative;
+}
+
+/* valuation-popup__right-price */
+.valuation-popup__right-price {
+  width: 66.6%;
+  height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.valuation-popup__model-details {
+  margin-bottom: 20px;
+}
+
+.model-details__title {
+  color: #565A5C;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.list-item--separator {
+  float: left;
+  position: relative;
+  padding-right: 12px;
+}
+
+.list-item--separator:after {
+  content: '\007C';
+  display: block;
+  position: absolute;
+  top: -1px;
+  right: 2px;
+}
+
+.list-item--separator:last-child:after {
+  content: none;
+}
+
+.clearfloat:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.right-price__title {
+  font-size: 12px;
+}
+
+/* right-price__table */
+.right-price__table {
+  width: 100%;
+  font-size: 14px;
+  border-collapse: collapse;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.price-table__col-heading,
+.price-table__cell {
+  border: 1px solid #e2e2e2;
+}
+
+.price-table__col-heading {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: #f5f5f5;
+  font-weight: 600;
+}
+
+.price-table__cell {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+/* valuation-popup__form */
+.valuation-popup__form {
+  width: 33.4%;
+  height: 400px;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-left: 1px solid #ccc;
+  background: #fff;
+  z-index: 3;
+}
+
+.valuation-popup__form .cw-blackbg-tooltip,
+.valuation-popup__form .error-icon {
+  display: none;
+}
+
+.form__heading {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.valuation-popup__form .form-control-box {
+  margin-bottom: 20px;
+}
+
+.email-update-field {
+  cursor: pointer;
+}
+
+.email-update__text {
+  float: left;
+  position: relative;
+  top: 1px;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.form-field__mobile .mobile-icon-16 {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  opacity: 0.5;
+}
+
+.form-field__mobile-prefix {
+  position: absolute;
+  top: 8px;
+  left: 40px;
+}
+
+.form-field__mobile .form-control {
+  padding-left: 70px;
+}
+
+.form-field__email .form-control {
+  padding-left: 40px;
+}
+
+.btn-250-40 {
+  width: 250px;
+  padding: 8px;
+}
+
+/* form__details-list */
+.form__details-list {
+  margin-bottom: 30px;
+}
+
+.form__details-list li {
+  margin-top: 15px;
+}
+
+.form__details-list li:first-child {
+  margin-top: 0;
+}
+
+.list-item__icon-col {
+  position: relative;
+  top: 3px;
+}
+
+.list-item__details-col {
+  width: 80%;
+  padding-left: 10px;
+  font-size: 14px;
+}
+
+.list-item__icon-col,
+.list-item__details-col {
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* form-sprite-16 */
+.form-sprite-16 {
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/sprites/form-sprite-16.png') no-repeat;
+  display: inline-block;
+}
+
+.dealer-icon-16,
+.mobile-icon-16,
+.email-icon-16,
+.loc-icon-16 {
+  width: 16px;
+  height: 16px;
+}
+
+.dealer-icon-16 {
+  background-position: 0 0;
+}
+
+.mobile-icon-16 {
+  background-position: 0 -26px;
+}
+
+.email-icon-16 {
+  background-position: 0 -52px;
+}
+
+.loc-icon-16 {
+  background-position: 0 -78px;
+}
+
+/* valuation-popup__similar-cars */
+.valuation-popup__similar-cars {
+  display: block;
+  width: 66.6%;
+  height: 400px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 66.6%;
+  background: #fff;
+  z-index: 2;
+}
+
+.similar-cars__slide-btn {
+  display: none;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  position: absolute;
+  top: 45%;
+  left: 64.5%;
+  cursor: pointer;
+  text-align: center;
+  z-index: 3;
+  -webkit-box-shadow: 0 0 4px #888;
+  -moz-box-shadow: 0 0 4px #888;
+  -o-box-shadow: 0 0 4px #888;
+  box-shadow: 0 0 4px #888;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.valuation-popup__similar-cars,
+.similar-cars__slide-btn {
+  -webkit-transition: all 0.5s linear;
+  -moz-transition: all 0.5s linear;
+  -o-transition: all 0.5s linear;
+  transition: all 0.5s linear;
+}
+
+.valuation-popup__similar-cars .recommendationList {
+  height: 400px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.valuation-popup__similar-cars .recommendationList li {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.valuation-popup__similar-cars .recommendcarThumb {
+  margin-right: 20px;
+}
+
+.arrow-sprite-9 {
+  background: url('https://imgd.aeplcdn.com/0x0/cw/static/icons/arrow-565a5c-9.png') no-repeat;
+  display: inline-block;
+}
+
+.left-icon-9 {
+  width: 9px;
+  height: 16px;
+  background-position: 0 0;
+  position: relative;
+  top: 31%;
+}
+
+/* similar-cars__slide-tooltip */
+.similar-cars__slide-tooltip {
+  display: none;
+  position: absolute;
+  top: 58%;
+  left: 54%;
+  z-index: 4;
+}
+
+.similar-cars__slide-tooltip.coachmark {
+  border-color: #ccc;
+  box-shadow: 0 1px 1px #ccc;
+}
+
+.similar-cars__slide-tooltip .coachmark-arrow-top {
+  border-bottom-color: #ccc;
+  left: auto;
+  right: 12px;
+}
+
+/* similar-cars__slide-btn hover */
+.similar-cars__slide-btn:hover + .similar-cars__slide-tooltip {
+  display: block;
+}
+
+.list--slide .valuation-popup__similar-cars {
+  left: 0;
+}
+
+.list--slide .similar-cars__slide-btn,
+.list--slide .similar-cars__slide-tooltip {
+  left: -20px;
+}
+
+.list--slide .coachmark-arrow-top {
+  left: 12px;
+}
+
+.list--slide .left-icon-9 {
+  background-position: -19px 0;
+}

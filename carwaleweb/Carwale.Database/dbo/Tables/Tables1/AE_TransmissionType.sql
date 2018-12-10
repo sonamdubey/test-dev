@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[AE_TransmissionType] (
+    [Id]   NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [Name] VARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_AE_TransmissionType] PRIMARY KEY CLUSTERED ([Id] ASC) WITH (FILLFACTOR = 90)
+);
+

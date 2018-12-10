@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[DCRM_ADM_LeadStatus] (
+    [ID]   SMALLINT     NOT NULL,
+    [Name] VARCHAR (50) NULL,
+    CONSTRAINT [PK_DCRM_ADM_LeadStatus] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+

@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[ForumActivities] (
+    [ID]   NUMERIC (18) IDENTITY (1, 1) NOT FOR REPLICATION NOT NULL,
+    [Name] VARCHAR (50) NULL,
+    CONSTRAINT [PK_ForumActivities] PRIMARY KEY CLUSTERED ([ID] ASC) WITH (FILLFACTOR = 90)
+);
+
