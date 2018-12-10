@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using Bikewale.Utility;
+using Bikewale.Entities.BikeBooking;
 
 namespace Bikewale.Models.PopUp
 {
@@ -42,6 +43,7 @@ namespace Bikewale.Models.PopUp
                 uint _modelId,
                     _cityId,
                     _areaId;
+                ushort _leadSourceId,_mlaLeadSourceId;
                 string _bikeName,
                     _location,
                     _city,
@@ -60,6 +62,8 @@ namespace Bikewale.Models.PopUp
                 uint.TryParse(queryCollection["modelid"], out _modelId);
                 uint.TryParse(queryCollection["cityid"], out _cityId);
                 uint.TryParse(queryCollection["areaid"], out _areaId);
+                ushort.TryParse(queryCollection["leadsourceid"],out _leadSourceId);
+                ushort.TryParse(queryCollection["mlaleadsourceid"],out _mlaLeadSourceId);
 
                 _bikeName = queryCollection["bikename"];
                 _location = queryCollection["location"];
@@ -85,8 +89,11 @@ namespace Bikewale.Models.PopUp
                     CityId = _cityId,
                     Location = _location,
                     BikeName = _bikeName,
-                    IsManufacturerCampaign = _isManufacturerCampaign
+                    IsManufacturerCampaign = _isManufacturerCampaign,
+                    IsMLAActive = !_isManufacturerCampaign
                 };
+
+                viewModel.LeadCapture.MlaLeadSourceId = viewModel.LeadCapture.IsMLAActive  ? _mlaLeadSourceId : (ushort)0;
 
                 #endregion
             }

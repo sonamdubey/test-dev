@@ -2241,3 +2241,35 @@ div::-webkit-scrollbar {
 	padding-bottom: 10px;
 	font-size: 16px
 }
+
+/* floating cta */
+.btn-green {
+    background: #1b9618;
+    color: #fff;
+    border: 1px solid #1b9618
+}
+
+.tel-white-icon {
+    background-position: -83px -111px;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+ .dealer-grey {
+    width: 24px;
+    height: 22px;
+    background-position: -33px -639px;
+    vertical-align: middle;
+}
+
+.grid-6 {
+    width: 50%;
+}
+
+.padding-left5 {
+    padding-left: 5px;
+}
+
+.padding-right5 {
+    padding-right: 5px;
+}

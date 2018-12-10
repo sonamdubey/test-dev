@@ -237,7 +237,7 @@
                             <button id="otherDealerBtn" class="btn btn-orange dealers__submit-btn" data-bind="enable : selectedMLADealerIds().length != 0, click:submitLeadToMLADealers">
                                 Submit
                             </button>
-                            <button id="otherDealerSkipBtn" class="dealers__skip-btn" data-act="MLA_Not_Interested_Clicked" data-bind="click: triggerMlaGAs">
+                            <button id="otherDealerSkipBtn" class="dealers__skip-btn js_mladealers__skip-btn" data-act="MLA_Not_Interested_Clicked" data-bind="click: triggerMlaGAs">
                                 not interested
                             </button>
                         </div>
@@ -306,7 +306,7 @@
         var fbPixelLeadEvent = "";
         var LeadPopupOriginEnum = {"Finance":1,"NonFinance":2};
         var showOffersOnPopup = '@Convert.ToString(Model.ShowOffersOnLeadPage).ToLower()' == "true";
-        
+        var platformId = parseInt('@Model.PlatformId');
 
         function leadModel() {
             var arr = setuserDetails();
@@ -376,12 +376,14 @@
                 if(data != null && (gaObj.id == gaEnum.Dealer_Locator_City_Page  || gaObj.id == gaEnum.Dealer_Locator_Details_Page) && !self.isBikeSelected())
                 {
                     @if (Model.IsMLAActive && !Model.IsManufacturerCampaign)
-                {
-                    <text>
-                    triggerNonInteractiveGA(gaObj.name, "MLA_Eligible_Lead_Popup_Shown", self.selectedBike().bike + "_" + (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName()) + "_" + (self.isUserAreaAvailable()  ? globalLocation.AreaName : null));
-                    </text>
-                }
+                    {
+                        <text>
+                        triggerNonInteractiveGA(gaObj.name, "MLA_Eligible_Lead_Popup_Shown", self.selectedBike().bike + "_" + (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName()) + "_" + (self.isUserAreaAvailable()  ? globalLocation.AreaName : null));
+                        </text>
+                    }
                     self.isBikeSelected(true);
+                    leadmodelid = self.selectedBike().model.modelId;
+                    leadBikeName = self.selectedBike().bike;
                 }
             });
             function Dealer(dealerId, name, area, distance, areaId) {
@@ -414,14 +416,35 @@
                 var isValidUserDetails = self.validateUserInfo(fullName, emailid, mobile);
                 if(isValidUserDetails)
                 {
-                    if(gaObj.id == gaEnum.Dealer_Locator_City_Page || gaObj.id == gaEnum.Dealer_Locator_Details_Page)
+                    if(gaObj.id == gaEnum.Dealer_Locator_City_Page || gaObj.id == gaEnum.Dealer_Locator_Details_Page || platformId == PlatformEnum.Amp)
                     {
-                        if(self.selectedBike() != null && self.selectedBike().model.modelId > 0)
+                        if(leadmodelid > 0)
                         {
-                            var url = "/api/dealers/model/"+ self.selectedBike().model.modelId + "/city/" + leadcityid + "/dealerId/" + self.dealerId() + "/?areaId=" + (self.isUserAreaAvailable() ? globalLocation.AreaId : "0");
-                            $.getJSON(url, function(data) {
-                                self.setMLADealers(data);
-                                triggerNonInteractiveGA(gaObj.name,"MLA_Primary_Lead_Success_" + self.MLADealers().length + "_dealers_shown", self.selectedBike().bike +"_" +  (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName() )+ "_" + (self.isUserAreaAvailable()  ? globalLocation.AreaName : "null"));
+                            var url = "/api/dealers/model/"+ leadmodelid + "/city/" + leadcityid + "/dealerId/" + self.dealerId() + "/?areaId=" + (self.isUserAreaAvailable() ? globalLocation.AreaId : "0");
+                            $.ajax({
+                                url: url,
+                                async: false,
+                                beforeSend: function (xhr) {
+                                    self.showLoader();
+                                },
+                                json:true,
+                                contentType: "application/json",
+                                success: function (response) {
+                                    try{
+                                        var obj = JSON.parse(response);
+                                        self.setMLADealers(obj);
+                                        triggerNonInteractiveGA(gaObj.name,"MLA_Primary_Lead_Success_" + self.MLADealers().length + "_dealers_shown", leadBikeName +"_" +  (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName() )+ "_" + (self.isUserAreaAvailable()  ? globalLocation.AreaName : "null"));
+                                    }
+                                    catch(e){
+                                        self.hideLoader();
+                                    }
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                    self.hideLoader();
+                                },
+                                complete: function (xhr, ajaxOptions, thrownError) {
+                                    self.hideLoader();
+                                }
                             });
                         }
                     }
@@ -450,7 +473,7 @@
                         triggerGA(gaObj.name,"MLA_Select All_Clicked","@Model.BikeName" + "_" +  "@Model.City" + "_" + "@Model.Area");
                     }
                     else{
-                        triggerGA(gaObj.name,"MLA_Select All_Clicked",self.selectedBike().bike +"_" +  (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName() )+ "_" + (self.isUserAreaAvailable() ? globalLocation.AreaName : "null"));
+                        triggerGA(gaObj.name,"MLA_Select All_Clicked",leadBikeName +"_" +  (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName() )+ "_" + (self.isUserAreaAvailable() ? globalLocation.AreaName : "null"));
                     }
                 }
             }).extend({ rateLimit: 1 });
@@ -467,7 +490,7 @@
                 else{
                     if(self.selectedBike() != null)
                     {
-                        triggerGA(gaObj.name,event.target.dataset.act,self.selectedBike().bike +"_" +  (self.isUserAreaAvailable()  ? globalLocation.CityName : self.dealerCityName() )+ "_" + (self.isUserAreaAvailable() ? globalLocation.AreaName : null));
+                        triggerGA(gaObj.name,event.target.dataset.act, leadBikeName +"_" +  (self.isUserAreaAvailable()  ? globalLocation.CityName : self.dealerCityName() )+ "_" + (self.isUserAreaAvailable() ? globalLocation.AreaName : null));
                     }
                 }
             };
@@ -516,7 +539,7 @@
                     triggerGA(gaObj.name,"MLA_Lead_Success_" + self.selectedMLADealerIds().length + "/" + self.MLADealers().length + "_dealers_Lead Submitted", "@Model.BikeName" + "_" +  "@Model.City" + "_" + "@Model.Area");
                 }
                 else{
-                    triggerGA(gaObj.name,"MLA_Lead_Success_" + self.selectedMLADealerIds().length + "/" + self.MLADealers().length + "_dealers_Lead Submitted", self.selectedBike().bike +"_" +  (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName() )+ "_" + (self.isUserAreaAvailable() ? globalLocation.AreaName : "null"));
+                    triggerGA(gaObj.name,"MLA_Lead_Success_" + self.selectedMLADealerIds().length + "/" + self.MLADealers().length + "_dealers_Lead Submitted", leadBikeName +"_" +  (self.isUserAreaAvailable() ? globalLocation.CityName : self.dealerCityName() )+ "_" + (self.isUserAreaAvailable() ? globalLocation.AreaName : "null"));
                 }
                 $.ajax({
                     type: "POST",
@@ -530,6 +553,9 @@
                     contentType: "application/json",
                     dataType: 'json',
                     success: function (response) {
+                        if(platformId == PlatformEnum.Amp){
+                            redirectPageUrl();
+                        }
                     }
                 });
             };
@@ -908,8 +934,8 @@
                         "customerName": self.fullName(),
                         "customerMobile": self.mobileNo(),
                         "customerEmail": self.emailId(),
-                        "clientIP": clientIP,
-                        "PageUrl": pageUrl,
+                        "clientIP": clientIP ? clientIP : self.clientIP,
+                        "PageUrl": pageUrl ? pageUrl : self.pageUrl,
                         "leadSourceId": self.leadSourceId(),
                         "deviceId": getCookie('BWC'),
                         "areaId": self.isUserAreaAvailable() ? globalLocation.AreaId : "0",

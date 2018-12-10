@@ -12,6 +12,7 @@
 }
 <script type="text/javascript">
     var dropdown;
+    var clientIP = "",pageUrl = "";
     docReady(function () {
         try {
 
@@ -41,7 +42,8 @@
                     lab: ""
                 },
                 "sendLeadSMSCustomer": obj.sendLeadSMSCustomer,
-                "organizationName": obj.organizationName
+                "organizationName": obj.organizationName,
+                "campaignId": obj.campaignId
             };
             dleadvm.setOptions(leadOptions);
             LeadPopupState.open();
@@ -164,20 +166,23 @@
             console.warn("Unable to get submit details : " + e.message);
         }
 
-        $(".onlyPopup-leadCapture-close-btn, .leadCapture-close-btn, .notify-response__submit").on("click", function () {
-            @if (!String.IsNullOrEmpty(Model.Url))
-            {
-                <text>
-                    window.location.href = '@Model.Url';
-                </text>
-            }
+        $(".onlyPopup-leadCapture-close-btn, .leadCapture-close-btn, .notify-response__submit, .js_mladealers__skip-btn").on("click", function () {
+            redirectPageUrl();
         });
         $("#notifyOkayBtn").on("click", function () {
             $(".onlyPopup-leadCapture-close-btn").trigger("click");
 
         });
+        
     });
-
+    function redirectPageUrl(){
+        @if (!String.IsNullOrEmpty(Model.Url))
+        {
+            <text>
+                window.location.href = '@Model.Url';
+            </text>
+        }
+    }
 
 </script>
 <!-- widget script ends here-->
