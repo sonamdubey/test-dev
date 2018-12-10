@@ -675,7 +675,9 @@
 		@Html.Partial("~/UI/Views/Shared/_LeadCapture.cshtml", Model.LeadCapture)
 	}
 	<script defer src="@String.Format("{0}/UI/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
-	<script type="text/javascript">isCoverfoxShown = @(!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.HasCampaignDealer && !Model.IsManufacturerLeadAdShown ? "true" : "false");</script>
+	<script type="text/javascript">
+
+    </script>
 }
 <script>
 	docReady(function () {

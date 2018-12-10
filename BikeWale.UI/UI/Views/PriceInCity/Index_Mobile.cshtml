@@ -123,11 +123,17 @@
 									</tr>
 								</tbody>
 							</table>
-							if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
-							{
-                                var leadCampaignObj = Model.LeadCampaign;
-								<div class="rightfloat">
-									@if (!string.IsNullOrEmpty(leadCampaignObj.PriceBreakUpLinkMobile))
+                            
+							<div class="rightfloat">
+                            @if (Model.HasCampaignDealer)
+                            {
+                                var objDealer = Model.DetailedDealer.PrimaryDealer.DealerDetails;
+                                <a class="get-offer-link bw-ga leadcapturebtn font14" href="javascript:void(0)" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.PriceInCity_PriceBreakUpLink_Mobile) data-campaignid="@objDealer.CampaignId" data-item-id="@objDealer.DealerId" data-item-name="@objDealer.Organization" data-item-area="@objDealer.objArea.AreaName" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity)" data-cat="Price_in_City_Page" data-act="Get_more_details_below_price_clicked" data-lab="@string.Format("{0}_{1}", bikeModelObj.ModelName, cityObj.CityName)" rel="nofollow">Get offers on this bike</a>
+                            }
+                            else if (Model.LeadCampaign != null && !string.IsNullOrEmpty(Model.LeadCampaign.PriceBreakUpLinkTextMobile))
+                            {
+                                    var leadCampaignObj = Model.LeadCampaign;
+									if (!string.IsNullOrEmpty(leadCampaignObj.PriceBreakUpLinkMobile))
 									{
 										<a class="bw-ga get-offer-link font14" href="@string.Format("{0}?campaingid={1}&dealerid={2}&pqguid={3}&leadsourceid={4}&versionid={5}&url={6}&platformid={7}&bike={8}&loanamount={9}&sendLeadSMSCustomer={10}&dealerName={11}&cityId={12}", leadCampaignObj.PriceBreakUpLinkMobile, leadCampaignObj.CampaignId, leadCampaignObj.DealerId, leadCampaignObj.PQId, Convert.ToInt16(LeadSourceEnum.PriceInCity_PriceBreakUpLink_Mobile), leadCampaignObj.VersionId, leadCampaignObj.CurrentPageUrl, leadCampaignObj.PlatformId, leadCampaignObj.BikeName, leadCampaignObj.LoanAmount, leadCampaignObj.SendLeadSMSCustomer, leadCampaignObj.Organization,cityId)" data-cat="@leadCampaignObj.GACategory" data-act="Get_more_details_below_price_clicked" data-lab="@leadCampaignObj.GALabel" rel="nofollow">
 											@leadCampaignObj.PriceBreakUpLinkTextMobile
@@ -139,16 +145,14 @@
                                             @leadCampaignObj.PriceBreakUpLinkTextMobile
                                         </a>
                                     }
-								</div>
-								<div class="clear"></div>
                             }
                             else if (!Model.IsManufacturerLeadAdShown && !Model.HasCampaignDealer && Model.ManufacturerFinanceCampaign != null && Model.ManufacturerFinanceCampaign.IsActive)
                             {
-                                <div class="text-right margin-right15">
                                     <a target="_blank" rel="noopener nofollow" href="@Model.ManufacturerFinanceCampaign.LinkUrl" class="position-rel font12 bw-ga bw-shown-in-ga text-bold" data-cat="Price_in_City_Page" data-act="@Model.ManufacturerFinanceCampaign.GAClickAction" data-shownact="@Model.ManufacturerFinanceCampaign.GAShownAction" data-lab="@string.Format("{0}_{1}", Model.BikeName, cityObj.CityName);">@Model.ManufacturerFinanceCampaign.LinkText<span class="position-abt pos-top0 text-light-grey font10 text-unbold">&nbsp;Ad</span></a>
 
-                                </div>
                             }
+                            </div>
+                            <div class="clear"></div>
                         }
 						@if (Model.IsNew)
 						{
@@ -167,44 +171,117 @@
 							</div>
 						}
 					</div>
-					@if (Model.IsNew && Model.IsManufacturerLeadAdShown && Model.LeadCampaign!=null)
-					{
-                        var leadCampObj = Model.LeadCampaign;
-						<div class="position-rel left-neg10 margin-bottom20 cta-animation-container">
-							@Html.Partial("~/UI/Views/Price/_ManufacturerCampaign_Mobile.cshtml", leadCampObj)
-						</div>
-						<div class="campaign__floating-btn floating-btn clearfix">
-							<p class="grid-7 alpha btn__left-label">@String.Format(leadCampObj.LeadsPropertyTextMobile, leadCampObj.Organization)</p>
-							<div class="grid-5 alpha omega">
-								@if (leadCampObj.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                    @if (Model.IsNew && Model.HasCampaignDealer)
+                    {
+                        var objDealer = Model.DetailedDealer.PrimaryDealer.DealerDetails;
+                        <div id="dealerContent" class="bw-model-tabs-data card-bottom-margin">
+                            <div class="content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
+                                <div class="padding-right20 padding-bottom20 padding-left20">
+                                    <h2 class="card-h2-heading margin-bottom10">@makeObj.MakeName Dealer near you</h2>
+                                    <div class="margin-bottom10">
+                                        <span class="bwmsprite dealer-grey"></span>
+                                        <div class="grid-11-inline padding-left10">
+                                            <h3>@String.Format("{0}, {1}", objDealer.Organization, objDealer.objArea.AreaName)</h3>
+                                            <p class="font12 text-xx-light">@objDealer.objArea.AreaName</p>
+                                        </div>
+                                    </div>
+                                    <div class="font14 text-slate-grey">
+                                        <p class="margin-bottom10">Get in touch with @objDealer.Organization for:</p>
+                                        <ul class="list-type-disc margin-bottom15">
+                                            <li>Best offers</li>
+                                            <li>EMI options</li>
+                                            <li>Complete buying assistance</li>
+                                        </ul>
+                                        @if (Model.FirstVersion != null)
+                                        {
+                                            <a data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.PriceInCity_TopCard_Mobile) data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity)" data-modelid="@bikeModelObj.ModelId" data-cat="Price_in_City_Page" data-act="View_dealer_details_Clicked" data-lab="@String.Format(" {0}_{1}_{2}", makeObj.MakeName, bikeModelObj.ModelName, Model.FirstVersion.VersionName)" class="btn btn-orange btn-180-32 bw-ga leadcapturebtn">Get Offers from Dealer</a>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="floating-btn clearfix">
+
+                                    @if (String.IsNullOrEmpty(objDealer.MaskingNumber))
+                                    {
+                                        <div class="grid-12 alpha omega">
+                                            <a class="btn btn-orange btn-full-width leadcapturebtn" href="javascript:void(0);" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.PriceInCity_Floating_Mobile) data-campaignid="@objDealer.CampaignId" data-item-id="@objDealer.DealerId" data-item-name="@objDealer.Organization" data-item-area="@objDealer.AreaId">@Model.LeadBtnShortText</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="grid-6 alpha omega">
+                                            <a class="btn btn-orange btn-full-width leadcapturebtn" href="javascript:void(0);" data-leadsourceid=@Convert.ToInt16(LeadSourceEnum.PriceInCity_Floating_Mobile) data-campaignid="@objDealer.CampaignId" data-item-id="@objDealer.DealerId" data-item-name="@objDealer.Organization" data-item-area="@Model.DealerArea">@Model.LeadBtnShortText</a>
+                                        </div>
+                                        <div class="grid-6 alpha omega">
+                                            <a class="btn btn-green btn-full-width" href="@string.Format("tel:+91{0}", objDealer.MaskingNumber)"><span class="bwmsprite tel-white-icon margin-right10"></span>Call dealer</a>
+                                        </div>
+                                    }
+                                    <div class="clear"></div>
+                                </div>
+                                @if (Model.HasDealers && Model.HasCampaignDealer)
                                 {
-									<a class="btn btn-orange btn-full-32 js-mfg" rel="nofollow" href="/m/finance/capitalfirst/?campaingid=@leadCampObj.CampaignId&amp;dealerid=@leadCampObj.DealerId&amp;pqguid=@Model.PQId&amp;leadsourceid=@Convert.ToInt16(LeadSourceEnum.PriceInCity_Floating_Mobile)&amp;versionid=@leadCampObj.VersionId&amp;url=@leadCampObj.CurrentPageUrl&amp;platformid=@leadCampObj.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@leadCampObj.LoanAmount&amp;dealerName=@leadCampObj.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(leadCampObj.SendLeadSMSCustomer)&amp;cityid=@cityId">@leadCampObj.LeadsButtonTextMobile</a>
+                                    if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
+                                    {
+                                        <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+                                    }
+                                    <div class="carousel-heading-content">
+                                        <div class="swiper-heading-left-grid inline-block">
+                                            @if (Model.IsNew && (Model.HasCampaignDealer))
+                                            {
+                                                <h3>@Model.Dealers.TotalCount Authorised dealer@(Model.Dealers.TotalCount > 1 ? "s" : "")</h3>
+                                            }
+                                            else
+                                            {
+                                                <h2>@Model.DealersWidget_H2</h2>
+                                            }
+                                        </div>
+                                        <div class="swiper-heading-right-grid inline-block text-right">
+                                            <a href="@String.Format("/m{0}", Model.DealersWidget_ViewAll_Href)" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
+                                        </div>
+                                    </div>
+                                    @Html.Partial("~/UI/views/dealershowroom/_DealerCard_Mobile.cshtml", Model.Dealers)
                                 }
-                                else if (leadCampObj.DealerId == Bikewale.Utility.BWConfiguration.Instance.BajajAutoFinanceDealerId)
-                                {
-                                    <a class="btn btn-orange btn-full-32 js-mfg" rel="nofollow" href="@string.Format("/m/finance/bajaj/?dealerid={0}&campaignid={1}&pqguid={2}&leadsourceid={3}&versionid={4}&url={5}&platformid={6}&bike={7}&dealerName={8}&sendLeadSMSCustomer={9}&cityId={10}", leadCampObj.DealerId, leadCampObj.CampaignId, Model.PQId, @Convert.ToInt16(LeadSourceEnum.PriceInCity_Floating_Mobile), leadCampObj.VersionId, leadCampObj.CurrentPageUrl, leadCampObj.PlatformId, leadCampObj.BikeName, leadCampObj.Organization, leadCampObj.SendLeadSMSCustomer, cityId)">@leadCampObj.LeadsButtonTextMobile</a>
-                                }
-                                else
-                                {
-                                    @Html.Partial("/UI/Views/Shared/_AnimatedCTA.cshtml", leadCampObj)
-                                }
-							</div>
-							<div class="clear"></div>
-						</div>
-					}
-					<!-- model about start -->
-					<div class="content-box-shadow card-bottom-margin">
-						@Html.Partial("~/UI/views/Bikemodels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfo)
-					</div>
-					<!-- model about end -->
-				</div>
+                            </div>
+                           </div>
+                            }
+                            else if (Model.IsNew && Model.IsManufacturerLeadAdShown && Model.LeadCampaign != null)
+                            {
+                            var leadCampObj = Model.LeadCampaign;
+                            <div class="position-rel left-neg10 margin-bottom20 cta-animation-container">
+                                @Html.Partial("~/UI/Views/Price/_ManufacturerCampaign_Mobile.cshtml", leadCampObj)
+                            </div>
+                            <div class="campaign__floating-btn floating-btn clearfix">
+                                <p class="grid-7 alpha btn__left-label">@String.Format(leadCampObj.LeadsPropertyTextMobile, leadCampObj.Organization)</p>
+                                <div class="grid-5 alpha omega">
+                                    @if (leadCampObj.DealerId == Bikewale.Utility.BWConfiguration.Instance.CapitalFirstDealerId)
+                                    {
+                                        <a class="btn btn-orange btn-full-32 js-mfg" rel="nofollow" href="/m/finance/capitalfirst/?campaingid=@leadCampObj.CampaignId&amp;dealerid=@leadCampObj.DealerId&amp;pqguid=@Model.PQId&amp;leadsourceid=@Convert.ToInt16(LeadSourceEnum.PriceInCity_Floating_Mobile)&amp;versionid=@leadCampObj.VersionId&amp;url=@leadCampObj.CurrentPageUrl&amp;platformid=@leadCampObj.PlatformId&amp;bike=@Model.BikeName&amp;loanamount=@leadCampObj.LoanAmount&amp;dealerName=@leadCampObj.Organization&amp;sendLeadSMSCustomer=@Convert.ToString(leadCampObj.SendLeadSMSCustomer)&amp;cityid=@cityId">@leadCampObj.LeadsButtonTextMobile</a>
+                                    }
+                                    else if (leadCampObj.DealerId == Bikewale.Utility.BWConfiguration.Instance.BajajAutoFinanceDealerId)
+                                    {
+                                        <a class="btn btn-orange btn-full-32 js-mfg" rel="nofollow" href="@string.Format("/m/finance/bajaj/?dealerid={0}&campaignid={1}&pqguid={2}&leadsourceid={3}&versionid={4}&url={5}&platformid={6}&bike={7}&dealerName={8}&sendLeadSMSCustomer={9}&cityId={10}", leadCampObj.DealerId, leadCampObj.CampaignId, Model.PQId, @Convert.ToInt16(LeadSourceEnum.PriceInCity_Floating_Mobile), leadCampObj.VersionId, leadCampObj.CurrentPageUrl, leadCampObj.PlatformId, leadCampObj.BikeName, leadCampObj.Organization, leadCampObj.SendLeadSMSCustomer, cityId)">@leadCampObj.LeadsButtonTextMobile</a>
+                                    }
+                                    else
+                                    {
+                                        @Html.Partial("/UI/Views/Shared/_AnimatedCTA.cshtml", leadCampObj)
+                                    }
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            }
+                            <!-- model about start -->
+                            <div class="content-box-shadow card-bottom-margin">
+                                @Html.Partial("~/UI/views/Bikemodels/_BikeInfoCard_Mobile.cshtml", Model.BikeInfo)
+                            </div>
+                            <!-- model about end -->
+                        </div>
 				<!-- model orp end -->
 				<!-- model dealers start -->
 				@if (Model.HasDealers || Model.HasServiceCenters || Model.HasCampaignDealer)
 				{
 					<div id="dealerContent" class="bw-model-tabs-data card-bottom-margin">
-						@if (Model.HasDealers || Model.HasCampaignDealer)
-						{
+                        @if (Model.HasDealers && !Model.HasCampaignDealer)
+                        {
 							<div class="content-box-shadow padding-top20 padding-bottom5 card-bottom-margin">
 								@if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
 								{
@@ -221,60 +298,28 @@
 										</div>
 									</div>
 								}
-								else
-								{
-									if (Model.HasCampaignDealer && Model.IsNew && !Model.IsManufacturerLeadAdShown)
-									{
-										<div class="padding-right20 padding-bottom20 padding-left20">
-											<h2 class="card-h2-heading margin-bottom10">@makeObj.MakeName Dealer near you</h2>
-											<div class="margin-bottom10">
-												<span class="bwmsprite dealer-grey"></span>
-												<div class="grid-11-inline padding-left10">
-													<h3>@String.Format("{0}, {1}", Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization, Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName)</h3>
-													<p class="font12 text-xx-light">@Model.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName</p>
-												</div>
-											</div>
-											<div class="font14 text-slate-grey">
-												<p class="margin-bottom10">Get in touch with @Model.DetailedDealer.PrimaryDealer.DealerDetails.Organization for:</p>
-												<ul class="list-type-disc margin-bottom15">
-													<li>Best offers</li>
-													<li>EMI options</li>
-													<li>Complete buying assistance</li>
-												</ul>
-                                                @if (Model.FirstVersion != null)
-                                                {
-                                                    <a href="/m/pricequote/dealer/?MPQ=@Model.MPQString" data-pqsourceid="@((int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity_Dealer_Detail_Click)" data-modelid="@bikeModelObj.ModelId" data-cat="Price_in_City_Page" data-act="View_dealer_details_Clicked" data-lab="@String.Format(" {0}_{1}_{2}", makeObj.MakeName, bikeModelObj.ModelName, Model.FirstVersion.VersionName)" class="btn btn-orange btn-180-32 bw-ga" rel="nofollow">View dealer details</a>
-                                                }
-												
-											</div>
-										</div>
-									}
-								}
-								@if (Model.HasDealers)
-								{
-									if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
-									{
-										<div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
-									}
-									<div class="carousel-heading-content">
-										<div class="swiper-heading-left-grid inline-block">
-											@if (Model.IsNew && (Model.HasCampaignDealer))
-											{
-												<h3>@Model.Dealers.TotalCount Authorised dealer@(Model.Dealers.TotalCount > 1 ? "s" : "")</h3>
-											}
-											else
-											{
-												<h2>@Model.DealersWidget_H2</h2>
-											}
-										</div>
-										<div class="swiper-heading-right-grid inline-block text-right">
-											<a href="@String.Format("/m{0}", Model.DealersWidget_ViewAll_Href)" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
-										</div>
-									</div>
-									@Html.Partial("~/UI/views/dealershowroom/_DealerCard_Mobile.cshtml", Model.Dealers)
-								}
+                                @if (Model.IsAreaAvailable && !Model.HasCampaignDealer && !Model.IsAreaSelected && Model.IsNew && !Model.IsManufacturerLeadAdShown)
+                                {
+                                    <div class="margin-right20 margin-bottom20 margin-left20 border-solid-bottom"></div>
+                                }
+                                <div class="carousel-heading-content">
+                                    <div class="swiper-heading-left-grid inline-block">
+                                        @if (Model.IsNew && (Model.HasCampaignDealer))
+                                        {
+                                            <h3>@Model.Dealers.TotalCount Authorised dealer@(Model.Dealers.TotalCount > 1 ? "s" : "")</h3>
+                                        }
+                                        else
+                                        {
+                                            <h2>@Model.DealersWidget_H2</h2>
+                                        }
+                                    </div>
+                                    <div class="swiper-heading-right-grid inline-block text-right">
+                                        <a href="@String.Format("/m{0}", Model.DealersWidget_ViewAll_Href)" title="@Model.DealersWidget_ViewAll_Title" class="btn view-all-target-btn">View all</a>
+                                    </div>
+                                </div>
+                                @Html.Partial("~/UI/views/dealershowroom/_DealerCard_Mobile.cshtml", Model.Dealers)
 							</div>
-						}
+                        }
 						@if (Model.HasServiceCenters)
 						{
 							<!-- model service centers start -->
@@ -375,7 +420,18 @@
 								@Html.Raw("<span> &#x20B9;</span>")&nbsp;<span data-bind="text: formatPrice(monthlyEMI())"></span>/month
 							</div>
 							<div class="clear"></div>
-							@if (Model.EMICampaign !=null && Model.IsManufacturerEMIAdShown)
+                            @if (Model.HasCampaignDealer)
+                            {
+                                var objDealer = Model.DetailedDealer.PrimaryDealer.DealerDetails;
+                                <div class="powered-by-campaign-wrapper margin-top15">
+                                    <a href="javascript:void(0)" type="button" class="btn btn-teal btn-160-32 font14 margin-right10 leadcapturebtn" data-campaignid="@objDealer.CampaignId" data-item-id="@objDealer.DealerId" data-item-area="@objDealer.objArea.AreaName" data-leadsourceid="@Convert.ToInt16(LeadSourceEnum.PriceInCity_EmiCalculator_Mobile)" data-pqsourceid="@Convert.ToUInt16(Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_PriceInCity)" data-item-name="@objDealer.Organization" id="btnManufacturer">Get loan offers</a>
+                                    <div class="inline-block">
+                                        <p class="campaign__powered-key">Powered by</p>
+                                        <p class="campaign__powered-value" title="@objDealer.Organization">@objDealer.Organization</p>
+                                    </div>
+                                </div>
+                            }
+							else if (Model.EMICampaign !=null && Model.IsManufacturerEMIAdShown)
 							{
                                 var emiCampaignObj = Model.EMICampaign;
 								<div class="powered-by-campaign-wrapper margin-top15">
@@ -605,7 +661,10 @@
 		@Html.Partial("~/UI/Views/Shared/_LeadCapture_Mobile.cshtml", Model.LeadCapture)
 	}
 	<script defer src="@String.Format("{0}/UI/src/ads.js?{1}", Bikewale.Utility.BWConfiguration.Instance.StaticUrl,Bikewale.Utility.BWConfiguration.Instance.StaticFileVersion)"></script>
-	<script type="text/javascript">isCoverfoxShown = @(!string.IsNullOrEmpty(Bikewale.Utility.BWConfiguration.Instance.CoverFoxLink) && !Model.HasCampaignDealer && !Model.IsManufacturerLeadAdShown ? "true" : "false");</script>
+	<script type="text/javascript">
+        var clientIP = "@Model.ClientIP";
+        var pageUrl = window.location.href; 
+    </script>
 }
 <script>
     docReady(function () {

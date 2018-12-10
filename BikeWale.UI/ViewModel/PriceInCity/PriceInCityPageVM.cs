@@ -109,5 +109,10 @@ namespace Bikewale.Models
         public bool IsOffersShownOnLeadPopup { get; set; }
         public ManufacturerFinanceCampaignEntity ManufacturerFinanceCampaign { get; set; }
         public bool VersionPriceAvailable { get; set; }
+        public string ClientIP { get; set; }
+        public string PageUrl { get; set; }
+        public string LeadBtnLongText { get { return "Get offers from dealer"; } }
+        public string LeadBtnShortText { get { return "Get offers"; } }
+        public string DealerArea { get { return (HasCampaignDealer && this.DetailedDealer.PrimaryDealer.DealerDetails.objArea != null ? this.DetailedDealer.PrimaryDealer.DealerDetails.objArea.AreaName : String.Empty); } }
     }
 }

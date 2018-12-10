@@ -367,6 +367,8 @@ namespace Bikewale.Models
         /// Description : Filtered BikeVersionPrices based on ExShowroomPrice.
         /// Modified by : Pratibha Verma on 29 November 2018
         /// Description : Added call to bind manufacturer finance campaign
+        /// Modified by : Pratibha Verma on 6 December 2018
+        /// Description : Bind mla dealers in LeadCaptureEntity
         /// </summary>
         /// <returns></returns>
         public PriceInCityPageVM GetData()
@@ -378,6 +380,7 @@ namespace Bikewale.Models
                 {
                     objVM = new PriceInCityPageVM();
                     CheckCityCookie(objVM);
+                    objVM.ClientIP = Bikewale.Common.CommonOpn.GetClientIP();
                     //Get Bike version Prices
                     objVM.BikeVersionPrices = _objPQCache.GetAllVersionPricesByModelId(modelId, cityId);
                     if (objVM.BikeVersionPrices != null && objVM.BikeVersionPrices.Any())
@@ -470,8 +473,11 @@ namespace Bikewale.Models
                                     Location = String.Format("{0} {1}", area, city),
                                     BikeName = objVM.BikeName,
                                     PlatformId = Convert.ToUInt16(Platform),
-                                    PageId = Convert.ToUInt16(PQSource),
-                                    OfferList = objVM.LeadCampaign != null ? objVM.LeadCampaign.OffersList : null
+                                        PageId = Convert.ToUInt16(PQSource),
+                                        OfferList = objVM.LeadCampaign != null ? objVM.LeadCampaign.OffersList : null,
+                                        IsMLAActive = true,
+                                        MLADealers = objVM.DetailedDealer != null ? objVM.DetailedDealer.MLADealers : null,
+                                        MlaLeadSourceId = (Platform == PQSources.Desktop) ? (UInt16)LeadSourceEnum.PriceInCity_MLA_Desktop : (UInt16)LeadSourceEnum.PriceInCity_MLA_Mobile
                                 };
                             }
                         }

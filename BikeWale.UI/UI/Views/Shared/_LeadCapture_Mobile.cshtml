@@ -511,7 +511,7 @@
                     "pageId": @Model.PageId
                     };
                 // 3 represents modelpage and 8 represents dealerprice quote page
-                if(gaObj.id == gaEnum.Model_Page || gaObj.id == gaEnum.DealerPriceQuote_Page)
+                if(gaObj.id == gaEnum.Model_Page || gaObj.id == gaEnum.DealerPriceQuote_Page || gaObj.id == gaEnum.PriceInCity_Page)
                 {
                     triggerGA(gaObj.name,"MLA_Lead_Success_" + self.selectedMLADealerIds().length + "/" + self.MLADealers().length + "_dealers_Lead Submitted", "@Model.BikeName" + "_" +  "@Model.City" + "_" + "@Model.Area");
                 }

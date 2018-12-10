@@ -543,7 +543,7 @@
         $(document).on("click", ".getquotation", function (e) {            
             var ele = $(this); e.stopPropagation();
             var showCityList = false;
-            if(e.currentTarget.dataset != undefined && e.currentTarget.dataset.pqsourceid != undefined &&  typeof(cityId)!= "undefined" && cityId == "0")
+            if(e.currentTarget.dataset != undefined && e.currentTarget.dataset.pqsourceid != undefined && typeof(cityId) != "undefined" && cityId == "0")
             {
                 showCityList = (e.currentTarget.dataset.pqsourceid == PqSourceEnum.Mobile_ModelPage_LocationSelector || e.currentTarget.dataset.pqsourceid == PqSourceEnum.Mobile_ModelPage_EditCityPencil);
             }
